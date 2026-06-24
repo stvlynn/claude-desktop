@@ -59,6 +59,7 @@ type ManifestFile = {
   lineCount?: number;
   imports: ManifestImport[];
   exports: ManifestExport[];
+  stages?: Record<string, boolean>;
 };
 
 type Manifest = {
@@ -739,7 +740,8 @@ function localFilesInRestoreOrder(
 ): Array<[string, ManifestFile]> {
   return Object.entries(manifest.files)
     .filter(
-      (entry): entry is [string, ManifestFile] => entry[1].kind === "local",
+      (entry): entry is [string, ManifestFile] =>
+        entry[1].kind === "local" && entry[1].stages?.faced !== true,
     )
     .sort(([, a], [, b]) => {
       const aLines = a.lineCount ?? Number.MAX_SAFE_INTEGER;
