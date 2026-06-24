@@ -44,7 +44,7 @@ Remediation: density → [Stage 2 Step 2.5](stage-2-restore.md#step-25--dont-sto
 
 ## D0.5 — Semantic public filenames
 
-Checkpoints may keep source basenames (`button-bq66r8jD.tsx`); public deliverables must not. Rename final files/dirs to meaningful names (`Button.tsx`, `app-shell/`) and keep the chunk identity in the provenance header + import map/report. For full-restoration trees, rewrite imports between finalized files to semantic public paths; a hashed path is acceptable only as a temporary, report-visible boundary.
+Checkpoints may keep source basenames (`button-bq66r8jD.tsx`); public deliverables must not. Rename final files/dirs to meaningful **kebab-case** names (`button.tsx`, `app-shell/`) — only the filename is kebab; the React component identifier stays PascalCase (`button.tsx` exports `Button`) — and keep the chunk identity in the provenance header + import map/report. For full-restoration trees, rewrite imports between finalized files to semantic public paths; a hashed path is acceptable only as a temporary, report-visible boundary.
 
 ## D1 — Provenance header (two lines)
 
@@ -62,7 +62,7 @@ A good description: ≤ 80 chars, names the component/utility, hints at the API 
 The renamer changes binding names but never import strings. Stage 2's `resolve-npm-imports.ts` / `react-shim-elim.ts` automate the npm + React-shim cases. Stage 3 does the judgment work:
 
 - **Checkpoint local code — keep the source path** (`import { t as Spinner } from "./spinner-D37df5tU.js"` — the hash is the trace back to the chunk).
-- **Public final code — semantic paths between finalized files.** Once `spinner-D37df5tU.js` → `Spinner.tsx`, rewrite consumers to that path and record the mapping in the import map. A hashed local import may remain only when it points at an unfinalized boundary.
+- **Public final code — semantic paths between finalized files.** Once `spinner-D37df5tU.js` → `spinner.tsx` (exporting `Spinner`), rewrite consumers to that path and record the mapping in the import map. A hashed local import may remain only when it points at an unfinalized boundary.
 - **Unrecognised npm packages.** If `resolve-npm-imports.ts` missed a vendored lib (e.g. `./react-hook-form-XXXX.js`), rewrite by hand or — better — add the basename to `CHUNK_NAME_REGISTRY` so the next bundle benefits. When unsure, leave the local path (reversible; a wrong npm rewrite isn't). This is one case of the [self-improvement protocol](../SKILL.md#maintaining-this-skill-self-improvement-protocol) — register it and commit the skill change.
 - **Separate type-only imports.** Lift type imports into `import type { … }` (e.g. `import type { ButtonHTMLAttributes, ForwardedRef } from "react"` apart from `import { forwardRef } from "react"`).
 
@@ -84,7 +84,7 @@ The renamer changes binding names but never import strings. Stage 2's `resolve-n
 bun <skill-dir>/scripts/semantic-finalize.ts "$WS/polished.tsx" --recipe icon --source "$INPUT" --out "$TARGET"
 ```
 
-Required output: no `jsx-runtime` / `__toESM` / lazy-getter / `cache[…]` / sourcemap residue; `import type { SVGProps } from "react"` + `export type IconProps = SVGProps<SVGSVGElement>`; single icon → one `<basename>.tsx` with `export function <Name>Icon(props: IconProps)` + `export default`; multiple icons → `<basename>/types.ts` + one `<Name>Icon.tsx` each + `index.ts` barrel (mandatory even for tiny files like `expand-XXXX.js` — a flat file with `ExpandIcon` + `CollapseIcon` is not final); exact SVG path data preserved, `{...props}` spread onto `<svg>`.
+Required output: no `jsx-runtime` / `__toESM` / lazy-getter / `cache[…]` / sourcemap residue; `import type { SVGProps } from "react"` + `export type IconProps = SVGProps<SVGSVGElement>`; single icon → one kebab file (`download-icon.tsx`) with `export function DownloadIcon(props: IconProps)` + `export default`; multiple icons → kebab dir `<basename>/types.ts` + one kebab `*-icon.tsx` per icon (e.g. `expand-icon.tsx`, `collapse-icon.tsx`, exporting `ExpandIcon` / `CollapseIcon`) + `index.ts` barrel (mandatory even for tiny files like `expand-XXXX.js` — a flat file with `ExpandIcon` + `CollapseIcon` is not final); exact SVG path data preserved, `{...props}` spread onto `<svg>`. File/dir names are kebab-case; component identifiers stay PascalCase.
 
 **Button/control components.** Prefer the recipe when it applies:
 
@@ -153,7 +153,7 @@ Verbatim spec below; the long form the reviewer reads is [scripts/acceptance-che
 - Function and component parameters have call-site-appropriate names (`props`, `event`, `index`, `disabled`).
 - React components are `PascalCase` and end in a noun phrase; hooks start with `use`.
 - Sibling-imported aliases the producer already named semantically appear under their semantic name in the consumer.
-- Public final file and directory names are semantic and do not retain source chunk hashes.
+- Public final file and directory names are semantic, kebab-case, and do not retain source chunk hashes (React component identifiers remain PascalCase).
 
 ### E2 — Readability (idiomatic TSX)
 

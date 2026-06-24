@@ -33,7 +33,7 @@ describe("quality-gate", () => {
         return <button>{label}</button>;
       }
     `;
-    const report = analyzeSource(source, "Button.tsx");
+    const report = analyzeSource(source, "button.tsx");
     expect(report.issues).toEqual([]);
   });
 
@@ -43,7 +43,7 @@ describe("quality-gate", () => {
         return null;
       }
     `;
-    const report = analyzeSource(source, "Toolbar.tsx", {
+    const report = analyzeSource(source, "toolbar.tsx", {
       ...DEFAULT_OPTIONS,
       allowFlat: true,
       requireProvenanceHeader: true,
@@ -61,7 +61,7 @@ describe("quality-gate", () => {
         return null;
       }
     `.trimStart();
-    const report = analyzeSource(source, "Toolbar.tsx", {
+    const report = analyzeSource(source, "toolbar.tsx", {
       ...DEFAULT_OPTIONS,
       allowFlat: true,
       requireProvenanceHeader: true,
@@ -77,7 +77,7 @@ export function Toolbar() {
   return null;
 }
 `;
-    const report = analyzeSource(source, "Toolbar.tsx", {
+    const report = analyzeSource(source, "toolbar.tsx", {
       ...DEFAULT_OPTIONS,
       allowFlat: true,
       requireProvenanceHeader: true,
@@ -90,7 +90,7 @@ export function Toolbar() {
 
   test("CLI requires provenance unless explicitly allowed", () => {
     const root = makeTmpRoot();
-    const targetFile = path.join(root, "Toolbar.ts");
+    const targetFile = path.join(root, "toolbar.ts");
     fs.writeFileSync(targetFile, "export const toolbar = true;\n");
 
     const strict = spawnSync(
@@ -310,7 +310,7 @@ export function Toolbar() {
         return <Title />;
       }
     `;
-    const report = analyzeSource(source, "DialogTitle.tsx", {
+    const report = analyzeSource(source, "dialog-title.tsx", {
       ...DEFAULT_OPTIONS,
       allowFlat: true,
     });
@@ -341,7 +341,7 @@ export function Toolbar() {
         return <motion.div />;
       }
     `;
-    const report = analyzeSource(source, "Animated.tsx", {
+    const report = analyzeSource(source, "animated.tsx", {
       ...DEFAULT_OPTIONS,
       allowFlat: true,
     });
@@ -377,7 +377,7 @@ export function Toolbar() {
         return { bytes, escaped, h: value.h, nodes, result: useAtomValue(atom) };
       }
     `;
-    const report = analyzeSource(source, "Read.ts", {
+    const report = analyzeSource(source, "read.ts", {
       ...DEFAULT_OPTIONS,
       allowFlat: true,
     });
@@ -1654,5 +1654,46 @@ describe("vendored / facade relaxation", () => {
       },
     );
     expect(codes(asset)).not.toContain("split-required");
+  });
+});
+
+describe("kebab filename gate", () => {
+  const codes = (file: string): string[] =>
+    analyzeSource("export const x = 1;\n", file, {
+      ...DEFAULT_OPTIONS,
+      allowFlat: true,
+    }).issues.map((issue) => issue.code);
+
+  test("flags PascalCase and camelCase public file names", () => {
+    for (const file of [
+      "Button.tsx",
+      "DownloadIcon.tsx",
+      "settingsQueries.ts",
+    ]) {
+      expect(codes(file)).toContain("non-kebab-filename");
+    }
+  });
+
+  test("accepts kebab, index, types, *.d.ts, *.facade.ts", () => {
+    for (const file of [
+      "button.tsx",
+      "download-icon.tsx",
+      "app-shell.tsx",
+      "index.ts",
+      "types.ts",
+      "globals.d.ts",
+      "zod.facade.ts",
+    ]) {
+      expect(codes(file)).not.toContain("non-kebab-filename");
+    }
+  });
+
+  test("suppressed for vendored modules", () => {
+    const issues = analyzeSource("export const x = 1;\n", "Button.tsx", {
+      ...DEFAULT_OPTIONS,
+      allowFlat: true,
+      vendored: true,
+    }).issues.map((issue) => issue.code);
+    expect(issues).not.toContain("non-kebab-filename");
   });
 });

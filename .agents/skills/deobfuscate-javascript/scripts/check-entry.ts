@@ -168,7 +168,10 @@ export function readIndexRoots(htmlPath: string): {
   };
 }
 
-function findIndexHtml(rootDir: string, override?: string): string | null {
+export function findIndexHtml(
+  rootDir: string,
+  override?: string,
+): string | null {
   const candidates = override
     ? [override]
     : [
@@ -278,6 +281,142 @@ export function checkEntry(
   };
 }
 
+export type EntryCandidate = {
+  basename: string;
+  resolvedFile: string | null;
+  source: "script" | "preload";
+  report: EntryReport | null;
+};
+
+export type DiscoverEntryResult = {
+  indexHtml: string | null;
+  chosen: EntryCandidate | null;
+  candidates: EntryCandidate[];
+  reason: string;
+};
+
+/**
+ * Auto-discover the application entry from index.html and pick the best app
+ * entry among its `<script>`/`modulepreload` roots. This is what makes the
+ * whole-tree restore the default: the caller no longer hand-globs `app-main-*`.
+ *
+ * Selection: resolve every index root to a real file under `rootDir`, run
+ * `checkEntry` on each, then prefer the non-suspicious, non-vendored candidate
+ * with the highest local out-degree (script roots beat preload roots on ties).
+ * If nothing looks clean, fall back to the highest fan-out candidate and flag
+ * the risk in `reason`.
+ */
+export function discoverEntry(
+  rootDir: string,
+  opts: { indexHtml?: string } = {},
+): DiscoverEntryResult {
+  const indexHtml = findIndexHtml(rootDir, opts.indexHtml);
+  if (!indexHtml) {
+    return {
+      indexHtml: null,
+      chosen: null,
+      candidates: [],
+      reason: `no index.html found near ${rootDir}`,
+    };
+  }
+
+  const { scriptRoots, preloadRoots } = readIndexRoots(indexHtml);
+  const ordered: Array<{ basename: string; source: "script" | "preload" }> = [];
+  const seen = new Set<string>();
+  for (const basename of scriptRoots) {
+    if (seen.has(basename)) continue;
+    seen.add(basename);
+    ordered.push({ basename, source: "script" });
+  }
+  for (const basename of preloadRoots) {
+    if (seen.has(basename)) continue;
+    seen.add(basename);
+    ordered.push({ basename, source: "preload" });
+  }
+  if (ordered.length === 0) {
+    return {
+      indexHtml,
+      chosen: null,
+      candidates: [],
+      reason: `${path.basename(indexHtml)} referenced no .js script/preload roots`,
+    };
+  }
+
+  let dirEntries: string[];
+  try {
+    dirEntries = fs.readdirSync(rootDir);
+  } catch {
+    dirEntries = [];
+  }
+  const fileByBasename = new Map<string, string>();
+  for (const name of dirEntries) {
+    if (!/\.[mc]?js$/i.test(name)) continue;
+    const base = basenameOf(name);
+    if (!fileByBasename.has(base))
+      fileByBasename.set(base, path.join(rootDir, name));
+  }
+
+  const candidates: EntryCandidate[] = ordered.map(({ basename, source }) => {
+    const resolvedFile = fileByBasename.get(basename) ?? null;
+    let report: EntryReport | null = null;
+    if (resolvedFile) {
+      try {
+        report = checkEntry(resolvedFile, { rootDir, indexHtml });
+      } catch {
+        report = null;
+      }
+    }
+    return { basename, resolvedFile, source, report };
+  });
+
+  type Resolved = EntryCandidate & { report: EntryReport };
+  const resolved = candidates.filter((c): c is Resolved => c.report !== null);
+
+  const byBestEntry = (a: Resolved, b: Resolved): number => {
+    if (b.report.localOutDegree !== a.report.localOutDegree)
+      return b.report.localOutDegree - a.report.localOutDegree;
+    if (a.source !== b.source) return a.source === "script" ? -1 : 1;
+    return a.basename.localeCompare(b.basename);
+  };
+
+  const appLike = resolved
+    .filter((c) => !c.report.suspicious && !c.report.looksVendored)
+    .sort(byBestEntry);
+
+  if (appLike.length > 0) {
+    const chosen = appLike[0]!;
+    const skipped = resolved
+      .filter((c) => c.report.looksVendored || c.report.suspicious)
+      .map((c) => c.basename);
+    const reason =
+      `${ordered.length} index root(s); chose '${chosen.basename}' ` +
+      `(local out-degree ${chosen.report.localOutDegree}, in index.html=${chosen.report.isRoot})` +
+      (skipped.length
+        ? `; skipped vendored/suspicious: ${skipped.join(", ")}`
+        : "");
+    return { indexHtml, chosen, candidates, reason };
+  }
+
+  const fallback = [...resolved].sort(byBestEntry);
+  if (fallback.length > 0) {
+    const chosen = fallback[0]!;
+    const reason =
+      `${ordered.length} index root(s); all look vendored/suspicious. ` +
+      `Picking highest fan-out '${chosen.basename}' ` +
+      `(local out-degree ${chosen.report.localOutDegree}) — verify it is the app entry.`;
+    return { indexHtml, chosen, candidates, reason };
+  }
+
+  return {
+    indexHtml,
+    chosen: null,
+    candidates,
+    reason:
+      `none of the index.html roots resolved to a file under ${rootDir}: ` +
+      candidates.map((c) => c.basename).join(", "),
+  };
+}
+
 function summarise(report: EntryReport): void {
   console.error(report.suspicious ? "✗ suspicious entry" : "✓ entry looks ok");
   console.error(`  entry             = ${report.entry}`);
@@ -295,10 +434,34 @@ function summarise(report: EntryReport): void {
   console.error(report.recommendation);
 }
 
+function summariseDiscovery(result: DiscoverEntryResult): void {
+  console.error(result.chosen ? "✓ discovered entry" : "✗ no entry discovered");
+  console.error(`  index.html        = ${result.indexHtml ?? "(none)"}`);
+  for (const c of result.candidates) {
+    const outDegree = c.report ? String(c.report.localOutDegree) : "?";
+    const flag = !c.report
+      ? " [unresolved]"
+      : c.report.looksVendored
+        ? " [vendored]"
+        : c.report.suspicious
+          ? " [suspicious]"
+          : "";
+    const mark =
+      result.chosen && c.basename === result.chosen.basename ? "→" : " ";
+    console.error(
+      `  ${mark} ${c.basename} (${c.source}, out-degree ${outDegree})${flag}`,
+    );
+  }
+  console.error("");
+  console.error(result.reason);
+}
+
 const USAGE =
   "Usage: bun scripts/check-entry.ts <entry.js> [--root <assets-dir>] " +
   "[--index <index.html>] [--out report.json]\n" +
-  "Exit: 0 ok · 3 suspicious (vendor/transitive leaf) · 1 I/O · 64 usage.";
+  "       bun scripts/check-entry.ts --discover --root <assets-dir> " +
+  "[--index <index.html>] [--out result.json]\n" +
+  "Exit: 0 ok · 3 suspicious (vendor/transitive leaf) · 1 I/O or none discovered · 64 usage.";
 
 function main(): void {
   let parsed;
@@ -309,6 +472,7 @@ function main(): void {
         root: { type: "string" },
         index: { type: "string" },
         out: { type: "string", short: "o" },
+        discover: { type: "boolean", default: false },
       },
       allowPositionals: true,
     });
@@ -318,6 +482,34 @@ function main(): void {
     process.exit(64);
   }
   const { positionals, values } = parsed;
+
+  if (values.discover) {
+    if (!values.root) {
+      console.error(USAGE);
+      console.error("--discover requires --root <assets-dir>");
+      process.exit(64);
+    }
+    let result: DiscoverEntryResult;
+    try {
+      result = discoverEntry(values.root, { indexHtml: values.index });
+    } catch (err) {
+      console.error(`failed to discover entry: ${(err as Error).message}`);
+      process.exit(1);
+    }
+    if (values.out) {
+      try {
+        fs.writeFileSync(values.out, JSON.stringify(result, null, 2) + "\n");
+      } catch (err) {
+        console.error(`failed to write output: ${(err as Error).message}`);
+        process.exit(1);
+      }
+    }
+    summariseDiscovery(result);
+    if (!result.chosen || !result.chosen.resolvedFile) process.exit(1);
+    process.stdout.write(result.chosen.resolvedFile + "\n");
+    process.exit(result.chosen.report?.suspicious ? 3 : 0);
+  }
+
   if (positionals.length === 0) {
     console.error(USAGE);
     process.exit(64);

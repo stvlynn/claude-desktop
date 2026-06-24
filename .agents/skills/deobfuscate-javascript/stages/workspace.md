@@ -9,8 +9,8 @@ Where intermediate files for a deobfuscation run live, and why. Referenced by ev
 Put every intermediate file in a per-chunk subdirectory of a single shared hidden parent directory under the *target* output directory:
 
 ```
-<target-dir>/                              # final outputs land here (e.g. Spinner.tsx)
-├── Spinner.tsx                            # final, semantic output (Stage 3 PASS)
+<target-dir>/                              # final outputs land here (e.g. spinner.tsx)
+├── spinner.tsx                            # final, semantic kebab output (exports Spinner; Stage 3 PASS)
 └── .deobfuscate-javascript/               # shared parent — one per target dir, all chunks underneath
     └── <basename>/                        # workspace — all intermediates for this chunk
         ├── original.js                    # archived pristine copy of the input
@@ -27,7 +27,7 @@ Put every intermediate file in a per-chunk subdirectory of a single shared hidde
 
 ```bash
 INPUT=ref/webview/assets/spinner-D37df5tU.js   # the file to deobfuscate
-TARGET=decode                                   # where final .tsx will land
+TARGET=restored                                 # the shared restore root; final .tsx lands here
 WS="$TARGET/.deobfuscate-javascript/$(basename "$INPUT" .js)"
 
 mkdir -p "$WS"
@@ -68,17 +68,16 @@ Full-tree restoration (see [../workflows/full-restoration.md](../workflows/full-
                 └── polished.tsx
 ```
 
-`_full/files/<basename>/` follows the *same* layout as a single-chunk `$WS` — every existing Stage 1 + Stage 2 script (`extract.ts`, `apply.ts`, `polish.ts`, …) operates on a `_full/files/<basename>/` directory unchanged. The two new top-level files (`manifest.json`, `ledger.json`) are the coordination layer.
+`_full/files/<basename>/` follows the *same* layout as a single-chunk `$WS` — every existing Stage 1 + Stage 2 script (`extract.ts`, `apply.ts`, `polish.ts`, …) operates on a `_full/files/<basename>/` directory unchanged. The two new top-level files (`manifest.json`, `ledger.json`) are the coordination layer. The public import map is **not** here: it is the single shared `restored/IMPORT_MAP.json` at the restore root, reused regardless of entry.
 
-Pattern:
+Pattern (the entry is auto-discovered from `index.html`; the positional is optional):
 
 ```bash
-ENTRY=ref/webview/assets/app-shell-JLpboL12.js
-TARGET=decode
+TARGET=restored
 FULL="$TARGET/.deobfuscate-javascript/_full"
 
 mkdir -p "$FULL/files" "$FULL/locks"
-bun scripts/build-import-graph.ts "$ENTRY" --target "$TARGET" \
+bun scripts/build-import-graph.ts --target "$TARGET" \
   --root ref/webview/assets --out "$FULL/manifest.json"
 bun scripts/build-symbol-ledger.ts --target "$TARGET" --out "$FULL/ledger.json"
 ```

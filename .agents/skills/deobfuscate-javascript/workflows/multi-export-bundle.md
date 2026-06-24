@@ -62,22 +62,22 @@ If you genuinely can't complete the split in the current session, leave the poli
       "dir": "layout",
       "files": [
         {
-          "name": "Root.tsx",
+          "name": "root.tsx",
           "exports": ["Root"],
           "bindings": ["Root", "useRootLayout"]
         },
         {
-          "name": "LeftPanel.tsx",
+          "name": "left-panel.tsx",
           "exports": ["LeftPanel"],
           "bindings": ["LeftPanel"]
         },
         {
-          "name": "Content.tsx",
+          "name": "content.tsx",
           "exports": ["Content"],
           "bindings": ["Content"]
         },
         {
-          "name": "MainContentLayout.tsx",
+          "name": "main-content-layout.tsx",
           "exports": ["MainContentLayout"],
           "bindings": ["MainContentLayout"]
         }
@@ -93,7 +93,7 @@ If you genuinely can't complete the split in the current session, leave the poli
       "dir": "panels",
       "files": [
         {
-          "name": "BottomPanel.tsx",
+          "name": "bottom-panel.tsx",
           "exports": [
             "BottomPanel",
             "BottomPanelTabs",
@@ -112,7 +112,7 @@ If you genuinely can't complete the split in the current session, leave the poli
           ]
         },
         {
-          "name": "RightPanel.tsx",
+          "name": "right-panel.tsx",
           "exports": [
             "RightPanel",
             "RightPanelTabs",
@@ -139,10 +139,10 @@ If you genuinely can't complete the split in the current session, leave the poli
   "barrel": {
     "name": "index.ts",
     "reExports": [
-      { "from": "./layout/Root", "names": ["Root"] },
-      { "from": "./layout/LeftPanel", "names": ["LeftPanel"] },
+      { "from": "./layout/root", "names": ["Root"] },
+      { "from": "./layout/left-panel", "names": ["LeftPanel"] },
       {
-        "from": "./panels/BottomPanel",
+        "from": "./panels/bottom-panel",
         "names": ["BottomPanel", "BottomPanelTabs", "..."]
       }
     ],
@@ -182,46 +182,46 @@ This is agent judgment work, not a strict algorithm:
 ## Worked sketches
 
 ```
-decode/tooltip/                              decode/app-shell/
+restored/tooltip/                            restored/app-shell/
 ├── index.ts                                 ├── index.ts
-├── Tooltip.tsx                              ├── shared.ts
-├── TooltipProvider.tsx                      ├── layout/
-├── KBD.tsx                                  │   ├── Root.tsx
-└── shared.ts (utils + ref helpers)          │   ├── LeftPanel.tsx
-                                             │   ├── Content.tsx
-                                             │   └── MainContentLayout.tsx
+├── tooltip.tsx                              ├── shared.ts
+├── tooltip-provider.tsx                     ├── layout/
+├── kbd.tsx                                  │   ├── root.tsx
+└── shared.ts (utils + ref helpers)          │   ├── left-panel.tsx
+                                             │   ├── content.tsx
+                                             │   └── main-content-layout.tsx
                                              ├── header/
-                                             │   ├── Header.tsx
-                                             │   ├── HeaderAction.tsx
-                                             │   └── HeaderContextMenuItem.tsx
+                                             │   ├── header.tsx
+                                             │   ├── header-action.tsx
+                                             │   └── header-context-menu-item.tsx
                                              └── panels/
-                                                 ├── BottomPanel.tsx
-                                                 └── RightPanel.tsx
+                                                 ├── bottom-panel.tsx
+                                                 └── right-panel.tsx
 ```
 
 Both directories land under the user's chosen `<target-dir>`, not the `$WS` workspace — same rule as the existing single-file output.
 
-### `decode/tooltip/index.ts` (small case)
+### `restored/tooltip/index.ts` (small case)
 
 ```ts
-export { Tooltip } from "./Tooltip";
-export { TooltipProvider } from "./TooltipProvider";
-export { KBD } from "./KBD";
+export { Tooltip } from "./tooltip";
+export { TooltipProvider } from "./tooltip-provider";
+export { KBD } from "./kbd";
 ```
 
-### `decode/app-shell/index.ts` (registry case)
+### `restored/app-shell/index.ts` (registry case)
 
 ```ts
-export { Root } from "./layout/Root";
-export { LeftPanel } from "./layout/LeftPanel";
-export { Content } from "./layout/Content";
-export { MainContentLayout } from "./layout/MainContentLayout";
-export { Header, HeaderAction, HeaderContextMenuItem } from "./header/Header";
-export { BottomPanel, BottomPanelTabs /* … */ } from "./panels/BottomPanel";
-export { RightPanel, RightPanelTabs /* … */ } from "./panels/RightPanel";
+export { Root } from "./layout/root";
+export { LeftPanel } from "./layout/left-panel";
+export { Content } from "./layout/content";
+export { MainContentLayout } from "./layout/main-content-layout";
+export { Header, HeaderAction, HeaderContextMenuItem } from "./header/header";
+export { BottomPanel, BottomPanelTabs /* … */ } from "./panels/bottom-panel";
+export { RightPanel, RightPanelTabs /* … */ } from "./panels/right-panel";
 
-import { Root } from "./layout/Root";
-import { LeftPanel } from "./layout/LeftPanel";
+import { Root } from "./layout/root";
+import { LeftPanel } from "./layout/left-panel";
 // … rest of the imports needed for the registry …
 
 export const AppShell = {
@@ -261,10 +261,10 @@ Stage 3's [TypeScript recipe](../stages/stage-3-finalize.md#d5--typescript-types
 
 - **Don't split before Stage 2 polish.** The split heuristic relies on the polished output's bindings being human-named. Splitting raw renamed JS leaves you with `t.tsx`, `n.tsx`, `Mr.tsx`.
 - **The registry object is the source of truth for export _order_.** When the original bundle has `export const Mr = { Root, LeftPanel, … }`, the barrel must reconstruct that object in the same key order — downstream consumers may do `Object.keys(AppShell)` or rely on the visual grouping.
-- **Cross-file refs to private helpers force them to `shared.ts`.** If `BottomPanel.tsx` and `RightPanel.tsx` both call `useResizeObserver`, lift it to `shared.ts` and import — don't duplicate.
+- **Cross-file refs to private helpers force them to `shared.ts`.** If `bottom-panel.tsx` and `right-panel.tsx` both call `useResizeObserver`, lift it to `shared.ts` and import — don't duplicate.
 - **`tsc --noEmit` plus `quality-gate.ts` are the canonical verification.** Splitting can silently drop a binding if `bindings[]` is wrong; a clean `tsc` pass confirms every reference resolved. The quality gate confirms the output is actually split and not still full of cryptic locals.
-- **The splitter is conservative.** `scripts/plan-split.ts` and `scripts/split-bundle.ts` handle the mechanical extraction, barrel, registry, and simple cross-file helper imports. They do not replace semantic judgment: if the generated plan says `Root.tsx` but the code is really a `PanelLayout`, edit the plan and names before promoting.
+- **The splitter is conservative.** `scripts/plan-split.ts` and `scripts/split-bundle.ts` handle the mechanical extraction, barrel, registry, and simple cross-file helper imports. They do not replace semantic judgment: if the generated plan names a file `root.tsx` but the component is really a panel layout (`panel-layout.tsx` exporting `PanelLayout`), edit the plan and names before promoting.
 
 ## Stage 3 acceptance — deep mode only
 
-This whole workflow is a deep-tier step, so the Stage 3 acceptance review applies. See [stages/stage-3-finalize.md](../stages/stage-3-finalize.md). The deep restore is not done until the host agent's end-to-end read passes every delivered file — no sub-agent and no authorization required. `NEEDS_FIX` means rewrite and re-read; there is no TODO-header completion path. For multi-export splits, read every file in the split directory (`Root.tsx`, `LeftPanel.tsx`, …, `index.ts`) as one batch so naming and import consistency across siblings can be verified, not just per-file quality (delegating the batch to an optional reviewer sub-agent is fine when one is available and authorized). Skipping this step is a fail mode listed in the skill's [quality bar](../SKILL.md#quality-bar--anti-patterns-to-refuse-before-declaring-done).
+This whole workflow is a deep-tier step, so the Stage 3 acceptance review applies. See [stages/stage-3-finalize.md](../stages/stage-3-finalize.md). The deep restore is not done until the host agent's end-to-end read passes every delivered file — no sub-agent and no authorization required. `NEEDS_FIX` means rewrite and re-read; there is no TODO-header completion path. For multi-export splits, read every file in the split directory (`root.tsx`, `left-panel.tsx`, …, `index.ts`) as one batch so naming and import consistency across siblings can be verified, not just per-file quality (delegating the batch to an optional reviewer sub-agent is fine when one is available and authorized). Skipping this step is a fail mode listed in the skill's [quality bar](../SKILL.md#quality-bar--anti-patterns-to-refuse-before-declaring-done).

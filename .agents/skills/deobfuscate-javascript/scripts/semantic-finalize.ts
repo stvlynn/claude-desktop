@@ -174,6 +174,21 @@ function pascalCase(value: string): string {
     .join("");
 }
 
+/**
+ * Kebab-case for FILE and DIRECTORY names. React component identifiers stay
+ * PascalCase (JSX requires it); only the filename is kebab — `DownloadIcon` →
+ * `download-icon`, `Button` → `button`, `BottomPanelCtx` → `bottom-panel-ctx`.
+ */
+export function kebabCase(value: string): string {
+  return value
+    .replace(/([a-z0-9])([A-Z])/g, "$1-$2") // camel/Pascal boundary
+    .replace(/([A-Z]+)([A-Z][a-z])/g, "$1-$2") // ACRONYMWord → ACRONYM-Word
+    .replace(/[^A-Za-z0-9]+/g, "-") // separators (incl. $) → dash
+    .replace(/-+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .toLowerCase();
+}
+
 function semanticIconName(
   name: string,
   basename: string,
@@ -369,14 +384,15 @@ function finalizeIcons(
     return {
       recipe: "icon",
       layout: "single",
-      files: [{ path: `${basename}.tsx`, code }],
+      files: [{ path: `${kebabCase(component.name)}.tsx`, code }],
       exportMap,
     };
   }
 
+  const dir = kebabCase(stripHashSuffix(basename));
   const files: SemanticFile[] = [
     {
-      path: `${basename}/types.ts`,
+      path: `${dir}/types.ts`,
       code:
         `import type { SVGProps } from "react";\n\n` +
         `export type IconProps = SVGProps<SVGSVGElement>;\n`,
@@ -384,7 +400,7 @@ function finalizeIcons(
   ];
   for (const component of components) {
     files.push({
-      path: `${basename}/${component.name}.tsx`,
+      path: `${dir}/${kebabCase(component.name)}.tsx`,
       code:
         header(
           sourcePath,
@@ -395,13 +411,13 @@ function finalizeIcons(
     });
   }
   files.push({
-    path: `${basename}/index.ts`,
+    path: `${dir}/index.ts`,
     code:
       `export type { IconProps } from "./types";\n` +
       components
         .map(
           (component) =>
-            `export { ${component.name} } from "./${component.name}";`,
+            `export { ${component.name} } from "./${kebabCase(component.name)}";`,
         )
         .join("\n") +
       "\n",
@@ -503,7 +519,6 @@ function finalizeButton(
   opts: SemanticFinalizeOptions,
 ): SemanticFinalizeResult {
   const sourcePath = inferSourcePath(source, opts.sourcePath);
-  const basename = inferBasename(sourcePath, opts.basename);
   const model = findButtonModel(parseSource(source));
   const code =
     header(
@@ -513,7 +528,7 @@ function finalizeButton(
     `import type { ButtonHTMLAttributes, ForwardedRef } from "react";\n` +
     `import { forwardRef } from "react";\n` +
     `import clsx from "clsx";\n` +
-    `import { Spinner } from "./Spinner";\n\n` +
+    `import { Spinner } from "./spinner";\n\n` +
     renderConstObject("buttonRadiusClassNames", model.radiusClasses) +
     `\n` +
     renderConstObject("buttonColorClassNames", model.colorClasses) +
@@ -566,7 +581,7 @@ function finalizeButton(
   return {
     recipe: "button",
     layout: "single",
-    files: [{ path: `${basename}.tsx`, code }],
+    files: [{ path: `${kebabCase("Button")}.tsx`, code }],
     exportMap: { t: "Button", n: "buttonRadiusClassNames" },
   };
 }

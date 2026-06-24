@@ -19,9 +19,9 @@ describe("split-bundle", () => {
         {
           dir: "layout",
           files: [
-            { name: "Root.tsx", exports: ["Root"], bindings: ["Root"] },
+            { name: "root.tsx", exports: ["Root"], bindings: ["Root"] },
             {
-              name: "Content.tsx",
+              name: "content.tsx",
               exports: ["Content"],
               bindings: ["Content"],
             },
@@ -30,23 +30,23 @@ describe("split-bundle", () => {
         {
           dir: "header",
           files: [
-            { name: "Header.tsx", exports: ["Header"], bindings: ["Header"] },
+            { name: "header.tsx", exports: ["Header"], bindings: ["Header"] },
           ],
         },
       ],
       shared: { name: "shared.ts", bindings: ["sharedLabel"] },
       barrel: {
         reExports: [
-          { from: "./layout/Root", names: ["Root"] },
-          { from: "./header/Header", names: ["Header"] },
-          { from: "./layout/Content", names: ["Content"] },
+          { from: "./layout/root", names: ["Root"] },
+          { from: "./header/header", names: ["Header"] },
+          { from: "./layout/content", names: ["Content"] },
         ],
         registry: {
           name: "AppShell",
           entries: [
-            { name: "Root", from: "./layout/Root" },
-            { name: "Header", from: "./header/Header" },
-            { name: "Content", from: "./layout/Content" },
+            { name: "Root", from: "./layout/root" },
+            { name: "Header", from: "./header/header" },
+            { name: "Content", from: "./layout/content" },
           ],
         },
       },
@@ -56,25 +56,25 @@ describe("split-bundle", () => {
     const byPath = new Map(result.files.map((file) => [file.path, file.code]));
 
     expect([...byPath.keys()].sort()).toEqual([
-      "header/Header.tsx",
+      "header/header.tsx",
       "index.ts",
-      "layout/Content.tsx",
-      "layout/Root.tsx",
+      "layout/content.tsx",
+      "layout/root.tsx",
       "shared.ts",
     ]);
-    expect(byPath.get("layout/Root.tsx")).toContain(
+    expect(byPath.get("layout/root.tsx")).toContain(
       'import { sharedLabel } from "../shared";',
     );
-    expect(byPath.get("layout/Root.tsx")).toContain(
+    expect(byPath.get("layout/root.tsx")).toContain(
       'import { dep } from "../dep.js";',
     );
-    expect(byPath.get("header/Header.tsx")).not.toContain(
+    expect(byPath.get("header/header.tsx")).not.toContain(
       'import { dep } from "../dep.js";',
     );
-    expect(byPath.get("layout/Root.tsx")).toContain("export function Root()");
+    expect(byPath.get("layout/root.tsx")).toContain("export function Root()");
     expect(byPath.get("index.ts")).toContain("export const AppShell = {");
     expect(byPath.get("index.ts")).toContain(
-      'export { Header } from "./header/Header";',
+      'export { Header } from "./header/header";',
     );
     for (const file of result.files) {
       const report = analyzeSource(file.code, file.path, {
@@ -106,9 +106,9 @@ describe("split-bundle", () => {
 
     expect(plan.outDir).toBe("restored/command-keybindings-CvjN6DDf");
     expect(plan.sections[0]?.files.map((file) => file.name)).toEqual([
-      "commandKeymapState.ts",
-      "commandShortcutLabels.ts",
-      "hasCommandShortcut.ts",
+      "command-keymap-state.ts",
+      "command-shortcut-labels.ts",
+      "has-command-shortcut.ts",
     ]);
     expect(plan.barrel?.registry?.name).toBe("commandKeybindings");
   });
@@ -134,10 +134,10 @@ describe("split-bundle", () => {
     });
 
     expect(plan.sections[0]?.files.map((file) => file.name)).toEqual([
-      "Root.tsx",
-      "Header.tsx",
-      "Content.tsx",
-      "canNavigateBack$.tsx",
+      "root.tsx",
+      "header.tsx",
+      "content.tsx",
+      "can-navigate-back.tsx",
     ]);
     expect(plan.sections[0]?.files.map((file) => file.bindings)).toEqual([
       ["rootRender"],
@@ -149,9 +149,9 @@ describe("split-bundle", () => {
     expect(plan.barrel?.registry).toEqual({
       name: "AppShell",
       entries: [
-        { key: "Root", name: "rootRender", from: "./Root" },
-        { key: "Header", name: "headerRender", from: "./Header" },
-        { key: "Content", name: "contentRender", from: "./Content" },
+        { key: "Root", name: "rootRender", from: "./root" },
+        { key: "Header", name: "headerRender", from: "./header" },
+        { key: "Content", name: "contentRender", from: "./content" },
       ],
     });
   });
@@ -169,11 +169,11 @@ describe("split-bundle", () => {
     const result = splitBundle(source, plan);
     const byPath = new Map(result.files.map((file) => [file.path, file.code]));
 
-    expect(byPath.get("appC.tsx")).toContain("function AppUpdateButton()");
-    expect(byPath.get("appC.tsx")).toContain(
+    expect(byPath.get("app-c.tsx")).toContain("function AppUpdateButton()");
+    expect(byPath.get("app-c.tsx")).toContain(
       "export { AppUpdateButton as appC };",
     );
-    expect(byPath.get("index.ts")).toContain('export { appC } from "./appC";');
+    expect(byPath.get("index.ts")).toContain('export { appC } from "./app-c";');
   });
 
   test("can rebase original imports from a parent import root", () => {

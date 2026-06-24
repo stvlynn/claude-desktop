@@ -13,14 +13,16 @@ The two tables together make the work **resumable across sessions** (everything 
 
 ## When to use
 
-Load this workflow when the input matches **all** of:
+**This is the default path** whenever the input is an app — an `index.html` plus a sibling-chunk asset tree (Vite/Rollup-style content-hashed graph). Load it when:
 
-- Has many `import` / `export … from "./xxx-HASH.js"` statements pointing at sibling chunks in the same directory (Vite/Rollup-style content-hashed graph).
-- Goal is to fully restore _the whole tree_, not just one file — the user said "完整还原", "深度还原", "restore everything", "deep restore", or pasted the entry and asked you to rebuild the surrounding pieces too.
+- There is an `index.html` + asset tree (many `import` / `export … from "./xxx-HASH.js"` statements pointing at sibling chunks). The entry is **auto-discovered** from `index.html` — you no longer need it named explicitly.
 - No detectable sourcemap (run `scripts/sourcemap-check.ts` first; if a `.map` is recoverable, use it instead — orders of magnitude higher fidelity).
 
-If you only need _one_ chunk readable and don't care about its dependencies, fall back to:
+Restoration runs at **readable depth by default**; the deep keywords ("完整", "深度", "production", "typed", "restore everything") add the Stage 3 typed-`.tsx` + acceptance depth on top — they no longer gate _scope_.
 
+If the input is a lone pasted snippet or a single chunk with no surrounding tree, fall back to:
+
+- [small-minified.md](small-minified.md) — single-file readable fallback (no `index.html`/tree).
 - [react-vite.md](react-vite.md) — single-component chunk.
 - [multi-export-bundle.md](multi-export-bundle.md) — single multi-export bundle, split into a directory.
 - [huge-single-file.md](huge-single-file.md) — single huge file, batch through a checklist.
@@ -34,7 +36,7 @@ vendor/data chunks in the extracted Codex.app tree.
 
 ```
 0.   (Always)  scripts/sourcemap-check.ts on the entry — bail out if a sourcemap is recoverable.
-0.5. (Always)  scripts/check-entry.ts on the entry — confirm it is the app, not a vendor leaf (exit 3).
+0.5. (Always)  scripts/check-entry.ts --discover --root <assets-dir> — read index.html, auto-discover the entry, and confirm it is the app, not a vendor leaf (exit 3). build-import-graph.ts auto-discovers too when the positional entry is omitted.
 1. Build the import graph        → _full/manifest.json
 1.5. Facade the huge vendor/runtime boundaries (optional):
      make-facade.ts <chunk>          →  typed `any` boundary so consumers compile
@@ -91,12 +93,13 @@ the wrong tree.
 ## Step 1 — build the import graph
 
 ```bash
-ENTRY=ref/webview/assets/app-shell-JLpboL12.js
-TARGET=decode
+TARGET=restored
 FULL="$TARGET/.deobfuscate-javascript/_full"
 mkdir -p "$FULL/files" "$FULL/locks"
 
-bun <skill-dir>/scripts/build-import-graph.ts "$ENTRY" \
+# Entry auto-discovered from index.html (omit the positional). To pin it:
+#   ENTRY=$(bun <skill-dir>/scripts/check-entry.ts --discover --root ref/webview/assets)
+bun <skill-dir>/scripts/build-import-graph.ts \
   --target "$TARGET" \
   --root ref/webview/assets \
   --out "$FULL/manifest.json"
@@ -148,7 +151,7 @@ Read the manifest console summary (`X local · Y oversized-local (skipped) · Z 
   "version": 1,
   "entry": "app-shell-JLpboL12",
   "rootDir": "ref/webview/assets",
-  "targetDir": "decode",
+  "targetDir": "restored",
   "createdAt": "2026-05-22T21:09:00.000Z",
   "updatedAt": "2026-05-22T21:09:00.000Z",
   "files": {
@@ -370,7 +373,7 @@ Then loop. `ledger.ts next` will skip files where the requested stage is already
 When `ledger.ts status --target "$TARGET"` reports `0 pending across N files`, the rename pass is done. **Recursion check before you call the deep/full restore complete:** `status` counts a `faced` chunk as _satisfied_, not pending, so "0 pending" does **not** prove every project chunk was restored. Confirm `ledger.ts frontier` is empty **and** that no project-local feature chunk remains `faced` — only genuine third-party vendor/runtime boundaries (Zod, Statsig, the host/runtime bridge) may remain, and each must be reported as an open boundary in the README/import map. A referenced `app-shell-*` / feature chunk left as a facade means the restore is **not done**; restore it (and everything it transitively imports) before finishing. Finalization is a host-agent rewrite, not a copy step:
 
 1. **Stage 3 rewrite per file** — pass [Stage 3's D5 gate](../stages/stage-3-finalize.md#d5--typescript-types-and-the-tsx-recipe) for _each_ restored file: semantic public filename, `.tsx`, `Props` interface for every exported component, lifted type-only imports, `forwardRef` + `displayName` where appropriate, no sourcemap comments. The polished/checkpoint output is the _input_ to Stage 3, not the deliverable. A `.tsx` whose exported component is `function MyRow(props)` with no Props type is still a fail.
-2. **Run semantic recipes when they match**: use `scripts/semantic-finalize.ts --recipe icon` for pure SVG chunks and `--recipe button` for Button/control chunks. A pure single icon lands at a semantic public path such as `<target-dir>/DownloadIcon.tsx`; a chunk with two or more independent icons lands in a semantic directory with `types.ts`, one `*Icon.tsx` per component, and `index.ts`. This split is mandatory even when [multi-export-bundle.md](multi-export-bundle.md)'s size threshold would not fire.
+2. **Run semantic recipes when they match**: use `scripts/semantic-finalize.ts --recipe icon` for pure SVG chunks and `--recipe button` for Button/control chunks. A pure single icon lands at a semantic kebab public path such as `restored/icons/download-icon.tsx` (exporting `DownloadIcon`); a chunk with two or more independent icons lands in a kebab directory with `types.ts`, one kebab `*-icon.tsx` per component, and `index.ts`. This split is mandatory even when [multi-export-bundle.md](multi-export-bundle.md)'s size threshold would not fire.
 3. **Repair consumer imports after semantic exports/files change**: when a producer changes from bundle aliases to semantic exports (`t` → `DownloadIcon`, `t` → `Button`, `n` → `CollapseIcon`) or from a hash checkpoint to a semantic final path, rewrite every finalized consumer import before formatting. Record the original hash-to-semantic mapping in an import map/report so traceability is preserved without hash filenames in public output.
 4. **Split every large or multi-export surface**: most "complete restoration" deliverables want directories under `<target-dir>/`, not flat `_full/files/` outputs. Run [multi-export-bundle.md](multi-export-bundle.md) on any hand-finalized `.tsx` with ≥ 3 named exports, a registry object, or > 1000 lines after polish. Use `scripts/plan-split.ts` to draft `$WS/split-plan.json`, adjust the plan names/groups by reading the code, then run `scripts/split-bundle.ts "$WS/polished.tsx" "$WS/split-plan.json" --out-dir "$WS/candidate/<basename>"`.
 5. **Promote only after the candidate passes the script pre-filter**:
@@ -395,7 +398,7 @@ When `ledger.ts status --target "$TARGET"` reports `0 pending across N files`, t
 
 Before marking a file's `finalize` stage `done`, confirm:
 
-- [ ] Public filename/directory is semantic and hash-free; original chunk path preserved in provenance/report.
+- [ ] Public filename/directory is semantic, kebab-case, and hash-free (component identifiers stay PascalCase); original chunk path preserved in provenance/report.
 - [ ] Renamed to `.tsx` (no leftover `.js` extension).
 - [ ] Provenance header: `// Restored from <original-path>` followed by a one-line summary.
 - [ ] Exported components have a typed `Props` interface (or type alias) and use destructured params with defaults — not `function X(props)` with implicit `any`.

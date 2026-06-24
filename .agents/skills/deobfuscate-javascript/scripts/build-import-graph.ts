@@ -9,7 +9,7 @@ import {
   extractChunkBasename,
 } from "./resolve-npm-imports.ts";
 import { PARSER_PLUGINS } from "./extract.ts";
-import { checkEntry } from "./check-entry.ts";
+import { checkEntry, discoverEntry } from "./check-entry.ts";
 
 const traverse = ((
   babelTraverse as unknown as { default?: typeof babelTraverse }
@@ -588,10 +588,11 @@ function resolveLocalSource(
 }
 
 const USAGE =
-  "Usage: bun scripts/build-import-graph.ts <entry.js> --target <dir> [--root <dir>] " +
+  "Usage: bun scripts/build-import-graph.ts [<entry.js>] --target <dir> [--root <dir>] " +
   "[--out <manifest.json>] [--treat-as-npm name,name,...] " +
   "[--max-lines 0] [--include basename1,basename2,...] " +
-  "[--index <index.html>] [--no-entry-check]";
+  "[--index <index.html>] [--discover] [--no-entry-check]\n" +
+  "  The entry is optional when --root is given: it is auto-discovered from index.html.";
 
 async function main(): Promise<void> {
   let parsed;
@@ -607,6 +608,7 @@ async function main(): Promise<void> {
         include: { type: "string" },
         rebuild: { type: "boolean", default: false },
         index: { type: "string" },
+        discover: { type: "boolean", default: false },
         "no-entry-check": { type: "boolean", default: false },
       },
       allowPositionals: true,
@@ -617,11 +619,36 @@ async function main(): Promise<void> {
     process.exit(64);
   }
   const { values, positionals } = parsed;
-  if (positionals.length === 0 || !values.target) {
+  if (!values.target) {
     console.error(USAGE);
     process.exit(64);
   }
-  const entry = positionals[0]!;
+
+  // Entry is optional: when omitted (or --discover is passed) and --root is
+  // given, auto-discover it from index.html so the whole-tree restore is the
+  // default — no hand-globbing app-main-*.
+  let entry: string;
+  let discovered = false;
+  if (positionals.length === 0 || values.discover) {
+    if (!values.root) {
+      console.error(USAGE);
+      console.error(
+        "auto-discovery needs --root <assets-dir> (or pass an explicit <entry.js>)",
+      );
+      process.exit(64);
+    }
+    const result = discoverEntry(values.root, { indexHtml: values.index });
+    if (!result.chosen?.resolvedFile) {
+      console.error(`could not auto-discover an entry: ${result.reason}`);
+      process.exit(1);
+    }
+    entry = result.chosen.resolvedFile;
+    discovered = true;
+    console.error(`auto-discovered entry: ${entry}`);
+    console.error(`  ${result.reason}`);
+  } else {
+    entry = positionals[0]!;
+  }
   if (!fs.existsSync(entry)) {
     console.error(`entry not found: ${entry}`);
     process.exit(1);
@@ -634,7 +661,7 @@ async function main(): Promise<void> {
   // Entry sanity check: warn (don't block) if the entry looks like a transitive
   // vendor leaf rather than an app entry, so we don't silently restore a tiny
   // dependency closure and call it complete. Skip with --no-entry-check.
-  if (!values["no-entry-check"]) {
+  if (!values["no-entry-check"] && !discovered) {
     try {
       const verdict = checkEntry(entry, {
         rootDir,

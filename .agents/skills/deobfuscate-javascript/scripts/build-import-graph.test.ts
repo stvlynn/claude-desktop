@@ -2,11 +2,14 @@ import { describe, expect, test, afterEach } from "bun:test";
 import * as fs from "node:fs";
 import * as path from "node:path";
 import * as os from "node:os";
+import { spawnSync } from "node:child_process";
 import {
   buildImportGraph,
   classifyTarget,
   parseImportsExports,
 } from "./build-import-graph.ts";
+
+const SCRIPT = path.join(import.meta.dir, "build-import-graph.ts");
 
 const tmpRoots: string[] = [];
 
@@ -446,5 +449,41 @@ describe("buildImportGraph (BFS)", () => {
       maxLines: 0,
     });
     expect(manifest.files["huge-CcCcCcCc"]?.kind).toBe("local");
+  });
+});
+
+describe("CLI auto-discovery", () => {
+  test("discovers the entry from index.html when no positional is given", () => {
+    const { rootDir, targetDir } = makeFixture(); // rootDir is the assets dir
+    fs.writeFileSync(
+      path.join(path.dirname(rootDir), "index.html"),
+      `<script type="module" src="./assets/entry-AaAaAaAa.js"></script>\n`,
+    );
+    const res = spawnSync(
+      "bun",
+      [SCRIPT, "--target", targetDir, "--root", rootDir],
+      { encoding: "utf-8" },
+    );
+    expect(res.status).toBe(0);
+    const manifest = JSON.parse(
+      fs.readFileSync(
+        path.join(
+          targetDir,
+          ".deobfuscate-javascript",
+          "_full",
+          "manifest.json",
+        ),
+        "utf-8",
+      ),
+    );
+    expect(manifest.entry).toBe("entry-AaAaAaAa");
+  });
+
+  test("exits 64 when neither an entry nor --root is given", () => {
+    const { targetDir } = makeFixture();
+    const res = spawnSync("bun", [SCRIPT, "--target", targetDir], {
+      encoding: "utf-8",
+    });
+    expect(res.status).toBe(64);
   });
 });

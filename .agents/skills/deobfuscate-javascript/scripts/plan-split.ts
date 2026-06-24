@@ -5,6 +5,7 @@ import * as parser from "@babel/parser";
 import babelTraverse from "@babel/traverse";
 import * as t from "@babel/types";
 import type { SplitPlan, SplitPlanReExport } from "./split-bundle.ts";
+import { kebabCase } from "./semantic-finalize.ts";
 
 const traverse = ((
   babelTraverse as unknown as { default?: typeof babelTraverse }
@@ -56,8 +57,8 @@ function stripExtension(filePath: string): string {
 }
 
 function safeFileName(name: string, extension: string): string {
-  const cleaned = name.replace(/[^A-Za-z0-9_$]+/g, "-").replace(/^-+|-+$/g, "");
-  return `${cleaned || "RestoredExport"}${extension}`;
+  const cleaned = kebabCase(name);
+  return `${cleaned || "restored-export"}${extension}`;
 }
 
 function bindingNameFromPattern(pattern: t.LVal | t.PatternLike): string[] {

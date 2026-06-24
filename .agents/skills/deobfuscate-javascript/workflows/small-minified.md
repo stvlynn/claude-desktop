@@ -1,8 +1,8 @@
-# Restore a single file — default readable tier
+# Restore a single file — readable fallback
 
-> **Default (readable) tier.** Goal: code a human can read. The only hard bar is naming quality — types, npm-import resolution, and the reviewer LOOP are deep mode only.
+> **Single-file fallback (readable).** Goal: code a human can read. The only hard bar is naming quality — types, npm-import resolution, and the reviewer LOOP are deep mode only.
 
-The canonical single-file flow. Use it for any one file or one chunk that isn't the whole tree. Works whether the input is *minified* (short names, single-line) or a React/Vite/Rollup component — the one-shot polish recovers JSX for you. Skip Stage 1 entirely unless `detect.ts` finds obfuscation (Packer wrapper, `_0x` arrays, hex/unicode walls).
+This is the **single-file fallback** — use it for a lone pasted snippet or when there is no `index.html` / asset tree to restore. When the input is an app (an `index.html` + sibling-chunk tree), the default is the whole-tree restore ([full-restoration.md](full-restoration.md)). Works whether the input is *minified* (short names, single-line) or a React/Vite/Rollup component — the one-shot polish recovers JSX for you. Skip Stage 1 entirely unless `detect.ts` finds obfuscation (Packer wrapper, `_0x` arrays, hex/unicode walls).
 
 ← Back to [SKILL.md](../SKILL.md). Stage detail: [Stage 2](../stages/stage-2-restore.md). Workspace: [stages/workspace.md](../stages/workspace.md).
 
@@ -60,7 +60,7 @@ bun scripts/format.ts "$WS/draft.tsx"
 
 ## Deliver
 
-A semantic public filename (`Spinner.tsx`, not `spinner-D37df5tU.tsx`) with the provenance header intact. That's the readable deliverable. Types, npm-import resolution, and the reviewer loop are optional — deep mode is a continuation, not a correction. Tell the user it's available.
+A semantic kebab public filename (`spinner.tsx`, not `spinner-D37df5tU.tsx`; it exports `Spinner`) with the provenance header intact. That's the readable deliverable. Types, npm-import resolution, and the reviewer loop are optional — deep mode is a continuation, not a correction. Tell the user it's available.
 
 ## Sub-cases (branch only if it applies)
 

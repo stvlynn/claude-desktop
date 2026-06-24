@@ -6,6 +6,7 @@ import { spawnSync } from "node:child_process";
 import {
   checkEntry,
   countLocalOutDegree,
+  discoverEntry,
   readIndexRoots,
 } from "./check-entry.ts";
 
@@ -129,6 +130,56 @@ describe("checkEntry", () => {
   });
 });
 
+describe("discoverEntry", () => {
+  function appTree(): string {
+    const files: Record<string, string> = {};
+    const imports: string[] = [];
+    for (let i = 0; i < 20; i++) {
+      files[`mod-${i}.js`] = `export const v${i} = ${i};`;
+      imports.push(`import { v${i} } from "./mod-${i}.js";`);
+    }
+    files["index-ROOT01.js"] = imports.join("\n");
+    files["polyfill-VEND01.js"] = `export default 1;`;
+    files["index.html"] =
+      `<!doctype html><html><head>` +
+      `<script type="module" src="./assets/index-ROOT01.js"></script>` +
+      `<link rel="modulepreload" href="./assets/polyfill-VEND01.js">` +
+      `</head></html>`;
+    return makeTree(files);
+  }
+
+  test("picks the high-fan-out script root over a vendor preload", () => {
+    const dir = appTree();
+    const result = discoverEntry(dir);
+    expect(result.chosen?.basename).toBe("index-ROOT01");
+    expect(result.chosen?.resolvedFile?.endsWith("index-ROOT01.js")).toBe(true);
+    expect(result.candidates).toHaveLength(2);
+    // the vendored polyfill is a candidate but not chosen.
+    const polyfill = result.candidates.find(
+      (c) => c.basename === "polyfill-VEND01",
+    );
+    expect(polyfill?.report?.looksVendored).toBe(true);
+  });
+
+  test("returns no entry when there is no index.html", () => {
+    const dir = makeTree({ "lonely-AAAA.js": `export const x = 1;` });
+    const result = discoverEntry(dir);
+    expect(result.chosen).toBeNull();
+    expect(result.reason).toContain("no index.html");
+  });
+
+  test("falls back with a risk note when every root looks vendored", () => {
+    const dir = makeTree({
+      "polyfill-ONLY01.js": `import a from "./util-UU01.js"; export const x = 1;`,
+      "util-UU01.js": `export default 1;`,
+      "index.html": `<script type="module" src="./assets/polyfill-ONLY01.js"></script>`,
+    });
+    const result = discoverEntry(dir);
+    expect(result.chosen?.basename).toBe("polyfill-ONLY01");
+    expect(result.reason).toContain("verify");
+  });
+});
+
 describe("CLI", () => {
   test("exits 3 on a suspicious entry", () => {
     const files: Record<string, string> = {
@@ -146,5 +197,28 @@ describe("CLI", () => {
   test("exits 64 with no args, 1 on missing file", () => {
     expect(runCLI([]).code).toBe(64);
     expect(runCLI(["/no/such/file-ZZZZ.js"]).code).toBe(1);
+  });
+
+  test("--discover prints the chosen entry path to stdout (exit 0)", () => {
+    const files: Record<string, string> = {
+      "index-DISC01.js": `import "./a-AA.js"; import "./b-BB.js";`,
+      "a-AA.js": `export default 1;`,
+      "b-BB.js": `export default 2;`,
+      "index.html": `<script type="module" src="./assets/index-DISC01.js"></script>`,
+    };
+    const dir = makeTree(files);
+    const res = runCLI([
+      "--discover",
+      "--root",
+      dir,
+      "--index",
+      path.join(dir, "index.html"),
+    ]);
+    expect(res.code).toBe(0);
+    expect(res.stdout.trim().endsWith("index-DISC01.js")).toBe(true);
+  });
+
+  test("--discover without --root exits 64", () => {
+    expect(runCLI(["--discover"]).code).toBe(64);
   });
 });

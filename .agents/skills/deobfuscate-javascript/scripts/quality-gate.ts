@@ -804,6 +804,23 @@ function isIndexFile(filePath: string): boolean {
   return /^index\.[cm]?[jt]sx?$/i.test(path.basename(filePath));
 }
 
+const KEBAB_PUBLIC_BASENAME_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*(?:\.[a-z0-9]+)*$/;
+
+/**
+ * Public file/dir names must be kebab-case (lowercase-dash). React component
+ * IDENTIFIERS stay PascalCase (JSX requires it) — only the filename is kebab
+ * (`button.tsx` exports `Button`). Allowances: `index`, `types`, `*.d.ts`,
+ * `*.facade.ts`, and any all-lowercase/dotted basename.
+ */
+function isKebabPublicBasename(filePath: string): boolean {
+  const file = path.basename(filePath);
+  if (/\.d\.ts$/i.test(file)) return true;
+  if (/\.facade\.[cm]?[jt]sx?$/i.test(file)) return true;
+  const base = file.replace(SOURCE_EXT_RE, "");
+  if (base === "index" || base === "types") return true;
+  return KEBAB_PUBLIC_BASENAME_RE.test(base);
+}
+
 function isThemeFile(filePath: string): boolean {
   return path.normalize(filePath).split(path.sep).includes("themes");
 }
@@ -1697,6 +1714,22 @@ export function analyzeSource(
     (lineCount > options.maxFlatLines ||
       tooManyExports ||
       astFacts.registryObjectExport);
+
+  if (
+    !vendored &&
+    SOURCE_EXT_RE.test(file) &&
+    !isIndexFile(file) &&
+    !isKebabPublicBasename(file)
+  ) {
+    issues.push({
+      code: "non-kebab-filename",
+      message:
+        `Public file/dir names must be kebab-case (lowercase-dash); ` +
+        `'${path.basename(file)}' is not. React component identifiers stay ` +
+        `PascalCase, but their files are kebab (Button → button.tsx).`,
+      detail: { basename: path.basename(file) },
+    });
+  }
 
   if (!vendored && crypticParams > options.maxCrypticParams) {
     issues.push({

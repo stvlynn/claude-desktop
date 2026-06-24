@@ -91,19 +91,17 @@ describe("semantic-finalize", () => {
     expect(result.exportMap.ExpandIcon).toBe("ExpandIcon");
     expect(result.exportMap.CollapseIcon).toBe("CollapseIcon");
     expect(result.files.map((file) => file.path).sort()).toEqual([
-      "expand-BVUB1pRY/CollapseIcon.tsx",
-      "expand-BVUB1pRY/ExpandIcon.tsx",
-      "expand-BVUB1pRY/index.ts",
-      "expand-BVUB1pRY/types.ts",
+      "expand/collapse-icon.tsx",
+      "expand/expand-icon.tsx",
+      "expand/index.ts",
+      "expand/types.ts",
     ]);
-    expect(
-      result.files.some((file) => file.path === "expand-BVUB1pRY.tsx"),
-    ).toBe(false);
+    expect(result.files.some((file) => file.path === "expand.tsx")).toBe(false);
     const expand = result.files.find((file) =>
-      file.path.endsWith("ExpandIcon.tsx"),
+      file.path.endsWith("expand-icon.tsx"),
     )!;
     const collapse = result.files.find((file) =>
-      file.path.endsWith("CollapseIcon.tsx"),
+      file.path.endsWith("collapse-icon.tsx"),
     )!;
     const barrel = result.files.find((file) => file.path.endsWith("index.ts"))!;
     expect(expand.code).toContain('import type { IconProps } from "./types"');
@@ -113,9 +111,9 @@ describe("semantic-finalize", () => {
     expect(collapse.code).toContain(
       "export function CollapseIcon(props: IconProps)",
     );
-    expect(barrel.code).toContain('export { ExpandIcon } from "./ExpandIcon"');
+    expect(barrel.code).toContain('export { ExpandIcon } from "./expand-icon"');
     expect(barrel.code).toContain(
-      'export { CollapseIcon } from "./CollapseIcon"',
+      'export { CollapseIcon } from "./collapse-icon"',
     );
     expectNoRuntimeResidue(result.files);
     for (const file of result.files) parseModule(file.code);
@@ -134,10 +132,10 @@ describe("semantic-finalize", () => {
     expect(result.exportMap.t).toBe("ExpandIcon");
     expect(result.exportMap.n).toBe("CollapseIcon");
     expect(result.files.map((file) => file.path).sort()).toEqual([
-      "expand-BVUB1pRY/CollapseIcon.tsx",
-      "expand-BVUB1pRY/ExpandIcon.tsx",
-      "expand-BVUB1pRY/index.ts",
-      "expand-BVUB1pRY/types.ts",
+      "expand/collapse-icon.tsx",
+      "expand/expand-icon.tsx",
+      "expand/index.ts",
+      "expand/types.ts",
     ]);
   });
 
@@ -157,10 +155,10 @@ describe("semantic-finalize", () => {
     expect(result.exportMap.t).toBe("ExpandIcon");
     expect(result.exportMap.n).toBe("CollapseIcon");
     expect(result.files.map((file) => file.path).sort()).toEqual([
-      "expand-BVUB1pRY/CollapseIcon.tsx",
-      "expand-BVUB1pRY/ExpandIcon.tsx",
-      "expand-BVUB1pRY/index.ts",
-      "expand-BVUB1pRY/types.ts",
+      "expand/collapse-icon.tsx",
+      "expand/expand-icon.tsx",
+      "expand/index.ts",
+      "expand/types.ts",
     ]);
   });
 
@@ -184,7 +182,7 @@ describe("semantic-finalize", () => {
     expect(code).toContain(
       "export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>",
     );
-    expect(code).toContain('import { Spinner } from "./Spinner"');
+    expect(code).toContain('import { Spinner } from "./spinner"');
     expect(code).toContain("function ButtonRender(");
     expect(code).toContain("const buttonClassName = clsx(");
     expect(code).toContain(

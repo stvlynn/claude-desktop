@@ -28,10 +28,13 @@ describe("promote-final", () => {
     fs.mkdirSync(candidate);
     fs.mkdirSync(target);
     fs.writeFileSync(
-      path.join(candidate, "Toolbar.tsx"),
+      path.join(candidate, "toolbar.tsx"),
       `const callbackValue1 = () => "bad"; export const Toolbar = callbackValue1;\n`,
     );
-    fs.writeFileSync(path.join(target, "Existing.ts"), `export const existing = true;\n`);
+    fs.writeFileSync(
+      path.join(target, "Existing.ts"),
+      `export const existing = true;\n`,
+    );
 
     const result = promoteFinal({
       candidate,
@@ -42,10 +45,10 @@ describe("promote-final", () => {
 
     expect(result.promoted).toBe(false);
     expect(fs.existsSync(path.join(target, "Existing.ts"))).toBe(true);
-    expect(fs.existsSync(path.join(target, "Toolbar.tsx"))).toBe(false);
-    expect(JSON.parse(fs.readFileSync(reportPath, "utf-8"))[0].issues[0].code).toBe(
-      "mechanical-names",
-    );
+    expect(fs.existsSync(path.join(target, "toolbar.tsx"))).toBe(false);
+    expect(
+      JSON.parse(fs.readFileSync(reportPath, "utf-8"))[0].issues[0].code,
+    ).toBe("mechanical-names");
   });
 
   test("copies candidate only after every file passes quality gate", () => {
@@ -56,7 +59,7 @@ describe("promote-final", () => {
     fs.mkdirSync(target);
     fs.writeFileSync(path.join(target, "Old.ts"), `export const old = true;\n`);
     fs.writeFileSync(
-      path.join(candidate, "Button.tsx"),
+      path.join(candidate, "button.tsx"),
       `export function Button() { return <button>Save</button>; }\n`,
     );
 
@@ -68,7 +71,7 @@ describe("promote-final", () => {
 
     expect(result.promoted).toBe(true);
     expect(fs.existsSync(path.join(target, "Old.ts"))).toBe(false);
-    expect(fs.readFileSync(path.join(target, "Button.tsx"), "utf-8")).toContain(
+    expect(fs.readFileSync(path.join(target, "button.tsx"), "utf-8")).toContain(
       "function Button",
     );
   });

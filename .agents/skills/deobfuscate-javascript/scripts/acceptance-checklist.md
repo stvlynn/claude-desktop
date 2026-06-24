@@ -72,10 +72,11 @@ A failure in any of the following is a `NEEDS_FIX:naming` finding.
   known to be `Spinner`, the consumer must import it as `Spinner` (a named
   re-export alias is acceptable when collision-avoidance forces it, but
   `ot` is not).
-- Public final file and directory names are semantic and do not retain source
-  hash suffixes. `Button.tsx` or `button/index.ts` is acceptable;
-  `button-bq66r8jD/Button.tsx` is not final output. Hashes belong in
-  provenance headers and import maps/reports.
+- Public final file and directory names are semantic, kebab-case, and do not
+  retain source hash suffixes (React component identifiers stay PascalCase:
+  `button.tsx` exports `Button`). `button.tsx` or `button/index.ts` is
+  acceptable; `Button.tsx` or `button-bq66r8jD/Button.tsx` is not final output.
+  Hashes belong in provenance headers and import maps/reports.
 
 ### B2 — Readability (idiomatic TSX)
 
