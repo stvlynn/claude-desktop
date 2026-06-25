@@ -253,4 +253,74 @@ describe("semantic-finalize", () => {
     expect(out).not.toContain("ImportedBinding34");
     parseModule(out);
   });
+
+  test("deduplicates identical import specifiers after rewrite", () => {
+    const source = [
+      `import { a as ImportedBinding1, b as ImportedBinding2 } from "./producer-AbCdEf12";`,
+      `export const value = [ImportedBinding1, ImportedBinding2];`,
+    ].join("\n");
+    const out = rewriteSemanticImports(source, [
+      {
+        source: "./producer-AbCdEf12.js",
+        to: "./producer",
+        exports: {
+          a: "sameName",
+          b: "sameName",
+          ImportedBinding1: "sameName",
+          ImportedBinding2: "sameName",
+        },
+      },
+    ]);
+
+    expect(out).toContain('import { sameName } from "./producer"');
+    const importLine = out
+      .split("\n")
+      .find((line) => line.startsWith("import "));
+    expect(importLine).not.toContain("sameName, sameName");
+    expect(out).toContain("export const value = [sameName, sameName]");
+    parseModule(out);
+  });
+
+  test("rewrites dynamic import sources to semantic producer paths", () => {
+    const source = [
+      `export async function loadKatex() {`,
+      `  const { default: render } = await import("./katex-DZmv-8PO.js");`,
+      `  return render;`,
+      `}`,
+    ].join("\n");
+    const out = rewriteSemanticImports(source, [
+      {
+        source: "./katex-DZmv-8PO.js",
+        to: "../utils/katex",
+        exports: { default: "default" },
+      },
+    ]);
+
+    expect(out).toContain('import("../utils/katex")');
+    expect(out).not.toContain("katex-DZmv-8PO");
+    parseModule(out);
+  });
+
+  test("keeps import aliases when a replacement local name already exists", () => {
+    const source = [
+      `import { first as value, second } from "./producer-AbCdEf12";`,
+      `export const pair = [value, second];`,
+    ].join("\n");
+    const out = rewriteSemanticImports(source, [
+      {
+        source: "./producer-AbCdEf12.js",
+        to: "./producer",
+        exports: {
+          first: "semanticFirst",
+          second: "value",
+        },
+      },
+    ]);
+
+    expect(out).toContain(
+      'import { semanticFirst as value, value as second } from "./producer"',
+    );
+    expect(out).toContain("export const pair = [value, second]");
+    parseModule(out);
+  });
 });

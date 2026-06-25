@@ -616,8 +616,18 @@ function specifierName(node: t.ImportSpecifier["imported"]): string {
   return t.isIdentifier(node) ? node.name : node.value;
 }
 
+function importKey(source: string): string {
+  return source
+    .replace(/^\.\//, "")
+    .replace(/\.[cm]?[jt]sx?$/i, "");
+}
+
 function sourceMatches(actual: string, expected: string): boolean {
-  return actual === expected || actual.endsWith(expected.replace(/^\.\//, "/"));
+  return (
+    actual === expected ||
+    actual.endsWith(expected.replace(/^\.\//, "/")) ||
+    importKey(actual) === importKey(expected)
+  );
 }
 
 function isCrypticAlias(name: string): boolean {
@@ -626,6 +636,29 @@ function isCrypticAlias(name: string): boolean {
 
 function isGeneratedAlias(name: string): boolean {
   return /^ImportedBinding\d+$/.test(name);
+}
+
+function sameImportBindingCanBeReused(
+  binding: ReturnType<t.NodePath["scope"]["getBinding"]> | undefined,
+  importDeclaration: t.ImportDeclaration,
+  replacement: string,
+): boolean {
+  const bindingNode = binding?.path.node;
+  return (
+    t.isImportSpecifier(bindingNode) &&
+    binding?.path.parent === importDeclaration &&
+    specifierName(bindingNode.imported) === replacement &&
+    bindingNode.local.name === replacement
+  );
+}
+
+function rewriteBindingReferences(
+  binding: ReturnType<t.NodePath["scope"]["getBinding"]> | undefined,
+  replacement: string,
+): void {
+  for (const ref of binding?.referencePaths ?? []) {
+    ref.replaceWith(t.identifier(replacement));
+  }
 }
 
 export function rewriteSemanticImports(
@@ -654,15 +687,49 @@ export function rewriteSemanticImports(
           isCrypticAlias(oldLocalName) ||
           isGeneratedAlias(oldLocalName)
         ) {
-          if (
-            oldLocalName !== replacement &&
-            !path.scope.hasBinding(replacement)
-          ) {
+          if (oldLocalName === replacement) {
+            spec.local = t.identifier(replacement);
+          } else if (!path.scope.hasBinding(replacement)) {
             path.scope.rename(oldLocalName, replacement);
+            spec.local = t.identifier(replacement);
+          } else if (
+            sameImportBindingCanBeReused(
+              path.scope.getBinding(replacement),
+              path.node,
+              replacement,
+            )
+          ) {
+            rewriteBindingReferences(
+              path.scope.getBinding(oldLocalName),
+              replacement,
+            );
+            spec.local = t.identifier(replacement);
           }
-          spec.local = t.identifier(replacement);
         }
       }
+      const seen = new Set<string>();
+      path.node.specifiers = path.node.specifiers.filter((spec) => {
+        if (!t.isImportSpecifier(spec)) return true;
+        const key = `${specifierName(spec.imported)}:${spec.local.name}`;
+        if (seen.has(key)) return false;
+        seen.add(key);
+        return true;
+      });
+    },
+    CallExpression(path) {
+      if (
+        path.node.callee.type !== "Import" ||
+        path.node.arguments.length !== 1
+      ) {
+        return;
+      }
+      const argument = path.node.arguments[0];
+      if (!t.isStringLiteral(argument)) return;
+      const mapping = mappings.find((item) =>
+        sourceMatches(argument.value, item.source),
+      );
+      if (!mapping?.to) return;
+      argument.value = mapping.to;
     },
   });
   return printNode(ast);

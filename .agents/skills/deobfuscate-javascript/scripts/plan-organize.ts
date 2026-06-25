@@ -182,6 +182,16 @@ function isThemeData(source: string): boolean {
   );
 }
 
+function isKnownBundledDiagramRuntimeChunk(basename: string): boolean {
+  const normalized = basename.toLowerCase();
+  return (
+    /^chunk-(?:55iaceb6|qn33pnhl|extu4wie)(?:-|$)/.test(normalized) ||
+    /^(?:cose-bilkent|quadrantdiagram|sankeydiagram|timeline-definition)(?:-|$)/.test(
+      normalized,
+    )
+  );
+}
+
 function matchDomain(
   domainMap: Record<string, string>,
   stem: string,
@@ -269,7 +279,22 @@ function classify(
     });
   }
 
-  // 3) Shape: icon or button (reuse semanticFinalize's detection).
+  // 3) Bundled third-party diagram/runtime chunks: these are not app utilities,
+  //    even when they happen to expose one symbol in the bundle graph.
+  if (isKnownBundledDiagramRuntimeChunk(basename)) {
+    const name = kebabCase(stem) || "diagram-runtime";
+    return mk({
+      domain: "vendor",
+      semanticPath: `vendor/${name}.ts`,
+      recipe: "manual",
+      classification: "vendor-runtime",
+      status: "approved",
+      confidence: 0.75,
+      reason: "bundled third-party diagram/runtime module",
+    });
+  }
+
+  // 4) Shape: icon or button (reuse semanticFinalize's detection).
   const source = ctx.readCheckpoint?.(basename) ?? null;
   if (source) {
     const shape = detectShape(source, basename);
@@ -335,7 +360,7 @@ function classify(
     }
   }
 
-  // 4) Single-export utility → utils/<kebab>.ts (kebab file; the export keeps its
+  // 5) Single-export utility → utils/<kebab>.ts (kebab file; the export keeps its
   //    own camelCase/PascalCase identifier — the gate requires kebab filenames).
   if (exportCount === 1) {
     const name = kebabCase(stem) || "restored";
@@ -350,7 +375,7 @@ function classify(
     });
   }
 
-  // 5) Optional external domain map (project profile may supply one).
+  // 6) Optional external domain map (project profile may supply one).
   if (ctx.domainMap) {
     const domain = matchDomain(ctx.domainMap, stem);
     if (domain) {
@@ -366,7 +391,7 @@ function classify(
     }
   }
 
-  // 6) App-feature / ambiguous: a generic planner can't pick the domain.
+  // 7) App-feature / ambiguous: a generic planner can't pick the domain.
   return mk({
     domain: "",
     semanticPath: "",

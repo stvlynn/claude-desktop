@@ -223,6 +223,33 @@ describe("planOrganize (shape heuristics)", () => {
     expect(e.reason).toContain("make-facade");
   });
 
+  test("bundled diagram/runtime chunks → vendor runtime modules", () => {
+    const m = makeManifest([
+      file({
+        basename: "cose-bilkent-S5V4N54A-BlVTOsyx",
+        exports: [{ exported: "render", local: "m", kind: "named" }],
+      }),
+      file({
+        basename: "quadrantDiagram-AYHSOK5B-WVcJzsPP",
+        exports: [{ exported: "diagram", local: "ee", kind: "named" }],
+      }),
+      file({
+        basename: "chunk-QN33PNHL-DvZPbBsU",
+        exports: [{ exported: "t", local: "r", kind: "named" }],
+      }),
+    ]);
+    const p = planOrganize({ manifest: m, target: "restored" });
+
+    for (const basename of Object.keys(m.files)) {
+      const e = p.entries[basename]!;
+      expect(e.domain).toBe("vendor");
+      expect(e.classification).toBe("vendor-runtime");
+      expect(e.status).toBe("approved");
+      expect(e.reason).toContain("diagram/runtime");
+      expect(e.semanticPath).toStartWith("vendor/");
+    }
+  });
+
   test("an ambiguous app-feature chunk → needs-review with no domain", () => {
     const e = plan.entries["mystery-panel-Rs9tUv01"]!;
     expect(e.classification).toBe("app-feature");

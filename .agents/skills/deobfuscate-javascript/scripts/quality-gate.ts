@@ -271,13 +271,16 @@ const KNOWN_GLOBAL_IDENTIFIERS = new Set([
   "ClipboardItem",
   "ClipboardEvent",
   "CompositionEvent",
+  "CompressionStream",
   "CustomEvent",
   "DOMException",
+  "DOMMatrix",
   "DOMParser",
   "DOMRect",
   "DOMRectReadOnly",
   "DataView",
   "Date",
+  "DecompressionStream",
   "Document",
   "DragEvent",
   "EdgeRuntime",
@@ -312,6 +315,8 @@ const KNOWN_GLOBAL_IDENTIFIERS = new Set([
   "Headers",
   "Infinity",
   "Image",
+  "ImageData",
+  "ImageDecoder",
   "InputEvent",
   "Int16Array",
   "Int32Array",
@@ -336,8 +341,10 @@ const KNOWN_GLOBAL_IDENTIFIERS = new Set([
   "Notification",
   "Object",
   "OffscreenCanvas",
+  "Option",
   "PerformanceEventTiming",
   "PerformanceObserver",
+  "Path2D",
   "PointerEvent",
   "Promise",
   "Proxy",
@@ -349,6 +356,7 @@ const KNOWN_GLOBAL_IDENTIFIERS = new Set([
   "Request",
   "ResizeObserver",
   "Response",
+  "ReadableStream",
   "SVGAElement",
   "SVGElement",
   "SVGSVGElement",
@@ -377,6 +385,7 @@ const KNOWN_GLOBAL_IDENTIFIERS = new Set([
   "WeakRef",
   "WeakSet",
   "WebAssembly",
+  "WebKitCSSMatrix",
   "WebKitMutationObserver",
   "WebSocket",
   "WheelEvent",
@@ -389,6 +398,7 @@ const KNOWN_GLOBAL_IDENTIFIERS = new Set([
   "__SENTRY_TRACING__",
   "__dirname",
   "__filename",
+  "__webpack_nonce__",
   "addEventListener",
   "alert",
   "arguments",
@@ -397,10 +407,12 @@ const KNOWN_GLOBAL_IDENTIFIERS = new Set([
   "cancelAnimationFrame",
   "caches",
   "clearInterval",
+  "clearImmediate",
   "clearTimeout",
   "console",
   "crypto",
   "customElements",
+  "createImageBitmap",
   "decodeURI",
   "decodeURIComponent",
   "define",
@@ -427,6 +439,7 @@ const KNOWN_GLOBAL_IDENTIFIERS = new Set([
   "prompt",
   "queueMicrotask",
   "requestAnimationFrame",
+  "screen",
   "require",
   "self",
   "sessionStorage",
@@ -1720,7 +1733,6 @@ export function analyzeSource(
   const shortIdentifierOffenders = countShortIdentifiers(source).filter(
     (item) => item.count > options.maxShortRefCount,
   );
-  const residueMatches = collectResidueMatches(source);
   const hasProvenanceHeader = hasRestorationProvenanceHeader(source);
   const duplicateProvenanceHeaders = Math.max(
     0,
@@ -1729,13 +1741,16 @@ export function analyzeSource(
   // A faithful vendored module or a generated boundary facade is code we
   // deliberately did not rewrite — relax the semantic-naming/typing/split
   // checks that would false-positive on a package's own short API names or a
-  // wall of `any` stubs. Faithfulness checks (provenance, residue, checkpoint
-  // imports, unbound refs, JSX sanity) still apply.
+  // wall of `any` stubs. Faithfulness checks (provenance, non-JSX-runtime
+  // residue, checkpoint imports, unbound refs, JSX sanity) still apply.
   const vendored =
     options.vendored ||
     isGeneratedFacade(source) ||
     isLegacyVendoredBoundaryFacade(source) ||
     isVendoredDataModule(file, source);
+  const residueMatches = collectResidueMatches(source).filter(
+    (label) => !(vendored && label === "JSX runtime import/call residue"),
+  );
   const checkSplit =
     !options.allowFlat &&
     !vendored &&
@@ -1807,7 +1822,7 @@ export function analyzeSource(
       detail: mechanicalNames,
     });
   }
-  if (astFacts.duplicateImportNames.length > 0) {
+  if (!vendored && astFacts.duplicateImportNames.length > 0) {
     issues.push({
       code: "duplicate-imported-names",
       message:

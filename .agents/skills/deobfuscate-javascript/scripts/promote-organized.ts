@@ -120,6 +120,7 @@ export function buildImportMappings(
   semanticPath: string,
   importMap: ImportMap,
   manifest?: Manifest,
+  consumerRenames?: Record<string, string>,
 ): SemanticImportMapping[] {
   const mappings: SemanticImportMapping[] = [];
   for (const imp of chunk.imports ?? []) {
@@ -134,16 +135,77 @@ export function buildImportMappings(
       });
       continue;
     }
+    if (target?.kind === "npm-leaf" && target.npmPackage) {
+      const exports = npmLeafExports(target.npmPackage);
+      addRenamedImportAliases(exports, imp, consumerRenames);
+      mappings.push({
+        source: imp.source,
+        to: target.npmPackage,
+        exports,
+      });
+      continue;
+    }
     if (imp.kind !== "local") continue;
     const producer = importMap.chunks?.[imp.target];
     if (!producer?.restored || producer.status !== "done") continue;
+    const exports = { ...(producer.exports ?? {}) };
+    addRenamedImportAliases(exports, imp, consumerRenames);
     mappings.push({
       source: imp.source,
       to: relativeImport(semanticPath, producer.restored),
-      exports: producer.exports ?? {},
+      exports,
     });
   }
   return mappings;
+}
+
+function npmLeafExports(npmPackage: string): Record<string, string> {
+  if (npmPackage === "tslib") {
+    return {
+      a: "__rest",
+      i: "__generator",
+      n: "__awaiter",
+      o: "__spreadArray",
+      r: "__extends",
+      t: "__assign",
+    };
+  }
+  return {};
+}
+
+function addRenamedImportAliases(
+  exports: Record<string, string>,
+  imp: NonNullable<ManifestFile["imports"]>[number],
+  consumerRenames?: Record<string, string>,
+): void {
+  for (const spec of imp.specifiers ?? []) {
+    if (spec.kind !== "named") continue;
+    const imported =
+      (spec as { imported?: string }).imported ??
+      (spec as { local?: string }).local;
+    const local = (spec as { local?: string }).local;
+    if (!imported || !local) continue;
+    const replacement = exports[imported];
+    if (!replacement) continue;
+    if (!exports[local]) exports[local] = replacement;
+    const renamed = firstAutoRenameForLocal(local, consumerRenames);
+    if (renamed && !exports[renamed]) exports[renamed] = replacement;
+  }
+}
+
+function firstAutoRenameForLocal(
+  local: string,
+  consumerRenames?: Record<string, string>,
+): string | null {
+  let best: { offset: number; renamed: string } | null = null;
+  for (const [key, renamed] of Object.entries(consumerRenames ?? {})) {
+    const [name, rawOffset] = key.split("@");
+    if (name !== local) continue;
+    const offset = Number(rawOffset);
+    if (!Number.isFinite(offset)) continue;
+    if (!best || offset < best.offset) best = { offset, renamed };
+  }
+  return best?.renamed ?? null;
 }
 
 type Built = {
@@ -292,11 +354,16 @@ function buildCandidate(
   // not the manifest's absolute path — that's what the gate's header check expects.
   const sourcePath = repoRelativeSourcePath(chunk.path, basename, args.rootDir);
   const description = `${basename} chunk restored from the Codex webview bundle.`;
+  const consumerRenames =
+    readJson<Record<string, string>>(
+      path.join(fullDir, "files", basename, "auto-renames.json"),
+    ) ?? {};
   const mappings = buildImportMappings(
     chunk,
     semanticPath,
     args.importMap,
     args.manifest,
+    consumerRenames,
   );
   const rewrite = (code: string) =>
     mappings.length > 0 ? rewriteSemanticImports(code, mappings) : code;
@@ -357,6 +424,7 @@ function buildCandidate(
         relPath,
         args.importMap,
         args.manifest,
+        consumerRenames,
       );
       const code =
         perFileMappings.length > 0

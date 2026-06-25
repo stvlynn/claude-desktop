@@ -957,6 +957,24 @@ export function __rest(value) {
     expect(report.residueMatches).toEqual([]);
   });
 
+  test("bundle residue check allows JSX runtime residue for vendored modules", () => {
+    const source = `
+      import { t as runtimeFactory } from "react/jsx-runtime";
+      const runtimeValue = runtimeFactory();
+      export const DotLottieWorkerReact = () => runtimeValue.jsx("canvas", {});
+    `;
+    const report = analyzeSource(source, "vendor/dotlottie-react.tsx", {
+      ...DEFAULT_OPTIONS,
+      allowFlat: true,
+      allowMechanicalNames: true,
+      vendored: true,
+    });
+    expect(report.residueMatches).toEqual([]);
+    expect(report.issues.map((issue) => issue.code)).not.toContain(
+      "bundle-residue",
+    );
+  });
+
   test("requires a split for large flat deliverables", () => {
     const source = [
       `export function Root() { return <div />; }`,

@@ -240,6 +240,109 @@ describe("relativeImport / buildImportMappings", () => {
     expect(mappings[0]!.exports).toEqual({ t: "doA" });
   });
 
+  test("buildImportMappings maps auto-renamed imported bindings", () => {
+    const chunk: ManifestFile = {
+      basename: "consumer-Aa11Bb22",
+      kind: "local",
+      depth: 0,
+      stages: {},
+      owner: null,
+      claimedAt: null,
+      lastUpdated: null,
+      imports: [
+        {
+          source: "./callback-BhdA_NIt.js",
+          target: "callback-BhdA_NIt",
+          kind: "local",
+          specifiers: [
+            {
+              imported: "n",
+              local: "e",
+              kind: "named",
+            },
+          ],
+          reExport: false,
+        },
+      ],
+    };
+    const mappings = buildImportMappings(
+      chunk,
+      "vendor/auto-track.ts",
+      {
+        chunks: {
+          "callback-BhdA_NIt": {
+            restored: "utils/callback.ts",
+            status: "done",
+            exports: { n: "withTimeout" },
+          },
+        },
+      },
+      undefined,
+      { "e@14": "callbackN" },
+    );
+
+    expect(mappings[0]!.to).toBe("../utils/callback");
+    expect(mappings[0]!.exports).toEqual({
+      n: "withTimeout",
+      e: "withTimeout",
+      callbackN: "withTimeout",
+    });
+  });
+
+  test("buildImportMappings rewrites known npm leaves to bare helper imports", () => {
+    const chunk: ManifestFile = {
+      basename: "async-helper-Aa11Bb22",
+      kind: "local",
+      depth: 0,
+      stages: {},
+      owner: null,
+      claimedAt: null,
+      lastUpdated: null,
+      imports: [
+        {
+          source: "./tslib.es6-dbdzpGto.js",
+          target: "tslib.es6-dbdzpGto",
+          kind: "npm-leaf",
+          npmPackage: "tslib",
+          specifiers: [
+            {
+              imported: "n",
+              local: "t",
+              kind: "named",
+            },
+          ],
+          reExport: false,
+        },
+      ],
+    };
+    const manifest = {
+      files: {
+        "tslib.es6-dbdzpGto": {
+          basename: "tslib.es6-dbdzpGto",
+          kind: "npm-leaf",
+          npmPackage: "tslib",
+          depth: 1,
+          stages: { skipped: true },
+          owner: null,
+          claimedAt: null,
+          lastUpdated: null,
+        },
+      },
+    } as unknown as import("./build-import-graph.ts").Manifest;
+    const mappings = buildImportMappings(
+      chunk,
+      "vendor/remote-middleware.ts",
+      { chunks: {} },
+      manifest,
+      { "t@14": "remoteMiddlewareImport2" },
+    );
+
+    expect(mappings[0]!.to).toBe("tslib");
+    expect(mappings[0]!.exports.n).toBe("__awaiter");
+    expect(mappings[0]!.exports.t).toBe("__assign");
+    expect(mappings[0]!.exports.remoteMiddlewareImport2).toBe("__awaiter");
+  });
+
   test("buildImportMappings rewrites vendor-data imports to the bare specifier", () => {
     const chunk: ManifestFile = {
       basename: "highlighter-Aa11Bb22",
