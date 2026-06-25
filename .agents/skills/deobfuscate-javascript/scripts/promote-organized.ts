@@ -26,6 +26,7 @@ import {
   DEFAULT_OPTIONS,
   type QualityGateOptions,
 } from "./quality-gate.ts";
+import { formatPath } from "./format.ts";
 import { Progress } from "./progress.ts";
 
 const traverse = ((
@@ -416,6 +417,16 @@ export function promoteOrganized(
       const dest = path.join(opts.target, f.relPath);
       fs.mkdirSync(path.dirname(dest), { recursive: true });
       fs.writeFileSync(dest, f.code);
+      // Format every deliverable with prettier BEFORE it is gated and copied,
+      // so promoted files in restored/ are never raw @babel/generator output
+      // (no blank lines, 400-char lines, multi-line JSX returns without parens).
+      // Degrades gracefully when prettier is unavailable (format.ts probes it).
+      if (/\.(tsx?|jsx?|mjs|cjs)$/.test(dest)) {
+        const fmt = formatPath(dest);
+        if (!fmt.ok && fmt.stderr) {
+          log(`  prettier skipped for ${f.relPath}: ${fmt.stderr.trim()}`);
+        }
+      }
     }
   };
   const rollback = (promotionRoot: string): void => {

@@ -9,7 +9,10 @@ import {
   type OrganizationRecipe,
 } from "./build-import-graph.ts";
 import { pathsForTarget, setOrganization } from "./ledger.ts";
-import { isKnownTerminalBoundaryChunk } from "./chunk-classification.ts";
+import {
+  classifyBoundary,
+  isKnownTerminalBoundaryChunk,
+} from "./chunk-classification.ts";
 import { kebabCase, semanticFinalize } from "./semantic-finalize.ts";
 
 /**
@@ -180,9 +183,25 @@ function classify(
 
   // 2) Known vendor/runtime boundary → boundaries/, but NOT auto-promotable:
   //    a raw runtime checkpoint carries unresolved imports + bundler residue, so
-  //    it must be faced (make-facade.ts + ledger.ts mark-faced) or deep-restored,
-  //    not mechanically copied. Flag it for the agent rather than approving.
+  //    it must be re-exported (third-party npm), faced, or deep-restored — not
+  //    mechanically copied. Flag it for the agent rather than approving.
   if (isKnownTerminalBoundaryChunk(basename, ctx.importChunk ?? {})) {
+    const boundary = classifyBoundary(basename, ctx.importChunk ?? {});
+    if (boundary.kind === "vendor-npm") {
+      const spec = boundary.specifier ?? "<npm-specifier>";
+      return mk({
+        domain: "boundaries",
+        semanticPath: `boundaries/${kebabCase(stem)}.ts`,
+        recipe: "manual",
+        classification: "vendor-npm",
+        status: "needs-review",
+        confidence: 0.4,
+        reason:
+          `third-party npm boundary — convert to a bare re-export shim: ` +
+          `make-facade.ts <chunk> --reexport ${spec} ` +
+          `(verify it is stock, not a Codex fork, and the specifier resolves)`,
+      });
+    }
     return mk({
       domain: "boundaries",
       semanticPath: `boundaries/${kebabCase(stem)}.ts`,
@@ -191,7 +210,8 @@ function classify(
       status: "needs-review",
       confidence: 0.4,
       reason:
-        "vendor/runtime boundary — face via make-facade.ts + ledger.ts mark-faced, or deep-restore; do not promote the raw checkpoint",
+        "app/host runtime boundary — keep the typed facade (make-facade.ts) or " +
+        "make-facade.ts --passthrough for a runnable interim; deep-restore to move it out of boundaries/",
     });
   }
 

@@ -161,10 +161,38 @@ asset-like chunk as a feature module:
   `src` chunk literally exports `in`), then `ledger.ts mark-faced <basename>`
   (which refuses app-entry basenames without `--force`) so the chunk's many
   consumers stop waiting on it and become restorable. Record the alias map under
-  `dependencyBoundaryFacades` in the project IMPORT_MAP. The **only** vendor/runtime
-  chunks that warrant a facade in this repo: the Zod `src-*` chunk (300+ exports),
-  the React/react-query `app-scope` layer, the `vscode-api`/host bridge, and the
-  Statsig SDK.
+  `dependencyBoundaryFacades` in the project IMPORT_MAP. The vendor/runtime
+  chunks that warrant a typed **`any`-facade** in this repo are the genuine app/host
+  runtime: the React/react-query `app-scope` layer, the `vscode-api`/host bridge,
+  the Codex `rpc`/`host-config`/`product-logger`/persisted-signal runtime — and the
+  app is made runnable before they are restored via `make-facade.ts --passthrough`
+  (re-exports the original ref chunk under `@ts-nocheck` + `// TODO`).
+
+### Bundled third-party packages — resolve to bare re-exports, not facades
+
+Many Codex boundary chunks are stock npm packages the bundler renamed after an
+internal module (`isEqual-*`, `lib-*`, `single-value-*`, `chunk-XXXX-*`), so
+`CHUNK_NAME_REGISTRY`'s stem match misses them. Once identified, the deliverable is
+a **bare re-export shim** (`make-facade.ts <chunk> --reexport <specifier>`), not an
+`any`-facade — `boundaries/highlight-js-core.ts` is the model. The map seen in this
+repo (record the package in IMPORT_MAP `vendor`; `classifyBoundary()` reads it):
+
+| Boundary file (chunk) | npm specifier | notes |
+| --- | --- | --- |
+| `lodash.ts` (`isEqual-*`) | `lodash` | named/star re-export |
+| `react-router.ts` (`chunk-LFPYN7LY-*`) | `react-router` | |
+| `formatjs.ts` (`lib-BWT6A3Q0`) | `react-intl` | consumers import `useIntl`/`FormattedMessage` |
+| `motion.ts` (`single-value-*`) | `framer-motion` | |
+| `markdown-ast.ts` (`lib-CqEvD6Nn`) | `mdast-util-*` | confirm the exact util |
+| `parse-patch-files.ts` (`parsePatchFiles-*`) | `@pierre/diffs` | **forked** — see Pierre note; keep wrapper if it diverges |
+| `src.ts` (`src-*`) | `zod` | verify it is stock Zod, not a fork |
+| `analytics.ts` (`pkg-*`) | `@segment/analytics-next` | Segment browser SDK |
+| `radix-*.ts` (`dist-*`, `Combination-*`) | `@radix-ui/react-*` | per-primitive; **may be forked** |
+
+**Fork caveat:** `@pierre/*`, `@radix-ui/*`, and `zod`(`src`) may be Codex forks, not
+stock npm. Before swapping to a bare specifier, confirm the export surface matches
+stock and the specifier resolves in `ref/node_modules`; for a confirmed fork keep the
+forked wrapper and boundary-ize it (`quality-gate.ts --vendored`).
 
 ## Semantic rewrite playbook
 

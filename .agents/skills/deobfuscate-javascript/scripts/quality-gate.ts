@@ -5,10 +5,12 @@ import babelTraverse from "@babel/traverse";
 import * as t from "@babel/types";
 import { extractSymbols, parseSource, type SymbolEntry } from "./extract.ts";
 import {
+  classifyBoundary,
   isKnownTerminalBoundaryChunk,
   isLikelyAppChunk,
   JS_GLOBALS,
 } from "./chunk-classification.ts";
+import { formatPath } from "./format.ts";
 
 const traverse = ((
   babelTraverse as unknown as { default?: typeof babelTraverse }
@@ -2017,6 +2019,51 @@ function emptyReport(
   };
 }
 
+/**
+ * Run `prettier --check` once over the whole input and turn every unformatted
+ * file into a gate issue. A single invocation (vs per-file) keeps the check
+ * cheap on a large tree. Degrades gracefully when prettier is unavailable —
+ * we cannot positively identify unformatted files, so we soft-skip rather than
+ * fail the gate on a missing toolchain.
+ */
+export function checkFormatting(
+  input: string,
+  runCheck: (p: string) => { ok: boolean; stdout: string; stderr: string } = (
+    p,
+  ) => formatPath(p, { check: true }),
+): FileQualityReport[] {
+  const res = runCheck(input);
+  if (res.ok) return []; // everything is prettier-clean
+  const combined = `${res.stdout}\n${res.stderr}`;
+  // prettier --check prints `[warn] <path>` per unformatted file, plus a
+  // `[warn] Code style issues found in N files.` summary line we must exclude.
+  const offenders: string[] = [];
+  for (const line of combined.split("\n")) {
+    const m = line.match(/^\[warn\]\s+(.+?)\s*$/);
+    if (!m) continue;
+    const p = m[1]!;
+    if (/code style issues/i.test(p) || !SOURCE_EXT_RE.test(p)) continue;
+    offenders.push(p);
+  }
+  if (offenders.length === 0) {
+    // No file paths surfaced: prettier likely isn't installed/reachable.
+    // Soft-skip with a single advisory note (not a hard gate failure).
+    console.error(
+      `[quality-gate] prettier --check could not run (${(res.stderr || res.stdout || "no output").trim().slice(0, 200)}); skipping format check`,
+    );
+    return [];
+  }
+  return offenders.map((file) =>
+    emptyReport(file, [
+      {
+        code: "unformatted",
+        message:
+          "File is not prettier-formatted. Run scripts/format.ts on it (promotion formats deliverables automatically).",
+      },
+    ]),
+  );
+}
+
 function parseJsonFile<T>(filePath: string): T {
   return JSON.parse(fs.readFileSync(filePath, "utf-8")) as T;
 }
@@ -2432,6 +2479,8 @@ export function analyzeFullRestorationCoverage(
   const appFeatureBoundaries: string[] = [];
   const mechanicalAppFeatures: string[] = [];
   const unacceptedAppFeatures: string[] = [];
+  const npmResolvableFacades: Array<{ basename: string; specifier: string }> =
+    [];
   const targetInspectionIssues: QualityGateIssue[] = [];
 
   for (const [fallbackBasename, file] of manifestFiles(manifest)) {
@@ -2468,6 +2517,28 @@ export function analyzeFullRestorationCoverage(
       !hasStage3AcceptanceRecord(file, publicEntry)
     ) {
       unacceptedAppFeatures.push(basename);
+    }
+
+    // A boundary that IS a recognised third-party npm package should be a bare
+    // re-export shim, not a generated `any`-facade. Flag any still-`any` facade
+    // whose IMPORT_MAP `vendor` names a resolvable package.
+    if (isBoundaryLike && !isAppFeature) {
+      const boundary = classifyBoundary(basename, publicEntry);
+      if (boundary.kind === "vendor-npm") {
+        for (const target of publicTargetPaths(publicEntry)) {
+          const resolved = resolvePublicTarget(targetDir, target);
+          if (
+            fs.existsSync(resolved) &&
+            isGeneratedFacade(fs.readFileSync(resolved, "utf-8"))
+          ) {
+            npmResolvableFacades.push({
+              basename,
+              specifier: boundary.specifier ?? "<npm-specifier>",
+            });
+            break;
+          }
+        }
+      }
     }
 
     if (publicEntry.dependencyBoundary && !isAppFeature) continue;
@@ -2534,6 +2605,16 @@ export function analyzeFullRestorationCoverage(
       detail: appFeatureBoundaries.sort(),
     });
   }
+  if (npmResolvableFacades.length > 0) {
+    issues.push({
+      code: "full-restoration-npm-boundary-not-resolved",
+      message:
+        "Third-party npm boundaries must be bare re-export shims (make-facade.ts --reexport <specifier>), not `any`-facades",
+      detail: npmResolvableFacades.sort((a, b) =>
+        a.basename.localeCompare(b.basename),
+      ),
+    });
+  }
   if (mechanicalAppFeatures.length > 0) {
     issues.push({
       code: "full-restoration-mechanical-app-feature",
@@ -2583,7 +2664,7 @@ function printHumanReport(reports: FileQualityReport[]): void {
 }
 
 const USAGE =
-  "Usage: bun scripts/quality-gate.ts <file-or-dir> [--json] [--allow-flat] [--allow-mechanical-names] [--allow-missing-provenance] [--allow-untyped] [--vendored] [--allow-organize-incomplete] " +
+  "Usage: bun scripts/quality-gate.ts <file-or-dir> [--json] [--allow-flat] [--allow-mechanical-names] [--allow-missing-provenance] [--allow-untyped] [--vendored] [--allow-organize-incomplete] [--check-format] " +
   "[--max-cryptic-params N] [--max-cryptic-bindings N] " +
   "[--max-short-ref-count N] [--max-flat-lines N] [--max-flat-exports N]";
 
@@ -2614,6 +2695,7 @@ async function main(): Promise<void> {
         "allow-untyped": { type: "boolean", default: false },
         vendored: { type: "boolean", default: false },
         "allow-organize-incomplete": { type: "boolean", default: false },
+        "check-format": { type: "boolean", default: false },
         "max-cryptic-params": { type: "string" },
         "max-cryptic-bindings": { type: "string" },
         "max-short-ref-count": { type: "string" },
@@ -2689,6 +2771,9 @@ async function main(): Promise<void> {
       allowOrganizeIncomplete: values["allow-organize-incomplete"] ?? false,
     }),
   );
+  if (values["check-format"]) {
+    reports.push(...checkFormatting(input));
+  }
   if (values.json) {
     process.stdout.write(JSON.stringify(reports, null, 2) + "\n");
   } else {

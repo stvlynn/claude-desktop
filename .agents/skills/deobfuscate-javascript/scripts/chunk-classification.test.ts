@@ -2,6 +2,7 @@ import { describe, expect, test } from "bun:test";
 import * as fs from "node:fs";
 import * as path from "node:path";
 import {
+  classifyBoundary,
   classifyVendorDataChunk,
   isLikelyAppChunk,
   JS_GLOBALS,
@@ -98,5 +99,30 @@ describe("isLikelyAppChunk (unchanged behaviour)", () => {
   test("still treats app prefixes as app and vendor prefixes as not", () => {
     expect(isLikelyAppChunk("composer-AbCdEf12")).toBe(true);
     expect(isLikelyAppChunk("app-scope-AbCdEf12")).toBe(false);
+  });
+});
+
+describe("classifyBoundary", () => {
+  test("a recorded npm vendor → vendor-npm with a suggested specifier", () => {
+    expect(classifyBoundary("isEqual-XX", { vendor: "lodash" })).toEqual({
+      kind: "vendor-npm",
+      specifier: "lodash",
+    });
+    expect(classifyBoundary("lib-XX", { vendor: "formatjs" }).specifier).toBe(
+      "react-intl",
+    );
+  });
+
+  test("the literal runtime marker → vendor-runtime", () => {
+    expect(classifyBoundary("app-scope-XX", { vendor: "runtime" }).kind).toBe(
+      "vendor-runtime",
+    );
+    expect(classifyBoundary("vscode-api-XX", {}).kind).toBe("vendor-runtime");
+  });
+
+  test("radix chunks are vendor-npm even without a vendor field", () => {
+    expect(classifyBoundary("dist-XX", { note: "bundled Radix menu" }).kind).toBe(
+      "vendor-npm",
+    );
   });
 });

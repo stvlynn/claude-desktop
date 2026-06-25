@@ -6,6 +6,7 @@ import { spawnSync } from "node:child_process";
 import {
   analyzeFullRestorationCoverage,
   analyzeSource,
+  checkFormatting,
   collectBoundaryCheckpointImportFiles,
   DEFAULT_OPTIONS,
 } from "./quality-gate.ts";
@@ -1886,5 +1887,40 @@ describe("kebab filename gate", () => {
       vendored: true,
     }).issues.map((issue) => issue.code);
     expect(issues).not.toContain("non-kebab-filename");
+  });
+});
+
+describe("checkFormatting", () => {
+  test("flags each file prettier --check reports as unformatted", () => {
+    const fakeRun = () => ({
+      ok: false,
+      stdout:
+        "Checking formatting...\n[warn] restored/ui/button.tsx\n[warn] restored/ui/badge.tsx\n[warn] Code style issues found in 2 files. Run Prettier with --write to fix.\n",
+      stderr: "",
+    });
+    const reports = checkFormatting("restored", fakeRun);
+    expect(reports.map((r) => r.file)).toEqual([
+      "restored/ui/button.tsx",
+      "restored/ui/badge.tsx",
+    ]);
+    expect(reports.every((r) => r.issues[0]!.code === "unformatted")).toBe(true);
+  });
+
+  test("returns no issues when everything is prettier-clean", () => {
+    const reports = checkFormatting("restored", () => ({
+      ok: true,
+      stdout: "All matched files use Prettier code style!\n",
+      stderr: "",
+    }));
+    expect(reports).toEqual([]);
+  });
+
+  test("soft-skips (no failures) when prettier is unavailable", () => {
+    const reports = checkFormatting("restored", () => ({
+      ok: false,
+      stdout: "",
+      stderr: "bunx: prettier: command not found\n",
+    }));
+    expect(reports).toEqual([]);
   });
 });

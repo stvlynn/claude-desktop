@@ -52,9 +52,9 @@ vendor/data chunks in the extracted Codex.app tree.
      plan-organize.ts --target            →  propose a domain + kebab public path for every chunk (organize-plan.json)
      review/override the plan, then --apply  →  write approved entries into manifest.organization (stages.organized)
      promote-organized.ts --target --dry-run →  preview every move + gate verdict
-     promote-organized.ts --target           →  drain the promote frontier: build typed deliverable, gate, copy to restored/<domain>/, update IMPORT_MAP.json, rewrite imports, set stages.promoted
+     promote-organized.ts --target           →  drain the promote frontier: build typed deliverable, prettier-format it, gate, copy to restored/<domain>/, update IMPORT_MAP.json, rewrite imports, set stages.promoted
 5. Stage 3 acceptance review (deep mode): the host agent reads each delivered file end-to-end and reworks any `NEEDS_FIX` file until all pass (no sub-agent required; optional one for extra eyes).
-6. Final target audit (the completion proof): run `quality-gate.ts <target-dir>` over the whole public target. It now also fails the "checkpoints built but `restored/` empty" stall (`full-restoration-checkpoints-not-drained` / `-organize-incomplete`) and a public file left in a hash-named dir (`-public-file-in-hash-dir`), in addition to mechanical / `@ts-nocheck` / facade / placeholder app-feature chunks.
+6. Final target audit (the completion proof): run `quality-gate.ts <target-dir> --check-format` over the whole public target. It now also fails the "checkpoints built but `restored/` empty" stall (`full-restoration-checkpoints-not-drained` / `-organize-incomplete`), a public file left in a hash-named dir (`-public-file-in-hash-dir`), a third-party npm boundary still left as an `any`-facade (`full-restoration-npm-boundary-not-resolved`), and any unformatted file (`--check-format`), in addition to mechanical / `@ts-nocheck` / facade / placeholder app-feature chunks.
 ```
 
 **Completion definition (whole-tree).** The restore is done **iff** all three hold: `quality-gate.ts <target-dir>` exits 0 · every reachable local chunk has `stages.promoted` (deep mode also requires `stages.finalized`) · `ledger.ts frontier --stage promote --target <dir>` is empty. While checkpoints sit in `_full/checkpoints/` and `restored/` is empty, all three fail — so "mechanical checkpoint = done" is not a reachable state.
@@ -462,11 +462,12 @@ Before marking a file's `finalize` stage `done`, confirm:
 - [ ] Variant prop unions use `keyof typeof <table>` rather than hand-rolled string unions.
 - [ ] `displayName` set on every exported component; `forwardRef` recovered if the bundle had a ref shim.
 - [ ] Consumers import semantic producer names (`DownloadIcon`, `Button`, `ExpandIcon`) rather than bundle aliases (`t`, `n`), and split chunks import from semantic barrels.
-- [ ] Final `bun scripts/format.ts <file-or-dir>` pass run.
+- [ ] Final `bun scripts/format.ts <file-or-dir>` pass run (`promote-organized.ts` already formats each deliverable; this catches hand-edited files).
+- [ ] Every `boundaries/*.ts` is either a bare third-party re-export shim (`make-facade.ts --reexport`), a tracked runtime facade/passthrough, or already restored out of `boundaries/` — no third-party npm chunk left as an `any`-facade.
 - [ ] `scripts/promote-final.ts` or an equivalent gate-before-copy path promoted the candidate; no direct copy from `$WS`; Stage 3 acceptance still follows.
 - [ ] Final `bun scripts/quality-gate.ts <file-or-dir>` pass exits 0.
 - [ ] Stage 3 acceptance review passed every delivered file (host self-review, or an optional sub-agent).
-- [ ] Final target-level `bun scripts/quality-gate.ts <target-dir>` pass exits 0 after acceptance; no boundary-only or import-map-status-only substitute.
+- [ ] Final target-level `bun scripts/quality-gate.ts <target-dir> --check-format` pass exits 0 after acceptance; no boundary-only or import-map-status-only substitute.
 
 ## Locking & parallelism rules
 

@@ -215,3 +215,57 @@ export function isKnownTerminalBoundaryChunk(
 function hasChunkPrefix(basename: string, prefix: string): boolean {
   return basename === prefix || basename.startsWith(`${prefix}-`);
 }
+
+/**
+ * A boundary chunk is one of two kinds:
+ *   vendor-npm     — a recognised third-party package. The deliverable is a thin
+ *                    bare re-export shim (`make-facade --reexport <specifier>`);
+ *                    it resolves to real `@types` and is DONE.
+ *   vendor-runtime — genuine app/host runtime (app-scope, vscode bridge, rpc…).
+ *                    Stays a typed facade or an opt-in ref-passthrough until it is
+ *                    deep-restored OUT of boundaries/.
+ *
+ * The `vendor` field recorded in IMPORT_MAP is the primary signal: anything other
+ * than the literal "runtime" marker names a real npm family.
+ */
+export type BoundaryKind = "vendor-npm" | "vendor-runtime";
+
+/**
+ * Vendor 'family' (as recorded in IMPORT_MAP `vendor`) → the npm specifier a
+ * re-export shim should point at. Identity where the family already is the
+ * package; a representative entry-point where it is a family the agent confirms.
+ * Treat as a hint — verify the bundled chunk is stock (not a Codex fork) and the
+ * specifier resolves before relying on it.
+ */
+export const VENDOR_NPM_SPECIFIERS: Record<string, string> = {
+  lodash: "lodash",
+  "react-router": "react-router",
+  formatjs: "react-intl",
+  "react-intl": "react-intl",
+  "mdast-util": "mdast-util-to-markdown",
+  mdast: "mdast-util-to-markdown",
+  "@pierre/diffs": "@pierre/diffs",
+  zod: "zod",
+  "framer-motion": "framer-motion",
+  motion: "framer-motion",
+  analytics: "@segment/analytics-next",
+  segment: "@segment/analytics-next",
+  // @radix-ui resolves per-primitive (@radix-ui/react-menu, …) — agent picks.
+};
+
+export function classifyBoundary(
+  basename: string,
+  hint: ChunkClassificationHint = {},
+): { kind: BoundaryKind; specifier?: string } {
+  const vendor = (hint.vendor ?? "").toLowerCase().trim();
+  if (vendor && vendor !== "runtime") {
+    return { kind: "vendor-npm", specifier: VENDOR_NPM_SPECIFIERS[vendor] };
+  }
+  const text =
+    `${hint.note ?? ""} ${hint.restored ?? ""} ${hint.dependencyBoundary ?? ""}`.toLowerCase();
+  // Radix primitives are bundled @radix-ui even when no vendor field is set.
+  if (/\bradix\b/.test(text) || /radix/.test(basename.toLowerCase())) {
+    return { kind: "vendor-npm" };
+  }
+  return { kind: "vendor-runtime" };
+}

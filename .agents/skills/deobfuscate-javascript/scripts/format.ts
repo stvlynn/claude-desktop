@@ -54,15 +54,27 @@ export function formatPath(targetPath: string, opts: FormatOptions = {}): Format
         ? path.join(targetPath, opts.glob)
         : targetPath;
 
-  const args = [
-    "prettier",
+  const prettierArgs = [
     opts.check ? "--check" : "--write",
     "--no-error-on-unmatched-pattern",
+    // Prettier 3 honours `.gitignore` by default. Restore deliverables routinely
+    // live under a gitignored tree (e.g. a repo that gitignores `restored/`), so
+    // the default would SILENTLY skip every file we mean to format. Pin the ignore
+    // path to `.prettierignore` only — a missing file is treated as empty, and a
+    // real `.prettierignore` is still honoured.
+    "--ignore-path",
+    ".prettierignore",
     target,
   ];
 
-  // Prefer `bunx` when available (caches packages aggressively), fall back to `npx`.
-  const runner = which("bunx") ? "bunx" : "npx";
+  // Prefer a `prettier` already on PATH (no network fetch, works offline); fall
+  // back to `bunx`, then `npx`, which fetch the package on demand.
+  const direct = which("prettier");
+  const [runner, args] = direct
+    ? [direct, prettierArgs]
+    : which("bunx")
+      ? ["bunx", ["prettier", ...prettierArgs]]
+      : ["npx", ["prettier", ...prettierArgs]];
   const command = `${runner} ${args.join(" ")}`;
   const res = spawnSync(runner, args, { encoding: "utf-8" });
   return {

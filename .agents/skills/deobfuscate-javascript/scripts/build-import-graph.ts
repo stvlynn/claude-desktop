@@ -80,6 +80,7 @@ export type OrganizationClassification =
   | "app-feature"
   | "icon"
   | "single-util"
+  | "vendor-npm"
   | "vendor-runtime"
   | "boundary";
 export type OrganizationInfo = {

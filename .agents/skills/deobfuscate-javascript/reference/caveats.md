@@ -50,6 +50,12 @@ Each Stage 1 step has an *input shape* the previous step produced. Running them 
 - **Sourcemap comments survive polish**: a dangling `//# sourceMappingURL=…` will pass through to the output. Delete by hand or post-process with `sed`/`prettier` if needed.
 - **Dead Vite/Rollup runtime stubs survive polish**: after `jsx-runtime` un-transform and `strip-react-compiler`, lines like `var jsxRuntime = requireJsxRuntime();`, `var react = requireReact();` and `toESM(requireReact());` may become unreferenced. The skill does not auto-delete them because static side-effect analysis isn't reliable on arbitrary calls — confirm and remove by hand.
 
+## Formatting
+
+- **Prettier 3 honours `.gitignore` by default — and restore deliverables are often gitignored.** Many projects gitignore the whole restore root (this repo gitignores `restored/` and `ref/`). Because Prettier 3 defaults `--ignore-path` to `[".gitignore", ".prettierignore"]`, a plain `prettier --write restored/` (or `bunx prettier`) **silently skips every file** and reports "All matched files use Prettier code style!" — the classic "format ran, changed nothing, looks done" trap. `scripts/format.ts` pins `--ignore-path .prettierignore` so `.gitignore` is bypassed; if you ever invoke prettier directly on a deliverable, pass the same flag. Symptom of the bug: a deliverable with 400-char lines and un-parenthesized multi-line JSX returns that prettier insists is already clean — copy it outside the gitignored tree and `prettier --check` will flag it.
+- **`promote-organized.ts` formats each deliverable as it lands** (via `format.ts`), so promoted files in `restored/` are never raw `@babel/generator` output (un-wrapped lines, no blank lines, `return <jsx>…</jsx>;` without parens). The multi-line-JSX-return-without-parens shape compiles, but prettier wraps it in `return ( … )` — run formatting rather than hand-inserting parens.
+- **`quality-gate.ts --check-format`** runs `prettier --check` (same `.gitignore` bypass) and fails unformatted files; it soft-skips with a stderr note when prettier is unreachable. `format.ts` prefers a `prettier` already on `PATH` (offline-safe) before `bunx`/`npx`.
+
 ## Mechanical normalization (wakaru) — caveats
 
 `wakaru-normalize.ts` wraps the external `@wakaru/cli` (Rust) decompiler as a pre-rename pass (Stage 2 Step 0b.5). It is default-on in the readable tier.
