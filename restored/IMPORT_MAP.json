@@ -10732,6 +10732,47 @@
         "t": "initThreadHandoffOperationsChunk"
       },
       "status": "done"
+    },
+    "app-initial~app-main~remote-conversation-page~hotkey-window-thread-page~thread-app-shell-ch~ou5otpha-1Hh4BDD9": {
+      "restored": "app-shell/thread-background-processes/index.ts",
+      "exports": {
+        "A": "useNullAppShellRef",
+        "C": "initActiveConversationProcessRowsChunk",
+        "D": "BackgroundTerminalIcon",
+        "E": "openBackgroundTerminalSidePanelTab",
+        "F": "registerThreadSidePanelTab",
+        "M": "initThreadAppShellSourcesChunk",
+        "N": "threadSidePanelTabDefinitionsSignal",
+        "O": "initBackgroundTerminalIconChunk",
+        "P": "initThreadSidePanelTabRegistryChunk",
+        "S": "mergeProcessRows",
+        "T": "initBackgroundTerminalSidePanelTabChunk",
+        "_": "setPendingBackgroundProcessRow",
+        "a": "getPendingBackgroundProcessRow",
+        "b": "collectConversationProcessRows",
+        "c": "getProcessRuntimeAgeSeconds",
+        "d": "initProcessMetricHelpersChunk",
+        "f": "isPendingProcessRowExpired",
+        "g": "pendingBackgroundProcessRowsSignal",
+        "h": "initPendingBackgroundProcessRowsChunk",
+        "i": "computerUsePictureInPictureVisibleSignal",
+        "j": "ThreadAppShellSourceRegistration",
+        "k": "initThreadNullRefChunk",
+        "l": "insertPendingProcessRows",
+        "m": "clearStoppedPendingProcessRows",
+        "n": "computerUsePictureInPictureAvailableSignal",
+        "o": "selectRunningProcessRows",
+        "p": "removePendingBackgroundProcessRow",
+        "r": "hasComputerUsePictureInPictureSignal",
+        "s": "getProcessRowSortTarget",
+        "t": "initThreadSummaryPanelSignalsChunk",
+        "u": "prunePendingProcessRows",
+        "v": "conversationProcessRowsSignal",
+        "w": "isSameProcessRow",
+        "x": "restoreRegisteredProcessRows",
+        "y": "matchProcessMetrics"
+      },
+      "status": "done"
     }
   }
 }
