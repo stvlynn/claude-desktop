@@ -38,6 +38,23 @@ interface BackgroundTerminalStatusRow {
   metrics?: unknown | null;
 }
 
+interface BackgroundTerminalProcessIdentity {
+  id: string;
+}
+
+interface BackgroundTerminalProcessRow<
+  Process extends BackgroundTerminalProcessIdentity,
+> {
+  metrics?: unknown | null;
+  process: Process;
+}
+
+interface BackgroundTerminalActionStateWithRow<
+  Process extends BackgroundTerminalProcessIdentity,
+> extends BackgroundTerminalActionState {
+  row: BackgroundTerminalProcessRow<Process>;
+}
+
 export interface BackgroundTerminalRow<
   Terminal extends ComparableBackgroundTerminal = ComparableBackgroundTerminal,
 > {
@@ -104,6 +121,89 @@ export function resolveBackgroundTerminalStatus(
       ? "running"
       : "not-found"
     : actionState.status;
+}
+
+export function appendRegisteredBackgroundTerminalRows<
+  Process extends BackgroundTerminalProcessIdentity,
+  Row extends BackgroundTerminalProcessRow<Process>,
+  RegisteredRow extends BackgroundTerminalProcessRow<Process>,
+>(
+  rows: Row[],
+  registeredRows: RegisteredRow[],
+  isSameProcess: (
+    existingProcess: Process,
+    registeredProcess: Process,
+  ) => boolean,
+): Array<Row | RegisteredRow> {
+  if (registeredRows.length === 0) {
+    return rows;
+  }
+
+  let nextRows: Array<Row | RegisteredRow> = rows.slice();
+  for (let registeredRow of registeredRows) {
+    if (
+      !nextRows.some((row) => isSameProcess(row.process, registeredRow.process))
+    ) {
+      nextRows.push(registeredRow);
+    }
+  }
+  return nextRows;
+}
+
+export function findBackgroundTerminalMetricsRow<
+  Process extends BackgroundTerminalProcessIdentity,
+  Row extends BackgroundTerminalProcessRow<Process>,
+  ActionState extends BackgroundTerminalActionStateWithRow<Process>,
+>(
+  rows: Row[],
+  actionState: ActionState,
+  isSameProcess: (existingProcess: Process, actionProcess: Process) => boolean,
+): Row | null {
+  return (
+    rows.find(
+      (row) =>
+        row.metrics != null &&
+        isSameProcess(row.process, actionState.row.process),
+    ) ?? null
+  );
+}
+
+export function pruneSettledBackgroundTerminalActionStates<
+  Process extends BackgroundTerminalProcessIdentity,
+  Row extends BackgroundTerminalProcessRow<Process>,
+  ActionState extends BackgroundTerminalActionStateWithRow<Process>,
+>(
+  rows: Row[],
+  actionStatesByProcessId: Map<string, ActionState>,
+  processSnapshotTimeMs: number,
+  isSettledActionState: (
+    actionState: ActionState,
+    matchingRow: Row | null,
+    processSnapshotTimeMs: number,
+  ) => boolean,
+  isSameProcess: (existingProcess: Process, actionProcess: Process) => boolean,
+): Map<string, ActionState> {
+  if (actionStatesByProcessId.size === 0) {
+    return actionStatesByProcessId;
+  }
+
+  let rowsByProcessId = new Map(
+    rows
+      .filter((row) => row.metrics != null)
+      .map((row) => [row.process.id, row]),
+  );
+  let activeActionStates = new Map<string, ActionState>();
+  for (let [processId, actionState] of actionStatesByProcessId) {
+    let matchingRow =
+      rowsByProcessId.get(processId) ??
+      findBackgroundTerminalMetricsRow(rows, actionState, isSameProcess);
+    if (
+      !isSettledActionState(actionState, matchingRow, processSnapshotTimeMs)
+    ) {
+      activeActionStates.set(processId, actionState);
+    }
+  }
+  return activeActionStates;
 }
 
 export function createBackgroundTerminalProcessRecord({

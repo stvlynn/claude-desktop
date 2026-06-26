@@ -779,10 +779,12 @@ import {
   isWorkingBackgroundAgent,
 } from "./local-conversation-thread-parts/background-summary";
 import {
+  appendRegisteredBackgroundTerminalRows,
   createBackgroundTerminalProcessRecord,
   createBackgroundTerminalSnapshot,
   hasBackgroundTerminalRow,
   hasMatchingBackgroundTerminal,
+  pruneSettledBackgroundTerminalActionStates,
   resolveBackgroundTerminalStatus,
 } from "./local-conversation-thread-parts/background-terminal-state";
 import { shouldShowInlineActivityForRightPanel } from "./local-conversation-thread-parts/inline-activity-panel";
@@ -1853,9 +1855,15 @@ function _p(e) {
     _ = e;
   }
   let v = _,
-    y = Cp(v, registeredRows);
+    y = appendRegisteredBackgroundTerminalRows(v, registeredRows, bu);
   let b = y,
-    x = wp(b, m, processSnapshotTimeMs);
+    x = pruneSettledBackgroundTerminalActionStates(
+      b,
+      m,
+      processSnapshotTimeMs,
+      lu,
+      bu,
+    );
   let C = x,
     w = dp(b, C);
   let T = w,
@@ -2177,29 +2185,6 @@ function xp(e) {
         : e === "not-found"
           ? jp.notFoundStatus
           : jp.runningStatus;
-}
-function Cp(e, t) {
-  if (t.length === 0) return e;
-  let n = e.slice();
-  for (let e of t) n.some((item) => bu(item.process, e.process)) || n.push(e);
-  return n;
-}
-function wp(e, t, n) {
-  if (t.size === 0) return t;
-  let r = new Map(
-      e
-        .filter((item) => item.metrics != null)
-        .map((item) => [item.process.id, item]),
-    ),
-    i = new Map();
-  for (let [a, o] of t) lu(o, r.get(a) ?? Tp(e, o), n) || i.set(a, o);
-  return i;
-}
-function Tp(e, t) {
-  return (
-    e.find((item) => item.metrics != null && bu(item.process, t.row.process)) ??
-    null
-  );
 }
 var Dp,
   Op,
