@@ -768,6 +768,13 @@ import {
 import { shouldShowInlineActivityForRightPanel } from "./local-conversation-thread-parts/inline-activity-panel";
 import { createLatestTurnSubmitPlacementSnapshot } from "./local-conversation-thread-parts/latest-turn-submit-placement";
 import {
+  createLocalEnvironmentActionRunId,
+  getLocalEnvironmentActionItems,
+  resolveLocalEnvironmentActionCwd,
+  resolveLocalEnvironmentActionKey,
+  sortLocalEnvironmentActionItemsByRecentActionNames,
+} from "./local-conversation-thread-parts/local-environment-action-items";
+import {
   getRecentLocalEnvironmentActions,
   prependRecentLocalEnvironmentAction,
   type RecentLocalEnvironmentActionsByKey,
@@ -782,6 +789,8 @@ import {
   parseBerryDisplayTurnId,
 } from "./local-conversation-thread-parts/turn-request-index";
 import { getLocalConversationTurnSearchKey } from "./local-conversation-thread-parts/turn-search-key";
+const joinLocalEnvironmentRepoPath = M;
+
 function Fd(e) {
   let n = Ld.useRef(null),
     r = (t) => {
@@ -3433,21 +3442,28 @@ function fm(e) {
     M = data?.root ?? null,
     N = _data?.platform ?? null,
     P = environment?.environment.actions,
-    F = P == null ? null : P.filter((item) => Dm(item, N)).map(pm),
-    I = wm({
+    F = getLocalEnvironmentActionItems(P, N, aa),
+    I = resolveLocalEnvironmentActionKey({
       configPath: environment?.configPath ?? null,
+      joinPath: joinLocalEnvironmentRepoPath,
       relativePath: environment?.cwdRelativeToGitRoot ?? null,
       repoRoot: M,
       workspaceRoot,
     }),
     L = getRecentLocalEnvironmentActions(D, I),
-    R = F == null ? null : L.length > 0 ? Em(F, L) : F,
+    R =
+      F == null
+        ? null
+        : L.length > 0
+          ? sortLocalEnvironmentActionItemsByRecentActionNames(F, L)
+          : F,
     z = R?.[0] ?? null,
     V = K(ha, z?.commandId ?? aa[0]),
     te = F ?? jm,
     ne = Y((e) => {
       let { action } = e,
-        r = Cm({
+        r = resolveLocalEnvironmentActionCwd({
+          joinPath: joinLocalEnvironmentRepoPath,
           relativePath: environment?.cwdRelativeToGitRoot ?? null,
           repoRoot: M,
           workspaceRoot,
@@ -3457,8 +3473,9 @@ function fm(e) {
         return;
       }
       O(prependRecentLocalEnvironmentAction(D, I ?? r, action.name));
-      let i = Tm({
+      let i = createLocalEnvironmentActionRunId({
         conversationId,
+        encodeEnvironmentKey: Jo,
         environmentKey: I ?? r,
         runId: e.runId,
       });
@@ -3771,14 +3788,6 @@ function fm(e) {
     </>
   );
 }
-function pm(e, t) {
-  let n = aa[t];
-  return {
-    action: e,
-    commandId: n ?? null,
-    runId: n ?? `environmentAction${t + 1}`,
-  };
-}
 function mm(e) {
   let { canChangeEnvironment, children, open, title, onOpenChange } = e,
     s = !canChangeEnvironment,
@@ -4012,49 +4021,6 @@ function Sm(e) {
         keysLabel: r,
       })
     : null;
-}
-function Cm({ relativePath, repoRoot, workspaceRoot }) {
-  return repoRoot && relativePath
-    ? M(repoRoot, relativePath)
-    : (workspaceRoot ?? repoRoot);
-}
-function wm({ configPath, relativePath, repoRoot, workspaceRoot }) {
-  return (
-    Cm({
-      relativePath,
-      repoRoot,
-      workspaceRoot,
-    }) ?? configPath
-  );
-}
-function Tm({ conversationId, environmentKey, runId }) {
-  return `environment-action:${conversationId}:${Jo(environmentKey)}:${runId}`;
-}
-function Em(e, t) {
-  let n = new Map();
-  return (
-    t.forEach((item, index) => {
-      n.has(item) || n.set(item, index);
-    }),
-    e
-      .map((item, index) => ({
-        actionItem: item,
-        originalIndex: index,
-        recentIndex: n.get(item.action.name) ?? 1 / 0,
-      }))
-      .sort((e, t) =>
-        e.recentIndex === t.recentIndex
-          ? e.originalIndex - t.originalIndex
-          : e.recentIndex - t.recentIndex,
-      )
-      .map((item) => item.actionItem)
-  );
-}
-function Dm(e, t) {
-  let n = e.platform;
-  return !n || (t !== "darwin" && t !== "linux" && t !== "win32")
-    ? true
-    : n === t;
 }
 var Om,
   km,
