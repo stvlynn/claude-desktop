@@ -10562,7 +10562,7 @@
       "status": "done"
     },
     "composer-footer-branch-switcher-GaN7fzcq": {
-      "restored": "composer/composer-footer-branch-switcher.tsx",
+      "restored": "composer/composer-footer-branch-switcher/index.ts",
       "exports": {
         "a": "ComposerFooterBranchBadge",
         "i": "initComposerFooterBranchSwitcherChunk",
@@ -10571,8 +10571,7 @@
         "r": "ComposerFooterBranchSwitcher",
         "t": "ComposerFooterInlineBranchSwitcher"
       },
-      "status": "draft",
-      "note": "Public draft organized for the updated ref chunk; not promoted until shared app-initial producer imports are restored and quality-gate passes."
+      "status": "done"
     },
     "composer-external-footer-vmMFWT5Y": {
       "restored": "composer/composer-external-footer.tsx",
