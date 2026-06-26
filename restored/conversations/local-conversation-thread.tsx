@@ -769,6 +769,12 @@ import { shouldShowInlineActivityForRightPanel } from "./local-conversation-thre
 import { createLatestTurnSubmitPlacementSnapshot } from "./local-conversation-thread-parts/latest-turn-submit-placement";
 import { shouldUseFullWidthRightPanelForRoute } from "./local-conversation-thread-parts/right-panel-route-state";
 import { shouldShowScrollToBottomButton } from "./local-conversation-thread-parts/scroll-to-bottom-state";
+import {
+  collectConversationRequestsForTurnIds,
+  createPhysicalTurnEntries,
+  groupConversationRequestsByTurnId,
+  parseBerryDisplayTurnId,
+} from "./local-conversation-thread-parts/turn-request-index";
 import { getLocalConversationTurnSearchKey } from "./local-conversation-thread-parts/turn-search-key";
 function Fd(e) {
   let n = Ld.useRef(null),
@@ -10520,7 +10526,7 @@ function Eb({
 }) {
   if (conversationTurns.length === 0 && conversationRequests.length === 0)
     return zb;
-  let c = Fb(conversationRequests),
+  let c = groupConversationRequestsByTurnId(conversationRequests),
     l =
       hasConversation && subagentParentThreadId != null
         ? ab({
@@ -10536,7 +10542,7 @@ function Eb({
       l.flatMap((item) => (item.turnId == null ? [] : [item.turnId])),
     ),
     d = new Set(l),
-    f = Db(conversationTurns);
+    f = createPhysicalTurnEntries(conversationTurns);
   mergeBerryDisplayTurnsForPIA && (f = Ob(conversationTurns));
   let p = [],
     m = l.length < conversationTurns.length,
@@ -10552,7 +10558,10 @@ function Eb({
       (h = true);
   for (let e of f) {
     let { turn, turnId } = e,
-      i = e.physicalTurnIds.length > 0 ? Pb(e.physicalTurnIds, c) : Lb;
+      i =
+        e.physicalTurnIds.length > 0
+          ? collectConversationRequestsForTurnIds(e.physicalTurnIds, c, Lb)
+          : Lb;
     ze(turn, i, {
       isBackgroundSubagentsEnabled,
     }) &&
@@ -10576,17 +10585,6 @@ function Eb({
     visibleTurnEntries: p,
   };
 }
-function Db(e) {
-  return e.map((item, index) => {
-    let n = item.turnId;
-    return {
-      physicalTurnIds: n == null ? [] : [n],
-      turn: item,
-      turnId: n,
-      turnIndex: index,
-    };
-  });
-}
 function Ob(e) {
   let t = new Map(),
     n = new Map(),
@@ -10599,7 +10597,7 @@ function Ob(e) {
       turnIndex: i,
     };
     t.set(e, o);
-    let s = kb(e);
+    let s = parseBerryDisplayTurnId(e);
     if (s == null) continue;
     let c = n.get(s.controlTurnId);
     c ??
@@ -10634,20 +10632,6 @@ function Ob(e) {
     });
   }
   return a;
-}
-function kb(e) {
-  if (e == null) return null;
-  let t = Bb.exec(e),
-    n = t?.[1],
-    r = t?.[2];
-  if (n == null || r == null) return null;
-  let i = Number(r);
-  return Number.isSafeInteger(i)
-    ? {
-        controlTurnId: n,
-        displayIndex: i,
-      }
-    : null;
 }
 function Ab(e, t) {
   let n = [...e.displayTurns].sort((e, t) => e.displayIndex - t.displayIndex),
@@ -10694,46 +10678,10 @@ function Mb(e, t) {
 function Nb(e, t) {
   return Ib.default(e, (e) => e[t] != null)?.[t] ?? null;
 }
-function Pb(e, t) {
-  let n = [];
-  for (let r of e) n.push(...(t.get(r) ?? Lb));
-  return n.length > 0 ? n : Lb;
-}
-function Fb(e) {
-  let t = new Map();
-  for (let n of e)
-    switch (n.method) {
-      case "item/commandExecution/requestApproval":
-      case "item/fileChange/requestApproval":
-      case "item/permissions/requestApproval":
-      case "item/tool/requestOptionPicker":
-      case "item/tool/requestUserInput":
-      case "item/tool/requestSetupCodexContextPicker": {
-        let e = t.get(n.params.turnId);
-        if (e != null) {
-          e.push(n);
-          continue;
-        }
-        t.set(n.params.turnId, [n]);
-        continue;
-      }
-      case "attestation/generate":
-      case "account/chatgptAuthTokens/refresh":
-      case "applyPatchApproval":
-      case "currentTime/read":
-      case "execCommandApproval":
-      case "item/plan/requestImplementation":
-      case "item/tool/call":
-      case "mcpServer/elicitation/request":
-        continue;
-    }
-  return t;
-}
 var Ib,
   Lb,
   Rb,
   zb,
-  Bb,
   localConversationVisibleTurnEntriesSignal,
   initLocalConversationTurnSelectors = once(() => {
     Ib = toEsModule(gi(), 1);
@@ -10754,7 +10702,6 @@ var Ib,
       latestVisibleTurnId: null,
       visibleTurnEntries: [],
     };
-    Bb = /^(.*)-berry-display-(\d+)$/;
     localConversationVisibleTurnEntriesSignal = Rn(
       ut,
       ({ conversationId, isBackgroundSubagentsEnabled }, { get }) => {
