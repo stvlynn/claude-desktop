@@ -767,6 +767,11 @@ import {
 } from "../threads/thread-overflow-menu";
 import { shouldShowInlineActivityForRightPanel } from "./local-conversation-thread-parts/inline-activity-panel";
 import { createLatestTurnSubmitPlacementSnapshot } from "./local-conversation-thread-parts/latest-turn-submit-placement";
+import {
+  getRecentLocalEnvironmentActions,
+  prependRecentLocalEnvironmentAction,
+  type RecentLocalEnvironmentActionsByKey,
+} from "./local-conversation-thread-parts/local-environment-recent-actions";
 import { shouldUseFullWidthRightPanelForRoute } from "./local-conversation-thread-parts/right-panel-route-state";
 import { shouldShowScrollToBottomButton } from "./local-conversation-thread-parts/scroll-to-bottom-state";
 import {
@@ -3258,25 +3263,11 @@ var Zp,
     Yp();
     Qp = getJsxRuntime();
   });
-function em(e, t) {
-  return t ? (e[t] ?? []) : [];
-}
-function tm(e, t, n) {
-  if (!t) return e;
-  let r = n.trim();
-  if (!r) return e;
-  let i = [r, ...(e[t] ?? []).filter((item) => item !== r)];
-  return {
-    ...e,
-    [t]: i,
-  };
-}
 var nm,
   rm = once(() => {
     yi();
     nm = vn("local-env-recent-actions-by-key", {});
   });
-type RecentLocalEnvironmentActionsByKey = Record<string, readonly unknown[]>;
 
 function isRecentLocalEnvironmentAction(
   recentActionsByKey: RecentLocalEnvironmentActionsByKey | null | undefined,
@@ -3448,7 +3439,7 @@ function fm(e) {
       repoRoot: M,
       workspaceRoot,
     }),
-    L = em(D, I),
+    L = getRecentLocalEnvironmentActions(D, I),
     R = F == null ? null : L.length > 0 ? Em(F, L) : F,
     z = R?.[0] ?? null,
     V = K(ha, z?.commandId ?? aa[0]),
@@ -3464,7 +3455,7 @@ function fm(e) {
         gr.error("Can not run action. Cwd is not set");
         return;
       }
-      O(tm(D, I ?? r, action.name));
+      O(prependRecentLocalEnvironmentAction(D, I ?? r, action.name));
       let i = Tm({
         conversationId,
         environmentKey: I ?? r,

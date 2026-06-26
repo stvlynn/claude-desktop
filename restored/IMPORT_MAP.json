@@ -10541,7 +10541,7 @@
         "z": "useReviewSearchHighlights"
       },
       "status": "draft",
-      "note": "Draft for the updated ref chunk. Current pass extracted right-panel route, inline activity, scroll helpers, turn search-key, and turn request-index helpers; promotion is blocked on full semantic split and import repair."
+      "note": "Draft for the updated ref chunk. Current pass extracted right-panel route, inline activity, scroll helpers, turn search-key, turn request-index, and local-environment recent-action helpers; promotion is blocked on full semantic split and import repair."
     },
     "thread-overflow-menu-CM-Eo7JH": {
       "restored": "threads/thread-overflow-menu.tsx",
