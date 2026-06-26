@@ -9280,9 +9280,11 @@
     "use-git-recent-branches-Bf3U6kni": {
       "restored": "utils/use-git-recent-branches.ts",
       "exports": {
-        "t": "useGitRecentBranches"
+        "t": "useGitRecentBranches",
+        "n": "initUseGitRecentBranchesChunk"
       },
-      "status": "done"
+      "status": "done",
+      "note": "Also covers synced ref chunk use-git-recent-branches-DVeuba-T."
     },
     "use-is-thread-realtime-enabled-ChiO9bP6": {
       "restored": "utils/use-is-thread-realtime-enabled.ts",
@@ -10551,6 +10553,43 @@
       },
       "status": "draft",
       "note": "Public draft organized for the updated ref chunk; not promoted until shared app-initial producer imports are restored and quality-gate passes."
+    },
+    "above-composer-suggestions-CAXbkE_4": {
+      "restored": "composer/above-composer-suggestions.tsx",
+      "exports": {
+        "AboveComposerSuggestions": "AboveComposerSuggestions"
+      },
+      "status": "draft",
+      "note": "Public draft organized for the updated ref chunk; not promoted until shared app-initial producer imports are restored and quality-gate passes."
+    },
+    "composer-footer-branch-switcher-GaN7fzcq": {
+      "restored": "composer/composer-footer-branch-switcher.tsx",
+      "exports": {
+        "a": "ComposerFooterBranchBadge",
+        "i": "initComposerFooterBranchSwitcherChunk",
+        "n": "initComposerFooterInlineBranchSwitcherChunk",
+        "o": "initComposerFooterBranchBadgeChunk",
+        "r": "ComposerFooterBranchSwitcher",
+        "t": "ComposerFooterInlineBranchSwitcher"
+      },
+      "status": "draft",
+      "note": "Public draft organized for the updated ref chunk; not promoted until shared app-initial producer imports are restored and quality-gate passes."
+    },
+    "composer-external-footer-vmMFWT5Y": {
+      "restored": "composer/composer-external-footer.tsx",
+      "exports": {
+        "ComposerExternalFooter": "ComposerExternalFooter"
+      },
+      "status": "draft",
+      "note": "Public draft organized for the updated ref chunk; not promoted until shared app-initial producer imports are restored and quality-gate passes."
+    },
+    "use-git-recent-branches-DVeuba-T": {
+      "restored": "utils/use-git-recent-branches.ts",
+      "exports": {
+        "n": "initUseGitRecentBranchesChunk",
+        "t": "useGitRecentBranches"
+      },
+      "status": "done"
     }
   }
 }
