@@ -12423,6 +12423,32 @@
       "status": "done",
       "note": "Synced current Mermaid package metadata hash with semantic metadata and initializer exports while preserving the legacy ChunkKS23V3DP alias.",
       "lastUpdated": "2026-06-27T21:08:01.130Z"
+    },
+    "use-element-in-view-CZGmoMvk": {
+      "restored": "utils/use-element-in-view.ts",
+      "exports": {
+        "n": "useElementInView",
+        "t": "initUseElementInViewChunk",
+        "useElementInView": "useElementInView",
+        "initUseElementInViewChunk": "initUseElementInViewChunk",
+        "UseElementInViewOptions": "UseElementInViewOptions"
+      },
+      "status": "done",
+      "note": "Synced current element-in-view hook hash with semantic hook, options type, and runtime initializer export.",
+      "lastUpdated": "2026-06-27T21:11:04.364Z"
+    },
+    "plus-sm-CZTYJkzM": {
+      "restored": "icons/plus-sm-icon.tsx",
+      "exports": {
+        "n": "initPlusSmIconChunk",
+        "t": "PlusSmIcon",
+        "PlusSmIcon": "PlusSmIcon",
+        "PlusSmIconProps": "PlusSmIconProps",
+        "initPlusSmIconChunk": "initPlusSmIconChunk"
+      },
+      "status": "done",
+      "note": "Restored the current 16px plus-sm SVG icon as a distinct semantic icon module with runtime initializer export.",
+      "lastUpdated": "2026-06-27T21:12:32.579Z"
     }
   }
 }
