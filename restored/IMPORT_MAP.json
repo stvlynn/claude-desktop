@@ -12587,6 +12587,20 @@
       "status": "done",
       "note": "Synced current toolbar breadcrumb chunk with semantic React component and initializer export.",
       "lastUpdated": "2026-06-27T21:43:31.953Z"
+    },
+    "recommended-skill-statsig-overrides-B_jnuULm": {
+      "restored": "plugins/recommended-skill-statsig-overrides.ts",
+      "exports": {
+        "n": "initRecommendedSkillStatsigOverridesChunk",
+        "r": "useRecommendedSkillStatsigOverrides",
+        "t": "getRecommendedSkillStatsigOverride",
+        "initRecommendedSkillStatsigOverridesChunk": "initRecommendedSkillStatsigOverridesChunk",
+        "useRecommendedSkillStatsigOverrides": "useRecommendedSkillStatsigOverrides",
+        "getRecommendedSkillStatsigOverride": "getRecommendedSkillStatsigOverride"
+      },
+      "status": "done",
+      "note": "Synced current recommended skill Statsig overrides chunk with semantic parser, hook, getter, and initializer exports.",
+      "lastUpdated": "2026-06-27T21:45:02.884Z"
     }
   }
 }
