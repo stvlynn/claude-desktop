@@ -2351,7 +2351,7 @@ function getConfigPathDisplayName(configPath) {
     pathParts = normalizedConfigPath.split("/").filter(Boolean);
   return pathParts[pathParts.length - 1] ?? normalizedConfigPath;
 }
-var Bp = once(() => {
+var initLocalEnvironmentDisplayNameHelpers = once(() => {
   di();
 });
 function LocalEnvironmentSelectorContent(props) {
@@ -2412,7 +2412,7 @@ function LocalEnvironmentSelectorContent(props) {
   let environmentItems =
     localEnvironmentsLoading && localEnvironments.length === 0 ? (
       <div className="flex items-center justify-center py-3">
-        {Up.jsx(rr, {
+        {localEnvironmentSelectorContentJsxRuntime.jsx(rr, {
           className: "icon-xxs",
         })}
       </div>
@@ -2484,19 +2484,19 @@ function LocalEnvironmentSelectorContent(props) {
     </div>
   );
 }
-var Hp,
-  Up,
-  Wp = once(() => {
-    Hp = q();
+var localEnvironmentSelectorContentModule,
+  localEnvironmentSelectorContentJsxRuntime,
+  initLocalEnvironmentSelectorContentChunk = once(() => {
+    localEnvironmentSelectorContentModule = q();
     Jn();
     an();
     d();
     Dt();
     ue();
     Fu();
-    Bp();
+    initLocalEnvironmentDisplayNameHelpers();
     di();
-    Up = getJsxRuntime();
+    localEnvironmentSelectorContentJsxRuntime = getJsxRuntime();
   });
 function LocalEnvironmentActionSetupForm(props) {
   let {
@@ -2514,13 +2514,13 @@ function LocalEnvironmentActionSetupForm(props) {
       submitLoading = false,
       onSubmit,
     } = props,
-    commandInputId = qp.useId(),
-    headerSection = Jp.jsx(j, {
+    commandInputId = localEnvironmentActionSetupFormReactRuntime.useId(),
+    headerSection = localEnvironmentActionSetupFormJsxRuntime.jsx(j, {
       children: <F icon={headerIcon} subtitle={description} title={title} />,
     });
   let extraFieldsSection = extraFields
-    ? Jp.jsx(j, {
-        children: Jp.jsx($e, {
+    ? localEnvironmentActionSetupFormJsxRuntime.jsx(j, {
+        children: localEnvironmentActionSetupFormJsxRuntime.jsx($e, {
           className: "gap-3",
           children: extraFields,
         }),
@@ -2546,20 +2546,20 @@ function LocalEnvironmentActionSetupForm(props) {
       onChange={handleCommandInputChange}
     />
   );
-  let commandFieldSection = Jp.jsx(j, {
-    children: Jp.jsxs($e, {
+  let commandFieldSection = localEnvironmentActionSetupFormJsxRuntime.jsx(j, {
+    children: localEnvironmentActionSetupFormJsxRuntime.jsxs($e, {
       className: "gap-2",
       children: [commandLabelNode, commandTextarea],
     }),
   });
-  let submitButton = Jp.jsx(k, {
+  let submitButton = localEnvironmentActionSetupFormJsxRuntime.jsx(k, {
     color: "primary",
     disabled: submitDisabled,
     loading: submitLoading,
     type: "submit",
     children: submitLabel,
   });
-  let footerSection = Jp.jsx(j, {
+  let footerSection = localEnvironmentActionSetupFormJsxRuntime.jsx(j, {
     children: (
       <At className="justify-between">
         {leftAction}
@@ -2567,7 +2567,7 @@ function LocalEnvironmentActionSetupForm(props) {
       </At>
     ),
   });
-  let formContent = Jp.jsxs(ui, {
+  let formContent = localEnvironmentActionSetupFormJsxRuntime.jsxs(ui, {
     className: "gap-3",
     children: [
       headerSection,
@@ -2582,15 +2582,15 @@ function LocalEnvironmentActionSetupForm(props) {
     </form>
   );
 }
-var Kp,
-  qp,
-  Jp,
-  Yp = once(() => {
-    Kp = q();
-    qp = toEsModule(G(), 1);
+var localEnvironmentActionSetupFormModule,
+  localEnvironmentActionSetupFormReactRuntime,
+  localEnvironmentActionSetupFormJsxRuntime,
+  initLocalEnvironmentActionSetupFormChunk = once(() => {
+    localEnvironmentActionSetupFormModule = q();
+    localEnvironmentActionSetupFormReactRuntime = toEsModule(G(), 1);
     Ye();
     h();
-    Jp = getJsxRuntime();
+    localEnvironmentActionSetupFormJsxRuntime = getJsxRuntime();
   });
 function AddLocalEnvironmentActionForm(props) {
   let {
@@ -2626,7 +2626,7 @@ function AddLocalEnvironmentActionForm(props) {
   {
     let createIconOption = (iconOptionConfig) => ({
       ariaLabel: intl.formatMessage(iconOptionConfig.message),
-      icon: Qp.jsx(md, {
+      icon: addLocalEnvironmentActionFormJsxRuntime.jsx(md, {
         icon: iconOptionConfig.value,
       }),
       value: iconOptionConfig.value,
@@ -2756,7 +2756,7 @@ function AddLocalEnvironmentActionForm(props) {
     DropdownComponent = H;
     iconDropdownAlign = "start";
     iconDropdownContentWidth = "icon";
-    iconDropdownTriggerButton = Qp.jsx(k, {
+    iconDropdownTriggerButton = addLocalEnvironmentActionFormJsxRuntime.jsx(k, {
       id: `local-env-action-icon-${action.id}`,
       "aria-label": selectedIconOption.ariaLabel,
       className: "w-12 justify-center text-sm",
@@ -2780,12 +2780,15 @@ function AddLocalEnvironmentActionForm(props) {
     );
     iconMenuItems = iconOptions.map(renderIconOption);
   }
-  let iconDropdown = Qp.jsx(DropdownComponent, {
-    align: iconDropdownAlign,
-    contentWidth: iconDropdownContentWidth,
-    triggerButton: iconDropdownTriggerButton,
-    children: iconMenuItems,
-  });
+  let iconDropdown = addLocalEnvironmentActionFormJsxRuntime.jsx(
+    DropdownComponent,
+    {
+      align: iconDropdownAlign,
+      contentWidth: iconDropdownContentWidth,
+      triggerButton: iconDropdownTriggerButton,
+      children: iconMenuItems,
+    },
+  );
   let handleNameChange = (event) => {
     onUpdate({
       name: event.target.value,
@@ -2814,7 +2817,7 @@ function AddLocalEnvironmentActionForm(props) {
     </div>
   );
   let headerIconName = action.icon ?? "tool",
-    headerIcon = Qp.jsx(md, {
+    headerIcon = addLocalEnvironmentActionFormJsxRuntime.jsx(md, {
       className: "icon-base text-token-foreground",
       icon: headerIconName,
     });
@@ -2825,7 +2828,7 @@ function AddLocalEnvironmentActionForm(props) {
       description="Edit more action label in run action setup popover"
     />
   );
-  let settingsButton = Qp.jsx(k, {
+  let settingsButton = addLocalEnvironmentActionFormJsxRuntime.jsx(k, {
     className: "px-0",
     color: "ghost",
     size: "toolbar",
@@ -2852,7 +2855,7 @@ function AddLocalEnvironmentActionForm(props) {
       command: command,
     });
   };
-  return Qp.jsx(SetupFormComponent, {
+  return addLocalEnvironmentActionFormJsxRuntime.jsx(SetupFormComponent, {
     command: commandValue,
     commandLabel: commandLabelNode,
     commandPlaceholder: commandPlaceholder,
@@ -2868,10 +2871,10 @@ function AddLocalEnvironmentActionForm(props) {
     onSubmit: handleSubmit,
   });
 }
-var Zp,
-  Qp,
-  $p = once(() => {
-    Zp = q();
+var addLocalEnvironmentActionFormModule,
+  addLocalEnvironmentActionFormJsxRuntime,
+  initAddLocalEnvironmentActionFormChunk = once(() => {
+    addLocalEnvironmentActionFormModule = q();
     m();
     Jn();
     Ye();
@@ -2881,13 +2884,16 @@ var Zp,
     dd();
     gl();
     n();
-    Yp();
-    Qp = getJsxRuntime();
+    initLocalEnvironmentActionSetupFormChunk();
+    addLocalEnvironmentActionFormJsxRuntime = getJsxRuntime();
   });
-var nm,
-  rm = once(() => {
+var recentLocalEnvironmentActionsByKeySignal,
+  initRecentLocalEnvironmentActionsSignal = once(() => {
     yi();
-    nm = vn("local-env-recent-actions-by-key", {});
+    recentLocalEnvironmentActionsByKeySignal = vn(
+      "local-env-recent-actions-by-key",
+      {},
+    );
   });
 function isRecentLocalEnvironmentAction(
   recentActionsByKey: RecentLocalEnvironmentActionsByKey | null | undefined,
@@ -2896,9 +2902,9 @@ function isRecentLocalEnvironmentAction(
   let environmentKey = We(hostId);
   return recentActionsByKey != null && Ar(recentActionsByKey, environmentKey);
 }
-var am,
+var localEnvironmentRecentActionsModule,
   initLocalEnvironmentRecentActions = once(() => {
-    am = q();
+    localEnvironmentRecentActionsModule = q();
     gn();
     Re();
   });
@@ -3033,9 +3039,9 @@ function selectSuccessfulLocalEnvironment(environmentResponse) {
     ? environmentResponse.environment
     : null;
 }
-var um,
-  dm = once(() => {
-    um = q();
+var localConversationEnvironmentStateModule,
+  initLocalConversationEnvironmentStateChunk = once(() => {
+    localConversationEnvironmentStateModule = q();
     c();
     gn();
     Ve();
@@ -3084,7 +3090,9 @@ function LocalConversationEnvironmentActionControls(props) {
       "local_conversation_action_compound_button",
     ),
     { data: _data } = tr(),
-    [recentActionsByKey, setRecentActionsByKey] = li(nm),
+    [recentActionsByKey, setRecentActionsByKey] = li(
+      recentLocalEnvironmentActionsByKeySignal,
+    ),
     [isMenuOpen, setMenuOpen] = km.useState(false),
     repoRoot = data?.root ?? null,
     platform = _data?.platform ?? null,
@@ -3732,11 +3740,11 @@ var Om,
     _t();
     ue();
     Xi();
-    Bp();
-    Wp();
-    $p();
-    rm();
-    dm();
+    initLocalEnvironmentDisplayNameHelpers();
+    initLocalEnvironmentSelectorContentChunk();
+    initAddLocalEnvironmentActionFormChunk();
+    initRecentLocalEnvironmentActionsSignal();
+    initLocalConversationEnvironmentStateChunk();
     r();
     fd();
     wo();
@@ -7564,18 +7572,18 @@ var R_,
     I_();
     B_ = getJsxRuntime();
   });
-function H_(e) {
-  let { automation } = e,
-    r = ur(),
-    i = B(Fe),
-    a;
+function ThreadSummaryAutomationRow(props) {
+  let { automation } = props,
+    intl = ur(),
+    scope = B(Fe),
+    nextRunTooltip;
   {
-    let e = ks({
-      intl: r,
+    let nextRunLabel = ks({
+      intl,
       nextRunAt: automation.nextRunAt,
       status: automation.status,
     });
-    a = r.formatMessage(
+    nextRunTooltip = intl.formatMessage(
       {
         id: "codex.localConversation.heartbeatAutomation.nextRun",
         defaultMessage: "Next run: {nextRunLabel}",
@@ -7583,63 +7591,64 @@ function H_(e) {
           "Tooltip shown on the heartbeat automation row in the thread summary panel",
       },
       {
-        nextRunLabel: e,
+        nextRunLabel,
       },
     );
   }
-  let o = a,
-    s = Dl({
+  let rowTitle = nextRunTooltip,
+    scheduleSummary = Dl({
       rrule: automation.rrule,
-      intl: r,
-      fallbackMessage: r.formatMessage({
+      intl,
+      fallbackMessage: intl.formatMessage({
         id: "settings.automations.rruleSummaryFallback",
         defaultMessage: "Custom schedule",
         description: "Fallback label when RRULE summary cannot be generated",
       }),
     });
-  let c = s,
-    l = r.formatMessage({
-      id: "codex.localConversation.heartbeatAutomation.open",
-      defaultMessage: "Open scheduled task",
-      description:
-        "Accessible label for opening the active scheduled task from the thread summary panel",
-    });
-  let u = <Tc className="icon-xs shrink-0" />;
-  let d = <span className="min-w-0 flex-1 truncate">{automation.name}</span>;
-  let f =
-    c == null ? null : (
+  let rowAriaLabel = intl.formatMessage({
+    id: "codex.localConversation.heartbeatAutomation.open",
+    defaultMessage: "Open scheduled task",
+    description:
+      "Accessible label for opening the active scheduled task from the thread summary panel",
+  });
+  let rowIcon = <Tc className="icon-xs shrink-0" />;
+  let nameNode = (
+    <span className="min-w-0 flex-1 truncate">{automation.name}</span>
+  );
+  let scheduleNode =
+    scheduleSummary == null ? null : (
       <span className="text-size-chat max-w-48 shrink-0 truncate text-token-text-secondary">
-        {c}
+        {scheduleSummary}
       </span>
     );
-  let p = (
+  let label = (
     <>
-      {d}
-      {f}
+      {nameNode}
+      {scheduleNode}
     </>
   );
-  let m = () => {
+  let openAutomation = () => {
     kc({
-      scope: i,
+      scope,
       automationId: automation.id,
       title: automation.name,
     });
   };
   return (
     <SummaryPanelRow
-      aria-label={l}
-      icon={u}
-      label={p}
+      aria-label={rowAriaLabel}
+      icon={rowIcon}
+      label={label}
       labelClassName="flex min-w-0 flex-1 items-baseline gap-2"
-      onClick={m}
-      title={o}
+      onClick={openAutomation}
+      title={rowTitle}
     />
   );
 }
-var U_,
-  W_,
-  G_ = once(() => {
-    U_ = q();
+var threadSummaryAutomationRowModule,
+  threadSummaryAutomationRowJsxRuntime,
+  initThreadSummaryAutomationRowChunk = once(() => {
+    threadSummaryAutomationRowModule = q();
     c();
     Jn();
     Ol();
@@ -7648,73 +7657,73 @@ var U_,
     Cc();
     me();
     initSummaryPanelRowChunk();
-    W_ = getJsxRuntime();
+    threadSummaryAutomationRowJsxRuntime = getJsxRuntime();
   });
-function K_(e) {
-  let { sideChats, onOpen } = e,
-    i = (e) => (
+function ThreadSummarySideChatRows(props) {
+  let { sideChats, onOpen } = props,
+    renderSideChatRow = (sideChat) => (
       <SummaryPanelRow
         icon={
-          e.isResponseInProgress ? (
-            Y_.jsx(rr, {
+          sideChat.isResponseInProgress ? (
+            threadSummarySideChatRowsJsxRuntime.jsx(rr, {
               className: "icon-sm shrink-0",
             })
           ) : (
             <Ko className="icon-sm shrink-0" />
           )
         }
-        label={e.title}
-        onClick={() => onOpen(e)}
+        label={sideChat.title}
+        onClick={() => onOpen(sideChat)}
       />
     );
   return (
-    <SummaryPanelExpandableList items={sideChats} getKey={q_}>
-      {i}
+    <SummaryPanelExpandableList
+      items={sideChats}
+      getKey={getSideChatSummaryKey}
+    >
+      {renderSideChatRow}
     </SummaryPanelExpandableList>
   );
 }
-function q_(e) {
-  return e.tabId;
+function getSideChatSummaryKey(sideChat) {
+  return sideChat.tabId;
 }
-var J_,
-  Y_,
-  X_ = once(() => {
-    J_ = q();
+var threadSummarySideChatRowsModule,
+  threadSummarySideChatRowsJsxRuntime,
+  initThreadSummarySideChatRowsChunk = once(() => {
+    threadSummarySideChatRowsModule = q();
     d();
     Oo();
     initSummaryPanelExpandableList();
     initSummaryPanelRowChunk();
-    Y_ = getJsxRuntime();
+    threadSummarySideChatRowsJsxRuntime = getJsxRuntime();
   });
-function Z_(e) {
-  let { onOpen, toolSources, webSources } = e,
-    a = [];
-  for (let e of toolSources)
-    a.push({
-      source: e,
+function ThreadSummarySourceRows(props) {
+  let { onOpen, toolSources, webSources } = props,
+    sourceItems = [];
+  for (let toolSource of toolSources)
+    sourceItems.push({
+      source: toolSource,
       type: "tool",
     });
-  for (let e of webSources)
-    a.push({
-      source: e,
+  for (let webSource of webSources)
+    sourceItems.push({
+      source: webSource,
       type: "web",
     });
-  let o = ur(),
-    s = o.formatMessage({
+  let intl = ur(),
+    listAriaLabel = intl.formatMessage({
       id: "codex.localConversation.sources.title",
       defaultMessage: "Sources",
       description: "Title for the thread summary side panel sources section",
     });
-  let c = s,
-    l = o.formatMessage({
-      id: "codex.localConversation.sources.webSearch",
-      defaultMessage: "Web search",
-      description:
-        "Label for web search in the thread summary side panel sources section",
-    });
-  let u = l;
-  if (a.length === 0) {
-    let e;
+  let webSearchLabel = intl.formatMessage({
+    id: "codex.localConversation.sources.webSearch",
+    defaultMessage: "Web search",
+    description:
+      "Label for web search in the thread summary side panel sources section",
+  });
+  if (sourceItems.length === 0) {
     return (
       <div className="py-1 text-base text-token-description-foreground">
         <FormattedMessage
@@ -7725,88 +7734,88 @@ function Z_(e) {
       </div>
     );
   }
-  let d = (e) => {
-    let t =
-      e.type === "tool"
-        ? $_(e.source)
-        : e.source.type === "page"
-          ? e.source.label
-          : u;
+  let renderSourceItem = (sourceItem) => {
+    let sourceLabel =
+      sourceItem.type === "tool"
+        ? getToolSourceDisplayName(sourceItem.source)
+        : sourceItem.source.type === "page"
+          ? sourceItem.source.label
+          : webSearchLabel;
     return (
-      <li key={tv(e)} className="flex">
-        {rv.jsx(jr, {
-          tooltipContent: t,
+      <li key={getThreadSummarySourceKey(sourceItem)} className="flex">
+        {threadSummarySourceRowsJsxRuntime.jsx(jr, {
+          tooltipContent: sourceLabel,
           side: "left",
-          children: <Q_ label={t} onOpen={onOpen} source={e} />,
+          children: (
+            <ThreadSummarySourceIconButton
+              label={sourceLabel}
+              onOpen={onOpen}
+              source={sourceItem}
+            />
+          ),
         })}
       </li>
     );
   };
-  let f = a.map(d);
+  let sourceRows = sourceItems.map(renderSourceItem);
   return (
-    <ul aria-label={c} className="-ml-1 flex flex-wrap gap-0.5">
-      {f}
+    <ul aria-label={listAriaLabel} className="-ml-1 flex flex-wrap gap-0.5">
+      {sourceRows}
     </ul>
   );
 }
-function Q_(e) {
-  let { label, onOpen, source } = e,
-    a,
-    o,
-    s;
+function ThreadSummarySourceIconButton(props) {
+  let { label, onOpen, source } = props,
+    icon,
+    mcpAppId,
+    href;
   bb0: switch (source.type) {
     case "tool": {
-      let e = ev(source.source);
-      let r = e;
-      o = source.source.mcpAppId;
-      let s =
-        r == null
-          ? rv.jsx(xe, {
+      let ToolIcon = getToolSourceIcon(source.source);
+      mcpAppId = source.source.mcpAppId;
+      let fallbackIcon =
+        ToolIcon == null
+          ? threadSummarySourceRowsJsxRuntime.jsx(xe, {
               className: "icon-xs shrink-0",
             })
-          : rv.jsx(r, {
+          : threadSummarySourceRowsJsxRuntime.jsx(ToolIcon, {
               "aria-hidden": true,
               className: "icon-xs shrink-0",
             });
-      let c;
-      c = (
+      icon = (
         <Ln
           alt={label}
           className="icon-xs shrink-0 object-contain"
-          fallback={s}
+          fallback={fallbackIcon}
           logoDarkUrl={source.source.logoUrlDark}
           logoUrl={source.source.logoUrl}
         />
       );
-      a = c;
       break bb0;
     }
     case "web": {
-      s = source.source.type === "page" ? source.source.url : undefined;
-      let e;
-      e = <Sr aria-hidden={true} className="icon-xs shrink-0" />;
-      a = e;
+      href = source.source.type === "page" ? source.source.url : undefined;
+      icon = <Sr aria-hidden={true} className="icon-xs shrink-0" />;
     }
   }
-  if ((o != null && onOpen != null) || s != null) {
-    let e = (e) => {
-      s == null
-        ? o != null && onOpen?.(o)
+  if ((mcpAppId != null && onOpen != null) || href != null) {
+    let handleOpenSource = (event) => {
+      href == null
+        ? mcpAppId != null && onOpen?.(mcpAppId)
         : wi({
-            event: e,
-            href: s,
+            event,
+            href,
             initiator: "markdown_link_click",
           });
     };
-    let i;
     return (
       <button
         aria-label={label}
         className="flex size-6 shrink-0 cursor-interaction items-center justify-center rounded-sm text-token-text-secondary hover:bg-token-list-hover-background hover:text-token-foreground"
         type="button"
-        onClick={e}
+        onClick={handleOpenSource}
       >
-        {a}
+        {icon}
       </button>
     );
   }
@@ -7816,36 +7825,38 @@ function Q_(e) {
       className="flex size-6 shrink-0 items-center justify-center rounded-sm text-token-text-secondary"
       role="img"
     >
-      {a}
+      {icon}
     </span>
   );
 }
-function $_(e) {
-  return e.name.trim().length > 0
-    ? e.name
-    : e.pluginDisplayNames.length > 0
-      ? e.pluginDisplayNames.join(", ")
-      : e.name;
+function getToolSourceDisplayName(source) {
+  return source.name.trim().length > 0
+    ? source.name
+    : source.pluginDisplayNames.length > 0
+      ? source.pluginDisplayNames.join(", ")
+      : source.name;
 }
-function ev(e) {
-  for (let t of [e.id, e.name, ...e.pluginDisplayNames]) {
-    let e = Zn(t);
-    if (e != null) return e;
+function getToolSourceIcon(source) {
+  for (let iconId of [source.id, source.name, ...source.pluginDisplayNames]) {
+    let Icon = Zn(iconId);
+    if (Icon != null) return Icon;
   }
   return null;
 }
-function tv(e) {
-  switch (e.type) {
+function getThreadSummarySourceKey(sourceItem) {
+  switch (sourceItem.type) {
     case "tool":
-      return e.source.id;
+      return sourceItem.source.id;
     case "web":
-      return e.source.type === "page" ? e.source.url : "web-search";
+      return sourceItem.source.type === "page"
+        ? sourceItem.source.url
+        : "web-search";
   }
 }
-var nv,
-  rv,
-  iv = once(() => {
-    nv = q();
+var threadSummarySourceRowsModule,
+  threadSummarySourceRowsJsxRuntime,
+  initThreadSummarySourceRowsChunk = once(() => {
+    threadSummarySourceRowsModule = q();
     Jn();
     Or();
     Zr();
@@ -7853,7 +7864,7 @@ var nv,
     Gn();
     nn();
     Gr();
-    rv = getJsxRuntime();
+    threadSummarySourceRowsJsxRuntime = getJsxRuntime();
   });
 function ThreadSummaryPanelRoot(props) {
   let { children, shouldHideInlineImmediately, shouldShow } = props,
@@ -8368,7 +8379,7 @@ function ThreadSummaryPanelSections(props) {
           />
         }
       >
-        <H_ automation={matchingAutomation} />
+        <ThreadSummaryAutomationRow automation={matchingAutomation} />
       </ThreadSummaryPanelSection>
     );
   let gitSummarySection = !isElectronRuntime && isGitWorkspace && activeCwd && (
@@ -8439,7 +8450,10 @@ function ThreadSummaryPanelSections(props) {
         count: sideChats.length,
       })}
     >
-      <K_ sideChats={sideChats} onOpen={onOpenSideChat} />
+      <ThreadSummarySideChatRows
+        sideChats={sideChats}
+        onOpen={onOpenSideChat}
+      />
     </ThreadSummaryPanelSection>
   );
   let backgroundAgentsSection = backgroundAgents.length > 0 && (
@@ -8566,7 +8580,7 @@ function ThreadSummaryPanelSections(props) {
       count: sourceCount,
     });
   let sourcesContent = (
-    <Z_
+    <ThreadSummarySourceRows
       onOpen={onOpenSource}
       toolSources={toolSources}
       webSources={webSources}
@@ -8648,9 +8662,9 @@ var Av,
     initBackgroundTerminalSummaryRowsSupportChunk();
     initBackgroundTerminalSummaryRowsChunk();
     V_();
-    G_();
-    X_();
-    iv();
+    initThreadSummaryAutomationRowChunk();
+    initThreadSummarySideChatRowsChunk();
+    initThreadSummarySourceRowsChunk();
     initBackgroundTerminalSidePanelTabChunk();
     initSummaryPanelRowChunk();
     initThreadSummaryPanelSectionChunk();
