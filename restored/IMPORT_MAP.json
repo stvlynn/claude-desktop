@@ -5428,6 +5428,16 @@
       },
       "status": "done"
     },
+    "use-floating-window-pointer-interactivity-BrP_YEtb": {
+      "restored": "utils/use-floating-window-pointer-interactivity.ts",
+      "exports": {
+        "n": "useFloatingWindowPointerInteractivity",
+        "t": "initFloatingWindowPointerInteractivityChunk"
+      },
+      "status": "done",
+      "aliasOf": "use-floating-window-pointer-interactivity-BkGtHiAv",
+      "note": "Current hash adds a rolldown init export and exposes the hook as n."
+    },
     "alert-CuUy_SXy": {
       "restored": "utils/alert.tsx",
       "exports": {
@@ -9750,6 +9760,16 @@
       },
       "status": "done"
     },
+    "app-initial~app-main~remote-conversation-page~new-thread-panel-page~hotkey-window-thread-pa~ewq0bkmq-DIvcDvEQ": {
+      "restored": "features/gift-credits-signals.ts",
+      "exports": {
+        "n": "hasSeenGiftCreditsHomeBannerSignal",
+        "r": "initGiftCreditsSignalsChunk",
+        "t": "giftCreditsProfileCoachmarkPendingSignal"
+      },
+      "status": "done",
+      "note": "Current-ref shared route chunk contains gift credits persisted signals used by the home banner and profile coachmark."
+    },
     "windows-tabs-open-schema-BwIcikV2": {
       "restored": "runtime/windows-tabs-open-schema.ts",
       "exports": {
@@ -10168,6 +10188,15 @@
         "RemoteConnectionsPage": "RemoteConnectionsPage"
       },
       "status": "done"
+    },
+    "remote-connections-page-CWiJhSOT": {
+      "restored": "remote/remote-connections-page.tsx",
+      "exports": {
+        "RemoteConnectionsPage": "RemoteConnectionsPage"
+      },
+      "status": "done",
+      "aliasOf": "remote-connections-page-CDoJq-7A",
+      "note": "Current hash keeps the legacy remote-connections redirect behavior."
     },
     "experimental-features-queries-B5O3duhG": {
       "restored": "features/experimental-features/queries.ts",
