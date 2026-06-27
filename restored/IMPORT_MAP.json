@@ -12410,6 +12410,19 @@
       "status": "done",
       "note": "Synced current setup wizard step-view tracking hook with semantic hook and initializer exports.",
       "lastUpdated": "2026-06-27T21:01:25.231Z"
+    },
+    "chunk-KS23V3DP-DDeE2zpr": {
+      "restored": "utils/chunk-ks23-v3-dp.ts",
+      "exports": {
+        "n": "mermaidPackageMetadata",
+        "t": "initMermaidPackageMetadataChunk",
+        "mermaidPackageMetadata": "mermaidPackageMetadata",
+        "ChunkKS23V3DP": "ChunkKS23V3DP",
+        "initMermaidPackageMetadataChunk": "initMermaidPackageMetadataChunk"
+      },
+      "status": "done",
+      "note": "Synced current Mermaid package metadata hash with semantic metadata and initializer exports while preserving the legacy ChunkKS23V3DP alias.",
+      "lastUpdated": "2026-06-27T21:08:01.130Z"
     }
   }
 }
