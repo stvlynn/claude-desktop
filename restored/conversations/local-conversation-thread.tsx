@@ -40,22 +40,22 @@ const __vite__mapDeps = (
 ) => i.map((item) => d[item]);
 import { once, toEsModule } from "../runtime/commonjs-interop";
 import {
-  $N as n,
-  $P as r,
-  $h as i,
-  $i as a,
-  $j as o,
+  $N as initVscodeApiBridge,
+  $P as initAppScope,
+  $h as getHostConfigKey,
+  $i as initSummaryPanelAnimationConfig,
+  $j as initStatsigGateSignals,
   $p as modelProviderSignal,
-  AB as c,
-  AI as l,
+  AB as initScopeRuntime,
+  AI as getLocalConversationPath,
   AL as preloadDynamicImport,
-  AN as d,
+  AN as initSpinnerComponent,
   AO as PULL_REQUEST_FIX_PROMPT_PREAMBLE,
   AP as motion,
   AV as m,
-  Ai as h,
+  Ai as initDialogLayoutComponents,
   Aj as resolveWorkspacePathFromCwd,
-  Al as _,
+  Al as initComposerScope,
   Am as conversationWorkspaceRootSignal,
   Ao as y,
   Ap as b,
@@ -80,39 +80,39 @@ import {
   Ev as useLocation,
   FB as useScope,
   Fp as expiredSideChatSignal,
-  Fx as te,
+  Fx as initEnvironmentTerminalController,
   GE as ne,
   G_ as multiBrowserTabsEnabledSignal,
   Ga as ie,
   Gi as DropdownMenu,
-  Gj as ae,
+  Gj as initStatsigFeatureGateHooks,
   Gu as U,
-  HE as oe,
+  HE as useHostConfigById,
   HO as getReviewCommentAttachmentKeyValue,
-  Hg as ce,
+  Hg as collectEndResourcePaths,
   Hh as le,
   Hi as ue,
-  Hv as de,
-  Hx as fe,
+  Hv as collectTurnFileArtifacts,
+  Hx as getFallbackBackgroundAgentHandle,
   IB as useSignalValue,
-  IL as pe,
-  I_ as me,
+  IL as parseConfigLoadError,
+  I_ as initRouteScope,
   Io as he,
   Ip as localResponseInProgressSignal,
   Ix as environmentTerminalControllerService,
   JV as loadReactModule,
-  Ja as ve,
+  Ja as CheckCircleIcon,
   Ji as DropdownMenuItem,
   Jo as be,
-  Jt as xe,
+  Jt as ConnectedNodesIcon,
   Kg as Se,
   Ki as Ce,
   Kp as conversationReadStateSignal,
   Ku as Te,
-  LB as De,
-  LN as Oe,
+  LB as loadIsEqualModule,
+  LN as initReducedMotionPreference,
   La as ke,
-  Lj as Ae,
+  Lj as PlusIcon,
   Ln as je,
   MB as ScopeValueProvider,
   MP as AnimatePresence,
@@ -967,7 +967,7 @@ var reviewSearchHighlighterModule,
   REVIEW_SEARCH_HIGHLIGHT_MUTATION_DELAY_MS,
   initReviewSearchHighlighter = once(() => {
     reviewSearchHighlighterModule = getChunkModuleExports();
-    c();
+    initScopeRuntime();
     reviewSearchReactRuntime = toEsModule(loadReactModule(), 1);
     la();
     ea();
@@ -1216,7 +1216,7 @@ var threadFindNavigationRailModule,
     threadFindNavigationRailModule = getChunkModuleExports();
     threadFindNavigationRailReactRuntime = toEsModule(loadReactModule(), 1);
     ol();
-    ae();
+    initStatsigFeatureGateHooks();
     threadFindNavigationRailJsxRuntime = getJsxRuntime();
     Qn();
     LazyThreadUserMessageNavigationRail = al(
@@ -1526,7 +1526,7 @@ var summaryPanelArtifactsModule,
   summaryPanelArtifactsJsxRuntime,
   initSummaryPanelArtifactsListChunk = once(() => {
     summaryPanelArtifactsModule = getChunkModuleExports();
-    c();
+    initScopeRuntime();
     gn();
     Jn();
     Go();
@@ -1538,7 +1538,7 @@ var summaryPanelArtifactsModule,
     Gr();
     Io();
     Ic();
-    me();
+    initRouteScope();
     di();
     initSummaryPanelExpandableList();
     initSummaryPanelRowChunk();
@@ -1827,7 +1827,7 @@ var threadSummaryBackgroundActivityModule,
     );
     Jn();
     pn();
-    d();
+    initSpinnerComponent();
     Gn();
     Nl();
     zs();
@@ -2224,14 +2224,14 @@ var backgroundTerminalSummaryRowsModule,
   initBackgroundTerminalSummaryRowsChunk = once(() => {
     backgroundTerminalSummaryRowsModule = getChunkModuleExports();
     Ut();
-    c();
+    initScopeRuntime();
     backgroundTerminalSummaryRowsReactRuntime = toEsModule(
       loadReactModule(),
       1,
     );
     Jn();
     an();
-    d();
+    initSpinnerComponent();
     Tr();
     zs();
     ss();
@@ -2240,9 +2240,9 @@ var backgroundTerminalSummaryRowsModule,
     initActiveConversationProcessRowsChunk();
     initPendingBackgroundProcessRowsChunk();
     initProcessMetricHelpersChunk();
-    r();
-    te();
-    n();
+    initAppScope();
+    initEnvironmentTerminalController();
+    initVscodeApiBridge();
     initBackgroundTerminalSummaryRowsSupportChunk();
     initSummaryPanelRowChunk();
     backgroundTerminalSummaryRowsJsxRuntime = getJsxRuntime();
@@ -2501,7 +2501,7 @@ var localEnvironmentSelectorContentModule,
     localEnvironmentSelectorContentModule = getChunkModuleExports();
     Jn();
     an();
-    d();
+    initSpinnerComponent();
     Dt();
     ue();
     Fu();
@@ -2618,7 +2618,7 @@ var localEnvironmentActionSetupFormModule,
       1,
     );
     Ye();
-    h();
+    initDialogLayoutComponents();
     localEnvironmentActionSetupFormJsxRuntime = getJsxRuntime();
   });
 function AddLocalEnvironmentActionForm(props) {
@@ -2915,7 +2915,7 @@ var addLocalEnvironmentActionFormModule,
     ud();
     dd();
     gl();
-    n();
+    initVscodeApiBridge();
     initLocalEnvironmentActionSetupFormChunk();
     addLocalEnvironmentActionFormJsxRuntime = getJsxRuntime();
   });
@@ -3076,15 +3076,15 @@ function selectSuccessfulLocalEnvironment(environmentResponse) {
 var localConversationEnvironmentStateModule,
   initLocalConversationEnvironmentStateChunk = once(() => {
     localConversationEnvironmentStateModule = getChunkModuleExports();
-    c();
+    initScopeRuntime();
     gn();
     Ve();
     Au();
     le();
     za();
-    r();
+    initAppScope();
     di();
-    n();
+    initVscodeApiBridge();
     initLocalEnvironmentRecentActions();
   });
 function LocalConversationEnvironmentActionControls(props) {
@@ -3351,7 +3351,7 @@ function LocalConversationEnvironmentActionControls(props) {
       );
     let addActionItem = (
       <Br.Item
-        LeftIcon={Ae}
+        LeftIcon={PlusIcon}
         leftIconClassName="icon-sm"
         onSelect={openAddAction}
       >
@@ -3487,7 +3487,7 @@ function LocalConversationEnvironmentActionControls(props) {
                 size: "icon",
                 type: "button",
                 onClick: createEnvironment,
-                children: <Ae className="icon-sm" />,
+                children: <PlusIcon className="icon-sm" />,
               }),
             })
           : localEnvironmentActionControlsJsxRuntime.jsx(
@@ -3785,7 +3785,7 @@ var localEnvironmentActionControlsModule,
     localEnvironmentActionControlsModule = getChunkModuleExports();
     Ca();
     xt();
-    c();
+    initScopeRuntime();
     localEnvironmentActionControlsReactRuntime = toEsModule(
       loadReactModule(),
       1,
@@ -3814,12 +3814,12 @@ var localEnvironmentActionControlsModule,
     initAddLocalEnvironmentActionFormChunk();
     initRecentLocalEnvironmentActionsSignal();
     initLocalConversationEnvironmentStateChunk();
-    r();
+    initAppScope();
     fd();
     wo();
     dd();
     ws();
-    te();
+    initEnvironmentTerminalController();
     es();
     Mr();
     di();
@@ -4059,13 +4059,13 @@ var threadSummaryPanelSectionModule,
     Ut();
     bt();
     isFunctionModule = toEsModule(un(), 1);
-    c();
+    initScopeRuntime();
     threadSummaryPanelSectionReactRuntime = toEsModule(loadReactModule(), 1);
     an();
     Si();
-    me();
-    Oe();
-    a();
+    initRouteScope();
+    initReducedMotionPreference();
+    initSummaryPanelAnimationConfig();
     $n();
     threadSummaryPanelSectionJsxRuntime = getJsxRuntime();
     THREAD_SUMMARY_PANEL_SECTION_AUTO_COLLAPSE_DELAY_MS = 3e4;
@@ -4130,7 +4130,7 @@ var branchChangesSummaryRowModule,
   initBranchChangesSummaryRowChunk = once(() => {
     branchChangesSummaryRowModule = getChunkModuleExports();
     Jn();
-    d();
+    initSpinnerComponent();
     Nl();
     pc();
     initSummaryPanelRowChunk();
@@ -4622,7 +4622,7 @@ function PullRequestCheckStatusIcon(props) {
       });
     }
     case "passing": {
-      return pullRequestStatusDetailRowsJsxRuntime.jsx(ve, {
+      return pullRequestStatusDetailRowsJsxRuntime.jsx(CheckCircleIcon, {
         className: "icon-sm shrink-0 text-token-charts-green",
       });
     }
@@ -5066,7 +5066,7 @@ var pullRequestSummaryRowsModule,
   pullRequestSummaryRowsJsxRuntime,
   initPullRequestSummaryRowsChunk = once(() => {
     pullRequestSummaryRowsModule = getChunkModuleExports();
-    c();
+    initScopeRuntime();
     Jn();
     nt();
     da();
@@ -5080,7 +5080,7 @@ var pullRequestSummaryRowsModule,
     initPullRequestInlineActionButtonChunk();
     initPullRequestFixActionHelpersChunk();
     ls();
-    _();
+    initComposerScope();
     lc();
     initPullRequestRichTooltipChunk();
     initSummaryPanelRowChunk();
@@ -5178,7 +5178,7 @@ var pullRequestSidePanelLoadingStateModule,
   pullRequestSidePanelLoadingStateJsxRuntime,
   initPullRequestSidePanelLoadingStateChunk = once(() => {
     pullRequestSidePanelLoadingStateModule = getChunkModuleExports();
-    d();
+    initSpinnerComponent();
     pullRequestSidePanelLoadingStateJsxRuntime = getJsxRuntime();
   });
 function PullRequestSidePanelChecksSection(props) {
@@ -5339,7 +5339,7 @@ var pullRequestChecksSectionModule,
   pullRequestChecksSectionJsxRuntime,
   initPullRequestSidePanelChecksSectionChunk = once(() => {
     pullRequestChecksSectionModule = getChunkModuleExports();
-    c();
+    initScopeRuntime();
     Jn();
     an();
     cs();
@@ -5347,7 +5347,7 @@ var pullRequestChecksSectionModule,
     initPullRequestInlineActionButtonChunk();
     initPullRequestFixActionHelpersChunk();
     initPullRequestCheckRowsChunk();
-    _();
+    initComposerScope();
     initPullRequestSidePanelErrorMessageChunk();
     initPullRequestSidePanelDetailsSummaryChunk();
     initPullRequestSidePanelLoadingStateChunk();
@@ -5614,7 +5614,7 @@ var pullRequestCommentsSectionModule,
   pullRequestCommentsSectionJsxRuntime,
   initPullRequestSidePanelCommentsSectionChunk = once(() => {
     pullRequestCommentsSectionModule = getChunkModuleExports();
-    c();
+    initScopeRuntime();
     Jn();
     da();
     an();
@@ -5623,7 +5623,7 @@ var pullRequestCommentsSectionModule,
     initPullRequestFixDisabledTooltipChunk();
     initPullRequestInlineActionButtonChunk();
     ls();
-    _();
+    initComposerScope();
     initPullRequestSidePanelErrorMessageChunk();
     initPullRequestSidePanelDetailsSummaryChunk();
     initPullRequestSidePanelLoadingStateChunk();
@@ -5807,13 +5807,13 @@ var pullRequestConflictsSectionModule,
   pullRequestConflictsSectionJsxRuntime,
   initPullRequestSidePanelConflictsSectionChunk = once(() => {
     pullRequestConflictsSectionModule = getChunkModuleExports();
-    c();
+    initScopeRuntime();
     Jn();
     cs();
     initPullRequestFixDisabledTooltipChunk();
     initPullRequestInlineActionButtonChunk();
     initPullRequestFixActionHelpersChunk();
-    _();
+    initComposerScope();
     initPullRequestConflictFileRowsChunk();
     initPullRequestSidePanelDetailsSummaryChunk();
     pullRequestConflictsSectionJsxRuntime = getJsxRuntime();
@@ -5905,9 +5905,9 @@ var pullRequestDescriptionSectionModule,
   }),
   githubUserSearchQuery,
   initGithubUserSearchQuery = once(() => {
-    r();
+    initAppScope();
     Er();
-    n();
+    initVscodeApiBridge();
     githubUserSearchQuery = rn(ut, "gh-user-search", (queryParams) => ({
       enabled: queryParams.query.length > 0,
       params: queryParams,
@@ -6064,7 +6064,7 @@ function RequestPullRequestReviewersButton(props) {
     description:
       "Accessible label for opening the pull request reviewer picker",
   });
-  let triggerIcon = <Ae aria-hidden={true} className="icon-2xs" />;
+  let triggerIcon = <PlusIcon aria-hidden={true} className="icon-2xs" />;
   let triggerButton = (
     <Kn asChild={true}>
       {requestPullRequestReviewersJsxRuntime.jsx(Button, {
@@ -6258,19 +6258,19 @@ var requestPullRequestReviewersModule,
   requestPullRequestReviewersJsxRuntime,
   initRequestPullRequestReviewersButtonChunk = once(() => {
     requestPullRequestReviewersModule = getChunkModuleExports();
-    c();
+    initScopeRuntime();
     requestPullRequestReviewersReactRuntime = toEsModule(loadReactModule(), 1);
     Jn();
     Ye();
     Hn();
     Nu();
-    d();
+    initSpinnerComponent();
     wn();
     _t();
     Jr();
     initPullRequestUpdateMutationChunk();
     initPullRequestAnalyticsChunk();
-    r();
+    initAppScope();
     Vn();
     initGithubUserSearchQuery();
     initReviewerSearchUniqByModule();
@@ -6642,7 +6642,7 @@ var pullRequestOverviewSectionModule,
     pullRequestOverviewSectionModule = getChunkModuleExports();
     Ut();
     Jn();
-    d();
+    initSpinnerComponent();
     Gn();
     Nl();
     y();
@@ -6823,15 +6823,15 @@ var pullRequestSidePanelDetailsModule,
   pullRequestSidePanelDetailsJsxRuntime,
   initPullRequestSidePanelDetailsChunk = once(() => {
     pullRequestSidePanelDetailsModule = getChunkModuleExports();
-    c();
+    initScopeRuntime();
     en();
     bl();
     Yc();
     initPullRequestFailingChecksPromptChunk();
     po();
-    _();
+    initComposerScope();
     Er();
-    n();
+    initVscodeApiBridge();
     initPullRequestSidePanelChecksSectionChunk();
     initPullRequestSidePanelCommentsSectionChunk();
     initPullRequestSidePanelConflictsSectionChunk();
@@ -6947,7 +6947,7 @@ var pullRequestSidePanelTabModule,
     ke();
     Xr();
     Er();
-    n();
+    initVscodeApiBridge();
     initPullRequestMergeActionsChunk();
     initPullRequestSidePanelDetailsChunk();
     pullRequestSidePanelTabJsxRuntime = getJsxRuntime();
@@ -7183,7 +7183,7 @@ var pullRequestSummaryRowModule,
   pullRequestSummaryRowJsxRuntime,
   initPullRequestSummaryRowChunk = once(() => {
     pullRequestSummaryRowModule = getChunkModuleExports();
-    c();
+    initScopeRuntime();
     Jn();
     Nt();
     Do();
@@ -7192,8 +7192,8 @@ var pullRequestSummaryRowModule,
     Xr();
     initPullRequestAnalyticsChunk();
     Js();
-    me();
-    o();
+    initRouteScope();
+    initStatsigGateSignals();
     initPullRequestSidePanelOpenerChunk();
     initSummaryPanelRowChunk();
     pullRequestSummaryRowJsxRuntime = getJsxRuntime();
@@ -7498,10 +7498,10 @@ var localConversationGitSummaryModule,
   GITHUB_STATUS_ICON_CLASS_NAME,
   initLocalConversationGitSummaryChunk = once(() => {
     localConversationGitSummaryModule = getChunkModuleExports();
-    c();
+    initScopeRuntime();
     Jn();
     nt();
-    d();
+    initSpinnerComponent();
     jc();
     vr();
     hc();
@@ -7595,7 +7595,7 @@ var threadSummaryEnvironmentModeControlsModule,
   threadSummaryEnvironmentModeControlsJsxRuntime,
   initThreadSummaryEnvironmentModeControlsChunk = once(() => {
     threadSummaryEnvironmentModeControlsModule = getChunkModuleExports();
-    c();
+    initScopeRuntime();
     gn();
     nt();
     ca();
@@ -7607,9 +7607,9 @@ var threadSummaryEnvironmentModeControlsModule,
     Re();
     Fi();
     fa();
-    _();
+    initComposerScope();
     Ht();
-    ae();
+    initStatsigFeatureGateHooks();
     threadSummaryEnvironmentModeControlsJsxRuntime = getJsxRuntime();
   });
 function ThreadSummaryEnvironmentSection(props) {
@@ -7808,21 +7808,21 @@ var threadSummaryEnvironmentSectionModule,
   threadSummaryEnvironmentSectionJsxRuntime,
   initThreadSummaryEnvironmentSectionChunk = once(() => {
     threadSummaryEnvironmentSectionModule = getChunkModuleExports();
-    c();
+    initScopeRuntime();
     gn();
     threadSummaryEnvironmentSectionReactRuntime = toEsModule(
       loadReactModule(),
       1,
     );
     Jn();
-    d();
+    initSpinnerComponent();
     Nl();
     y();
     Si();
     Lu();
     Ds();
     Ri();
-    me();
+    initRouteScope();
     zi();
     initLocalEnvironmentActionControlsChunk();
     initSummaryPanelRowChunk();
@@ -7909,13 +7909,13 @@ var threadSummaryAutomationRowModule,
   threadSummaryAutomationRowJsxRuntime,
   initThreadSummaryAutomationRowChunk = once(() => {
     threadSummaryAutomationRowModule = getChunkModuleExports();
-    c();
+    initScopeRuntime();
     Jn();
     Ol();
     Ps();
     bs();
     Cc();
-    me();
+    initRouteScope();
     initSummaryPanelRowChunk();
     threadSummaryAutomationRowJsxRuntime = getJsxRuntime();
   });
@@ -7952,7 +7952,7 @@ var threadSummarySideChatRowsModule,
   threadSummarySideChatRowsJsxRuntime,
   initThreadSummarySideChatRowsChunk = once(() => {
     threadSummarySideChatRowsModule = getChunkModuleExports();
-    d();
+    initSpinnerComponent();
     Oo();
     initSummaryPanelExpandableList();
     initSummaryPanelRowChunk();
@@ -8035,7 +8035,7 @@ function ThreadSummarySourceIconButton(props) {
       mcpAppId = source.source.mcpAppId;
       let fallbackIcon =
         ToolIcon == null
-          ? threadSummarySourceRowsJsxRuntime.jsx(xe, {
+          ? threadSummarySourceRowsJsxRuntime.jsx(ConnectedNodesIcon, {
               className: "icon-xs shrink-0",
             })
           : threadSummarySourceRowsJsxRuntime.jsx(ToolIcon, {
@@ -8247,11 +8247,11 @@ var threadSummaryPanelReactRuntime,
     threadSummaryPanelReactRuntime = getChunkModuleExports();
     Ut();
     bt();
-    c();
+    initScopeRuntime();
     Ye();
     Gn();
     initBackgroundTerminalIconChunk();
-    Oe();
+    initReducedMotionPreference();
     initThreadFindNavigationRailNoopChunk();
     initThreadSummaryPanelSectionChunk();
     threadSummaryPanelJsxRuntime = getJsxRuntime();
@@ -8947,8 +8947,8 @@ var localConversationSummaryPanelModule,
   localConversationSummaryPanelJsxRuntime,
   initLocalConversationGitSummary = once(() => {
     localConversationSummaryPanelModule = getChunkModuleExports();
-    isEqualModule = toEsModule(De(), 1);
-    c();
+    isEqualModule = toEsModule(loadIsEqualModule(), 1);
+    initScopeRuntime();
     gn();
     Jn();
     nt();
@@ -8974,10 +8974,10 @@ var localConversationSummaryPanelModule,
     initPendingBackgroundProcessRowsChunk();
     po();
     initThreadSummaryPanelSignalsChunk();
-    me();
+    initRouteScope();
     Ki();
     xn();
-    ae();
+    initStatsigFeatureGateHooks();
     ho();
     Ji();
     lc();
@@ -8995,7 +8995,7 @@ var localConversationSummaryPanelModule,
     initThreadSummaryPanelChrome();
     tt();
     _n();
-    n();
+    initVscodeApiBridge();
     localConversationSummaryPanelJsxRuntime = getJsxRuntime();
   });
 function getPinnedSummaryPanelDisplayMode(
@@ -9045,8 +9045,8 @@ var PINNED_SUMMARY_PANEL_GAP_PX,
   DEFAULT_PINNED_SUMMARY_PANEL_STATE,
   pinnedSummaryPanelState,
   initPinnedSummaryPanelState = once(() => {
-    c();
-    r();
+    initScopeRuntime();
+    initAppScope();
     DEFAULT_PINNED_SUMMARY_PANEL_STATE = {
       displayMode: "overlay",
       isPopoverOpen: false,
@@ -9262,11 +9262,11 @@ var localConversationArtifactsModule,
   initLocalConversationArtifacts = once(() => {
     localConversationArtifactsModule = getChunkModuleExports();
     bt();
-    c();
+    initScopeRuntime();
     localConversationArtifactsReactRuntime = toEsModule(loadReactModule(), 1);
     ua();
     Xa();
-    Oe();
+    initReducedMotionPreference();
     initPinnedSummaryPanelContentShiftConstants();
     initPinnedSummaryPanelState();
   });
@@ -9313,7 +9313,7 @@ function collectOutputArtifactsForTurn(
   includeGeneratedImages,
 ) {
   let status = ei(turn.status),
-    turnArtifacts = de(turn),
+    turnArtifacts = collectTurnFileArtifacts(turn),
     cwd =
       turn.params.cwd == null ? null : normalizeWorkspacePath(turn.params.cwd);
   return collectOutputArtifactsFromTurnDetails({
@@ -9460,10 +9460,10 @@ var initOutputArtifactCollectorDependencies = once(() => {
   localConversationOutputArtifactsSignal,
   localConversationSummaryArtifactsSignal,
   initLocalConversationArtifactSignals = once(() => {
-    c();
+    initScopeRuntime();
     nt();
-    r();
-    o();
+    initAppScope();
+    initStatsigGateSignals();
     initOutputArtifactCollectorDependencies();
     historicalOutputArtifactsSignal = Rn(
       ut,
@@ -9836,7 +9836,7 @@ var localConversationSummaryPanelSignalsModule,
   EMPTY_SUMMARY_PANEL_TURNS,
   initLocalConversationSummaryPanelSignals = once(() => {
     localConversationSummaryPanelSignalsModule = getChunkModuleExports();
-    c();
+    initScopeRuntime();
     nt();
     Nt();
     Ka();
@@ -9847,7 +9847,7 @@ var localConversationSummaryPanelSignalsModule,
     fa();
     he();
     Ct();
-    me();
+    initRouteScope();
     Ki();
     Qe();
     initLocalConversationArtifactSignals();
@@ -9886,8 +9886,8 @@ function ConnectedLocalWorktreeRestoreBanner(props) {
 function WorktreeRestoreBanner(props) {
   let { conversationId, cwd, threadHostId } = props,
     scope = useScope(ut),
-    host = oe(threadHostId),
-    hostKey = i(host);
+    host = useHostConfigById(threadHostId),
+    hostKey = getHostConfigKey(host);
   let worktreeQueryKey = hostKey,
     intl = ur(),
     queryClient = Ci(),
@@ -10092,7 +10092,7 @@ var worktreeRestoreBannerModule,
   initWorktreeRestoreBannerChunk = once(() => {
     worktreeRestoreBannerModule = getChunkModuleExports();
     m();
-    c();
+    initScopeRuntime();
     gn();
     Jn();
     nt();
@@ -10102,10 +10102,10 @@ var worktreeRestoreBannerModule,
     Ve();
     fn();
     Fn();
-    r();
+    initAppScope();
     ne();
     Ht();
-    te();
+    initEnvironmentTerminalController();
     Mr();
     Ns();
     Ys();
@@ -10288,7 +10288,7 @@ var olderTurnForkDialogModule,
     Jn();
     Ye();
     mi();
-    h();
+    initDialogLayoutComponents();
     y();
     Ni();
     Ra();
@@ -10399,14 +10399,14 @@ function ForkFromOlderTurnDialogController({
 var olderTurnForkDialogReactRuntime,
   forkDialogControllerJsxRuntime,
   initForkFromOlderTurnDialogControllerChunk = once(() => {
-    c();
+    initScopeRuntime();
     gn();
     olderTurnForkDialogReactRuntime = toEsModule(loadReactModule(), 1);
     Jn();
     xr();
     wn();
     Di();
-    r();
+    initAppScope();
     sl();
     Mr();
     _a();
@@ -10418,7 +10418,7 @@ var olderTurnForkDialogReactRuntime,
   });
 var deepEqualModule,
   initDeepEqualModule = once(() => {
-    deepEqualModule = toEsModule(De(), 1);
+    deepEqualModule = toEsModule(loadIsEqualModule(), 1);
   });
 async function renderLocalConversationMarkdownForTurns({
   cwd,
@@ -10470,7 +10470,8 @@ function formatBackgroundAgentDisplayName({
   agentNickname,
   conversationId,
 }: BackgroundAgentDisplayNameOptions): string {
-  let displayName = agentNickname?.trim() || fe(conversationId);
+  let displayName =
+    agentNickname?.trim() || getFallbackBackgroundAgentHandle(conversationId);
   return displayName.startsWith("@") ? displayName.slice(1) : displayName;
 }
 var initThreadScrollState = once(() => {
@@ -10885,10 +10886,10 @@ var findLastModule,
   localConversationVisibleTurnEntriesSignal,
   initLocalConversationTurnSelectors = once(() => {
     findLastModule = toEsModule(gi(), 1);
-    c();
+    initScopeRuntime();
     nt();
-    r();
-    o();
+    initAppScope();
+    initStatsigGateSignals();
     initDeepEqualModule();
     Ge();
     initConversationSearchUnitExtractor();
@@ -10950,8 +10951,8 @@ var findLastModule,
   }),
   threadScrollStateSignal,
   initThreadScrollStateSignal = once(() => {
-    c();
-    r();
+    initScopeRuntime();
+    initAppScope();
     threadScrollStateSignal = createScopedSignal(ut, (_conversationId) => null);
   });
 function createLatestTurnScrollState({ followMode = "static" } = {}) {
@@ -11191,12 +11192,12 @@ var localConversationTurnRowModule,
   localConversationTurnRowJsxRuntime,
   initLocalConversationTurnRowChunk = once(() => {
     localConversationTurnRowModule = getChunkModuleExports();
-    c();
+    initScopeRuntime();
     localConversationTurnRowReactRuntime = toEsModule(loadReactModule(), 1);
     Jn();
     Ye();
     Lo();
-    me();
+    initRouteScope();
     _n();
     Dc();
     localConversationTurnRowJsxRuntime = getJsxRuntime();
@@ -13163,10 +13164,10 @@ var autoFollowVirtualizedTurnListModule,
   initAutoFollowVirtualizedTurnListChunk = once(() => {
     autoFollowVirtualizedTurnListModule = getChunkModuleExports();
     bt();
-    c();
+    initScopeRuntime();
     autoFollowTurnListReactRuntime = toEsModule(loadReactModule(), 1);
     initWindowZoomContext();
-    r();
+    initAppScope();
     nd();
     id();
     He();
@@ -13355,7 +13356,7 @@ function collectGeneratedImagesForVisibleTurns({
             renderedTurn.items,
             renderedTurn.status,
           ),
-          endResourcePaths = ce(
+          endResourcePaths = collectEndResourcePaths(
             Lt({
               assistantContent: assistantItem?.content ?? null,
               projectlessOutputDirectory,
@@ -13432,7 +13433,7 @@ function areTranscriptBlocksEquivalent(
 var turnListEntryDeepEqualModule,
   initTurnListEntryComparisonChunk = once(() => {
     toEsModule(yr(), 1);
-    turnListEntryDeepEqualModule = toEsModule(De(), 1);
+    turnListEntryDeepEqualModule = toEsModule(loadIsEqualModule(), 1);
     qs();
     Ge();
     Jt();
@@ -13706,7 +13707,7 @@ var localConversationConnectionStatusModule,
   initLocalConversationConnectionStatusChunk = once(() => {
     localConversationConnectionStatusModule = getChunkModuleExports();
     Jn();
-    d();
+    initSpinnerComponent();
     localConversationConnectionStatusJsxRuntime = getJsxRuntime();
   });
 function useMarkConversationReadOnVisibility(conversationId, hasConversation) {
@@ -13766,7 +13767,7 @@ var markConversationReadEffectModule,
   _S,
   initMarkConversationReadEffect = once(() => {
     markConversationReadEffectModule = getChunkModuleExports();
-    c();
+    initScopeRuntime();
     _S = toEsModule(loadReactModule(), 1);
     nt();
     pn();
@@ -13968,7 +13969,7 @@ function shouldShowResumeErrorToast({
   return !isSubagentChildThread && (!hasShownResumeError || !shouldAutoRetry);
 }
 function getResumeConfigErrorDetails(error) {
-  let configError = pe(error);
+  let configError = parseConfigLoadError(error);
   return configError == null
     ? null
     : {
@@ -13984,7 +13985,7 @@ function getResumeConfigErrorDetails(error) {
 var localConversationThreadRouteReactRuntime,
   localConversationThreadRouteJsxRuntime,
   initLocalConversationThreadRoute = once(() => {
-    c();
+    initScopeRuntime();
     gn();
     localConversationThreadRouteReactRuntime = toEsModule(loadReactModule(), 1);
     Jn();
@@ -13994,7 +13995,7 @@ var localConversationThreadRouteReactRuntime,
     wn();
     Vs();
     Tn();
-    r();
+    initAppScope();
     It();
     Ht();
     Mr();
@@ -14551,7 +14552,7 @@ function ChromeExtensionConversationHeader(props) {
     parentConversationId == null
       ? undefined
       : () => {
-          navigate(l(parentConversationId));
+          navigate(getLocalConversationPath(parentConversationId));
         };
   let headerTitle =
     parentConversationId == null ? (
@@ -14610,7 +14611,7 @@ function shouldShowEmptyResumingThreadState({
   );
 }
 function getConversationNavigationPath(conversationId) {
-  return Fs() ? Ke(conversationId) : l(conversationId);
+  return Fs() ? Ke(conversationId) : getLocalConversationPath(conversationId);
 }
 function LocalConversationThreadFrame(props) {
   let {
@@ -15640,7 +15641,7 @@ export const initLocalConversationThreadChunk = once(() => {
   bt();
   xt();
   toEsModule(gi(), 1);
-  c();
+  initScopeRuntime();
   gn();
   localConversationThreadReactRuntime = toEsModule(loadReactModule(), 1);
   Jn();
@@ -15682,11 +15683,11 @@ export const initLocalConversationThreadChunk = once(() => {
   he();
   initThreadPipHostSelectors();
   initThreadPipHostAttributes();
-  r();
-  _();
-  me();
+  initAppScope();
+  initComposerScope();
+  initRouteScope();
   Ht();
-  ae();
+  initStatsigFeatureGateHooks();
   Qe();
   initThreadLayoutChunk();
   ho();
