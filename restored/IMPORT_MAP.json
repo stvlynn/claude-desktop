@@ -12477,6 +12477,19 @@
       "status": "done",
       "note": "Synced current avatar option hook with semantic hook and initializer exports, reusing the restored custom avatar query feature module.",
       "lastUpdated": "2026-06-27T21:17:46.549Z"
+    },
+    "plan-pricing-BL-ew2t5": {
+      "restored": "utils/plan-pricing.ts",
+      "exports": {
+        "n": "formatPlanPriceParts",
+        "r": "initPlanPricingChunk",
+        "t": "formatPlanPrice",
+        "formatPlanPriceParts": "formatPlanPriceParts",
+        "initPlanPricingChunk": "initPlanPricingChunk",
+        "formatPlanPrice": "formatPlanPrice"
+      },
+      "status": "done",
+      "note": "Synced current plan-pricing chunk to the semantic currency formatting helpers and the new no-op chunk initializer."
     }
   }
 }
