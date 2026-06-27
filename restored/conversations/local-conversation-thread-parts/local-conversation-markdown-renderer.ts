@@ -74,9 +74,7 @@ export async function renderLocalConversationMarkdownForTurns({
   let { renderConversationMarkdown } = await preloadDynamicImport(
     async () => {
       let { renderConversationMarkdown: renderConversationMarkdownModule } =
-        await import(
-          "../../boundaries/current-ref/conversation-markdown-producer"
-        );
+        await import("../conversation-markdown");
       return {
         renderConversationMarkdown: renderConversationMarkdownModule,
       };

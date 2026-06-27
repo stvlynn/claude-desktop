@@ -11256,10 +11256,13 @@
       "lastUpdated": "2026-06-27T03:16:46.000Z"
     },
     "conversation-markdown-BjFKV53f": {
-      "restored": "boundaries/current-ref/conversation-markdown-producer.ts",
-      "status": "boundary",
-      "note": "Current ref passthrough boundary for local-conversation-thread; open until this producer is deep-restored semantically.",
-      "lastUpdated": "2026-06-27T03:16:46.000Z"
+      "restored": "conversations/conversation-markdown.ts",
+      "exports": {
+        "renderConversationMarkdown": "renderConversationMarkdown"
+      },
+      "status": "done",
+      "note": "Semantic markdown exporter for local conversation turns; replaces the current-ref passthrough used by local-conversation-thread.",
+      "lastUpdated": "2026-06-27T22:46:06.724Z"
     },
     "app-initial~app-main~remote-conversation-page~onboarding-page~projects-index-page~hotkey-wi~hngpswmm-DIEMgkYM": {
       "restored": "icons/pin-icon.tsx",
