@@ -33,6 +33,19 @@ function run(command, args) {
   }
 }
 
+function runCapturing(command, args, allowedStatuses = [0]) {
+  const result = spawnSync(command, args, { encoding: "utf8" });
+  if (result.error) {
+    fail(`${command} failed to start: ${result.error.message}`);
+  }
+  if (!allowedStatuses.includes(result.status)) {
+    process.stdout.write(result.stdout || "");
+    process.stderr.write(result.stderr || "");
+    fail(`${command} exited with status ${result.status}`);
+  }
+  return result;
+}
+
 function assertSafeRefDir(refDir, cwd) {
   const root = path.parse(refDir).root;
   const home = path.resolve(homedir());
@@ -47,7 +60,9 @@ function assertSafeRefDir(refDir, cwd) {
 
   const relative = path.relative(cwd, refDir);
   if (relative !== "ref") {
-    fail(`ref directory must resolve to ./ref under the current working directory: ${refDir}`);
+    fail(
+      `ref directory must resolve to ./ref under the current working directory: ${refDir}`,
+    );
   }
 }
 
@@ -63,14 +78,17 @@ function walkFormatTargets(dir, targets = []) {
       continue;
     }
 
-    if (entry.isFile() && (entry.name.endsWith(".js") || entry.name.endsWith(".css"))) {
+    if (
+      entry.isFile() &&
+      (entry.name.endsWith(".js") || entry.name.endsWith(".css"))
+    ) {
       targets.push(entryPath);
     }
   }
   return targets;
 }
 
-function formatWithPrettier(files) {
+function forEachFileBatch(files, callback) {
   const batch = [];
   let batchLength = 0;
   const maxBatchLength = 50_000;
@@ -79,7 +97,7 @@ function formatWithPrettier(files) {
     if (batch.length === 0) {
       return;
     }
-    run("npx", ["-y", "prettier", "--write", "--ignore-path", PRETTIER_IGNORE_PATH, ...batch]);
+    callback(batch);
     batch.length = 0;
     batchLength = 0;
   }
@@ -95,6 +113,80 @@ function formatWithPrettier(files) {
   flush();
 }
 
+function formatWithPrettier(files) {
+  forEachFileBatch(files, (batch) => {
+    run("npx", [
+      "-y",
+      "prettier",
+      "--write",
+      "--ignore-path",
+      PRETTIER_IGNORE_PATH,
+      ...batch,
+    ]);
+  });
+}
+
+function listDifferentWithPrettier(files) {
+  const different = new Set();
+
+  forEachFileBatch(files, (batch) => {
+    const result = runCapturing(
+      "npx",
+      [
+        "-y",
+        "prettier",
+        "--list-different",
+        "--ignore-path",
+        PRETTIER_IGNORE_PATH,
+        ...batch,
+      ],
+      [0, 1],
+    );
+
+    for (const line of (result.stdout || "").split(/\r?\n/)) {
+      const file = line.trim();
+      if (file) {
+        different.add(file);
+      }
+    }
+
+    if (result.stderr) {
+      process.stderr.write(result.stderr);
+    }
+  });
+
+  return [...different];
+}
+
+function verifyWithPrettier(files) {
+  const maxVerificationPasses = 3;
+
+  if (files.length === 0) {
+    console.log("Prettier verification complete.");
+    return;
+  }
+
+  for (let pass = 1; pass <= maxVerificationPasses; pass++) {
+    const different = listDifferentWithPrettier(files);
+
+    if (different.length === 0) {
+      console.log("Prettier verification complete.");
+      return;
+    }
+
+    if (pass === maxVerificationPasses) {
+      fail(
+        `Prettier verification failed: ${different.length} file(s) still need formatting.`,
+      );
+    }
+
+    console.log(
+      `Prettier verification found ${different.length} file(s) needing another pass; reformatting...`,
+    );
+    formatWithPrettier(different);
+  }
+}
+
 const args = process.argv.slice(2);
 const dryRun = args.includes("--dry-run");
 const skipFormat = args.includes("--skip-format");
@@ -104,7 +196,9 @@ if (args.includes("--help") || args.includes("-h")) {
   process.exit(0);
 }
 
-const unknownArgs = args.filter((arg) => !["--dry-run", "--skip-format"].includes(arg));
+const unknownArgs = args.filter(
+  (arg) => !["--dry-run", "--skip-format"].includes(arg),
+);
 if (unknownArgs.length > 0) {
   fail(`unknown argument(s): ${unknownArgs.join(", ")}`);
 }
@@ -141,12 +235,14 @@ if (skipFormat) {
 }
 
 const files = walkFormatTargets(refDir);
+const jsFiles = files.filter((file) => file.endsWith(".js"));
 console.log(
   `Formatting ${files.length} JS/CSS file(s) with Prettier, ignoring git/prettier ignore files...`,
 );
 
 if (files.length > 0) {
   formatWithPrettier(files);
+  verifyWithPrettier(jsFiles);
 }
 
 console.log("Codex app ref refresh complete.");

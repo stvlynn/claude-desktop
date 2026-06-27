@@ -7310,7 +7310,9 @@
         "x": "useComposerControllerX",
         "y": "useComposerControllerY"
       },
-      "status": "done"
+      "status": "done",
+      "note": "Typed and semantically renamed exported composer controller helpers H/N/O: replace placement search, transaction event plugin factory, and useSyncExternalStore selector hook.",
+      "lastUpdated": "2026-06-27T02:57:05.000Z"
     },
     "PopcornPageNumberNavigation-VRpKM1l8": {
       "restored": "features/popcorn-page-number-navigation.tsx",
