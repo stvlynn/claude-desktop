@@ -8833,18 +8833,18 @@ var uy = once(() => {
   xs();
   initActiveConversationProcessRowsChunk();
 });
-function by(e) {
-  for (let t = e.length - 1; t >= 0; --t) {
-    let n = e[t];
-    if (n != null && n.status !== "inProgress")
-      for (let e = n.items.length - 1; e >= 0; --e) {
-        let t = n.items[e];
-        if (t == null || t.type !== "plan") continue;
-        let r = t.text.match(/^#\s+(.+)$/m)?.[1]?.trim();
+function getLatestCompletedTurnPlanSummary(turns) {
+  for (let turnIndex = turns.length - 1; turnIndex >= 0; --turnIndex) {
+    let turn = turns[turnIndex];
+    if (turn != null && turn.status !== "inProgress")
+      for (let itemIndex = turn.items.length - 1; itemIndex >= 0; --itemIndex) {
+        let item = turn.items[itemIndex];
+        if (item == null || item.type !== "plan") continue;
+        let headingTitle = item.text.match(/^#\s+(.+)$/m)?.[1]?.trim();
         return {
-          content: t.text,
-          key: n.turnId ?? t.id,
-          title: r == null ? null : Yn(r),
+          content: item.text,
+          key: turn.turnId ?? item.id,
+          title: headingTitle == null ? null : Yn(headingTitle),
         };
       }
   }
@@ -8853,14 +8853,14 @@ function by(e) {
 var xy = once(() => {
   Ur();
 });
-function Sy(e, t) {
-  return e.flatMap((item) => {
+function collectSideChatTabSummaries(tabs, isConversationResponseInProgress) {
+  return tabs.flatMap((item) => {
     if (!item.tabId.startsWith(Cy)) return [];
-    let n = Rr(item.tabId.slice(9));
+    let conversationId = Rr(item.tabId.slice(9));
     return [
       {
-        conversationId: n,
-        isResponseInProgress: t(n),
+        conversationId: conversationId,
+        isResponseInProgress: isConversationResponseInProgress(conversationId),
         tabId: item.tabId,
         title: item.title,
       },
@@ -8872,118 +8872,118 @@ var Cy,
     gn();
     Cy = "sidechat:";
   });
-function Ty(e) {
-  let t = new Map();
-  for (let n of e?.data ?? []) {
-    let e = n.serverInfo;
-    if (e == null) continue;
-    let r = xl(e),
-      i = e.title?.trim() || e.name.trim() || null;
-    if (r == null && i == null) continue;
-    let a = {
-      logoUrl: r?.logoUrl ?? null,
-      logoUrlDark: r?.logoDarkUrl ?? null,
-      name: i,
+function buildMcpServerMetadataByName(mcpServersQuery) {
+  let metadataByName = new Map();
+  for (let serverRegistration of mcpServersQuery?.data ?? []) {
+    let serverInfo = serverRegistration.serverInfo;
+    if (serverInfo == null) continue;
+    let serverLogo = xl(serverInfo),
+      displayName = serverInfo.title?.trim() || serverInfo.name.trim() || null;
+    if (serverLogo == null && displayName == null) continue;
+    let metadata = {
+      logoUrl: serverLogo?.logoUrl ?? null,
+      logoUrlDark: serverLogo?.logoDarkUrl ?? null,
+      name: displayName,
     };
-    for (let r of [n.name, e.name]) {
-      let e = Ey(r);
-      e.length > 0 && !t.has(e) && t.set(e, a);
+    for (let serverName of [serverRegistration.name, serverInfo.name]) {
+      let lookupKey = normalizeMcpServerLookupKey(serverName);
+      lookupKey.length > 0 && !metadataByName.has(lookupKey) && metadataByName.set(lookupKey, metadata);
     }
   }
-  return t;
+  return metadataByName;
 }
-function Ey(e) {
-  return e?.trim().toLowerCase() ?? "";
+function normalizeMcpServerLookupKey(serverName) {
+  return serverName?.trim().toLowerCase() ?? "";
 }
 var Dy = once(() => {
   Sl();
 });
-function Oy(e, t, n, r) {
-  let i = [],
-    a = new Map(),
-    o = Ty(r);
-  for (let r = e.length - 1; r >= 0; --r) {
-    let s = e[r];
-    for (let e = s.items.length - 1; e >= 0; --e) {
-      let r = s.items[e];
-      if (r.type !== "mcpToolCall" || r.server === "node_repl") continue;
-      let c = jy(r, t, o),
-        l = Oi(r.id),
-        u = n?.has(l) === true ? l : undefined,
-        d = a.get(c.id);
-      if (d != null) {
-        d.mcpAppId == null && u != null && (d.mcpAppId = u);
+function collectConversationMcpToolSources(turns, apps, installedMcpAppIds, mcpServersQuery) {
+  let toolSources = [],
+    toolSourcesById = new Map(),
+    serverMetadataByName = buildMcpServerMetadataByName(mcpServersQuery);
+  for (let turnIndex = turns.length - 1; turnIndex >= 0; --turnIndex) {
+    let turn = turns[turnIndex];
+    for (let itemIndex = turn.items.length - 1; itemIndex >= 0; --itemIndex) {
+      let item = turn.items[itemIndex];
+      if (item.type !== "mcpToolCall" || item.server === "node_repl") continue;
+      let toolSource = getMcpToolSourceSummary(item, apps, serverMetadataByName),
+        mcpAppId = Oi(item.id),
+        installedMcpAppId = installedMcpAppIds?.has(mcpAppId) === true ? mcpAppId : undefined,
+        existingToolSource = toolSourcesById.get(toolSource.id);
+      if (existingToolSource != null) {
+        existingToolSource.mcpAppId == null && installedMcpAppId != null && (existingToolSource.mcpAppId = installedMcpAppId);
         continue;
       }
-      c.mcpAppId = u;
-      a.set(c.id, c);
-      i.push(c);
+      toolSource.mcpAppId = installedMcpAppId;
+      toolSourcesById.set(toolSource.id, toolSource);
+      toolSources.push(toolSource);
     }
   }
-  return i;
+  return toolSources;
 }
-function ky(e) {
-  let t = [],
-    n = new Set(),
-    r = false;
-  for (let i = e.length - 1; i >= 0; --i) {
-    let a = e[i];
-    for (let e = a.items.length - 1; e >= 0; --e) {
-      let i = a.items[e];
-      if (i.type !== "webSearch") continue;
-      r = true;
-      let o = Ay(i.action);
-      o == null || n.has(o.url) || (n.add(o.url), t.push(o));
+function collectConversationWebSources(turns) {
+  let webSources = [],
+    seenUrls = new Set(),
+    sawWebSearch = false;
+  for (let turnIndex = turns.length - 1; turnIndex >= 0; --turnIndex) {
+    let turn = turns[turnIndex];
+    for (let itemIndex = turn.items.length - 1; itemIndex >= 0; --itemIndex) {
+      let item = turn.items[itemIndex];
+      if (item.type !== "webSearch") continue;
+      sawWebSearch = true;
+      let webSource = getWebSourceFromBrowserAction(item.action);
+      webSource == null || seenUrls.has(webSource.url) || (seenUrls.add(webSource.url), webSources.push(webSource));
     }
   }
-  return t.length === 0 && r
+  return webSources.length === 0 && sawWebSearch
     ? [
         {
           type: "search",
         },
       ]
-    : t;
+    : webSources;
 }
-function Ay(e) {
-  if ((e?.type !== "openPage" && e?.type !== "findInPage") || e.url == null)
+function getWebSourceFromBrowserAction(action) {
+  if ((action?.type !== "openPage" && action?.type !== "findInPage") || action.url == null)
     return null;
   try {
-    let t = new URL(e.url);
-    return (t.protocol !== "http:" && t.protocol !== "https:") ||
-      t.username !== "" ||
-      t.password !== ""
+    let url = new URL(action.url);
+    return (url.protocol !== "http:" && url.protocol !== "https:") ||
+      url.username !== "" ||
+      url.password !== ""
       ? null
       : {
-          label: `${t.host.replace(/^www\./u, "")}${t.pathname}`,
+          label: `${url.host.replace(/^www\./u, "")}${url.pathname}`,
           type: "page",
-          url: t.href,
+          url: url.href,
         };
   } catch {
     return null;
   }
 }
-function jy(e, t, n) {
-  let r = $r({
-    apps: t,
-    functionName: `${e.server}__${e.tool}`,
-    serverName: e.server,
-    toolName: e.tool,
+function getMcpToolSourceSummary(item, apps, serverMetadataByName) {
+  let appToolSource = $r({
+    apps: apps,
+    functionName: `${item.server}__${item.tool}`,
+    serverName: item.server,
+    toolName: item.tool,
   });
-  if (r != null)
+  if (appToolSource != null)
     return {
-      id: r.id,
-      name: r.name,
-      pluginDisplayNames: r.pluginDisplayNames ?? [],
-      logoUrl: r.logoUrl,
-      logoUrlDark: r.logoUrlDark,
+      id: appToolSource.id,
+      name: appToolSource.name,
+      pluginDisplayNames: appToolSource.pluginDisplayNames ?? [],
+      logoUrl: appToolSource.logoUrl,
+      logoUrlDark: appToolSource.logoUrlDark,
     };
-  let i = n.get(Ey(e.server));
+  let serverMetadata = serverMetadataByName.get(normalizeMcpServerLookupKey(item.server));
   return {
-    id: `mcp-server:${e.server}`,
-    name: i?.name ?? mn(e.server),
+    id: `mcp-server:${item.server}`,
+    name: serverMetadata?.name ?? mn(item.server),
     pluginDisplayNames: [],
-    logoUrl: i?.logoUrl ?? null,
-    logoUrlDark: i?.logoUrlDark ?? null,
+    logoUrl: serverMetadata?.logoUrl ?? null,
+    logoUrlDark: serverMetadata?.logoUrlDark ?? null,
   };
 }
 var My = once(() => {
@@ -8992,79 +8992,69 @@ var My = once(() => {
   Dy();
   kr();
 });
-function useLocalConversationSummaryPanelModel(e) {
-  let n = e === undefined ? true : e,
-    r = B(Fe),
-    i = r.value.routeKind === "local-thread" ? r.value.conversationId : null,
-    a = Ot(r);
-  let o = a,
-    s = W(ra),
-    c = K(I, i) ?? Hy,
-    l = K(Wn, i),
-    u = K(Zi, i),
-    d = n ? cy(c) : [];
-  let f = d,
-    p = n
+function useLocalConversationSummaryPanelModel(includeBackgroundActivity = true) {
+  let routeSnapshot = B(Fe),
+    conversationId = routeSnapshot.value.routeKind === "local-thread" ? routeSnapshot.value.conversationId : null,
+    browserSummaryConversationId = Ot(routeSnapshot);
+  let host = W(ra),
+    turns = K(I, conversationId) ?? Hy,
+    cwd = K(Wn, conversationId),
+    title = K(Zi, conversationId),
+    backgroundTerminals = includeBackgroundActivity ? cy(turns) : [],
+    restoredBackgroundProcesses = includeBackgroundActivity
       ? ly(
-          i == null
+          conversationId == null
             ? null
             : {
-                cwd: l,
-                hostId: s.id,
-                id: i,
-                title: u,
-                turns: c,
+                cwd,
+                hostId: host.id,
+                id: conversationId,
+                title,
+                turns,
               },
         )
       : [];
-  let m = p,
-    h = K(oy, i),
-    g = W(Vy),
-    _ = W(Vi),
-    v = W(re),
-    y = W(ga.tabs$),
-    b = W(Ja.tabs$),
-    w = useBrowserUseSummaries({
+  let artifacts = K(oy, conversationId),
+    sideChats = W(Vy),
+    installedMcpAppIds = W(Vi),
+    isMultiBrowserTabsGateEnabled = W(re),
+    rightPanelTabs = W(ga.tabs$),
+    bottomPanelTabs = W(Ja.tabs$),
+    browserUseSummaries = useBrowserUseSummaries({
       blankTitle: ni,
-      bottomPanelTabs: b,
-      conversationId: o,
-      isMultiBrowserTabsGateEnabled: v,
-      rightPanelTabs: y,
+      bottomPanelTabs,
+      conversationId: browserSummaryConversationId,
+      isMultiBrowserTabsGateEnabled,
+      rightPanelTabs,
     });
-  let T = w,
-    E = c.some(Py);
-  let D = E,
-    O = {
-      enabled: D,
-      hostId: s.id,
+  let hasExternalMcpToolCalls = turns.some(turnHasExternalMcpToolCall),
+    mcpAppsQueryInput = {
+      enabled: hasExternalMcpToolCalls,
+      hostId: host.id,
     };
-  let { data = [] } = Ti(O);
-  let j = data,
-    { data: _data } = K(kt, s.id),
-    N = Oy(c, j, _, _data);
-  let P = N,
-    F = ky(c);
-  let L = F,
-    R = by(c);
-  let z = R,
-    ee = K(_c, ns() ? i : null);
+  let { data: apps = [] } = Ti(mcpAppsQueryInput),
+    { data: mcpServersQuery } = K(kt, host.id),
+    toolSources = collectConversationMcpToolSources(turns, apps, installedMcpAppIds, mcpServersQuery),
+    webSources = collectConversationWebSources(turns),
+    plan = getLatestCompletedTurnPlanSummary(turns),
+    backgroundAgents = K(_c, ns() ? conversationId : null);
   return {
-    artifacts: h,
-    sideChats: g,
-    toolSources: P,
-    webSources: L,
-    backgroundAgents: ee,
-    backgroundTerminals: f,
-    browserUseSummaries: T,
-    restoredBackgroundProcesses: m,
-    plan: z,
+    artifacts,
+    sideChats,
+    toolSources,
+    webSources,
+    backgroundAgents,
+    backgroundTerminals,
+    browserUseSummaries,
+    restoredBackgroundProcesses,
+    plan,
   };
 }
-function Py(e) {
-  return e.items.some(Fy);
+function turnHasExternalMcpToolCall(turn) {
+  return turn.items.some(isExternalMcpToolCallItem);
 }
-function Fy(e) {
-  return e.type === "mcpToolCall" && e.server !== "node_repl";
+function isExternalMcpToolCallItem(item) {
+  return item.type === "mcpToolCall" && item.server !== "node_repl";
 }
 var zy,
   Vy,
@@ -9091,40 +9081,40 @@ var zy,
     xy();
     wy();
     My();
-    Vy = Dn(Fe, ({ get }) => Sy(get(ga.tabs$), (t) => get(ge, t) ?? false));
+    Vy = Dn(Fe, ({ get }) => collectSideChatTabSummaries(get(ga.tabs$), (t) => get(ge, t) ?? false));
     Hy = [];
   });
-function Wy(e) {
-  let { conversationId, cwd } = e,
-    i = K(En, conversationId),
-    a = K(Qr, i);
-  if (i !== "local" && a !== "connected") return null;
-  return <Gy conversationId={conversationId} cwd={cwd} threadHostId={i} />;
+function ConnectedLocalWorktreeRestoreBanner(props) {
+  let { conversationId, cwd } = props,
+    threadHostId = K(En, conversationId),
+    hostConnectionStatus = K(Qr, threadHostId);
+  if (threadHostId !== "local" && hostConnectionStatus !== "connected") return null;
+  return <WorktreeRestoreBanner conversationId={conversationId} cwd={cwd} threadHostId={threadHostId} />;
 }
-function Gy(e) {
-  let { conversationId, cwd, threadHostId } = e,
-    o = B(ut),
-    s = oe(threadHostId),
-    c = i(s);
-  let l = c,
-    u = ur(),
-    d = Ci(),
-    f = K(Cs, conversationId),
-    p = f.data,
-    m = f.isError || p?.kind === "unavailable",
-    h = {
-      mutationFn: (e) =>
-        ec(o, {
+function WorktreeRestoreBanner(props) {
+  let { conversationId, cwd, threadHostId } = props,
+    scope = B(ut),
+    host = oe(threadHostId),
+    hostKey = i(host);
+  let worktreeQueryKey = hostKey,
+    intl = ur(),
+    queryClient = Ci(),
+    worktreeStatusQuery = K(Cs, conversationId),
+    worktreeStatus = worktreeStatusQuery.data,
+    isWorktreeStatusUnavailable = worktreeStatusQuery.isError || worktreeStatus?.kind === "unavailable",
+    checkWorktreeMutationOptions = {
+      mutationFn: (nextCwd) =>
+        ec(scope, {
           conversationId,
-          cwd: e,
+          cwd: nextCwd,
           hostId: threadHostId,
         }),
     };
-  let g = Pe(h),
-    _ = () => {
+  let checkWorktreeMutation = Pe(checkWorktreeMutationOptions),
+    handleRestoreSuccess = () => {
       gr.info("[worktree-restore] successfully restored");
       cwd != null &&
-        o.query.invalidate(
+        scope.query.invalidate(
           Bs,
           {
             conversationId,
@@ -9135,41 +9125,41 @@ function Gy(e) {
             exact: true,
           },
         );
-      d.invalidateQueries({
-        queryKey: Gs(l),
+      queryClient.invalidateQueries({
+        queryKey: Gs(worktreeQueryKey),
       });
-      d.invalidateQueries({
-        queryKey: ["git", "metadata", l],
+      queryClient.invalidateQueries({
+        queryKey: ["git", "metadata", worktreeQueryKey],
       });
-      let e = _e.getSessionForConversation(conversationId);
-      e != null &&
+      let sessionId = _e.getSessionForConversation(conversationId);
+      sessionId != null &&
         cwd != null &&
         _e.attach({
-          sessionId: e,
+          sessionId: sessionId,
           conversationId,
-          hostId: s.id,
+          hostId: host.id,
           cwd,
           forceCwdSync: true,
         });
-      o.get(ti).success(
-        u.formatMessage({
+      scope.get(ti).success(
+        intl.formatMessage({
           id: "worktreeRestoreBanner.restore.success",
           defaultMessage: "Worktree restored",
           description: "Toast shown when a missing Codex worktree is restored",
         }),
       );
     };
-  let v = (e) => {
-    let t = e.message;
+  let handleRestoreError = (error) => {
+    let message = error.message;
     gr.debug("[worktree-restore] restore failed for", {
       safe: {},
       sensitive: {
         cwd: cwd ?? "unknown",
-        message: t,
+        message: message,
       },
     });
-    o.get(ti).danger(
-      u.formatMessage(
+    scope.get(ti).danger(
+      intl.formatMessage(
         {
           id: "worktreeRestoreBanner.restore.error",
           defaultMessage: "Failed to restore worktree: {message}",
@@ -9177,24 +9167,24 @@ function Gy(e) {
             "Toast shown when restoring a missing Codex worktree fails",
         },
         {
-          message: t,
+          message: message,
         },
       ),
     );
   };
-  let y = {
-    onSuccess: _,
-    onError: v,
+  let restoreMutationOptions = {
+    onSuccess: handleRestoreSuccess,
+    onError: handleRestoreError,
   };
-  let b = w("restore-worktree", s, y);
-  if (p?.kind !== "restorable" && p?.kind !== "gone" && !m) return null;
-  let x = m ? (
+  let restoreWorktreeMutation = w("restore-worktree", host, restoreMutationOptions);
+  if (worktreeStatus?.kind !== "restorable" && worktreeStatus?.kind !== "gone" && !isWorktreeStatusUnavailable) return null;
+  let title = isWorktreeStatusUnavailable ? (
     <FormattedMessage
       id="worktreeRestoreBanner.unavailable.title"
       defaultMessage="Couldn't check worktree status"
       description="Title for banner when Codex cannot verify whether a managed worktree exists"
     />
-  ) : p?.kind === "gone" ? (
+  ) : worktreeStatus?.kind === "gone" ? (
     <FormattedMessage
       id="worktreeRestoreBanner.missing.title"
       defaultMessage="Current working directory missing"
@@ -9207,14 +9197,14 @@ function Gy(e) {
       description="Title for banner when a Codex worktree was pruned but can be restored"
     />
   );
-  let S = x,
-    C = m ? (
+  let bannerTitle = title,
+    body = isWorktreeStatusUnavailable ? (
       <FormattedMessage
         id="worktreeRestoreBanner.unavailable.body"
         defaultMessage="Retry to verify this chat's working directory"
         description="Body text for banner shown when Codex cannot inspect a managed worktree"
       />
-    ) : p?.kind === "gone" ? (
+    ) : worktreeStatus?.kind === "gone" ? (
       <FormattedMessage
         id="worktreeRestoreBanner.missing.body"
         defaultMessage="This chat's working directory no longer exists"
@@ -9227,30 +9217,30 @@ function Gy(e) {
         description="Body text for banner that offers to restore a missing worktree snapshot"
       />
     );
-  let T = C,
-    E = m ? "error" : "info",
-    O = (
+  let bannerBody = body,
+    bannerType = isWorktreeStatusUnavailable ? "error" : "info",
+    titleNode = (
       <span className="min-w-0 truncate font-semibold text-token-foreground">
-        {S}
+        {bannerTitle}
       </span>
     );
-  let A = (
+  let bodyNode = (
     <span className="hidden min-w-0 truncate text-token-description-foreground sm:inline">
-      {T}
+      {bannerBody}
     </span>
   );
-  let j = (
+  let content = (
     <span className="flex min-w-0 items-center gap-2">
-      {O}
-      {A}
+      {titleNode}
+      {bodyNode}
     </span>
   );
-  let M =
-    m && cwd != null
+  let customCtas =
+    isWorktreeStatusUnavailable && cwd != null
       ? qy.jsx(k, {
-          loading: g.isPending || f.isFetching,
+          loading: checkWorktreeMutation.isPending || worktreeStatusQuery.isFetching,
           onClick: () => {
-            g.mutate(cwd);
+            checkWorktreeMutation.mutate(cwd);
           },
           children: (
             <FormattedMessage
@@ -9260,14 +9250,14 @@ function Gy(e) {
             />
           ),
         })
-      : p?.kind === "restorable"
+      : worktreeStatus?.kind === "restorable"
         ? qy.jsx(k, {
             color: "primary",
-            loading: b.isPending,
+            loading: restoreWorktreeMutation.isPending,
             onClick: () => {
-              b.mutateAsync({
-                repoRoot: p.snapshot.repoRoot,
-                worktreePath: p.worktreePath,
+              restoreWorktreeMutation.mutateAsync({
+                repoRoot: worktreeStatus.snapshot.repoRoot,
+                worktreePath: worktreeStatus.worktreePath,
                 conversationId,
                 operationSource: "worktree_restore_banner",
               });
@@ -9282,10 +9272,10 @@ function Gy(e) {
           })
         : null;
   return qy.jsx($s, {
-    type: E,
+    type: bannerType,
     layout: "horizontal",
-    content: j,
-    customCtas: M,
+    content: content,
+    customCtas: customCtas,
   });
 }
 var Ky,
@@ -9321,7 +9311,7 @@ function Yy(e, t) {
   return null;
 }
 var Xy = once(() => {});
-function Zy(e) {
+function ForkFromOlderTurnDialog(props) {
   let {
       canForkIntoWorktree,
       isSubmitting,
@@ -9331,11 +9321,11 @@ function Zy(e) {
       onForkIntoWorktree,
       open,
       showWorktreeOption,
-    } = e,
-    u = (e) => {
-      e || onClose();
+    } = props,
+    handleOpenChange = (nextOpen) => {
+      nextOpen || onClose();
     };
-  let d = (
+  let dialogHeader = (
     <F
       icon={$y.jsx(sr, {
         className: "icon-sm text-token-foreground",
@@ -9356,7 +9346,7 @@ function Zy(e) {
       }
     />
   );
-  let f = isWorktreeThread
+  let localForkIcon = isWorktreeThread
     ? $y.jsx(ta, {
         className:
           "icon-xs shrink-0 opacity-75 group-hover:opacity-100 group-focus:opacity-100",
@@ -9365,13 +9355,13 @@ function Zy(e) {
         className:
           "icon-xs shrink-0 opacity-75 group-hover:opacity-100 group-focus:opacity-100",
       });
-  let p = isWorktreeThread ? fo.forkIntoSameWorktree : fo.forkIntoLocal,
-    m = (
+  let localForkMessageDescriptor = isWorktreeThread ? fo.forkIntoSameWorktree : fo.forkIntoLocal,
+    localForkTitle = (
       <span className="text-sm font-medium electron:text-base">
-        <FormattedMessage {...p} />
+        <FormattedMessage {...localForkMessageDescriptor} />
       </span>
     );
-  let h = (
+  let localForkDescription = (
     <span className="text-xs whitespace-normal text-token-description-foreground">
       {isWorktreeThread ? (
         <FormattedMessage
@@ -9388,24 +9378,24 @@ function Zy(e) {
       )}
     </span>
   );
-  let g = (
+  let localForkLabel = (
     <span className="flex min-w-0 flex-col gap-0.5">
-      {m}
-      {h}
+      {localForkTitle}
+      {localForkDescription}
     </span>
   );
-  let _ = (
+  let localForkButton = (
     <button
       type="button"
       className="group flex w-full items-center gap-3 rounded-lg px-[var(--padding-row-x)] py-2 text-left text-token-foreground outline-hidden enabled:cursor-interaction enabled:hover:bg-token-list-hover-background enabled:focus:bg-token-list-hover-background disabled:cursor-not-allowed disabled:opacity-50"
       disabled={isSubmitting}
       onClick={onForkIntoLocal}
     >
-      {f}
-      {g}
+      {localForkIcon}
+      {localForkLabel}
     </button>
   );
-  let v = showWorktreeOption ? (
+  let worktreeForkButton = showWorktreeOption ? (
     <button
       type="button"
       className="group flex w-full items-center gap-3 rounded-lg px-[var(--padding-row-x)] py-2 text-left text-token-foreground outline-hidden enabled:cursor-interaction enabled:hover:bg-token-list-hover-background enabled:focus:bg-token-list-hover-background disabled:cursor-not-allowed disabled:opacity-50"
@@ -9434,39 +9424,39 @@ function Zy(e) {
       </span>
     </button>
   ) : null;
-  let y = (
+  let forkOptions = (
     <div className="flex flex-col gap-1">
-      {_}
-      {v}
+      {localForkButton}
+      {worktreeForkButton}
     </div>
   );
-  let b = (
+  let cancelLabel = (
     <FormattedMessage
       id="localConversation.forkFromOlderTurnDialog.cancel"
       defaultMessage="Cancel"
       description="Cancel button label for the older-turn fork confirmation dialog"
     />
   );
-  let x = (
+  let cancelAction = (
     <At>
       {$y.jsx(k, {
         color: "secondary",
         disabled: isSubmitting,
         onClick: onClose,
-        children: b,
+        children: cancelLabel,
       })}
     </At>
   );
-  let S = $y.jsxs(ui, {
+  let dialogBody = $y.jsxs(ui, {
     className: "gap-4",
-    children: [d, y, x],
+    children: [dialogHeader, forkOptions, cancelAction],
   });
   return $y.jsx(ai, {
     open,
     showDialogClose: false,
     size: "compact",
-    onOpenChange: u,
-    children: S,
+    onOpenChange: handleOpenChange,
+    children: dialogBody,
   });
 }
 var Qy,
@@ -9567,7 +9557,7 @@ function tb({
       }
     };
   return (
-    <Zy
+    <ForkFromOlderTurnDialog
       canForkIntoWorktree={m}
       isSubmitting={u}
       isWorktreeThread={f}
@@ -13937,7 +13927,7 @@ function openBackgroundAgentFromThread(
 function ComposerWorkspaceDirectoryTree(props) {
   let { conversationId } = props,
     cwd = K(Wn, conversationId);
-  return <Wy conversationId={conversationId} cwd={cwd} />;
+  return <ConnectedLocalWorktreeRestoreBanner conversationId={conversationId} cwd={cwd} />;
 }
 function LocalConversationComposerFooter({
   conversationId,
