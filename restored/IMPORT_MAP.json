@@ -12753,6 +12753,20 @@
       "exports": {},
       "status": "done",
       "note": "Electron main-window bootstrap: initializes app producers, registers window app-action handlers, sets document window metadata, forwards global errors, and mounts the React root."
+    },
+    "app-initial~app-main~worktree-init-v2-page~page~remote-conversation-page~pull-requests-page~iwrno211-6533k2dw": {
+      "restored": "vendor/lodash-at.ts",
+      "exports": {
+        "a": "overRest",
+        "i": "setToString",
+        "n": "isIterateeCall",
+        "o": "baseFlatten",
+        "r": "baseRest",
+        "t": "at"
+      },
+      "status": "done",
+      "note": "Semantic lodash-style at/baseRest/baseFlatten helper shared by local conversation and pull request chunks.",
+      "lastUpdated": "2026-06-27T22:52:23.233Z"
     }
   }
 }
