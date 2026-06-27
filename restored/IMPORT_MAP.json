@@ -10580,8 +10580,8 @@
         "z": "useReviewSearchHighlights"
       },
       "status": "draft",
-      "note": "Draft for the updated ref chunk. Current pass isolated all unresolved current-ref producer imports under boundaries/current-ref passthrough modules, so the local conversation thread no longer imports missing hash siblings directly. These boundaries are open and must be replaced by semantic producer restores before final completion.",
-      "lastUpdated": "2026-06-27T03:16:46.000Z"
+      "note": "Draft for the updated ref chunk. Current pass isolated all unresolved current-ref producer imports under boundaries/current-ref passthrough modules and renamed the local-remote / pull-request-check current-ref import bindings at their local consumption sites. These boundaries are open and must be replaced by semantic producer restores before final completion.",
+      "lastUpdated": "2026-06-27T03:21:10.000Z"
     },
     "thread-overflow-menu-CM-Eo7JH": {
       "restored": "threads/thread-overflow-menu.tsx",

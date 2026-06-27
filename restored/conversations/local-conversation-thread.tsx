@@ -706,12 +706,12 @@ import {
   useNullAppShellRef,
 } from "../app-shell/thread-background-processes";
 import {
-  a as zu,
-  i as Bu,
-  n as Vu,
-  o as Hu,
-  r as Uu,
-  t as Wu,
+  a as CloudEnvironmentDropdown,
+  i as initThreadHandoffHelpersChunk,
+  n as initLocalRemoteDropdownChunk,
+  o as initCloudEnvironmentDropdownChunk,
+  r as shouldShowThreadHandoffInSummary,
+  t as LocalRemoteDropdown,
 } from "../boundaries/current-ref/local-remote-dropdown-producer";
 import {
   buildThreadVirtualizerLayout as Xu,
@@ -748,21 +748,21 @@ import {
   serializeLocalEnvironmentConfig as sd,
 } from "../environments/local-environments-utils";
 import {
-  C as gd,
-  S as _d,
-  _ as vd,
-  a as yd,
-  b as bd,
-  i as xd,
-  m as Sd,
-  n as Cd,
-  o as wd,
-  p as Td,
-  r as Ed,
-  t as Dd,
-  v as Od,
-  w as kd,
-  x as Ad,
+  C as PullRequestInlineActionButton,
+  S as initPullRequestCheckStatusIconChunk,
+  _ as initPullRequestAnalyticsChunk,
+  a as PullRequestMergeActions,
+  b as logPullRequestViewedFromSidePanel,
+  i as initPullRequestMetadataRowsChunk,
+  m as usePullRequestUpdateMutation,
+  n as initPullRequestCheckRowsChunk,
+  o as initPullRequestMergeActionsChunk,
+  p as initPullRequestUpdateMutationChunk,
+  r as PullRequestMetadataRows,
+  t as PullRequestCheckRows,
+  v as trackPullRequestAction,
+  w as initPullRequestInlineActionButtonChunk,
+  x as PullRequestUnknownCheckIcon,
 } from "../boundaries/current-ref/pull-request-check-rows-producer";
 import {
   initOpenSideChatTabChunk as Nd,
@@ -4140,7 +4140,7 @@ function Ch(e) {
   });
   let m =
     c.length > 0 && onFixFailingChecks != null
-      ? jh.jsx(gd, {
+      ? jh.jsx(PullRequestInlineActionButton, {
           color: "ghostTertiary",
           disabled: !canFixFailingChecks,
           tooltipContent: fixTooltipContent,
@@ -4234,7 +4234,7 @@ function Dh(e) {
     case "skipped":
     case "unknown": {
       let e;
-      return <Ad className="icon-sm shrink-0 text-token-text-tertiary" />;
+      return <PullRequestUnknownCheckIcon className="icon-sm shrink-0 text-token-text-tertiary" />;
     }
   }
 }
@@ -4365,11 +4365,11 @@ var Ah,
     Jn();
     ke();
     tn();
-    _d();
+    initPullRequestCheckStatusIconChunk();
     ql();
     Kc();
     Ul();
-    kd();
+    initPullRequestInlineActionButtonChunk();
     Sh();
     initSummaryPanelRowChunk();
     jh = getJsxRuntime();
@@ -4491,7 +4491,7 @@ function Ph(e) {
   );
   let F = v ? (
     <SummaryPanelRow
-      actions={Rh.jsx(gd, {
+      actions={Rh.jsx(PullRequestInlineActionButton, {
         color: "ghostTertiary",
         disabled: w != null,
         tooltipContent:
@@ -4565,7 +4565,7 @@ function Ph(e) {
           <SummaryPanelRow
             actions={
               h
-                ? Rh.jsx(gd, {
+                ? Rh.jsx(PullRequestInlineActionButton, {
                     color: "ghostTertiary",
                     disabled: E != null,
                     tooltipContent:
@@ -4638,7 +4638,7 @@ var Lh,
     nh();
     sh();
     lh();
-    kd();
+    initPullRequestInlineActionButtonChunk();
     _h();
     ls();
     _();
@@ -4755,7 +4755,7 @@ function ng(e) {
   let h = m,
     g =
       d != null && d.length > 0
-        ? ag.jsx(gd, {
+        ? ag.jsx(PullRequestInlineActionButton, {
             color: "secondary",
             ariaLabel: p
               ? s.formatMessage({
@@ -4825,7 +4825,7 @@ function ng(e) {
             }
           />
         ) : data.checks.length > 0 ? (
-          <Dd
+          <PullRequestCheckRows
             canFix={fixDisabledReason == null}
             checks={data.checks}
             density="comfortable"
@@ -4881,9 +4881,9 @@ var ig,
     an();
     cs();
     sh();
-    kd();
+    initPullRequestInlineActionButtonChunk();
     _h();
-    Cd();
+    initPullRequestCheckRowsChunk();
     _();
     Gh();
     Zh();
@@ -4942,7 +4942,7 @@ function fg(e) {
     let v = _,
       y =
         f != null && f.length > 0
-          ? hg.jsx(gd, {
+          ? hg.jsx(PullRequestInlineActionButton, {
               color: "secondary",
               ariaLabel: g
                 ? s.formatMessage({
@@ -5032,7 +5032,7 @@ function fg(e) {
                     metadataAccessory={
                       t == null
                         ? null
-                        : hg.jsx(gd, {
+                        : hg.jsx(PullRequestInlineActionButton, {
                             disabled: !n && fixDisabledReason != null,
                             inset: true,
                             tooltipContent: n ? undefined : v,
@@ -5114,7 +5114,7 @@ var mg,
     en();
     nh();
     sh();
-    kd();
+    initPullRequestInlineActionButtonChunk();
     ls();
     _();
     Gh();
@@ -5195,7 +5195,7 @@ function bg(e) {
     });
     s = files.map(e);
   }
-  return <Ed density="comfortable" items={s} labelTone="primary" />;
+  return <PullRequestMetadataRows density="comfortable" items={s} labelTone="primary" />;
 }
 var xg,
   Sg,
@@ -5204,7 +5204,7 @@ var xg,
     Jn();
     an();
     yg();
-    xd();
+    initPullRequestMetadataRowsChunk();
     Gh();
     tg();
     Sg = getJsxRuntime();
@@ -5248,7 +5248,7 @@ function wg(e) {
       description="Button label for fixing pull request merge conflicts"
     />
   );
-  let _ = Eg.jsx(gd, {
+  let _ = Eg.jsx(PullRequestInlineActionButton, {
     color: "secondary",
     disabled: p,
     inset: true,
@@ -5290,7 +5290,7 @@ var Tg,
     Jn();
     cs();
     sh();
-    kd();
+    initPullRequestInlineActionButtonChunk();
     _h();
     _();
     Cg();
@@ -5453,7 +5453,7 @@ function Hg(e) {
       hostId,
       operationSource: "pull_request_board",
     };
-  let C = Sd(S),
+  let C = usePullRequestUpdateMutation(S),
     w = Rg({
       availableReviewers:
         data == null
@@ -5479,7 +5479,7 @@ function Hg(e) {
     j = () => {
       p.length !== 0 &&
         (C.reset(),
-        Od(o, {
+        trackPullRequestAction(o, {
           action: "request_approvals",
           item,
           surface: "thread_side_panel",
@@ -5725,8 +5725,8 @@ var Kg,
     wn();
     _t();
     Jr();
-    Td();
-    vd();
+    initPullRequestUpdateMutationChunk();
+    initPullRequestAnalyticsChunk();
     r();
     Vn();
     Ig();
@@ -6320,7 +6320,7 @@ function l_(e) {
       {p}
     </a>
   );
-  let h = d_.jsx(yd, {
+  let h = d_.jsx(PullRequestMergeActions, {
     hostId,
     item,
     pullRequestBody,
@@ -6351,7 +6351,7 @@ var u_,
     Xr();
     Er();
     n();
-    wd();
+    initPullRequestMergeActionsChunk();
     c_();
     d_ = getJsxRuntime();
     f_ = function (e) {
@@ -6452,7 +6452,7 @@ function __(e) {
     p = (e) => {
       f != null &&
         (boardItem != null &&
-          Od(o, {
+          trackPullRequestAction(o, {
             action: "open_in_browser",
             item: boardItem,
             surface: "thread_side_panel",
@@ -6467,7 +6467,7 @@ function __(e) {
     h = (e) => {
       if (f != null) {
         if (d) {
-          bd(o, {
+          logPullRequestViewedFromSidePanel(o, {
             item: boardItem,
             surface: "thread_side_panel",
           });
@@ -6576,7 +6576,7 @@ var b_,
     Yo();
     ke();
     Xr();
-    vd();
+    initPullRequestAnalyticsChunk();
     Js();
     me();
     o();
@@ -6880,7 +6880,7 @@ function N_(e) {
     h = K(Ui, conversationId),
     g =
       m &&
-      Uu({
+      shouldShowThreadHandoffInSummary({
         isCompactWindow: lo(),
       }) &&
       c.cwd != null
@@ -6900,7 +6900,7 @@ function N_(e) {
   let y = v,
     b = p,
     x = (
-      <Wu
+      <LocalRemoteDropdown
         composerMode={a}
         setComposerMode={s}
         conversationId={conversationId}
@@ -6918,7 +6918,7 @@ function N_(e) {
     F_.jsx(qt, {
       electron: true,
       browser: true,
-      children: F_.jsx(zu, {
+      children: F_.jsx(CloudEnvironmentDropdown, {
         composerMode: a,
         conversationId,
         disabled: b,
@@ -6942,10 +6942,10 @@ var P_,
     nt();
     ca();
     ie();
-    Hu();
+    initCloudEnvironmentDropdownChunk();
     cs();
-    Bu();
-    Vu();
+    initThreadHandoffHelpersChunk();
+    initLocalRemoteDropdownChunk();
     Re();
     Fi();
     fa();
