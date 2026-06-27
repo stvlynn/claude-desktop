@@ -1,5 +1,13 @@
 {
   "chunks": {
+    "app-K22tSs_z": {
+      "restored": "app-shell/empty-app-initializer.ts",
+      "exports": {
+        "t": "initEmptyAppChunk"
+      },
+      "status": "done",
+      "note": "Current app bootstrap chunk is an empty rolldown initializer."
+    },
     "chunk-KS23V3DP-aPas0hZ5": {
       "restored": "utils/chunk-ks23-v3-dp.ts",
       "exports": {
@@ -1373,6 +1381,17 @@
         "DockIcon": "DockIcon"
       },
       "status": "done"
+    },
+    "dock-NoZMzdzo": {
+      "restored": "icons/dock-icon.tsx",
+      "exports": {
+        "n": "initDockIconChunk",
+        "t": "DockIcon",
+        "DockIcon": "DockIcon"
+      },
+      "status": "done",
+      "aliasOf": "dock-DAmmeMut",
+      "note": "Synced current Dock icon hash with rolldown init export."
     },
     "filter-Pp6n2Ux0": {
       "restored": "icons/filter-icon.tsx",
@@ -11036,6 +11055,15 @@
         "t": "ChromeExtensionHeader"
       },
       "status": "done"
+    },
+    "header-CFbhBYkA": {
+      "restored": "browser/chrome-extension-header.tsx",
+      "exports": {
+        "Header": "Header"
+      },
+      "status": "done",
+      "aliasOf": "header-CT44CGhD",
+      "note": "Current wrapper calls initChromeExtensionHeaderChunk and re-exports ChromeExtensionHeader as Header."
     },
     "app-initial~app-main~remote-conversation-page~plugin-detail-page~new-thread-panel-page~appg~ijdupmx5-CdYgxe-b": {
       "restored": "boundaries/current-ref/appg-thread-shared-producer.ts",

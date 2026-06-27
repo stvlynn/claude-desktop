@@ -101,6 +101,8 @@ export function ChromeExtensionHeader({
   );
 }
 
+export { ChromeExtensionHeader as Header };
+
 function HeaderTitleButton({
   onBack,
   showBackButton,
