@@ -1481,7 +1481,9 @@ export function __rest(value) {
       "icons/speaker/speaker-icon.tsx",
       opts,
     );
-    expect(real.issues.map((i) => i.code)).toContain("missing-provenance-header");
+    expect(real.issues.map((i) => i.code)).toContain(
+      "missing-provenance-header",
+    );
   });
 
   test("allowUntyped suppresses the typing checks (readable tier)", () => {
@@ -1890,6 +1892,38 @@ describe("vendored / facade relaxation", () => {
     });
     expect(codes(locale)).not.toContain("split-required");
   });
+
+  test("restored home use-case data module is auto-relaxed", () => {
+    const entries = Array.from(
+      { length: 8 },
+      (_, i) => `  { id: "use-case-${i}", isAutomation: ${i % 2 === 0} },`,
+    ).join("\n");
+    const homeUseCasesData =
+      `// Restored from ref/webview/assets/home-use-cases-data-B74wpFte.js\n` +
+      `// Home use-case data restored from the current Codex webview bundle.\n` +
+      `const HOME_USE_CASES = [\n${entries}\n];\n` +
+      `function getAutomationHomeUseCases() {\n` +
+      `  return HOME_USE_CASES.filter((item) => item.isAutomation === true);\n` +
+      `}\n` +
+      `function initHomeUseCasesDataChunk(): void {}\n\n` +
+      `export { getAutomationHomeUseCases, HOME_USE_CASES, initHomeUseCasesDataChunk };\n`;
+
+    const ordinary = analyzeSource(homeUseCasesData, "widgets/home-data.ts", {
+      ...DEFAULT_OPTIONS,
+      maxFlatLines: 5,
+    });
+    expect(codes(ordinary)).toContain("split-required");
+
+    const dataModule = analyzeSource(
+      homeUseCasesData,
+      "restored/home/home-use-cases-data.ts",
+      {
+        ...DEFAULT_OPTIONS,
+        maxFlatLines: 5,
+      },
+    );
+    expect(codes(dataModule)).not.toContain("split-required");
+  });
 });
 
 describe("kebab filename gate", () => {
@@ -1946,7 +1980,9 @@ describe("checkFormatting", () => {
       "restored/ui/button.tsx",
       "restored/ui/badge.tsx",
     ]);
-    expect(reports.every((r) => r.issues[0]!.code === "unformatted")).toBe(true);
+    expect(reports.every((r) => r.issues[0]!.code === "unformatted")).toBe(
+      true,
+    );
   });
 
   test("returns no issues when everything is prettier-clean", () => {

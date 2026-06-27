@@ -641,6 +641,25 @@ function isLocaleMessageDataModule(file: string, source: string): boolean {
   );
 }
 
+function isHomeUseCasesDataModule(file: string, source: string): boolean {
+  const normalized = file.replace(/\\/g, "/");
+  if (!/(?:^|\/)home\/home-use-cases-data\.ts$/i.test(normalized)) {
+    return false;
+  }
+
+  return (
+    hasRestorationProvenanceHeader(source) &&
+    /\bconst\s+HOME_USE_CASES\s*=\s*\[/.test(source) &&
+    /\bfunction\s+getAutomationHomeUseCases\s*\(\)/.test(source) &&
+    /\bfunction\s+initHomeUseCasesDataChunk\s*\(\)\s*:\s*void\s*\{\}/.test(
+      source,
+    ) &&
+    /\bexport\s*\{[\s\S]*\bgetAutomationHomeUseCases\b[\s\S]*\bHOME_USE_CASES\b[\s\S]*\binitHomeUseCasesDataChunk\b[\s\S]*\}\s*;/.test(
+      source,
+    )
+  );
+}
+
 function isBundlerInteropRuntimeModule(file: string, source: string): boolean {
   const normalized = file.replace(/\\/g, "/");
   if (
@@ -667,6 +686,7 @@ function isVendoredDataModule(file: string, source: string): boolean {
     /(?:^|[/\\])grammars[/\\][^/\\]+\.ts$/i.test(file) ||
     /(?:^|[/\\])i18n[/\\](?:locales[/\\])?[A-Za-z][A-Za-z]+\.ts$/i.test(file) ||
     isLocaleMessageDataModule(file, source) ||
+    isHomeUseCasesDataModule(file, source) ||
     isLottieAnimationDataModule(file, source) ||
     isBundlerInteropRuntimeModule(file, source)
   );
