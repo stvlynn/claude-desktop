@@ -86,7 +86,6 @@ import {
   Pp as responseInProgressSignal,
   QP as appScope,
   R as initSlashIcon,
-  RP as ChevronIcon,
   Rj as _t,
   Rn as useCommandRegistration,
   Rv as initMarkdownUtilityNoop,
@@ -211,7 +210,6 @@ import {
   yP as yi,
   yV as createSignal,
   yv as Navigate,
-  zP as initChevronDownIcon,
   zV as useQueryClient,
   za as openInBrowserFromEvent,
   zo as useAppsQuery,
@@ -526,12 +524,10 @@ import {
   S as initPullRequestCheckStatusIconChunk,
   _ as initPullRequestAnalyticsChunk,
   a as PullRequestMergeActions,
-  i as initPullRequestMetadataRowsChunk,
   m as usePullRequestUpdateMutation,
   n as initPullRequestCheckRowsChunk,
   o as initPullRequestMergeActionsChunk,
   p as initPullRequestUpdateMutationChunk,
-  r as PullRequestMetadataRows,
   t as PullRequestCheckRows,
   v as trackPullRequestAction,
   w as initPullRequestInlineActionButtonChunk,
@@ -736,6 +732,16 @@ import {
   initPullRequestSummaryRowChunk,
   PullRequestSummaryRow,
 } from "./local-conversation-thread-parts/pull-request-summary-row";
+import {
+  initPullRequestConflictFileRowsChunk,
+  initPullRequestSidePanelDetailsSummaryChunk,
+  initPullRequestSidePanelErrorMessageChunk,
+  initPullRequestSidePanelLoadingStateChunk,
+  PullRequestConflictFileRows,
+  PullRequestSidePanelDetailsSummary,
+  PullRequestSidePanelErrorMessage,
+  PullRequestSidePanelLoadingState,
+} from "./local-conversation-thread-parts/pull-request-side-panel-primitives";
 import {
   initThreadSummarySourceRowsChunk,
   ThreadSummarySourceRows,
@@ -4046,96 +4052,6 @@ function getPullRequestTitleOrFallback(title, fallbackTitle) {
   return title?.trim() || fallbackTitle;
 }
 var initPullRequestTitleFallbackChunk = once(() => {});
-function PullRequestSidePanelErrorMessage(props) {
-  let { description } = props,
-    errorDescription = description ?? (
-      <FormattedMessage
-        id="pullRequestSidePanel.error.description"
-        defaultMessage="Couldn’t load this pull request section"
-        description="Fallback error description for pull request sections"
-      />
-    );
-  return (
-    <div className="px-2 py-3 text-base text-token-charts-red">
-      {errorDescription}
-    </div>
-  );
-}
-var pullRequestSidePanelErrorMessageModule,
-  pullRequestSidePanelErrorMessageJsxRuntime,
-  initPullRequestSidePanelErrorMessageChunk = once(() => {
-    pullRequestSidePanelErrorMessageModule = getChunkModuleExports();
-    initIntlRuntime();
-    pullRequestSidePanelErrorMessageJsxRuntime = getJsxRuntime();
-  });
-function PullRequestSidePanelDetailsSummary(props) {
-  let { action, children } = props,
-    chevronIcon = pullRequestSidePanelDetailsSummaryJsxRuntime.jsx(
-      ChevronIcon,
-      {
-        className:
-          "icon-2xs rotate-180 transition-transform group-open:rotate-0",
-      },
-    );
-  let titleNode = (
-    <span className="flex min-w-0 items-center gap-1">
-      {children}
-      {chevronIcon}
-    </span>
-  );
-  let actionNode =
-    action == null ? null : (
-      <span
-        className="flex shrink-0"
-        onClick={stopDetailsSummaryActionClick}
-        onKeyDown={stopDetailsSummaryActionKeyDown}
-      >
-        {action}
-      </span>
-    );
-  return (
-    <summary className="flex min-h-9 cursor-interaction list-none items-center justify-between gap-2 text-base text-token-text-tertiary marker:hidden">
-      {titleNode}
-      {actionNode}
-    </summary>
-  );
-}
-function stopDetailsSummaryActionKeyDown(event) {
-  event.stopPropagation();
-}
-function stopDetailsSummaryActionClick(event) {
-  event.preventDefault();
-  event.stopPropagation();
-}
-var pullRequestSidePanelDetailsSummaryModule,
-  pullRequestSidePanelDetailsSummaryJsxRuntime,
-  initPullRequestSidePanelDetailsSummaryChunk = once(() => {
-    pullRequestSidePanelDetailsSummaryModule = getChunkModuleExports();
-    initChevronDownIcon();
-    pullRequestSidePanelDetailsSummaryJsxRuntime = getJsxRuntime();
-  });
-function PullRequestSidePanelLoadingState(props) {
-  let { label } = props,
-    spinnerIcon = pullRequestSidePanelLoadingStateJsxRuntime.jsx(SpinnerIcon, {
-      className: "icon-sm",
-    });
-  return (
-    <div
-      aria-busy="true"
-      className="flex min-h-16 items-center justify-center text-token-text-tertiary"
-    >
-      {spinnerIcon}
-      <span className="sr-only">{label}</span>
-    </div>
-  );
-}
-var pullRequestSidePanelLoadingStateModule,
-  pullRequestSidePanelLoadingStateJsxRuntime,
-  initPullRequestSidePanelLoadingStateChunk = once(() => {
-    pullRequestSidePanelLoadingStateModule = getChunkModuleExports();
-    initSpinnerComponent();
-    pullRequestSidePanelLoadingStateJsxRuntime = getJsxRuntime();
-  });
 function PullRequestSidePanelChecksSection(props) {
   let { data, error, fixDisabledReason, item, loading } = props,
     intl = useIntl(),
@@ -4584,94 +4500,6 @@ var pullRequestCommentsSectionModule,
     initPullRequestSidePanelLoadingStateChunk();
     initPullRequestReviewerBadgeModelsChunk();
     pullRequestCommentsSectionJsxRuntime = getJsxRuntime();
-  }),
-  mergeConflictFileIconJsxRuntime,
-  MergeConflictFileIcon,
-  initMergeConflictFileIconChunk = once(() => {
-    toEsModule(loadReactModule());
-    mergeConflictFileIconJsxRuntime = getJsxRuntime();
-    MergeConflictFileIcon = (props) => (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width={20}
-        height={20}
-        fill="currentColor"
-        viewBox="0 0 20 20"
-        {...props}
-      >
-        <path d="M10 2.085a7.915 7.915 0 1 1 0 15.83 7.915 7.915 0 0 1 0-15.83Z" />
-      </svg>
-    );
-  });
-function PullRequestConflictFileRows(props) {
-  let { error, files, hasError, loading, repository } = props;
-  if (hasError) {
-    return <PullRequestSidePanelErrorMessage description={error} />;
-  }
-  if (loading || files == null) {
-    return (
-      <PullRequestSidePanelLoadingState
-        label={
-          <FormattedMessage
-            id="pullRequestSidePanel.conflicts.loading"
-            defaultMessage="Loading changed files"
-            description="Loading label for merge conflict files"
-          />
-        }
-      />
-    );
-  }
-  if (files.length === 0) {
-    return (
-      <MenuChrome.Message compact={true}>
-        <FormattedMessage
-          id="pullRequestSidePanel.conflicts.empty"
-          defaultMessage="No changed files reported"
-          description="Empty merge conflict file list"
-        />
-      </MenuChrome.Message>
-    );
-  }
-  let rows;
-  {
-    let toConflictFileRow = (filePath) => ({
-      icon: (
-        <span className="inline-flex h-[18px] w-[18px] shrink-0 items-center justify-center">
-          {pullRequestConflictFileRowsJsxRuntime.jsx(MergeConflictFileIcon, {
-            className: "icon-3xs text-token-text-tertiary",
-          })}
-        </span>
-      ),
-      id: filePath,
-      label: filePath,
-      trailing:
-        repository == null ? null : (
-          <span className="max-w-52 truncate text-sm text-token-text-tertiary">
-            {repository}
-          </span>
-        ),
-    });
-    rows = files.map(toConflictFileRow);
-  }
-  return (
-    <PullRequestMetadataRows
-      density="comfortable"
-      items={rows}
-      labelTone="primary"
-    />
-  );
-}
-var pullRequestConflictFileRowsModule,
-  pullRequestConflictFileRowsJsxRuntime,
-  initPullRequestConflictFileRowsChunk = once(() => {
-    pullRequestConflictFileRowsModule = getChunkModuleExports();
-    initIntlRuntime();
-    initDropdownMenuPrimitives();
-    initMergeConflictFileIconChunk();
-    initPullRequestMetadataRowsChunk();
-    initPullRequestSidePanelErrorMessageChunk();
-    initPullRequestSidePanelLoadingStateChunk();
-    pullRequestConflictFileRowsJsxRuntime = getJsxRuntime();
   });
 function PullRequestSidePanelConflictsSection(props) {
   let { error, files, fixDisabledReason, hasError, item, loading, repo } =
