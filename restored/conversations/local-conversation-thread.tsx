@@ -104,7 +104,6 @@ import {
   Ja as CheckCircleIcon,
   Ji as DropdownMenuItem,
   Jo as be,
-  Jt as ConnectedNodesIcon,
   Kg as initNormalizedPathUtilities,
   Ki as DropdownMenuSubmenu,
   Kp as conversationReadStateSignal,
@@ -193,7 +192,6 @@ import {
   Xp as latestConversationTurnSignal,
   YO as initPullRequestReviewCommentHelpers,
   Ya as initCheckCircleFilledIcon,
-  Yt as initConnectedNodesIcon,
   ZN as createHostQuerySignal,
   Zi as initDropdownMenuPrimitives,
   Zu as on,
@@ -227,7 +225,6 @@ import {
   ed as useConversationHostApi,
   eg as Fn,
   en as ExternalLinkIcon,
-  eo as ConnectorAppIcon,
   fV as createScopedSignalFamily,
   fh as initGitActionDirectiveRuntime,
   fp as completedThreadGoalSignal,
@@ -241,7 +238,6 @@ import {
   iF as initIntlRuntime,
   iO as formatConversationTitleText,
   ic as useConversationAgentMode,
-  io as getKnownAppIconById,
   jL as initModulePreloadRuntime,
   jM as $n,
   jm as conversationModeSignal,
@@ -270,7 +266,6 @@ import {
   oM as initRefreshIcon,
   oP as initQueryDurationConstants,
   ok as sendAppServerRequest,
-  oo as initKnownAppIconRegistry,
   oy as initIdentifierTitleFormatter,
   pI as isPathInCodexWorktree,
   pM as Tooltip,
@@ -295,7 +290,6 @@ import {
   ta as initSearchIcon,
   tc as Yr,
   tn as Xr,
-  to as Zr,
   tp as hostConnectionStatusSignal,
   ty as $r,
   uD as mapTurnStatusToOutputStatus,
@@ -839,6 +833,10 @@ import {
   initThreadSummarySideChatRowsChunk,
   ThreadSummarySideChatRows,
 } from "./local-conversation-thread-parts/thread-summary-side-chat-rows";
+import {
+  initThreadSummarySourceRowsChunk,
+  ThreadSummarySourceRows,
+} from "./local-conversation-thread-parts/thread-summary-source-rows";
 const joinLocalEnvironmentRepoPath = joinPath;
 function SummaryPanelArtifactsList(props) {
   let {
@@ -7486,174 +7484,6 @@ var threadSummaryAutomationRowModule,
     initRouteScope();
     initSummaryPanelRowChunk();
     threadSummaryAutomationRowJsxRuntime = getJsxRuntime();
-  });
-function ThreadSummarySourceRows(props) {
-  let { onOpen, toolSources, webSources } = props,
-    sourceItems = [];
-  for (let toolSource of toolSources)
-    sourceItems.push({
-      source: toolSource,
-      type: "tool",
-    });
-  for (let webSource of webSources)
-    sourceItems.push({
-      source: webSource,
-      type: "web",
-    });
-  let intl = useIntl(),
-    listAriaLabel = intl.formatMessage({
-      id: "codex.localConversation.sources.title",
-      defaultMessage: "Sources",
-      description: "Title for the thread summary side panel sources section",
-    });
-  let webSearchLabel = intl.formatMessage({
-    id: "codex.localConversation.sources.webSearch",
-    defaultMessage: "Web search",
-    description:
-      "Label for web search in the thread summary side panel sources section",
-  });
-  if (sourceItems.length === 0) {
-    return (
-      <div className="py-1 text-base text-token-description-foreground">
-        <FormattedMessage
-          id="codex.localConversation.sources.empty"
-          defaultMessage="No sources yet"
-          description="Empty state for the sources section in the thread summary side panel"
-        />
-      </div>
-    );
-  }
-  let renderSourceItem = (sourceItem) => {
-    let sourceLabel =
-      sourceItem.type === "tool"
-        ? getToolSourceDisplayName(sourceItem.source)
-        : sourceItem.source.type === "page"
-          ? sourceItem.source.label
-          : webSearchLabel;
-    return (
-      <li key={getThreadSummarySourceKey(sourceItem)} className="flex">
-        {threadSummarySourceRowsJsxRuntime.jsx(Tooltip, {
-          tooltipContent: sourceLabel,
-          side: "left",
-          children: (
-            <ThreadSummarySourceIconButton
-              label={sourceLabel}
-              onOpen={onOpen}
-              source={sourceItem}
-            />
-          ),
-        })}
-      </li>
-    );
-  };
-  let sourceRows = sourceItems.map(renderSourceItem);
-  return (
-    <ul aria-label={listAriaLabel} className="-ml-1 flex flex-wrap gap-0.5">
-      {sourceRows}
-    </ul>
-  );
-}
-function ThreadSummarySourceIconButton(props) {
-  let { label, onOpen, source } = props,
-    icon,
-    mcpAppId,
-    href;
-  bb0: switch (source.type) {
-    case "tool": {
-      let ToolIcon = getToolSourceIcon(source.source);
-      mcpAppId = source.source.mcpAppId;
-      let fallbackIcon =
-        ToolIcon == null
-          ? threadSummarySourceRowsJsxRuntime.jsx(ConnectedNodesIcon, {
-              className: "icon-xs shrink-0",
-            })
-          : threadSummarySourceRowsJsxRuntime.jsx(ToolIcon, {
-              "aria-hidden": true,
-              className: "icon-xs shrink-0",
-            });
-      icon = (
-        <ConnectorAppIcon
-          alt={label}
-          className="icon-xs shrink-0 object-contain"
-          fallback={fallbackIcon}
-          logoDarkUrl={source.source.logoUrlDark}
-          logoUrl={source.source.logoUrl}
-        />
-      );
-      break bb0;
-    }
-    case "web": {
-      href = source.source.type === "page" ? source.source.url : undefined;
-      icon = <GlobeIcon aria-hidden={true} className="icon-xs shrink-0" />;
-    }
-  }
-  if ((mcpAppId != null && onOpen != null) || href != null) {
-    let handleOpenSource = (event) => {
-      href == null
-        ? mcpAppId != null && onOpen?.(mcpAppId)
-        : openInBrowserFromEvent({
-            event,
-            href,
-            initiator: "markdown_link_click",
-          });
-    };
-    return (
-      <button
-        aria-label={label}
-        className="flex size-6 shrink-0 cursor-interaction items-center justify-center rounded-sm text-token-text-secondary hover:bg-token-list-hover-background hover:text-token-foreground"
-        type="button"
-        onClick={handleOpenSource}
-      >
-        {icon}
-      </button>
-    );
-  }
-  return (
-    <span
-      aria-label={label}
-      className="flex size-6 shrink-0 items-center justify-center rounded-sm text-token-text-secondary"
-      role="img"
-    >
-      {icon}
-    </span>
-  );
-}
-function getToolSourceDisplayName(source) {
-  return source.name.trim().length > 0
-    ? source.name
-    : source.pluginDisplayNames.length > 0
-      ? source.pluginDisplayNames.join(", ")
-      : source.name;
-}
-function getToolSourceIcon(source) {
-  for (let iconId of [source.id, source.name, ...source.pluginDisplayNames]) {
-    let Icon = getKnownAppIconById(iconId);
-    if (Icon != null) return Icon;
-  }
-  return null;
-}
-function getThreadSummarySourceKey(sourceItem) {
-  switch (sourceItem.type) {
-    case "tool":
-      return sourceItem.source.id;
-    case "web":
-      return sourceItem.source.type === "page"
-        ? sourceItem.source.url
-        : "web-search";
-  }
-}
-var threadSummarySourceRowsModule,
-  threadSummarySourceRowsJsxRuntime,
-  initThreadSummarySourceRowsChunk = once(() => {
-    threadSummarySourceRowsModule = getChunkModuleExports();
-    initIntlRuntime();
-    initKnownAppIconRegistry();
-    Zr();
-    initExternalUrlHelpers();
-    initTooltipPrimitives();
-    initConnectedNodesIcon();
-    initGlobeIcon();
-    threadSummarySourceRowsJsxRuntime = getJsxRuntime();
   });
 function ThreadSummaryPanelRoot(props) {
   let { children, shouldHideInlineImmediately, shouldShow } = props,
