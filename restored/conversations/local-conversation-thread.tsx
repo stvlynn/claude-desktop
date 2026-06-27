@@ -728,6 +728,24 @@ import {
   useLocalConversationSummaryPanelModel,
 } from "./local-conversation-thread-parts/local-conversation-summary-panel-model";
 import {
+  getBottomScrollPaddingPxValue,
+  getDistanceFromBottomForTargetElement,
+  isAtBottomAfterPadding,
+  measureTurnBottomViewportOverflow,
+  subtractBottomScrollPaddingPx,
+} from "./local-conversation-thread-parts/local-conversation-turn-list-measurements";
+import {
+  areTurnKeyArraysEqual,
+  createInitialVirtualizedTurnListState,
+  createVirtualizedTurnListRestoreState,
+  DEFAULT_VIRTUAL_TURN_GAP_PX,
+  DEFAULT_VIRTUAL_VIEWPORT_HEIGHT_PX,
+  EMPTY_TURN_HEIGHTS_BY_KEY,
+  findMeasuredAnchorKeyForViewportPreservation,
+  updateVirtualizedTurnListViewportState,
+  VIRTUAL_TURN_OVERSCAN_COUNT,
+} from "./local-conversation-thread-parts/local-conversation-virtualized-turn-list-state";
+import {
   buildLocalConversationVisibleTurnEntries,
   initLocalConversationVisibleTurnEntriesBuilder,
 } from "./local-conversation-thread-parts/local-conversation-visible-turn-entries";
@@ -7780,7 +7798,7 @@ function VirtualizedTurnList({
   onApiChange,
   onVisibleContentReady,
   className,
-  gapPx = defaultVirtualTurnGapPx,
+  gapPx = DEFAULT_VIRTUAL_TURN_GAP_PX,
   getBottomScrollPaddingPx,
   onLatestTurnHeightChange,
   preserveMeasuredTurnViewport = false,
@@ -7795,7 +7813,7 @@ function VirtualizedTurnList({
     windowZoom = useWindowZoom(),
     [measuredHeightsByKey, setMeasuredHeightsByKey] =
       virtualizedTurnListReactRuntime.useState(
-        initialRestoreState?.turnHeightsByKey ?? emptyTurnHeightsByKey,
+        initialRestoreState?.turnHeightsByKey ?? EMPTY_TURN_HEIGHTS_BY_KEY,
       ),
     [rootElement, setRootElement] =
       virtualizedTurnListReactRuntime.useState(null),
@@ -7859,7 +7877,7 @@ function VirtualizedTurnList({
       (renderedRange = Ku({
         distanceFromBottomPx: pendingScrollDistanceFromBottomPx,
         layout: virtualLayout,
-        overscanCount: virtualTurnOverscanCount,
+        overscanCount: VIRTUAL_TURN_OVERSCAN_COUNT,
         viewportHeightPx: viewportState.viewportHeightPx,
       }));
   } else if (
@@ -8372,7 +8390,7 @@ function VirtualizedTurnList({
       let getViewportHeightPx = () =>
           scrollElement.clientHeight ||
           viewportStateRef.current.viewportHeightPx ||
-          defaultVirtualViewportHeightPx,
+          DEFAULT_VIRTUAL_VIEWPORT_HEIGHT_PX,
         removeScrollListener = scrollController.addScrollListener(
           (distanceFromBottomPx) => {
             syncViewportState(
@@ -8648,202 +8666,10 @@ function VirtualizedTurnItem(props) {
   );
   return <div style={constrainedStyle}>{observedRowNode}</div>;
 }
-function createInitialVirtualizedTurnListState(
-  entries,
-  distanceFromBottomPx,
-  gapPx,
-  initialRestoreState,
-) {
-  let layout = Xu({
-      entries,
-      gapPx,
-      measuredHeightsByKey:
-        initialRestoreState?.turnHeightsByKey ?? emptyTurnHeightsByKey,
-    }),
-    viewportHeightPx = defaultVirtualViewportHeightPx,
-    initialDistanceFromBottomPx = Math.min(
-      distanceFromBottomPx,
-      layout.totalHeightPx,
-    ),
-    defaultRenderedRange = Ku({
-      distanceFromBottomPx: initialDistanceFromBottomPx,
-      layout,
-      overscanCount: virtualTurnOverscanCount,
-      viewportHeightPx,
-    });
-  return {
-    distanceFromBottomPx: initialDistanceFromBottomPx,
-    renderedRange:
-      (initialRestoreState?.renderedWindow == null
-        ? null
-        : Gu({
-            anchorKey: initialRestoreState.renderedWindow.anchorKey,
-            layout,
-            previousRange: {
-              startIndex: 0,
-              endIndex: Math.min(
-                initialRestoreState.renderedWindow.count,
-                defaultRenderedRange.endIndex - defaultRenderedRange.startIndex,
-              ),
-            },
-          })) ?? defaultRenderedRange,
-    turnKeys: layout.turnKeys,
-    viewportHeightPx,
-  };
-}
-function updateVirtualizedTurnListViewportState({
-  current,
-  distanceFromBottomPx,
-  layout,
-  viewportHeightPx,
-}) {
-  let clampedDistanceFromBottomPx = Math.min(
-      distanceFromBottomPx,
-      layout.totalHeightPx,
-    ),
-    nextRenderedRange = Ku({
-      distanceFromBottomPx: clampedDistanceFromBottomPx,
-      layout,
-      overscanCount: virtualTurnOverscanCount,
-      viewportHeightPx,
-    }),
-    renderedRange = rangeContainsRange(current.renderedRange, nextRenderedRange)
-      ? current.renderedRange
-      : nextRenderedRange;
-  return current.distanceFromBottomPx === clampedDistanceFromBottomPx &&
-    current.viewportHeightPx === viewportHeightPx &&
-    current.renderedRange.startIndex === renderedRange.startIndex &&
-    current.renderedRange.endIndex === renderedRange.endIndex &&
-    areTurnKeyArraysEqual(current.turnKeys, layout.turnKeys)
-    ? current
-    : {
-        distanceFromBottomPx: clampedDistanceFromBottomPx,
-        renderedRange,
-        turnKeys: layout.turnKeys,
-        viewportHeightPx,
-      };
-}
-function rangeContainsRange(outerRange, innerRange) {
-  return (
-    outerRange.startIndex <= innerRange.startIndex &&
-    outerRange.endIndex >= innerRange.endIndex
-  );
-}
-function findMeasuredAnchorKeyForViewportPreservation({
-  distanceFromBottomPx,
-  layout,
-  measuredHeightsByKey,
-  nextLayout,
-  viewportHeightPx,
-}) {
-  let visibleRange = Ku({
-    distanceFromBottomPx,
-    layout,
-    overscanCount: 0,
-    viewportHeightPx,
-  });
-  for (
-    let turnIndex = visibleRange.startIndex;
-    turnIndex < visibleRange.endIndex;
-    turnIndex += 1
-  ) {
-    let turnKey = layout.turnKeys[turnIndex];
-    if (
-      turnKey != null &&
-      measuredHeightsByKey[turnKey] != null &&
-      nextLayout.turnIndexByKey.has(turnKey)
-    )
-      return turnKey;
-  }
-  return null;
-}
-function areTurnKeyArraysEqual(leftTurnKeys, rightTurnKeys) {
-  return (
-    leftTurnKeys === rightTurnKeys ||
-    (leftTurnKeys.length === rightTurnKeys.length &&
-      leftTurnKeys.every((item, index) => item === rightTurnKeys[index]))
-  );
-}
-function getBottomScrollPaddingPxValue(getBottomScrollPaddingPx) {
-  return Math.max(0, getBottomScrollPaddingPx?.() ?? 0);
-}
-function subtractBottomScrollPaddingPx(
-  distanceFromBottomPx,
-  bottomScrollPaddingPx,
-) {
-  return Math.max(0, distanceFromBottomPx - bottomScrollPaddingPx);
-}
-function isAtBottomAfterPadding(distanceFromBottomPx, bottomScrollPaddingPx) {
-  return distanceFromBottomPx <= (bottomScrollPaddingPx > 0 ? 0 : 24);
-}
-function createVirtualizedTurnListRestoreState(
-  measuredHeightsByKey,
-  turnKeys,
-  renderedRange,
-) {
-  let restoreHeightsByKey = {};
-  for (let turnKey of turnKeys) {
-    let heightPx = measuredHeightsByKey[turnKey];
-    heightPx != null && (restoreHeightsByKey[turnKey] = heightPx);
-  }
-  let anchorKey = turnKeys[renderedRange.startIndex];
-  return Object.keys(restoreHeightsByKey).length === 0 || anchorKey == null
-    ? null
-    : {
-        renderedWindow: {
-          anchorKey,
-          count: renderedRange.endIndex - renderedRange.startIndex,
-        },
-        turnHeightsByKey: restoreHeightsByKey,
-      };
-}
-function measureTurnBottomViewportOverflow({
-  scrollElement,
-  turnElement,
-  windowZoom,
-}) {
-  return scrollElement == null || turnElement == null
-    ? 0
-    : scaleCssPxByWindowZoom(
-        turnElement.getBoundingClientRect().bottom -
-          scrollElement.getBoundingClientRect().bottom,
-        windowZoom,
-      );
-}
-function getDistanceFromBottomForTargetElement({
-  layout,
-  targetElement,
-  turnElement,
-  turnKey,
-  windowZoom,
-  viewportHeightPx,
-}) {
-  let turnIndex = layout.turnIndexByKey.get(turnKey);
-  if (turnIndex == null) return null;
-  let turnRect = turnElement.getBoundingClientRect(),
-    targetRect = targetElement.getBoundingClientRect(),
-    targetOffsetFromTurnTop = scaleCssPxByWindowZoom(
-      targetRect.top - turnRect.top,
-      windowZoom,
-    ),
-    targetHeight = scaleCssPxByWindowZoom(targetRect.height, windowZoom);
-  return Math.max(
-    0,
-    (layout.bottomOffsetsPx[turnIndex] ?? 0) +
-      (layout.heightsPx[turnIndex] ?? 0) -
-      targetOffsetFromTurnTop -
-      targetHeight / 2 -
-      viewportHeightPx / 2,
-  );
-}
 var virtualizedTurnListModule,
   virtualizedTurnListReactRuntime,
   reactDomModule,
   virtualizedTurnListJsxRuntime,
-  defaultVirtualTurnGapPx,
-  defaultVirtualViewportHeightPx,
-  virtualTurnOverscanCount,
-  emptyTurnHeightsByKey,
   MemoizedVirtualizedTurnItem,
   initVirtualizedTurnListChunk = once(() => {
     virtualizedTurnListModule = getChunkModuleExports();
@@ -8857,10 +8683,6 @@ var virtualizedTurnListModule,
     initKeyboardShortcutLabel();
     Ju();
     virtualizedTurnListJsxRuntime = getJsxRuntime();
-    defaultVirtualTurnGapPx = 12;
-    defaultVirtualViewportHeightPx = 800;
-    virtualTurnOverscanCount = 2;
-    emptyTurnHeightsByKey = {};
     MemoizedVirtualizedTurnItem =
       virtualizedTurnListReactRuntime.memo(VirtualizedTurnItem);
   });
