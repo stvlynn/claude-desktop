@@ -8118,6 +8118,16 @@
       },
       "status": "done"
     },
+    "ambient-suggestions-connected-apps-consent-DQKvmN_n": {
+      "restored": "composer/ambient-suggestions-connected-apps-consent.ts",
+      "exports": {
+        "i": "initAmbientSuggestionsConnectedAppsConsentChunk",
+        "n": "hasDismissedAmbientSuggestionsConnectAppsRowSignal",
+        "r": "hasSeenAmbientSuggestionsConnectedAppsConsentSignal",
+        "t": "filterAccessibleEnabledAmbientSuggestionApps"
+      },
+      "status": "done"
+    },
     "browser-sidebar-comment-mode-coachmark-state-B5FxFSFk": {
       "restored": "browser/browser-sidebar-comment-mode-coachmark-state.ts",
       "exports": {
