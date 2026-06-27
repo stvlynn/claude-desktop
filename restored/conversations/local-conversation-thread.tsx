@@ -334,7 +334,6 @@ import {
   b as Sa,
   ba as Ca,
   bc as wa,
-  bs as Ta,
   cn as Ea,
   cs as Da,
   d as Oa,
@@ -774,9 +773,9 @@ import {
   useReviewSearchHighlights,
 } from "./local-conversation-thread-parts/review-search-highlights";
 import {
-  buildThreadFindPreviewOutputs,
-  EMPTY_THREAD_FIND_PREVIEW_OUTPUTS,
-} from "./local-conversation-thread-parts/thread-find-preview-outputs";
+  buildThreadFindItemsForVisibleTurns,
+  initThreadFindItemsBuilder,
+} from "./local-conversation-thread-parts/thread-find-items";
 import {
   collectGeneratedImagesForVisibleTurns,
   initVisibleTurnGeneratedImagesCollector,
@@ -11314,112 +11313,6 @@ function areTranscriptBlocksEquivalent(
     : previousTranscriptBlock.type === nextTranscriptBlock.type &&
         previousTranscriptBlock.key === nextTranscriptBlock.key;
 }
-function buildThreadFindItemsForVisibleTurns({
-  isConversationHistoryComplete,
-  isAppgenEndCardEnabled,
-  isBackgroundSubagentsEnabled,
-  modelProvider,
-  projectlessOutputDirectory,
-  visibleTurnEntries,
-}) {
-  return isConversationHistoryComplete
-    ? visibleTurnEntries.flatMap((item) => {
-        let cachedThreadFindItems = threadFindItemsCache.get(item.turn);
-        if (
-          cachedThreadFindItems?.isAppgenEndCardEnabled ===
-            isAppgenEndCardEnabled &&
-          cachedThreadFindItems.isBackgroundSubagentsEnabled ===
-            isBackgroundSubagentsEnabled &&
-          cachedThreadFindItems.modelProvider === modelProvider &&
-          cachedThreadFindItems.preserveServerUserMessages ===
-            item.preserveServerUserMessages &&
-          cachedThreadFindItems.projectlessOutputDirectory ===
-            projectlessOutputDirectory &&
-          cachedThreadFindItems.requests === item.requests &&
-          cachedThreadFindItems.turnSearchKey === item.turnSearchKey
-        )
-          return cachedThreadFindItems.items;
-        let renderedTurn = lt(item.turn, item.requests, {
-            isBackgroundSubagentsEnabled,
-            preserveServerUserMessages: item.preserveServerUserMessages,
-          }),
-          renderedItems = renderedTurn.items,
-          assistantResponseByUserItemIndex = new Map(),
-          latestUserMessageIndex = null,
-          latestAssistantContent = "";
-        for (let [itemIndex, renderedItem] of renderedItems.entries())
-          renderedItem.type === "user-message"
-            ? (latestUserMessageIndex = itemIndex)
-            : renderedItem.type === "assistant-message" &&
-              ((latestAssistantContent = renderedItem.content),
-              latestUserMessageIndex != null &&
-                assistantResponseByUserItemIndex.set(
-                  latestUserMessageIndex,
-                  renderedItem.content,
-                ));
-        let previewOutputs = buildThreadFindPreviewOutputs({
-            assistantContent: latestAssistantContent,
-            generatedImageSources: renderedItems.flatMap((renderedItem) =>
-              renderedItem.type === "generated-image" &&
-              renderedItem.src != null
-                ? [renderedItem.src]
-                : [],
-            ),
-            isAppgenEndCardEnabled,
-            projectlessOutputDirectory,
-            turn: renderedTurn,
-          }),
-          turnKeyByItem = new Map(),
-          threadFindItems = renderedItems.flatMap((renderedItem, index) => {
-            let previewOutputsForItem =
-              index === latestUserMessageIndex
-                ? previewOutputs
-                : EMPTY_THREAD_FIND_PREVIEW_OUTPUTS;
-            return renderedItem.type === "user-message"
-              ? [
-                  {
-                    getPreview: () => ({
-                      outputs: previewOutputsForItem,
-                      response:
-                        assistantResponseByUserItemIndex.get(index) ?? "",
-                    }),
-                    id: Ta(item.turnSearchKey, `${index}:user`),
-                    getLabel: () => renderedItem.message.trim(),
-                    isHeartbeat: renderedItem.heartbeatTrigger != null,
-                    turnKey:
-                      turnKeyByItem.get(renderedItem) ?? item.turnSearchKey,
-                  },
-                ]
-              : [];
-          });
-        return (
-          threadFindItemsCache.set(item.turn, {
-            isAppgenEndCardEnabled,
-            isBackgroundSubagentsEnabled,
-            items: threadFindItems,
-            modelProvider,
-            preserveServerUserMessages: item.preserveServerUserMessages,
-            projectlessOutputDirectory,
-            requests: item.requests,
-            turnSearchKey: item.turnSearchKey,
-          }),
-          threadFindItems
-        );
-      })
-    : EMPTY_THREAD_FIND_ITEMS;
-}
-var EMPTY_THREAD_FIND_ITEMS,
-  threadFindItemsCache,
-  initThreadFindItemsBuilder = once(() => {
-    initPathHelpers();
-    la();
-    initGitActionDirectiveRuntime();
-    di();
-    initConversationArtifactRuntime();
-    initMarkdownResourceHelpers();
-    EMPTY_THREAD_FIND_ITEMS = [];
-    threadFindItemsCache = new WeakMap();
-  });
 var initBackgroundAgentThreadTab = once(() => {});
 async function openBackgroundAgentThreadTab(
   e,
