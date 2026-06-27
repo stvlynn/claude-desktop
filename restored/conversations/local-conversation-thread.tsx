@@ -833,7 +833,6 @@ import { useBrowserUseSummaries } from "./local-conversation-thread-parts/browse
 import { ComputerUsePictureInPictureRow } from "./local-conversation-thread-parts/computer-use-pip-row";
 import { BackgroundTaskSectionTitle } from "./local-conversation-thread-parts/background-task-section-title";
 const joinLocalEnvironmentRepoPath = M;
-
 function Fd(e) {
   let n = Ld.useRef(null),
     r = (t) => {
@@ -2728,7 +2727,6 @@ var nm,
     yi();
     nm = vn("local-env-recent-actions-by-key", {});
   });
-
 function isRecentLocalEnvironmentAction(
   recentActionsByKey: RecentLocalEnvironmentActionsByKey | null | undefined,
   hostId: string,
@@ -7626,10 +7624,8 @@ function FloatingLocalConversationSummaryPanel(props) {
   });
 }
 function noopForceShowFloatingSummaryPanel() {}
-
 type RenderableThreadNode = unknown;
 type BackgroundAgentOpenHandler = (backgroundAgent: unknown) => void;
-
 export interface LocalConversationSummaryPanelProps {
   artifacts: readonly unknown[];
   sideChats: readonly unknown[];
@@ -7642,7 +7638,6 @@ export interface LocalConversationSummaryPanelProps {
   plan: unknown;
   onOpenBackgroundAgent?: BackgroundAgentOpenHandler;
 }
-
 export function LocalConversationSummaryPanel(
   props: LocalConversationSummaryPanelProps,
 ) {
@@ -9989,93 +9984,109 @@ var findLastModule,
     r();
     Ub = bn(ut, (e) => null);
   });
-function Gb({ followMode = "static" } = {}) {
+function createLatestTurnScrollState({ followMode = "static" } = {}) {
   return {
     followMode,
   };
 }
-function Kb(e, t) {
-  switch (t.type) {
+function reduceLatestTurnScrollState(scrollState, event) {
+  switch (event.type) {
     case "latest_turn_follow_content_changed":
-      return t.latestTurnPhase !== "prework" || e.followMode !== "prework_watch"
-        ? e
-        : t.followContentOverflowPx > 0
-          ? Yb(e, "prework_follow")
-          : e;
+      return event.latestTurnPhase !== "prework" ||
+        scrollState.followMode !== "prework_watch"
+        ? scrollState
+        : event.followContentOverflowPx > 0
+          ? setLatestTurnFollowMode(scrollState, "prework_follow")
+          : scrollState;
     case "latest_turn_phase_changed": {
-      let n = e;
+      let nextScrollState = scrollState;
       return (
-        t.previousLatestTurnPhase !== "prework" &&
-          t.latestTurnPhase === "prework" &&
-          (n.followMode === "static" && (n = Yb(n, "prework_watch")),
-          n.followMode === "user_follow" && (n = Yb(n, "prework_follow"))),
-        t.previousLatestTurnPhase === "prework" &&
-          t.latestTurnPhase === "final_answer" &&
-          (n = Yb(
-            n,
-            n.followMode === "prework_follow" ? "user_follow" : "static",
+        event.previousLatestTurnPhase !== "prework" &&
+          event.latestTurnPhase === "prework" &&
+          (nextScrollState.followMode === "static" &&
+            (nextScrollState = setLatestTurnFollowMode(
+              nextScrollState,
+              "prework_watch",
+            )),
+          nextScrollState.followMode === "user_follow" &&
+            (nextScrollState = setLatestTurnFollowMode(
+              nextScrollState,
+              "prework_follow",
+            ))),
+        event.previousLatestTurnPhase === "prework" &&
+          event.latestTurnPhase === "final_answer" &&
+          (nextScrollState = setLatestTurnFollowMode(
+            nextScrollState,
+            nextScrollState.followMode === "prework_follow"
+              ? "user_follow"
+              : "static",
           )),
-        t.previousLatestTurnPhase !== "idle" &&
-          t.latestTurnPhase === "idle" &&
-          n.followMode !== "user_follow" &&
-          (n = Yb(n, "static")),
-        n
+        event.previousLatestTurnPhase !== "idle" &&
+          event.latestTurnPhase === "idle" &&
+          nextScrollState.followMode !== "user_follow" &&
+          (nextScrollState = setLatestTurnFollowMode(
+            nextScrollState,
+            "static",
+          )),
+        nextScrollState
       );
     }
     case "latest_turn_placed":
-      return Yb(e, "static");
+      return setLatestTurnFollowMode(scrollState, "static");
     case "latest_turn_removed":
-      return Yb(e, "static");
+      return setLatestTurnFollowMode(scrollState, "static");
     case "scroll_distance_changed":
-      return t.distanceFromBottomPx <= 24
-        ? e
-        : e.followMode === "prework_follow"
-          ? Yb(e, "prework_watch")
-          : e.followMode === "user_follow"
-            ? Yb(
-                e,
-                t.latestTurnPhase === "prework" ? "prework_watch" : "static",
+      return event.distanceFromBottomPx <= 24
+        ? scrollState
+        : scrollState.followMode === "prework_follow"
+          ? setLatestTurnFollowMode(scrollState, "prework_watch")
+          : scrollState.followMode === "user_follow"
+            ? setLatestTurnFollowMode(
+                scrollState,
+                event.latestTurnPhase === "prework"
+                  ? "prework_watch"
+                  : "static",
               )
-            : e;
+            : scrollState;
     case "scroll_to_bottom":
-      return Yb(
-        e,
-        t.latestTurnPhase === "prework" ? "prework_follow" : "user_follow",
+      return setLatestTurnFollowMode(
+        scrollState,
+        event.latestTurnPhase === "prework" ? "prework_follow" : "user_follow",
       );
   }
 }
-function qb(e) {
-  return e === "static" || e === "prework_watch";
+function isPassiveLatestTurnFollowMode(followMode) {
+  return followMode === "static" || followMode === "prework_watch";
 }
-function Jb(e) {
-  if (e.status !== "inProgress") return "idle";
-  let t = false;
-  for (let n of e.items)
-    if (n.type === "agentMessage") {
-      if (n.phase === "commentary") {
-        t = true;
+function getLatestTurnPhase(turn) {
+  if (turn.status !== "inProgress") return "idle";
+  let sawCommentaryAgentMessage = false;
+  for (let turnItem of turn.items)
+    if (turnItem.type === "agentMessage") {
+      if (turnItem.phase === "commentary") {
+        sawCommentaryAgentMessage = true;
         continue;
       }
       return "final_answer";
     }
-  return t || e.firstTurnWorkItemStartedAtMs != null
+  return sawCommentaryAgentMessage || turn.firstTurnWorkItemStartedAtMs != null
     ? "prework"
-    : e.finalAssistantStartedAtMs == null
+    : turn.finalAssistantStartedAtMs == null
       ? "idle"
       : "final_answer";
 }
-function Yb(e, t) {
-  return e.followMode === t
-    ? e
+function setLatestTurnFollowMode(scrollState, followMode) {
+  return scrollState.followMode === followMode
+    ? scrollState
     : {
-        ...e,
-        followMode: t,
+        ...scrollState,
+        followMode,
       };
 }
 var Xb = once(() => {
   nd();
 });
-function Zb({ entry, latestTurnFollowContentRef }) {
+function LocalConversationTurnRow({ entry, latestTurnFollowContentRef }) {
   let {
     conversationId,
     cwd,
@@ -10092,7 +10103,7 @@ function Zb({ entry, latestTurnFollowContentRef }) {
     onForkTurnMessage,
     completedThreadGoal,
     generatedImages,
-    onSetCollapsedForTurn: _,
+    onSetCollapsedForTurn,
     parentThreadAttachmentSourceConversationId,
     preserveServerUserMessages,
     renderMcpApps,
@@ -10109,11 +10120,14 @@ function Zb({ entry, latestTurnFollowContentRef }) {
     includeTranscriptTurnExtras,
   } = entry;
   B(Fe);
-  let M = Y((e) => {
-      turnId != null && _?.(turnId, e);
+  let handleCollapsedChange = Y((collapsed) => {
+      turnId != null && onSetCollapsedForTurn?.(turnId, collapsed);
     }),
-    N = turnId == null || _ == null ? undefined : M,
-    P = ex.useMemo(
+    onSetCollapsed =
+      turnId == null || onSetCollapsedForTurn == null
+        ? undefined
+        : handleCollapsedChange,
+    parentThreadAttachment = ex.useMemo(
       () =>
         parentThreadAttachmentSourceConversationId == null
           ? undefined
@@ -10127,10 +10141,10 @@ function Zb({ entry, latestTurnFollowContentRef }) {
     tx.jsx(fs, {
       name: "LocalConversationTurn",
       resetKey: turnKey,
-      fallback: (e) => (
-        <Qb
+      fallback: (errorBoundary) => (
+        <LocalConversationTurnErrorFallback
           onRetry={() => {
-            e.resetError();
+            errorBoundary.resetError();
           }}
         />
       ),
@@ -10152,14 +10166,14 @@ function Zb({ entry, latestTurnFollowContentRef }) {
           isProjectlessConversation={isProjectlessConversation}
           modelProvider={modelProvider}
           projectlessOutputDirectory={projectlessOutputDirectory}
-          parentThreadAttachment={P}
+          parentThreadAttachment={parentThreadAttachment}
           resolvedApps={resolvedApps}
           onEditLastTurnMessage={onEditLastTurnMessage}
           onForkTurnMessage={onForkTurnMessage}
           completedThreadGoal={completedThreadGoal}
           generatedImages={generatedImages}
           isCollapsed={isCollapsed}
-          onSetCollapsed={N}
+          onSetCollapsed={onSetCollapsed}
           renderMcpApps={renderMcpApps}
           showInProgressFixedContent={showInProgressFixedContent}
           deferOffscreenDiffRendering={true}
@@ -10172,9 +10186,9 @@ function Zb({ entry, latestTurnFollowContentRef }) {
     })
   );
 }
-function Qb(e) {
-  let { onRetry } = e,
-    r = (
+function LocalConversationTurnErrorFallback(props) {
+  let { onRetry } = props,
+    titleNode = (
       <div className="mb-2 font-medium text-token-text-primary">
         <FormattedMessage
           id="localConversation.turnRenderError.title"
@@ -10183,7 +10197,7 @@ function Qb(e) {
         />
       </div>
     );
-  let i = (
+  let retryLabel = (
     <FormattedMessage
       id="localConversation.turnRenderError.retry"
       defaultMessage="Try again"
@@ -10192,12 +10206,12 @@ function Qb(e) {
   );
   return (
     <div className="rounded-lg border border-token-border bg-token-main-surface-primary px-4 py-3 text-sm text-token-text-secondary">
-      {r}
+      {titleNode}
       {tx.jsx(k, {
         color: "secondary",
         size: "default",
         onClick: onRetry,
-        children: i,
+        children: retryLabel,
       })}
     </div>
   );
@@ -10217,13 +10231,13 @@ var $b,
     Dc();
     tx = getJsxRuntime();
   });
-function rx({
+function VirtualizedTurnList({
   entries,
   RowComponent,
   onApiChange,
   onVisibleContentReady,
   className,
-  gapPx = bx,
+  gapPx = defaultVirtualTurnGapPx,
   getBottomScrollPaddingPx,
   onLatestTurnHeightChange,
   preserveMeasuredTurnViewport = false,
@@ -10234,762 +10248,996 @@ function rx({
   onViewportChange,
   latestTurnSynchronousMeasurementKey,
 }) {
-  let h = ad(),
-    g = nr(),
-    [_, v] = _x.useState(initialRestoreState?.turnHeightsByKey ?? Cx),
-    [y, b] = _x.useState(null),
-    [x, C] = _x.useState(() => {
-      let t = ux(getBottomScrollPaddingPx);
-      return ax(
+  let scrollController = ad(),
+    windowZoom = nr(),
+    [measuredHeightsByKey, setMeasuredHeightsByKey] = _x.useState(
+      initialRestoreState?.turnHeightsByKey ?? emptyTurnHeightsByKey,
+    ),
+    [rootElement, setRootElement] = _x.useState(null),
+    [viewportState, setViewportState] = _x.useState(() => {
+      let bottomScrollPaddingPx = getBottomScrollPaddingPxValue(
+        getBottomScrollPaddingPx,
+      );
+      return createInitialVirtualizedTurnListState(
         entries,
-        dx(h.getLastScrollDistanceFromBottomPx(), t),
+        subtractBottomScrollPaddingPx(
+          scrollController.getLastScrollDistanceFromBottomPx(),
+          bottomScrollPaddingPx,
+        ),
         gapPx,
         initialRestoreState,
       );
     }),
-    [w, T] = _x.useState(null),
-    E = _x.useRef(null),
-    D = _x.useRef(_),
-    O = _x.useRef(x),
-    k = _x.useRef(new Map()),
-    A = _x.useRef(new Map()),
-    j = _x.useRef(new Map()),
-    M = _x.useRef(new Map()),
-    N = _x.useRef(new Map()),
-    P = _x.useRef(null),
-    F = _x.useRef(null),
-    I = _x.useRef(null),
-    L = _x.useRef(false),
-    R = _x.useMemo(
+    [pendingScrollRequest, setPendingScrollRequest] = _x.useState(null),
+    pendingScrollRequestRef = _x.useRef(null),
+    measuredHeightsByKeyRef = _x.useRef(measuredHeightsByKey),
+    viewportStateRef = _x.useRef(viewportState),
+    observedElementMetadataRef = _x.useRef(new Map()),
+    turnElementByKeyRef = _x.useRef(new Map()),
+    pendingInitialMeasureElementsRef = _x.useRef(new Map()),
+    latestTurnFollowContentHeightsRef = _x.useRef(new Map()),
+    pendingResizeMeasurementsRef = _x.useRef(new Map()),
+    pendingMeasurementCommitRef = _x.useRef(null),
+    resizeFrameRef = _x.useRef(null),
+    resizeObserverRef = _x.useRef(null),
+    visibleContentReadyRef = _x.useRef(false),
+    virtualLayout = _x.useMemo(
       () =>
         Xu({
           entries,
           gapPx,
-          measuredHeightsByKey: _,
+          measuredHeightsByKey: measuredHeightsByKey,
         }),
-      [entries, gapPx, _],
+      [entries, gapPx, measuredHeightsByKey],
     ),
-    z = _x.useRef(R),
-    ee = _x.useRef(null),
-    B = x.renderedRange;
-  if (w != null) {
-    let e = Yu({
-      layout: R,
-      turnKey: w.turnKey,
-      viewportHeightPx: x.viewportHeightPx,
+    virtualLayoutRef = _x.useRef(virtualLayout),
+    previousLayoutRef = _x.useRef(null),
+    renderedRange = viewportState.renderedRange;
+  if (pendingScrollRequest != null) {
+    let pendingScrollDistanceFromBottomPx = Yu({
+      layout: virtualLayout,
+      turnKey: pendingScrollRequest.turnKey,
+      viewportHeightPx: viewportState.viewportHeightPx,
     });
-    e != null &&
-      (B = Ku({
-        distanceFromBottomPx: e,
-        layout: R,
-        overscanCount: Sx,
-        viewportHeightPx: x.viewportHeightPx,
+    pendingScrollDistanceFromBottomPx != null &&
+      (renderedRange = Ku({
+        distanceFromBottomPx: pendingScrollDistanceFromBottomPx,
+        layout: virtualLayout,
+        overscanCount: virtualTurnOverscanCount,
+        viewportHeightPx: viewportState.viewportHeightPx,
       }));
-  } else if (!lx(x.turnKeys, R.turnKeys)) {
-    let e = x.turnKeys[x.renderedRange.startIndex];
-    e != null &&
-      (B =
+  } else if (
+    !areTurnKeyArraysEqual(viewportState.turnKeys, virtualLayout.turnKeys)
+  ) {
+    let anchorTurnKey =
+      viewportState.turnKeys[viewportState.renderedRange.startIndex];
+    anchorTurnKey != null &&
+      (renderedRange =
         Gu({
-          anchorKey: e,
-          layout: R,
-          previousRange: B,
-        }) ?? B);
+          anchorKey: anchorTurnKey,
+          layout: virtualLayout,
+          previousRange: renderedRange,
+        }) ?? renderedRange);
   }
-  let V = Y(() => {
-      P.current ?? restoreScrollDistanceFromBottomPx?.();
+  let restoreScrollDistanceFromBottom = Y(() => {
+      pendingMeasurementCommitRef.current ??
+        restoreScrollDistanceFromBottomPx?.();
     }),
-    te = Y((e) => {
-      e.latestTurnHeightChange != null &&
-        onLatestTurnHeightChange?.(e.latestTurnHeightChange);
-      e.restoreScrollDistanceFromBottom
-        ? V()
-        : e.scrollDistanceFromBottomPx != null &&
-          h.scrollToDistanceFromBottomPx(
-            e.scrollDistanceFromBottomPx,
+    applyPendingMeasurementCommit = Y((pendingCommit) => {
+      pendingCommit.latestTurnHeightChange != null &&
+        onLatestTurnHeightChange?.(pendingCommit.latestTurnHeightChange);
+      pendingCommit.restoreScrollDistanceFromBottom
+        ? restoreScrollDistanceFromBottom()
+        : pendingCommit.scrollDistanceFromBottomPx != null &&
+          scrollController.scrollToDistanceFromBottomPx(
+            pendingCommit.scrollDistanceFromBottomPx,
             "instant",
           );
     }),
-    ne = Y((e, t) => {
-      if (P.current != null) return;
-      let n = ox({
-        current: O.current,
-        distanceFromBottomPx: e,
-        layout: R,
-        viewportHeightPx: t,
+    syncViewportState = Y((distanceFromBottomPx, viewportHeightPx) => {
+      if (pendingMeasurementCommitRef.current != null) return;
+      let nextViewportState = updateVirtualizedTurnListViewportState({
+        current: viewportStateRef.current,
+        distanceFromBottomPx: distanceFromBottomPx,
+        layout: virtualLayout,
+        viewportHeightPx: viewportHeightPx,
       });
-      n !== O.current && ((O.current = n), C(n));
+      nextViewportState !== viewportStateRef.current &&
+        ((viewportStateRef.current = nextViewportState),
+        setViewportState(nextViewportState));
     }),
-    re = Y((e, t, n) => {
-      if (onViewportChange == null) return;
-      let r = Math.max(0, Math.min(R.totalHeightPx, R.totalHeightPx - e)),
-        i = Math.max(0, r - t),
-        a =
-          n == null
-            ? r
-            : Math.max(0, Math.min(R.totalHeightPx, R.totalHeightPx - n)),
-        o = Math.max(0, a - t);
-      onViewportChange({
-        target:
-          n == null
-            ? null
-            : i < o
-              ? {
-                  originPx: o,
-                  targetPx: i,
-                }
-              : r > a
+    notifyViewportChange = Y(
+      (
+        distanceFromBottomPx,
+        viewportHeightPx,
+        previousDistanceFromBottomPx,
+      ) => {
+        if (onViewportChange == null) return;
+        let viewportEndPx = Math.max(
+            0,
+            Math.min(
+              virtualLayout.totalHeightPx,
+              virtualLayout.totalHeightPx - distanceFromBottomPx,
+            ),
+          ),
+          viewportStartPx = Math.max(0, viewportEndPx - viewportHeightPx),
+          previousViewportEndPx =
+            previousDistanceFromBottomPx == null
+              ? viewportEndPx
+              : Math.max(
+                  0,
+                  Math.min(
+                    virtualLayout.totalHeightPx,
+                    virtualLayout.totalHeightPx - previousDistanceFromBottomPx,
+                  ),
+                ),
+          previousViewportStartPx = Math.max(
+            0,
+            previousViewportEndPx - viewportHeightPx,
+          );
+        onViewportChange({
+          target:
+            previousDistanceFromBottomPx == null
+              ? null
+              : viewportStartPx < previousViewportStartPx
                 ? {
-                    originPx: a,
-                    targetPx: r,
+                    originPx: previousViewportStartPx,
+                    targetPx: viewportStartPx,
                   }
-                : null,
-        viewportEndPx: r,
-        viewportStartPx: i,
-      });
-    }),
-    ie = Y((e) => {
+                : viewportEndPx > previousViewportEndPx
+                  ? {
+                      originPx: previousViewportEndPx,
+                      targetPx: viewportEndPx,
+                    }
+                  : null,
+          viewportEndPx: viewportEndPx,
+          viewportStartPx: viewportStartPx,
+        });
+      },
+    ),
+    finishPendingScrollRequest = Y((request) => {
       queueMicrotask(() => {
-        E.current === e && (e.complete(), (E.current = null));
-        T((t) => (t === e ? null : t));
+        pendingScrollRequestRef.current === request &&
+          (request.complete(), (pendingScrollRequestRef.current = null));
+        setPendingScrollRequest((currentRequest) =>
+          currentRequest === request ? null : currentRequest,
+        );
       });
     }),
-    H = Y(
-      (e, t) => (
-        E.current?.complete(),
-        new Promise((n) => {
-          let r = {
-            complete: n,
-            getTargetElement: t,
-            turnKey: e,
+    scrollToKey = Y(
+      (turnKey, getTargetElement) => (
+        pendingScrollRequestRef.current?.complete(),
+        new Promise((complete) => {
+          let request = {
+            complete: complete,
+            getTargetElement: getTargetElement,
+            turnKey: turnKey,
           };
-          E.current = r;
-          T(r);
+          pendingScrollRequestRef.current = request;
+          setPendingScrollRequest(request);
         })
       ),
     ),
-    ae = Y(() => {
-      let e = 0,
-        t = null;
-      for (let [n, r] of M.current) {
-        e += r;
-        (t == null ||
-          t.compareDocumentPosition(n) === Node.DOCUMENT_POSITION_FOLLOWING) &&
-          (t = n);
+    publishLatestTurnFollowContentHeight = Y(() => {
+      let followContentHeightPx = 0,
+        lastFollowContentElement = null;
+      for (let [
+        followContentElement,
+        heightPx,
+      ] of latestTurnFollowContentHeightsRef.current) {
+        followContentHeightPx += heightPx;
+        (lastFollowContentElement == null ||
+          lastFollowContentElement.compareDocumentPosition(
+            followContentElement,
+          ) === Node.DOCUMENT_POSITION_FOLLOWING) &&
+          (lastFollowContentElement = followContentElement);
       }
-      t != null &&
+      lastFollowContentElement != null &&
         onLatestTurnHeightChange?.({
           heightDeltaPx: null,
           heightPx: null,
-          bottomViewportOverflowPx: mx({
-            scrollElement: h.getScrollElement(),
-            turnElement: t,
-            windowZoom: g,
+          bottomViewportOverflowPx: measureTurnBottomViewportOverflow({
+            scrollElement: scrollController.getScrollElement(),
+            turnElement: lastFollowContentElement,
+            windowZoom: windowZoom,
           }),
-          turnElement: t,
-          followContentHeightPx: e,
+          turnElement: lastFollowContentElement,
+          followContentHeightPx,
         });
     }),
-    U = Y((t, n = true) => {
-      let r = P.current,
-        i = D.current,
-        s = i,
-        u = 0,
-        d = false,
-        f = null,
-        p = 0,
-        m = 0,
-        _ = h.getLastScrollDistanceFromBottomPx(),
-        y = ux(getBottomScrollPaddingPx),
-        b = dx(_, y),
-        x = preserveMeasuredTurnViewport
+    applyMeasuredTurnHeights = Y((measurementsByTurnKey, flushSync = true) => {
+      let pendingCommit = pendingMeasurementCommitRef.current,
+        currentHeightsByKey = measuredHeightsByKeyRef.current,
+        nextHeightsByKey = currentHeightsByKey,
+        latestTurnHeightDeltaPx = 0,
+        didLatestTurnHeightChange = false,
+        latestTurnElement = null,
+        totalLayoutHeightDeltaPx = 0,
+        preservedDistanceDeltaPx = 0,
+        rawDistanceFromBottomPx =
+          scrollController.getLastScrollDistanceFromBottomPx(),
+        bottomScrollPaddingPx = getBottomScrollPaddingPxValue(
+          getBottomScrollPaddingPx,
+        ),
+        paddedDistanceFromBottomPx = subtractBottomScrollPaddingPx(
+          rawDistanceFromBottomPx,
+          bottomScrollPaddingPx,
+        ),
+        pendingRestoreDistanceFromBottomPx = preserveMeasuredTurnViewport
           ? null
           : (getPendingRestoreScrollDistanceFromBottomPx?.() ?? null),
-        S = r == null ? b : O.current.distanceFromBottomPx;
-      for (let [e, { element: n, firstHeightPx: r, heightPx: a }] of t) {
-        let t = A.current.get(e);
-        if (t !== n) continue;
-        let o = Math.max(1, a),
-          h = i[e];
-        if (h === o) continue;
-        s === i &&
-          (s = {
-            ...i,
+        viewportDistanceFromBottomPx =
+          pendingCommit == null
+            ? paddedDistanceFromBottomPx
+            : viewportStateRef.current.distanceFromBottomPx;
+      for (let [
+        turnKey,
+        { element, firstHeightPx, heightPx },
+      ] of measurementsByTurnKey) {
+        let currentElement = turnElementByKeyRef.current.get(turnKey);
+        if (currentElement !== element) continue;
+        let measuredHeightPx = Math.max(1, heightPx),
+          previousHeightPx = currentHeightsByKey[turnKey];
+        if (previousHeightPx === measuredHeightPx) continue;
+        nextHeightsByKey === currentHeightsByKey &&
+          (nextHeightsByKey = {
+            ...currentHeightsByKey,
           });
-        s[e] = o;
-        let g = o - (h ?? Math.max(1, r)),
-          _ = R.turnIndexByKey.get(e);
-        if (_ == null) continue;
-        let v = _ === R.turnKeys.length - 1;
-        v && ((d = true), (u += g), (f = t));
-        let y = o - (R.heightsPx[_] ?? o);
-        p += y;
-        let b = R.bottomOffsetsPx[_] ?? 0;
-        y !== 0 &&
-          b <= S &&
+        nextHeightsByKey[turnKey] = measuredHeightPx;
+        let heightDeltaPx =
+            measuredHeightPx - (previousHeightPx ?? Math.max(1, firstHeightPx)),
+          turnIndex = virtualLayout.turnIndexByKey.get(turnKey);
+        if (turnIndex == null) continue;
+        let isLatestTurn = turnIndex === virtualLayout.turnKeys.length - 1;
+        isLatestTurn &&
+          ((didLatestTurnHeightChange = true),
+          (latestTurnHeightDeltaPx += heightDeltaPx),
+          (latestTurnElement = currentElement));
+        let layoutHeightDeltaPx =
+          measuredHeightPx -
+          (virtualLayout.heightsPx[turnIndex] ?? measuredHeightPx);
+        totalLayoutHeightDeltaPx += layoutHeightDeltaPx;
+        let turnBottomOffsetPx = virtualLayout.bottomOffsetsPx[turnIndex] ?? 0;
+        layoutHeightDeltaPx !== 0 &&
+          turnBottomOffsetPx <= viewportDistanceFromBottomPx &&
           (preserveMeasuredTurnViewport ||
-            (getPendingRestoreScrollDistanceFromBottomPx != null && !v)) &&
-          (m += y);
+            (getPendingRestoreScrollDistanceFromBottomPx != null &&
+              !isLatestTurn)) &&
+          (preservedDistanceDeltaPx += layoutHeightDeltaPx);
       }
-      if (s === i) return false;
-      let w = preserveMeasuredTurnViewport && fx(_, y),
-        T = r?.restoreScrollDistanceFromBottom || x != null,
-        E = null;
-      T ||
-        (E = w
+      if (nextHeightsByKey === currentHeightsByKey) return false;
+      let isAtBottom =
+          preserveMeasuredTurnViewport &&
+          isAtBottomAfterPadding(
+            rawDistanceFromBottomPx,
+            bottomScrollPaddingPx,
+          ),
+        shouldRestoreScrollDistance =
+          pendingCommit?.restoreScrollDistanceFromBottom ||
+          pendingRestoreDistanceFromBottomPx != null,
+        nextScrollDistanceFromBottomPx = null;
+      shouldRestoreScrollDistance ||
+        (nextScrollDistanceFromBottomPx = isAtBottom
           ? 0
-          : m === 0
-            ? (r?.scrollDistanceFromBottomPx ?? null)
-            : (r?.scrollDistanceFromBottomPx ?? _) + m);
-      let k = O.current.distanceFromBottomPx;
-      T ? (k = x ?? k) : E != null && (k = dx(E, y));
-      let j = Xu({
+          : preservedDistanceDeltaPx === 0
+            ? (pendingCommit?.scrollDistanceFromBottomPx ?? null)
+            : (pendingCommit?.scrollDistanceFromBottomPx ??
+                rawDistanceFromBottomPx) + preservedDistanceDeltaPx);
+      let nextViewportDistanceFromBottomPx =
+        viewportStateRef.current.distanceFromBottomPx;
+      shouldRestoreScrollDistance
+        ? (nextViewportDistanceFromBottomPx =
+            pendingRestoreDistanceFromBottomPx ??
+            nextViewportDistanceFromBottomPx)
+        : nextScrollDistanceFromBottomPx != null &&
+          (nextViewportDistanceFromBottomPx = subtractBottomScrollPaddingPx(
+            nextScrollDistanceFromBottomPx,
+            bottomScrollPaddingPx,
+          ));
+      let nextVirtualLayout = Xu({
         entries,
         gapPx,
-        measuredHeightsByKey: s,
+        measuredHeightsByKey: nextHeightsByKey,
       });
-      ee.current ??= R;
-      let M = ox({
-          current: O.current,
-          distanceFromBottomPx: k,
-          layout: j,
-          viewportHeightPx: O.current.viewportHeightPx,
+      previousLayoutRef.current ??= virtualLayout;
+      let nextViewportState = updateVirtualizedTurnListViewportState({
+          current: viewportStateRef.current,
+          distanceFromBottomPx: nextViewportDistanceFromBottomPx,
+          layout: nextVirtualLayout,
+          viewportHeightPx: viewportStateRef.current.viewportHeightPx,
         }),
-        N = r?.latestTurnHeightChange,
-        F = f ?? N?.turnElement ?? null,
-        I = {
+        pendingLatestTurnHeightChange = pendingCommit?.latestTurnHeightChange,
+        measuredLatestTurnElement =
+          latestTurnElement ??
+          pendingLatestTurnHeightChange?.turnElement ??
+          null,
+        measurementCommit = {
           latestTurnHeightChange:
-            d || N != null
+            didLatestTurnHeightChange || pendingLatestTurnHeightChange != null
               ? {
-                  heightDeltaPx: (N?.heightDeltaPx ?? 0) + u,
-                  heightPx: j.heightsPx.at(-1) ?? null,
-                  bottomViewportOverflowPx: mx({
-                    scrollElement: h.getScrollElement(),
-                    turnElement: F,
-                    windowZoom: g,
+                  heightDeltaPx:
+                    (pendingLatestTurnHeightChange?.heightDeltaPx ?? 0) +
+                    latestTurnHeightDeltaPx,
+                  heightPx: nextVirtualLayout.heightsPx.at(-1) ?? null,
+                  bottomViewportOverflowPx: measureTurnBottomViewportOverflow({
+                    scrollElement: scrollController.getScrollElement(),
+                    turnElement: measuredLatestTurnElement,
+                    windowZoom: windowZoom,
                   }),
-                  turnElement: F,
+                  turnElement: measuredLatestTurnElement,
                   followContentHeightPx: null,
                 }
               : null,
-          restoreScrollDistanceFromBottom: T,
-          scrollDistanceFromBottomPx: E,
-          turnHeightsByKey: s,
+          restoreScrollDistanceFromBottom: shouldRestoreScrollDistance,
+          scrollDistanceFromBottomPx: nextScrollDistanceFromBottomPx,
+          turnHeightsByKey: nextHeightsByKey,
         },
-        L = () => {
-          D.current = s;
-          v(s);
-          M !== O.current && ((O.current = M), C(M));
+        commitMeasuredHeights = () => {
+          measuredHeightsByKeyRef.current = nextHeightsByKey;
+          setMeasuredHeightsByKey(nextHeightsByKey);
+          nextViewportState !== viewportStateRef.current &&
+            ((viewportStateRef.current = nextViewportState),
+            setViewportState(nextViewportState));
         };
       return (
-        (P.current = I),
+        (pendingMeasurementCommitRef.current = measurementCommit),
         preserveMeasuredTurnViewport &&
-          p !== 0 &&
-          m === 0 &&
-          !w &&
-          !T &&
-          h.preserveScrollPositionForNextLayout(),
-        n ? vx.flushSync(L) : L(),
+          totalLayoutHeightDeltaPx !== 0 &&
+          preservedDistanceDeltaPx === 0 &&
+          !isAtBottom &&
+          !shouldRestoreScrollDistance &&
+          scrollController.preserveScrollPositionForNextLayout(),
+        flushSync
+          ? vx.flushSync(commitMeasuredHeights)
+          : commitMeasuredHeights(),
         true
       );
     }),
-    oe = Y(() => {
-      if (I.current != null) return I.current;
-      let e = false,
-        t = new ResizeObserver((t) => {
-          let n = N.current;
-          for (let r of t) {
-            let t = k.current.get(r.target);
-            if (t == null) continue;
-            let { height } = _l(r);
-            switch (t.kind) {
+    getResizeObserver = Y(() => {
+      if (resizeObserverRef.current != null) return resizeObserverRef.current;
+      let didLatestFollowContentResize = false,
+        resizeObserver = new ResizeObserver((resizeEntries) => {
+          let pendingMeasurementsByTurnKey =
+            pendingResizeMeasurementsRef.current;
+          for (let resizeEntry of resizeEntries) {
+            let metadata = observedElementMetadataRef.current.get(
+              resizeEntry.target,
+            );
+            if (metadata == null) continue;
+            let { height } = _l(resizeEntry);
+            switch (metadata.kind) {
               case "turn": {
-                let e = n.get(t.turnKey);
-                e == null || e.element !== r.target
-                  ? n.set(t.turnKey, {
-                      element: r.target,
+                let pendingTurnMeasurement = pendingMeasurementsByTurnKey.get(
+                  metadata.turnKey,
+                );
+                pendingTurnMeasurement == null ||
+                pendingTurnMeasurement.element !== resizeEntry.target
+                  ? pendingMeasurementsByTurnKey.set(metadata.turnKey, {
+                      element: resizeEntry.target,
                       firstHeightPx: height,
                       heightPx: height,
                     })
-                  : (e.heightPx = height);
+                  : (pendingTurnMeasurement.heightPx = height);
                 break;
               }
               case "latest-turn-follow-content":
-                M.current.set(t.element, height);
-                e = true;
+                latestTurnFollowContentHeightsRef.current.set(
+                  metadata.element,
+                  height,
+                );
+                didLatestFollowContentResize = true;
                 break;
             }
           }
-          F.current ??= window.requestAnimationFrame(() => {
-            F.current = null;
-            let t = N.current;
-            N.current = new Map();
-            let n = e;
-            e = false;
-            U(t);
-            n && ae();
+          resizeFrameRef.current ??= window.requestAnimationFrame(() => {
+            resizeFrameRef.current = null;
+            let measurementsByTurnKey = pendingResizeMeasurementsRef.current;
+            pendingResizeMeasurementsRef.current = new Map();
+            let didFollowContentResize = didLatestFollowContentResize;
+            didLatestFollowContentResize = false;
+            applyMeasuredTurnHeights(measurementsByTurnKey);
+            didFollowContentResize && publishLatestTurnFollowContentHeight();
           });
         });
-      return ((I.current = t), t);
+      return ((resizeObserverRef.current = resizeObserver), resizeObserver);
     }),
-    se = Y((e, t) => {
-      if (t == null) return;
-      k.current.set(t, {
+    observeTurnElement = Y((turnKey, element) => {
+      if (element == null) return;
+      observedElementMetadataRef.current.set(element, {
         kind: "turn",
-        turnKey: e,
+        turnKey: turnKey,
       });
-      A.current.set(e, t);
-      j.current.set(e, t);
-      let n = oe();
+      turnElementByKeyRef.current.set(turnKey, element);
+      pendingInitialMeasureElementsRef.current.set(turnKey, element);
+      let resizeObserver = getResizeObserver();
       return (
-        n.observe(t),
+        resizeObserver.observe(element),
         () => {
-          n.unobserve(t);
-          k.current.delete(t);
-          j.current.get(e) === t && j.current.delete(e);
-          A.current.get(e) === t && A.current.delete(e);
+          resizeObserver.unobserve(element);
+          observedElementMetadataRef.current.delete(element);
+          pendingInitialMeasureElementsRef.current.get(turnKey) === element &&
+            pendingInitialMeasureElementsRef.current.delete(turnKey);
+          turnElementByKeyRef.current.get(turnKey) === element &&
+            turnElementByKeyRef.current.delete(turnKey);
         }
       );
     }),
-    ce = Y(() => {
-      let t = entries.at(-1)?.turnKey;
-      if (t == null) return;
-      let n = A.current.get(t);
-      if (n == null) return;
-      let r = n.offsetHeight;
-      r <= 0 ||
-        U(
+    measureLatestTurnHeight = Y(() => {
+      let latestTurnKey = entries.at(-1)?.turnKey;
+      if (latestTurnKey == null) return;
+      let latestTurnElement = turnElementByKeyRef.current.get(latestTurnKey);
+      if (latestTurnElement == null) return;
+      let latestTurnHeightPx = latestTurnElement.offsetHeight;
+      latestTurnHeightPx <= 0 ||
+        applyMeasuredTurnHeights(
           new Map([
             [
-              t,
+              latestTurnKey,
               {
-                element: n,
-                firstHeightPx: r,
-                heightPx: r,
+                element: latestTurnElement,
+                firstHeightPx: latestTurnHeightPx,
+                heightPx: latestTurnHeightPx,
               },
             ],
           ]),
           false,
         );
     }),
-    le = Y((e) => {
-      if (e == null) return;
-      k.current.set(e, {
-        element: e,
+    observeLatestTurnFollowContent = Y((element) => {
+      if (element == null) return;
+      observedElementMetadataRef.current.set(element, {
+        element: element,
         kind: "latest-turn-follow-content",
       });
-      M.current.set(e, 0);
-      let t = oe();
+      latestTurnFollowContentHeightsRef.current.set(element, 0);
+      let resizeObserver = getResizeObserver();
       return (
-        t.observe(e),
+        resizeObserver.observe(element),
         () => {
-          t.unobserve(e);
-          k.current.delete(e);
-          M.current.delete(e);
+          resizeObserver.unobserve(element);
+          observedElementMetadataRef.current.delete(element);
+          latestTurnFollowContentHeightsRef.current.delete(element);
         }
       );
     });
   return (
     _x.useLayoutEffect(() => {
-      let e = j.current;
-      if (e.size === 0) return;
-      j.current = new Map();
-      let t = new Map();
-      for (let [n, r] of e) {
-        if (A.current.get(n) !== r) continue;
-        let e = r.offsetHeight;
-        e > 0 &&
-          t.set(n, {
-            element: r,
-            firstHeightPx: e,
-            heightPx: e,
+      let pendingInitialElements = pendingInitialMeasureElementsRef.current;
+      if (pendingInitialElements.size === 0) return;
+      pendingInitialMeasureElementsRef.current = new Map();
+      let measurementsByTurnKey = new Map();
+      for (let [turnKey, element] of pendingInitialElements) {
+        if (turnElementByKeyRef.current.get(turnKey) !== element) continue;
+        let heightPx = element.offsetHeight;
+        heightPx > 0 &&
+          measurementsByTurnKey.set(turnKey, {
+            element: element,
+            firstHeightPx: heightPx,
+            heightPx: heightPx,
           });
       }
-      if (t.size > 0 && U(t, false))
-        for (let [t, n] of e) A.current.get(t) === n && j.current.set(t, n);
+      if (
+        measurementsByTurnKey.size > 0 &&
+        applyMeasuredTurnHeights(measurementsByTurnKey, false)
+      )
+        for (let [turnKey, element] of pendingInitialElements)
+          turnElementByKeyRef.current.get(turnKey) === element &&
+            pendingInitialMeasureElementsRef.current.set(turnKey, element);
     }),
     _x.useLayoutEffect(() => {
-      latestTurnSynchronousMeasurementKey != null && ce();
-    }, [latestTurnSynchronousMeasurementKey, ce]),
+      latestTurnSynchronousMeasurementKey != null && measureLatestTurnHeight();
+    }, [latestTurnSynchronousMeasurementKey, measureLatestTurnHeight]),
     _x.useLayoutEffect(() => {
-      let e = P.current;
-      e == null || e.turnHeightsByKey !== _ || ((P.current = null), te(e));
-    }, [te, _]),
+      let pendingCommit = pendingMeasurementCommitRef.current;
+      pendingCommit == null ||
+        pendingCommit.turnHeightsByKey !== measuredHeightsByKey ||
+        ((pendingMeasurementCommitRef.current = null),
+        applyPendingMeasurementCommit(pendingCommit));
+    }, [applyPendingMeasurementCommit, measuredHeightsByKey]),
     _x.useEffect(() => {
       if (onApiChange != null)
         return (
           onApiChange({
-            scrollToKey: H,
+            scrollToKey: scrollToKey,
           }),
           () => {
             onApiChange(null);
           }
         );
-    }, [onApiChange, H]),
+    }, [onApiChange, scrollToKey]),
     _x.useEffect(() => {
       if (
         onVisibleContentReady == null ||
-        L.current ||
-        y == null ||
-        (entries.length > 0 && A.current.size === 0)
+        visibleContentReadyRef.current ||
+        rootElement == null ||
+        (entries.length > 0 && turnElementByKeyRef.current.size === 0)
       )
         return;
-      let t = null,
-        n = window.requestAnimationFrame(() => {
-          t = window.requestAnimationFrame(() => {
-            L.current = true;
-            V();
+      let secondFrameId = null,
+        firstFrameId = window.requestAnimationFrame(() => {
+          secondFrameId = window.requestAnimationFrame(() => {
+            visibleContentReadyRef.current = true;
+            restoreScrollDistanceFromBottom();
             onVisibleContentReady();
           });
         });
       return () => {
-        window.cancelAnimationFrame(n);
-        t != null && window.cancelAnimationFrame(t);
+        window.cancelAnimationFrame(firstFrameId);
+        secondFrameId != null && window.cancelAnimationFrame(secondFrameId);
       };
-    }, [entries.length, onVisibleContentReady, V, y]),
+    }, [
+      entries.length,
+      onVisibleContentReady,
+      restoreScrollDistanceFromBottom,
+      rootElement,
+    ]),
     _x.useEffect(() => {
-      let e = k.current,
-        t = A.current,
-        n = M.current;
+      let observedMetadata = observedElementMetadataRef.current,
+        turnElements = turnElementByKeyRef.current,
+        followContentHeights = latestTurnFollowContentHeightsRef.current;
       return () => {
-        I.current?.disconnect();
-        I.current = null;
-        F.current != null &&
-          (window.cancelAnimationFrame(F.current), (F.current = null));
-        e.clear();
-        t.clear();
-        j.current.clear();
-        n.clear();
-        P.current = null;
-        E.current?.complete();
-        E.current = null;
+        resizeObserverRef.current?.disconnect();
+        resizeObserverRef.current = null;
+        resizeFrameRef.current != null &&
+          (window.cancelAnimationFrame(resizeFrameRef.current),
+          (resizeFrameRef.current = null));
+        observedMetadata.clear();
+        turnElements.clear();
+        pendingInitialMeasureElementsRef.current.clear();
+        followContentHeights.clear();
+        pendingMeasurementCommitRef.current = null;
+        pendingScrollRequestRef.current?.complete();
+        pendingScrollRequestRef.current = null;
       };
     }, []),
     _x.useLayoutEffect(() => {
       if (onRestoreStateChange != null)
         return () => {
           onRestoreStateChange(
-            px(D.current, O.current.turnKeys, O.current.renderedRange),
+            createVirtualizedTurnListRestoreState(
+              measuredHeightsByKeyRef.current,
+              viewportStateRef.current.turnKeys,
+              viewportStateRef.current.renderedRange,
+            ),
           );
         };
     }, [onRestoreStateChange]),
     _x.useLayoutEffect(() => {
-      let e = h.getScrollElement();
-      if (e == null) return;
-      let t = () => e.clientHeight || O.current.viewportHeightPx || xx,
-        n = h.addScrollListener((e) => {
-          ne(dx(e, ux(getBottomScrollPaddingPx)), t());
-        }),
-        r = h.addUserScrollListener((e, n) => {
-          re(
-            dx(e, ux(getBottomScrollPaddingPx)),
-            t(),
-            n == null ? undefined : dx(n, ux(getBottomScrollPaddingPx)),
+      let scrollElement = scrollController.getScrollElement();
+      if (scrollElement == null) return;
+      let getViewportHeightPx = () =>
+          scrollElement.clientHeight ||
+          viewportStateRef.current.viewportHeightPx ||
+          defaultVirtualViewportHeightPx,
+        removeScrollListener = scrollController.addScrollListener(
+          (distanceFromBottomPx) => {
+            syncViewportState(
+              subtractBottomScrollPaddingPx(
+                distanceFromBottomPx,
+                getBottomScrollPaddingPxValue(getBottomScrollPaddingPx),
+              ),
+              getViewportHeightPx(),
+            );
+          },
+        ),
+        removeUserScrollListener = scrollController.addUserScrollListener(
+          (distanceFromBottomPx, previousDistanceFromBottomPx) => {
+            notifyViewportChange(
+              subtractBottomScrollPaddingPx(
+                distanceFromBottomPx,
+                getBottomScrollPaddingPxValue(getBottomScrollPaddingPx),
+              ),
+              getViewportHeightPx(),
+              previousDistanceFromBottomPx == null
+                ? undefined
+                : subtractBottomScrollPaddingPx(
+                    previousDistanceFromBottomPx,
+                    getBottomScrollPaddingPxValue(getBottomScrollPaddingPx),
+                  ),
+            );
+          },
+        ),
+        resizeObserver = new ResizeObserver((resizeEntries) => {
+          let resizeEntry = resizeEntries[0];
+          if (resizeEntry == null) return;
+          let { height } = _l(resizeEntry);
+          syncViewportState(
+            viewportStateRef.current.distanceFromBottomPx,
+            height,
           );
-        }),
-        i = new ResizeObserver((e) => {
-          let t = e[0];
-          if (t == null) return;
-          let { height } = _l(t);
-          ne(O.current.distanceFromBottomPx, height);
-          V();
+          restoreScrollDistanceFromBottom();
         });
       return (
-        i.observe(e),
+        resizeObserver.observe(scrollElement),
         () => {
-          n();
-          r();
-          i.disconnect();
+          removeScrollListener();
+          removeUserScrollListener();
+          resizeObserver.disconnect();
         }
       );
-    }, [getBottomScrollPaddingPx, re, V, h, ne]),
+    }, [
+      getBottomScrollPaddingPx,
+      notifyViewportChange,
+      restoreScrollDistanceFromBottom,
+      scrollController,
+      syncViewportState,
+    ]),
     _x.useLayoutEffect(() => {
-      if (w == null) return;
-      let e = h.getScrollElement();
-      if (e == null) return;
-      let t = N.current,
-        n = new Map();
-      for (let [e, r] of A.current) {
-        let i = r.offsetHeight;
-        if (i > 0) {
-          let a = t.get(e);
-          n.set(e, {
-            element: r,
-            firstHeightPx: a?.element === r ? a.firstHeightPx : i,
-            heightPx: i,
+      if (pendingScrollRequest == null) return;
+      let scrollElement = scrollController.getScrollElement();
+      if (scrollElement == null) return;
+      let pendingMeasurementsByTurnKey = pendingResizeMeasurementsRef.current,
+        measurementsByTurnKey = new Map();
+      for (let [turnKey, element] of turnElementByKeyRef.current) {
+        let heightPx = element.offsetHeight;
+        if (heightPx > 0) {
+          let pendingMeasurement = pendingMeasurementsByTurnKey.get(turnKey);
+          measurementsByTurnKey.set(turnKey, {
+            element: element,
+            firstHeightPx:
+              pendingMeasurement?.element === element
+                ? pendingMeasurement.firstHeightPx
+                : heightPx,
+            heightPx: heightPx,
           });
         }
       }
-      if ((t.clear(), U(n, false) || P.current != null)) return;
-      let r = A.current.get(w.turnKey),
-        i = r == null ? null : (w.getTargetElement?.(r) ?? r),
-        a =
-          r == null || i == null
+      if (
+        (pendingMeasurementsByTurnKey.clear(),
+        applyMeasuredTurnHeights(measurementsByTurnKey, false) ||
+          pendingMeasurementCommitRef.current != null)
+      )
+        return;
+      let turnElement = turnElementByKeyRef.current.get(
+          pendingScrollRequest.turnKey,
+        ),
+        targetElement =
+          turnElement == null
+            ? null
+            : (pendingScrollRequest.getTargetElement?.(turnElement) ??
+              turnElement),
+        targetDistanceFromBottomPx =
+          turnElement == null || targetElement == null
             ? Yu({
-                layout: R,
-                turnKey: w.turnKey,
-                viewportHeightPx: e.clientHeight,
+                layout: virtualLayout,
+                turnKey: pendingScrollRequest.turnKey,
+                viewportHeightPx: scrollElement.clientHeight,
               })
-            : hx({
-                layout: R,
-                targetElement: i,
-                turnElement: r,
-                turnKey: w.turnKey,
-                viewportHeightPx: e.clientHeight,
-                windowZoom: g,
+            : getDistanceFromBottomForTargetElement({
+                layout: virtualLayout,
+                targetElement: targetElement,
+                turnElement: turnElement,
+                turnKey: pendingScrollRequest.turnKey,
+                viewportHeightPx: scrollElement.clientHeight,
+                windowZoom: windowZoom,
               });
-      if (a == null) {
-        ie(w);
+      if (targetDistanceFromBottomPx == null) {
+        finishPendingScrollRequest(pendingScrollRequest);
         return;
       }
-      h.scrollToDistanceFromBottomPx(
-        a + ux(getBottomScrollPaddingPx),
+      scrollController.scrollToDistanceFromBottomPx(
+        targetDistanceFromBottomPx +
+          getBottomScrollPaddingPxValue(getBottomScrollPaddingPx),
         "instant",
       );
-      ne(a, e.clientHeight);
-      ie(w);
-    }, [U, R, w, h, ie, getBottomScrollPaddingPx, ne, g]),
+      syncViewportState(targetDistanceFromBottomPx, scrollElement.clientHeight);
+      finishPendingScrollRequest(pendingScrollRequest);
+    }, [
+      applyMeasuredTurnHeights,
+      virtualLayout,
+      pendingScrollRequest,
+      scrollController,
+      finishPendingScrollRequest,
+      getBottomScrollPaddingPx,
+      syncViewportState,
+      windowZoom,
+    ]),
     _x.useLayoutEffect(() => {
-      if (P.current != null) return;
-      let e = z.current,
-        t = ee.current ?? R;
+      if (pendingMeasurementCommitRef.current != null) return;
+      let previousVirtualLayout = virtualLayoutRef.current,
+        nextVirtualLayout = previousLayoutRef.current ?? virtualLayout;
       if (
-        ((ee.current = null),
-        (z.current = R),
-        !preserveMeasuredTurnViewport || w != null || e === t)
+        ((previousLayoutRef.current = null),
+        (virtualLayoutRef.current = virtualLayout),
+        !preserveMeasuredTurnViewport ||
+          pendingScrollRequest != null ||
+          previousVirtualLayout === nextVirtualLayout)
       )
         return;
-      let n = ux(getBottomScrollPaddingPx),
-        r = h.getLastScrollDistanceFromBottomPx(),
-        i = dx(r, n);
+      let bottomScrollPaddingPx = getBottomScrollPaddingPxValue(
+          getBottomScrollPaddingPx,
+        ),
+        rawDistanceFromBottomPx =
+          scrollController.getLastScrollDistanceFromBottomPx(),
+        distanceFromBottomPx = subtractBottomScrollPaddingPx(
+          rawDistanceFromBottomPx,
+          bottomScrollPaddingPx,
+        );
       if (
         (getPendingRestoreScrollDistanceFromBottomPx?.() ?? null) != null ||
-        fx(r, n)
+        isAtBottomAfterPadding(rawDistanceFromBottomPx, bottomScrollPaddingPx)
       )
         return;
-      let a = cx({
-        distanceFromBottomPx: i,
-        layout: e,
-        measuredHeightsByKey: D.current,
-        nextLayout: t,
-        viewportHeightPx: O.current.viewportHeightPx,
+      let anchorKey = findMeasuredAnchorKeyForViewportPreservation({
+        distanceFromBottomPx: distanceFromBottomPx,
+        layout: previousVirtualLayout,
+        measuredHeightsByKey: measuredHeightsByKeyRef.current,
+        nextLayout: nextVirtualLayout,
+        viewportHeightPx: viewportStateRef.current.viewportHeightPx,
       });
-      if (a == null) return;
-      let s = qu({
-        anchorKey: a,
-        distanceFromBottomPx: i,
-        nextLayout: t,
-        previousLayout: e,
+      if (anchorKey == null) return;
+      let adjustedDistanceFromBottomPx = qu({
+        anchorKey: anchorKey,
+        distanceFromBottomPx: distanceFromBottomPx,
+        nextLayout: nextVirtualLayout,
+        previousLayout: previousVirtualLayout,
       });
-      s == null ||
-        s === i ||
-        (ne(s, O.current.viewportHeightPx),
-        h.scrollToDistanceFromBottomPx(s + n, "instant"));
+      adjustedDistanceFromBottomPx == null ||
+        adjustedDistanceFromBottomPx === distanceFromBottomPx ||
+        (syncViewportState(
+          adjustedDistanceFromBottomPx,
+          viewportStateRef.current.viewportHeightPx,
+        ),
+        scrollController.scrollToDistanceFromBottomPx(
+          adjustedDistanceFromBottomPx + bottomScrollPaddingPx,
+          "instant",
+        ));
     }, [
       getBottomScrollPaddingPx,
       getPendingRestoreScrollDistanceFromBottomPx,
-      R,
-      w,
+      virtualLayout,
+      pendingScrollRequest,
       preserveMeasuredTurnViewport,
-      h,
-      ne,
+      scrollController,
+      syncViewportState,
     ]),
     _x.useLayoutEffect(() => {
-      w ??
-        (ne(O.current.distanceFromBottomPx, O.current.viewportHeightPx), V());
-    }, [entries.length, w, V, ne]),
+      pendingScrollRequest ??
+        (syncViewportState(
+          viewportStateRef.current.distanceFromBottomPx,
+          viewportStateRef.current.viewportHeightPx,
+        ),
+        restoreScrollDistanceFromBottom());
+    }, [
+      entries.length,
+      pendingScrollRequest,
+      restoreScrollDistanceFromBottom,
+      syncViewportState,
+    ]),
     (
       <div
-        ref={b}
+        ref={setRootElement}
         className={S("relative shrink-0", className)}
         style={{
-          height: `${R.totalHeightPx}px`,
+          height: `${virtualLayout.totalHeightPx}px`,
         }}
       >
         <div
           className="flex flex-col"
           style={{
             gap: `${gapPx}px`,
-            marginTop: `${R.topOffsetsPx[B.startIndex] ?? 0}px`,
+            marginTop: `${virtualLayout.topOffsetsPx[renderedRange.startIndex] ?? 0}px`,
           }}
         >
-          {entries.slice(B.startIndex, B.endIndex).map((item, index) => {
-            let i = B.startIndex + index;
-            return yx.jsx(
-              wx,
-              {
-                entry: item,
-                latestTurnFollowContentRef:
-                  i === entries.length - 1 && onLatestTurnHeightChange != null
-                    ? le
-                    : undefined,
-                RowComponent,
-                constrainedHeightPx:
-                  i !== entries.length - 1 &&
-                  w?.turnKey !== item.turnKey &&
-                  _[item.turnKey] == null
-                    ? R.heightsPx[i]
-                    : undefined,
-                observeTurnElement: se,
-              },
-              item.turnKey,
-            );
-          })}
+          {entries
+            .slice(renderedRange.startIndex, renderedRange.endIndex)
+            .map((item, index) => {
+              let itemIndex = renderedRange.startIndex + index;
+              return yx.jsx(
+                MemoizedVirtualizedTurnItem,
+                {
+                  entry: item,
+                  latestTurnFollowContentRef:
+                    itemIndex === entries.length - 1 &&
+                    onLatestTurnHeightChange != null
+                      ? observeLatestTurnFollowContent
+                      : undefined,
+                  RowComponent,
+                  constrainedHeightPx:
+                    itemIndex !== entries.length - 1 &&
+                    pendingScrollRequest?.turnKey !== item.turnKey &&
+                    measuredHeightsByKey[item.turnKey] == null
+                      ? virtualLayout.heightsPx[itemIndex]
+                      : undefined,
+                  observeTurnElement: observeTurnElement,
+                },
+                item.turnKey,
+              );
+            })}
         </div>
       </div>
     )
   );
 }
-function ix(e) {
+function VirtualizedTurnItem(props) {
   let {
       entry,
       latestTurnFollowContentRef,
       RowComponent,
       constrainedHeightPx,
       observeTurnElement,
-    } = e,
+    } = props,
     { turnKey } = entry,
-    c = (e) => observeTurnElement(turnKey, e);
-  let l = Y(c),
-    u =
+    setObservedElement = (element) => observeTurnElement(turnKey, element);
+  let observedElementRef = Y(setObservedElement),
+    constrainedStyle =
       constrainedHeightPx == null
         ? undefined
         : {
             height: constrainedHeightPx,
             overflow: "hidden",
           };
-  let d = (
+  let rowNode = (
     <RowComponent
       entry={entry}
       latestTurnFollowContentRef={latestTurnFollowContentRef}
     />
   );
-  let f = (
+  let observedRowNode = (
     <div
-      ref={l}
+      ref={observedElementRef}
       className="[&_[data-virtualized-turn-content]]:[content-visibility:visible]"
       data-turn-key={turnKey}
     >
-      {d}
+      {rowNode}
     </div>
   );
-  return <div style={u}>{f}</div>;
+  return <div style={constrainedStyle}>{observedRowNode}</div>;
 }
-function ax(e, t, n, r) {
-  let i = Xu({
-      entries: e,
-      gapPx: n,
-      measuredHeightsByKey: r?.turnHeightsByKey ?? Cx,
+function createInitialVirtualizedTurnListState(
+  entries,
+  distanceFromBottomPx,
+  gapPx,
+  initialRestoreState,
+) {
+  let layout = Xu({
+      entries,
+      gapPx,
+      measuredHeightsByKey:
+        initialRestoreState?.turnHeightsByKey ?? emptyTurnHeightsByKey,
     }),
-    a = xx,
-    o = Math.min(t, i.totalHeightPx),
-    s = Ku({
-      distanceFromBottomPx: o,
-      layout: i,
-      overscanCount: Sx,
-      viewportHeightPx: a,
+    viewportHeightPx = defaultVirtualViewportHeightPx,
+    initialDistanceFromBottomPx = Math.min(
+      distanceFromBottomPx,
+      layout.totalHeightPx,
+    ),
+    defaultRenderedRange = Ku({
+      distanceFromBottomPx: initialDistanceFromBottomPx,
+      layout,
+      overscanCount: virtualTurnOverscanCount,
+      viewportHeightPx,
     });
   return {
-    distanceFromBottomPx: o,
+    distanceFromBottomPx: initialDistanceFromBottomPx,
     renderedRange:
-      (r?.renderedWindow == null
+      (initialRestoreState?.renderedWindow == null
         ? null
         : Gu({
-            anchorKey: r.renderedWindow.anchorKey,
-            layout: i,
+            anchorKey: initialRestoreState.renderedWindow.anchorKey,
+            layout,
             previousRange: {
               startIndex: 0,
               endIndex: Math.min(
-                r.renderedWindow.count,
-                s.endIndex - s.startIndex,
+                initialRestoreState.renderedWindow.count,
+                defaultRenderedRange.endIndex - defaultRenderedRange.startIndex,
               ),
             },
-          })) ?? s,
-    turnKeys: i.turnKeys,
-    viewportHeightPx: a,
+          })) ?? defaultRenderedRange,
+    turnKeys: layout.turnKeys,
+    viewportHeightPx,
   };
 }
-function ox({ current, distanceFromBottomPx, layout, viewportHeightPx }) {
-  let i = Math.min(distanceFromBottomPx, layout.totalHeightPx),
-    a = Ku({
-      distanceFromBottomPx: i,
+function updateVirtualizedTurnListViewportState({
+  current,
+  distanceFromBottomPx,
+  layout,
+  viewportHeightPx,
+}) {
+  let clampedDistanceFromBottomPx = Math.min(
+      distanceFromBottomPx,
+      layout.totalHeightPx,
+    ),
+    nextRenderedRange = Ku({
+      distanceFromBottomPx: clampedDistanceFromBottomPx,
       layout,
-      overscanCount: Sx,
+      overscanCount: virtualTurnOverscanCount,
       viewportHeightPx,
     }),
-    o = sx(current.renderedRange, a) ? current.renderedRange : a;
-  return current.distanceFromBottomPx === i &&
+    renderedRange = rangeContainsRange(current.renderedRange, nextRenderedRange)
+      ? current.renderedRange
+      : nextRenderedRange;
+  return current.distanceFromBottomPx === clampedDistanceFromBottomPx &&
     current.viewportHeightPx === viewportHeightPx &&
-    current.renderedRange.startIndex === o.startIndex &&
-    current.renderedRange.endIndex === o.endIndex &&
-    lx(current.turnKeys, layout.turnKeys)
+    current.renderedRange.startIndex === renderedRange.startIndex &&
+    current.renderedRange.endIndex === renderedRange.endIndex &&
+    areTurnKeyArraysEqual(current.turnKeys, layout.turnKeys)
     ? current
     : {
-        distanceFromBottomPx: i,
-        renderedRange: o,
+        distanceFromBottomPx: clampedDistanceFromBottomPx,
+        renderedRange,
         turnKeys: layout.turnKeys,
         viewportHeightPx,
       };
 }
-function sx(e, t) {
-  return e.startIndex <= t.startIndex && e.endIndex >= t.endIndex;
+function rangeContainsRange(outerRange, innerRange) {
+  return (
+    outerRange.startIndex <= innerRange.startIndex &&
+    outerRange.endIndex >= innerRange.endIndex
+  );
 }
-function cx({
+function findMeasuredAnchorKeyForViewportPreservation({
   distanceFromBottomPx,
   layout,
   measuredHeightsByKey,
   nextLayout,
   viewportHeightPx,
 }) {
-  let a = Ku({
+  let visibleRange = Ku({
     distanceFromBottomPx,
     layout,
     overscanCount: 0,
     viewportHeightPx,
   });
-  for (let e = a.startIndex; e < a.endIndex; e += 1) {
-    let i = layout.turnKeys[e];
+  for (
+    let turnIndex = visibleRange.startIndex;
+    turnIndex < visibleRange.endIndex;
+    turnIndex += 1
+  ) {
+    let turnKey = layout.turnKeys[turnIndex];
     if (
-      i != null &&
-      measuredHeightsByKey[i] != null &&
-      nextLayout.turnIndexByKey.has(i)
+      turnKey != null &&
+      measuredHeightsByKey[turnKey] != null &&
+      nextLayout.turnIndexByKey.has(turnKey)
     )
-      return i;
+      return turnKey;
   }
   return null;
 }
-function lx(e, t) {
+function areTurnKeyArraysEqual(leftTurnKeys, rightTurnKeys) {
   return (
-    e === t ||
-    (e.length === t.length && e.every((item, index) => item === t[index]))
+    leftTurnKeys === rightTurnKeys ||
+    (leftTurnKeys.length === rightTurnKeys.length &&
+      leftTurnKeys.every((item, index) => item === rightTurnKeys[index]))
   );
 }
-function ux(e) {
-  return Math.max(0, e?.() ?? 0);
+function getBottomScrollPaddingPxValue(getBottomScrollPaddingPx) {
+  return Math.max(0, getBottomScrollPaddingPx?.() ?? 0);
 }
-function dx(e, t) {
-  return Math.max(0, e - t);
+function subtractBottomScrollPaddingPx(
+  distanceFromBottomPx,
+  bottomScrollPaddingPx,
+) {
+  return Math.max(0, distanceFromBottomPx - bottomScrollPaddingPx);
 }
-function fx(e, t) {
-  return e <= (t > 0 ? 0 : 24);
+function isAtBottomAfterPadding(distanceFromBottomPx, bottomScrollPaddingPx) {
+  return distanceFromBottomPx <= (bottomScrollPaddingPx > 0 ? 0 : 24);
 }
-function px(e, t, n) {
-  let r = {};
-  for (let n of t) {
-    let t = e[n];
-    t != null && (r[n] = t);
+function createVirtualizedTurnListRestoreState(
+  measuredHeightsByKey,
+  turnKeys,
+  renderedRange,
+) {
+  let restoreHeightsByKey = {};
+  for (let turnKey of turnKeys) {
+    let heightPx = measuredHeightsByKey[turnKey];
+    heightPx != null && (restoreHeightsByKey[turnKey] = heightPx);
   }
-  let i = t[n.startIndex];
-  return Object.keys(r).length === 0 || i == null
+  let anchorKey = turnKeys[renderedRange.startIndex];
+  return Object.keys(restoreHeightsByKey).length === 0 || anchorKey == null
     ? null
     : {
         renderedWindow: {
-          anchorKey: i,
-          count: n.endIndex - n.startIndex,
+          anchorKey,
+          count: renderedRange.endIndex - renderedRange.startIndex,
         },
-        turnHeightsByKey: r,
+        turnHeightsByKey: restoreHeightsByKey,
       };
 }
-function mx({ scrollElement, turnElement, windowZoom }) {
+function measureTurnBottomViewportOverflow({
+  scrollElement,
+  turnElement,
+  windowZoom,
+}) {
   return scrollElement == null || turnElement == null
     ? 0
     : Je(
@@ -10998,7 +11246,7 @@ function mx({ scrollElement, turnElement, windowZoom }) {
         windowZoom,
       );
 }
-function hx({
+function getDistanceFromBottomForTargetElement({
   layout,
   targetElement,
   turnElement,
@@ -11006,18 +11254,18 @@ function hx({
   windowZoom,
   viewportHeightPx,
 }) {
-  let o = layout.turnIndexByKey.get(turnKey);
-  if (o == null) return null;
-  let s = turnElement.getBoundingClientRect(),
-    c = targetElement.getBoundingClientRect(),
-    l = Je(c.top - s.top, windowZoom),
-    u = Je(c.height, windowZoom);
+  let turnIndex = layout.turnIndexByKey.get(turnKey);
+  if (turnIndex == null) return null;
+  let turnRect = turnElement.getBoundingClientRect(),
+    targetRect = targetElement.getBoundingClientRect(),
+    targetOffsetFromTurnTop = Je(targetRect.top - turnRect.top, windowZoom),
+    targetHeight = Je(targetRect.height, windowZoom);
   return Math.max(
     0,
-    (layout.bottomOffsetsPx[o] ?? 0) +
-      (layout.heightsPx[o] ?? 0) -
-      l -
-      u / 2 -
+    (layout.bottomOffsetsPx[turnIndex] ?? 0) +
+      (layout.heightsPx[turnIndex] ?? 0) -
+      targetOffsetFromTurnTop -
+      targetHeight / 2 -
       viewportHeightPx / 2,
   );
 }
@@ -11025,11 +11273,11 @@ var gx,
   _x,
   vx,
   yx,
-  bx,
-  xx,
-  Sx,
-  Cx,
-  wx,
+  defaultVirtualTurnGapPx,
+  defaultVirtualViewportHeightPx,
+  virtualTurnOverscanCount,
+  emptyTurnHeightsByKey,
+  MemoizedVirtualizedTurnItem,
   Tx = once(() => {
     gx = q();
     Ut();
@@ -11042,13 +11290,13 @@ var gx,
     _n();
     Ju();
     yx = getJsxRuntime();
-    bx = 12;
-    xx = 800;
-    Sx = 2;
-    Cx = {};
-    wx = _x.memo(ix);
+    defaultVirtualTurnGapPx = 12;
+    defaultVirtualViewportHeightPx = 800;
+    virtualTurnOverscanCount = 2;
+    emptyTurnHeightsByKey = {};
+    MemoizedVirtualizedTurnItem = _x.memo(VirtualizedTurnItem);
   });
-function Ex({
+function LocalConversationAutoFollowVirtualizedTurnList({
   conversationId,
   entries,
   initialScrollOffset,
@@ -11060,319 +11308,444 @@ function Ex({
   onVirtualizedTurnListRestoreStateChange,
   synchronouslyMeasureLatestTurnUpdates = false,
 }) {
-  let u = B(ut),
-    d = nr(),
-    f = entries.at(-1),
-    m = f?.turnKey ?? null,
-    h = f == null ? null : Px(f),
-    g = f == null ? "idle" : Jb(f.turn),
-    _ = f?.turn.status === "inProgress",
-    v = u.get(Ub, conversationId),
-    y = v?.latestTurn?.turnKey === m ? v.latestTurn : null,
-    b = Xe(0),
-    x = Xe(0),
-    S = ad(),
-    C = Lx.useRef(
-      Gb({
-        followMode: y?.followMode ?? "static",
+  let scope = B(ut),
+    windowZoom = nr(),
+    latestEntry = entries.at(-1),
+    latestTurnKey = latestEntry?.turnKey ?? null,
+    latestTurnIdentityKey =
+      latestEntry == null ? null : getLatestTurnIdentityKey(latestEntry),
+    latestTurnPhase =
+      latestEntry == null ? "idle" : getLatestTurnPhase(latestEntry.turn),
+    isLatestTurnInProgress = latestEntry?.turn.status === "inProgress",
+    savedScrollState = scope.get(Ub, conversationId),
+    savedLatestTurnState =
+      savedScrollState?.latestTurn?.turnKey === latestTurnKey
+        ? savedScrollState.latestTurn
+        : null,
+    responseSpacerHeightPx = Xe(0),
+    latestTurnOffsetY = Xe(0),
+    scrollController = ad(),
+    scrollStateRef = Lx.useRef(
+      createLatestTurnScrollState({
+        followMode: savedLatestTurnState?.followMode ?? "static",
       }),
     ),
-    w = Lx.useRef(y != null && qb(y.followMode) ? y.latestTurnHeightPx : null),
-    T = Lx.useRef(y?.latestTurnHeightPx ?? null),
-    D = Lx.useRef(y?.latestTurnFollowContentHeightPx ?? null),
-    O = Lx.useRef(false),
-    k = Lx.useRef(initialScrollOffset),
-    A = Lx.useRef(initialVirtualizedTurnListRestoreState),
-    j = Lx.useRef(null),
-    M = Lx.useRef(false),
-    N = Lx.useRef(m),
-    P = Lx.useRef(h),
-    F = Lx.useRef(y?.latestTurnPhase ?? g),
-    I = Lx.useRef(g),
-    L = Lx.useRef(y?.isLatestTurnInProgress ?? _),
-    R = Lx.useRef(_),
-    z = Lx.useMemo(
+    restoredPassiveLatestTurnHeightRef = Lx.useRef(
+      savedLatestTurnState != null &&
+        isPassiveLatestTurnFollowMode(savedLatestTurnState.followMode)
+        ? savedLatestTurnState.latestTurnHeightPx
+        : null,
+    ),
+    latestTurnHeightRef = Lx.useRef(
+      savedLatestTurnState?.latestTurnHeightPx ?? null,
+    ),
+    latestTurnFollowContentHeightRef = Lx.useRef(
+      savedLatestTurnState?.latestTurnFollowContentHeightPx ?? null,
+    ),
+    hasRestoredInitialScrollRef = Lx.useRef(false),
+    initialScrollOffsetRef = Lx.useRef(initialScrollOffset),
+    restoreStateRef = Lx.useRef(initialVirtualizedTurnListRestoreState),
+    responseSpacerElementRef = Lx.useRef(null),
+    isResponseSpacerAtViewportBottomRef = Lx.useRef(false),
+    latestTurnKeyRef = Lx.useRef(latestTurnKey),
+    latestTurnIdentityKeyRef = Lx.useRef(latestTurnIdentityKey),
+    previousLatestTurnPhaseRef = Lx.useRef(
+      savedLatestTurnState?.latestTurnPhase ?? latestTurnPhase,
+    ),
+    latestTurnPhaseRef = Lx.useRef(latestTurnPhase),
+    wasLatestTurnInProgressRef = Lx.useRef(
+      savedLatestTurnState?.isLatestTurnInProgress ?? isLatestTurnInProgress,
+    ),
+    latestTurnInProgressRef = Lx.useRef(isLatestTurnInProgress),
+    latestTurnMotionContext = Lx.useMemo(
       () => ({
-        turnKey: f?.turnKey ?? null,
-        yPx: x,
+        turnKey: latestEntry?.turnKey ?? null,
+        yPx: latestTurnOffsetY,
       }),
-      [f?.turnKey, x],
+      [latestEntry?.turnKey, latestTurnOffsetY],
     ),
-    ee = Lx.useMemo(() => {
-      let e = (e) => Math.max(0, e - b.get());
+    responseSpacerAdjustedScrollController = Lx.useMemo(() => {
+      let toSpacerAdjustedDistance = (distanceFromBottomPx) =>
+        Math.max(0, distanceFromBottomPx - responseSpacerHeightPx.get());
       return {
-        ...S,
-        addScrollListener: (t) =>
-          S.addScrollListener((n) => {
-            t(e(n));
+        ...scrollController,
+        addScrollListener: (listener) =>
+          scrollController.addScrollListener((distanceFromBottomPx) => {
+            listener(toSpacerAdjustedDistance(distanceFromBottomPx));
           }),
-        addUserScrollListener: (t) =>
-          S.addUserScrollListener((n, r) => {
-            t(e(n), r == null ? undefined : e(r));
-          }),
+        addUserScrollListener: (listener) =>
+          scrollController.addUserScrollListener(
+            (distanceFromBottomPx, previousDistanceFromBottomPx) => {
+              listener(
+                toSpacerAdjustedDistance(distanceFromBottomPx),
+                previousDistanceFromBottomPx == null
+                  ? undefined
+                  : toSpacerAdjustedDistance(previousDistanceFromBottomPx),
+              );
+            },
+          ),
         getLastScrollDistanceFromBottomPx: () =>
-          e(S.getLastScrollDistanceFromBottomPx()),
-        scrollToDistanceFromBottomPx: (e, t) => {
-          S.scrollToDistanceFromBottomPx(e + b.get(), t);
+          toSpacerAdjustedDistance(
+            scrollController.getLastScrollDistanceFromBottomPx(),
+          ),
+        scrollToDistanceFromBottomPx: (distanceFromBottomPx, behavior) => {
+          scrollController.scrollToDistanceFromBottomPx(
+            distanceFromBottomPx + responseSpacerHeightPx.get(),
+            behavior,
+          );
         },
       };
-    }, [b, S]);
-  I.current = g;
-  R.current = _;
-  N.current = m;
-  let V = Y((e, t = false) => {
-      let n = C.current.followMode;
-      C.current = Kb(C.current, e);
-      let { followMode } = C.current;
+    }, [responseSpacerHeightPx, scrollController]);
+  latestTurnPhaseRef.current = latestTurnPhase;
+  latestTurnInProgressRef.current = isLatestTurnInProgress;
+  latestTurnKeyRef.current = latestTurnKey;
+  let dispatchScrollStateEvent = Y((event, forceSync = false) => {
+      let previousFollowMode = scrollStateRef.current.followMode;
+      scrollStateRef.current = reduceLatestTurnScrollState(
+        scrollStateRef.current,
+        event,
+      );
+      let { followMode } = scrollStateRef.current;
       return (
-        (t || followMode !== n) &&
-          S.setFooterResizeViewportPreserveDisabled(
-            R.current && qb(followMode),
+        (forceSync || followMode !== previousFollowMode) &&
+          scrollController.setFooterResizeViewportPreserveDisabled(
+            latestTurnInProgressRef.current &&
+              isPassiveLatestTurnFollowMode(followMode),
           ),
-        C.current
+        scrollStateRef.current
       );
     }),
-    te = Y(() => {
-      let { followMode } = C.current;
-      S.setFooterResizeViewportPreserveDisabled(R.current && qb(followMode));
+    syncFooterResizePreserveDisabled = Y(() => {
+      let { followMode } = scrollStateRef.current;
+      scrollController.setFooterResizeViewportPreserveDisabled(
+        latestTurnInProgressRef.current &&
+          isPassiveLatestTurnFollowMode(followMode),
+      );
     }),
-    ne = Y(() => {
-      let e = k.current;
-      return O.current || e == null || C.current.followMode === "prework_follow"
+    getPendingInitialRestoreDistanceFromBottom = Y(() => {
+      let initialScrollOffsetPx = initialScrollOffsetRef.current;
+      return hasRestoredInitialScrollRef.current ||
+        initialScrollOffsetPx == null ||
+        scrollStateRef.current.followMode === "prework_follow"
         ? null
-        : Math.max(0, e - b.get());
+        : Math.max(0, initialScrollOffsetPx - responseSpacerHeightPx.get());
     }),
-    re = Y(() => {
-      if (O.current) return;
-      let e = k.current;
-      if (e == null || C.current.followMode === "prework_follow") {
-        O.current = true;
+    restoreInitialScrollOffset = Y(() => {
+      if (hasRestoredInitialScrollRef.current) return;
+      let initialScrollOffsetPx = initialScrollOffsetRef.current;
+      if (
+        initialScrollOffsetPx == null ||
+        scrollStateRef.current.followMode === "prework_follow"
+      ) {
+        hasRestoredInitialScrollRef.current = true;
         return;
       }
-      let t = S.getScrollElement();
-      if (t != null) {
-        if (Math.abs(Le(t) - e) <= 24) {
-          O.current = true;
+      let scrollElement = scrollController.getScrollElement();
+      if (scrollElement != null) {
+        if (Math.abs(Le(scrollElement) - initialScrollOffsetPx) <= 24) {
+          hasRestoredInitialScrollRef.current = true;
           return;
         }
-        S.scrollToDistanceFromBottomPx(e, "instant");
-        Math.abs(Le(t) - e) <= 24 && (O.current = true);
+        scrollController.scrollToDistanceFromBottomPx(
+          initialScrollOffsetPx,
+          "instant",
+        );
+        Math.abs(Le(scrollElement) - initialScrollOffsetPx) <= 24 &&
+          (hasRestoredInitialScrollRef.current = true);
       }
     }),
-    ie = Y((e) => {
-      A.current = e;
-      onVirtualizedTurnListRestoreStateChange(e);
+    handleRestoreStateChange = Y((restoreState) => {
+      restoreStateRef.current = restoreState;
+      onVirtualizedTurnListRestoreStateChange(restoreState);
     });
   Lx.useLayoutEffect(
     () => (
-      te(),
+      syncFooterResizePreserveDisabled(),
       () => {
-        let t = N.current,
-          n = S.getScrollElement(),
-          r = jx({
+        let persistedLatestTurnKey = latestTurnKeyRef.current,
+          scrollElement = scrollController.getScrollElement(),
+          persistedScrollSnapshot = createPersistedScrollStateSnapshot({
             distanceFromBottomPx:
-              n == null ? S.getLastScrollDistanceFromBottomPx() : Le(n),
-            latestTurnPhase: I.current,
-            responseSpacerHeightPx: b.get(),
-            scrollPaddingBottomPx: n == null ? 0 : Nx(n),
-            scrollState: C.current,
+              scrollElement == null
+                ? scrollController.getLastScrollDistanceFromBottomPx()
+                : Le(scrollElement),
+            latestTurnPhase: latestTurnPhaseRef.current,
+            responseSpacerHeightPx: responseSpacerHeightPx.get(),
+            scrollPaddingBottomPx:
+              scrollElement == null
+                ? 0
+                : getThreadScrollPaddingBottomPx(scrollElement),
+            scrollState: scrollStateRef.current,
           });
-        u.set(Ub, conversationId, {
-          distanceFromBottomPx: r.distanceFromBottomPx,
+        scope.set(Ub, conversationId, {
+          distanceFromBottomPx: persistedScrollSnapshot.distanceFromBottomPx,
           latestTurn:
-            t == null
+            persistedLatestTurnKey == null
               ? null
               : {
-                  turnKey: t,
-                  isLatestTurnInProgress: R.current,
-                  latestTurnPhase: I.current,
-                  ...r.scrollState,
-                  latestTurnHeightPx: qb(r.scrollState.followMode)
-                    ? T.current
+                  turnKey: persistedLatestTurnKey,
+                  isLatestTurnInProgress: latestTurnInProgressRef.current,
+                  latestTurnPhase: latestTurnPhaseRef.current,
+                  ...persistedScrollSnapshot.scrollState,
+                  latestTurnHeightPx: isPassiveLatestTurnFollowMode(
+                    persistedScrollSnapshot.scrollState.followMode,
+                  )
+                    ? latestTurnHeightRef.current
                     : null,
-                  latestTurnFollowContentHeightPx: D.current,
+                  latestTurnFollowContentHeightPx:
+                    latestTurnFollowContentHeightRef.current,
                 },
-          virtualizedTurnList: A.current,
+          virtualizedTurnList: restoreStateRef.current,
         });
-        S.setFooterResizeViewportPreserveDisabled(false);
+        scrollController.setFooterResizeViewportPreserveDisabled(false);
       }
     ),
-    [conversationId, b, u, S, te],
+    [
+      conversationId,
+      responseSpacerHeightPx,
+      scope,
+      scrollController,
+      syncFooterResizePreserveDisabled,
+    ],
   );
-  let H = Y(() => {
-      b.stop();
-      b.set(0);
-      M.current = false;
+  let clearResponseSpacer = Y(() => {
+      responseSpacerHeightPx.stop();
+      responseSpacerHeightPx.set(0);
+      isResponseSpacerAtViewportBottomRef.current = false;
     }),
-    ae = Y(() => {
-      O.current = true;
-      x.stop();
-      x.set(0);
-      H();
+    scrollToBottomAndClearSpacer = Y(() => {
+      hasRestoredInitialScrollRef.current = true;
+      latestTurnOffsetY.stop();
+      latestTurnOffsetY.set(0);
+      clearResponseSpacer();
       onResponseSpacerStateChange(null);
-      S.scrollToDistanceFromBottomPx(0, "instant");
+      scrollController.scrollToDistanceFromBottomPx(0, "instant");
     }),
-    U = Y(() => {
-      if (((O.current = true), R.current)) {
-        x.stop();
-        x.set(0);
-        H();
-        V(
+    scrollToLatestTurnBottom = Y(() => {
+      if (
+        ((hasRestoredInitialScrollRef.current = true),
+        latestTurnInProgressRef.current)
+      ) {
+        latestTurnOffsetY.stop();
+        latestTurnOffsetY.set(0);
+        clearResponseSpacer();
+        dispatchScrollStateEvent(
           {
             type: "scroll_to_bottom",
-            latestTurnPhase: I.current,
+            latestTurnPhase: latestTurnPhaseRef.current,
           },
           true,
         );
-        S.scrollToDistanceFromBottomPx(0, "instant");
-        return;
-      }
-      if (I.current === "idle" && b.get() > 24) {
-        ae();
-        return;
-      }
-      S.scrollToBottom();
-    }),
-    oe = Y((e) => {
-      let t = b.get(),
-        n = e <= 24 ? 0 : Math.min(t, e);
-      if (t - n <= 24) return;
-      let r = S.getScrollElement(),
-        i = r == null ? 0 : Le(r),
-        o = n - t;
-      x.stop();
-      x.set(0);
-      b.stop();
-      b.set(n);
-      n <= 24 && onResponseSpacerStateChange(null);
-      r != null &&
-        S.scrollToDistanceFromBottomPx(Math.max(0, i + o), "instant");
-    }),
-    se = Y((e, t) => {
-      O.current = true;
-      let n = b.get();
-      if (e <= 24) {
-        (n <= 24 || M.current) &&
-          t != null &&
-          t > 24 &&
-          R.current &&
-          (V(
-            {
-              type: "scroll_to_bottom",
-              latestTurnPhase: I.current,
-            },
-            true,
-          ),
-          S.scrollToDistanceFromBottomPx(0, "instant"));
-        return;
-      }
-      if (!R.current && I.current === "idle" && n > 24) {
-        oe(n - e);
+        scrollController.scrollToDistanceFromBottomPx(0, "instant");
         return;
       }
       if (
-        R.current &&
-        I.current === "prework" &&
-        t != null &&
-        e > t &&
-        n > 24 &&
-        e > n
+        latestTurnPhaseRef.current === "idle" &&
+        responseSpacerHeightPx.get() > 24
       ) {
-        let t = e - n;
-        x.stop();
-        x.set(0);
-        H();
-        S.scrollToDistanceFromBottomPx(t, "instant");
+        scrollToBottomAndClearSpacer();
         return;
       }
-    });
-  Lx.useLayoutEffect(() => S.addUserScrollListener(se), [se, S]);
-  Lx.useLayoutEffect(() => {
-    let e = S.getScrollElement(),
-      t = j.current;
-    if (e == null || t == null || typeof IntersectionObserver > "u") return;
-    let n = new IntersectionObserver(
-      (t) => {
-        let n = t[t.length - 1];
-        if (n == null) return;
-        let r = n.intersectionRect.height;
-        if (R.current) {
-          M.current = Math.max(0, r - Nx(e)) <= 24;
+      scrollController.scrollToBottom();
+    }),
+    shrinkResponseSpacerToDistance = Y((targetDistanceFromBottomPx) => {
+      let currentSpacerHeightPx = responseSpacerHeightPx.get(),
+        nextSpacerHeightPx =
+          targetDistanceFromBottomPx <= 24
+            ? 0
+            : Math.min(currentSpacerHeightPx, targetDistanceFromBottomPx);
+      if (currentSpacerHeightPx - nextSpacerHeightPx <= 24) return;
+      let scrollElement = scrollController.getScrollElement(),
+        currentDistanceFromBottomPx =
+          scrollElement == null ? 0 : Le(scrollElement),
+        spacerHeightDeltaPx = nextSpacerHeightPx - currentSpacerHeightPx;
+      latestTurnOffsetY.stop();
+      latestTurnOffsetY.set(0);
+      responseSpacerHeightPx.stop();
+      responseSpacerHeightPx.set(nextSpacerHeightPx);
+      nextSpacerHeightPx <= 24 && onResponseSpacerStateChange(null);
+      scrollElement != null &&
+        scrollController.scrollToDistanceFromBottomPx(
+          Math.max(0, currentDistanceFromBottomPx + spacerHeightDeltaPx),
+          "instant",
+        );
+    }),
+    handleUserScroll = Y(
+      (distanceFromBottomPx, previousDistanceFromBottomPx) => {
+        hasRestoredInitialScrollRef.current = true;
+        let currentSpacerHeightPx = responseSpacerHeightPx.get();
+        if (distanceFromBottomPx <= 24) {
+          (currentSpacerHeightPx <= 24 ||
+            isResponseSpacerAtViewportBottomRef.current) &&
+            previousDistanceFromBottomPx != null &&
+            previousDistanceFromBottomPx > 24 &&
+            latestTurnInProgressRef.current &&
+            (dispatchScrollStateEvent(
+              {
+                type: "scroll_to_bottom",
+                latestTurnPhase: latestTurnPhaseRef.current,
+              },
+              true,
+            ),
+            scrollController.scrollToDistanceFromBottomPx(0, "instant"));
           return;
         }
-        oe(Math.min(r, b.get() - Le(e)));
+        if (
+          !latestTurnInProgressRef.current &&
+          latestTurnPhaseRef.current === "idle" &&
+          currentSpacerHeightPx > 24
+        ) {
+          shrinkResponseSpacerToDistance(
+            currentSpacerHeightPx - distanceFromBottomPx,
+          );
+          return;
+        }
+        if (
+          latestTurnInProgressRef.current &&
+          latestTurnPhaseRef.current === "prework" &&
+          previousDistanceFromBottomPx != null &&
+          distanceFromBottomPx > previousDistanceFromBottomPx &&
+          currentSpacerHeightPx > 24 &&
+          distanceFromBottomPx > currentSpacerHeightPx
+        ) {
+          let distanceAfterSpacerPx =
+            distanceFromBottomPx - currentSpacerHeightPx;
+          latestTurnOffsetY.stop();
+          latestTurnOffsetY.set(0);
+          clearResponseSpacer();
+          scrollController.scrollToDistanceFromBottomPx(
+            distanceAfterSpacerPx,
+            "instant",
+          );
+          return;
+        }
+      },
+    );
+  Lx.useLayoutEffect(
+    () => scrollController.addUserScrollListener(handleUserScroll),
+    [handleUserScroll, scrollController],
+  );
+  Lx.useLayoutEffect(() => {
+    let scrollElement = scrollController.getScrollElement(),
+      responseSpacerElement = responseSpacerElementRef.current;
+    if (
+      scrollElement == null ||
+      responseSpacerElement == null ||
+      typeof IntersectionObserver > "u"
+    )
+      return;
+    let intersectionObserver = new IntersectionObserver(
+      (intersectionEntries) => {
+        let lastIntersectionEntry =
+          intersectionEntries[intersectionEntries.length - 1];
+        if (lastIntersectionEntry == null) return;
+        let intersectionHeightPx =
+          lastIntersectionEntry.intersectionRect.height;
+        if (latestTurnInProgressRef.current) {
+          isResponseSpacerAtViewportBottomRef.current =
+            Math.max(
+              0,
+              intersectionHeightPx -
+                getThreadScrollPaddingBottomPx(scrollElement),
+            ) <= 24;
+          return;
+        }
+        shrinkResponseSpacerToDistance(
+          Math.min(
+            intersectionHeightPx,
+            responseSpacerHeightPx.get() - Le(scrollElement),
+          ),
+        );
       },
       {
-        root: e,
+        root: scrollElement,
         threshold: Hx,
       },
     );
     return (
-      n.observe(t),
+      intersectionObserver.observe(responseSpacerElement),
       () => {
-        n.disconnect();
+        intersectionObserver.disconnect();
       }
     );
-  }, [b, S, oe]);
+  }, [
+    responseSpacerHeightPx,
+    scrollController,
+    shrinkResponseSpacerToDistance,
+  ]);
   Lx.useLayoutEffect(() => {
-    if (h == null) {
+    if (latestTurnIdentityKey == null) {
       onResponseSpacerStateChange(null);
       return;
     }
     return (
       onResponseSpacerStateChange({
-        getHeightPx: () => b.get(),
-        scrollToBottom: U,
+        getHeightPx: () => responseSpacerHeightPx.get(),
+        scrollToBottom: scrollToLatestTurnBottom,
       }),
       () => {
         onResponseSpacerStateChange(null);
       }
     );
-  }, [h, U, onResponseSpacerStateChange, b]);
-  let ce = Y(() => {
-    let e = S.getScrollElement();
-    if (e == null) return;
-    let t = Ax({
-        scrollElementHeightPx: e.clientHeight,
-        scrollPaddingBottomPx: Nx(e),
+  }, [
+    latestTurnIdentityKey,
+    scrollToLatestTurnBottom,
+    onResponseSpacerStateChange,
+    responseSpacerHeightPx,
+  ]);
+  let clampResponseSpacerToViewport = Y(() => {
+    let scrollElement = scrollController.getScrollElement();
+    if (scrollElement == null) return;
+    let maxSpacerHeightPx = getMaxResponseSpacerHeightPx({
+        scrollElementHeightPx: scrollElement.clientHeight,
+        scrollPaddingBottomPx: getThreadScrollPaddingBottomPx(scrollElement),
       }),
-      n = b.get();
-    if (n <= 24) return;
-    let r = Math.min(n, t);
-    if (Math.abs(r - n) <= 24) return;
-    let i = r - n;
-    b.stop();
-    b.set(r);
-    r <= 24 && onResponseSpacerStateChange(null);
-    let o = Le(e),
-      s = Math.max(0, o + i);
-    S.scrollToDistanceFromBottomPx(s, "instant");
+      currentSpacerHeightPx = responseSpacerHeightPx.get();
+    if (currentSpacerHeightPx <= 24) return;
+    let nextSpacerHeightPx = Math.min(currentSpacerHeightPx, maxSpacerHeightPx);
+    if (Math.abs(nextSpacerHeightPx - currentSpacerHeightPx) <= 24) return;
+    let spacerHeightDeltaPx = nextSpacerHeightPx - currentSpacerHeightPx;
+    responseSpacerHeightPx.stop();
+    responseSpacerHeightPx.set(nextSpacerHeightPx);
+    nextSpacerHeightPx <= 24 && onResponseSpacerStateChange(null);
+    let currentDistanceFromBottomPx = Le(scrollElement),
+      nextDistanceFromBottomPx = Math.max(
+        0,
+        currentDistanceFromBottomPx + spacerHeightDeltaPx,
+      );
+    scrollController.scrollToDistanceFromBottomPx(
+      nextDistanceFromBottomPx,
+      "instant",
+    );
   });
   Lx.useLayoutEffect(() => {
-    let e = S.getScrollElement();
-    if (e == null) return;
-    ce();
-    let t = null,
-      n = () => {
-        t ??= window.requestAnimationFrame(() => {
-          t = null;
-          ce();
+    let scrollElement = scrollController.getScrollElement();
+    if (scrollElement == null) return;
+    clampResponseSpacerToViewport();
+    let resizeFrameId = null,
+      scheduleClampResponseSpacer = () => {
+        resizeFrameId ??= window.requestAnimationFrame(() => {
+          resizeFrameId = null;
+          clampResponseSpacerToViewport();
         });
       },
-      r = typeof ResizeObserver > "u" ? null : new ResizeObserver(n);
+      resizeObserver =
+        typeof ResizeObserver > "u"
+          ? null
+          : new ResizeObserver(scheduleClampResponseSpacer);
     return (
-      r?.observe(e),
-      window.addEventListener("resize", n, {
+      resizeObserver?.observe(scrollElement),
+      window.addEventListener("resize", scheduleClampResponseSpacer, {
         passive: true,
       }),
       () => {
-        r?.disconnect();
-        window.removeEventListener("resize", n);
-        t != null && window.cancelAnimationFrame(t);
+        resizeObserver?.disconnect();
+        window.removeEventListener("resize", scheduleClampResponseSpacer);
+        resizeFrameId != null && window.cancelAnimationFrame(resizeFrameId);
       }
     );
-  }, [ce, S]);
-  let le = Y(
+  }, [clampResponseSpacerToViewport, scrollController]);
+  let handleLatestTurnHeightChange = Y(
       ({
         heightDeltaPx,
         heightPx,
@@ -11380,215 +11753,274 @@ function Ex({
         turnElement,
         followContentHeightPx,
       }) => {
-        let a = S.getScrollElement(),
-          o = w.current;
+        let scrollElement = scrollController.getScrollElement(),
+          restoredPassiveHeightPx = restoredPassiveLatestTurnHeightRef.current;
         if (
-          (heightPx != null && ((T.current = heightPx), (w.current = null)),
-          followContentHeightPx != null && (D.current = followContentHeightPx),
-          o != null &&
-            a != null &&
+          (heightPx != null &&
+            ((latestTurnHeightRef.current = heightPx),
+            (restoredPassiveLatestTurnHeightRef.current = null)),
+          followContentHeightPx != null &&
+            (latestTurnFollowContentHeightRef.current = followContentHeightPx),
+          restoredPassiveHeightPx != null &&
+            scrollElement != null &&
             heightPx != null &&
-            Math.abs(heightPx - o) > 24)
+            Math.abs(heightPx - restoredPassiveHeightPx) > 24)
         ) {
-          let e = heightPx - o;
-          k.current != null &&
-            ((O.current = false), (k.current = Math.max(0, k.current + e)));
+          let restoredHeightDeltaPx = heightPx - restoredPassiveHeightPx;
+          initialScrollOffsetRef.current != null &&
+            ((hasRestoredInitialScrollRef.current = false),
+            (initialScrollOffsetRef.current = Math.max(
+              0,
+              initialScrollOffsetRef.current + restoredHeightDeltaPx,
+            )));
           Ox({
-            allowResponseSpacerGrowth: R.current,
-            distanceDeltaPx: e,
-            responseSpacerHeightPx: b,
-            scrollController: S,
-            scrollElement: a,
+            allowResponseSpacerGrowth: latestTurnInProgressRef.current,
+            distanceDeltaPx: restoredHeightDeltaPx,
+            responseSpacerHeightPx: responseSpacerHeightPx,
+            scrollController: scrollController,
+            scrollElement: scrollElement,
           });
         }
-        if (C.current.followMode === "user_follow") {
-          S.scrollToDistanceFromBottomPx(0, "instant");
+        if (scrollStateRef.current.followMode === "user_follow") {
+          scrollController.scrollToDistanceFromBottomPx(0, "instant");
           return;
         }
         if (
-          C.current.followMode === "prework_follow" &&
-          I.current === "prework"
+          scrollStateRef.current.followMode === "prework_follow" &&
+          latestTurnPhaseRef.current === "prework"
         ) {
-          S.scrollToDistanceFromBottomPx(0, "instant");
+          scrollController.scrollToDistanceFromBottomPx(0, "instant");
           return;
         }
         if (
-          (a != null &&
-            o == null &&
+          (scrollElement != null &&
+            restoredPassiveHeightPx == null &&
             heightDeltaPx != null &&
             heightDeltaPx !== 0 &&
-            qb(C.current.followMode) &&
+            isPassiveLatestTurnFollowMode(scrollStateRef.current.followMode) &&
             Ox({
-              allowResponseSpacerGrowth: R.current,
+              allowResponseSpacerGrowth: latestTurnInProgressRef.current,
               distanceDeltaPx: heightDeltaPx,
-              responseSpacerHeightPx: b,
-              scrollController: S,
-              scrollElement: a,
+              responseSpacerHeightPx: responseSpacerHeightPx,
+              scrollController: scrollController,
+              scrollElement: scrollElement,
             }),
-          C.current.followMode === "static" ||
-            I.current !== "prework" ||
-            C.current.followMode !== "prework_watch" ||
-            b.get() <= 24 ||
-            a == null ||
+          scrollStateRef.current.followMode === "static" ||
+            latestTurnPhaseRef.current !== "prework" ||
+            scrollStateRef.current.followMode !== "prework_watch" ||
+            responseSpacerHeightPx.get() <= 24 ||
+            scrollElement == null ||
             turnElement == null)
         )
           return;
-        let s =
+        let followContentOverflowPx =
             kx({
-              scrollElement: a,
+              scrollElement: scrollElement,
               turnElement,
               fallbackBottomViewportOverflowPx: bottomViewportOverflowPx,
-              windowZoom: d,
-            }) + (a == null ? 0 : Nx(a)),
-          c = C.current,
-          l = V({
+              windowZoom: windowZoom,
+            }) +
+            (scrollElement == null
+              ? 0
+              : getThreadScrollPaddingBottomPx(scrollElement)),
+          previousScrollState = scrollStateRef.current,
+          nextScrollState = dispatchScrollStateEvent({
             type: "latest_turn_follow_content_changed",
-            followContentOverflowPx: s,
-            latestTurnPhase: I.current,
+            followContentOverflowPx: followContentOverflowPx,
+            latestTurnPhase: latestTurnPhaseRef.current,
           });
-        c.followMode !== "prework_follow" &&
-          l.followMode === "prework_follow" &&
-          (x.stop(),
-          x.set(0),
-          H(),
-          S.scrollToDistanceFromBottomPx(0, "instant"));
+        previousScrollState.followMode !== "prework_follow" &&
+          nextScrollState.followMode === "prework_follow" &&
+          (latestTurnOffsetY.stop(),
+          latestTurnOffsetY.set(0),
+          clearResponseSpacer(),
+          scrollController.scrollToDistanceFromBottomPx(0, "instant"));
       },
     ),
-    ue = Y((e) => {
-      if (e <= 24) return;
-      let t = b.get(),
-        n = S.getScrollElement(),
-        r = n == null ? 0 : Nx(n);
-      R.current &&
-        t > 24 &&
-        Mx({
-          distanceFromBottomPx: e,
-          responseSpacerHeightPx: t,
-          scrollPaddingBottomPx: r,
+    handleScrollDistanceChanged = Y((distanceFromBottomPx) => {
+      if (distanceFromBottomPx <= 24) return;
+      let currentSpacerHeightPx = responseSpacerHeightPx.get(),
+        scrollElement = scrollController.getScrollElement(),
+        scrollPaddingBottomPx =
+          scrollElement == null
+            ? 0
+            : getThreadScrollPaddingBottomPx(scrollElement);
+      latestTurnInProgressRef.current &&
+        currentSpacerHeightPx > 24 &&
+        getResponseSpacerOverflowPx({
+          distanceFromBottomPx: distanceFromBottomPx,
+          responseSpacerHeightPx: currentSpacerHeightPx,
+          scrollPaddingBottomPx: scrollPaddingBottomPx,
         }) <= 24 &&
-        (M.current = true);
-      V({
+        (isResponseSpacerAtViewportBottomRef.current = true);
+      dispatchScrollStateEvent({
         type: "scroll_distance_changed",
-        distanceFromBottomPx: e,
-        latestTurnPhase: I.current,
+        distanceFromBottomPx: distanceFromBottomPx,
+        latestTurnPhase: latestTurnPhaseRef.current,
       });
     });
   return (
-    Lx.useLayoutEffect(() => S.addScrollListener(ue), [ue, S]),
+    Lx.useLayoutEffect(
+      () => scrollController.addScrollListener(handleScrollDistanceChanged),
+      [handleScrollDistanceChanged, scrollController],
+    ),
     Lx.useLayoutEffect(() => {
-      let e = P.current,
-        t = F.current,
-        n = L.current;
-      if (((P.current = h), (F.current = g), (L.current = _), h == null)) {
-        V(
+      let previousLatestTurnIdentityKey = latestTurnIdentityKeyRef.current,
+        previousLatestTurnPhase = previousLatestTurnPhaseRef.current,
+        wasLatestTurnInProgress = wasLatestTurnInProgressRef.current;
+      if (
+        ((latestTurnIdentityKeyRef.current = latestTurnIdentityKey),
+        (previousLatestTurnPhaseRef.current = latestTurnPhase),
+        (wasLatestTurnInProgressRef.current = isLatestTurnInProgress),
+        latestTurnIdentityKey == null)
+      ) {
+        dispatchScrollStateEvent(
           {
             type: "latest_turn_removed",
           },
           true,
         );
-        x.stop();
-        x.set(0);
-        H();
+        latestTurnOffsetY.stop();
+        latestTurnOffsetY.set(0);
+        clearResponseSpacer();
         return;
       }
-      let r = S.getScrollElement();
-      if (r == null) return;
-      if (e !== h) {
-        let e = consumePendingLatestTurnSubmitPlacement?.() ?? null;
-        if (consumePendingLatestTurnSubmitPlacement != null && e == null)
-          return;
-        let t = e?.shouldPlaceLatestTurn ?? true;
+      let scrollElement = scrollController.getScrollElement();
+      if (scrollElement == null) return;
+      if (previousLatestTurnIdentityKey !== latestTurnIdentityKey) {
+        let submitPlacement =
+          consumePendingLatestTurnSubmitPlacement?.() ?? null;
         if (
-          (V(
+          consumePendingLatestTurnSubmitPlacement != null &&
+          submitPlacement == null
+        )
+          return;
+        let shouldPlaceLatestTurn =
+          submitPlacement?.shouldPlaceLatestTurn ?? true;
+        if (
+          (dispatchScrollStateEvent(
             {
               type: "latest_turn_placed",
             },
             true,
           ),
-          !t)
+          !shouldPlaceLatestTurn)
         ) {
-          if ((x.stop(), x.set(0), H(), e != null)) {
-            let t =
-              e.scrollHeightPx == null ? 0 : r.scrollHeight - e.scrollHeightPx;
-            S.scrollToDistanceFromBottomPx(
-              e.distanceFromBottomPx + t,
+          if (
+            (latestTurnOffsetY.stop(),
+            latestTurnOffsetY.set(0),
+            clearResponseSpacer(),
+            submitPlacement != null)
+          ) {
+            let scrollHeightDeltaPx =
+              submitPlacement.scrollHeightPx == null
+                ? 0
+                : scrollElement.scrollHeight - submitPlacement.scrollHeightPx;
+            scrollController.scrollToDistanceFromBottomPx(
+              submitPlacement.distanceFromBottomPx + scrollHeightDeltaPx,
               "instant",
             );
           }
           return;
         }
-        let n = Ax({
-            scrollElementHeightPx: r.clientHeight,
-            scrollPaddingBottomPx: Nx(r),
+        let maxSpacerHeightPx = getMaxResponseSpacerHeightPx({
+            scrollElementHeightPx: scrollElement.clientHeight,
+            scrollPaddingBottomPx:
+              getThreadScrollPaddingBottomPx(scrollElement),
           }),
-          a = b.get();
-        b.stop();
-        M.current = false;
-        x.stop();
-        x.set(a);
-        S.scrollToDistanceFromBottomPx(Vx, "instant");
-        E(x, 0, Ux);
-        a !== n && E(b, n, Ux);
+          currentSpacerHeightPx = responseSpacerHeightPx.get();
+        responseSpacerHeightPx.stop();
+        isResponseSpacerAtViewportBottomRef.current = false;
+        latestTurnOffsetY.stop();
+        latestTurnOffsetY.set(currentSpacerHeightPx);
+        scrollController.scrollToDistanceFromBottomPx(Vx, "instant");
+        E(latestTurnOffsetY, 0, Ux);
+        currentSpacerHeightPx !== maxSpacerHeightPx &&
+          E(responseSpacerHeightPx, maxSpacerHeightPx, Ux);
       }
-      let a = C.current;
-      V({
+      let previousScrollState = scrollStateRef.current;
+      dispatchScrollStateEvent({
         type: "latest_turn_phase_changed",
-        latestTurnPhase: g,
-        previousLatestTurnPhase: t,
+        latestTurnPhase: latestTurnPhase,
+        previousLatestTurnPhase: previousLatestTurnPhase,
       });
-      t === "prework" &&
-        g === "final_answer" &&
-        a.followMode === "prework_follow" &&
-        (x.stop(), x.set(0), H(), S.scrollToDistanceFromBottomPx(0, "instant"));
-      n && !_ && (x.stop(), x.set(0), b.stop());
-    }, [H, consumePendingLatestTurnSubmitPlacement, _, x, h, g, b, S, V]),
+      previousLatestTurnPhase === "prework" &&
+        latestTurnPhase === "final_answer" &&
+        previousScrollState.followMode === "prework_follow" &&
+        (latestTurnOffsetY.stop(),
+        latestTurnOffsetY.set(0),
+        clearResponseSpacer(),
+        scrollController.scrollToDistanceFromBottomPx(0, "instant"));
+      wasLatestTurnInProgress &&
+        !isLatestTurnInProgress &&
+        (latestTurnOffsetY.stop(),
+        latestTurnOffsetY.set(0),
+        responseSpacerHeightPx.stop());
+    }, [
+      clearResponseSpacer,
+      consumePendingLatestTurnSubmitPlacement,
+      isLatestTurnInProgress,
+      latestTurnOffsetY,
+      latestTurnIdentityKey,
+      latestTurnPhase,
+      responseSpacerHeightPx,
+      scrollController,
+      dispatchScrollStateEvent,
+    ]),
     (
       <>
-        <Wx value={z}>
+        <Wx value={latestTurnMotionContext}>
           {Rx.jsx(od, {
-            value: ee,
-            children: Rx.jsx(rx, {
+            value: responseSpacerAdjustedScrollController,
+            children: Rx.jsx(VirtualizedTurnList, {
               entries,
               initialRestoreState: initialVirtualizedTurnListRestoreState,
               latestTurnSynchronousMeasurementKey:
                 synchronouslyMeasureLatestTurnUpdates
-                  ? f?.turn.items.length
+                  ? latestEntry?.turn.items.length
                   : undefined,
               onApiChange,
               onVisibleContentReady,
-              onLatestTurnHeightChange: le,
-              onRestoreStateChange: ie,
-              getPendingRestoreScrollDistanceFromBottomPx: ne,
-              restoreScrollDistanceFromBottomPx: re,
-              RowComponent: Dx,
+              onLatestTurnHeightChange: handleLatestTurnHeightChange,
+              onRestoreStateChange: handleRestoreStateChange,
+              getPendingRestoreScrollDistanceFromBottomPx:
+                getPendingInitialRestoreDistanceFromBottom,
+              restoreScrollDistanceFromBottomPx: restoreInitialScrollOffset,
+              RowComponent: LatestTurnAnimatedRow,
             }),
           })}
         </Wx>
         {Rx.jsx(p.div, {
           "aria-hidden": true,
           className: "shrink-0",
-          ref: j,
+          ref: responseSpacerElementRef,
           style: {
-            height: b,
+            height: responseSpacerHeightPx,
           },
         })}
       </>
     )
   );
 }
-function Dx(e) {
-  let { entry, latestTurnFollowContentRef } = e,
-    i = Lx.useContext(Wx),
-    a = i?.turnKey === entry.turnKey ? i.yPx : 0,
-    o = {
-      y: a,
+function LatestTurnAnimatedRow(props) {
+  let { entry, latestTurnFollowContentRef } = props,
+    latestTurnMotionContext = Lx.useContext(Wx),
+    latestTurnY =
+      latestTurnMotionContext?.turnKey === entry.turnKey
+        ? latestTurnMotionContext.yPx
+        : 0,
+    rowStyle = {
+      y: latestTurnY,
     };
-  let s = (
-    <Zb entry={entry} latestTurnFollowContentRef={latestTurnFollowContentRef} />
+  let rowNode = (
+    <LocalConversationTurnRow
+      entry={entry}
+      latestTurnFollowContentRef={latestTurnFollowContentRef}
+    />
   );
   return Rx.jsx(p.div, {
-    style: o,
-    children: s,
+    style: rowStyle,
+    children: rowNode,
   });
 }
 function Ox({
@@ -11599,11 +12031,16 @@ function Ox({
   scrollController,
   scrollElement,
 }) {
-  let o = Le(scrollElement) + distanceDeltaPx;
+  let nextDistanceFromBottomPx = Le(scrollElement) + distanceDeltaPx;
   allowResponseSpacerGrowth &&
-    o < 0 &&
-    responseSpacerHeightPx.set(responseSpacerHeightPx.get() - o);
-  scrollController.scrollToDistanceFromBottomPx(Math.max(0, o), behavior);
+    nextDistanceFromBottomPx < 0 &&
+    responseSpacerHeightPx.set(
+      responseSpacerHeightPx.get() - nextDistanceFromBottomPx,
+    );
+  scrollController.scrollToDistanceFromBottomPx(
+    Math.max(0, nextDistanceFromBottomPx),
+    behavior,
+  );
 }
 function kx({
   scrollElement,
@@ -11619,25 +12056,34 @@ function kx({
         windowZoom,
       );
 }
-function Ax({ scrollElementHeightPx, scrollPaddingBottomPx }) {
-  let n = Math.max(0, scrollElementHeightPx - scrollPaddingBottomPx);
-  return Math.max(0, Math.min(n * zx, n - Bx));
+function getMaxResponseSpacerHeightPx({
+  scrollElementHeightPx,
+  scrollPaddingBottomPx,
+}) {
+  let availableViewportHeightPx = Math.max(
+    0,
+    scrollElementHeightPx - scrollPaddingBottomPx,
+  );
+  return Math.max(
+    0,
+    Math.min(availableViewportHeightPx * zx, availableViewportHeightPx - Bx),
+  );
 }
-function jx({
+function createPersistedScrollStateSnapshot({
   distanceFromBottomPx,
   latestTurnPhase,
   responseSpacerHeightPx,
   scrollPaddingBottomPx,
   scrollState,
 }) {
-  return Mx({
+  return getResponseSpacerOverflowPx({
     distanceFromBottomPx,
     responseSpacerHeightPx,
     scrollPaddingBottomPx,
   }) > 24
     ? {
         distanceFromBottomPx: 0,
-        scrollState: Kb(scrollState, {
+        scrollState: reduceLatestTurnScrollState(scrollState, {
           type: "scroll_to_bottom",
           latestTurnPhase,
         }),
@@ -11650,7 +12096,7 @@ function jx({
         scrollState,
       };
 }
-function Mx({
+function getResponseSpacerOverflowPx({
   distanceFromBottomPx,
   responseSpacerHeightPx,
   scrollPaddingBottomPx,
@@ -11660,20 +12106,27 @@ function Mx({
     responseSpacerHeightPx - distanceFromBottomPx - scrollPaddingBottomPx,
   );
 }
-function Nx(e) {
-  let t = Number.parseFloat(
-    e.style.getPropertyValue("--thread-scroll-padding-bottom"),
+function getThreadScrollPaddingBottomPx(scrollElement) {
+  let scrollPaddingBottomPx = Number.parseFloat(
+    scrollElement.style.getPropertyValue("--thread-scroll-padding-bottom"),
   );
-  return Number.isFinite(t) ? t : 0;
+  return Number.isFinite(scrollPaddingBottomPx) ? scrollPaddingBottomPx : 0;
 }
-function Px(e) {
-  let t = Fx(e);
-  return t == null ? e.turnKey : `${e.turnKey}:${t}`;
+function getLatestTurnIdentityKey(entry) {
+  let restoreMessageId = getLatestSteeringRestoreMessageId(entry);
+  return restoreMessageId == null
+    ? entry.turnKey
+    : `${entry.turnKey}:${restoreMessageId}`;
 }
-function Fx(e) {
-  for (let t = e.turn.items.length - 1; t >= 0; --t) {
-    let n = e.turn.items[t];
-    if (n?.type === "steeringUserMessage") return n.restoreMessage.id;
+function getLatestSteeringRestoreMessageId(entry) {
+  for (
+    let itemIndex = entry.turn.items.length - 1;
+    itemIndex >= 0;
+    --itemIndex
+  ) {
+    let turnItem = entry.turn.items[itemIndex];
+    if (turnItem?.type === "steeringUserMessage")
+      return turnItem.restoreMessage.id;
   }
   return null;
 }
@@ -13935,7 +14388,7 @@ function LocalConversationThreadContent({
               />
             ) : null,
             isScrollToTopEnabled ? (
-              <Ex
+              <LocalConversationAutoFollowVirtualizedTurnList
                 key={conversationId}
                 conversationId={conversationId}
                 entries={turnListEntries}
@@ -13956,7 +14409,7 @@ function LocalConversationThreadContent({
               />
             ) : (
               $.jsx(
-                rx,
+                VirtualizedTurnList,
                 {
                   entries: turnListEntries,
                   initialRestoreState: initialVirtualizedTurnListRestoreState,
@@ -13964,7 +14417,7 @@ function LocalConversationThreadContent({
                   onVisibleContentReady: visibleContentReadyHandler,
                   onRestoreStateChange: onVirtualizedTurnListRestoreStateChange,
                   preserveMeasuredTurnViewport: true,
-                  RowComponent: Zb,
+                  RowComponent: LocalConversationTurnRow,
                 },
                 conversationId,
               )
