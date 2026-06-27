@@ -550,7 +550,6 @@ import { createBackgroundTerminalProcessSnapshotSelector } from "./local-convers
 import { createRestoredBackgroundTerminalRows } from "./local-conversation-thread-parts/background-terminal-restored-rows";
 import { countBackgroundTerminalSummaryRows } from "./local-conversation-thread-parts/background-terminal-summary-count";
 import { shouldShowInlineActivityForRightPanel } from "./local-conversation-thread-parts/inline-activity-panel";
-import { createLatestTurnSubmitPlacementSnapshot } from "./local-conversation-thread-parts/latest-turn-submit-placement";
 import {
   ChromeExtensionConversationHeader,
   formatBackgroundAgentDisplayName,
@@ -595,7 +594,6 @@ import {
 } from "./local-conversation-thread-parts/pinned-summary-panel-layout";
 export type { PinnedSummaryPanelLayoutStore } from "./local-conversation-thread-parts/pinned-summary-panel-layout";
 import { shouldUseFullWidthRightPanelForRoute } from "./local-conversation-thread-parts/right-panel-route-state";
-import { shouldShowScrollToBottomButton } from "./local-conversation-thread-parts/scroll-to-bottom-state";
 import { getLocalConversationTurnSearchKey } from "./local-conversation-thread-parts/turn-search-key";
 import type { BrowserUseSummary } from "./local-conversation-thread-parts/browser-use-summary";
 import {
@@ -647,6 +645,10 @@ import {
   initLocalConversationThreadBodyLayoutChunk,
   LocalConversationThreadBodyLayout,
 } from "./local-conversation-thread-parts/local-conversation-thread-body-layout";
+import {
+  initLocalConversationThreadScrollBehaviorChunk,
+  useLocalConversationThreadScrollBehavior,
+} from "./local-conversation-thread-parts/local-conversation-thread-scroll-behavior";
 import {
   initLocalConversationAppShellSourceRegistrationChunk,
   LocalConversationAppShellSourceRegistration,
@@ -9488,153 +9490,36 @@ function LocalConversationThreadFrame(props) {
       showExternalFooter,
     } = props,
     scope = useScope(localConversationRouteScope),
-    isConversationHistoryComplete =
-      useScopedValue(conversationHistoryCompleteSignal, conversationId) ?? true,
     visibleSubagentParentThreadId = useScopedValue(
       subagentParentThreadIdSignal,
       conversationId,
     ),
     isScrollToTopEnabled = useStatsigGate("1579719221"),
     shouldShowSummaryPanelObstacles = useStatsigGate("3563904085"),
-    savedThreadScrollState = scope.get(threadScrollStateSignal, conversationId);
-  let savedScrollState = savedThreadScrollState,
-    initialScrollOffset = savedScrollState?.distanceFromBottomPx ?? null,
-    initialVirtualizedTurnListRestoreState =
-      savedScrollState?.virtualizedTurnList ?? null,
-    [isScrolledFromBottom, setIsScrolledFromBottom] =
-      localConversationThreadReactRuntime.useState(false),
-    [scrollDistanceFromBottomPx, setScrollDistanceFromBottomPx] =
-      localConversationThreadReactRuntime.useState(0),
-    [responseSpacerState, setResponseSpacerState] =
-      localConversationThreadReactRuntime.useState(null),
-    latestTurnSubmitPlacementRef =
-      localConversationThreadReactRuntime.useRef(null),
+    {
+      initialScrollOffset,
+      initialVirtualizedTurnListRestoreState,
+      loadOlderConversationHistory,
+      onClearPendingLatestTurnSubmitPlacement,
+      onConsumePendingLatestTurnSubmitPlacement,
+      onPrepareLatestTurnSubmitPlacement,
+      onScrollToBottom,
+      onThreadScroll,
+      onVirtualizedTurnListRestoreStateChange,
+      setResponseSpacerState,
+      showScrollToBottomButton,
+      threadScrollLayoutApiRef,
+    } = useLocalConversationThreadScrollBehavior({
+      conversationId,
+      hideThreadContent,
+      isScrollToTopEnabled,
+      scope,
+      threadScrollStateSignal,
+      visibleSubagentParentThreadId,
+    }),
     markConversationReadOnThreadInteraction =
       useMarkConversationReadOnVisibility(conversationId, hasConversation),
-    loadOlderConversationHistoryPage = async () => {
-      if (isConversationHistoryComplete) return "stop";
-      try {
-        return (
-          await sendAppServerRequest("load-older-conversation-history-page", {
-            conversationId,
-            dependentConversationIds:
-              visibleSubagentParentThreadId == null
-                ? []
-                : [visibleSubagentParentThreadId],
-          }),
-          await to(),
-          (scope.get(conversationHistoryCompleteSignal, conversationId) ?? true)
-            ? "stop"
-            : "continue"
-        );
-      } catch (error) {
-        let loadError = error;
-        return (
-          logger.warning("Failed to load older thread history", {
-            safe: {
-              conversationId,
-            },
-            sensitive: {
-              error: loadError,
-            },
-          }),
-          "stop"
-        );
-      }
-    };
-  let loadOlderConversationHistory = useStableCallback(
-      loadOlderConversationHistoryPage,
-    ),
-    threadScrollLayoutApiRef = localConversationThreadReactRuntime.useRef(null),
-    handleThreadScroll = (distanceFromBottomPx, isAtBottom) => {
-      scope.set(
-        threadScrollStateSignal,
-        conversationId,
-        (previousScrollState) => ({
-          distanceFromBottomPx,
-          latestTurn: isScrollToTopEnabled
-            ? (previousScrollState?.latestTurn ?? null)
-            : null,
-          virtualizedTurnList: previousScrollState?.virtualizedTurnList ?? null,
-        }),
-      );
-      setScrollDistanceFromBottomPx(distanceFromBottomPx);
-      setIsScrolledFromBottom(!isAtBottom);
-    };
-  let onThreadScroll = useStableCallback(handleThreadScroll),
-    handleVirtualizedTurnListRestoreStateChange = (
-      virtualizedTurnListRestoreState,
-    ) => {
-      scope.set(
-        threadScrollStateSignal,
-        conversationId,
-        (previousScrollState) => ({
-          distanceFromBottomPx: previousScrollState?.distanceFromBottomPx ?? 0,
-          latestTurn: isScrollToTopEnabled
-            ? (previousScrollState?.latestTurn ?? null)
-            : null,
-          virtualizedTurnList: virtualizedTurnListRestoreState,
-        }),
-      );
-    };
-  let onVirtualizedTurnListRestoreStateChange = useStableCallback(
-      handleVirtualizedTurnListRestoreStateChange,
-    ),
-    shouldShowScrollToBottomButtonNow = shouldShowScrollToBottomButton({
-      isScrollToTopEnabled: isScrollToTopEnabled,
-      isScrolledFromBottom: isScrolledFromBottom,
-      responseSpacerHeightPx: responseSpacerState?.getHeightPx() ?? null,
-      scrollDistanceFromBottomPx: scrollDistanceFromBottomPx,
-    });
-  let showScrollToBottomButton = shouldShowScrollToBottomButtonNow,
-    scrollToBottom = () => {
-      if (isScrollToTopEnabled && responseSpacerState != null) {
-        responseSpacerState.scrollToBottom();
-        return;
-      }
-      threadScrollLayoutApiRef.current?.scrollToBottom();
-    };
-  let onScrollToBottom = useStableCallback(scrollToBottom),
-    prepareLatestTurnSubmitPlacement = (placement) => {
-      let { distanceFromBottomPx, scrollHeightPx } = placement;
-      hideThreadContent ||
-        (latestTurnSubmitPlacementRef.current =
-          createLatestTurnSubmitPlacementSnapshot({
-            distanceFromBottomPx,
-            responseSpacerHeightPx: responseSpacerState?.getHeightPx() ?? 0,
-            scrollHeightPx,
-          }));
-    };
-  let onPrepareLatestTurnSubmitPlacement = useStableCallback(
-      prepareLatestTurnSubmitPlacement,
-    ),
-    consumePendingLatestTurnSubmitPlacement = () => {
-      let placementSnapshot = latestTurnSubmitPlacementRef.current;
-      return ((latestTurnSubmitPlacementRef.current = null), placementSnapshot);
-    };
-  let onConsumePendingLatestTurnSubmitPlacement = useStableCallback(
-      consumePendingLatestTurnSubmitPlacement,
-    ),
-    clearPendingLatestTurnSubmitPlacement = () => {
-      latestTurnSubmitPlacementRef.current = null;
-    };
-  let onClearPendingLatestTurnSubmitPlacement = useStableCallback(
-      clearPendingLatestTurnSubmitPlacement,
-    ),
-    clearPlacementWhenThreadHidden,
-    clearPlacementEffectDeps;
-  clearPlacementWhenThreadHidden = () => {
-    hideThreadContent && onClearPendingLatestTurnSubmitPlacement();
-  };
-  clearPlacementEffectDeps = [
-    onClearPendingLatestTurnSubmitPlacement,
-    hideThreadContent,
-  ];
-  localConversationThreadReactRuntime.useEffect(
-    clearPlacementWhenThreadHidden,
-    clearPlacementEffectDeps,
-  );
-  let hasLiveMcpAppFrame = useSignalValue(liveMcpAppFrameSignal),
+    hasLiveMcpAppFrame = useSignalValue(liveMcpAppFrameSignal),
     subagentResponseInProgress =
       useScopedValue(subagentResponseInProgressSignal, conversationId) ?? false,
     shouldMountSummaryPanelObstacles =
@@ -10358,6 +10243,7 @@ export const initLocalConversationThreadChunk = once(() => {
   initDeepEqualModule();
   initConversationMarkdownRenderer();
   initThreadScrollState();
+  initLocalConversationThreadScrollBehaviorChunk();
   Qi();
   _o();
   mc();
