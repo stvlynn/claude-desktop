@@ -331,12 +331,9 @@ import {
   A as Di,
   Ar as parseMcpAppIdFromToolCallId,
   Ba as pullRequestReviewCommentAttachmentsSignal,
-  Bo as conversationSearchResultSignal,
   Cl as pullRequestCurrentBranchSignal,
   Cn as Ni,
-  Cs as setContentSearchMatchIdAttribute,
   Dd as Fi,
-  Di as groupConversationSearchMatchesByContentUnitKey,
   Ds as openEnvironmentTerminalSession,
   Ec as Ri,
   Es as zi,
@@ -345,7 +342,6 @@ import {
   Ga as MoreHorizontalIcon,
   Gl as conversationDisplayTitleSignal,
   Ha as updatePullRequestReviewCommentAttachments,
-  Ho as activeConversationSearchMatchSignal,
   Il as Ki,
   Ir as setThreadSourceFrameState,
   Ja as Ji,
@@ -354,7 +350,6 @@ import {
   Kl as conversationTitleSignal,
   Mr as Qi,
   Od as $i,
-  Oi as ea,
   On as ta,
   P as na,
   Rl as hostConfigSignal,
@@ -374,7 +369,6 @@ import {
   Za as _a,
   _c as va,
   _i as githubCliAvailabilitySignal,
-  _s as activeContentSearchMatchClassName,
   b as Sa,
   ba as Ca,
   bc as wa,
@@ -410,13 +404,10 @@ import {
   vd as ro,
   vi as io,
   vn as ao,
-  vs as clearContentSearchHighlights,
   wl as currentWorkspaceRootSignal,
   wo as lo,
-  ws as uo,
   x as fo,
   xl as po,
-  xs as highlightContentSearchMatches,
   yc as ho,
   yd as rightPanelFullWidthSignal,
   yn as _o,
@@ -577,8 +568,6 @@ import {
 import {
   $ as rl,
   A as il,
-  Dr as al,
-  Er as ol,
   at as sl,
   en as cl,
   et as ll,
@@ -835,236 +824,14 @@ import {
 import { useBrowserUseSummaries } from "./local-conversation-thread-parts/browser-use-summary-store";
 import { ComputerUsePictureInPictureRow } from "./local-conversation-thread-parts/computer-use-pip-row";
 import { BackgroundTaskSectionTitle } from "./local-conversation-thread-parts/background-task-section-title";
+import {
+  initReviewSearchHighlighter,
+  initThreadFindNavigationRail,
+  initThreadFindNavigationRailNoopChunk,
+  ThreadFindNavigationRail,
+  useReviewSearchHighlights,
+} from "./local-conversation-thread-parts/review-search-highlights";
 const joinLocalEnvironmentRepoPath = joinPath;
-function useReviewSearchHighlightScheduler(delayMs: number) {
-  let timeoutIdRef = reviewSearchSchedulerReactRuntime.useRef(null),
-    schedule = (callback: () => void) => {
-      timeoutIdRef.current ??= window.setTimeout(() => {
-        timeoutIdRef.current = null;
-        callback();
-      }, delayMs);
-    };
-  let cancel = () => {
-    timeoutIdRef.current != null &&
-      (window.clearTimeout(timeoutIdRef.current),
-      (timeoutIdRef.current = null));
-  };
-  return {
-    schedule,
-    cancel,
-  };
-}
-
-var reviewSearchSchedulerModule,
-  reviewSearchSchedulerReactRuntime,
-  initReviewSearchHighlightScheduler = once(() => {
-    reviewSearchSchedulerModule = getChunkModuleExports();
-    reviewSearchSchedulerReactRuntime = toEsModule(loadReactModule(), 1);
-  });
-
-function useReviewSearchHighlights(props) {
-  let { containerRef, contextId } = props,
-    reviewSearchRun = useSignalValue(conversationSearchResultSignal),
-    activeReviewSearchMatch = useSignalValue(
-      activeConversationSearchMatchSignal,
-    ),
-    activeReviewSearchRun =
-      reviewSearchRun?.contextId === contextId ? reviewSearchRun : null,
-    activeMatchId =
-      activeReviewSearchRun == null
-        ? null
-        : (activeReviewSearchMatch?.id ?? null),
-    activeMatchElementRef = reviewSearchReactRuntime.useRef(null),
-    { schedule, cancel } = useReviewSearchHighlightScheduler(
-      REVIEW_SEARCH_HIGHLIGHT_MUTATION_DELAY_MS,
-    ),
-    applySearchHighlights = () => {
-      let containerElement = containerRef.current;
-      if (containerElement == null) return;
-      clearContentSearchHighlights(containerElement, {
-        includeShadowRoots: false,
-      });
-      let previousActiveMatchElement = activeMatchElementRef.current;
-      if (
-        (previousActiveMatchElement != null &&
-          (previousActiveMatchElement.classList.remove(
-            activeContentSearchMatchClassName,
-          ),
-          (activeMatchElementRef.current = null)),
-        activeReviewSearchRun == null)
-      )
-        return;
-      let matchesByContentUnitKey =
-          groupConversationSearchMatchesByContentUnitKey(
-            activeReviewSearchRun.matches,
-          ),
-        elementByMatchId = new Map();
-      if (
-        (containerElement
-          .querySelectorAll("[data-content-search-unit-key]")
-          .forEach((contentUnitElement) => {
-            let contentUnitKey =
-              contentUnitElement.dataset.contentSearchUnitKey;
-            if (contentUnitKey == null) return;
-            let unitMatches = matchesByContentUnitKey.get(contentUnitKey);
-            unitMatches == null ||
-              unitMatches.length === 0 ||
-              highlightContentSearchMatches({
-                target: contentUnitElement,
-                query: activeReviewSearchRun.query,
-                maxMatches: unitMatches.length,
-                includeShadowRoots: false,
-              }).matches.forEach((matchElement, index) => {
-                let unitMatch = unitMatches[index];
-                unitMatch != null &&
-                  (setContentSearchMatchIdAttribute({
-                    element: matchElement,
-                    matchId: unitMatch.id,
-                  }),
-                  elementByMatchId.set(unitMatch.id, matchElement));
-              });
-          }),
-        activeMatchId == null)
-      )
-        return;
-      let activeMatchElement = elementByMatchId.get(activeMatchId);
-      activeMatchElement != null &&
-        (activeMatchElement.classList.add(activeContentSearchMatchClassName),
-        (activeMatchElementRef.current = activeMatchElement));
-    };
-  let applySearchHighlightsEffectEvent =
-      reviewSearchReactRuntime.useEffectEvent(applySearchHighlights),
-    observeSearchHighlightMutations = () => {
-      let containerElement = containerRef.current;
-      if (
-        containerElement == null ||
-        (applySearchHighlightsEffectEvent(),
-        activeReviewSearchRun?.runId == null)
-      )
-        return;
-      let mutationObserver = new MutationObserver((mutationRecords) => {
-        uo(mutationRecords) && schedule(applySearchHighlightsEffectEvent);
-      });
-      return (
-        mutationObserver.observe(containerElement, {
-          childList: true,
-          subtree: true,
-          characterData: true,
-        }),
-        () => {
-          mutationObserver.disconnect();
-          cancel();
-        }
-      );
-    };
-  let activeRunId = activeReviewSearchRun?.runId,
-    observeSearchHighlightMutationDeps;
-  observeSearchHighlightMutationDeps = [
-    activeRunId,
-    activeMatchId,
-    cancel,
-    containerRef,
-    contextId,
-    schedule,
-  ];
-  reviewSearchReactRuntime.useEffect(
-    observeSearchHighlightMutations,
-    observeSearchHighlightMutationDeps,
-  );
-}
-
-var reviewSearchHighlighterModule,
-  reviewSearchReactRuntime,
-  REVIEW_SEARCH_HIGHLIGHT_MUTATION_DELAY_MS,
-  initReviewSearchHighlighter = once(() => {
-    reviewSearchHighlighterModule = getChunkModuleExports();
-    initScopeRuntime();
-    reviewSearchReactRuntime = toEsModule(loadReactModule(), 1);
-    la();
-    ea();
-    Qa();
-    initReviewSearchHighlightScheduler();
-    REVIEW_SEARCH_HIGHLIGHT_MUTATION_DELAY_MS = 80;
-  });
-
-function ThreadFindNavigationRail(props) {
-  let { enabled = true, getItems, onRevealItem } = props,
-    [shouldRenderLazyRail, setShouldRenderLazyRail] =
-      threadFindNavigationRailReactRuntime.useState(false),
-    railFeatureEnabled = useStatsigGate("2551582477") && enabled,
-    scheduleLazyRailRender,
-    lazyRailEffectDeps;
-  if (
-    ((scheduleLazyRailRender = () => {
-      if (!railFeatureEnabled || shouldRenderLazyRail) return;
-      let revealNavigationRail = () => {
-          setShouldRenderLazyRail(true);
-        },
-        requestIdleCallback = window.requestIdleCallback?.bind(window),
-        cancelIdleCallback = window.cancelIdleCallback?.bind(window);
-      if (requestIdleCallback && cancelIdleCallback) {
-        let idleCallbackId = requestIdleCallback(revealNavigationRail, {
-          timeout: 2e3,
-        });
-        return () => {
-          cancelIdleCallback(idleCallbackId);
-        };
-      }
-      let timeoutId = globalThis.setTimeout(revealNavigationRail, 0);
-      return () => {
-        globalThis.clearTimeout(timeoutId);
-      };
-    }),
-    (lazyRailEffectDeps = [railFeatureEnabled, shouldRenderLazyRail]),
-    threadFindNavigationRailReactRuntime.useEffect(
-      scheduleLazyRailRender,
-      lazyRailEffectDeps,
-    ),
-    !railFeatureEnabled || !shouldRenderLazyRail)
-  )
-    return null;
-  let navigationItems = getItems();
-  return threadFindNavigationRailJsxRuntime.jsx(
-    LazyThreadUserMessageNavigationRail,
-    {
-      items: navigationItems,
-      onRevealItem,
-    },
-  );
-}
-var threadFindNavigationRailModule,
-  threadFindNavigationRailReactRuntime,
-  threadFindNavigationRailJsxRuntime,
-  LazyThreadUserMessageNavigationRail,
-  initThreadFindNavigationRail = once(() => {
-    threadFindNavigationRailModule = getChunkModuleExports();
-    threadFindNavigationRailReactRuntime = toEsModule(loadReactModule(), 1);
-    ol();
-    initStatsigFeatureGateHooks();
-    threadFindNavigationRailJsxRuntime = getJsxRuntime();
-    initModulePreloadRuntime();
-    LazyThreadUserMessageNavigationRail = al(
-      async () =>
-        (
-          await preloadDynamicImport(
-            async () => {
-              let { ThreadUserMessageNavigationRail } = await import(
-                "../utils/thread-user-message-navigation-rail"
-              );
-              return {
-                ThreadUserMessageNavigationRail,
-              };
-            },
-            __vite__mapDeps([
-              0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
-              19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29,
-            ]),
-            import.meta.url,
-          )
-        ).ThreadUserMessageNavigationRail,
-    );
-  }),
-  initThreadFindNavigationRailNoopChunk = once(() => {});
 function SummaryPanelExpandableList(props) {
   let { children, empty, getKey, items, listClassName, visibleItemLimit } =
       props,
