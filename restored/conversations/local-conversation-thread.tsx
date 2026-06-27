@@ -187,145 +187,145 @@ import {
   Wa as PlatformContentGate,
   Wg as initMarkdownResourceHelpers,
   XN as createQueryKey,
-  XR as Xt,
-  Xi as Zt,
-  Xj as Qt,
-  Xp as $t,
-  YO as en,
-  Ya as tn,
-  Yt as nn,
-  ZN as rn,
-  Zi as an,
+  XR as GLOBAL_STATE_KEYS,
+  Xi as MenuSeparator,
+  Xj as useStatsigLayer,
+  Xp as latestConversationTurnSignal,
+  YO as initPullRequestReviewCommentHelpers,
+  Ya as initCheckCircleFilledIcon,
+  Yt as initConnectedNodesIcon,
+  ZN as createHostQuerySignal,
+  Zi as initDropdownMenuPrimitives,
   Zu as on,
-  _c as sn,
-  aM as cn,
-  aP as ln,
-  aV as un,
-  a_ as dn,
+  _c as CONVERSATION_DETAIL_STEPS_PROSE,
+  aM as RefreshIcon,
+  aP as QUERY_DURATIONS,
+  aV as loadIsFunctionModule,
+  a_ as initFileTypeDetectionHelpers,
   ag as fn,
-  ak as pn,
-  localConversationOutputArtifactsSignal as mn,
-  bA as hn,
-  bF as gn,
-  bM as _n,
-  bP as vn,
-  bR as yn,
+  ak as initAppServerRequestBridge,
+  ay as formatIdentifierTitle,
+  bA as loadFindLastIndexModule,
+  bF as initPathHelpers,
+  bM as initKeyboardShortcutLabel,
+  bP as createPersistedSignal,
+  bR as isFileUrlLikeTarget,
   bV as createScopedSignal,
-  bc as xn,
-  bk as Sn,
-  cA as Cn,
-  cM as wn,
-  cP as Tn,
+  bc as initConversationDetailModeConstants,
+  bk as loadUniqByModule,
+  cA as getSubagentSourceMetadata,
+  cM as initToastRuntime,
+  cP as initVscodeMessageBridge,
   cm as conversationHostIdSignal,
-  dV as Dn,
-  di as On,
-  dp as kn,
+  dV as createDerivedSignal,
+  di as PopoverRoot,
+  dp as berryDisplayConversationTurnsSignal,
   eM as featureGateSignal,
-  eP as jn,
-  e_ as Mn,
-  ea as Nn,
-  ed as Pn,
+  eP as useHostQuery,
+  e_ as isFileReferencePath,
+  ea as SearchIcon,
+  ed as useConversationHostApi,
   eg as Fn,
-  en as In,
-  eo as Ln,
-  fV as Rn,
-  fh as zn,
+  en as ExternalLinkIcon,
+  eo as ConnectorAppIcon,
+  fV as createScopedSignalFamily,
+  fh as initGitActionDirectiveRuntime,
   fp as completedThreadGoalSignal,
-  fu as Vn,
-  gi as Hn,
+  fu as initTaskWorkspaceQueryRuntime,
+  gi as initPopoverPrimitives,
   gm as backgroundAgentSnapshotSignal,
   gp as conversationCwdSignal,
-  hM as Gn,
-  hi as Kn,
-  hs as qn,
-  iF as Jn,
-  iO as Yn,
-  ic as Xn,
-  io as Zn,
-  jL as Qn,
+  hM as initTooltipPrimitives,
+  hi as PopoverTrigger,
+  hs as initLocalImageInliningHelpers,
+  iF as initIntlRuntime,
+  iO as formatConversationTitleText,
+  ic as useConversationAgentMode,
+  io as getKnownAppIconById,
+  jL as initModulePreloadRuntime,
   jM as $n,
   jm as conversationModeSignal,
-  ju as tr,
-  kM as nr,
-  kN as rr,
-  kO as ir,
-  kP as ar,
+  ju as useOsInfo,
+  kM as useWindowZoom,
+  kN as SpinnerIcon,
+  kO as MY_REQUEST_PROMPT_HEADER,
+  kP as useMotionValueEvent,
   kj as or,
-  ko as sr,
+  ko as GitBranchIcon,
   lA as cr,
   lD as lr,
-  lF as ur,
-  lL as dr,
-  lP as fr,
+  lF as useIntl,
+  lL as LOCAL_ENVIRONMENT_CONFIG_PATH_SETTING_KEY,
+  lP as vscodeMessageBridge,
   lm as conversationResumeStateSignal,
-  mM as hr,
-  mP as gr,
+  mM as TooltipProvider,
+  mP as logger,
   mi as _r,
-  mo as vr,
-  mr as yr,
-  ms as br,
+  mo as initGitHubIcon,
+  mr as loadGroupByModule,
+  ms as resolveInlineableLocalImagePath,
   mv as xr,
-  na as Sr,
+  na as GlobeIcon,
   nm as projectlessOutputDirectorySignal,
-  ny as wr,
-  oM as Tr,
-  oP as Er,
-  ok as Dr,
-  oo as Or,
-  oy as kr,
+  ny as initAppToolSourceMatcherCache,
+  oM as initRefreshIcon,
+  oP as initQueryDurationConstants,
+  ok as sendAppServerRequest,
+  oo as initKnownAppIconRegistry,
+  oy as initIdentifierTitleFormatter,
   pI as Ar,
-  pM as jr,
-  pP as Mr,
-  ph as Nr,
-  pi as Pr,
-  po as Fr,
+  pM as Tooltip,
+  pP as initLoggerRuntime,
+  ph as parseGitActionDirectives,
+  pi as PopoverContent,
+  po as GitHubIcon,
   pp as shouldResumeConversationSignal,
-  pu as Lr,
-  pz as Rr,
+  pu as useDebouncedValue,
+  pz as toConversationId,
   qV as getChunkModuleExports,
-  qg as zr,
-  qi as Br,
-  qj as Vr,
+  qg as isResourcePathInsideProjectlessOutput,
+  qi as MenuChrome,
+  qj as useStatsigGate,
   rF as Hr,
   rO as Ur,
-  r_ as Wr,
-  ra as Gr,
+  r_ as getImagePreviewDisplayMode,
+  ra as initGlobeIcon,
   sF as FormattedMessage,
-  sm as Kr,
-  tP as qr,
-  ta as Jr,
+  sm as conversationRequestsSignal,
+  tP as useAppServerMutation,
+  ta as initSearchIcon,
   tc as Yr,
   tn as Xr,
   to as Zr,
   tp as hostConnectionStatusSignal,
   ty as $r,
-  uD as ei,
-  uM as ti,
-  uz as ni,
-  vM as ri,
-  vR as ii,
-  va as ai,
+  uD as mapTurnStatusToOutputStatus,
+  uM as toastSignal,
+  uz as NEW_TAB_TITLE,
+  vM as KeyboardShortcutKeycap,
+  vR as normalizeHref,
+  va as AppDialog,
   vm as subagentParentThreadIdSignal,
-  wM as si,
+  wM as CheckIcon,
   wP as ci,
-  wV as li,
-  wi as ui,
+  wV as useSignalState,
+  wi as DialogBody,
   wj as di,
-  wl as fi,
+  wl as composerScope,
   wp as storedThreadBranchSignal,
   xM as useStableCallback,
-  xa as mi,
+  xa as initAppDialog,
   xk as hi,
-  yA as gi,
-  yF as _i,
-  yM as vi,
+  yA as loadFindLastModule,
+  yF as loadReactDomModule,
+  yM as initKeyboardShortcutKeycap,
   yP as yi,
-  yV as bi,
-  yv as xi,
-  zP as Si,
-  zV as Ci,
-  za as wi,
-  zo as Ti,
+  yV as createSignal,
+  yv as Navigate,
+  zP as initChevronDownIcon,
+  zV as useQueryClient,
+  za as openInBrowserFromEvent,
+  zo as useAppsQuery,
 } from "../boundaries/current-ref/appg-thread-shared-producer";
 import {
   $i as Ei,
@@ -1167,7 +1167,7 @@ function ThreadFindNavigationRail(props) {
   let { enabled = true, getItems, onRevealItem } = props,
     [shouldRenderLazyRail, setShouldRenderLazyRail] =
       threadFindNavigationRailReactRuntime.useState(false),
-    railFeatureEnabled = Vr("2551582477") && enabled,
+    railFeatureEnabled = useStatsigGate("2551582477") && enabled,
     scheduleLazyRailRender,
     lazyRailEffectDeps;
   if (
@@ -1218,7 +1218,7 @@ var threadFindNavigationRailModule,
     ol();
     initStatsigFeatureGateHooks();
     threadFindNavigationRailJsxRuntime = getJsxRuntime();
-    Qn();
+    initModulePreloadRuntime();
     LazyThreadUserMessageNavigationRail = al(
       async () =>
         (
@@ -1312,7 +1312,7 @@ var summaryPanelExpandableListModule,
   initSummaryPanelExpandableList = once(() => {
     summaryPanelExpandableListModule = getChunkModuleExports();
     summaryPanelExpandableListReactRuntime = toEsModule(loadReactModule(), 1);
-    Jn();
+    initIntlRuntime();
     initButtonComponentPrimitives();
     summaryPanelExpandableListJsxRuntime = getJsxRuntime();
     DEFAULT_SUMMARY_PANEL_VISIBLE_ITEM_LIMIT = 6;
@@ -1325,7 +1325,7 @@ function SummaryPanelArtifactsList(props) {
       onOpen,
     } = props,
     scope = useScope(localConversationRouteScope),
-    intl = ur(),
+    intl = useIntl(),
     generatedImageNumberByPath,
     generatedImagePreviews;
   {
@@ -1347,7 +1347,7 @@ function SummaryPanelArtifactsList(props) {
       .flatMap((artifact) => {
         if (
           (artifact.type !== "file" && artifact.type !== "generated-image") ||
-          Wr(artifact.path) !== "always"
+          getImagePreviewDisplayMode(artifact.path) !== "always"
         )
           return [];
         let fileName = getPathBasename(artifact.path),
@@ -1408,12 +1408,12 @@ function SummaryPanelArtifactsList(props) {
       case "website": {
         let targetLabel = formatArtifactTargetLabel(
           artifact.target,
-          yn,
+          isFileUrlLikeTarget,
           getPathBasename,
         );
         return (
           <SummaryPanelRow
-            icon={<Sr className="icon-sm shrink-0" />}
+            icon={<GlobeIcon className="icon-sm shrink-0" />}
             label={
               targetLabel ?? (
                 <FormattedMessage
@@ -1451,7 +1451,7 @@ function SummaryPanelArtifactsList(props) {
                 <span className="truncate">
                   {artifact.title ?? Ho(artifact.url) ?? artifact.url}
                 </span>
-                <In
+                <ExternalLinkIcon
                   className="icon-xs shrink-0 opacity-0 group-hover/summary-panel-row:opacity-100 group-focus-visible/summary-panel-row:opacity-100"
                   ExternalIcon={cc}
                   href={artifact.url}
@@ -1531,15 +1531,15 @@ var summaryPanelArtifactsModule,
   initSummaryPanelArtifactsListChunk = once(() => {
     summaryPanelArtifactsModule = getChunkModuleExports();
     initScopeRuntime();
-    gn();
-    Jn();
+    initPathHelpers();
+    initIntlRuntime();
     Go();
     ju();
     Xr();
     Hc();
-    dn();
+    initFileTypeDetectionHelpers();
     As();
-    Gr();
+    initGlobeIcon();
     Io();
     Ic();
     initRouteScope();
@@ -1557,7 +1557,7 @@ function ThreadSummaryBackgroundActivityRows(props) {
       onOpenTerminal,
       onStopError,
     } = props,
-    intl = ur(),
+    intl = useIntl(),
     [stoppingTerminalId, setStoppingTerminalId] =
       threadSummaryBackgroundActivityReactRuntime.useState(null),
     backgroundSummaryItems,
@@ -1574,7 +1574,7 @@ function ThreadSummaryBackgroundActivityRows(props) {
     conversationId == null ||
       stoppingTerminalId != null ||
       (setStoppingTerminalId(terminal.id),
-      Dr("clean-background-terminals", {
+      sendAppServerRequest("clean-background-terminals", {
         conversationId,
       })
         .catch(onStopError)
@@ -1626,7 +1626,7 @@ function ThreadSummaryBackgroundActivityRows(props) {
                   )}
                 </span>
               }
-              actions={threadSummaryBackgroundActivityJsxRuntime.jsx(jr, {
+              actions={threadSummaryBackgroundActivityJsxRuntime.jsx(Tooltip, {
                 side: "top",
                 tooltipContent: (
                   <FormattedMessage
@@ -1651,9 +1651,12 @@ function ThreadSummaryBackgroundActivityRows(props) {
                     })}
                   >
                     {stoppingTerminalId === item.terminal.id
-                      ? threadSummaryBackgroundActivityJsxRuntime.jsx(rr, {
-                          className: "icon-xs",
-                        })
+                      ? threadSummaryBackgroundActivityJsxRuntime.jsx(
+                          SpinnerIcon,
+                          {
+                            className: "icon-xs",
+                          },
+                        )
                       : threadSummaryBackgroundActivityJsxRuntime.jsx(js, {
                           className: "icon-xs",
                           "aria-hidden": true,
@@ -1814,7 +1817,7 @@ function BackgroundAgentSummaryLabel(props) {
       {activeStatusLabel}
     </span>
   );
-  return threadSummaryBackgroundActivityJsxRuntime.jsx(jr, {
+  return threadSummaryBackgroundActivityJsxRuntime.jsx(Tooltip, {
     disabled: tooltipIsDisabled,
     tooltipContent,
     children: label,
@@ -1829,10 +1832,10 @@ var threadSummaryBackgroundActivityModule,
       loadReactModule(),
       1,
     );
-    Jn();
-    pn();
+    initIntlRuntime();
+    initAppServerRequestBridge();
     initSpinnerComponent();
-    Gn();
+    initTooltipPrimitives();
     Nl();
     zs();
     ss();
@@ -1863,8 +1866,8 @@ function BackgroundTerminalSummaryRows(props) {
     scope = useScope(appScope),
     isVisibleRef = backgroundTerminalSummaryRowsReactRuntime.useRef(isVisible),
     pendingProcessRows = useSignalValue(pendingBackgroundProcessRowsSignal),
-    killChildProcessMutation = qr("child-process-kill"),
-    registerProcessMutation = qr("chat-process-register");
+    killChildProcessMutation = useAppServerMutation("child-process-kill"),
+    registerProcessMutation = useAppServerMutation("chat-process-register");
   let currentRows = createBackgroundTerminalCurrentRows({
       backgroundTerminals,
       childProcesses,
@@ -2054,7 +2057,7 @@ function BackgroundTerminalSummaryRows(props) {
 }
 function BackgroundTerminalRowActionMenu(props) {
   let { onOpen, onRestart, onStart, onStop, row, rowIndex, status } = props,
-    intl = ur(),
+    intl = useIntl(),
     isStarting = status === "starting",
     isStopping = status === "stopping",
     isStopped = status === "stopped",
@@ -2116,13 +2119,13 @@ function BackgroundTerminalRowActionMenu(props) {
     <FormattedMessage {...backgroundTerminalMessages.openOutput} />
   );
   let openOutputItem = (
-    <Br.Item
+    <MenuChrome.Item
       LeftIcon={ds}
       leftIconClassName="icon-xs"
       onSelect={handleOpenOutput}
     >
       {openOutputLabel}
-    </Br.Item>
+    </MenuChrome.Item>
   );
   let isStopDisabled =
       row.metrics?.pid == null || isStarting || isStopping || isStopped,
@@ -2136,7 +2139,7 @@ function BackgroundTerminalRowActionMenu(props) {
     handleStop = () => onStop(row, rowIndex);
   let stopLabel = <FormattedMessage {...backgroundTerminalMessages.stop} />;
   let stopItem = (
-    <Br.Item
+    <MenuChrome.Item
       LeftIcon={js}
       leftIconClassName="icon-xs"
       disabled={isStopDisabled}
@@ -2145,7 +2148,7 @@ function BackgroundTerminalRowActionMenu(props) {
       onSelect={handleStop}
     >
       {stopLabel}
-    </Br.Item>
+    </MenuChrome.Item>
   );
   let isStartOrRestartDisabled = !canStartOrRestart,
     isRestartTooltipInteractive = restartTooltip != null,
@@ -2153,8 +2156,8 @@ function BackgroundTerminalRowActionMenu(props) {
       <FormattedMessage {...startOrRestartMessageDescriptor} />
     );
   let startOrRestartItem = (
-    <Br.Item
-      LeftIcon={cn}
+    <MenuChrome.Item
+      LeftIcon={RefreshIcon}
       leftIconClassName="icon-xs"
       disabled={isStartOrRestartDisabled}
       tooltipText={restartTooltip}
@@ -2162,7 +2165,7 @@ function BackgroundTerminalRowActionMenu(props) {
       onSelect={handleStartOrRestart}
     >
       {startOrRestartLabel}
-    </Br.Item>
+    </MenuChrome.Item>
   );
   return (
     <DropdownMenu
@@ -2183,14 +2186,17 @@ function stopBackgroundTerminalActionTriggerPropagation(event) {
 }
 function BackgroundTerminalStatusIcon(props) {
   let { status } = props,
-    intl = ur(),
+    intl = useIntl(),
     statusLabel = intl.formatMessage(
       getBackgroundTerminalStatusMessageDescriptor(status),
     );
   if (status === "starting") {
-    let startingIcon = backgroundTerminalSummaryRowsJsxRuntime.jsx(rr, {
-      className: "icon-xs text-token-charts-green",
-    });
+    let startingIcon = backgroundTerminalSummaryRowsJsxRuntime.jsx(
+      SpinnerIcon,
+      {
+        className: "icon-xs text-token-charts-green",
+      },
+    );
     return (
       <span
         className="inline-flex size-4 shrink-0 items-center justify-center"
@@ -2233,10 +2239,10 @@ var backgroundTerminalSummaryRowsModule,
       loadReactModule(),
       1,
     );
-    Jn();
-    an();
+    initIntlRuntime();
+    initDropdownMenuPrimitives();
     initSpinnerComponent();
-    Tr();
+    initRefreshIcon();
     zs();
     ss();
     Xi();
@@ -2381,9 +2387,9 @@ function LocalEnvironmentSelectorContent(props) {
       onSelectEnvironment,
       onOpenSettings,
     } = props,
-    intl = ur(),
+    intl = useIntl(),
     noEnvironmentCheckIcon =
-      normalizedResolvedConfigPath == null ? si : undefined,
+      normalizedResolvedConfigPath == null ? CheckIcon : undefined,
     clearEnvironmentSelection = () => {
       onSelectEnvironment(null);
     };
@@ -2395,21 +2401,21 @@ function LocalEnvironmentSelectorContent(props) {
     />
   );
   let noEnvironmentItem = (
-    <Br.Item
+    <MenuChrome.Item
       RightIcon={noEnvironmentCheckIcon}
       onSelect={clearEnvironmentSelection}
     >
       {noEnvironmentLabel}
-    </Br.Item>
+    </MenuChrome.Item>
   );
   let defaultEnvironmentItem = defaultEnvironment ? (
-    <Br.Item
+    <MenuChrome.Item
       LeftIcon={Iu}
       leftIconClassName="icon-xxs text-token-description-foreground"
       RightIcon={
         defaultEnvironmentNormalized != null &&
         defaultEnvironmentNormalized === normalizedResolvedConfigPath
-          ? si
+          ? CheckIcon
           : undefined
       }
       tooltipText={intl.formatMessage({
@@ -2422,31 +2428,31 @@ function LocalEnvironmentSelectorContent(props) {
       }}
     >
       {getLocalEnvironmentResultDisplayName(defaultEnvironment)}
-    </Br.Item>
+    </MenuChrome.Item>
   ) : null;
   let environmentItems =
     localEnvironmentsLoading && localEnvironments.length === 0 ? (
       <div className="flex items-center justify-center py-3">
-        {localEnvironmentSelectorContentJsxRuntime.jsx(rr, {
+        {localEnvironmentSelectorContentJsxRuntime.jsx(SpinnerIcon, {
           className: "icon-xxs",
         })}
       </div>
     ) : localEnvironmentsError ? (
-      <Br.Message compact={true} tone="error">
+      <MenuChrome.Message compact={true} tone="error">
         <FormattedMessage
           id="composer.worktreeEnvironment.error"
           defaultMessage="Error loading environments"
           description="Error state for worktree environment dropdown"
         />
-      </Br.Message>
+      </MenuChrome.Message>
     ) : availableEnvironments.length > 0 ? (
       availableEnvironments.map((item) => (
-        <Br.Item
+        <MenuChrome.Item
           key={item.configPath}
           RightIcon={
             normalizedResolvedConfigPath != null &&
             or(item.configPath) === normalizedResolvedConfigPath
-              ? si
+              ? CheckIcon
               : undefined
           }
           onSelect={() => {
@@ -2456,16 +2462,16 @@ function LocalEnvironmentSelectorContent(props) {
           <span className="min-w-0 truncate">
             {getLocalEnvironmentResultDisplayName(item)}
           </span>
-        </Br.Item>
+        </MenuChrome.Item>
       ))
     ) : localEnvironments.length === 0 ? (
-      <Br.Message compact={true}>
+      <MenuChrome.Message compact={true}>
         <FormattedMessage
           id="codex.environments.noEnvironmentsFound"
           defaultMessage="No environments found"
           description="Message shown when no Codex environments were found"
         />
-      </Br.Message>
+      </MenuChrome.Message>
     ) : null;
   let environmentList = (
     <div className="vertical-scroll-fade-mask flex max-h-[200px] flex-col gap-0.5 overflow-y-auto pr-1">
@@ -2474,7 +2480,7 @@ function LocalEnvironmentSelectorContent(props) {
       {environmentItems}
     </div>
   );
-  let separator = <Zt />;
+  let separator = <MenuSeparator />;
   let settingsLabel = (
     <FormattedMessage
       id="threadPage.runAction.setup.editMore"
@@ -2483,13 +2489,13 @@ function LocalEnvironmentSelectorContent(props) {
     />
   );
   let settingsItem = (
-    <Br.Item
+    <MenuChrome.Item
       LeftIcon={SettingsGearIcon}
       leftIconClassName="icon-sm"
       onSelect={onOpenSettings}
     >
       {settingsLabel}
-    </Br.Item>
+    </MenuChrome.Item>
   );
   return (
     <div className="flex flex-col gap-0.5 pb-1">
@@ -2503,8 +2509,8 @@ var localEnvironmentSelectorContentModule,
   localEnvironmentSelectorContentJsxRuntime,
   initLocalEnvironmentSelectorContentChunk = once(() => {
     localEnvironmentSelectorContentModule = getChunkModuleExports();
-    Jn();
-    an();
+    initIntlRuntime();
+    initDropdownMenuPrimitives();
     initSpinnerComponent();
     initCheckmarkIcon();
     initSettingsGearIcon();
@@ -2597,7 +2603,7 @@ function LocalEnvironmentActionSetupForm(props) {
       ),
     },
   );
-  let formContent = localEnvironmentActionSetupFormJsxRuntime.jsxs(ui, {
+  let formContent = localEnvironmentActionSetupFormJsxRuntime.jsxs(DialogBody, {
     className: "gap-3",
     children: [
       headerSection,
@@ -2637,9 +2643,9 @@ function AddLocalEnvironmentActionForm(props) {
       onUpdate,
       workspaceRoot,
     } = props,
-    intl = ur(),
-    queryClient = Ci(),
-    saveConfigMutation = qr("local-environment-config-save"),
+    intl = useIntl(),
+    queryClient = useQueryClient(),
+    saveConfigMutation = useAppServerMutation("local-environment-config-save"),
     DropdownComponent,
     SetupFormComponent,
     nameInputId,
@@ -2802,7 +2808,7 @@ function AddLocalEnvironmentActionForm(props) {
     );
     let renderIconOption;
     renderIconOption = (iconOption) => (
-      <Br.Item
+      <MenuChrome.Item
         key={iconOption.value}
         tooltipText={iconOption.ariaLabel}
         onSelect={() => {
@@ -2812,7 +2818,7 @@ function AddLocalEnvironmentActionForm(props) {
         }}
       >
         {iconOption.icon}
-      </Br.Item>
+      </MenuChrome.Item>
     );
     iconMenuItems = iconOptions.map(renderIconOption);
   }
@@ -2912,9 +2918,9 @@ var addLocalEnvironmentActionFormModule,
   initAddLocalEnvironmentActionFormChunk = once(() => {
     addLocalEnvironmentActionFormModule = getChunkModuleExports();
     initReactQueryRuntime();
-    Jn();
+    initIntlRuntime();
     initButtonComponentPrimitives();
-    an();
+    initDropdownMenuPrimitives();
     fd();
     ud();
     dd();
@@ -2926,7 +2932,7 @@ var addLocalEnvironmentActionFormModule,
 var recentLocalEnvironmentActionsByKeySignal,
   initRecentLocalEnvironmentActionsSignal = once(() => {
     yi();
-    recentLocalEnvironmentActionsByKeySignal = vn(
+    recentLocalEnvironmentActionsByKeySignal = createPersistedSignal(
       "local-env-recent-actions-by-key",
       {},
     );
@@ -2941,7 +2947,7 @@ function isRecentLocalEnvironmentAction(
 var localEnvironmentRecentActionsModule,
   initLocalEnvironmentRecentActions = once(() => {
     localEnvironmentRecentActionsModule = getChunkModuleExports();
-    gn();
+    initPathHelpers();
     initHostCodexHomeQuery();
   });
 function useLocalConversationEnvironmentState(workspaceRoot, hostConfig) {
@@ -2990,7 +2996,7 @@ function useLocalConversationEnvironmentState(workspaceRoot, hostConfig) {
     { data: selectedEnvironmentConfigValue } = ku(
       isCodexWorktree ? recentEnvironmentKey : null,
       hostConfig,
-      dr,
+      LOCAL_ENVIRONMENT_CONFIG_PATH_SETTING_KEY,
       "worktree",
       "use_local_conversation_environment",
     ),
@@ -3022,7 +3028,10 @@ function useLocalConversationEnvironmentState(workspaceRoot, hostConfig) {
     select: selectSuccessfulLocalEnvironment,
     queryConfig: environmentQueryConfig,
   };
-  let { data: _data = null } = jn("local-environment", environmentQueryOptions),
+  let { data: _data = null } = useHostQuery(
+      "local-environment",
+      environmentQueryOptions,
+    ),
     hasSavedActions =
       (_data?.environment.actions ?? []).length > 0 ||
       localEnvironments.some(hasSuccessfulLocalEnvironmentActions);
@@ -3036,7 +3045,7 @@ function useLocalConversationEnvironmentState(workspaceRoot, hostConfig) {
         let storedValue = configPath ?? "__none__";
         setConfigValueMutation.mutate({
           root: data.root,
-          key: dr,
+          key: LOCAL_ENVIRONMENT_CONFIG_PATH_SETTING_KEY,
           operationSource: "use_local_conversation_environment",
           value: storedValue,
           scope: "worktree",
@@ -3081,7 +3090,7 @@ var localConversationEnvironmentStateModule,
   initLocalConversationEnvironmentStateChunk = once(() => {
     localConversationEnvironmentStateModule = getChunkModuleExports();
     initScopeRuntime();
-    gn();
+    initPathHelpers();
     initGitBranchQueryRuntime();
     Au();
     initGitQueryKeyHelpers();
@@ -3102,7 +3111,7 @@ function LocalConversationEnvironmentActionControls(props) {
       registerCommands,
     } = props,
     scope = useScope(appScope),
-    intl = ur(),
+    intl = useIntl(),
     location = useLocation(),
     navigate = useNavigate(),
     {
@@ -3127,8 +3136,8 @@ function LocalConversationEnvironmentActionControls(props) {
       hostConfig,
       "local_conversation_action_compound_button",
     ),
-    { data: _data } = tr(),
-    [recentActionsByKey, setRecentActionsByKey] = li(
+    { data: _data } = useOsInfo(),
+    [recentActionsByKey, setRecentActionsByKey] = useSignalState(
       recentLocalEnvironmentActionsByKeySignal,
     ),
     [isMenuOpen, setMenuOpen] =
@@ -3176,7 +3185,7 @@ function LocalConversationEnvironmentActionControls(props) {
           workspaceRoot,
         });
       if (actionCwd == null || !conversationId) {
-        gr.error("Can not run action. Cwd is not set");
+        logger.error("Can not run action. Cwd is not set");
         return;
       }
       setRecentActionsByKey(
@@ -3307,7 +3316,7 @@ function LocalConversationEnvironmentActionControls(props) {
       </button>
     );
     let actionsTriggerButton = localEnvironmentActionControlsJsxRuntime.jsx(
-      jr,
+      Tooltip,
       {
         tooltipContent: actionsTitle,
         delayOpen: true,
@@ -3315,7 +3324,7 @@ function LocalConversationEnvironmentActionControls(props) {
       },
     );
     let menuTitle = (
-      <Br.Title>
+      <MenuChrome.Title>
         {environment == null ? (
           <FormattedMessage
             id="settings.localEnvironments.actions.title"
@@ -3333,7 +3342,7 @@ function LocalConversationEnvironmentActionControls(props) {
             }}
           />
         )}
-      </Br.Title>
+      </MenuChrome.Title>
     );
     let actionMenuItems = sortedActionItems?.map((actionItem) =>
         localEnvironmentActionControlsJsxRuntime.jsx(
@@ -3354,26 +3363,29 @@ function LocalConversationEnvironmentActionControls(props) {
         />
       );
     let addActionItem = (
-      <Br.Item
+      <MenuChrome.Item
         LeftIcon={PlusIcon}
         leftIconClassName="icon-sm"
         onSelect={openAddAction}
       >
         {addActionLabel}
-      </Br.Item>
+      </MenuChrome.Item>
     );
     let changeEnvironmentMenu = canChangeEnvironment ? (
       <>
-        <Zt />
+        <MenuSeparator />
         <DropdownMenuSubmenu
           trigger={
-            <Br.Item LeftIcon={SettingsGearIcon} leftIconClassName="icon-sm">
+            <MenuChrome.Item
+              LeftIcon={SettingsGearIcon}
+              leftIconClassName="icon-sm"
+            >
               <FormattedMessage
                 id="threadPage.runAction.changeEnvironment"
                 defaultMessage="Change environment"
                 description="Menu item to change the active local environment"
               />
-            </Br.Item>
+            </MenuChrome.Item>
           }
         >
           <LocalEnvironmentSelectorContent
@@ -3411,7 +3423,7 @@ function LocalConversationEnvironmentActionControls(props) {
     );
     let primaryActionButton =
       primaryActionItem != null && primaryActionTitle != null
-        ? localEnvironmentActionControlsJsxRuntime.jsx(jr, {
+        ? localEnvironmentActionControlsJsxRuntime.jsx(Tooltip, {
             tooltipContent: primaryActionTitle,
             shortcut:
               primaryActionItem.commandId == null ? null : primaryShortcut,
@@ -3480,7 +3492,7 @@ function LocalConversationEnvironmentActionControls(props) {
       {
         electron: true,
         children: hasNoLocalEnvironments
-          ? localEnvironmentActionControlsJsxRuntime.jsx(jr, {
+          ? localEnvironmentActionControlsJsxRuntime.jsx(Tooltip, {
               tooltipContent: createEnvironmentLabel,
               delayOpen: true,
               children: localEnvironmentActionControlsJsxRuntime.jsx(Button, {
@@ -3544,7 +3556,7 @@ function LocalEnvironmentSelectorDropdown(props) {
     size: "icon",
     children: triggerIcon,
   });
-  let tooltipTrigger = localEnvironmentActionControlsJsxRuntime.jsx(jr, {
+  let tooltipTrigger = localEnvironmentActionControlsJsxRuntime.jsx(Tooltip, {
     tooltipContent: title,
     delayOpen: true,
     children: triggerButton,
@@ -3600,7 +3612,7 @@ function AddLocalEnvironmentActionPopoverContent(props) {
       workspaceRoot={workspaceRoot}
     />
   );
-  return localEnvironmentActionControlsJsxRuntime.jsx(ai, {
+  return localEnvironmentActionControlsJsxRuntime.jsx(AppDialog, {
     open: true,
     contentClassName:
       "!w-[379px] max-w-[calc(100vw-2rem)] max-h-[calc(100vh-4rem)] !p-0",
@@ -3656,17 +3668,17 @@ function LocalEnvironmentActionMenuRow(props) {
     };
   let iconName = action.icon ?? "tool",
     iconNode = (
-      <Br.ItemIcon>
+      <MenuChrome.ItemIcon>
         {localEnvironmentActionControlsJsxRuntime.jsx(md, {
           icon: iconName,
         })}
-      </Br.ItemIcon>
+      </MenuChrome.ItemIcon>
     );
   let labelNode = (
     <span className="min-w-0 flex-1 truncate">{action.name}</span>
   );
   let primaryMarker = isPrimaryAction
-    ? localEnvironmentActionControlsJsxRuntime.jsx(si, {
+    ? localEnvironmentActionControlsJsxRuntime.jsx(CheckIcon, {
         className: "icon-xs shrink-0 text-token-description-foreground",
       })
     : null;
@@ -3683,10 +3695,10 @@ function LocalEnvironmentActionMenuRow(props) {
     </span>
   );
   return (
-    <Br.Item key={action.name} onSelect={handleSelect}>
+    <MenuChrome.Item key={action.name} onSelect={handleSelect}>
       {iconNode}
       {contentNode}
-    </Br.Item>
+    </MenuChrome.Item>
   );
 }
 function RegisterLocalEnvironmentActionCommands(props) {
@@ -3708,7 +3720,7 @@ function RegisterLocalEnvironmentActionCommands(props) {
 }
 function RegisterLocalEnvironmentActionCommand(props) {
   let { actionItem, commandId, conversationId, index, onRunAction } = props,
-    intl = ur(),
+    intl = useIntl(),
     enabled = actionItem != null && conversationId != null,
     commandTitle =
       actionItem == null
@@ -3775,7 +3787,7 @@ function LocalEnvironmentActionShortcutBadge(props) {
   let { commandId } = props,
     shortcut = useScopedValue(localEnvironmentActionShortcutSignal, commandId);
   return shortcut
-    ? localEnvironmentActionControlsJsxRuntime.jsx(ri, {
+    ? localEnvironmentActionControlsJsxRuntime.jsx(KeyboardShortcutKeycap, {
         keysLabel: shortcut,
       })
     : null;
@@ -3794,17 +3806,17 @@ var localEnvironmentActionControlsModule,
       loadReactModule(),
       1,
     );
-    Jn();
+    initIntlRuntime();
     xr();
     Ei();
     initThreadSidePanelTabRegistryChunk();
     initKeyboardModifierState();
     initButtonComponentPrimitives();
-    mi();
-    an();
-    vi();
+    initAppDialog();
+    initDropdownMenuPrimitives();
+    initKeyboardShortcutKeycap();
     initModalRegistrySignal();
-    Gn();
+    initTooltipPrimitives();
     initElectronPlatformContent();
     il();
     initGitQueryKeyHelpers();
@@ -3825,9 +3837,9 @@ var localEnvironmentActionControlsModule,
     ws();
     initEnvironmentTerminalController();
     es();
-    Mr();
+    initLoggerRuntime();
     di();
-    _n();
+    initKeyboardShortcutLabel();
     localEnvironmentActionControlsJsxRuntime = getJsxRuntime();
     localEnvironmentActionIconButtonClassName =
       "flex h-7 w-7 shrink-0 cursor-interaction items-center justify-center rounded-sm border-0 bg-transparent p-0 text-token-text-tertiary hover:bg-token-list-hover-background data-[state=open]:bg-token-list-hover-background";
@@ -4062,11 +4074,11 @@ var threadSummaryPanelSectionModule,
     threadSummaryPanelSectionModule = getChunkModuleExports();
     initClassNameRuntime();
     initMotionRuntime();
-    isFunctionModule = toEsModule(un(), 1);
+    isFunctionModule = toEsModule(loadIsFunctionModule(), 1);
     initScopeRuntime();
     threadSummaryPanelSectionReactRuntime = toEsModule(loadReactModule(), 1);
-    an();
-    Si();
+    initDropdownMenuPrimitives();
+    initChevronDownIcon();
     initRouteScope();
     initReducedMotionPreference();
     initSummaryPanelAnimationConfig();
@@ -4109,7 +4121,7 @@ function BranchChangesSummaryRow(props) {
       />
     );
   let trailingDiffStats = isDiffStatsLoading ? (
-    branchChangesSummaryRowJsxRuntime.jsx(rr, {
+    branchChangesSummaryRowJsxRuntime.jsx(SpinnerIcon, {
       className: "icon-xs text-token-text-tertiary",
     })
   ) : diffStats == null ? null : (
@@ -4133,7 +4145,7 @@ var branchChangesSummaryRowModule,
   branchChangesSummaryRowJsxRuntime,
   initBranchChangesSummaryRowChunk = once(() => {
     branchChangesSummaryRowModule = getChunkModuleExports();
-    Jn();
+    initIntlRuntime();
     initSpinnerComponent();
     Nl();
     pc();
@@ -4147,7 +4159,7 @@ function buildPullRequestCommentsFixPrompt({ baseBranch, headBranch, number }) {
     "Start from the attached unresolved review threads and comments.",
     "Address every actionable comment without asking the user which ones to handle.",
     "If a comment needs clarification, is already outdated, or should not be changed, explain that clearly instead of guessing.",
-    ir,
+    MY_REQUEST_PROMPT_HEADER,
     "Address all actionable attached PR feedback.",
   ].join("\n");
 }
@@ -4245,7 +4257,7 @@ var initPullRequestCommentFixHelpersChunk = once(() => {
   da();
   cs();
   Zo();
-  en();
+  initPullRequestReviewCommentHelpers();
   at();
 });
 function PullRequestCommentsFixDisabledTooltip(props) {
@@ -4327,7 +4339,7 @@ var pullRequestFixDisabledTooltipModule,
   pullRequestFixDisabledTooltipJsxRuntime,
   initPullRequestFixDisabledTooltipChunk = once(() => {
     pullRequestFixDisabledTooltipModule = getChunkModuleExports();
-    Jn();
+    initIntlRuntime();
     pullRequestFixDisabledTooltipJsxRuntime = getJsxRuntime();
   });
 function getPullRequestFixDisabledReason({
@@ -4367,7 +4379,7 @@ function buildPullRequestFailingChecksFixPrompt({
     "- if anything is missing, stop and tell the user exactly what is missing and exactly what they can provide to unblock you",
     "- otherwise fetch the external logs, diagnose the issue, and make the smallest safe fix",
     "Do not guess without logs. Do not do unrelated refactors. Be explicit if blocked. After fixing, run the narrowest relevant verification, commit and push the fix, and summarize the root cause, fix, and result.",
-    ir,
+    MY_REQUEST_PROMPT_HEADER,
     "Use gh to inspect the failing CI and make the smallest safe fix. Once everything is fixed, commit and push it.",
   ].join("\n");
 }
@@ -4438,7 +4450,7 @@ function buildPullRequestMergeConflictFixPrompt({
     "Start from the attached merge conflict context. Then use `gh pr view` and local git state to confirm the current merge blocker before changing code.",
     "Fetch the latest base branch, merge or rebase as appropriate for this repository, resolve the conflicts, and avoid unrelated refactors.",
     "After resolving conflicts, run the narrowest relevant verification, commit and push the resolution, and summarize the conflict and result.",
-    ir,
+    MY_REQUEST_PROMPT_HEADER,
     "Resolve the PR merge conflicts, then commit and push the fix.",
   ].join("\n");
 }
@@ -4469,13 +4481,13 @@ var initPullRequestFixActionHelpersChunk = once(() => {
 });
 function PullRequestRichTooltip(props) {
   let { children, content, triggerAsChild = false } = props,
-    tooltipContent = pullRequestRichTooltipJsxRuntime.jsx(hr, {
+    tooltipContent = pullRequestRichTooltipJsxRuntime.jsx(TooltipProvider, {
       children: content,
     });
-  let triggerContent = pullRequestRichTooltipJsxRuntime.jsx(hr, {
+  let triggerContent = pullRequestRichTooltipJsxRuntime.jsx(TooltipProvider, {
     children,
   });
-  return pullRequestRichTooltipJsxRuntime.jsx(jr, {
+  return pullRequestRichTooltipJsxRuntime.jsx(Tooltip, {
     align: "start",
     className: "w-full border-0 bg-transparent p-0 text-left",
     delayDuration: 0,
@@ -4508,7 +4520,7 @@ var pullRequestRichTooltipModule,
   pullRequestRichTooltipJsxRuntime,
   initPullRequestRichTooltipChunk = once(() => {
     pullRequestRichTooltipModule = getChunkModuleExports();
-    Gn();
+    initTooltipPrimitives();
     pullRequestRichTooltipJsxRuntime = getJsxRuntime();
   });
 function PullRequestChecksSummaryRow(props) {
@@ -4600,7 +4612,7 @@ function PullRequestCheckFlyoutRow(props) {
     checkLink == null
       ? undefined
       : (event) => {
-          wi({
+          openInBrowserFromEvent({
             event: event,
             href: checkLink,
             initiator: "pull_request_link",
@@ -4764,9 +4776,9 @@ var pullRequestStatusDetailRowsModule,
   PULL_REQUEST_CHECK_STATUS_ORDER,
   initPullRequestStatusDetailRowsChunk = once(() => {
     pullRequestStatusDetailRowsModule = getChunkModuleExports();
-    Jn();
+    initIntlRuntime();
     initExternalUrlHelpers();
-    tn();
+    initCheckCircleFilledIcon();
     initPullRequestCheckStatusIconChunk();
     ql();
     Kc();
@@ -4785,7 +4797,7 @@ var pullRequestStatusDetailRowsModule,
   });
 function PullRequestStatusDetailRows(props) {
   let { conversationId, headBranch, pullRequestStatus } = props,
-    scope = useScope(fi),
+    scope = useScope(composerScope),
     storedThreadBranch = useScopedValue(
       storedThreadBranchSignal,
       conversationId,
@@ -5071,10 +5083,10 @@ var pullRequestSummaryRowsModule,
   initPullRequestSummaryRowsChunk = once(() => {
     pullRequestSummaryRowsModule = getChunkModuleExports();
     initScopeRuntime();
-    Jn();
+    initIntlRuntime();
     initConversationStateSelectors();
     da();
-    en();
+    initPullRequestReviewCommentHelpers();
     Oo();
     tl();
     Yc();
@@ -5114,7 +5126,7 @@ var pullRequestSidePanelErrorMessageModule,
   pullRequestSidePanelErrorMessageJsxRuntime,
   initPullRequestSidePanelErrorMessageChunk = once(() => {
     pullRequestSidePanelErrorMessageModule = getChunkModuleExports();
-    Jn();
+    initIntlRuntime();
     pullRequestSidePanelErrorMessageJsxRuntime = getJsxRuntime();
   });
 function PullRequestSidePanelDetailsSummary(props) {
@@ -5160,12 +5172,12 @@ var pullRequestSidePanelDetailsSummaryModule,
   pullRequestSidePanelDetailsSummaryJsxRuntime,
   initPullRequestSidePanelDetailsSummaryChunk = once(() => {
     pullRequestSidePanelDetailsSummaryModule = getChunkModuleExports();
-    Si();
+    initChevronDownIcon();
     pullRequestSidePanelDetailsSummaryJsxRuntime = getJsxRuntime();
   });
 function PullRequestSidePanelLoadingState(props) {
   let { label } = props,
-    spinnerIcon = pullRequestSidePanelLoadingStateJsxRuntime.jsx(rr, {
+    spinnerIcon = pullRequestSidePanelLoadingStateJsxRuntime.jsx(SpinnerIcon, {
       className: "icon-sm",
     });
   return (
@@ -5187,8 +5199,8 @@ var pullRequestSidePanelLoadingStateModule,
   });
 function PullRequestSidePanelChecksSection(props) {
   let { data, error, fixDisabledReason, item, loading } = props,
-    intl = ur(),
-    scope = useScope(fi),
+    intl = useIntl(),
+    scope = useScope(composerScope),
     attachedChecks = useSignalValue(attachedPullRequestChecksSignal),
     failingChecks = data?.checks.filter(isFailingPullRequestCheck),
     attachedCheckKeys = new Set(
@@ -5316,13 +5328,13 @@ function PullRequestSidePanelChecksSection(props) {
             }}
           />
         ) : (
-          <Br.Message compact={true}>
+          <MenuChrome.Message compact={true}>
             <FormattedMessage
               id="pullRequestSidePanel.checks.empty"
               defaultMessage="No checks reported"
               description="Empty pull request checks list"
             />
-          </Br.Message>
+          </MenuChrome.Message>
         )
       ) : (
         <PullRequestSidePanelErrorMessage description={error} />
@@ -5344,8 +5356,8 @@ var pullRequestChecksSectionModule,
   initPullRequestSidePanelChecksSectionChunk = once(() => {
     pullRequestChecksSectionModule = getChunkModuleExports();
     initScopeRuntime();
-    Jn();
-    an();
+    initIntlRuntime();
+    initDropdownMenuPrimitives();
     cs();
     initPullRequestFixDisabledTooltipChunk();
     initPullRequestInlineActionButtonChunk();
@@ -5388,8 +5400,8 @@ var pullRequestReviewerBadgeUniqBy,
   });
 function PullRequestSidePanelCommentsSection(props) {
   let { data, error, fixDisabledReason, item, loading } = props,
-    intl = ur(),
-    scope = useScope(fi),
+    intl = useIntl(),
+    scope = useScope(composerScope),
     conversationId = scope.value.routeConversationId,
     attachedCommentAttachments = useScopedValue(
       pullRequestReviewCommentAttachmentsSignal,
@@ -5585,13 +5597,13 @@ function PullRequestSidePanelCommentsSection(props) {
               })}
             </div>
           ) : (
-            <Br.Message compact={true}>
+            <MenuChrome.Message compact={true}>
               <FormattedMessage
                 id="pullRequestSidePanel.comments.empty"
                 defaultMessage="No comments"
                 description="Empty pull request comments list"
               />
-            </Br.Message>
+            </MenuChrome.Message>
           )
         ) : (
           <PullRequestSidePanelErrorMessage description={error} />
@@ -5619,10 +5631,10 @@ var pullRequestCommentsSectionModule,
   initPullRequestSidePanelCommentsSectionChunk = once(() => {
     pullRequestCommentsSectionModule = getChunkModuleExports();
     initScopeRuntime();
-    Jn();
+    initIntlRuntime();
     da();
-    an();
-    en();
+    initDropdownMenuPrimitives();
+    initPullRequestReviewCommentHelpers();
     initPullRequestCommentFixHelpersChunk();
     initPullRequestFixDisabledTooltipChunk();
     initPullRequestInlineActionButtonChunk();
@@ -5672,13 +5684,13 @@ function PullRequestConflictFileRows(props) {
   }
   if (files.length === 0) {
     return (
-      <Br.Message compact={true}>
+      <MenuChrome.Message compact={true}>
         <FormattedMessage
           id="pullRequestSidePanel.conflicts.empty"
           defaultMessage="No changed files reported"
           description="Empty merge conflict file list"
         />
-      </Br.Message>
+      </MenuChrome.Message>
     );
   }
   let rows;
@@ -5714,8 +5726,8 @@ var pullRequestConflictFileRowsModule,
   pullRequestConflictFileRowsJsxRuntime,
   initPullRequestConflictFileRowsChunk = once(() => {
     pullRequestConflictFileRowsModule = getChunkModuleExports();
-    Jn();
-    an();
+    initIntlRuntime();
+    initDropdownMenuPrimitives();
     initMergeConflictFileIconChunk();
     initPullRequestMetadataRowsChunk();
     initPullRequestSidePanelErrorMessageChunk();
@@ -5725,7 +5737,7 @@ var pullRequestConflictFileRowsModule,
 function PullRequestSidePanelConflictsSection(props) {
   let { error, files, fixDisabledReason, hasError, item, loading, repo } =
       props,
-    scope = useScope(fi),
+    scope = useScope(composerScope),
     conflictsAreAttached =
       useSignalValue(pullRequestMergeConflictAttachmentSignal)?.url ===
       item.url,
@@ -5812,7 +5824,7 @@ var pullRequestConflictsSectionModule,
   initPullRequestSidePanelConflictsSectionChunk = once(() => {
     pullRequestConflictsSectionModule = getChunkModuleExports();
     initScopeRuntime();
-    Jn();
+    initIntlRuntime();
     cs();
     initPullRequestFixDisabledTooltipChunk();
     initPullRequestInlineActionButtonChunk();
@@ -5876,7 +5888,7 @@ var pullRequestDescriptionSectionModule,
   pullRequestDescriptionSectionJsxRuntime,
   initPullRequestSidePanelDescriptionSectionChunk = once(() => {
     pullRequestDescriptionSectionModule = getChunkModuleExports();
-    Jn();
+    initIntlRuntime();
     Fo();
     us();
     initPullRequestSidePanelErrorMessageChunk();
@@ -5910,18 +5922,22 @@ var pullRequestDescriptionSectionModule,
   githubUserSearchQuery,
   initGithubUserSearchQuery = once(() => {
     initAppScope();
-    Er();
+    initQueryDurationConstants();
     initVscodeApiBridge();
-    githubUserSearchQuery = rn(appScope, "gh-user-search", (queryParams) => ({
-      enabled: queryParams.query.length > 0,
-      params: queryParams,
-      retry: false,
-      select: (response) => {
-        if (response.status === "error") throw Error(response.error);
-        return response.users;
-      },
-      staleTime: ln.ONE_MINUTE,
-    }));
+    githubUserSearchQuery = createHostQuerySignal(
+      appScope,
+      "gh-user-search",
+      (queryParams) => ({
+        enabled: queryParams.query.length > 0,
+        params: queryParams,
+        retry: false,
+        select: (response) => {
+          if (response.status === "error") throw Error(response.error);
+          return response.users;
+        },
+        staleTime: QUERY_DURATIONS.ONE_MINUTE,
+      }),
+    );
   });
 function filterAlreadyPendingReviewers({
   pendingReviewerLogins,
@@ -5964,12 +5980,12 @@ function toggleSelectedReviewer(selectedReviewers, reviewer) {
 }
 var uniqByModule,
   initReviewerSearchUniqByModule = once(() => {
-    uniqByModule = toEsModule(Sn(), 1);
+    uniqByModule = toEsModule(loadUniqByModule(), 1);
   });
 function RequestPullRequestReviewersButton(props) {
   let { hostId, item, pendingReviewerLogins, repo } = props,
     scope = useScope(appScope),
-    intl = ur(),
+    intl = useIntl(),
     [open, setOpen] = requestPullRequestReviewersReactRuntime.useState(false),
     [query, setQuery] = requestPullRequestReviewersReactRuntime.useState(""),
     emptySelectedReviewers = [];
@@ -5977,7 +5993,7 @@ function RequestPullRequestReviewersButton(props) {
       requestPullRequestReviewersReactRuntime.useState(emptySelectedReviewers),
     trimmedQuery = query.trim();
   let currentQuery = trimmedQuery,
-    debouncedQuery = Lr(currentQuery, 250),
+    debouncedQuery = useDebouncedValue(currentQuery, 250),
     searchParams = {
       cwd: item.cwd,
       hostId,
@@ -6037,7 +6053,7 @@ function RequestPullRequestReviewersButton(props) {
           {
             onSuccess: (result) => {
               result.status === "success" &&
-                (scope.get(ti).success(
+                (scope.get(toastSignal).success(
                   intl.formatMessage(
                     {
                       id: "pullRequestSidePanel.approvals.request.successReviewers",
@@ -6070,14 +6086,14 @@ function RequestPullRequestReviewersButton(props) {
   });
   let triggerIcon = <PlusIcon aria-hidden={true} className="icon-2xs" />;
   let triggerButton = (
-    <Kn asChild={true}>
+    <PopoverTrigger asChild={true}>
       {requestPullRequestReviewersJsxRuntime.jsx(Button, {
         "aria-label": triggerLabel,
         color: "secondary",
         size: "iconMd",
         children: triggerIcon,
       })}
-    </Kn>
+    </PopoverTrigger>
   );
   let dialogTitle = requestPullRequestReviewersJsxRuntime.jsx(_r, {
     className: "sr-only",
@@ -6143,7 +6159,7 @@ function RequestPullRequestReviewersButton(props) {
     description: "Placeholder for searching pull request reviewers",
   });
   let leadingSearchIcon = (
-    <Nn
+    <SearchIcon
       aria-hidden={true}
       className="icon-sm shrink-0 text-token-text-tertiary"
     />
@@ -6204,7 +6220,7 @@ function RequestPullRequestReviewersButton(props) {
             className="flex items-center justify-center py-2"
             role="status"
           >
-            {requestPullRequestReviewersJsxRuntime.jsx(rr, {
+            {requestPullRequestReviewersJsxRuntime.jsx(SpinnerIcon, {
               className: "icon-2xs",
             })}
           </span>
@@ -6227,18 +6243,18 @@ function RequestPullRequestReviewersButton(props) {
       </div>
     ) : null;
   let popoverContent = (
-    <Pr align="end">
+    <PopoverContent align="end">
       {dialogTitle}
       {reviewerSearchMenu}
       {requestErrorMessage}
       {requestFooter}
-    </Pr>
+    </PopoverContent>
   );
   return (
-    <On open={open} onOpenChange={handleOpenChange}>
+    <PopoverRoot open={open} onOpenChange={handleOpenChange}>
       {triggerButton}
       {popoverContent}
-    </On>
+    </PopoverRoot>
   );
 }
 function getReviewerLogin(reviewer) {
@@ -6264,18 +6280,18 @@ var requestPullRequestReviewersModule,
     requestPullRequestReviewersModule = getChunkModuleExports();
     initScopeRuntime();
     requestPullRequestReviewersReactRuntime = toEsModule(loadReactModule(), 1);
-    Jn();
+    initIntlRuntime();
     initButtonComponentPrimitives();
-    Hn();
+    initPopoverPrimitives();
     Nu();
     initSpinnerComponent();
-    wn();
+    initToastRuntime();
     _t();
-    Jr();
+    initSearchIcon();
     initPullRequestUpdateMutationChunk();
     initPullRequestAnalyticsChunk();
     initAppScope();
-    Vn();
+    initTaskWorkspaceQueryRuntime();
     initGithubUserSearchQuery();
     initReviewerSearchUniqByModule();
     requestPullRequestReviewersJsxRuntime = getJsxRuntime();
@@ -6293,7 +6309,7 @@ function PullRequestSidePanelOverviewSection(props) {
       mergeBlocker,
       repo,
     } = props,
-    branchIcon = pullRequestOverviewSectionJsxRuntime.jsx(sr, {
+    branchIcon = pullRequestOverviewSectionJsxRuntime.jsx(GitBranchIcon, {
       className: "icon-sm shrink-0 text-token-text-tertiary",
     });
   let branchArrow = (
@@ -6405,7 +6421,7 @@ function PullRequestOverviewChecksRow(props) {
     return (
       <SummaryPanelRow
         density="comfortable"
-        icon={pullRequestOverviewSectionJsxRuntime.jsx(rr, {
+        icon={pullRequestOverviewSectionJsxRuntime.jsx(SpinnerIcon, {
           className: "icon-sm shrink-0",
         })}
         label={
@@ -6451,7 +6467,7 @@ function PullRequestOverviewCommentsRow(props) {
     return (
       <SummaryPanelRow
         density="comfortable"
-        icon={pullRequestOverviewSectionJsxRuntime.jsx(rr, {
+        icon={pullRequestOverviewSectionJsxRuntime.jsx(SpinnerIcon, {
           className: "icon-sm shrink-0",
         })}
         label={
@@ -6581,7 +6597,7 @@ function PullRequestOverviewReviewersRow(props) {
 }
 function renderPullRequestOverviewReviewerBadge(reviewer) {
   return pullRequestOverviewSectionJsxRuntime.jsx(
-    jr,
+    Tooltip,
     {
       tooltipContent: reviewer.label,
       children: (
@@ -6645,9 +6661,9 @@ var pullRequestOverviewSectionModule,
   initPullRequestSidePanelOverviewSectionChunk = once(() => {
     pullRequestOverviewSectionModule = getChunkModuleExports();
     initClassNameRuntime();
-    Jn();
+    initIntlRuntime();
     initSpinnerComponent();
-    Gn();
+    initTooltipPrimitives();
     Nl();
     initGitBranchIcon();
     Eu();
@@ -6664,7 +6680,7 @@ var pullRequestOverviewSectionModule,
   });
 function PullRequestSidePanelDetails(props) {
   let { bodyError, bodyIsLoading, item, pullRequestBody, request } = props,
-    scope = useScope(fi),
+    scope = useScope(composerScope),
     { data } = useSignalValue(pullRequestCurrentBranchSignal),
     fixDisabledReason = xc({
       currentBranch: data,
@@ -6682,8 +6698,8 @@ function PullRequestSidePanelDetails(props) {
       prNumber: item.number,
     });
   let checksQueryConfig = {
-    intervalMs: ln.ONE_MINUTE,
-    staleTime: ln.ONE_MINUTE,
+    intervalMs: QUERY_DURATIONS.ONE_MINUTE,
+    staleTime: QUERY_DURATIONS.ONE_MINUTE,
   };
   let checksQueryOptions = {
     source: "pull_request_board",
@@ -6695,10 +6711,10 @@ function PullRequestSidePanelDetails(props) {
       error: checksError,
       isError: checksHaveError,
       isLoading: checksAreLoading,
-    } = jn("gh-pr-checks", checksQueryOptions),
+    } = useHostQuery("gh-pr-checks", checksQueryOptions),
     commentsQueryConfig = {
-      intervalMs: ln.ONE_MINUTE,
-      staleTime: ln.ONE_MINUTE,
+      intervalMs: QUERY_DURATIONS.ONE_MINUTE,
+      staleTime: QUERY_DURATIONS.ONE_MINUTE,
     };
   let commentsQueryOptions = {
     source: "pull_request_board",
@@ -6710,7 +6726,7 @@ function PullRequestSidePanelDetails(props) {
       error: commentsError,
       isError: commentsHaveError,
       isLoading: commentsAreLoading,
-    } = jn("gh-pr-comments", commentsQueryOptions),
+    } = useHostQuery("gh-pr-comments", commentsQueryOptions),
     mergeBlocker =
       pullRequestBody == null
         ? item.mergeBlocker
@@ -6725,7 +6741,7 @@ function PullRequestSidePanelDetails(props) {
   let shouldLoadConflictDiff = mergeBlocker === "conflicts",
     diffQueryConfig = {
       enabled: shouldLoadConflictDiff,
-      staleTime: ln.ONE_MINUTE,
+      staleTime: QUERY_DURATIONS.ONE_MINUTE,
     };
   let diffQueryOptions = {
     source: "pull_request_board",
@@ -6737,7 +6753,7 @@ function PullRequestSidePanelDetails(props) {
       error: diffError,
       isError: diffHaveError,
       isLoading: diffIsLoading,
-    } = jn("gh-pr-diff", diffQueryOptions),
+    } = useHostQuery("gh-pr-diff", diffQueryOptions),
     checksData = checksResult?.status === "success" ? checksResult : null,
     commentsData = commentsResult?.status === "success" ? commentsResult : null,
     conflictFilePaths =
@@ -6828,13 +6844,13 @@ var pullRequestSidePanelDetailsModule,
   initPullRequestSidePanelDetailsChunk = once(() => {
     pullRequestSidePanelDetailsModule = getChunkModuleExports();
     initScopeRuntime();
-    en();
+    initPullRequestReviewCommentHelpers();
     bl();
     Yc();
     initPullRequestFailingChecksPromptChunk();
     po();
     initComposerScope();
-    Er();
+    initQueryDurationConstants();
     initVscodeApiBridge();
     initPullRequestSidePanelChecksSectionChunk();
     initPullRequestSidePanelCommentsSectionChunk();
@@ -6846,7 +6862,7 @@ var pullRequestSidePanelDetailsModule,
 
 function PullRequestSidePanelHeader(props) {
   let { hostId, item, pullRequestBody, request } = props,
-    intl = ur(),
+    intl = useIntl(),
     pullRequestState =
       pullRequestBody == null
         ? item.state === "draft" || item.state === "merged"
@@ -6898,13 +6914,13 @@ function PullRequestSidePanelHeader(props) {
       "Accessible label for opening a pull request from the side panel",
   });
   let trackOpenOnGitHub = (event) => {
-    wi({
+    openInBrowserFromEvent({
       event,
       href: item.url,
       initiator: "pull_request_link",
     });
   };
-  let externalIcon = <In className="icon-sm" href={item.url} />;
+  let externalIcon = <ExternalLinkIcon className="icon-sm" href={item.url} />;
   let githubLink = (
     <a
       aria-label={openPullRequestLabel}
@@ -6947,10 +6963,10 @@ var pullRequestSidePanelTabModule,
   PullRequestSidePanelTabContent,
   initPullRequestSidePanelTabChunk = once(() => {
     pullRequestSidePanelTabModule = getChunkModuleExports();
-    Jn();
+    initIntlRuntime();
     initExternalUrlHelpers();
     Xr();
-    Er();
+    initQueryDurationConstants();
     initVscodeApiBridge();
     initPullRequestMergeActionsChunk();
     initPullRequestSidePanelDetailsChunk();
@@ -6965,15 +6981,18 @@ var pullRequestSidePanelTabModule,
           repo,
         };
       let bodyQueryConfig = {
-        intervalMs: ln.ONE_MINUTE,
-        staleTime: ln.ONE_MINUTE,
+        intervalMs: QUERY_DURATIONS.ONE_MINUTE,
+        staleTime: QUERY_DURATIONS.ONE_MINUTE,
       };
       let bodyQueryOptions = {
         source: "pull_request_board",
         params: request,
         queryConfig: bodyQueryConfig,
       };
-      let { data, error, isLoading } = jn("gh-pr-body", bodyQueryOptions),
+      let { data, error, isLoading } = useHostQuery(
+          "gh-pr-body",
+          bodyQueryOptions,
+        ),
         pullRequestBody = data?.status === "success" ? data : null,
         headerNode = pullRequestSidePanelTabJsxRuntime.jsx(
           PullRequestSidePanelHeader,
@@ -7056,7 +7075,7 @@ var pullRequestSidePanelTabReactRuntime,
 function PullRequestSummaryRow(props) {
   let { conversationId, hostId, pullRequestStatus, visualState } = props,
     scope = useScope(localConversationRouteScope),
-    intl = ur(),
+    intl = useIntl(),
     isBrowserSidebarEnabled = useSignalValue(browserSidebarEnabledSignal),
     canOpenInSidePanel = useScopedValue(featureGateSignal, "1590905736"),
     { boardItem } = pullRequestStatus,
@@ -7070,7 +7089,7 @@ function PullRequestSummaryRow(props) {
             item: boardItem,
             surface: "thread_side_panel",
           }),
-        wi({
+        openInBrowserFromEvent({
           event: event,
           href: pullRequestUrl,
           initiator: "pull_request_link",
@@ -7125,10 +7144,13 @@ function PullRequestSummaryRow(props) {
         }}
         onKeyDown={stopPullRequestSummaryLinkPropagation}
       >
-        <In className="icon-xs" href={pullRequestUrl} />
+        <ExternalLinkIcon className="icon-xs" href={pullRequestUrl} />
       </a>
     ) : (
-      <In className="icon-xs text-token-text-tertiary" href={pullRequestUrl} />
+      <ExternalLinkIcon
+        className="icon-xs text-token-text-tertiary"
+        href={pullRequestUrl}
+      />
     );
   let rowClickHandler =
       pullRequestUrl == null ? undefined : handleOpenPullRequest,
@@ -7188,7 +7210,7 @@ var pullRequestSummaryRowModule,
   initPullRequestSummaryRowChunk = once(() => {
     pullRequestSummaryRowModule = getChunkModuleExports();
     initScopeRuntime();
-    Jn();
+    initIntlRuntime();
     initBrowserFeatureAvailabilitySignals();
     Do();
     Yo();
@@ -7478,7 +7500,7 @@ function getGithubCliStatusSummaryRow(ghCliAvailability) {
 }
 function CreatePullRequestProgressSummaryRow(props) {
   let { phase, onCancel } = props,
-    spinnerIcon = localConversationGitSummaryJsxRuntime.jsx(rr, {
+    spinnerIcon = localConversationGitSummaryJsxRuntime.jsx(SpinnerIcon, {
       className: GITHUB_STATUS_ICON_CLASS_NAME,
     });
   let phaseLabel = localConversationGitSummaryJsxRuntime.jsx(nl, {
@@ -7495,7 +7517,7 @@ function CreatePullRequestProgressSummaryRow(props) {
   );
 }
 function GithubStatusPlaceholderIcon() {
-  return <Fr className={GITHUB_STATUS_ICON_CLASS_NAME} />;
+  return <GitHubIcon className={GITHUB_STATUS_ICON_CLASS_NAME} />;
 }
 var localConversationGitSummaryModule,
   localConversationGitSummaryJsxRuntime,
@@ -7503,11 +7525,11 @@ var localConversationGitSummaryModule,
   initLocalConversationGitSummaryChunk = once(() => {
     localConversationGitSummaryModule = getChunkModuleExports();
     initScopeRuntime();
-    Jn();
+    initIntlRuntime();
     initConversationStateSelectors();
     initSpinnerComponent();
     jc();
-    vr();
+    initGitHubIcon();
     hc();
     ic();
     Qs();
@@ -7524,7 +7546,7 @@ var localConversationGitSummaryModule,
   });
 function ThreadSummaryEnvironmentModeControls(props) {
   let { conversationId, onOpenChange } = props,
-    scope = useScope(fi),
+    scope = useScope(composerScope),
     composerMode = useSignalValue(composerModeSignal),
     setComposerMode = (nextMode) => {
       $o(scope, null, nextMode);
@@ -7535,7 +7557,7 @@ function ThreadSummaryEnvironmentModeControls(props) {
     conversationCwd = useScopedValue(conversationCwdSignal, conversationId),
     remoteCodexHome = getHostCodexHome(conversationRemoteState.hostId),
     isWorktreeConversation = Ar(conversationCwd, remoteCodexHome);
-  let isThreadHandoffSummaryEnabled = Vr("1115442235"),
+  let isThreadHandoffSummaryEnabled = useStatsigGate("1115442235"),
     conversationTitle = useScopedValue(
       conversationDisplayTitleSignal,
       conversationId,
@@ -7600,7 +7622,7 @@ var threadSummaryEnvironmentModeControlsModule,
   initThreadSummaryEnvironmentModeControlsChunk = once(() => {
     threadSummaryEnvironmentModeControlsModule = getChunkModuleExports();
     initScopeRuntime();
-    gn();
+    initPathHelpers();
     initConversationStateSelectors();
     ca();
     initElectronPlatformContent();
@@ -7643,7 +7665,7 @@ function ThreadSummaryEnvironmentSection(props) {
         : normalizeWorkspaceBrowserRoot(workspaceBrowserRoot);
   let emptyBranchControlRow = isCodexWorktree ? (
     <SummaryPanelRow
-      icon={threadSummaryEnvironmentSectionJsxRuntime.jsx(sr, {
+      icon={threadSummaryEnvironmentSectionJsxRuntime.jsx(GitBranchIcon, {
         className: "icon-sm shrink-0",
       })}
       label={
@@ -7675,9 +7697,12 @@ function ThreadSummaryEnvironmentSection(props) {
           ) : (
             <SummaryPanelRow
               disabled={disabled}
-              icon={threadSummaryEnvironmentSectionJsxRuntime.jsx(sr, {
-                className: "icon-sm shrink-0",
-              })}
+              icon={threadSummaryEnvironmentSectionJsxRuntime.jsx(
+                GitBranchIcon,
+                {
+                  className: "icon-sm shrink-0",
+                },
+              )}
               label={
                 <span className="flex min-w-0 items-center gap-1 text-token-foreground">
                   <span className="min-w-0 truncate">{currentBranch}</span>
@@ -7696,7 +7721,7 @@ function ThreadSummaryEnvironmentSection(props) {
               title={switchTooltipText}
               trailing={
                 isPending
-                  ? threadSummaryEnvironmentSectionJsxRuntime.jsx(rr, {
+                  ? threadSummaryEnvironmentSectionJsxRuntime.jsx(SpinnerIcon, {
                       className: "icon-xs text-token-text-tertiary",
                     })
                   : null
@@ -7815,16 +7840,16 @@ var threadSummaryEnvironmentSectionModule,
   initThreadSummaryEnvironmentSectionChunk = once(() => {
     threadSummaryEnvironmentSectionModule = getChunkModuleExports();
     initScopeRuntime();
-    gn();
+    initPathHelpers();
     threadSummaryEnvironmentSectionReactRuntime = toEsModule(
       loadReactModule(),
       1,
     );
-    Jn();
+    initIntlRuntime();
     initSpinnerComponent();
     Nl();
     initGitBranchIcon();
-    Si();
+    initChevronDownIcon();
     Lu();
     Ds();
     Ri();
@@ -7840,7 +7865,7 @@ var threadSummaryEnvironmentSectionModule,
   });
 function ThreadSummaryAutomationRow(props) {
   let { automation } = props,
-    intl = ur(),
+    intl = useIntl(),
     scope = useScope(localConversationRouteScope),
     nextRunTooltip;
   {
@@ -7916,7 +7941,7 @@ var threadSummaryAutomationRowModule,
   initThreadSummaryAutomationRowChunk = once(() => {
     threadSummaryAutomationRowModule = getChunkModuleExports();
     initScopeRuntime();
-    Jn();
+    initIntlRuntime();
     Ol();
     Ps();
     bs();
@@ -7931,7 +7956,7 @@ function ThreadSummarySideChatRows(props) {
       <SummaryPanelRow
         icon={
           sideChat.isResponseInProgress ? (
-            threadSummarySideChatRowsJsxRuntime.jsx(rr, {
+            threadSummarySideChatRowsJsxRuntime.jsx(SpinnerIcon, {
               className: "icon-sm shrink-0",
             })
           ) : (
@@ -7977,7 +8002,7 @@ function ThreadSummarySourceRows(props) {
       source: webSource,
       type: "web",
     });
-  let intl = ur(),
+  let intl = useIntl(),
     listAriaLabel = intl.formatMessage({
       id: "codex.localConversation.sources.title",
       defaultMessage: "Sources",
@@ -8009,7 +8034,7 @@ function ThreadSummarySourceRows(props) {
           : webSearchLabel;
     return (
       <li key={getThreadSummarySourceKey(sourceItem)} className="flex">
-        {threadSummarySourceRowsJsxRuntime.jsx(jr, {
+        {threadSummarySourceRowsJsxRuntime.jsx(Tooltip, {
           tooltipContent: sourceLabel,
           side: "left",
           children: (
@@ -8049,7 +8074,7 @@ function ThreadSummarySourceIconButton(props) {
               className: "icon-xs shrink-0",
             });
       icon = (
-        <Ln
+        <ConnectorAppIcon
           alt={label}
           className="icon-xs shrink-0 object-contain"
           fallback={fallbackIcon}
@@ -8061,14 +8086,14 @@ function ThreadSummarySourceIconButton(props) {
     }
     case "web": {
       href = source.source.type === "page" ? source.source.url : undefined;
-      icon = <Sr aria-hidden={true} className="icon-xs shrink-0" />;
+      icon = <GlobeIcon aria-hidden={true} className="icon-xs shrink-0" />;
     }
   }
   if ((mcpAppId != null && onOpen != null) || href != null) {
     let handleOpenSource = (event) => {
       href == null
         ? mcpAppId != null && onOpen?.(mcpAppId)
-        : wi({
+        : openInBrowserFromEvent({
             event,
             href,
             initiator: "markdown_link_click",
@@ -8104,7 +8129,7 @@ function getToolSourceDisplayName(source) {
 }
 function getToolSourceIcon(source) {
   for (let iconId of [source.id, source.name, ...source.pluginDisplayNames]) {
-    let Icon = Zn(iconId);
+    let Icon = getKnownAppIconById(iconId);
     if (Icon != null) return Icon;
   }
   return null;
@@ -8123,13 +8148,13 @@ var threadSummarySourceRowsModule,
   threadSummarySourceRowsJsxRuntime,
   initThreadSummarySourceRowsChunk = once(() => {
     threadSummarySourceRowsModule = getChunkModuleExports();
-    Jn();
-    Or();
+    initIntlRuntime();
+    initKnownAppIconRegistry();
     Zr();
     initExternalUrlHelpers();
-    Gn();
-    nn();
-    Gr();
+    initTooltipPrimitives();
+    initConnectedNodesIcon();
+    initGlobeIcon();
     threadSummarySourceRowsJsxRuntime = getJsxRuntime();
   });
 function ThreadSummaryPanelRoot(props) {
@@ -8231,7 +8256,7 @@ function ThreadSummaryPanelHeaderButton(props) {
     ...rest,
     children: iconNode,
   });
-  return threadSummaryPanelJsxRuntime.jsx(jr, {
+  return threadSummaryPanelJsxRuntime.jsx(Tooltip, {
     tooltipContent: label,
     shortcut,
     delayOpen: true,
@@ -8255,7 +8280,7 @@ var threadSummaryPanelReactRuntime,
     initMotionRuntime();
     initScopeRuntime();
     initButtonComponentPrimitives();
-    Gn();
+    initTooltipPrimitives();
     initBackgroundTerminalIconChunk();
     initReducedMotionPreference();
     initThreadFindNavigationRailNoopChunk();
@@ -8392,8 +8417,9 @@ function ThreadSummaryPanelSections(props) {
       onOpenBackgroundAgent,
     } = props,
     scope = useScope(localConversationRouteScope),
-    intl = ur(),
-    isElectronRuntime = useConversationDetailMode() === sn,
+    intl = useIntl(),
+    isElectronRuntime =
+      useConversationDetailMode() === CONVERSATION_DETAIL_STEPS_PROSE,
     hostConfig = useSignalValue(hostConfigSignal),
     conversationId =
       scope.value.routeKind === "local-thread"
@@ -8401,14 +8427,14 @@ function ThreadSummaryPanelSections(props) {
         : null,
     conversationTitle = useScopedValue(conversationTitleSignal, conversationId),
     isBrowserSidebarEnabled = useSignalValue(browserSidebarEnabledSignal),
-    isBackgroundProcessTrackingEnabled = Vr("3264431617"),
+    isBackgroundProcessTrackingEnabled = useStatsigGate("3264431617"),
     isComputerUsePipAvailable = useSignalValue(
       computerUsePictureInPictureAvailableSignal,
     ),
     isComputerUsePipVisible = useSignalValue(
       computerUsePictureInPictureVisibleSignal,
     ),
-    openFileMutation = qr("open-file"),
+    openFileMutation = useAppServerMutation("open-file"),
     workspaceRouteState = useSignalValue(workspaceRouteStateSignal),
     conversationMode = useScopedValue(conversationModeSignal, conversationId),
     { data: automationData } = useSignalValue(automationDataSignal),
@@ -8429,7 +8455,7 @@ function ThreadSummaryPanelSections(props) {
         intervalMs: 1e3,
       },
     };
-  let { data: chatProcessesData } = jn(
+  let { data: chatProcessesData } = useHostQuery(
       "chat-processes",
       chatProcessesQueryOptions,
     ),
@@ -8439,7 +8465,7 @@ function ThreadSummaryPanelSections(props) {
     ),
     currentWorkspaceRoot = useSignalValue(currentWorkspaceRootSignal),
     { data: threadWorkspaceRootHints } = useGlobalStateQuery(
-      Xt.THREAD_WORKSPACE_ROOT_HINTS,
+      GLOBAL_STATE_KEYS.THREAD_WORKSPACE_ROOT_HINTS,
     ),
     isProjectlessConversation = conversationMode === "projectless",
     threadWorkspaceRootHint =
@@ -8487,7 +8513,7 @@ function ThreadSummaryPanelSections(props) {
     queryConfig: childProcessesQueryConfig,
     select: backgroundProcessSnapshotSelector,
   };
-  let { data: childProcessesData } = jn(
+  let { data: childProcessesData } = useHostQuery(
       "child-processes",
       childProcessesQueryOptions,
     ),
@@ -8577,7 +8603,7 @@ function ThreadSummaryPanelSections(props) {
           return;
         case "google-drive":
         case "appgen-app":
-          wi({
+          openInBrowserFromEvent({
             event: browserEvent,
             href: resource.url,
             originHostId: hostConfig.id,
@@ -8585,8 +8611,8 @@ function ThreadSummaryPanelSections(props) {
           });
           return;
         case "website":
-          if (yn(resource.target)) {
-            wi({
+          if (isFileUrlLikeTarget(resource.target)) {
+            openInBrowserFromEvent({
               event: browserEvent,
               href: resource.target,
               initiator: "mcp_app_resource",
@@ -8624,7 +8650,7 @@ function ThreadSummaryPanelSections(props) {
       hostConfig.kind === "local" ? getGeneratedImagePreviewSrc : undefined,
     showStopBackgroundTerminalError = () => {
       scope
-        .get(ti)
+        .get(toastSignal)
         .danger(
           <FormattedMessage
             id="codex.localConversation.backgroundTerminals.cleanError"
@@ -8638,7 +8664,7 @@ function ThreadSummaryPanelSections(props) {
     ),
     showRestartBackgroundTerminalError = () => {
       scope
-        .get(ti)
+        .get(toastSignal)
         .danger(
           <FormattedMessage
             id="codex.localConversation.backgroundTerminals.restartError"
@@ -8946,7 +8972,8 @@ function openThreadSummaryProcessManager() {
   dispatchGlobalCommand("openProcessManager", "thread_summary_process_manager");
 }
 function getGeneratedImagePreviewSrc(generatedImage) {
-  return Wr(generatedImage) !== "always" || br(generatedImage) == null
+  return getImagePreviewDisplayMode(generatedImage) !== "always" ||
+    resolveInlineableLocalImagePath(generatedImage) == null
     ? null
     : toAppFsUrl(generatedImage);
 }
@@ -8957,8 +8984,8 @@ var localConversationSummaryPanelModule,
     localConversationSummaryPanelModule = getChunkModuleExports();
     isEqualModule = toEsModule(loadIsEqualModule(), 1);
     initScopeRuntime();
-    gn();
-    Jn();
+    initPathHelpers();
+    initIntlRuntime();
     initConversationStateSelectors();
     El();
     Wl();
@@ -8966,9 +8993,9 @@ var localConversationSummaryPanelModule,
     initGlobalCommandHandlers();
     Yi();
     initExternalUrlHelpers();
-    wn();
+    initToastRuntime();
     initElectronPlatformContent();
-    dn();
+    initFileTypeDetectionHelpers();
     Cl();
     initGlobalStateQueryRuntime();
     wc();
@@ -8978,13 +9005,13 @@ var localConversationSummaryPanelModule,
     Qi();
     el();
     fa();
-    qn();
+    initLocalImageInliningHelpers();
     initPendingBackgroundProcessRowsChunk();
     po();
     initThreadSummaryPanelSignalsChunk();
     initRouteScope();
     Ki();
-    xn();
+    initConversationDetailModeConstants();
     initStatsigFeatureGateHooks();
     ho();
     Ji();
@@ -9002,7 +9029,7 @@ var localConversationSummaryPanelModule,
     initThreadSummaryPanelSectionChunk();
     initThreadSummaryPanelChrome();
     initAppFsUrlHelpers();
-    _n();
+    initKeyboardShortcutLabel();
     initVscodeApiBridge();
     localConversationSummaryPanelJsxRuntime = getJsxRuntime();
   });
@@ -9059,7 +9086,10 @@ var PINNED_SUMMARY_PANEL_GAP_PX,
       displayMode: "overlay",
       isPopoverOpen: false,
     };
-    pinnedSummaryPanelState = bi(appScope, DEFAULT_PINNED_SUMMARY_PANEL_STATE);
+    pinnedSummaryPanelState = createSignal(
+      appScope,
+      DEFAULT_PINNED_SUMMARY_PANEL_STATE,
+    );
   });
 interface PinnedSummaryPanelState {
   displayMode: "overlay" | "shift" | "gutter";
@@ -9084,7 +9114,11 @@ export function usePinnedSummaryPanelLayout(
   updatePinnedPanelLayout = (nextWidth: number) => {
     syncPinnedSummaryPanelStateForWidth(store, nextWidth);
   };
-  ar(mainContentTargetWidthSignal, "change", updatePinnedPanelLayout);
+  useMotionValueEvent(
+    mainContentTargetWidthSignal,
+    "change",
+    updatePinnedPanelLayout,
+  );
   let syncPinnedPanelLayout = () => {
     syncPinnedSummaryPanelStateForWidth(
       store,
@@ -9185,7 +9219,11 @@ function usePinnedSummaryPanelDisplay(conversationId: unknown) {
         animationsDisabled,
       );
   };
-  ar(mainContentTargetWidthSignal, "change", syncShiftForTargetWidth);
+  useMotionValueEvent(
+    mainContentTargetWidthSignal,
+    "change",
+    syncShiftForTargetWidth,
+  );
   let syncAnimatedContentShift = () => {
     let nextContentShift = getTargetPinnedSummaryPanelContentShift({
       isPinned,
@@ -9320,7 +9358,7 @@ function collectOutputArtifactsForTurn(
   projectlessOutputDirectory,
   includeGeneratedImages,
 ) {
-  let status = ei(turn.status),
+  let status = mapTurnStatusToOutputStatus(turn.status),
     turnArtifacts = collectTurnFileArtifacts(turn),
     cwd =
       turn.params.cwd == null ? null : normalizeWorkspacePath(turn.params.cwd);
@@ -9367,8 +9405,8 @@ function collectOutputArtifactsFromTurnDetails({
         (artifacts[existingIndex] = artifact);
     };
   for (let referencedFilePath of turnArtifacts.referencedFilePaths)
-    Mn(referencedFilePath) &&
-      zr({
+    isFileReferencePath(referencedFilePath) &&
+      isResourcePathInsideProjectlessOutput({
         cwd,
         projectlessOutputDirectory,
         resourcePath: referencedFilePath,
@@ -9386,9 +9424,9 @@ function collectOutputArtifactsFromTurnDetails({
   for (let item of itemsToScan)
     item?.type === "imageGeneration" &&
       item.src != null &&
-      Mn(item.src) &&
+      isFileReferencePath(item.src) &&
       (includeGeneratedImages ||
-        zr({
+        isResourcePathInsideProjectlessOutput({
           cwd,
           projectlessOutputDirectory,
           resourcePath: item.src,
@@ -9430,7 +9468,7 @@ function collectOutputArtifactsFromTurnDetails({
         addArtifact({
           type: "website",
           target:
-            yn(artifact.target) || cwd == null
+            isFileUrlLikeTarget(artifact.target) || cwd == null
               ? artifact.target
               : resolveWorkspacePathFromCwd(cwd, artifact.target),
         });
@@ -9448,13 +9486,13 @@ function getOutputArtifactKey(artifact) {
     case "appgen-app":
       return `appgen-app:${artifact.projectId}`;
     case "website":
-      return yn(artifact.target)
-        ? `url:${ii(artifact.target)}`
+      return isFileUrlLikeTarget(artifact.target)
+        ? `url:${normalizeHref(artifact.target)}`
         : `path:${normalizeArtifactPathKey(artifact.target)}`;
   }
 }
 var initOutputArtifactCollectorDependencies = once(() => {
-    gn();
+    initPathHelpers();
     initArtifactPathDetectionHelpers();
     initMarkdownArtifactHelpers();
     lr();
@@ -9473,7 +9511,7 @@ var initOutputArtifactCollectorDependencies = once(() => {
     initAppScope();
     initStatsigGateSignals();
     initOutputArtifactCollectorDependencies();
-    historicalOutputArtifactsSignal = Rn(
+    historicalOutputArtifactsSignal = createScopedSignalFamily(
       appScope,
       ({ conversationId, includeGeneratedImages }, { get }) => {
         get(conversationResumeStateSignal, conversationId);
@@ -9490,10 +9528,10 @@ var initOutputArtifactCollectorDependencies = once(() => {
             });
       },
     );
-    mergedOutputArtifactsSignal = Rn(
+    mergedOutputArtifactsSignal = createScopedSignalFamily(
       appScope,
       ({ conversationId, includeGeneratedImages }, { get }) => {
-        let currentTurn = get($t, conversationId);
+        let currentTurn = get(latestConversationTurnSignal, conversationId);
         return mergeUniqueOutputArtifacts([
           currentTurn == null
             ? []
@@ -9511,7 +9549,7 @@ var initOutputArtifactCollectorDependencies = once(() => {
         ]);
       },
     );
-    localConversationOutputArtifactsSignal = Rn(
+    localConversationOutputArtifactsSignal = createScopedSignalFamily(
       appScope,
       (conversationId, { get }) =>
         get(mergedOutputArtifactsSignal, {
@@ -9519,7 +9557,7 @@ var initOutputArtifactCollectorDependencies = once(() => {
           includeGeneratedImages: false,
         }),
     );
-    localConversationSummaryArtifactsSignal = Rn(
+    localConversationSummaryArtifactsSignal = createScopedSignalFamily(
       appScope,
       (conversationId, { get }) =>
         get(mergedOutputArtifactsSignal, {
@@ -9586,7 +9624,10 @@ function getLatestCompletedTurnPlanSummary(turns) {
         return {
           content: item.text,
           key: turn.turnId ?? item.id,
-          title: headingTitle == null ? null : Yn(headingTitle),
+          title:
+            headingTitle == null
+              ? null
+              : formatConversationTitleText(headingTitle),
         };
       }
   }
@@ -9598,7 +9639,9 @@ var initLatestCompletedPlanSummaryHelpers = once(() => {
 function collectSideChatTabSummaries(tabs, isConversationResponseInProgress) {
   return tabs.flatMap((item) => {
     if (!item.tabId.startsWith(SIDE_CHAT_TAB_ID_PREFIX)) return [];
-    let conversationId = Rr(item.tabId.slice(SIDE_CHAT_TAB_ID_PREFIX.length));
+    let conversationId = toConversationId(
+      item.tabId.slice(SIDE_CHAT_TAB_ID_PREFIX.length),
+    );
     return [
       {
         conversationId: conversationId,
@@ -9611,7 +9654,7 @@ function collectSideChatTabSummaries(tabs, isConversationResponseInProgress) {
 }
 var SIDE_CHAT_TAB_ID_PREFIX,
   initSideChatTabSummaryHelpers = once(() => {
-    gn();
+    initPathHelpers();
     SIDE_CHAT_TAB_ID_PREFIX = "sidechat:";
   });
 function buildMcpServerMetadataByName(mcpServersQuery) {
@@ -9743,7 +9786,7 @@ function getMcpToolSourceSummary(item, apps, serverMetadataByName) {
   );
   return {
     id: `mcp-server:${item.server}`,
-    name: serverMetadata?.name ?? mn(item.server),
+    name: serverMetadata?.name ?? formatIdentifierTitle(item.server),
     pluginDisplayNames: [],
     logoUrl: serverMetadata?.logoUrl ?? null,
     logoUrlDark: serverMetadata?.logoUrlDark ?? null,
@@ -9751,9 +9794,9 @@ function getMcpToolSourceSummary(item, apps, serverMetadataByName) {
 }
 var initLocalConversationSummaryPanelModelDependencies = once(() => {
   Qi();
-  wr();
+  initAppToolSourceMatcherCache();
   initMcpToolSourceMetadataHelpers();
-  kr();
+  initIdentifierTitleFormatter();
 });
 function useLocalConversationSummaryPanelModel(
   includeBackgroundActivity = true,
@@ -9798,7 +9841,7 @@ function useLocalConversationSummaryPanelModel(
     rightPanelTabs = useSignalValue(rightPanelTabsStore.tabs$),
     bottomPanelTabs = useSignalValue(bottomPanelTabsStore.tabs$),
     browserUseSummaries = useBrowserUseSummaries({
-      blankTitle: ni,
+      blankTitle: NEW_TAB_TITLE,
       bottomPanelTabs,
       conversationId: browserSummaryConversationId,
       isMultiBrowserTabsGateEnabled,
@@ -9809,7 +9852,7 @@ function useLocalConversationSummaryPanelModel(
       enabled: hasExternalMcpToolCalls,
       hostId: host.id,
     };
-  let { data: apps = [] } = Ti(mcpAppsQueryInput),
+  let { data: apps = [] } = useAppsQuery(mcpAppsQueryInput),
     { data: mcpServersQuery } = useScopedValue(mcpServersQuerySignal, host.id),
     toolSources = collectConversationMcpToolSources(
       turns,
@@ -9866,7 +9909,7 @@ var localConversationSummaryPanelSignalsModule,
     initLatestCompletedPlanSummaryHelpers();
     initSideChatTabSummaryHelpers();
     initLocalConversationSummaryPanelModelDependencies();
-    localConversationSideChatSummariesSignal = Dn(
+    localConversationSideChatSummariesSignal = createDerivedSignal(
       localConversationRouteScope,
       ({ get }) =>
         collectSideChatTabSummaries(
@@ -9899,8 +9942,8 @@ function WorktreeRestoreBanner(props) {
     host = useHostConfigById(threadHostId),
     hostKey = getHostConfigKey(host);
   let worktreeQueryKey = hostKey,
-    intl = ur(),
-    queryClient = Ci(),
+    intl = useIntl(),
+    queryClient = useQueryClient(),
     worktreeStatusQuery = useScopedValue(
       worktreeStatusQuerySignal,
       conversationId,
@@ -9918,7 +9961,7 @@ function WorktreeRestoreBanner(props) {
     };
   let checkWorktreeMutation = useMutation(checkWorktreeMutationOptions),
     handleRestoreSuccess = () => {
-      gr.info("[worktree-restore] successfully restored");
+      logger.info("[worktree-restore] successfully restored");
       cwd != null &&
         scope.query.invalidate(
           Bs,
@@ -9950,7 +9993,7 @@ function WorktreeRestoreBanner(props) {
           cwd,
           forceCwdSync: true,
         });
-      scope.get(ti).success(
+      scope.get(toastSignal).success(
         intl.formatMessage({
           id: "worktreeRestoreBanner.restore.success",
           defaultMessage: "Worktree restored",
@@ -9960,14 +10003,14 @@ function WorktreeRestoreBanner(props) {
     };
   let handleRestoreError = (error) => {
     let message = error.message;
-    gr.debug("[worktree-restore] restore failed for", {
+    logger.debug("[worktree-restore] restore failed for", {
       safe: {},
       sensitive: {
         cwd: cwd ?? "unknown",
         message: message,
       },
     });
-    scope.get(ti).danger(
+    scope.get(toastSignal).danger(
       intl.formatMessage(
         {
           id: "worktreeRestoreBanner.restore.error",
@@ -10103,12 +10146,12 @@ var worktreeRestoreBannerModule,
     worktreeRestoreBannerModule = getChunkModuleExports();
     initReactQueryRuntime();
     initScopeRuntime();
-    gn();
-    Jn();
+    initPathHelpers();
+    initIntlRuntime();
     initConversationStateSelectors();
     vs();
     initButtonComponentPrimitives();
-    wn();
+    initToastRuntime();
     initGitBranchQueryRuntime();
     fn();
     Fn();
@@ -10116,7 +10159,7 @@ var worktreeRestoreBannerModule,
     initLocalHostConstants();
     initHostConfigHelpers();
     initEnvironmentTerminalController();
-    Mr();
+    initLoggerRuntime();
     Ns();
     Ys();
     worktreeRestoreBannerJsxRuntime = getJsxRuntime();
@@ -10157,7 +10200,7 @@ function ForkFromOlderTurnDialog(props) {
     };
   let dialogHeader = (
     <DialogHeader
-      icon={olderTurnForkDialogJsxRuntime.jsx(sr, {
+      icon={olderTurnForkDialogJsxRuntime.jsx(GitBranchIcon, {
         className: "icon-sm text-token-foreground",
       })}
       title={
@@ -10279,11 +10322,11 @@ function ForkFromOlderTurnDialog(props) {
       })}
     </DialogFooterActions>
   );
-  let dialogBody = olderTurnForkDialogJsxRuntime.jsxs(ui, {
+  let dialogBody = olderTurnForkDialogJsxRuntime.jsxs(DialogBody, {
     className: "gap-4",
     children: [dialogHeader, forkOptions, cancelAction],
   });
-  return olderTurnForkDialogJsxRuntime.jsx(ai, {
+  return olderTurnForkDialogJsxRuntime.jsx(AppDialog, {
     open,
     showDialogClose: false,
     size: "compact",
@@ -10295,9 +10338,9 @@ var olderTurnForkDialogModule,
   olderTurnForkDialogJsxRuntime,
   initOlderTurnForkDialogChunk = once(() => {
     olderTurnForkDialogModule = getChunkModuleExports();
-    Jn();
+    initIntlRuntime();
     initButtonComponentPrimitives();
-    mi();
+    initAppDialog();
     initDialogLayoutComponents();
     initGitBranchIcon();
     Ni();
@@ -10315,7 +10358,7 @@ function ForkFromOlderTurnDialogController({
   turnId,
 }) {
   let scope = useScope(appScope),
-    intl = ur(),
+    intl = useIntl(),
     navigate = useNavigate(),
     [isSubmitting, setIsSubmitting] =
       olderTurnForkDialogReactRuntime.useState(false),
@@ -10347,7 +10390,9 @@ function ForkFromOlderTurnDialogController({
     },
     forkIntoWorktree = async () => {
       if (!canForkIntoWorktree || conversationCwd == null) {
-        scope.get(ti).danger(intl.formatMessage(fo.forkThreadRequiresGitRepo));
+        scope
+          .get(toastSignal)
+          .danger(intl.formatMessage(fo.forkThreadRequiresGitRepo));
         return;
       }
       setIsSubmitting(true);
@@ -10376,13 +10421,13 @@ function ForkFromOlderTurnDialogController({
         navigate(`/worktree-init-v2/${pendingWorktreeId}`);
       } catch (error) {
         throw (
-          gr.error("Error creating worktree fork from turn", {
+          logger.error("Error creating worktree fork from turn", {
             safe: {},
             sensitive: {
               error,
             },
           }),
-          scope.get(ti).danger(intl.formatMessage(fo.forkThreadError)),
+          scope.get(toastSignal).danger(intl.formatMessage(fo.forkThreadError)),
           error
         );
       } finally {
@@ -10410,15 +10455,15 @@ var olderTurnForkDialogReactRuntime,
   forkDialogControllerJsxRuntime,
   initForkFromOlderTurnDialogControllerChunk = once(() => {
     initScopeRuntime();
-    gn();
+    initPathHelpers();
     olderTurnForkDialogReactRuntime = toEsModule(loadReactModule(), 1);
-    Jn();
+    initIntlRuntime();
     xr();
-    wn();
+    initToastRuntime();
     Di();
     initAppScope();
     sl();
-    Mr();
+    initLoggerRuntime();
     _a();
     initOlderTurnForkDialogChunk();
     za();
@@ -10470,7 +10515,7 @@ async function renderLocalConversationMarkdownForTurns({
 }
 var initConversationMarkdownRenderer = once(() => {
   initConversationArtifactRuntime();
-  Qn();
+  initModulePreloadRuntime();
 });
 interface BackgroundAgentDisplayNameOptions {
   agentNickname?: string | null;
@@ -10660,7 +10705,7 @@ function extractConversationSearchUnits(items) {
 }
 var findLastIndexModule,
   initConversationSearchUnitExtractor = once(() => {
-    findLastIndexModule = toEsModule(hn(), 1);
+    findLastIndexModule = toEsModule(loadFindLastIndexModule(), 1);
     initConversationSearchHelpers();
     hi();
     initConversationArtifactRuntime();
@@ -10895,7 +10940,7 @@ var findLastModule,
   EMPTY_VISIBLE_TURN_ENTRIES,
   localConversationVisibleTurnEntriesSignal,
   initLocalConversationTurnSelectors = once(() => {
-    findLastModule = toEsModule(gi(), 1);
+    findLastModule = toEsModule(loadFindLastModule(), 1);
     initScopeRuntime();
     initConversationStateSelectors();
     initAppScope();
@@ -10913,13 +10958,14 @@ var findLastModule,
       latestVisibleTurnId: null,
       visibleTurnEntries: [],
     };
-    localConversationVisibleTurnEntriesSignal = Rn(
+    localConversationVisibleTurnEntriesSignal = createScopedSignalFamily(
       appScope,
       ({ conversationId, isBackgroundSubagentsEnabled }, { get }) => {
         let hasConversation =
             get(hasConversationSignal, conversationId) ?? false,
           conversationRequests =
-            get(Kr, conversationId) ?? EMPTY_CONVERSATION_REQUESTS;
+            get(conversationRequestsSignal, conversationId) ??
+            EMPTY_CONVERSATION_REQUESTS;
         get(modelProviderSignal, conversationId);
         let conversationResumeState =
             get(conversationResumeStateSignal, conversationId) ??
@@ -10929,12 +10975,12 @@ var findLastModule,
             : null,
           isBerryDisplayMergeEnabled = get(featureGateSignal, "209459230"),
           berryDisplayConversationTurns = isBerryDisplayMergeEnabled
-            ? get(kn, conversationId)
+            ? get(berryDisplayConversationTurnsSignal, conversationId)
             : null,
           parentBerryDisplayConversationTurns = isBerryDisplayMergeEnabled
             ? subagentParentThreadId == null
               ? EMPTY_CONVERSATION_TURNS
-              : get(kn, subagentParentThreadId)
+              : get(berryDisplayConversationTurnsSignal, subagentParentThreadId)
             : null,
           shouldUseBerryDisplayTurns =
             berryDisplayConversationTurns != null &&
@@ -11207,11 +11253,11 @@ var localConversationTurnRowModule,
     localConversationTurnRowModule = getChunkModuleExports();
     initScopeRuntime();
     localConversationTurnRowReactRuntime = toEsModule(loadReactModule(), 1);
-    Jn();
+    initIntlRuntime();
     initButtonComponentPrimitives();
     Lo();
     initRouteScope();
-    _n();
+    initKeyboardShortcutLabel();
     Dc();
     localConversationTurnRowJsxRuntime = getJsxRuntime();
   });
@@ -11233,7 +11279,7 @@ function VirtualizedTurnList({
   latestTurnSynchronousMeasurementKey,
 }) {
   let scrollController = ad(),
-    windowZoom = nr(),
+    windowZoom = useWindowZoom(),
     [measuredHeightsByKey, setMeasuredHeightsByKey] =
       virtualizedTurnListReactRuntime.useState(
         initialRestoreState?.turnHeightsByKey ?? emptyTurnHeightsByKey,
@@ -12290,12 +12336,12 @@ var virtualizedTurnListModule,
     virtualizedTurnListModule = getChunkModuleExports();
     initClassNameRuntime();
     virtualizedTurnListReactRuntime = toEsModule(loadReactModule(), 1);
-    reactDomModule = toEsModule(_i(), 1);
+    reactDomModule = toEsModule(loadReactDomModule(), 1);
     initWindowZoomContext();
     vl();
     nd();
     id();
-    _n();
+    initKeyboardShortcutLabel();
     Ju();
     virtualizedTurnListJsxRuntime = getJsxRuntime();
     defaultVirtualTurnGapPx = 12;
@@ -12318,7 +12364,7 @@ function LocalConversationAutoFollowVirtualizedTurnList({
   synchronouslyMeasureLatestTurnUpdates = false,
 }) {
   let scope = useScope(appScope),
-    windowZoom = nr(),
+    windowZoom = useWindowZoom(),
     latestEntry = entries.at(-1),
     latestTurnKey = latestEntry?.turnKey ?? null,
     latestTurnIdentityKey =
@@ -13198,7 +13244,7 @@ var autoFollowVirtualizedTurnListModule,
     nd();
     id();
     initReverseScrollUtilities();
-    _n();
+    initKeyboardShortcutLabel();
     initThreadScrollStateSignal();
     initLocalConversationTurnRowDependencies();
     initLocalConversationTurnRowChunk();
@@ -13459,7 +13505,7 @@ function areTranscriptBlocksEquivalent(
 }
 var turnListEntryDeepEqualModule,
   initTurnListEntryComparisonChunk = once(() => {
-    toEsModule(yr(), 1);
+    toEsModule(loadGroupByModule(), 1);
     turnListEntryDeepEqualModule = toEsModule(loadIsEqualModule(), 1);
     qs();
     initConversationArtifactRuntime();
@@ -13623,7 +13669,7 @@ function buildThreadFindPreviewOutputs({
             type: "image",
           },
     );
-  for (let commandReference of Nr(assistantContent))
+  for (let commandReference of parseGitActionDirectives(assistantContent))
     switch (commandReference.type) {
       case "commit":
         addPreviewOutput({
@@ -13653,9 +13699,9 @@ var EMPTY_THREAD_FIND_ITEMS,
   THREAD_FIND_PREVIEW_OUTPUT_SORT_ORDER,
   threadFindItemsCache,
   initThreadFindItemsBuilder = once(() => {
-    gn();
+    initPathHelpers();
     la();
-    zn();
+    initGitActionDirectiveRuntime();
     di();
     initConversationArtifactRuntime();
     initMarkdownResourceHelpers();
@@ -13679,7 +13725,7 @@ async function openBackgroundAgentThreadTab(
   { backgroundAgent, hostId, TabComponent },
 ) {
   e.get(hasConversationSignal, backgroundAgent.conversationId) ||
-    (await Dr("hydrate-background-threads", {
+    (await sendAppServerRequest("hydrate-background-threads", {
       hostId,
       threadIds: [backgroundAgent.conversationId],
     }));
@@ -13696,14 +13742,14 @@ async function openBackgroundAgentThreadTab(
 var backgroundAgentThreadTabsJsxRuntime,
   initBackgroundAgentThreadTabs = once(() => {
     initConversationStateSelectors();
-    pn();
+    initAppServerRequestBridge();
     Yi();
     rs();
     backgroundAgentThreadTabsJsxRuntime = getJsxRuntime();
   });
 function LocalConversationConnectionStatus(props) {
   let { status } = props,
-    spinnerIcon = localConversationConnectionStatusJsxRuntime.jsx(rr, {
+    spinnerIcon = localConversationConnectionStatusJsxRuntime.jsx(SpinnerIcon, {
       className: "icon-xs",
     });
   return (
@@ -13733,7 +13779,7 @@ var localConversationConnectionStatusModule,
   localConversationConnectionStatusJsxRuntime,
   initLocalConversationConnectionStatusChunk = once(() => {
     localConversationConnectionStatusModule = getChunkModuleExports();
-    Jn();
+    initIntlRuntime();
     initSpinnerComponent();
     localConversationConnectionStatusJsxRuntime = getJsxRuntime();
   });
@@ -13741,7 +13787,10 @@ function useMarkConversationReadOnVisibility(conversationId, hasConversation) {
   let isUnread =
       useScopedValue(conversationUnreadSignal, conversationId) ?? false,
     isWindowVisible = useSignalValue(windowVisibleSignal),
-    conversationReadMarker = useScopedValue($t, conversationId),
+    conversationReadMarker = useScopedValue(
+      latestConversationTurnSignal,
+      conversationId,
+    ),
     conversationReadState = useScopedValue(
       conversationReadStateSignal,
       conversationId,
@@ -13754,7 +13803,7 @@ function useMarkConversationReadOnVisibility(conversationId, hasConversation) {
       lastConversationReadStateRef.current = conversationReadState;
       lastConversationReadMarkerRef.current = conversationReadMarker;
       !(!hasConversation || !isUnread) &&
-        Dr("mark-conversation-as-read", {
+        sendAppServerRequest("mark-conversation-as-read", {
           conversationId,
         });
     };
@@ -13797,13 +13846,13 @@ var markConversationReadEffectModule,
     initScopeRuntime();
     _S = toEsModule(loadReactModule(), 1);
     initConversationStateSelectors();
-    pn();
+    initAppServerRequestBridge();
     bo();
-    _n();
+    initKeyboardShortcutLabel();
   });
 function useResumeLocalConversation(conversationId) {
   let scope = useScope(appScope),
-    intl = ur(),
+    intl = useIntl(),
     { activeMode } = Us(conversationId),
     { data } = useSignalValue(workspaceRootsSignal),
     workspaceRoots = data?.roots,
@@ -13835,7 +13884,7 @@ function useResumeLocalConversation(conversationId) {
               conversationHostIdSignal,
               resumeConversationId,
             );
-            await Dr("maybe-resume-conversation", {
+            await sendAppServerRequest("maybe-resume-conversation", {
               hostId: resumeHostId,
               conversationId: resumeConversationId,
               model: null,
@@ -13851,7 +13900,7 @@ function useResumeLocalConversation(conversationId) {
             });
           } catch (error) {
             if (
-              (gr.error("Failed to resume conversation", {
+              (logger.error("Failed to resume conversation", {
                 safe: {},
                 sensitive: {
                   conversationId: resumeConversationId,
@@ -13868,10 +13917,13 @@ function useResumeLocalConversation(conversationId) {
               isArchiving =
                 hostId == null
                   ? false
-                  : await Dr("get-is-conversation-archiving-for-host", {
-                      hostId,
-                      conversationId: resumeConversationId,
-                    });
+                  : await sendAppServerRequest(
+                      "get-is-conversation-archiving-for-host",
+                      {
+                        hostId,
+                        conversationId: resumeConversationId,
+                      },
+                    );
             if (
               hostId == null ||
               isArchiving ||
@@ -13893,7 +13945,7 @@ function useResumeLocalConversation(conversationId) {
               shouldAutoRetry,
             }) &&
               (scope
-                .get(ti)
+                .get(toastSignal)
                 .danger(formatResumeConversationError(intl, error), {
                   id: `resume-task-error-${resumeConversationId}`,
                 }),
@@ -13931,7 +13983,7 @@ function useResumeLocalConversation(conversationId) {
           let hostId = get(conversationRemoteHostIdSignal, conversationId);
           hostId != null &&
             get(subagentParentThreadIdSignal, conversationId) != null &&
-            fr.dispatchMessage("subagent-thread-opened", {
+            vscodeMessageBridge.dispatchMessage("subagent-thread-opened", {
               hostId,
               conversationId: conversationId,
             });
@@ -14013,19 +14065,19 @@ var localConversationThreadRouteReactRuntime,
   localConversationThreadRouteJsxRuntime,
   initLocalConversationThreadRoute = once(() => {
     initScopeRuntime();
-    gn();
+    initPathHelpers();
     localConversationThreadRouteReactRuntime = toEsModule(loadReactModule(), 1);
-    Jn();
+    initIntlRuntime();
     initConversationStateSelectors();
-    pn();
+    initAppServerRequestBridge();
     Ha();
-    wn();
+    initToastRuntime();
     Vs();
-    Tn();
+    initVscodeMessageBridge();
     initAppScope();
     initHostWorkspaceQueries();
     initHostConfigHelpers();
-    Mr();
+    initLoggerRuntime();
     localConversationThreadRouteJsxRuntime = getJsxRuntime();
   });
 function turnHasMcpAppResource(entry) {
@@ -14062,7 +14114,7 @@ export function LocalConversationThread(props: LocalConversationThreadProps) {
   } = props;
   if (!conversationId) {
     let e;
-    return localConversationThreadJsxRuntime.jsx(xi, {
+    return localConversationThreadJsxRuntime.jsx(Navigate, {
       to: "/",
     });
   }
@@ -14134,7 +14186,7 @@ function LocalConversationSideChatThread(props) {
   return (
     <>
       {sideChatHeader}
-      <ScopeValueProvider scope={fi} value={threadRouteTarget}>
+      <ScopeValueProvider scope={composerScope} value={threadRouteTarget}>
         {threadFrame}
       </ScopeValueProvider>
     </>
@@ -14148,7 +14200,7 @@ function ExpiredSideChatState(props) {
       target,
     } = props,
     scope = useScope(localConversationRouteScope),
-    intl = ur(),
+    intl = useIntl(),
     sourceCwd = useScopedValue(conversationCwdSignal, sourceConversationId),
     sourceHostId = useScopedValue(
       conversationHostIdSignal,
@@ -14178,13 +14230,13 @@ function ExpiredSideChatState(props) {
           target,
         }).catch((error) => {
           setIsRecreatingSideChat(false);
-          gr.error("Error recreating expired side chat", {
+          logger.error("Error recreating expired side chat", {
             safe: {},
             sensitive: {
               error,
             },
           });
-          scope.get(ti).danger(
+          scope.get(toastSignal).danger(
             intl.formatMessage({
               id: "localConversation.sideChat.recreateError",
               defaultMessage: "Failed to start a new side chat",
@@ -14262,7 +14314,7 @@ function LocalConversationMainThread(props) {
     />
   );
   return (
-    <ScopeValueProvider scope={fi} value={threadRouteTarget}>
+    <ScopeValueProvider scope={composerScope} value={threadRouteTarget}>
       {threadFrame}
     </ScopeValueProvider>
   );
@@ -14300,7 +14352,7 @@ export function LocalConversationSummaryThread(
     />
   );
   return (
-    <ScopeValueProvider scope={fi} value={threadRouteTarget}>
+    <ScopeValueProvider scope={composerScope} value={threadRouteTarget}>
       {threadFrame}
     </ScopeValueProvider>
   );
@@ -14333,7 +14385,7 @@ function LocalConversationThreadRoute(props) {
     enabled: false,
     hostId,
   };
-  Ti(resolvedAppsQueryOptions);
+  useAppsQuery(resolvedAppsQueryOptions);
   let isRightPanelFullWidth = useSignalValue(rightPanelFullWidthSignal),
     hideThreadContent = shouldUseFullWidthRightPanelForRoute({
       conversationId,
@@ -14354,7 +14406,7 @@ function LocalConversationThreadRoute(props) {
     visibleSubagentParentThreadId = isBackgroundSubagentsEnabled
       ? subagentParentThreadId
       : null,
-    intl = ur(),
+    intl = useIntl(),
     navigate = useNavigate(),
     hasSeenConversationRef = localConversationThreadReactRuntime.useRef(false),
     lastSubagentParentThreadIdRef =
@@ -14394,7 +14446,7 @@ function LocalConversationThreadRoute(props) {
           });
           return;
         }
-        scope.get(ti).danger(
+        scope.get(toastSignal).danger(
           intl.formatMessage({
             id: "localConversationPage.error.toast",
             defaultMessage: "Conversation not found",
@@ -14552,7 +14604,9 @@ function ChromeExtensionConversationHeader(props) {
       conversationId,
     ),
     backgroundAgentName = formatBackgroundAgentDisplayName({
-      agentNickname: Cn(backgroundAgentSnapshot)?.agentNickname ?? null,
+      agentNickname:
+        getSubagentSourceMetadata(backgroundAgentSnapshot)?.agentNickname ??
+        null,
       conversationId,
     });
   let hasConversation = useScopedValue(hasConversationSignal, conversationId),
@@ -14677,8 +14731,8 @@ function LocalConversationThreadFrame(props) {
       subagentParentThreadIdSignal,
       conversationId,
     ),
-    isScrollToTopEnabled = Vr("1579719221"),
-    shouldShowSummaryPanelObstacles = Vr("3563904085"),
+    isScrollToTopEnabled = useStatsigGate("1579719221"),
+    shouldShowSummaryPanelObstacles = useStatsigGate("3563904085"),
     savedThreadScrollState = scope.get(threadScrollStateSignal, conversationId);
   let savedScrollState = savedThreadScrollState,
     initialScrollOffset = savedScrollState?.distanceFromBottomPx ?? null,
@@ -14703,7 +14757,7 @@ function LocalConversationThreadFrame(props) {
       if (isConversationHistoryComplete) return "stop";
       try {
         return (
-          await Dr("load-older-conversation-history-page", {
+          await sendAppServerRequest("load-older-conversation-history-page", {
             conversationId,
             dependentConversationIds:
               visibleSubagentParentThreadId == null
@@ -14718,7 +14772,7 @@ function LocalConversationThreadFrame(props) {
       } catch (error) {
         let loadError = error;
         return (
-          gr.warning("Failed to load older thread history", {
+          logger.warning("Failed to load older thread history", {
             safe: {
               conversationId,
             },
@@ -14941,7 +14995,7 @@ function LocalConversationThreadFrame(props) {
   });
 }
 function RefreshSummaryPanelObstaclesEffect() {
-  let windowZoom = nr(),
+  let windowZoom = useWindowZoom(),
     refreshObstacles,
     refreshObstaclesEffectDeps;
   return (
@@ -15040,7 +15094,7 @@ function LocalConversationComposerFooter({
             isWorktreeAvailable: false,
           }
         : undefined,
-    intl = ur(),
+    intl = useIntl(),
     scrollController = ad(),
     handleLocalSubmitStart = useStableCallback(() => {
       let scrollElement = scrollController.getScrollElement();
@@ -15199,11 +15253,11 @@ function LocalConversationThreadContent({
             visibleTurnEntries,
             completedThreadGoal.updatedAt * 1e3,
           ),
-    conversationHostApi = Pn(conversationId),
-    { data: resolvedApps = EMPTY_RESOLVED_APPS } = Ti({
+    conversationHostApi = useConversationHostApi(conversationId),
+    { data: resolvedApps = EMPTY_RESOLVED_APPS } = useAppsQuery({
       hostId,
     }),
-    renderMcpApps = Qt("2138468235").get("enable_mcp_apps", false),
+    renderMcpApps = useStatsigLayer("2138468235").get("enable_mcp_apps", false),
     subagentParentThreadId = useScopedValue(
       subagentParentThreadIdSignal,
       conversationId,
@@ -15211,9 +15265,8 @@ function LocalConversationThreadContent({
     visibleSubagentParentThreadId = isBackgroundSubagentsEnabled
       ? subagentParentThreadId
       : null,
-    [collapsedTurnsByConversationId, setCollapsedTurnsByConversationId] = li(
-      collapsedTurnsByConversationSignal,
-    ),
+    [collapsedTurnsByConversationId, setCollapsedTurnsByConversationId] =
+      useSignalState(collapsedTurnsByConversationSignal),
     { items, markRead } = Co(),
     matchingAutomationItem = hasConversation
       ? (items.find((item) => item.threadId === conversationId) ?? null)
@@ -15228,8 +15281,8 @@ function LocalConversationThreadContent({
       matchingAutomationItem.readAt != null ||
       markRead(matchingAutomationItem.id);
   }, [matchingAutomationItem?.id, matchingAutomationItem?.readAt, markRead]);
-  let intl = ur(),
-    { agentMode } = Xn({
+  let intl = useIntl(),
+    { agentMode } = useConversationAgentMode({
       conversationId,
       hostId,
     }),
@@ -15297,7 +15350,7 @@ function LocalConversationThreadContent({
     ),
     editLastTurnMessage = useStableCallback(async (turnEntry, message) => {
       try {
-        await Dr("edit-last-user-turn-for-host", {
+        await sendAppServerRequest("edit-last-user-turn-for-host", {
           hostId: conversationHostApi.getHostId(),
           conversationId,
           turnId: turnEntry.turnId,
@@ -15311,7 +15364,7 @@ function LocalConversationThreadContent({
         });
       } catch (error) {
         throw (
-          scope.get(ti).danger(
+          scope.get(toastSignal).danger(
             intl.formatMessage({
               id: "localConversation.editLastMessageFailed",
               defaultMessage: "Failed to edit message",
@@ -15326,13 +15379,16 @@ function LocalConversationThreadContent({
     forkConversationFromTurn = useStableCallback(async (targetTurnId) => {
       if (hasConversation)
         try {
-          let forkedConversationId = await Dr("fork-conversation-from-turn", {
-            conversationId,
-            targetTurnId,
-            cwd,
-            workspaceRoots: cwd == null ? undefined : [cwd],
-            collaborationMode,
-          });
+          let forkedConversationId = await sendAppServerRequest(
+            "fork-conversation-from-turn",
+            {
+              conversationId,
+              targetTurnId,
+              cwd,
+              workspaceRoots: cwd == null ? undefined : [cwd],
+              collaborationMode,
+            },
+          );
           na(scope, {
             sourceConversationId: conversationId,
             targetConversationId: forkedConversationId,
@@ -15344,13 +15400,15 @@ function LocalConversationThreadContent({
           });
         } catch (error) {
           throw (
-            gr.error("Error forking conversation from turn", {
+            logger.error("Error forking conversation from turn", {
               safe: {},
               sensitive: {
                 error,
               },
             }),
-            scope.get(ti).danger(intl.formatMessage(fo.forkThreadError)),
+            scope
+              .get(toastSignal)
+              .danger(intl.formatMessage(fo.forkThreadError)),
             error
           );
         }
@@ -15680,16 +15738,16 @@ export const initLocalConversationThreadChunk = once(() => {
   localConversationThreadModule = getChunkModuleExports();
   initMotionRuntime();
   initQueryRuntime();
-  toEsModule(gi(), 1);
+  toEsModule(loadFindLastModule(), 1);
   initScopeRuntime();
-  gn();
+  initPathHelpers();
   localConversationThreadReactRuntime = toEsModule(loadReactModule(), 1);
-  Jn();
+  initIntlRuntime();
   xr();
   gc();
   on();
   initConversationStateSelectors();
-  pn();
+  initAppServerRequestBridge();
   cr();
   Ha();
   initWindowZoomContext();
@@ -15703,7 +15761,7 @@ export const initLocalConversationThreadChunk = once(() => {
   Po();
   initModalRegistrySignal();
   Rl();
-  wn();
+  initToastRuntime();
   Wc();
   initElectronPlatformContent();
   fl();
@@ -15740,8 +15798,8 @@ export const initLocalConversationThreadChunk = once(() => {
   initLocalConversationGitSummary();
   initLocalConversationArtifacts();
   initLocalConversationSummaryPanelSignals();
-  Mr();
-  _n();
+  initLoggerRuntime();
+  initKeyboardShortcutLabel();
   initThreadNullRefChunk();
   Ns();
   initWorktreeRestoreBannerChunk();
@@ -15780,30 +15838,33 @@ export const initLocalConversationThreadChunk = once(() => {
   EMPTY_THREAD_TURNS = [];
   EMPTY_RESOLVED_APPS = [];
   collapsedTurnsByConversationSignal = createAtomSignal({});
-  subagentResponseInProgressSignal = Rn(appScope, (conversationId, { get }) => {
-    let parentConversationId = get(
-      subagentParentThreadIdSignal,
-      conversationId,
-    );
-    if (parentConversationId == null)
-      return get(localResponseInProgressSignal, conversationId) ?? false;
-    let conversationTurns =
-        get(conversationTurnsSignal, conversationId) ?? EMPTY_THREAD_TURNS,
-      parentConversationTurns =
-        get(conversationTurnsSignal, parentConversationId) ??
-        EMPTY_THREAD_TURNS;
-    return (
-      getConversationTurnsNotInParent({
-        areTurnItemsEqual: deepEqualModule.default,
-        conversation: {
-          turns: conversationTurns,
-        },
-        parentConversation: {
-          turns: parentConversationTurns,
-        },
-      }).at(-1)?.status === "inProgress"
-    );
-  });
+  subagentResponseInProgressSignal = createScopedSignalFamily(
+    appScope,
+    (conversationId, { get }) => {
+      let parentConversationId = get(
+        subagentParentThreadIdSignal,
+        conversationId,
+      );
+      if (parentConversationId == null)
+        return get(localResponseInProgressSignal, conversationId) ?? false;
+      let conversationTurns =
+          get(conversationTurnsSignal, conversationId) ?? EMPTY_THREAD_TURNS,
+        parentConversationTurns =
+          get(conversationTurnsSignal, parentConversationId) ??
+          EMPTY_THREAD_TURNS;
+      return (
+        getConversationTurnsNotInParent({
+          areTurnItemsEqual: deepEqualModule.default,
+          conversation: {
+            turns: conversationTurns,
+          },
+          parentConversation: {
+            turns: parentConversationTurns,
+          },
+        }).at(-1)?.status === "inProgress"
+      );
+    },
+  );
 });
 export {
   useLocalConversationSummaryPanelModel,
