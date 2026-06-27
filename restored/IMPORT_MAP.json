@@ -5050,6 +5050,16 @@
       },
       "status": "done"
     },
+    "control-group-D_h8av5f": {
+      "restored": "utils/control-group.tsx",
+      "exports": {
+        "n": "initControlGroupChunk",
+        "t": "ControlGroup"
+      },
+      "status": "done",
+      "aliasOf": "control-group-D6VRtZJR",
+      "note": "Current hash adds a rolldown init export."
+    },
     "settings-empty-state-BJurZrU4": {
       "restored": "utils/settings-empty-state.tsx",
       "exports": {
@@ -5939,6 +5949,17 @@
       },
       "status": "done"
     },
+    "use-hotkey-window-detail-layout-CqbE5SNB": {
+      "restored": "utils/use-hotkey-window-detail-layout.tsx",
+      "exports": {
+        "n": "initHotkeyWindowDetailLayoutChunk",
+        "r": "useHotkeyWindowDetailLayout",
+        "t": "HotkeyWindowDetailLayoutContext"
+      },
+      "status": "done",
+      "aliasOf": "use-hotkey-window-detail-layout-QBnCCIVd",
+      "note": "Current hash adds a rolldown init export and shifts the hook to export r."
+    },
     "format-currency-CMEP8JPI": {
       "restored": "utils/format-currency.ts",
       "exports": {
@@ -6662,6 +6683,16 @@
         "t": "SegmentedToggle"
       },
       "status": "done"
+    },
+    "segmented-toggle-CQnHwI3W": {
+      "restored": "utils/segmented-toggle.tsx",
+      "exports": {
+        "n": "initSegmentedToggleChunk",
+        "t": "SegmentedToggle"
+      },
+      "status": "done",
+      "aliasOf": "segmented-toggle-De13HuEU",
+      "note": "Current hash adds a rolldown init export."
     },
     "copy-button-CRbl2OgP": {
       "restored": "ui/copy-button.tsx",
@@ -9733,6 +9764,16 @@
         "t": "useHotkeyWindowDismissOnEscape"
       },
       "status": "done"
+    },
+    "use-hotkey-window-dismiss-on-escape-VmyxFZVg": {
+      "restored": "utils/use-hotkey-window-dismiss-on-escape.ts",
+      "exports": {
+        "n": "useHotkeyWindowDismissOnEscape",
+        "t": "initHotkeyWindowDismissOnEscapeChunk"
+      },
+      "status": "done",
+      "aliasOf": "use-hotkey-window-dismiss-on-escape-CATf2BNk",
+      "note": "Current hash adds a rolldown init export and exposes the hook as n."
     },
     "windows-tabs-open-SksOQNvg": {
       "restored": "runtime/windows-tabs-open.ts",
