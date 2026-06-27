@@ -652,14 +652,12 @@ import {
   initGitBranchSwitcherChunk as Lu,
 } from "../git/git-branch-switcher";
 import {
-  BackgroundTerminalIcon,
   clearStoppedPendingProcessRows,
   collectConversationProcessRows,
   computerUsePictureInPictureAvailableSignal,
   computerUsePictureInPictureVisibleSignal,
   getPendingBackgroundProcessRow,
   initActiveConversationProcessRowsChunk,
-  initBackgroundTerminalIconChunk,
   initBackgroundTerminalSidePanelTabChunk,
   initPendingBackgroundProcessRowsChunk,
   initProcessMetricHelpersChunk,
@@ -837,6 +835,14 @@ import {
   initThreadSummarySourceRowsChunk,
   ThreadSummarySourceRows,
 } from "./local-conversation-thread-parts/thread-summary-source-rows";
+import {
+  initThreadSummaryPanelChromePrimitives,
+  ThreadSummaryPanelContent,
+  ThreadSummaryPanelHeaderButton,
+  ThreadSummaryPanelPopoverContent,
+  ThreadSummaryPanelRoot,
+  ThreadSummaryPanelSectionCount,
+} from "./local-conversation-thread-parts/thread-summary-panel-chrome-primitives";
 const joinLocalEnvironmentRepoPath = joinPath;
 function SummaryPanelArtifactsList(props) {
   let {
@@ -7485,135 +7491,11 @@ var threadSummaryAutomationRowModule,
     initSummaryPanelRowChunk();
     threadSummaryAutomationRowJsxRuntime = getJsxRuntime();
   });
-function ThreadSummaryPanelRoot(props) {
-  let { children, shouldHideInlineImmediately, shouldShow } = props,
-    animationsDisabled = useSignalValue(reducedMotionPreferenceSignal),
-    invisibleClassName = shouldHideInlineImmediately && "invisible",
-    motionContainerClassName = classNames(
-      "pointer-events-none pe-4 max-h-full min-h-0 origin-top-right",
-      invisibleClassName,
-    );
-  let targetOpacity = shouldShow ? 1 : 0,
-    targetTranslateX = shouldShow ? 0 : "100%",
-    targetScale = shouldShow ? 1 : 0.8,
-    animateState = {
-      opacity: targetOpacity,
-      translateX: targetTranslateX,
-      scale: targetScale,
-    };
-  let transitionConfig =
-    shouldHideInlineImmediately || animationsDisabled
-      ? {
-          duration: 0,
-        }
-      : {
-          type: "spring",
-          duration: 0.3,
-          bounce: 0.01,
-        };
-  let pipObstacleId = shouldShow ? "thread-summary-panel" : undefined,
-    pointerEventsClassName = shouldShow
-      ? "pointer-events-auto"
-      : "pointer-events-none",
-    panelClassName = classNames(
-      "flex max-h-full min-h-0 flex-col",
-      pointerEventsClassName,
-    );
-  let panelStyle = {
-    width: 300,
-  };
-  let panelBody = (
-    <div
-      data-pip-obstacle={pipObstacleId}
-      className={panelClassName}
-      style={panelStyle}
-    >
-      {children}
-    </div>
-  );
-  return (
-    <div className="pointer-events-none absolute top-(--thread-floating-content-top-inset) right-0 bottom-(--thread-floating-content-bottom-inset) z-40">
-      <div className="relative flex max-h-full">
-        {threadSummaryPanelJsxRuntime.jsx(motion.div, {
-          initial: false,
-          className: motionContainerClassName,
-          animate: animateState,
-          transition: transitionConfig,
-          children: panelBody,
-        })}
-      </div>
-    </div>
-  );
-}
-function ThreadSummaryPanelPopoverContent(props) {
-  let { children } = props,
-    popoverStyle = {
-      width: 300,
-    };
-  return (
-    <div
-      className="flex max-h-[min(var(--radix-popover-content-available-height),calc(100vh-16px))] flex-col"
-      style={popoverStyle}
-    >
-      {children}
-    </div>
-  );
-}
-function ThreadSummaryPanelContent(props) {
-  let { children } = props;
-  return (
-    <div className="relative flex max-h-full min-h-0 flex-col overflow-hidden rounded-3xl bg-token-dropdown-background pt-3 electron:elevation-prominent extension:border extension:border-token-border-default extension:shadow-md">
-      <div className="flex h-fit max-h-full min-h-0 flex-col gap-3 overflow-y-auto pb-3">
-        {children}
-      </div>
-    </div>
-  );
-}
-function ThreadSummaryPanelHeaderButton(props) {
-  let { label, onClick, pressed, shortcut, ...rest } = props;
-  let buttonColor = pressed ? "secondary" : "ghost",
-    iconNode = <BackgroundTerminalIcon className="icon-sm" />;
-  let buttonNode = threadSummaryPanelJsxRuntime.jsx(Button, {
-    size: "toolbar",
-    color: buttonColor,
-    "aria-label": label,
-    "aria-pressed": pressed,
-    title: label,
-    onClick,
-    uniform: true,
-    ...rest,
-    children: iconNode,
-  });
-  return threadSummaryPanelJsxRuntime.jsx(Tooltip, {
-    tooltipContent: label,
-    shortcut,
-    delayOpen: true,
-    children: buttonNode,
-  });
-}
-function ThreadSummaryPanelSectionCount({ count }) {
-  if (count === 0) return null;
-  return (
-    <span className="text-base text-token-description-foreground opacity-50">
-      {count}
-    </span>
-  );
-}
-var threadSummaryPanelReactRuntime,
-  threadSummaryPanelJsxRuntime,
-  ThreadSummaryPanelChrome,
+var ThreadSummaryPanelChrome,
   initThreadSummaryPanelChrome = once(() => {
-    threadSummaryPanelReactRuntime = getChunkModuleExports();
-    initClassNameRuntime();
-    initMotionRuntime();
-    initScopeRuntime();
-    initButtonComponentPrimitives();
-    initTooltipPrimitives();
-    initBackgroundTerminalIconChunk();
-    initReducedMotionPreference();
+    initThreadSummaryPanelChromePrimitives();
     initThreadFindNavigationRailNoopChunk();
     initThreadSummaryPanelSectionChunk();
-    threadSummaryPanelJsxRuntime = getJsxRuntime();
     ThreadSummaryPanelChrome = {
       Content: ThreadSummaryPanelContent,
       HeaderButton: ThreadSummaryPanelHeaderButton,
