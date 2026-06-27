@@ -5,7 +5,6 @@ import {
   $N as initVscodeApiBridge,
   $P as initAppScope,
   $j as initStatsigGateSignals,
-  $p as modelProviderSignal,
   AB as initScopeRuntime,
   AI as getLocalConversationPath,
   AN as initSpinnerComponent,
@@ -21,10 +20,8 @@ import {
   DM as initWindowZoomContext,
   DN as Button,
   Dl as createLocalConversationRouteTarget,
-  Em as conversationTurnsSignal,
   Es as browserSidebarEnabledSignal,
   FB as useScope,
-  Fp as expiredSideChatSignal,
   Fx as initEnvironmentTerminalController,
   Ga as initElectronPlatformContent,
   Gi as DropdownMenu,
@@ -34,7 +31,6 @@ import {
   IB as useSignalValue,
   I_ as initRouteScope,
   Io as initConnectorAppsListQuery,
-  Ip as localResponseInProgressSignal,
   Ix as environmentTerminalControllerService,
   JV as loadReactModule,
   Ja as CheckCircleIcon,
@@ -75,7 +71,6 @@ import {
   UE as LOCAL_HOST_ID,
   Uf as initHostWorkspaceQueries,
   Uh as useGitAvailabilityQuery,
-  Up as conversationCollaborationModeSignal,
   Uv as initMarkdownArtifactHelpers,
   Ux as initAgentMentionMap,
   VE as initHostConfigHelpers,
@@ -103,12 +98,9 @@ import {
   cP as initVscodeMessageBridge,
   cm as conversationHostIdSignal,
   di as PopoverRoot,
-  dp as berryDisplayConversationTurnsSignal,
-  eM as featureGateSignal,
   eP as useHostQuery,
   ea as SearchIcon,
   en as ExternalLinkIcon,
-  fV as createScopedSignalFamily,
   fh as initGitActionDirectiveRuntime,
   fu as initTaskWorkspaceQueryRuntime,
   gi as initPopoverPrimitives,
@@ -144,7 +136,6 @@ import {
   qj as useStatsigGate,
   rF as defineMessages,
   sF as FormattedMessage,
-  sm as conversationRequestsSignal,
   tP as useAppServerMutation,
   ta as initSearchIcon,
   tc as Yr,
@@ -232,7 +223,7 @@ import {
   _o as Zo,
   a as Qo,
   ho as ts,
-  ji as ns,
+  ji as useBackgroundSubagentsEnabled,
   l as is,
   ls as as,
   m as os,
@@ -249,8 +240,6 @@ import {
   $n as vs,
   Al as ys,
   Bl as Ss,
-  Du as Es,
-  Eu as Os,
   Hl as Ms,
   In as Ns,
   Jn as Ls,
@@ -259,7 +248,6 @@ import {
   Po as Ys,
   Qc as Zs,
   Ql as Qs,
-  Qn as $s,
   St as tc,
   Tu as rc,
   Ul as ic,
@@ -281,16 +269,12 @@ import {
   kl as jc,
   ls as Pc,
   nu as Lc,
-  oa as Rc,
   os as zc,
   qa as Vc,
   sa as Wc,
-  sc as Gc,
   ss as Kc,
-  st as qc,
   tu as Yc,
   vc as Qc,
-  wu as $c,
   xt as el,
   yc as tl,
   zl as nl,
@@ -379,11 +363,7 @@ import {
   w as initPullRequestInlineActionButtonChunk,
   x as PullRequestUnknownCheckIcon,
 } from "../boundaries/current-ref/pull-request-check-rows-producer";
-import {
-  initOpenSideChatTabChunk as Nd,
-  initThreadOverflowMenuChunk as Md,
-  openSideChatTab as jd,
-} from "../threads/thread-overflow-menu";
+import { initThreadOverflowMenuChunk as Md } from "../threads/thread-overflow-menu";
 import {
   isDoneBackgroundAgent,
   shouldHideInlineBackgroundAgent,
@@ -420,7 +400,11 @@ import {
   initLocalEnvironmentActionControlsChunk,
   LocalConversationEnvironmentActionControls,
 } from "./local-conversation-thread-parts/local-environment-action-controls";
-import { getConversationTurnsNotInParent } from "./local-conversation-thread-parts/parent-conversation-turns";
+import {
+  initLocalConversationTurnSelectors,
+  localConversationVisibleTurnEntriesSignal,
+  subagentResponseInProgressSignal,
+} from "./local-conversation-thread-parts/local-conversation-turn-selectors";
 import {
   initPinnedSummaryPanelState,
   pinnedSummaryPanelState,
@@ -470,10 +454,6 @@ import {
   openBackgroundAgentFromThread,
 } from "./local-conversation-thread-parts/local-conversation-thread-frame";
 import {
-  initLocalConversationThreadContentChunk,
-  LocalConversationThreadContentCore,
-} from "./local-conversation-thread-parts/local-conversation-thread-content";
-import {
   createLocalConversationSearchAdapter,
   initConversationSearchHelpers,
   initLocalConversationSearchAdapterChunk,
@@ -497,25 +477,10 @@ import {
   useLocalConversationSummaryPanelModel,
 } from "./local-conversation-thread-parts/local-conversation-summary-panel-model";
 import {
-  buildLocalConversationVisibleTurnEntries,
-  initLocalConversationVisibleTurnEntriesBuilder,
-} from "./local-conversation-thread-parts/local-conversation-visible-turn-entries";
-import {
-  initLocalConversationTurnRowChunk,
-  LocalConversationTurnRow,
-} from "./local-conversation-thread-parts/local-conversation-turn-row";
-import {
-  initAutoFollowVirtualizedTurnListChunk,
-  LocalConversationAutoFollowVirtualizedTurnList,
-} from "./local-conversation-thread-parts/local-conversation-auto-follow-turn-list";
-import {
   initThreadScrollStateSignal,
   threadScrollStateSignal,
 } from "./local-conversation-thread-parts/local-conversation-thread-scroll-state-signal";
-import {
-  initVirtualizedTurnListChunk,
-  VirtualizedTurnList,
-} from "./local-conversation-thread-parts/local-conversation-virtualized-turn-list";
+import { LocalConversationMainThread } from "./local-conversation-thread-parts/local-conversation-thread-entry-components";
 import {
   initThreadSummarySideChatRowsChunk,
   ThreadSummarySideChatRows,
@@ -554,6 +519,10 @@ import {
   ConnectedLocalWorktreeRestoreBanner,
   initWorktreeRestoreBannerChunk,
 } from "./local-conversation-thread-parts/local-conversation-worktree-restore-banner";
+const LocalConversationSideChatThread =
+  LocalConversationMainThread.SideChatThread;
+const LocalConversationSummaryThread =
+  LocalConversationMainThread.SummaryThread;
 var localEnvironmentRecentActionsModule,
   initLocalEnvironmentRecentActions = once(() => {
     localEnvironmentRecentActionsModule = getChunkModuleExports();
@@ -4368,82 +4337,9 @@ var localConversationArtifactsModule,
     initReducedMotionPreference();
     initPinnedSummaryPanelState();
   });
-var deepEqualModule,
-  initDeepEqualModule = once(() => {
-    deepEqualModule = toEsModule(loadIsEqualModule(), 1);
-  });
 var initThreadScrollState = once(() => {
   initAgentMentionMap();
 });
-var EMPTY_CONVERSATION_REQUESTS,
-  EMPTY_CONVERSATION_TURNS,
-  EMPTY_VISIBLE_TURN_ENTRIES,
-  localConversationVisibleTurnEntriesSignal,
-  initLocalConversationTurnSelectors = once(() => {
-    initScopeRuntime();
-    initConversationStateSelectors();
-    initAppScope();
-    initStatsigGateSignals();
-    initDeepEqualModule();
-    initConversationArtifactRuntime();
-    initConversationSearchUnitExtractor();
-    initLocalConversationVisibleTurnEntriesBuilder();
-    EMPTY_CONVERSATION_REQUESTS = [];
-    EMPTY_CONVERSATION_TURNS = [];
-    EMPTY_VISIBLE_TURN_ENTRIES = {
-      conversationTurns: EMPTY_CONVERSATION_TURNS,
-      hasInheritedParentTurns: false,
-      hasRenderableTurns: false,
-      hasUserMessage: false,
-      latestVisibleTurnId: null,
-      visibleTurnEntries: [],
-    };
-    localConversationVisibleTurnEntriesSignal = createScopedSignalFamily(
-      appScope,
-      ({ conversationId, isBackgroundSubagentsEnabled }, { get }) => {
-        let hasConversation =
-            get(hasConversationSignal, conversationId) ?? false,
-          conversationRequests =
-            get(conversationRequestsSignal, conversationId) ??
-            EMPTY_CONVERSATION_REQUESTS;
-        get(modelProviderSignal, conversationId);
-        let subagentParentThreadId = isBackgroundSubagentsEnabled
-            ? (get(subagentParentThreadIdSignal, conversationId) ?? null)
-            : null,
-          isBerryDisplayMergeEnabled = get(featureGateSignal, "209459230"),
-          berryDisplayConversationTurns = isBerryDisplayMergeEnabled
-            ? get(berryDisplayConversationTurnsSignal, conversationId)
-            : null,
-          parentBerryDisplayConversationTurns = isBerryDisplayMergeEnabled
-            ? subagentParentThreadId == null
-              ? EMPTY_CONVERSATION_TURNS
-              : get(berryDisplayConversationTurnsSignal, subagentParentThreadId)
-            : null,
-          shouldUseBerryDisplayTurns =
-            berryDisplayConversationTurns != null &&
-            parentBerryDisplayConversationTurns != null;
-        return buildLocalConversationVisibleTurnEntries({
-          areTurnItemsEqual: deepEqualModule.default,
-          conversationRequests,
-          mergeBerryDisplayTurnsForPIA: false,
-          preserveServerUserMessages: false,
-          conversationTurns: shouldUseBerryDisplayTurns
-            ? berryDisplayConversationTurns
-            : (get(conversationTurnsSignal, conversationId) ??
-              EMPTY_CONVERSATION_TURNS),
-          emptyConversationRequests: EMPTY_CONVERSATION_REQUESTS,
-          emptyVisibleTurnEntries: EMPTY_VISIBLE_TURN_ENTRIES,
-          hasConversation,
-          isBackgroundSubagentsEnabled,
-          parentConversationTurns: shouldUseBerryDisplayTurns
-            ? parentBerryDisplayConversationTurns
-            : (get(conversationTurnsSignal, subagentParentThreadId) ??
-              EMPTY_CONVERSATION_TURNS),
-          subagentParentThreadId,
-        });
-      },
-    );
-  });
 var localConversationThreadRouteJsxRuntime,
   initLocalConversationThreadRoute = once(() => {
     initScopeRuntime();
@@ -4461,6 +4357,7 @@ var localConversationThreadRouteJsxRuntime,
     initHostWorkspaceQueries();
     initHostConfigHelpers();
     initLoggerRuntime();
+    LocalConversationMainThread.initChunk();
     localConversationThreadRouteJsxRuntime = getJsxRuntime();
   });
 export interface LocalConversationThreadProps {
@@ -4509,248 +4406,6 @@ export function LocalConversationThread(props: LocalConversationThreadProps) {
     />
   );
 }
-function LocalConversationSideChatThread(props) {
-  let { conversationId, lockedCollaborationMode, target } = props,
-    scope = useScope(localConversationRouteScope),
-    hasConversation = useScopedValue(hasConversationSignal, conversationId),
-    isExpiredSideChat = useScopedValue(expiredSideChatSignal, conversationId),
-    hostId = useScopedValue(conversationHostIdSignal, conversationId),
-    sourceConversationId = getLocalThreadConversationIdFromRoute(scope.value),
-    isBackgroundSubagentsEnabled = ns();
-  if (!hasConversation)
-    return (
-      <ExpiredSideChatState
-        conversationId={conversationId}
-        sourceConversationId={sourceConversationId}
-        target={target}
-      />
-    );
-  let sideChatHeader =
-    isExpiredSideChat === true ? null : (
-      <Gc conversationId={conversationId} hostId={hostId} />
-    );
-  let threadRouteTarget = createLocalConversationRouteTarget(
-      conversationId,
-      "side",
-      sourceConversationId,
-    ),
-    expiredSideChatBanner =
-      isExpiredSideChat === true ? (
-        <ExpiredSideChatState
-          conversationId={conversationId}
-          presentation="banner"
-          sourceConversationId={sourceConversationId}
-          target={target}
-        />
-      ) : undefined;
-  let isReadOnly = isExpiredSideChat === true,
-    showComposer = isExpiredSideChat !== true,
-    threadFrame = (
-      <LocalConversationThreadFrame
-        MainThreadComponent={LocalConversationMainThread}
-        SideChatThreadComponent={LocalConversationSideChatThread}
-        ThreadContentComponent={LocalConversationThreadContent}
-        WorktreeRestoreBannerComponent={ConnectedLocalWorktreeRestoreBanner}
-        conversationId={conversationId}
-        hasConversation={hasConversation}
-        hostId={hostId}
-        isResuming={false}
-        showExternalFooter={false}
-        footerContent={expiredSideChatBanner}
-        isReadOnly={isReadOnly}
-        lockedCollaborationMode={lockedCollaborationMode}
-        showComposer={showComposer}
-        isBackgroundSubagentsEnabled={isBackgroundSubagentsEnabled}
-        subagentResponseInProgressSignal={subagentResponseInProgressSignal}
-        threadScrollStateSignal={threadScrollStateSignal}
-      />
-    );
-  return (
-    <>
-      {sideChatHeader}
-      <ScopeValueProvider scope={composerScope} value={threadRouteTarget}>
-        {threadFrame}
-      </ScopeValueProvider>
-    </>
-  );
-}
-function ExpiredSideChatState(props) {
-  let {
-      conversationId,
-      presentation = "page",
-      sourceConversationId,
-      target,
-    } = props,
-    scope = useScope(localConversationRouteScope),
-    intl = useIntl(),
-    sourceCwd = useScopedValue(conversationCwdSignal, sourceConversationId),
-    sourceHostId = useScopedValue(
-      conversationHostIdSignal,
-      sourceConversationId,
-    ),
-    sourceCollaborationMode = useScopedValue(
-      conversationCollaborationModeSignal,
-      sourceConversationId,
-    ),
-    displayTitle = useScopedValue(
-      va(target).tabById$,
-      `sidechat:${conversationId}`,
-    )?.title,
-    [isRecreatingSideChat, setIsRecreatingSideChat] =
-      localConversationThreadReactRuntime.useState(false),
-    recreateSideChat = () => {
-      sourceConversationId == null ||
-        isRecreatingSideChat ||
-        (setIsRecreatingSideChat(true),
-        jd(scope, LocalConversationSideChatThread, {
-          sourceConversationId,
-          cwd: sourceCwd,
-          hostId: sourceHostId,
-          collaborationMode: sourceCollaborationMode,
-          displayTitle,
-          intl,
-          target,
-        }).catch((error) => {
-          setIsRecreatingSideChat(false);
-          logger.error("Error recreating expired side chat", {
-            safe: {},
-            sensitive: {
-              error,
-            },
-          });
-          scope.get(toastSignal).danger(
-            intl.formatMessage({
-              id: "localConversation.sideChat.recreateError",
-              defaultMessage: "Failed to start a new side chat",
-              description:
-                "Error message shown when recreating an expired side chat fails",
-            }),
-          );
-        }));
-    };
-  let expiredTitle = (
-      <FormattedMessage
-        id="localConversation.sideChat.expired.title"
-        defaultMessage="Side chat expired"
-        description="Title shown when an ephemeral side chat can no longer be continued"
-      />
-    ),
-    expiredDescription = (
-      <FormattedMessage
-        id="localConversation.sideChat.expired.description"
-        defaultMessage="This temporary side chat is no longer available; start a new side chat to continue"
-        description="Description shown when an ephemeral side chat must be recreated"
-      />
-    ),
-    actionButton =
-      sourceConversationId == null
-        ? null
-        : localConversationThreadJsxRuntime.jsx(Button, {
-            loading: isRecreatingSideChat,
-            onClick: recreateSideChat,
-            children: (
-              <FormattedMessage
-                id="localConversation.sideChat.expired.action"
-                defaultMessage="Start new side chat"
-                description="Button label to replace an expired side chat"
-              />
-            ),
-          });
-  if (presentation === "banner") {
-    return localConversationThreadJsxRuntime.jsx($s, {
-      type: "info",
-      layout: "vertical",
-      title: expiredTitle,
-      content: expiredDescription,
-      customCtas: actionButton,
-    });
-  }
-  return localConversationThreadJsxRuntime.jsx($c, {
-    className: "h-full",
-    spacing: "compact",
-    title: expiredTitle,
-    description: expiredDescription,
-    actions: actionButton,
-  });
-}
-function LocalConversationMainThread(props) {
-  let { conversationId } = props,
-    scope = useScope(localConversationRouteScope),
-    hasConversation = useScopedValue(hasConversationSignal, conversationId),
-    hostId = useScopedValue(conversationHostIdSignal, conversationId),
-    isBackgroundSubagentsEnabled = ns(),
-    { isResuming } = useResumeLocalConversation(conversationId),
-    threadRouteTarget = createLocalConversationRouteTarget(
-      conversationId,
-      "main",
-      getLocalThreadConversationIdFromRoute(scope.value),
-    );
-  let threadFrame = (
-    <LocalConversationThreadFrame
-      MainThreadComponent={LocalConversationMainThread}
-      SideChatThreadComponent={LocalConversationSideChatThread}
-      ThreadContentComponent={LocalConversationThreadContent}
-      WorktreeRestoreBannerComponent={ConnectedLocalWorktreeRestoreBanner}
-      conversationId={conversationId}
-      hasConversation={hasConversation}
-      hostId={hostId}
-      isResuming={isResuming}
-      showExternalFooter={false}
-      isBackgroundSubagentsEnabled={isBackgroundSubagentsEnabled}
-      subagentResponseInProgressSignal={subagentResponseInProgressSignal}
-      threadScrollStateSignal={threadScrollStateSignal}
-    />
-  );
-  return (
-    <ScopeValueProvider scope={composerScope} value={threadRouteTarget}>
-      {threadFrame}
-    </ScopeValueProvider>
-  );
-}
-export interface LocalConversationSummaryThreadProps {
-  conversationId: string;
-  header?: RenderableThreadNode;
-  onOpenBackgroundAgent?: BackgroundAgentOpenHandler;
-}
-export function LocalConversationSummaryThread(
-  props: LocalConversationSummaryThreadProps,
-) {
-  let { conversationId, header, onOpenBackgroundAgent } = props,
-    scope = useScope(localConversationRouteScope),
-    hasConversation = useScopedValue(hasConversationSignal, conversationId),
-    hostId = useScopedValue(conversationHostIdSignal, conversationId),
-    isBackgroundSubagentsEnabled = ns(),
-    threadRouteTarget = createLocalConversationRouteTarget(
-      conversationId,
-      "main",
-      getLocalThreadConversationIdFromRoute(scope.value),
-    );
-  let threadFrame = (
-    <LocalConversationThreadFrame
-      MainThreadComponent={LocalConversationMainThread}
-      SideChatThreadComponent={LocalConversationSideChatThread}
-      ThreadContentComponent={LocalConversationThreadContent}
-      WorktreeRestoreBannerComponent={ConnectedLocalWorktreeRestoreBanner}
-      conversationId={conversationId}
-      hasConversation={hasConversation}
-      header={header}
-      hostId={hostId}
-      isBackgroundSubagentsEnabled={isBackgroundSubagentsEnabled}
-      isReadOnly={true}
-      isResuming={false}
-      onOpenBackgroundAgent={onOpenBackgroundAgent}
-      showComposer={false}
-      showExternalFooter={false}
-      subagentResponseInProgressSignal={subagentResponseInProgressSignal}
-      threadScrollStateSignal={threadScrollStateSignal}
-    />
-  );
-  return (
-    <ScopeValueProvider scope={composerScope} value={threadRouteTarget}>
-      {threadFrame}
-    </ScopeValueProvider>
-  );
-}
 function LocalConversationThreadRoute(props) {
   let {
       conversationId,
@@ -4765,7 +4420,7 @@ function LocalConversationThreadRoute(props) {
       onOpenBackgroundAgent,
     } = props,
     scope = useScope(localConversationRouteScope),
-    isBackgroundSubagentsEnabled = ns(),
+    isBackgroundSubagentsEnabled = useBackgroundSubagentsEnabled(),
     { data } = useSignalValue(launcherHotkeyStateQuery),
     hasConfiguredLauncherHotkey = data == null || data.configuredHotkey != null,
     launcherFallbackPath = getHotkeyWindowFallbackPath(
@@ -4871,7 +4526,7 @@ function LocalConversationThreadRoute(props) {
     <LocalConversationThreadFrame
       MainThreadComponent={LocalConversationMainThread}
       SideChatThreadComponent={LocalConversationSideChatThread}
-      ThreadContentComponent={LocalConversationThreadContent}
+      ThreadContentComponent={LocalConversationMainThread.ThreadContent}
       WorktreeRestoreBannerComponent={ConnectedLocalWorktreeRestoreBanner}
       key={conversationId}
       conversationId={conversationId}
@@ -4896,28 +4551,7 @@ function LocalConversationThreadRoute(props) {
     />
   );
 }
-function LocalConversationThreadContent(props) {
-  return (
-    <LocalConversationThreadContentCore
-      {...props}
-      AutomationDescriptionComponent={Rc}
-      AutoFollowVirtualizedTurnListComponent={
-        LocalConversationAutoFollowVirtualizedTurnList
-      }
-      EmptyStateComponent={Os}
-      TurnRowComponent={LocalConversationTurnRow}
-      VirtualizedTurnListComponent={VirtualizedTurnList}
-      localConversationVisibleTurnEntriesSignal={
-        localConversationVisibleTurnEntriesSignal
-      }
-    />
-  );
-}
-var localConversationThreadModule,
-  localConversationThreadReactRuntime,
-  localConversationThreadJsxRuntime,
-  EMPTY_THREAD_TURNS,
-  subagentResponseInProgressSignal;
+var localConversationThreadModule, localConversationThreadJsxRuntime;
 export const initLocalConversationThreadChunk = once(() => {
   localConversationThreadModule = getChunkModuleExports();
   initMotionRuntime();
@@ -4925,7 +4559,6 @@ export const initLocalConversationThreadChunk = once(() => {
   toEsModule(loadFindLastModule(), 1);
   initScopeRuntime();
   initPathHelpers();
-  localConversationThreadReactRuntime = toEsModule(loadReactModule(), 1);
   initIntlRuntime();
   xr();
   gc();
@@ -4958,7 +4591,6 @@ export const initLocalConversationThreadChunk = once(() => {
   Ao();
   initLauncherHotkeyStateChunk();
   Vc();
-  Es();
   initThreadSwitchTimingTrackerChunk();
   initConnectorAppsListQuery();
   initAppScope();
@@ -4968,7 +4600,6 @@ export const initLocalConversationThreadChunk = once(() => {
   initStatsigFeatureGateHooks();
   initConversationRouteSourceHelpers();
   initLocalConversationThreadFrameChunk();
-  initLocalConversationThreadContentChunk();
   ho();
   id();
   initThreadFindNavigationRail();
@@ -4981,7 +4612,6 @@ export const initLocalConversationThreadChunk = once(() => {
   initKeyboardShortcutLabel();
   Ns();
   initWorktreeRestoreBannerChunk();
-  initDeepEqualModule();
   initConversationMarkdownRenderer();
   initThreadScrollState();
   Qi();
@@ -4992,50 +4622,18 @@ export const initLocalConversationThreadChunk = once(() => {
   Ac();
   initLocalConversationSearchAdapterChunk();
   initConversationSearchUnitExtractor();
-  Nd();
   initLocalConversationTurnSelectors();
   initThreadScrollStateSignal();
-  initAutoFollowVirtualizedTurnListChunk();
   initVisibleTurnGeneratedImagesCollector();
-  initLocalConversationTurnRowChunk();
   initBackgroundAgentThreadTab();
   fa();
   initBackgroundAgentThreadTabs();
   Sa();
   Md();
-  qc();
   initMarkConversationReadEffect();
   initLocalConversationThreadRoute();
-  initVirtualizedTurnListChunk();
+  LocalConversationMainThread.initChunk();
   localConversationThreadJsxRuntime = getJsxRuntime();
-  EMPTY_THREAD_TURNS = [];
-  subagentResponseInProgressSignal = createScopedSignalFamily(
-    appScope,
-    (conversationId, { get }) => {
-      let parentConversationId = get(
-        subagentParentThreadIdSignal,
-        conversationId,
-      );
-      if (parentConversationId == null)
-        return get(localResponseInProgressSignal, conversationId) ?? false;
-      let conversationTurns =
-          get(conversationTurnsSignal, conversationId) ?? EMPTY_THREAD_TURNS,
-        parentConversationTurns =
-          get(conversationTurnsSignal, parentConversationId) ??
-          EMPTY_THREAD_TURNS;
-      return (
-        getConversationTurnsNotInParent({
-          areTurnItemsEqual: deepEqualModule.default,
-          conversation: {
-            turns: conversationTurns,
-          },
-          parentConversation: {
-            turns: parentConversationTurns,
-          },
-        }).at(-1)?.status === "inProgress"
-      );
-    },
-  );
 });
 export {
   useLocalConversationSummaryPanelModel,
