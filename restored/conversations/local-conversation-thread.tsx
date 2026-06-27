@@ -2,7 +2,6 @@
 // Public draft for the local conversation thread feature chunk. Key exported APIs have semantic names; unresolved current-ref producer imports are isolated under boundaries/current-ref until those chunks are deep-restored.
 import { once, toEsModule } from "../runtime/commonjs-interop";
 import {
-  $N as initVscodeApiBridge,
   $P as initAppScope,
   $j as initStatsigGateSignals,
   AB as initScopeRuntime,
@@ -28,7 +27,6 @@ import {
   JV as loadReactModule,
   LB as loadIsEqualModule,
   LN as initReducedMotionPreference,
-  La as initExternalUrlHelpers,
   Ln as initKeyboardModifierState,
   MB as ScopeValueProvider,
   MV as useMutation,
@@ -67,7 +65,6 @@ import {
   Zu as on,
   _c as CONVERSATION_DETAIL_STEPS_PROSE,
   aM as RefreshIcon,
-  aP as QUERY_DURATIONS,
   a_ as initFileTypeDetectionHelpers,
   ak as initAppServerRequestBridge,
   bF as initPathHelpers,
@@ -77,8 +74,6 @@ import {
   cM as initToastRuntime,
   cP as initVscodeMessageBridge,
   cm as conversationHostIdSignal,
-  eP as useHostQuery,
-  en as ExternalLinkIcon,
   fh as initGitActionDirectiveRuntime,
   gp as conversationCwdSignal,
   hs as initLocalImageInliningHelpers,
@@ -104,7 +99,6 @@ import {
   sF as FormattedMessage,
   tP as useAppServerMutation,
   tc as Yr,
-  tn as Xr,
   vm as subagentParentThreadIdSignal,
   wj as di,
   wl as composerScope,
@@ -113,13 +107,11 @@ import {
   yA as loadFindLastModule,
   yV as createSignal,
   yv as Navigate,
-  za as openInBrowserFromEvent,
   zo as useAppsQuery,
 } from "../boundaries/current-ref/appg-thread-shared-producer";
 import {
   $i as Ei,
   A as Di,
-  Cl as pullRequestCurrentBranchSignal,
   Ds as openEnvironmentTerminalSession,
   Ga as MoreHorizontalIcon,
   Il as Ki,
@@ -130,10 +122,8 @@ import {
   Od as $i,
   Td as ua,
   Wl as fa,
-  _c as va,
   _i as githubCliAvailabilitySignal,
   b as Sa,
-  bc as wa,
   cn as Ea,
   gi as ka,
   hc as ja,
@@ -147,14 +137,11 @@ import {
   pi as pullRequestStatusQuerySignal,
   ql as bottomPanelTabsStore,
   sd as Xa,
-  tc as Za,
   ts as Qa,
   tu as $a,
-  vc as no,
   vd as ro,
   vi as io,
   wo as lo,
-  xl as po,
   yc as ho,
   yd as rightPanelFullWidthSignal,
   yn as _o,
@@ -164,14 +151,10 @@ import { dn as So } from "../boundaries/current-ref/automations-page-producer";
 import {
   Ai as Ao,
   Gt as Po,
-  H as Fo,
   Ja as Lo,
   Ma as Bo,
   Ot as Wo,
-  W as Xo,
   ji as useBackgroundSubagentsEnabled,
-  m as os,
-  p as us,
   qa as fs,
 } from "../boundaries/current-ref/pull-request-thread-actions-producer";
 import {
@@ -181,8 +164,6 @@ import {
   Bl as Ss,
   Hl as Ms,
   In as Ns,
-  Nl as Ws,
-  Pl as Js,
   Po as Ys,
   Ql as Qs,
   St as tc,
@@ -196,7 +177,6 @@ import {
   au as hc,
   cc as gc,
   cs as backgroundAgentsSignal,
-  eu as xc,
   fl as Sc,
   gt as wc,
   iu as activeWorkflowSignal,
@@ -206,7 +186,6 @@ import {
   nu as Lc,
   qa as Vc,
   sa as Wc,
-  tu as Yc,
   vc as Qc,
   xt as el,
   zl as nl,
@@ -215,10 +194,6 @@ import {
   it as ul,
   n as fl,
 } from "../boundaries/current-ref/appgen-library-hot-producer";
-import {
-  i as yl,
-  r as bl,
-} from "../boundaries/current-ref/thread-hotkey-shell-producer";
 import { g as El } from "../boundaries/current-ref/projects-pull-requests-producer";
 import {
   getPullRequestMergeVisualState,
@@ -247,10 +222,6 @@ import {
   registerThreadSidePanelTab,
 } from "../app-shell/thread-background-processes";
 import { initThreadScrollControllerContextChunk as id } from "../utils/thread-scroll-controller-context";
-import {
-  a as PullRequestMergeActions,
-  o as initPullRequestMergeActionsChunk,
-} from "../boundaries/current-ref/pull-request-check-rows-producer";
 import { initThreadOverflowMenuChunk as Md } from "../threads/thread-overflow-menu";
 import { shouldShowInlineActivityForRightPanel } from "./local-conversation-thread-parts/inline-activity-panel";
 import {
@@ -340,34 +311,13 @@ import {
   PullRequestSummaryRow,
 } from "./local-conversation-thread-parts/pull-request-summary-row";
 import {
-  initPullRequestSidePanelDetailsSummaryChunk,
-  initPullRequestSidePanelErrorMessageChunk,
-  initPullRequestSidePanelLoadingStateChunk,
-  PullRequestSidePanelDetailsSummary,
-  PullRequestSidePanelErrorMessage,
-  PullRequestSidePanelLoadingState,
-} from "./local-conversation-thread-parts/pull-request-side-panel-primitives";
-import { getPullRequestFixDisabledReason } from "./local-conversation-thread-parts/pull-request-fix-tooltips";
-import {
   initPullRequestStatusDetailRowsChunk,
   PullRequestStatusDetailRows,
 } from "./local-conversation-thread-parts/pull-request-status-detail-rows";
 import {
-  initPullRequestSidePanelChecksSectionChunk,
-  PullRequestSidePanelChecksSection,
-} from "./local-conversation-thread-parts/pull-request-side-panel-checks-section";
-import {
-  initPullRequestSidePanelCommentsSectionChunk,
-  PullRequestSidePanelCommentsSection,
-} from "./local-conversation-thread-parts/pull-request-side-panel-comments-section";
-import {
-  initPullRequestSidePanelConflictsSectionChunk,
-  PullRequestSidePanelConflictsSection,
-} from "./local-conversation-thread-parts/pull-request-side-panel-conflicts-section";
-import {
-  initPullRequestSidePanelOverviewSectionChunk,
-  PullRequestSidePanelOverviewSection,
-} from "./local-conversation-thread-parts/pull-request-side-panel-overview-section";
+  initPullRequestSidePanelOpenerChunk,
+  openPullRequestSidePanelTab,
+} from "./local-conversation-thread-parts/pull-request-side-panel-tab";
 import {
   initThreadSummaryPanelChromePrimitives,
   ThreadSummaryPanelContent,
@@ -443,460 +393,6 @@ function getPullRequestTitleOrFallback(title, fallbackTitle) {
   return title?.trim() || fallbackTitle;
 }
 var initPullRequestTitleFallbackChunk = once(() => {});
-function PullRequestSidePanelDescriptionSection(props) {
-  let { body, error, loading } = props,
-    header = (
-      <PullRequestSidePanelDetailsSummary>
-        <FormattedMessage
-          id="pullRequestSidePanel.description.title"
-          defaultMessage="Description"
-          description="Pull request description section title"
-        />
-      </PullRequestSidePanelDetailsSummary>
-    );
-  return (
-    <details open={true} className="group flex flex-col">
-      {header}
-      <div className="group-open:pt-2">
-        {error == null ? (
-          loading || body == null ? (
-            <PullRequestSidePanelLoadingState
-              label={
-                <FormattedMessage
-                  id="pullRequestSidePanel.description.loading"
-                  defaultMessage="Loading description"
-                  description="Loading label for the pull request description"
-                />
-              }
-            />
-          ) : body.trim().length > 0 ? (
-            <Xo
-              allowBasicHtml={true}
-              className="text-base text-token-foreground [&_h1]:text-lg [&_h2]:text-base [&_h3]:text-base [&_li]:leading-5 [&_p]:leading-5"
-              cwd={null}
-            >
-              {os(body)}
-            </Xo>
-          ) : (
-            <p className="py-2 text-base text-token-text-tertiary">
-              <FormattedMessage
-                id="pullRequestSidePanel.description.empty"
-                defaultMessage="No description provided"
-                description="Empty pull request description in the side panel"
-              />
-            </p>
-          )
-        ) : (
-          <PullRequestSidePanelErrorMessage description={error} />
-        )}
-      </div>
-    </details>
-  );
-}
-var pullRequestDescriptionSectionModule,
-  pullRequestDescriptionSectionJsxRuntime,
-  initPullRequestSidePanelDescriptionSectionChunk = once(() => {
-    pullRequestDescriptionSectionModule = getChunkModuleExports();
-    initIntlRuntime();
-    Fo();
-    us();
-    initPullRequestSidePanelErrorMessageChunk();
-    initPullRequestSidePanelDetailsSummaryChunk();
-    initPullRequestSidePanelLoadingStateChunk();
-    pullRequestDescriptionSectionJsxRuntime = getJsxRuntime();
-  });
-function PullRequestSidePanelDetails(props) {
-  let { bodyError, bodyIsLoading, item, pullRequestBody, request } = props,
-    scope = useScope(composerScope),
-    { data } = useSignalValue(pullRequestCurrentBranchSignal),
-    fixDisabledReason = xc({
-      currentBranch: data,
-      storedThreadBranch: item.headBranch,
-    }).hasThreadBranchMismatch
-      ? "branch-mismatch"
-      : null,
-    hasOpenPullRequest = pullRequestBody?.hasOpenPr ?? null,
-    mergeFixDisabledReason = getPullRequestFixDisabledReason({
-      baseBranch: item.baseBranch,
-      conversationId: scope.value.routeConversationId,
-      fixDisabledReason,
-      hasOpenPr: hasOpenPullRequest,
-      headBranch: item.headBranch,
-      prNumber: item.number,
-    });
-  let checksQueryConfig = {
-    intervalMs: QUERY_DURATIONS.ONE_MINUTE,
-    staleTime: QUERY_DURATIONS.ONE_MINUTE,
-  };
-  let checksQueryOptions = {
-    source: "pull_request_board",
-    params: request,
-    queryConfig: checksQueryConfig,
-  };
-  let {
-      data: checksResult,
-      error: checksError,
-      isError: checksHaveError,
-      isLoading: checksAreLoading,
-    } = useHostQuery("gh-pr-checks", checksQueryOptions),
-    commentsQueryConfig = {
-      intervalMs: QUERY_DURATIONS.ONE_MINUTE,
-      staleTime: QUERY_DURATIONS.ONE_MINUTE,
-    };
-  let commentsQueryOptions = {
-    source: "pull_request_board",
-    params: request,
-    queryConfig: commentsQueryConfig,
-  };
-  let {
-      data: commentsResult,
-      error: commentsError,
-      isError: commentsHaveError,
-      isLoading: commentsAreLoading,
-    } = useHostQuery("gh-pr-comments", commentsQueryOptions),
-    mergeBlocker =
-      pullRequestBody == null
-        ? item.mergeBlocker
-        : pullRequestBody.mergeBlocker,
-    repo = pullRequestBody?.repo ?? request.repo ?? null,
-    diffRequest = {
-      cwd: request.cwd,
-      hostId: request.hostId,
-      number: item.number,
-      repo,
-    };
-  let shouldLoadConflictDiff = mergeBlocker === "conflicts",
-    diffQueryConfig = {
-      enabled: shouldLoadConflictDiff,
-      staleTime: QUERY_DURATIONS.ONE_MINUTE,
-    };
-  let diffQueryOptions = {
-    source: "pull_request_board",
-    params: diffRequest,
-    queryConfig: diffQueryConfig,
-  };
-  let {
-      data: diffResult,
-      error: diffError,
-      isError: diffHaveError,
-      isLoading: diffIsLoading,
-    } = useHostQuery("gh-pr-diff", diffQueryOptions),
-    checksData = checksResult?.status === "success" ? checksResult : null,
-    commentsData = commentsResult?.status === "success" ? commentsResult : null,
-    conflictFilePaths =
-      diffResult?.status === "success"
-        ? yl(diffResult.unifiedDiff, {
-            maxFiles: 20,
-          }).map(getPullRequestDiffFileDisplayPath)
-        : null;
-  let overviewSection = (
-    <PullRequestSidePanelOverviewSection
-      hostId={request.hostId}
-      item={item}
-      checks={checksData}
-      checksHaveError={checksHaveError}
-      checksAreLoading={checksAreLoading}
-      comments={commentsData}
-      commentsHaveError={commentsHaveError}
-      commentsAreLoading={commentsAreLoading}
-      mergeBlocker={mergeBlocker}
-      repo={repo}
-    />
-  );
-  let pullRequestBodyText = pullRequestBody?.body ?? null,
-    bodySection = (
-      <PullRequestSidePanelDescriptionSection
-        body={pullRequestBodyText}
-        error={bodyError}
-        loading={bodyIsLoading}
-      />
-    );
-  let checksErrorMessage = checksError?.message,
-    checksSection = pullRequestSidePanelDetailsJsxRuntime.jsx(
-      PullRequestSidePanelChecksSection,
-      {
-        data: checksData,
-        error: checksErrorMessage,
-        fixDisabledReason: mergeFixDisabledReason,
-        item,
-        loading: checksAreLoading,
-      },
-    );
-  let conflictSection =
-    mergeBlocker === "conflicts"
-      ? pullRequestSidePanelDetailsJsxRuntime.jsx(
-          PullRequestSidePanelConflictsSection,
-          {
-            error:
-              diffResult?.status === "error"
-                ? diffResult.error
-                : diffError?.message,
-            files: conflictFilePaths,
-            fixDisabledReason: mergeFixDisabledReason,
-            hasError: diffHaveError || diffResult?.status === "error",
-            item,
-            loading: diffIsLoading,
-            repo,
-          },
-        )
-      : null;
-  let commentsErrorMessage = commentsError?.message,
-    commentsSection = pullRequestSidePanelDetailsJsxRuntime.jsx(
-      PullRequestSidePanelCommentsSection,
-      {
-        data: commentsData,
-        error: commentsErrorMessage,
-        fixDisabledReason: mergeFixDisabledReason,
-        item,
-        loading: commentsAreLoading,
-      },
-    );
-  return (
-    <>
-      {overviewSection}
-      {bodySection}
-      {checksSection}
-      {conflictSection}
-      {commentsSection}
-    </>
-  );
-}
-
-function getPullRequestDiffFileDisplayPath(diffFile) {
-  return diffFile.newPath === "/dev/null" ? diffFile.oldPath : diffFile.newPath;
-}
-
-var pullRequestSidePanelDetailsModule,
-  pullRequestSidePanelDetailsJsxRuntime,
-  initPullRequestSidePanelDetailsChunk = once(() => {
-    pullRequestSidePanelDetailsModule = getChunkModuleExports();
-    initScopeRuntime();
-    bl();
-    Yc();
-    po();
-    initComposerScope();
-    initQueryDurationConstants();
-    initVscodeApiBridge();
-    initPullRequestSidePanelChecksSectionChunk();
-    initPullRequestSidePanelCommentsSectionChunk();
-    initPullRequestSidePanelConflictsSectionChunk();
-    initPullRequestSidePanelDescriptionSectionChunk();
-    initPullRequestSidePanelOverviewSectionChunk();
-    pullRequestSidePanelDetailsJsxRuntime = getJsxRuntime();
-  });
-
-function PullRequestSidePanelHeader(props) {
-  let { hostId, item, pullRequestBody, request } = props,
-    intl = useIntl(),
-    pullRequestState =
-      pullRequestBody == null
-        ? item.state === "draft" || item.state === "merged"
-          ? item.state
-          : "open"
-        : pullRequestBody.hasOpenPr === false
-          ? "merged"
-          : pullRequestBody.isDraft
-            ? "draft"
-            : "open",
-    titleNode = (
-      <div className="truncate text-base leading-5 font-medium text-token-foreground">
-        {item.title}
-      </div>
-    );
-  let stateNode = (
-    <div className="text-sm leading-5 text-token-text-tertiary">
-      {pullRequestState === "draft" ? (
-        <FormattedMessage
-          id="pullRequestSidePanel.state.draft"
-          defaultMessage="Draft"
-          description="Draft pull request state shown in the side panel header"
-        />
-      ) : pullRequestState === "merged" ? (
-        <FormattedMessage
-          id="pullRequestSidePanel.state.merged"
-          defaultMessage="Merged"
-          description="Merged pull request state shown in the side panel header"
-        />
-      ) : (
-        <FormattedMessage
-          id="pullRequestSidePanel.state.open"
-          defaultMessage="Open"
-          description="Open pull request state shown in the side panel header"
-        />
-      )}
-    </div>
-  );
-  let titleBlock = (
-    <div className="flex min-w-0 flex-col">
-      {titleNode}
-      {stateNode}
-    </div>
-  );
-  let openPullRequestLabel = intl.formatMessage({
-    id: "pullRequestSidePanel.openOnGitHub",
-    defaultMessage: "Open pull request on GitHub",
-    description:
-      "Accessible label for opening a pull request from the side panel",
-  });
-  let trackOpenOnGitHub = (event) => {
-    openInBrowserFromEvent({
-      event,
-      href: item.url,
-      initiator: "pull_request_link",
-    });
-  };
-  let externalIcon = <ExternalLinkIcon className="icon-sm" href={item.url} />;
-  let githubLink = (
-    <a
-      aria-label={openPullRequestLabel}
-      className="cursor-interaction rounded-lg p-1.5 text-token-foreground hover:bg-token-list-hover-background"
-      href={item.url}
-      rel="noreferrer"
-      target="_blank"
-      onClick={trackOpenOnGitHub}
-    >
-      {externalIcon}
-    </a>
-  );
-  let mergeActions = pullRequestSidePanelTabJsxRuntime.jsx(
-    PullRequestMergeActions,
-    {
-      hostId,
-      item,
-      pullRequestBody,
-      request,
-      surface: "thread_side_panel",
-      variant: "side-panel",
-    },
-  );
-  let actionGroup = (
-    <div className="flex shrink-0 items-center gap-2">
-      {githubLink}
-      {mergeActions}
-    </div>
-  );
-  return (
-    <header className="flex h-[50px] items-start justify-between gap-4">
-      {titleBlock}
-      {actionGroup}
-    </header>
-  );
-}
-
-var pullRequestSidePanelTabModule,
-  pullRequestSidePanelTabJsxRuntime,
-  PullRequestSidePanelTabContent,
-  initPullRequestSidePanelTabChunk = once(() => {
-    pullRequestSidePanelTabModule = getChunkModuleExports();
-    initIntlRuntime();
-    initExternalUrlHelpers();
-    Xr();
-    initQueryDurationConstants();
-    initVscodeApiBridge();
-    initPullRequestMergeActionsChunk();
-    initPullRequestSidePanelDetailsChunk();
-    pullRequestSidePanelTabJsxRuntime = getJsxRuntime();
-    PullRequestSidePanelTabContent = function (props) {
-      let { hostId, item, repo } = props,
-        request = {
-          cwd: item.cwd,
-          headBranch: item.headBranch,
-          hostId,
-          number: item.number,
-          repo,
-        };
-      let bodyQueryConfig = {
-        intervalMs: QUERY_DURATIONS.ONE_MINUTE,
-        staleTime: QUERY_DURATIONS.ONE_MINUTE,
-      };
-      let bodyQueryOptions = {
-        source: "pull_request_board",
-        params: request,
-        queryConfig: bodyQueryConfig,
-      };
-      let { data, error, isLoading } = useHostQuery(
-          "gh-pr-body",
-          bodyQueryOptions,
-        ),
-        pullRequestBody = data?.status === "success" ? data : null,
-        headerNode = pullRequestSidePanelTabJsxRuntime.jsx(
-          PullRequestSidePanelHeader,
-          {
-            hostId,
-            item,
-            pullRequestBody,
-            request,
-          },
-        );
-      let bodyError = error?.message,
-        detailsNode = pullRequestSidePanelTabJsxRuntime.jsx(
-          PullRequestSidePanelDetails,
-          {
-            bodyError,
-            bodyIsLoading: isLoading,
-            item,
-            pullRequestBody,
-            request,
-          },
-        );
-      return (
-        <div className="h-full min-h-0 overflow-y-auto bg-token-main-surface-primary">
-          <main className="mx-auto flex w-full max-w-4xl flex-col gap-4 px-5 pb-4">
-            {headerNode}
-            {detailsNode}
-          </main>
-        </div>
-      );
-    };
-  });
-
-function openPullRequestSidePanelTab(
-  scope,
-  { hostId, item, repo },
-  activate = true,
-  fallbackPosition = "right",
-) {
-  let tabId = `pull-request:${item.url}`,
-    targetPosition = no(scope, tabId) ?? fallbackPosition;
-  return (
-    va(targetPosition).openTab(scope, PullRequestSidePanelTabContent, {
-      activate,
-      defaultState: () => ({}),
-      icon: pullRequestSidePanelTabReactRuntime.createElement(Ws, {
-        className: "icon-xs shrink-0",
-        state: item.state,
-      }),
-      id: tabId,
-      props: {
-        hostId,
-        item,
-        repo,
-      },
-      title: scope.get(Wa).formatMessage(
-        {
-          id: "thread.sidePanel.pullRequestTab.title",
-          defaultMessage: "PR #{number}",
-          description: "Title for a pull request side-panel tab",
-        },
-        {
-          number: item.number,
-        },
-      ),
-      tooltip: item.title,
-    }),
-    activate && wa(scope, targetPosition),
-    true
-  );
-}
-
-var pullRequestSidePanelTabReactRuntime,
-  initPullRequestSidePanelOpenerChunk = once(() => {
-    pullRequestSidePanelTabReactRuntime = toEsModule(loadReactModule(), 1);
-    Za();
-    Js();
-    initPullRequestSidePanelTabChunk();
-    ho();
-  });
 function LocalConversationGitSummary(props) {
   let {
       conversationId,
