@@ -829,6 +829,7 @@ import {
 } from "./local-conversation-thread-parts/browser-use-summary-section";
 import { useBrowserUseSummaries } from "./local-conversation-thread-parts/browser-use-summary-store";
 import { ComputerUsePictureInPictureRow } from "./local-conversation-thread-parts/computer-use-pip-row";
+import { BackgroundTaskSectionTitle } from "./local-conversation-thread-parts/background-task-section-title";
 const joinLocalEnvironmentRepoPath = M;
 
 function Fd(e) {
@@ -7562,37 +7563,6 @@ var threadSummaryPanelReactRuntime,
       SectionCount: ThreadSummaryPanelSectionCount,
     };
   });
-function BackgroundTaskSectionTitle({ type }) {
-  switch (type) {
-    case "subagents": {
-      let e;
-      return (
-        <FormattedMessage
-          id="codex.localConversation.backgroundTasks.title.subagents"
-          defaultMessage="Subagents"
-          description="Title for the background subagents section in the thread summary side panel"
-        />
-      );
-    }
-    case "tasks": {
-      let e;
-      return (
-        <FormattedMessage
-          id="codex.localConversation.backgroundTasks.title.tasks"
-          defaultMessage="Tasks"
-          description="Title for the background tasks section in the thread summary side panel"
-        />
-      );
-    }
-  }
-}
-var backgroundTaskSectionReactRuntime,
-  backgroundTaskSectionJsxRuntime,
-  initBackgroundTaskSectionTitleChunk = once(() => {
-    backgroundTaskSectionReactRuntime = q();
-    Jn();
-    backgroundTaskSectionJsxRuntime = getJsxRuntime();
-  });
 function FloatingLocalConversationSummaryPanel(props) {
   let {
       artifacts,
@@ -8235,7 +8205,6 @@ var Av,
     tt();
     _n();
     n();
-    initBackgroundTaskSectionTitleChunk();
     Q = getJsxRuntime();
   });
 function Nv(e) {
