@@ -728,7 +728,11 @@ import {
 } from "../threads/thread-virtualizer";
 import { n as Zu, t as Qu } from "./header-CT44CGhD.js";
 import { initTeamIconChunk as $u, TeamIcon as ed } from "../icons/team-icon";
-import { n as td, r as nd, t as rd } from "./thread-scroll-layout-BNp7nttn.js";
+import {
+  initThreadScrollLayoutChunk as td,
+  initThreadScrollLayoutStyleChunk as nd,
+  ThreadScrollLayout as rd,
+} from "../utils/thread-scroll-layout";
 import {
   initThreadScrollControllerContextChunk as id,
   threadScrollControllerContext as od,
