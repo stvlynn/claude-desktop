@@ -12685,6 +12685,17 @@
       "status": "done",
       "note": "Synced current feature catalog chunk with find bar and data initializer exports.",
       "lastUpdated": "2026-06-27T22:00:14.694Z"
+    },
+    "app-initial~app-main~worktree-init-v2-page~remote-conversation-page~new-thread-panel-page~o~ozpabocf-B_lr_-Fk": {
+      "restored": "utils/worktree-paths.ts",
+      "exports": {
+        "n": "getWorktreePathFromGitDir",
+        "r": "getRepositoryPathFromGitDir",
+        "t": "initWorktreePathsChunk"
+      },
+      "status": "done",
+      "note": "Synced current worktree path helpers with case-insensitive Windows/UNC prefix handling and initializer export.",
+      "lastUpdated": "2026-06-27T22:05:09.125Z"
     }
   }
 }
