@@ -1729,7 +1729,7 @@ var gp = once(() => {
   initActiveConversationProcessRowsChunk();
   initProcessMetricHelpersChunk();
 });
-function _p(e) {
+function BackgroundTerminalSummaryRows(props) {
   let {
       backgroundTerminals,
       childProcesses,
@@ -1741,13 +1741,13 @@ function _p(e) {
       onRestartError,
       onStopError,
       onOpen,
-    } = e,
-    f = B(ut),
-    p = Op.useRef(isVisible),
-    m = W(pendingBackgroundProcessRowsSignal),
-    h = qr("child-process-kill"),
-    g = qr("chat-process-register");
-  let v = createBackgroundTerminalCurrentRows({
+    } = props,
+    scope = B(ut),
+    isVisibleRef = Op.useRef(isVisible),
+    pendingProcessRows = W(pendingBackgroundProcessRowsSignal),
+    killChildProcessMutation = qr("child-process-kill"),
+    registerProcessMutation = qr("chat-process-register");
+  let currentRows = createBackgroundTerminalCurrentRows({
       backgroundTerminals,
       childProcesses,
       conversationId,
@@ -1755,47 +1755,44 @@ function _p(e) {
       processSnapshotTimeMs,
       resolveProcessMetrics: matchProcessMetrics,
     }),
-    y = appendRegisteredBackgroundTerminalRows(
-      v,
+    processRows = appendRegisteredBackgroundTerminalRows(
+      currentRows,
       registeredRows,
       isSameProcessRow,
-    );
-  let b = y,
-    x = pruneSettledBackgroundTerminalActionStates(
-      b,
-      m,
+    ),
+    pendingRowsByProcessId = pruneSettledBackgroundTerminalActionStates(
+      processRows,
+      pendingProcessRows,
       processSnapshotTimeMs,
       isPendingProcessRowExpired,
       isSameProcessRow,
+    ),
+    summaryRows = insertBackgroundTerminalActionRows(
+      processRows,
+      pendingRowsByProcessId,
+      isSameProcessRow,
     );
-  let C = x,
-    w = insertBackgroundTerminalActionRows(b, C, isSameProcessRow);
-  let T = w,
-    E,
-    D;
-  E = () => {
-    p.current = isVisible;
-    isVisible || clearStoppedPendingProcessRows(f);
-  };
-  D = [isVisible, f];
-  Op.useEffect(E, D);
-  let O, k;
-  O = () => () => {
-    p.current = false;
-    clearStoppedPendingProcessRows(f);
-  };
-  k = [f];
-  Op.useEffect(O, k);
+  Op.useEffect(() => {
+    isVisibleRef.current = isVisible;
+    isVisible || clearStoppedPendingProcessRows(scope);
+  }, [isVisible, scope]);
+  Op.useEffect(
+    () => () => {
+      isVisibleRef.current = false;
+      clearStoppedPendingProcessRows(scope);
+    },
+    [scope],
+  );
   let stopBackgroundTerminal = (row, rowIndex) => {
     let pid = row.metrics?.pid;
     pid != null &&
-      (setPendingBackgroundProcessRow(f, row.process.id, {
+      (setPendingBackgroundProcessRow(scope, row.process.id, {
         row,
         rowIndex,
         sortRow: row,
         status: "stopping",
       }),
-      h
+      killChildProcessMutation
         .mutateAsync({
           pid,
         })
@@ -1803,8 +1800,8 @@ function _p(e) {
           (value) => {
             let { killed } = value;
             if (!killed) throw Error("Process is no longer running");
-            if (p.current) {
-              setPendingBackgroundProcessRow(f, row.process.id, {
+            if (isVisibleRef.current) {
+              setPendingBackgroundProcessRow(scope, row.process.id, {
                 row,
                 rowIndex,
                 sortRow: row,
@@ -1812,11 +1809,11 @@ function _p(e) {
               });
               return;
             }
-            removePendingBackgroundProcessRow(f, row.process.id);
+            removePendingBackgroundProcessRow(scope, row.process.id);
           },
           () => {
             onStopError();
-            removePendingBackgroundProcessRow(f, row.process.id);
+            removePendingBackgroundProcessRow(scope, row.process.id);
           },
         ));
   };
@@ -1830,14 +1827,14 @@ function _p(e) {
         sessionId,
         startedAtMs,
       );
-    setPendingBackgroundProcessRow(f, process.id, {
+    setPendingBackgroundProcessRow(scope, process.id, {
       expiresAtMs: startedAtMs + Ap,
       row: startingRow,
       rowIndex,
       sortRow: row,
       status: "starting",
     });
-    g.mutateAsync({
+    registerProcessMutation.mutateAsync({
       persistIfUnmatched: true,
       record: createBackgroundTerminalRestartRecord(
         process,
@@ -1861,13 +1858,13 @@ function _p(e) {
   let restartBackgroundTerminal = (row, rowIndex) => {
     let pid = row.metrics?.pid;
     pid != null &&
-      (setPendingBackgroundProcessRow(f, row.process.id, {
+      (setPendingBackgroundProcessRow(scope, row.process.id, {
         row,
         rowIndex,
         sortRow: row,
         status: "stopping",
       }),
-      h
+      killChildProcessMutation
         .mutateAsync({
           pid,
         })
@@ -1879,136 +1876,128 @@ function _p(e) {
           },
           () => {
             onRestartError();
-            removePendingBackgroundProcessRow(f, row.process.id);
+            removePendingBackgroundProcessRow(scope, row.process.id);
           },
         ));
   };
-  let I;
-  {
-    let e;
-    e = (e, t) => {
-      let n = resolveBackgroundTerminalStatus(
-        e,
-        getPendingBackgroundProcessRow(e, C),
-        childProcesses != null,
-      );
-      return (
-        <SummaryPanelRow
-          key={e.terminal.id}
-          icon={kp.jsx(bp, {
-            status: n,
-          })}
-          label={
-            <span
-              className={S(
-                "block min-w-0 truncate text-sm leading-5",
-                n === "starting" && "loading-shimmer-pure-text",
-                (n === "stopped" || n === "not-found") &&
-                  "text-token-description-foreground",
-              )}
-            >
-              {e.terminal.command.length > 0 ? (
-                e.terminal.command
-              ) : (
-                <FormattedMessage {...jp.defaultLabel} />
-              )}
-            </span>
-          }
-          actions={kp.jsx(vp, {
-            row: e,
-            rowIndex: t,
-            status: n,
-            onOpen,
-            onRestart: restartBackgroundTerminal,
-            onStart: startBackgroundTerminal,
-            onStop: stopBackgroundTerminal,
-          })}
-          actionsAlwaysFocusable={true}
-          onClick={() => onOpen(e.terminal)}
-        />
-      );
-    };
-    I = T.map(e);
-  }
-  return I;
+  return summaryRows.map((row, rowIndex) => {
+    let status = resolveBackgroundTerminalStatus(
+      row,
+      getPendingBackgroundProcessRow(row, pendingRowsByProcessId),
+      childProcesses != null,
+    );
+    return (
+      <SummaryPanelRow
+        key={row.terminal.id}
+        icon={kp.jsx(BackgroundTerminalStatusIcon, {
+          status,
+        })}
+        label={
+          <span
+            className={S(
+              "block min-w-0 truncate text-sm leading-5",
+              status === "starting" && "loading-shimmer-pure-text",
+              (status === "stopped" || status === "not-found") &&
+                "text-token-description-foreground",
+            )}
+          >
+            {row.terminal.command.length > 0 ? (
+              row.terminal.command
+            ) : (
+              <FormattedMessage {...jp.defaultLabel} />
+            )}
+          </span>
+        }
+        actions={kp.jsx(BackgroundTerminalRowActionMenu, {
+          row,
+          rowIndex,
+          status,
+          onOpen,
+          onRestart: restartBackgroundTerminal,
+          onStart: startBackgroundTerminal,
+          onStop: stopBackgroundTerminal,
+        })}
+        actionsAlwaysFocusable={true}
+        onClick={() => onOpen(row.terminal)}
+      />
+    );
+  });
 }
-function vp(e) {
-  let { onOpen, onRestart, onStart, onStop, row, rowIndex, status } = e,
-    l = ur(),
-    u = status === "starting",
-    d = status === "stopping",
-    f = status === "stopped",
-    p = status === "not-found",
-    m = !f && !p && row.metrics?.pid == null,
-    h = row.process.cwd != null && !u && !d && !m,
-    g =
+function BackgroundTerminalRowActionMenu(props) {
+  let { onOpen, onRestart, onStart, onStop, row, rowIndex, status } = props,
+    intl = ur(),
+    isStarting = status === "starting",
+    isStopping = status === "stopping",
+    isStopped = status === "stopped",
+    isNotFound = status === "not-found",
+    isMissingLiveProcess = !isStopped && !isNotFound && row.metrics?.pid == null,
+    canStartOrRestart = row.process.cwd != null && !isStarting && !isStopping && !isMissingLiveProcess,
+    restartTooltip =
       row.process.cwd == null ? (
         <FormattedMessage {...jp.restartMissingWorkspaceTooltip} />
-      ) : u ? (
+      ) : isStarting ? (
         <FormattedMessage {...jp.restartStartingTooltip} />
-      ) : d ? (
+      ) : isStopping ? (
         <FormattedMessage {...jp.restartStoppingTooltip} />
-      ) : m ? (
+      ) : isMissingLiveProcess ? (
         <FormattedMessage {...jp.restartMissingProcessTooltip} />
       ) : undefined;
-  let _ = g,
-    v = f || p ? jp.start : jp.restart,
-    y = () => {
-      if (f || p) {
+  let startOrRestartMessageDescriptor = isStopped || isNotFound ? jp.start : jp.restart,
+    handleStartOrRestart = () => {
+      if (isStopped || isNotFound) {
         onStart(row, rowIndex);
         return;
       }
       onRestart(row, rowIndex);
     };
-  let b = y,
-    x = l.formatMessage(jp.actions);
-  let C = S(ac, "data-[state=open]:text-token-foreground");
-  let w = <Hi className="icon-2xs" />;
-  let T = (
-    <button type="button" aria-label={x} className={C} onClick={yp}>
-      {w}
+  let actionsLabel = intl.formatMessage(jp.actions);
+  let triggerClassName = S(ac, "data-[state=open]:text-token-foreground");
+  let triggerIcon = <Hi className="icon-2xs" />;
+  let triggerButton = (
+    <button type="button" aria-label={actionsLabel} className={triggerClassName} onClick={stopBackgroundTerminalActionTriggerPropagation}>
+      {triggerIcon}
     </button>
   );
-  let E = () => onOpen(row.terminal);
-  let D = <FormattedMessage {...jp.openOutput} />;
-  let O = (
-    <Br.Item LeftIcon={ds} leftIconClassName="icon-xs" onSelect={E}>
-      {D}
+  let handleOpenOutput = () => onOpen(row.terminal);
+  let openOutputLabel = <FormattedMessage {...jp.openOutput} />;
+  let openOutputItem = (
+    <Br.Item LeftIcon={ds} leftIconClassName="icon-xs" onSelect={handleOpenOutput}>
+      {openOutputLabel}
     </Br.Item>
   );
-  let k = row.metrics?.pid == null || u || d || f,
-    A =
+  let isStopDisabled = row.metrics?.pid == null || isStarting || isStopping || isStopped,
+    stopTooltip =
       row.metrics?.pid == null ? (
         <FormattedMessage {...jp.stopMissingProcessTooltip} />
       ) : undefined;
-  let j = row.metrics?.pid == null,
-    M = () => onStop(row, rowIndex);
-  let N = <FormattedMessage {...jp.stop} />;
-  let P = (
+  let isStopTooltipInteractive = row.metrics?.pid == null,
+    handleStop = () => onStop(row, rowIndex);
+  let stopLabel = <FormattedMessage {...jp.stop} />;
+  let stopItem = (
     <Br.Item
       LeftIcon={js}
       leftIconClassName="icon-xs"
-      disabled={k}
-      tooltipText={A}
-      tooltipInteractive={j}
-      onSelect={M}
+      disabled={isStopDisabled}
+      tooltipText={stopTooltip}
+      tooltipInteractive={isStopTooltipInteractive}
+      onSelect={handleStop}
     >
-      {N}
+      {stopLabel}
     </Br.Item>
   );
-  let F = !h,
-    I = _ != null,
-    L = <FormattedMessage {...v} />;
-  let R = (
+  let isStartOrRestartDisabled = !canStartOrRestart,
+    isRestartTooltipInteractive = restartTooltip != null,
+    startOrRestartLabel = <FormattedMessage {...startOrRestartMessageDescriptor} />;
+  let startOrRestartItem = (
     <Br.Item
       LeftIcon={cn}
       leftIconClassName="icon-xs"
-      disabled={F}
-      tooltipText={_}
-      tooltipInteractive={I}
-      onSelect={b}
+      disabled={isStartOrRestartDisabled}
+      tooltipText={restartTooltip}
+      tooltipInteractive={isRestartTooltipInteractive}
+      onSelect={handleStartOrRestart}
     >
-      {L}
+      {startOrRestartLabel}
     </Br.Item>
   );
   return (
@@ -2017,53 +2006,51 @@ function vp(e) {
       animateExit={false}
       contentClassName="!animate-none"
       contentWidth="xs"
-      triggerButton={T}
+      triggerButton={triggerButton}
     >
-      {O}
-      {P}
-      {R}
+      {openOutputItem}
+      {stopItem}
+      {startOrRestartItem}
     </H>
   );
 }
-function yp(event) {
+function stopBackgroundTerminalActionTriggerPropagation(event) {
   event.stopPropagation();
 }
-function bp(e) {
-  let { status } = e,
-    r = ur(),
-    i = r.formatMessage(xp(status));
-  let a = i;
+function BackgroundTerminalStatusIcon(props) {
+  let { status } = props,
+    intl = ur(),
+    statusLabel = intl.formatMessage(getBackgroundTerminalStatusMessageDescriptor(status));
   if (status === "starting") {
-    let e = kp.jsx(rr, {
+    let startingIcon = kp.jsx(rr, {
       className: "icon-xs text-token-charts-green",
     });
-    let n;
     return (
       <span
         className="inline-flex size-4 shrink-0 items-center justify-center"
-        title={a}
-        aria-label={a}
+        title={statusLabel}
+        aria-label={statusLabel}
         role="img"
       >
-        {e}
+        {startingIcon}
       </span>
     );
   }
   return kp.jsx(ds, {
     className: "icon-sm shrink-0",
-    title: a,
-    "aria-label": a,
+    title: statusLabel,
+    "aria-label": statusLabel,
     role: "img",
   });
 }
-function xp(e) {
-  return e === "starting"
+function getBackgroundTerminalStatusMessageDescriptor(status) {
+  return status === "starting"
     ? jp.startingStatus
-    : e === "stopping"
+    : status === "stopping"
       ? jp.stoppingStatus
-      : e === "stopped"
+      : status === "stopped"
         ? jp.stoppedStatus
-        : e === "not-found"
+        : status === "not-found"
           ? jp.notFoundStatus
           : jp.runningStatus;
 }
@@ -8228,7 +8215,7 @@ function ThreadSummaryPanelSections(props) {
     >
       {Q.jsx(qt, {
         electron: true,
-        children: Q.jsx(_p, {
+        children: Q.jsx(BackgroundTerminalSummaryRows, {
           backgroundTerminals,
           childProcesses: childProcessesData?.processes,
           conversationId,
