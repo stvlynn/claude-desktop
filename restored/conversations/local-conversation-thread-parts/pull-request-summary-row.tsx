@@ -28,10 +28,10 @@ import {
   zt as canShowPullRequestBrowserSidebarMenu,
 } from "../../boundaries/current-ref/pull-request-thread-actions-producer";
 import {
-  _ as initPullRequestAnalyticsChunk,
-  b as logPullRequestViewedFromSidePanel,
-  v as trackPullRequestAction,
-} from "../../boundaries/current-ref/pull-request-check-rows-producer";
+  initPullRequestAnalyticsChunk,
+  logPullRequestViewedFromSidePanel,
+  trackPullRequestAction,
+} from "../../github/pull-request-actions";
 import { PullRequestCheckStatusIcon } from "../../github/pull-request-status";
 import { useIntl } from "../../vendor/react-intl";
 import {

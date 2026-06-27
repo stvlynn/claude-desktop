@@ -42,9 +42,9 @@ import {
   tu as initThreadBranchComparisonChunk,
 } from "../../boundaries/current-ref/profile-page-producer";
 import {
-  a as PullRequestMergeActions,
-  o as initPullRequestMergeActionsChunk,
-} from "../../boundaries/current-ref/pull-request-check-rows-producer";
+  PullRequestMergeActions,
+  initPullRequestMergeActionsChunk,
+} from "../../github/pull-request-actions";
 import {
   i as parseUnifiedDiffFileSummaries,
   r as initUnifiedDiffFileSummariesChunk,

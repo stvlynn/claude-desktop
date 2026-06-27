@@ -24,9 +24,9 @@ import {
   o as initPullRequestCommentCardChunk,
 } from "../../boundaries/current-ref/pull-request-thread-actions-producer";
 import {
-  C as PullRequestInlineActionButton,
-  w as initPullRequestInlineActionButtonChunk,
-} from "../../boundaries/current-ref/pull-request-check-rows-producer";
+  PullRequestInlineActionButton,
+  initPullRequestInlineActionButtonChunk,
+} from "../../github/pull-request-actions";
 import { FormattedMessage, useIntl } from "../../vendor/react-intl";
 import {
   attachPullRequestCommentsAndPromptFix,

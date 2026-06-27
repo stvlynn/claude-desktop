@@ -22,11 +22,11 @@ import {
   initHeartbeatAutomationIconChunk,
 } from "../../github/pull-request-checks-summary";
 import {
-  C as PullRequestInlineActionButton,
-  S as initPullRequestCheckStatusIconChunk,
-  w as initPullRequestInlineActionButtonChunk,
-  x as PullRequestUnknownCheckIcon,
-} from "../../boundaries/current-ref/pull-request-check-rows-producer";
+  PullRequestInlineActionButton,
+  PullRequestUnknownCheckIcon,
+  initPullRequestCheckStatusIconChunk,
+  initPullRequestInlineActionButtonChunk,
+} from "../../github/pull-request-actions";
 import {
   initSummaryPanelRowChunk,
   SummaryPanelRow,

@@ -38,11 +38,11 @@ import {
   ShareInviteAutocomplete,
 } from "../../collaboration/share-invite-autocomplete";
 import {
-  _ as initPullRequestAnalyticsChunk,
-  m as usePullRequestUpdateMutation,
-  p as initPullRequestUpdateMutationChunk,
-  v as trackPullRequestAction,
-} from "../../boundaries/current-ref/pull-request-check-rows-producer";
+  initPullRequestAnalyticsChunk,
+  initPullRequestUpdateMutationChunk,
+  trackPullRequestAction,
+  usePullRequestUpdateMutation,
+} from "../../github/pull-request-actions";
 import { FormattedMessage } from "../../vendor/react-intl";
 
 type PullRequestBoardItem = {

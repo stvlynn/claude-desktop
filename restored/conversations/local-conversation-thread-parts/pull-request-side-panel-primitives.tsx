@@ -12,9 +12,9 @@ import {
   zP as initChevronDownIcon,
 } from "../../boundaries/current-ref/appg-thread-shared-producer";
 import {
-  i as initPullRequestMetadataRowsChunk,
-  r as PullRequestMetadataRows,
-} from "../../boundaries/current-ref/pull-request-check-rows-producer";
+  PullRequestMetadataRows,
+  initPullRequestMetadataRowsChunk,
+} from "../../github/pull-request-actions";
 import { FormattedMessage } from "../../vendor/react-intl";
 
 export type PullRequestSidePanelErrorMessageProps = {

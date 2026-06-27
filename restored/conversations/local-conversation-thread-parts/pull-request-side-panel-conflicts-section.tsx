@@ -15,9 +15,9 @@ import {
   ns as initPullRequestComposerContextChunk,
 } from "../../boundaries/current-ref/pull-request-thread-actions-producer";
 import {
-  C as PullRequestInlineActionButton,
-  w as initPullRequestInlineActionButtonChunk,
-} from "../../boundaries/current-ref/pull-request-check-rows-producer";
+  PullRequestInlineActionButton,
+  initPullRequestInlineActionButtonChunk,
+} from "../../github/pull-request-actions";
 import { FormattedMessage } from "../../vendor/react-intl";
 import {
   attachPullRequestMergeConflictAndPromptFix,

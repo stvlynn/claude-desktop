@@ -11250,10 +11250,37 @@
       "lastUpdated": "2026-06-27T03:16:46.000Z"
     },
     "pull-request-check-rows-Q1OJv6O3": {
-      "restored": "boundaries/current-ref/pull-request-check-rows-producer.ts",
-      "status": "boundary",
-      "note": "Current ref passthrough boundary for local-conversation-thread; open until this producer is deep-restored semantically.",
-      "lastUpdated": "2026-06-27T03:16:46.000Z"
+      "restored": "github/pull-request-actions/index.ts",
+      "splitDirectory": "github/pull-request-actions",
+      "exports": {
+        "C": "PullRequestInlineActionButton",
+        "S": "initPullRequestCheckStatusIconChunk",
+        "_": "initPullRequestAnalyticsChunk",
+        "a": "PullRequestMergeActions",
+        "b": "logPullRequestViewedFromSidePanel",
+        "c": "initMergeWithCodexButtonChunk",
+        "d": "shouldShowMergeWithCodex",
+        "f": "initPullRequestMergeHelperPromptChunk",
+        "g": "usePullRequestMergeMutation",
+        "h": "initPullRequestMergeMutationChunk",
+        "i": "initPullRequestMetadataRowsChunk",
+        "l": "resolvePullRequestTaskRoute",
+        "m": "usePullRequestUpdateMutation",
+        "n": "initPullRequestCheckRowsChunk",
+        "o": "initPullRequestMergeActionsChunk",
+        "p": "initPullRequestUpdateMutationChunk",
+        "r": "PullRequestMetadataRows",
+        "s": "MergeWithCodexButton",
+        "t": "PullRequestCheckRows",
+        "u": "initPullRequestTaskRouteHelpersChunk",
+        "v": "trackPullRequestAction",
+        "w": "initPullRequestInlineActionButtonChunk",
+        "x": "PullRequestUnknownCheckIcon",
+        "y": "trackPullRequestKindAction"
+      },
+      "status": "done",
+      "note": "Semantic split pull request side-panel action producer for checks, merge actions, analytics, and Merge with Codex controls.",
+      "lastUpdated": "2026-06-27T23:05:27.000Z"
     },
     "conversation-markdown-BjFKV53f": {
       "restored": "conversations/conversation-markdown.ts",
