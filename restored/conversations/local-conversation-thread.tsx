@@ -225,7 +225,6 @@ import {
   H as Fo,
   Ja as Lo,
   Ma as Bo,
-  Oi as Uo,
   Ot as Wo,
   Q as CommentBubbleIcon,
   Qo as attachedPullRequestChecksSignal,
@@ -234,15 +233,12 @@ import {
   a as Qo,
   ho as ts,
   ji as ns,
-  ki as rs,
   l as is,
   ls as as,
   m as os,
-  mo as ss,
   ns as cs,
   o as ls,
   p as us,
-  po as ds,
   qa as fs,
   u as ps,
   us as ms,
@@ -255,11 +251,9 @@ import {
   Bl as Ss,
   Du as Es,
   Eu as Os,
-  Gm as js,
   Hl as Ms,
   In as Ns,
   Jn as Ls,
-  Km as zs,
   Nl as Ws,
   Pl as Js,
   Po as Ys,
@@ -269,7 +263,6 @@ import {
   St as tc,
   Tu as rc,
   Ul as ic,
-  Vl as ac,
   Xc as lc,
   Xd as uc,
   Yd as dc,
@@ -279,7 +272,6 @@ import {
   au as hc,
   cc as gc,
   cs as backgroundAgentsSignal,
-  er as bc,
   eu as xc,
   fl as Sc,
   gt as wc,
@@ -287,7 +279,6 @@ import {
   iu as activeWorkflowSignal,
   jt as Ac,
   kl as jc,
-  lf as Nc,
   ls as Pc,
   nu as Lc,
   oa as Rc,
@@ -297,9 +288,7 @@ import {
   sc as Gc,
   ss as Kc,
   st as qc,
-  tr as Jc,
   tu as Yc,
-  uf as Xc,
   vc as Qc,
   wu as $c,
   xt as el,
@@ -360,27 +349,19 @@ import {
   ShareInviteAutocomplete as Pu,
 } from "../collaboration/share-invite-autocomplete";
 import {
-  clearStoppedPendingProcessRows,
   computerUsePictureInPictureAvailableSignal,
   computerUsePictureInPictureVisibleSignal,
-  getPendingBackgroundProcessRow,
-  initActiveConversationProcessRowsChunk,
   initBackgroundTerminalSidePanelTabChunk,
   initPendingBackgroundProcessRowsChunk,
-  initProcessMetricHelpersChunk,
   initThreadSidePanelTabRegistryChunk,
   initThreadSummaryPanelSignalsChunk,
   isPendingProcessRowExpired,
-  isSameProcessRow,
-  matchProcessMetrics,
   mergeProcessRows,
   openBackgroundTerminalSidePanelTab,
   pendingBackgroundProcessRowsSignal,
   registerThreadSidePanelTab,
-  removePendingBackgroundProcessRow,
   restoreRegisteredProcessRows,
   selectRunningProcessRows,
-  setPendingBackgroundProcessRow,
 } from "../app-shell/thread-background-processes";
 import { initTeamIconChunk as $u, TeamIcon as ed } from "../icons/team-icon";
 import { initThreadScrollControllerContextChunk as id } from "../utils/thread-scroll-controller-context";
@@ -404,25 +385,10 @@ import {
   openSideChatTab as jd,
 } from "../threads/thread-overflow-menu";
 import {
-  createBackgroundSummaryItems,
-  getBackgroundSummaryItemKey,
-  getInlineActivityBackgroundAgents,
   isDoneBackgroundAgent,
-  isWorkingBackgroundAgent,
   shouldHideInlineBackgroundAgent,
   shouldShowInlineBackgroundAgent,
 } from "./local-conversation-thread-parts/background-summary";
-import {
-  appendRegisteredBackgroundTerminalRows,
-  insertBackgroundTerminalActionRows,
-  pruneSettledBackgroundTerminalActionStates,
-  resolveBackgroundTerminalStatus,
-} from "./local-conversation-thread-parts/background-terminal-state";
-import {
-  createBackgroundTerminalCurrentRows,
-  createBackgroundTerminalRestartRecord,
-  createStartingBackgroundTerminalRow,
-} from "./local-conversation-thread-parts/background-terminal-current-rows";
 import { createBackgroundTerminalProcessSnapshotSelector } from "./local-conversation-thread-parts/background-terminal-process-snapshot";
 import { createRestoredBackgroundTerminalRows } from "./local-conversation-thread-parts/background-terminal-restored-rows";
 import { countBackgroundTerminalSummaryRows } from "./local-conversation-thread-parts/background-terminal-summary-count";
@@ -445,6 +411,10 @@ import {
   initSummaryPanelErrorFallbackChunk,
   SummaryPanelErrorFallback,
 } from "./local-conversation-thread-parts/local-conversation-summary-panel-error";
+import {
+  BackgroundTerminalSummaryRows,
+  ThreadSummaryBackgroundActivityRows,
+} from "./local-conversation-thread-parts/thread-summary-background-tasks";
 import { isRecentLocalEnvironmentAction } from "./local-conversation-thread-parts/local-environment-recent-actions";
 import {
   initLocalEnvironmentActionControlsChunk,
@@ -547,10 +517,6 @@ import {
   VirtualizedTurnList,
 } from "./local-conversation-thread-parts/local-conversation-virtualized-turn-list";
 import {
-  initSummaryPanelExpandableList,
-  SummaryPanelExpandableList,
-} from "./local-conversation-thread-parts/summary-panel-expandable-list";
-import {
   initThreadSummarySideChatRowsChunk,
   ThreadSummarySideChatRows,
 } from "./local-conversation-thread-parts/thread-summary-side-chat-rows";
@@ -588,814 +554,6 @@ import {
   ConnectedLocalWorktreeRestoreBanner,
   initWorktreeRestoreBannerChunk,
 } from "./local-conversation-thread-parts/local-conversation-worktree-restore-banner";
-function ThreadSummaryBackgroundActivityRows(props) {
-  let {
-      backgroundAgents,
-      backgroundTerminals,
-      conversationId,
-      onOpenBackgroundAgent,
-      onOpenTerminal,
-      onStopError,
-    } = props,
-    intl = useIntl(),
-    [stoppingTerminalId, setStoppingTerminalId] =
-      threadSummaryBackgroundActivityReactRuntime.useState(null),
-    backgroundSummaryItems,
-    inlineActivityBackgroundAgents;
-  {
-    inlineActivityBackgroundAgents =
-      getInlineActivityBackgroundAgents(backgroundAgents);
-    backgroundSummaryItems = createBackgroundSummaryItems(
-      backgroundAgents,
-      backgroundTerminals,
-    );
-  }
-  let stopAllBackgroundTerminals = (terminal) => {
-    conversationId == null ||
-      stoppingTerminalId != null ||
-      (setStoppingTerminalId(terminal.id),
-      sendAppServerRequest("clean-background-terminals", {
-        conversationId,
-      })
-        .catch(onStopError)
-        .finally(() => setStoppingTerminalId(null)));
-  };
-  let handleStopAllBackgroundTerminals = stopAllBackgroundTerminals,
-    renderBackgroundSummaryItem = (item) => {
-      switch (item.type) {
-        case "agent":
-          return (
-            <SummaryPanelRow
-              icon={null}
-              label={threadSummaryBackgroundActivityJsxRuntime.jsx(
-                BackgroundAgentSummaryLabel,
-                {
-                  backgroundAgent: item.backgroundAgent,
-                },
-              )}
-              labelClassName="min-w-0"
-              trailing={
-                item.backgroundAgent.diffStats == null ? null : (
-                  <Ml
-                    linesAdded={item.backgroundAgent.diffStats.linesAdded}
-                    linesRemoved={item.backgroundAgent.diffStats.linesRemoved}
-                    className="text-size-chat"
-                  />
-                )
-              }
-              trailingVisible={item.backgroundAgent.diffStats != null}
-              onClick={() => onOpenBackgroundAgent(item.backgroundAgent)}
-            />
-          );
-        case "terminal":
-          return (
-            <SummaryPanelRow
-              icon={threadSummaryBackgroundActivityJsxRuntime.jsx(ds, {
-                className: "icon-sm shrink-0 text-token-text-secondary",
-              })}
-              label={
-                <span className="truncate text-sm">
-                  {item.terminal.command.length > 0 ? (
-                    item.terminal.command
-                  ) : (
-                    <FormattedMessage
-                      id="codex.localConversation.backgroundTerminals.defaultLabel"
-                      defaultMessage="Background terminal"
-                      description="Fallback row label for a running background terminal when the command text is unavailable"
-                    />
-                  )}
-                </span>
-              }
-              actions={threadSummaryBackgroundActivityJsxRuntime.jsx(Tooltip, {
-                side: "top",
-                tooltipContent: (
-                  <FormattedMessage
-                    id="codex.localConversation.backgroundTerminals.stopTooltip"
-                    defaultMessage="Stop all background terminals"
-                    description="Tooltip for button that stops all background terminals from the thread summary panel"
-                  />
-                ),
-                children: (
-                  <button
-                    type="button"
-                    className="flex size-4 shrink-0 cursor-interaction items-center justify-center border-0 bg-transparent p-0 text-token-text-tertiary hover:text-token-foreground focus:outline-none disabled:cursor-not-allowed disabled:opacity-40"
-                    disabled={stoppingTerminalId != null}
-                    onClick={() =>
-                      handleStopAllBackgroundTerminals(item.terminal)
-                    }
-                    aria-label={intl.formatMessage({
-                      id: "codex.localConversation.backgroundTerminals.stop",
-                      defaultMessage: "Stop all background terminals",
-                      description:
-                        "Aria label for button that stops all background terminals from the thread summary panel",
-                    })}
-                  >
-                    {stoppingTerminalId === item.terminal.id
-                      ? threadSummaryBackgroundActivityJsxRuntime.jsx(
-                          SpinnerIcon,
-                          {
-                            className: "icon-xs",
-                          },
-                        )
-                      : threadSummaryBackgroundActivityJsxRuntime.jsx(js, {
-                          className: "icon-xs",
-                          "aria-hidden": true,
-                        })}
-                  </button>
-                ),
-              })}
-              onClick={() => onOpenTerminal(item.terminal)}
-            />
-          );
-      }
-    };
-  let backgroundSummaryRows = (
-    <SummaryPanelExpandableList
-      items={backgroundSummaryItems}
-      getKey={getBackgroundSummaryItemKey}
-    >
-      {renderBackgroundSummaryItem}
-    </SummaryPanelExpandableList>
-  );
-  let rows = backgroundSummaryRows;
-  return inlineActivityBackgroundAgents.length > 0 ? (
-    <>
-      {threadSummaryBackgroundActivityJsxRuntime.jsx(
-        BackgroundAgentCollapsedSummaryRow,
-        {
-          backgroundAgents: inlineActivityBackgroundAgents,
-          onOpenBackgroundAgent,
-        },
-      )}
-      {rows}
-    </>
-  ) : (
-    rows
-  );
-}
-function BackgroundAgentCollapsedSummaryRow(props) {
-  let { backgroundAgents, onOpenBackgroundAgent } = props,
-    doneBackgroundAgents,
-    avatarListClassName,
-    agentAvatarButtons,
-    containerClassName,
-    workingBackgroundAgents;
-  {
-    workingBackgroundAgents = backgroundAgents.filter(isWorkingBackgroundAgent);
-    doneBackgroundAgents = backgroundAgents.filter(isDoneBackgroundAgent);
-    let visibleBackgroundAgents =
-      workingBackgroundAgents.length > 0
-        ? workingBackgroundAgents.slice(0, 4)
-        : doneBackgroundAgents.slice(-4);
-    containerClassName = "flex min-h-8 items-center gap-2";
-    avatarListClassName = "flex shrink-0 items-center gap-1.5";
-    let renderAgentAvatarButton;
-    renderAgentAvatarButton = (backgroundAgent) => (
-      <button
-        key={backgroundAgent.conversationId}
-        type="button"
-        className="flex size-4 cursor-interaction rounded-full focus-visible:outline-2 focus-visible:outline-offset-2"
-        aria-label={backgroundAgent.displayName}
-        onClick={() => onOpenBackgroundAgent(backgroundAgent)}
-      >
-        {threadSummaryBackgroundActivityJsxRuntime.jsx(bc, {
-          seed: backgroundAgent.conversationId,
-          className: "size-4",
-          "aria-hidden": true,
-        })}
-      </button>
-    );
-    agentAvatarButtons = visibleBackgroundAgents.map(renderAgentAvatarButton);
-  }
-  let avatarList = (
-    <span className={avatarListClassName}>{agentAvatarButtons}</span>
-  );
-  let workingCountLabel =
-    workingBackgroundAgents.length > 0 ? (
-      <span className="text-base whitespace-nowrap text-token-foreground">
-        <FormattedMessage
-          id="codex.localConversation.backgroundAgents.collapsedWorkingCount"
-          defaultMessage={"{count, plural, one {# working} other {# working}}"}
-          description="Number of multi-agent v2 subagents that are still working in the collapsed summary panel row"
-          values={{
-            count: workingBackgroundAgents.length,
-          }}
-        />
-      </span>
-    ) : null;
-  let doneCountLabel =
-    doneBackgroundAgents.length > 0 ? (
-      <span className="text-base whitespace-nowrap text-token-text-tertiary">
-        <FormattedMessage
-          id="codex.localConversation.backgroundAgents.collapsedDoneCount"
-          defaultMessage={"{count, plural, one {# done} other {# done}}"}
-          description="Number of multi-agent v2 subagents that are done in the collapsed summary panel row"
-          values={{
-            count: doneBackgroundAgents.length,
-          }}
-        />
-      </span>
-    ) : null;
-  return (
-    <div className={containerClassName}>
-      {avatarList}
-      {workingCountLabel}
-      {doneCountLabel}
-    </div>
-  );
-}
-function BackgroundAgentSummaryLabel(props) {
-  let { backgroundAgent } = props,
-    tooltipContent =
-      backgroundAgent.agentRole == null &&
-      backgroundAgent.spawnModel == null ? null : (
-        <span className="flex flex-col gap-0.5">
-          {backgroundAgent.agentRole == null ? null : (
-            <span>{backgroundAgent.agentRole}</span>
-          )}
-          {backgroundAgent.spawnModel == null ? null : (
-            <span>
-              <FormattedMessage
-                id="codex.localConversation.backgroundAgents.modelTooltip"
-                defaultMessage={"Uses {model}"}
-                description="Tooltip line that shows the model used by a background subagent."
-                values={{
-                  model: Nc(backgroundAgent.spawnModel),
-                }}
-              />
-            </span>
-          )}
-        </span>
-      );
-  let tooltipIsDisabled = tooltipContent == null,
-    isActive = backgroundAgent.status === "active",
-    avatarIcon = (
-      <Uo
-        active={isActive}
-        seed={backgroundAgent.conversationId}
-        className="icon-sm pointer-events-none"
-        aria-hidden={true}
-      />
-    );
-  let displayName = (
-    <span className="min-w-0 truncate">{backgroundAgent.displayName}</span>
-  );
-  let activeStatusLabel =
-    backgroundAgent.status === "active" ? (
-      <span className="loading-shimmer-pure-text shrink-0 whitespace-nowrap text-token-description-foreground">
-        <FormattedMessage
-          id="codex.localConversation.backgroundAgents.activeLabel"
-          defaultMessage="is working"
-          description="Status label shown next to an active background subagent in the thread summary panel"
-        />
-      </span>
-    ) : null;
-  let label = (
-    <span className="flex min-w-0 items-center gap-2">
-      {avatarIcon}
-      {displayName}
-      {activeStatusLabel}
-    </span>
-  );
-  return threadSummaryBackgroundActivityJsxRuntime.jsx(Tooltip, {
-    disabled: tooltipIsDisabled,
-    tooltipContent,
-    children: label,
-  });
-}
-var threadSummaryBackgroundActivityModule,
-  threadSummaryBackgroundActivityReactRuntime,
-  threadSummaryBackgroundActivityJsxRuntime,
-  initThreadSummaryBackgroundActivityRowsChunk = once(() => {
-    threadSummaryBackgroundActivityModule = getChunkModuleExports();
-    threadSummaryBackgroundActivityReactRuntime = toEsModule(
-      loadReactModule(),
-      1,
-    );
-    initIntlRuntime();
-    initAppServerRequestBridge();
-    initSpinnerComponent();
-    initTooltipPrimitives();
-    Nl();
-    zs();
-    ss();
-    Xc();
-    rs();
-    Jc();
-    initSummaryPanelExpandableList();
-    initSummaryPanelRowChunk();
-    threadSummaryBackgroundActivityJsxRuntime = getJsxRuntime();
-  });
-var initBackgroundTerminalSummaryRowsSupportChunk = once(() => {
-  initActiveConversationProcessRowsChunk();
-  initProcessMetricHelpersChunk();
-});
-function BackgroundTerminalSummaryRows(props) {
-  let {
-      backgroundTerminals,
-      childProcesses,
-      conversationId,
-      hostId,
-      isVisible,
-      processSnapshotTimeMs,
-      registeredRows,
-      onRestartError,
-      onStopError,
-      onOpen,
-    } = props,
-    scope = useScope(appScope),
-    isVisibleRef = backgroundTerminalSummaryRowsReactRuntime.useRef(isVisible),
-    pendingProcessRows = useSignalValue(pendingBackgroundProcessRowsSignal),
-    killChildProcessMutation = useAppServerMutation("child-process-kill"),
-    registerProcessMutation = useAppServerMutation("chat-process-register");
-  let currentRows = createBackgroundTerminalCurrentRows({
-      backgroundTerminals,
-      childProcesses,
-      conversationId,
-      hostId,
-      processSnapshotTimeMs,
-      resolveProcessMetrics: matchProcessMetrics,
-    }),
-    processRows = appendRegisteredBackgroundTerminalRows(
-      currentRows,
-      registeredRows,
-      isSameProcessRow,
-    ),
-    pendingRowsByProcessId = pruneSettledBackgroundTerminalActionStates(
-      processRows,
-      pendingProcessRows,
-      processSnapshotTimeMs,
-      isPendingProcessRowExpired,
-      isSameProcessRow,
-    ),
-    summaryRows = insertBackgroundTerminalActionRows(
-      processRows,
-      pendingRowsByProcessId,
-      isSameProcessRow,
-    );
-  backgroundTerminalSummaryRowsReactRuntime.useEffect(() => {
-    isVisibleRef.current = isVisible;
-    isVisible || clearStoppedPendingProcessRows(scope);
-  }, [isVisible, scope]);
-  backgroundTerminalSummaryRowsReactRuntime.useEffect(
-    () => () => {
-      isVisibleRef.current = false;
-      clearStoppedPendingProcessRows(scope);
-    },
-    [scope],
-  );
-  let stopBackgroundTerminal = (row, rowIndex) => {
-    let pid = row.metrics?.pid;
-    pid != null &&
-      (setPendingBackgroundProcessRow(scope, row.process.id, {
-        row,
-        rowIndex,
-        sortRow: row,
-        status: "stopping",
-      }),
-      killChildProcessMutation
-        .mutateAsync({
-          pid,
-        })
-        .then(
-          (value) => {
-            let { killed } = value;
-            if (!killed) throw Error("Process is no longer running");
-            if (isVisibleRef.current) {
-              setPendingBackgroundProcessRow(scope, row.process.id, {
-                row,
-                rowIndex,
-                sortRow: row,
-                status: "stopped",
-              });
-              return;
-            }
-            removePendingBackgroundProcessRow(scope, row.process.id);
-          },
-          () => {
-            onStopError();
-            removePendingBackgroundProcessRow(scope, row.process.id);
-          },
-        ));
-  };
-  let startBackgroundTerminal = (row, rowIndex) => {
-    let { process } = row;
-    if (process.cwd == null) return;
-    let startedAtMs = Date.now(),
-      sessionId =
-        environmentTerminalControllerService.addSessionForConversation(
-          process.conversationId,
-        ),
-      startingRow = createStartingBackgroundTerminalRow(
-        row,
-        sessionId,
-        startedAtMs,
-      );
-    setPendingBackgroundProcessRow(scope, process.id, {
-      expiresAtMs: startedAtMs + BACKGROUND_TERMINAL_STARTING_ROW_TTL_MS,
-      row: startingRow,
-      rowIndex,
-      sortRow: row,
-      status: "starting",
-    });
-    registerProcessMutation
-      .mutateAsync({
-        persistIfUnmatched: true,
-        record: createBackgroundTerminalRestartRecord(
-          process,
-          sessionId,
-          startedAtMs,
-        ),
-      })
-      .catch(onRestartError);
-    environmentTerminalControllerService.create({
-      conversationId: process.conversationId,
-      conversationTitle: process.chatTitle,
-      cwd: process.cwd,
-      hostId: process.hostId,
-      preserveOnOwnerDestroy: true,
-      sessionId,
-    });
-    environmentTerminalControllerService.runHeadlessAction(sessionId, {
-      command: process.command,
-      cwd: process.cwd,
-    });
-  };
-  let restartBackgroundTerminal = (row, rowIndex) => {
-    let pid = row.metrics?.pid;
-    pid != null &&
-      (setPendingBackgroundProcessRow(scope, row.process.id, {
-        row,
-        rowIndex,
-        sortRow: row,
-        status: "stopping",
-      }),
-      killChildProcessMutation
-        .mutateAsync({
-          pid,
-        })
-        .then(
-          (value) => {
-            let { killed } = value;
-            if (!killed) throw Error("Process is no longer running");
-            startBackgroundTerminal(row, rowIndex);
-          },
-          () => {
-            onRestartError();
-            removePendingBackgroundProcessRow(scope, row.process.id);
-          },
-        ));
-  };
-  return summaryRows.map((row, rowIndex) => {
-    let status = resolveBackgroundTerminalStatus(
-      row,
-      getPendingBackgroundProcessRow(row, pendingRowsByProcessId),
-      childProcesses != null,
-    );
-    return (
-      <SummaryPanelRow
-        key={row.terminal.id}
-        icon={backgroundTerminalSummaryRowsJsxRuntime.jsx(
-          BackgroundTerminalStatusIcon,
-          {
-            status,
-          },
-        )}
-        label={
-          <span
-            className={classNames(
-              "block min-w-0 truncate text-sm leading-5",
-              status === "starting" && "loading-shimmer-pure-text",
-              (status === "stopped" || status === "not-found") &&
-                "text-token-description-foreground",
-            )}
-          >
-            {row.terminal.command.length > 0 ? (
-              row.terminal.command
-            ) : (
-              <FormattedMessage {...backgroundTerminalMessages.defaultLabel} />
-            )}
-          </span>
-        }
-        actions={backgroundTerminalSummaryRowsJsxRuntime.jsx(
-          BackgroundTerminalRowActionMenu,
-          {
-            row,
-            rowIndex,
-            status,
-            onOpen,
-            onRestart: restartBackgroundTerminal,
-            onStart: startBackgroundTerminal,
-            onStop: stopBackgroundTerminal,
-          },
-        )}
-        actionsAlwaysFocusable={true}
-        onClick={() => onOpen(row.terminal)}
-      />
-    );
-  });
-}
-function BackgroundTerminalRowActionMenu(props) {
-  let { onOpen, onRestart, onStart, onStop, row, rowIndex, status } = props,
-    intl = useIntl(),
-    isStarting = status === "starting",
-    isStopping = status === "stopping",
-    isStopped = status === "stopped",
-    isNotFound = status === "not-found",
-    isMissingLiveProcess =
-      !isStopped && !isNotFound && row.metrics?.pid == null,
-    canStartOrRestart =
-      row.process.cwd != null &&
-      !isStarting &&
-      !isStopping &&
-      !isMissingLiveProcess,
-    restartTooltip =
-      row.process.cwd == null ? (
-        <FormattedMessage
-          {...backgroundTerminalMessages.restartMissingWorkspaceTooltip}
-        />
-      ) : isStarting ? (
-        <FormattedMessage
-          {...backgroundTerminalMessages.restartStartingTooltip}
-        />
-      ) : isStopping ? (
-        <FormattedMessage
-          {...backgroundTerminalMessages.restartStoppingTooltip}
-        />
-      ) : isMissingLiveProcess ? (
-        <FormattedMessage
-          {...backgroundTerminalMessages.restartMissingProcessTooltip}
-        />
-      ) : undefined;
-  let startOrRestartMessageDescriptor =
-      isStopped || isNotFound
-        ? backgroundTerminalMessages.start
-        : backgroundTerminalMessages.restart,
-    handleStartOrRestart = () => {
-      if (isStopped || isNotFound) {
-        onStart(row, rowIndex);
-        return;
-      }
-      onRestart(row, rowIndex);
-    };
-  let actionsLabel = intl.formatMessage(backgroundTerminalMessages.actions);
-  let triggerClassName = classNames(
-    ac,
-    "data-[state=open]:text-token-foreground",
-  );
-  let triggerIcon = <MoreHorizontalIcon className="icon-2xs" />;
-  let triggerButton = (
-    <button
-      type="button"
-      aria-label={actionsLabel}
-      className={triggerClassName}
-      onClick={stopBackgroundTerminalActionTriggerPropagation}
-    >
-      {triggerIcon}
-    </button>
-  );
-  let handleOpenOutput = () => onOpen(row.terminal);
-  let openOutputLabel = (
-    <FormattedMessage {...backgroundTerminalMessages.openOutput} />
-  );
-  let openOutputItem = (
-    <MenuChrome.Item
-      LeftIcon={ds}
-      leftIconClassName="icon-xs"
-      onSelect={handleOpenOutput}
-    >
-      {openOutputLabel}
-    </MenuChrome.Item>
-  );
-  let isStopDisabled =
-      row.metrics?.pid == null || isStarting || isStopping || isStopped,
-    stopTooltip =
-      row.metrics?.pid == null ? (
-        <FormattedMessage
-          {...backgroundTerminalMessages.stopMissingProcessTooltip}
-        />
-      ) : undefined;
-  let isStopTooltipInteractive = row.metrics?.pid == null,
-    handleStop = () => onStop(row, rowIndex);
-  let stopLabel = <FormattedMessage {...backgroundTerminalMessages.stop} />;
-  let stopItem = (
-    <MenuChrome.Item
-      LeftIcon={js}
-      leftIconClassName="icon-xs"
-      disabled={isStopDisabled}
-      tooltipText={stopTooltip}
-      tooltipInteractive={isStopTooltipInteractive}
-      onSelect={handleStop}
-    >
-      {stopLabel}
-    </MenuChrome.Item>
-  );
-  let isStartOrRestartDisabled = !canStartOrRestart,
-    isRestartTooltipInteractive = restartTooltip != null,
-    startOrRestartLabel = (
-      <FormattedMessage {...startOrRestartMessageDescriptor} />
-    );
-  let startOrRestartItem = (
-    <MenuChrome.Item
-      LeftIcon={RefreshIcon}
-      leftIconClassName="icon-xs"
-      disabled={isStartOrRestartDisabled}
-      tooltipText={restartTooltip}
-      tooltipInteractive={isRestartTooltipInteractive}
-      onSelect={handleStartOrRestart}
-    >
-      {startOrRestartLabel}
-    </MenuChrome.Item>
-  );
-  return (
-    <DropdownMenu
-      align="end"
-      animateExit={false}
-      contentClassName="!animate-none"
-      contentWidth="xs"
-      triggerButton={triggerButton}
-    >
-      {openOutputItem}
-      {stopItem}
-      {startOrRestartItem}
-    </DropdownMenu>
-  );
-}
-function stopBackgroundTerminalActionTriggerPropagation(event) {
-  event.stopPropagation();
-}
-function BackgroundTerminalStatusIcon(props) {
-  let { status } = props,
-    intl = useIntl(),
-    statusLabel = intl.formatMessage(
-      getBackgroundTerminalStatusMessageDescriptor(status),
-    );
-  if (status === "starting") {
-    let startingIcon = backgroundTerminalSummaryRowsJsxRuntime.jsx(
-      SpinnerIcon,
-      {
-        className: "icon-xs text-token-charts-green",
-      },
-    );
-    return (
-      <span
-        className="inline-flex size-4 shrink-0 items-center justify-center"
-        title={statusLabel}
-        aria-label={statusLabel}
-        role="img"
-      >
-        {startingIcon}
-      </span>
-    );
-  }
-  return backgroundTerminalSummaryRowsJsxRuntime.jsx(ds, {
-    className: "icon-sm shrink-0",
-    title: statusLabel,
-    "aria-label": statusLabel,
-    role: "img",
-  });
-}
-function getBackgroundTerminalStatusMessageDescriptor(status) {
-  return status === "starting"
-    ? backgroundTerminalMessages.startingStatus
-    : status === "stopping"
-      ? backgroundTerminalMessages.stoppingStatus
-      : status === "stopped"
-        ? backgroundTerminalMessages.stoppedStatus
-        : status === "not-found"
-          ? backgroundTerminalMessages.notFoundStatus
-          : backgroundTerminalMessages.runningStatus;
-}
-var backgroundTerminalSummaryRowsModule,
-  backgroundTerminalSummaryRowsReactRuntime,
-  backgroundTerminalSummaryRowsJsxRuntime,
-  BACKGROUND_TERMINAL_STARTING_ROW_TTL_MS,
-  backgroundTerminalMessages,
-  initBackgroundTerminalSummaryRowsChunk = once(() => {
-    backgroundTerminalSummaryRowsModule = getChunkModuleExports();
-    initClassNameRuntime();
-    initScopeRuntime();
-    backgroundTerminalSummaryRowsReactRuntime = toEsModule(
-      loadReactModule(),
-      1,
-    );
-    initIntlRuntime();
-    initDropdownMenuPrimitives();
-    initSpinnerComponent();
-    initRefreshIcon();
-    zs();
-    ss();
-    initMoreHorizontalIcon();
-    ic();
-    initActiveConversationProcessRowsChunk();
-    initPendingBackgroundProcessRowsChunk();
-    initProcessMetricHelpersChunk();
-    initAppScope();
-    initEnvironmentTerminalController();
-    initVscodeApiBridge();
-    initBackgroundTerminalSummaryRowsSupportChunk();
-    initSummaryPanelRowChunk();
-    backgroundTerminalSummaryRowsJsxRuntime = getJsxRuntime();
-    BACKGROUND_TERMINAL_STARTING_ROW_TTL_MS = 1e4;
-    backgroundTerminalMessages = defineMessages({
-      actions: {
-        id: "codex.localConversation.backgroundTerminals.actions",
-        defaultMessage: "Background terminal actions",
-        description:
-          "Accessible label for the background terminal row actions menu in the thread summary panel",
-      },
-      defaultLabel: {
-        id: "codex.localConversation.backgroundTerminals.defaultLabel",
-        defaultMessage: "Background terminal",
-        description:
-          "Fallback row label for a running background terminal when the command text is unavailable",
-      },
-      notFoundStatus: {
-        id: "codex.localConversation.backgroundTerminals.notFoundStatus",
-        defaultMessage: "Not found",
-        description:
-          "Status shown when a background terminal row no longer maps to a live process",
-      },
-      openOutput: {
-        id: "codex.localConversation.backgroundTerminals.openOutput",
-        defaultMessage: "Open output",
-        description:
-          "Menu item that opens the background terminal output from the thread summary panel",
-      },
-      start: {
-        id: "codex.localConversation.backgroundTerminals.start",
-        defaultMessage: "Start",
-        description:
-          "Menu item that starts a stopped background terminal from the thread summary panel",
-      },
-      restart: {
-        id: "codex.localConversation.backgroundTerminals.restart",
-        defaultMessage: "Restart",
-        description:
-          "Menu item that restarts a background terminal from the thread summary panel",
-      },
-      restartMissingProcessTooltip: {
-        id: "codex.localConversation.backgroundTerminals.restartMissingProcessTooltip",
-        defaultMessage: "Restart needs a live process id",
-        description:
-          "Tooltip explaining why a background terminal cannot restart because it has no live process id",
-      },
-      restartMissingWorkspaceTooltip: {
-        id: "codex.localConversation.backgroundTerminals.restartMissingWorkspaceTooltip",
-        defaultMessage: "This task needs a workspace",
-        description:
-          "Tooltip explaining why a background terminal cannot be started from the thread summary panel",
-      },
-      restartStartingTooltip: {
-        id: "codex.localConversation.backgroundTerminals.restartStartingTooltip",
-        defaultMessage: "This task is already starting",
-        description:
-          "Tooltip explaining why a starting background terminal cannot be restarted from the thread summary panel",
-      },
-      restartStoppingTooltip: {
-        id: "codex.localConversation.backgroundTerminals.restartStoppingTooltip",
-        defaultMessage: "This task is stopping",
-        description:
-          "Tooltip explaining why a background terminal cannot restart while stopping",
-      },
-      runningStatus: {
-        id: "codex.localConversation.backgroundTerminals.runningStatus",
-        defaultMessage: "Running",
-        description:
-          "Status shown for a running background terminal in the thread summary panel",
-      },
-      startingStatus: {
-        id: "codex.localConversation.backgroundTerminals.startingStatus",
-        defaultMessage: "Starting…",
-        description:
-          "Status shown while a background terminal is starting from the thread summary panel",
-      },
-      stoppedStatus: {
-        id: "codex.localConversation.backgroundTerminals.stoppedStatus",
-        defaultMessage: "Stopped",
-        description:
-          "Status shown for a stopped background terminal in the thread summary panel",
-      },
-      stoppingStatus: {
-        id: "codex.localConversation.backgroundTerminals.stoppingStatus",
-        defaultMessage: "Stopping…",
-        description:
-          "Status shown while a background terminal is stopping from the thread summary panel",
-      },
-      stop: {
-        id: "codex.localConversation.backgroundTerminals.stopTask",
-        defaultMessage: "Stop",
-        description:
-          "Menu item that stops a background terminal from the thread summary panel",
-      },
-      stopMissingProcessTooltip: {
-        id: "codex.localConversation.backgroundTerminals.stopMissingProcessTooltip",
-        defaultMessage: "No running process was found for this task",
-        description:
-          "Tooltip explaining why a background terminal cannot be stopped from the thread summary panel",
-      },
-    });
-  });
 var localEnvironmentRecentActionsModule,
   initLocalEnvironmentRecentActions = once(() => {
     localEnvironmentRecentActionsModule = getChunkModuleExports();
@@ -5184,9 +4342,8 @@ var localConversationSummaryPanelModule,
     Ji();
     lc();
     initSummaryPanelArtifactsListChunk();
-    initThreadSummaryBackgroundActivityRowsChunk();
-    initBackgroundTerminalSummaryRowsSupportChunk();
-    initBackgroundTerminalSummaryRowsChunk();
+    ThreadSummaryBackgroundActivityRows.initChunk();
+    BackgroundTerminalSummaryRows.initChunk();
     initThreadSummaryEnvironmentSectionChunk();
     initThreadSummaryAutomationRowChunk();
     initThreadSummarySideChatRowsChunk();
@@ -5815,7 +4972,6 @@ export const initLocalConversationThreadChunk = once(() => {
   ho();
   id();
   initThreadFindNavigationRail();
-  rs();
   initThreadFindNavigationRailNoopChunk();
   Pc();
   initLocalConversationGitSummary();
