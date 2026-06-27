@@ -2194,21 +2194,26 @@ var Dp,
       },
     });
   });
-function Lp(e, t) {
-  return t?.trim() || zp(e);
+function getLocalEnvironmentDisplayName(configPath, environmentName) {
+  return environmentName?.trim() || getConfigPathDisplayName(configPath);
 }
-function Rp(e) {
-  return Lp(e.configPath, e.type === "success" ? e.environment.name : null);
+function getLocalEnvironmentResultDisplayName(environmentResult) {
+  return getLocalEnvironmentDisplayName(
+    environmentResult.configPath,
+    environmentResult.type === "success"
+      ? environmentResult.environment.name
+      : null,
+  );
 }
-function zp(e) {
-  let t = or(e),
-    n = t.split("/").filter(Boolean);
-  return n[n.length - 1] ?? t;
+function getConfigPathDisplayName(configPath) {
+  let normalizedConfigPath = or(configPath),
+    pathParts = normalizedConfigPath.split("/").filter(Boolean);
+  return pathParts[pathParts.length - 1] ?? normalizedConfigPath;
 }
 var Bp = once(() => {
   di();
 });
-function Vp(e) {
+function LocalEnvironmentSelectorContent(props) {
   let {
       localEnvironmentsLoading,
       localEnvironmentsError,
@@ -2219,25 +2224,29 @@ function Vp(e) {
       normalizedResolvedConfigPath,
       onSelectEnvironment,
       onOpenSettings,
-    } = e,
-    d = ur(),
-    f = normalizedResolvedConfigPath == null ? si : undefined,
-    p = () => {
+    } = props,
+    intl = ur(),
+    noEnvironmentCheckIcon =
+      normalizedResolvedConfigPath == null ? si : undefined,
+    clearEnvironmentSelection = () => {
       onSelectEnvironment(null);
     };
-  let m = (
+  let noEnvironmentLabel = (
     <FormattedMessage
       id="codex.environmentSelector.noEnvironment"
       defaultMessage="No environment"
       description="No environment selected message"
     />
   );
-  let h = (
-    <Br.Item RightIcon={f} onSelect={p}>
-      {m}
+  let noEnvironmentItem = (
+    <Br.Item
+      RightIcon={noEnvironmentCheckIcon}
+      onSelect={clearEnvironmentSelection}
+    >
+      {noEnvironmentLabel}
     </Br.Item>
   );
-  let g = defaultEnvironment ? (
+  let defaultEnvironmentItem = defaultEnvironment ? (
     <Br.Item
       LeftIcon={Iu}
       leftIconClassName="icon-xxs text-token-description-foreground"
@@ -2247,7 +2256,7 @@ function Vp(e) {
           ? si
           : undefined
       }
-      tooltipText={d.formatMessage({
+      tooltipText={intl.formatMessage({
         id: "composer.worktreeEnvironment.default",
         defaultMessage: "Default environment",
         description: "Tooltip for default local environment icon",
@@ -2256,10 +2265,10 @@ function Vp(e) {
         onSelectEnvironment(defaultEnvironment.configPath);
       }}
     >
-      {Rp(defaultEnvironment)}
+      {getLocalEnvironmentResultDisplayName(defaultEnvironment)}
     </Br.Item>
   ) : null;
-  let _ =
+  let environmentItems =
     localEnvironmentsLoading && localEnvironments.length === 0 ? (
       <div className="flex items-center justify-center py-3">
         {Up.jsx(rr, {
@@ -2288,7 +2297,9 @@ function Vp(e) {
             onSelectEnvironment(item.configPath);
           }}
         >
-          <span className="min-w-0 truncate">{Rp(item)}</span>
+          <span className="min-w-0 truncate">
+            {getLocalEnvironmentResultDisplayName(item)}
+          </span>
         </Br.Item>
       ))
     ) : localEnvironments.length === 0 ? (
@@ -2300,35 +2311,35 @@ function Vp(e) {
         />
       </Br.Message>
     ) : null;
-  let v = (
+  let environmentList = (
     <div className="vertical-scroll-fade-mask flex max-h-[200px] flex-col gap-0.5 overflow-y-auto pr-1">
-      {h}
-      {g}
-      {_}
+      {noEnvironmentItem}
+      {defaultEnvironmentItem}
+      {environmentItems}
     </div>
   );
-  let y = <Zt />;
-  let b = (
+  let separator = <Zt />;
+  let settingsLabel = (
     <FormattedMessage
       id="threadPage.runAction.setup.editMore"
       defaultMessage="Environment settings"
       description="Edit more action label in run action setup popover"
     />
   );
-  let x = (
+  let settingsItem = (
     <Br.Item
       LeftIcon={Gt}
       leftIconClassName="icon-sm"
       onSelect={onOpenSettings}
     >
-      {b}
+      {settingsLabel}
     </Br.Item>
   );
   return (
     <div className="flex flex-col gap-0.5 pb-1">
-      {v}
-      {y}
-      {x}
+      {environmentList}
+      {separator}
+      {settingsItem}
     </div>
   );
 }
@@ -2346,7 +2357,7 @@ var Hp,
     di();
     Up = getJsxRuntime();
   });
-function Gp(e) {
+function LocalEnvironmentActionSetupForm(props) {
   let {
       headerIcon,
       title,
@@ -2361,12 +2372,12 @@ function Gp(e) {
       submitDisabled = false,
       submitLoading = false,
       onSubmit,
-    } = e,
-    _ = qp.useId(),
-    v = Jp.jsx(j, {
+    } = props,
+    commandInputId = qp.useId(),
+    headerSection = Jp.jsx(j, {
       children: <F icon={headerIcon} subtitle={description} title={title} />,
     });
-  let y = extraFields
+  let extraFieldsSection = extraFields
     ? Jp.jsx(j, {
         children: Jp.jsx($e, {
           className: "gap-3",
@@ -2374,54 +2385,59 @@ function Gp(e) {
         }),
       })
     : null;
-  let b = (
+  let commandLabelNode = (
     <label
       className="text-xs font-medium tracking-wide text-token-text-secondary uppercase"
-      htmlFor={_}
+      htmlFor={commandInputId}
     >
       {commandLabel}
     </label>
   );
-  let x = (event) => {
+  let handleCommandInputChange = (event) => {
     onCommandChange(event.target.value);
   };
-  let S = (
+  let commandTextarea = (
     <textarea
-      id={_}
+      id={commandInputId}
       className="focus-visible:ring-token-focus min-h-44 w-full resize-none rounded-md border border-token-border bg-token-input-background px-2.5 py-2 font-mono text-sm text-token-text-primary outline-none placeholder:text-token-input-placeholder-foreground focus-visible:ring-2"
       placeholder={commandPlaceholder}
       value={command}
-      onChange={x}
+      onChange={handleCommandInputChange}
     />
   );
-  let C = Jp.jsx(j, {
+  let commandFieldSection = Jp.jsx(j, {
     children: Jp.jsxs($e, {
       className: "gap-2",
-      children: [b, S],
+      children: [commandLabelNode, commandTextarea],
     }),
   });
-  let w = Jp.jsx(k, {
+  let submitButton = Jp.jsx(k, {
     color: "primary",
     disabled: submitDisabled,
     loading: submitLoading,
     type: "submit",
     children: submitLabel,
   });
-  let T = Jp.jsx(j, {
+  let footerSection = Jp.jsx(j, {
     children: (
       <At className="justify-between">
         {leftAction}
-        {w}
+        {submitButton}
       </At>
     ),
   });
-  let E = Jp.jsxs(ui, {
+  let formContent = Jp.jsxs(ui, {
     className: "gap-3",
-    children: [v, y, C, T],
+    children: [
+      headerSection,
+      extraFieldsSection,
+      commandFieldSection,
+      footerSection,
+    ],
   });
   return (
     <form className="flex flex-col gap-0" onSubmit={onSubmit}>
-      {E}
+      {formContent}
     </form>
   );
 }
@@ -2435,7 +2451,7 @@ var Kp,
     h();
     Jp = getJsxRuntime();
   });
-function Xp(e) {
+function AddLocalEnvironmentActionForm(props) {
   let {
       action,
       configPath,
@@ -2446,264 +2462,269 @@ function Xp(e) {
       onSaved,
       onUpdate,
       workspaceRoot,
-    } = e,
-    d = ur(),
-    f = Ci(),
-    p = qr("local-environment-config-save"),
-    m,
-    h,
-    g,
-    _,
-    v,
-    y,
-    b,
-    x,
-    S,
-    C,
-    w,
-    T,
-    E,
-    D,
-    O,
-    A;
+    } = props,
+    intl = ur(),
+    queryClient = Ci(),
+    saveConfigMutation = qr("local-environment-config-save"),
+    DropdownComponent,
+    SetupFormComponent,
+    nameInputId,
+    handleSubmit,
+    submitDisabled,
+    iconDropdownAlign,
+    commandPlaceholder,
+    descriptionNode,
+    iconDropdownContentWidth,
+    iconDropdownTriggerButton,
+    iconMenuItems,
+    nameRowClassName,
+    nameFieldClassName,
+    nameLabelNode,
+    commandValue,
+    commandLabelNode;
   {
-    let e = (e) => ({
-      ariaLabel: d.formatMessage(e.message),
+    let createIconOption = (iconOptionConfig) => ({
+      ariaLabel: intl.formatMessage(iconOptionConfig.message),
       icon: Qp.jsx(md, {
-        icon: e.value,
+        icon: iconOptionConfig.value,
       }),
-      value: e.value,
+      value: iconOptionConfig.value,
     });
-    let o = ld.map(e),
-      j = o.find((item) => item.value === action.icon) ?? o[0],
-      M =
+    let iconOptions = ld.map(createIconOption),
+      selectedIconOption =
+        iconOptions.find((item) => item.value === action.icon) ??
+        iconOptions[0],
+      defaultEnvironmentName =
         cl(workspaceRoot) ??
-        d.formatMessage({
+        intl.formatMessage({
           id: "settings.localEnvironments.environment.defaultName",
           defaultMessage: "local",
           description: "Fallback name for the local environment",
         });
-    let N = M,
-      P = action.name.trim();
-    let F = P,
-      I = action.command.trim();
-    let L = I;
-    v = F.length === 0 || L.length === 0 || p.isPending;
-    g = `local-env-action-name-${action.id}`;
-    let R;
-    R = (event) => {
-      if ((event.preventDefault(), v)) return;
-      let t = environment.environment,
-        o = {
+    let environmentName = defaultEnvironmentName,
+      trimmedActionName = action.name.trim();
+    let savedActionName = trimmedActionName,
+      trimmedCommand = action.command.trim();
+    let savedCommand = trimmedCommand;
+    submitDisabled =
+      savedActionName.length === 0 ||
+      savedCommand.length === 0 ||
+      saveConfigMutation.isPending;
+    nameInputId = `local-env-action-name-${action.id}`;
+    let submitNewAction;
+    submitNewAction = (event) => {
+      if ((event.preventDefault(), submitDisabled)) return;
+      let currentEnvironment = environment.environment,
+        savedAction = {
           ...action,
-          command: L,
-          name: F,
+          command: savedCommand,
+          name: savedActionName,
         },
-        l = {
-          command: L,
+        runActionPayload = {
+          command: savedCommand,
           icon: action.icon,
-          name: F,
+          name: savedActionName,
           ...(action.platform
             ? {
                 platform: action.platform,
               }
             : {}),
         },
-        d = sd({
-          actions: [...hd(t.actions ?? []), o],
-          cleanupPlatformScripts: cd(t.cleanup),
-          cleanupScript: t.cleanup?.script ?? "",
-          name: t.name || N,
-          setupPlatformScripts: cd(t.setup),
-          setupScript: t.setup.script ?? "",
-          version: t.version ?? 1,
+        rawEnvironmentConfig = sd({
+          actions: [...hd(currentEnvironment.actions ?? []), savedAction],
+          cleanupPlatformScripts: cd(currentEnvironment.cleanup),
+          cleanupScript: currentEnvironment.cleanup?.script ?? "",
+          name: currentEnvironment.name || environmentName,
+          setupPlatformScripts: cd(currentEnvironment.setup),
+          setupScript: currentEnvironment.setup.script ?? "",
+          version: currentEnvironment.version ?? 1,
         });
-      p.mutate(
+      saveConfigMutation.mutate(
         {
           configPath,
           hostId: hostConfig.id,
-          raw: d,
+          raw: rawEnvironmentConfig,
         },
         {
           onSuccess: () => {
-            f.invalidateQueries({
+            queryClient.invalidateQueries({
               queryKey: Yt("local-environment-config", {
                 configPath,
                 hostId: hostConfig.id,
               }),
             });
-            f.invalidateQueries({
+            queryClient.invalidateQueries({
               queryKey: Yt("local-environment", {
                 configPath,
                 hostId: hostConfig.id,
               }),
             });
             workspaceRoot != null &&
-              f.invalidateQueries({
+              queryClient.invalidateQueries({
                 queryKey: Yt("local-environments", {
                   hostId: hostConfig.id,
                   workspaceRoot,
                 }),
               });
             onSaved();
-            onRunAction(l);
+            onRunAction(runActionPayload);
           },
         },
       );
     };
-    _ = R;
-    h = Gp;
-    O = action.command;
-    A = (
+    handleSubmit = submitNewAction;
+    SetupFormComponent = LocalEnvironmentActionSetupForm;
+    commandValue = action.command;
+    commandLabelNode = (
       <FormattedMessage
         id="threadPage.runAction.setup.commandLabel"
         defaultMessage="Command to run"
         description="Label for run action command input"
       />
     );
-    b = d.formatMessage({
+    commandPlaceholder = intl.formatMessage({
       id: "threadPage.runAction.setup.placeholder",
       defaultMessage: "eg:\nnpm install\nnpm run",
       description: "Placeholder text for the run action command input",
     });
-    x = (
+    descriptionNode = (
       <FormattedMessage
         id="settings.localEnvironments.actions.add.description"
         defaultMessage="Create a new command to run from the toolbar."
         description="Description for adding a local environment action"
       />
     );
-    E = "flex w-full flex-col gap-2";
-    let z;
-    z = (
+    nameFieldClassName = "flex w-full flex-col gap-2";
+    let nameLabelText;
+    nameLabelText = (
       <FormattedMessage
         id="settings.localEnvironments.actions.item.name"
         defaultMessage="Name"
         description="Label for local environment action name"
       />
     );
-    D = (
+    nameLabelNode = (
       <label
         className="text-xs font-medium tracking-wide text-token-text-secondary uppercase"
-        htmlFor={g}
+        htmlFor={nameInputId}
       >
-        {z}
+        {nameLabelText}
       </label>
     );
-    T = "flex items-center gap-2";
-    m = H;
-    y = "start";
-    S = "icon";
-    C = Qp.jsx(k, {
+    nameRowClassName = "flex items-center gap-2";
+    DropdownComponent = H;
+    iconDropdownAlign = "start";
+    iconDropdownContentWidth = "icon";
+    iconDropdownTriggerButton = Qp.jsx(k, {
       id: `local-env-action-icon-${action.id}`,
-      "aria-label": j.ariaLabel,
+      "aria-label": selectedIconOption.ariaLabel,
       className: "w-12 justify-center text-sm",
       color: "secondary",
       size: "toolbar",
-      children: j.icon,
+      children: selectedIconOption.icon,
     });
-    let ee;
-    ee = (e) => (
+    let renderIconOption;
+    renderIconOption = (iconOption) => (
       <Br.Item
-        key={e.value}
-        tooltipText={e.ariaLabel}
+        key={iconOption.value}
+        tooltipText={iconOption.ariaLabel}
         onSelect={() => {
           onUpdate({
-            icon: e.value,
+            icon: iconOption.value,
           });
         }}
       >
-        {e.icon}
+        {iconOption.icon}
       </Br.Item>
     );
-    w = o.map(ee);
+    iconMenuItems = iconOptions.map(renderIconOption);
   }
-  let j = Qp.jsx(m, {
-    align: y,
-    contentWidth: S,
-    triggerButton: C,
-    children: w,
+  let iconDropdown = Qp.jsx(DropdownComponent, {
+    align: iconDropdownAlign,
+    contentWidth: iconDropdownContentWidth,
+    triggerButton: iconDropdownTriggerButton,
+    children: iconMenuItems,
   });
-  let M = (event) => {
+  let handleNameChange = (event) => {
     onUpdate({
       name: event.target.value,
     });
   };
-  let N = (
+  let nameInputField = (
     <div className="flex-1">
       <input
-        id={g}
+        id={nameInputId}
         className="w-full rounded-md border border-token-border bg-token-input-background px-2.5 py-1.5 text-sm text-token-text-primary outline-none focus-visible:ring-0"
         value={action.name}
-        onChange={M}
+        onChange={handleNameChange}
       />
     </div>
   );
-  let P = (
-    <div className={T}>
-      {j}
-      {N}
+  let nameEditorRow = (
+    <div className={nameRowClassName}>
+      {iconDropdown}
+      {nameInputField}
     </div>
   );
-  let F = (
-    <div className={E}>
-      {D}
-      {P}
+  let extraFields = (
+    <div className={nameFieldClassName}>
+      {nameLabelNode}
+      {nameEditorRow}
     </div>
   );
-  let I = action.icon ?? "tool",
-    L = Qp.jsx(md, {
+  let headerIconName = action.icon ?? "tool",
+    headerIcon = Qp.jsx(md, {
       className: "icon-base text-token-foreground",
-      icon: I,
+      icon: headerIconName,
     });
-  let R = (
+  let settingsLabel = (
     <FormattedMessage
       id="threadPage.runAction.setup.editMore"
       defaultMessage="Environment settings"
       description="Edit more action label in run action setup popover"
     />
   );
-  let z = Qp.jsx(k, {
+  let settingsButton = Qp.jsx(k, {
     className: "px-0",
     color: "ghost",
     size: "toolbar",
     type: "button",
     onClick: onOpenSettings,
-    children: R,
+    children: settingsLabel,
   });
-  let ee = (
+  let saveLabel = (
     <FormattedMessage
       id="settings.localEnvironments.actions.add.save"
       defaultMessage="Save"
       description="Save button label for adding a local environment action"
     />
   );
-  let B = (
+  let titleNode = (
     <FormattedMessage
       id="settings.localEnvironments.actions.add"
       defaultMessage="Add action"
       description="Button label to add a local environment action"
     />
   );
-  let V = (e) => {
+  let handleCommandChange = (command) => {
     onUpdate({
-      command: e,
+      command: command,
     });
   };
-  return Qp.jsx(h, {
-    command: O,
-    commandLabel: A,
-    commandPlaceholder: b,
-    description: x,
-    extraFields: F,
-    headerIcon: L,
-    leftAction: z,
-    submitDisabled: v,
-    submitLabel: ee,
-    submitLoading: p.isPending,
-    title: B,
-    onCommandChange: V,
-    onSubmit: _,
+  return Qp.jsx(SetupFormComponent, {
+    command: commandValue,
+    commandLabel: commandLabelNode,
+    commandPlaceholder: commandPlaceholder,
+    description: descriptionNode,
+    extraFields: extraFields,
+    headerIcon: headerIcon,
+    leftAction: settingsButton,
+    submitDisabled: submitDisabled,
+    submitLabel: saveLabel,
+    submitLoading: saveConfigMutation.isPending,
+    title: titleNode,
+    onCommandChange: handleCommandChange,
+    onSubmit: handleSubmit,
   });
 }
 var Zp,
@@ -2740,102 +2761,136 @@ var am,
     gn();
     Re();
   });
-function sm(e, t) {
-  let r = B(ut),
-    i = t.id,
-    a = e ? D(e) : null;
-  let o = a,
-    s = {
-      hostId: i,
-      workspaceRoot: e,
+function useLocalConversationEnvironmentState(workspaceRoot, hostConfig) {
+  let scope = B(ut),
+    hostId = hostConfig.id,
+    workspaceEnvironmentKey = workspaceRoot ? D(workspaceRoot) : null;
+  let recentEnvironmentKey = workspaceEnvironmentKey,
+    localEnvironmentParams = {
+      hostId: hostId,
+      workspaceRoot: workspaceRoot,
     };
-  let c = Oa(s),
-    l = isRecentLocalEnvironmentAction(o, t.id),
-    { data } = Rt(e, t, "use_local_conversation_environment"),
-    d = c.environments,
-    f = c.isLoading,
-    p = c.isFetching,
-    m = c.error != null,
-    h = {
-      onSuccess: (e, n) => {
-        e.success &&
+  let localEnvironmentState = Oa(localEnvironmentParams),
+    isCodexWorktree = isRecentLocalEnvironmentAction(
+      recentEnvironmentKey,
+      hostConfig.id,
+    ),
+    { data } = Rt(
+      workspaceRoot,
+      hostConfig,
+      "use_local_conversation_environment",
+    ),
+    localEnvironments = localEnvironmentState.environments,
+    localEnvironmentsLoading = localEnvironmentState.isLoading,
+    localEnvironmentsFetching = localEnvironmentState.isFetching,
+    localEnvironmentsError = localEnvironmentState.error != null,
+    setConfigMutationOptions = {
+      onSuccess: (result, variables) => {
+        result.success &&
           data?.root &&
-          eo(r, data, t, n.value, "use_local_conversation_environment");
+          eo(
+            scope,
+            data,
+            hostConfig,
+            variables.value,
+            "use_local_conversation_environment",
+          );
       },
     };
-  let g = w("set-config-value", t, h),
-    { data: _ } = ku(
-      l ? o : null,
-      t,
+  let setConfigValueMutation = w(
+      "set-config-value",
+      hostConfig,
+      setConfigMutationOptions,
+    ),
+    { data: selectedEnvironmentConfigValue } = ku(
+      isCodexWorktree ? recentEnvironmentKey : null,
+      hostConfig,
       dr,
       "worktree",
       "use_local_conversation_environment",
     ),
-    v = _ === "__none__" ? null : _,
-    y = v ? or(v) : null;
-  let b = y,
-    x = l ? v : c.resolvedConfigPath,
-    S = l ? b : (c.normalizedResolvedConfigPath ?? null),
-    C = x ?? "",
-    T = {
-      configPath: C,
-      hostId: i,
+    selectedConfigPath =
+      selectedEnvironmentConfigValue === "__none__"
+        ? null
+        : selectedEnvironmentConfigValue,
+    normalizedSelectedConfigPath = selectedConfigPath
+      ? or(selectedConfigPath)
+      : null;
+  let selectedNormalizedConfigPath = normalizedSelectedConfigPath,
+    resolvedConfigPath = isCodexWorktree
+      ? selectedConfigPath
+      : localEnvironmentState.resolvedConfigPath,
+    normalizedResolvedConfigPath = isCodexWorktree
+      ? selectedNormalizedConfigPath
+      : (localEnvironmentState.normalizedResolvedConfigPath ?? null),
+    queryConfigPath = resolvedConfigPath ?? "",
+    environmentQueryParams = {
+      configPath: queryConfigPath,
+      hostId: hostId,
     };
-  let E = x != null,
-    O = {
-      enabled: E,
+  let isEnvironmentQueryEnabled = resolvedConfigPath != null,
+    environmentQueryConfig = {
+      enabled: isEnvironmentQueryEnabled,
     };
-  let k = {
-    params: T,
-    select: lm,
-    queryConfig: O,
+  let environmentQueryOptions = {
+    params: environmentQueryParams,
+    select: selectSuccessfulLocalEnvironment,
+    queryConfig: environmentQueryConfig,
   };
-  let { data: _data = null } = jn("local-environment", k),
-    M = (_data?.environment.actions ?? []).length > 0 || d.some(cm);
-  let N = M,
-    P = c.workspaceKey != null && (!l || data?.root != null),
-    F = (e) => {
-      if (l) {
+  let { data: _data = null } = jn("local-environment", environmentQueryOptions),
+    hasSavedActions =
+      (_data?.environment.actions ?? []).length > 0 ||
+      localEnvironments.some(hasSuccessfulLocalEnvironmentActions);
+  let hasAnySavedActions = hasSavedActions,
+    canChangeEnvironment =
+      localEnvironmentState.workspaceKey != null &&
+      (!isCodexWorktree || data?.root != null),
+    selectEnvironment = (configPath) => {
+      if (isCodexWorktree) {
         if (!data?.root) return;
-        let t = e ?? "__none__";
-        g.mutate({
+        let storedValue = configPath ?? "__none__";
+        setConfigValueMutation.mutate({
           root: data.root,
           key: dr,
           operationSource: "use_local_conversation_environment",
-          value: t,
+          value: storedValue,
           scope: "worktree",
         });
         return;
       }
-      c.updateSelection(e);
+      localEnvironmentState.updateSelection(configPath);
     };
-  let I = F,
-    L = x ?? null,
-    R = f || p;
+  let setEnvironmentSelection = selectEnvironment,
+    resolvedEnvironmentConfigPath = resolvedConfigPath ?? null,
+    isLocalEnvironmentsLoading =
+      localEnvironmentsLoading || localEnvironmentsFetching;
   return {
-    workspaceRoot: e,
-    codexWorktree: l,
+    workspaceRoot: workspaceRoot,
+    codexWorktree: isCodexWorktree,
     environment: _data,
-    resolvedEnvironmentConfigPath: L,
-    localEnvironments: d,
-    localEnvironmentsLoading: R,
-    localEnvironmentsError: m,
-    defaultEnvironment: c.defaultEnvironment,
-    defaultEnvironmentNormalized: c.defaultEnvironmentNormalized,
-    availableEnvironments: c.availableEnvironments,
-    normalizedResolvedConfigPath: S,
-    canChangeEnvironment: P,
-    setEnvironmentSelection: I,
-    hasSavedActions: N,
+    resolvedEnvironmentConfigPath: resolvedEnvironmentConfigPath,
+    localEnvironments: localEnvironments,
+    localEnvironmentsLoading: isLocalEnvironmentsLoading,
+    localEnvironmentsError: localEnvironmentsError,
+    defaultEnvironment: localEnvironmentState.defaultEnvironment,
+    defaultEnvironmentNormalized:
+      localEnvironmentState.defaultEnvironmentNormalized,
+    availableEnvironments: localEnvironmentState.availableEnvironments,
+    normalizedResolvedConfigPath: normalizedResolvedConfigPath,
+    canChangeEnvironment: canChangeEnvironment,
+    setEnvironmentSelection: setEnvironmentSelection,
+    hasSavedActions: hasAnySavedActions,
   };
 }
-function cm(e) {
-  return e.type === "success"
-    ? (e.environment.actions ?? []).length > 0
+function hasSuccessfulLocalEnvironmentActions(environmentResult) {
+  return environmentResult.type === "success"
+    ? (environmentResult.environment.actions ?? []).length > 0
     : false;
 }
-function lm(e) {
-  return e.environment.type === "success" ? e.environment : null;
+function selectSuccessfulLocalEnvironment(environmentResponse) {
+  return environmentResponse.environment.type === "success"
+    ? environmentResponse.environment
+    : null;
 }
 var um,
   dm = once(() => {
@@ -2851,7 +2906,7 @@ var um,
     n();
     initLocalEnvironmentRecentActions();
   });
-function fm(e) {
+function LocalConversationEnvironmentActionControls(props) {
   let {
       conversationId,
       hostConfig,
@@ -2860,127 +2915,146 @@ function fm(e) {
       onOpenChange,
       onShowTerminal,
       registerCommands,
-    } = e,
-    l = B(ut),
-    u = ur(),
-    d = ee(),
-    f = rt(),
+    } = props,
+    scope = B(ut),
+    intl = ur(),
+    location = ee(),
+    navigate = rt(),
     {
       environment,
       resolvedEnvironmentConfigPath,
       localEnvironmentsLoading,
       localEnvironmentsError,
-      localEnvironments: _,
+      localEnvironments: localEnvironments,
       availableEnvironments,
       defaultEnvironment,
       defaultEnvironmentNormalized,
       normalizedResolvedConfigPath,
       canChangeEnvironment,
       setEnvironmentSelection,
-    } = sm(workspaceRoot, hostConfig),
-    w = !localEnvironmentsLoading && !localEnvironmentsError && _.length === 0,
+    } = useLocalConversationEnvironmentState(workspaceRoot, hostConfig),
+    hasNoLocalEnvironments =
+      !localEnvironmentsLoading &&
+      !localEnvironmentsError &&
+      localEnvironments.length === 0,
     { data } = Rt(
       workspaceRoot,
       hostConfig,
       "local_conversation_action_compound_button",
     ),
     { data: _data } = tr(),
-    [D, O] = li(nm),
-    [A, j] = km.useState(false),
-    M = data?.root ?? null,
-    N = _data?.platform ?? null,
-    P = environment?.environment.actions,
-    F = getLocalEnvironmentActionItems(P, N, aa),
-    I = resolveLocalEnvironmentActionKey({
+    [recentActionsByKey, setRecentActionsByKey] = li(nm),
+    [isMenuOpen, setMenuOpen] = km.useState(false),
+    repoRoot = data?.root ?? null,
+    platform = _data?.platform ?? null,
+    environmentActions = environment?.environment.actions,
+    actionItems = getLocalEnvironmentActionItems(
+      environmentActions,
+      platform,
+      aa,
+    ),
+    environmentActionKey = resolveLocalEnvironmentActionKey({
       configPath: environment?.configPath ?? null,
       joinPath: joinLocalEnvironmentRepoPath,
       relativePath: environment?.cwdRelativeToGitRoot ?? null,
-      repoRoot: M,
+      repoRoot: repoRoot,
       workspaceRoot,
     }),
-    L = getRecentLocalEnvironmentActions(D, I),
-    R =
-      F == null
+    recentActionNames = getRecentLocalEnvironmentActions(
+      recentActionsByKey,
+      environmentActionKey,
+    ),
+    sortedActionItems =
+      actionItems == null
         ? null
-        : L.length > 0
-          ? sortLocalEnvironmentActionItemsByRecentActionNames(F, L)
-          : F,
-    z = R?.[0] ?? null,
-    V = K(ha, z?.commandId ?? aa[0]),
-    te = F ?? jm,
-    ne = Y((e) => {
-      let { action } = e,
-        r = resolveLocalEnvironmentActionCwd({
+        : recentActionNames.length > 0
+          ? sortLocalEnvironmentActionItemsByRecentActionNames(
+              actionItems,
+              recentActionNames,
+            )
+          : actionItems,
+    primaryActionItem = sortedActionItems?.[0] ?? null,
+    primaryShortcut = K(ha, primaryActionItem?.commandId ?? aa[0]),
+    commandActionItems = actionItems ?? jm,
+    runEnvironmentAction = Y((actionRunRequest) => {
+      let { action } = actionRunRequest,
+        actionCwd = resolveLocalEnvironmentActionCwd({
           joinPath: joinLocalEnvironmentRepoPath,
           relativePath: environment?.cwdRelativeToGitRoot ?? null,
-          repoRoot: M,
+          repoRoot: repoRoot,
           workspaceRoot,
         });
-      if (r == null || !conversationId) {
+      if (actionCwd == null || !conversationId) {
         gr.error("Can not run action. Cwd is not set");
         return;
       }
-      O(prependRecentLocalEnvironmentAction(D, I ?? r, action.name));
-      let i = createLocalEnvironmentActionRunId({
+      setRecentActionsByKey(
+        prependRecentLocalEnvironmentAction(
+          recentActionsByKey,
+          environmentActionKey ?? actionCwd,
+          action.name,
+        ),
+      );
+      let runId = createLocalEnvironmentActionRunId({
         conversationId,
         encodeEnvironmentKey: Jo,
-        environmentKey: I ?? r,
-        runId: e.runId,
+        environmentKey: environmentActionKey ?? actionCwd,
+        runId: actionRunRequest.runId,
       });
-      onShowTerminal(i);
-      _e.runAction(i, {
+      onShowTerminal(runId);
+      _e.runAction(runId, {
         command: action.command,
-        cwd: r,
+        cwd: actionCwd,
         title: action.name,
       });
     }),
-    re = (e) => {
-      j(e);
-      onMenuOpenChange?.(e);
+    setMenuOpenAndNotify = (open) => {
+      setMenuOpen(open);
+      onMenuOpenChange?.(open);
     };
-  let ie = Y(re),
-    ae = () => {
-      j(false);
+  let handleMenuOpenChange = Y(setMenuOpenAndNotify),
+    openEnvironmentSettings = () => {
+      setMenuOpen(false);
       onMenuOpenChange?.(false);
-      sc(l, hostConfig.id);
-      let e = new URLSearchParams({
+      sc(scope, hostConfig.id);
+      let searchParams = new URLSearchParams({
         workspaceRoot,
       });
       resolvedEnvironmentConfigPath != null &&
-        e.set("configPath", resolvedEnvironmentConfigPath);
-      f(`/settings/local-environments?${e.toString()}`);
+        searchParams.set("configPath", resolvedEnvironmentConfigPath);
+      navigate(`/settings/local-environments?${searchParams.toString()}`);
     };
-  let U = Y(ae),
-    oe = () => {
-      j(false);
+  let openSettings = Y(openEnvironmentSettings),
+    openCreateEnvironmentPage = () => {
+      setMenuOpen(false);
       onMenuOpenChange?.(false);
-      sc(l, hostConfig.id);
-      f(
+      sc(scope, hostConfig.id);
+      navigate(
         To({
           workspaceRoot,
         }),
         {
           state: {
             hostId: hostConfig.id,
-            returnTo: `${d.pathname}${d.search}${d.hash}`,
+            returnTo: `${location.pathname}${location.search}${location.hash}`,
           },
         },
       );
     };
-  let se = Y(oe),
-    ce = () => {
+  let createEnvironment = Y(openCreateEnvironmentPage),
+    openAddActionPopover = () => {
       resolvedEnvironmentConfigPath == null ||
         environment == null ||
-        (j(false),
+        (setMenuOpen(false),
         onMenuOpenChange?.(false),
-        st(l, hm, {
+        st(scope, AddLocalEnvironmentActionPopoverContent, {
           configPath: resolvedEnvironmentConfigPath,
           environment,
           hostConfig,
-          onOpenSettings: U,
-          onRunAction: (e) => {
-            ne({
-              action: e,
+          onOpenSettings: openSettings,
+          onRunAction: (action) => {
+            runEnvironmentAction({
+              action: action,
               commandId: null,
               runId: `environmentAction${(environment.environment.actions ?? []).length + 1}`,
             });
@@ -2988,21 +3062,21 @@ function fm(e) {
           workspaceRoot,
         }));
     };
-  let le = ce;
+  let openAddAction = openAddActionPopover;
   if (
     conversationId != null &&
     environment != null &&
     resolvedEnvironmentConfigPath != null
   ) {
-    let e = u.formatMessage({
+    let actionsTitleText = intl.formatMessage({
       id: "settings.localEnvironments.actions.title",
       defaultMessage: "Actions",
       description: "Title for local environment actions section",
     });
-    let r = e,
-      a = z?.action ?? null,
-      o = a
-        ? u.formatMessage(
+    let actionsTitle = actionsTitleText,
+      primaryAction = primaryActionItem?.action ?? null,
+      primaryActionTitle = primaryAction
+        ? intl.formatMessage(
             {
               id: "threadPage.runAction.summaryRow.primaryActionTitle",
               defaultMessage: "Run: {actionName}",
@@ -3010,32 +3084,40 @@ function fm(e) {
                 "Tooltip and accessible label for the primary run action row in the summary panel",
             },
             {
-              actionName: a.name,
+              actionName: primaryAction.name,
             },
           )
         : null,
-      s = () => {
-        z != null && (j(false), onMenuOpenChange?.(false), ne(z));
+      runPrimaryAction = () => {
+        primaryActionItem != null &&
+          (setMenuOpen(false),
+          onMenuOpenChange?.(false),
+          runEnvironmentAction(primaryActionItem));
       },
-      l = registerCommands
-        ? X.jsx(bm, {
-            actions: te,
+      commandRegistration = registerCommands
+        ? X.jsx(RegisterLocalEnvironmentActionCommands, {
+            actions: commandActionItems,
             conversationId,
-            onRunAction: ne,
+            onRunAction: runEnvironmentAction,
           })
         : null,
-      d = <Hi className="icon-xs" />;
-    let f = (
-      <button aria-label={r} className={Am} title={r} type="button">
-        {d}
+      actionsIcon = <Hi className="icon-xs" />;
+    let actionsButton = (
+      <button
+        aria-label={actionsTitle}
+        className={Am}
+        title={actionsTitle}
+        type="button"
+      >
+        {actionsIcon}
       </button>
     );
-    let m = X.jsx(jr, {
-      tooltipContent: r,
+    let actionsTriggerButton = X.jsx(jr, {
+      tooltipContent: actionsTitle,
       delayOpen: true,
-      children: f,
+      children: actionsButton,
     });
-    let w = (
+    let menuTitle = (
       <Br.Title>
         {environment == null ? (
           <FormattedMessage
@@ -3049,36 +3131,41 @@ function fm(e) {
             defaultMessage={"{environmentName} actions"}
             description="Title for the run action dropdown when an environment is selected"
             values={{
-              environmentName: Rp(environment),
+              environmentName:
+                getLocalEnvironmentResultDisplayName(environment),
             }}
           />
         )}
       </Br.Title>
     );
-    let T = R?.map((e) =>
+    let actionMenuItems = sortedActionItems?.map((actionItem) =>
         X.jsx(
-          _m,
+          LocalEnvironmentActionMenuItem,
           {
-            actionItem: e,
-            isPrimaryAction: e === z,
-            onRunAction: ne,
+            actionItem: actionItem,
+            isPrimaryAction: actionItem === primaryActionItem,
+            onRunAction: runEnvironmentAction,
           },
-          e.action.name,
+          actionItem.action.name,
         ),
       ),
-      E = (
+      addActionLabel = (
         <FormattedMessage
           id="settings.localEnvironments.actions.add"
           defaultMessage="Add action"
           description="Button label to add a local environment action"
         />
       );
-    let D = (
-      <Br.Item LeftIcon={Ae} leftIconClassName="icon-sm" onSelect={le}>
-        {E}
+    let addActionItem = (
+      <Br.Item
+        LeftIcon={Ae}
+        leftIconClassName="icon-sm"
+        onSelect={openAddAction}
+      >
+        {addActionLabel}
       </Br.Item>
     );
-    let O = canChangeEnvironment ? (
+    let changeEnvironmentMenu = canChangeEnvironment ? (
       <>
         <Zt />
         <Ce
@@ -3092,183 +3179,182 @@ function fm(e) {
             </Br.Item>
           }
         >
-          <Vp
+          <LocalEnvironmentSelectorContent
             availableEnvironments={availableEnvironments}
             defaultEnvironment={defaultEnvironment}
             defaultEnvironmentNormalized={defaultEnvironmentNormalized}
-            localEnvironments={_}
+            localEnvironments={localEnvironments}
             localEnvironmentsError={localEnvironmentsError}
             localEnvironmentsLoading={localEnvironmentsLoading}
             normalizedResolvedConfigPath={normalizedResolvedConfigPath}
-            onOpenSettings={U}
-            onSelectEnvironment={(e) => {
-              setEnvironmentSelection(e);
-              j(false);
+            onOpenSettings={openSettings}
+            onSelectEnvironment={(configPath) => {
+              setEnvironmentSelection(configPath);
+              setMenuOpen(false);
               onMenuOpenChange?.(false);
             }}
           />
         </Ce>
       </>
     ) : null;
-    let k = (
+    let actionsDropdown = (
       <H
         align="end"
         contentWidth="workspace"
-        open={A}
+        open={isMenuOpen}
         side="bottom"
-        onOpenChange={ie}
-        triggerButton={m}
+        onOpenChange={handleMenuOpenChange}
+        triggerButton={actionsTriggerButton}
       >
-        {w}
-        {T}
-        {D}
-        {O}
+        {menuTitle}
+        {actionMenuItems}
+        {addActionItem}
+        {changeEnvironmentMenu}
       </H>
     );
-    let M =
-        z != null && o != null
-          ? X.jsx(jr, {
-              tooltipContent: o,
-              shortcut: z.commandId == null ? null : V,
-              delayOpen: true,
-              children: (
-                <button
-                  aria-label={o}
-                  className={Am}
-                  title={o}
-                  type="button"
-                  onClick={s}
-                >
-                  {X.jsx(md, {
-                    icon: z.action.icon ?? "tool",
-                  })}
-                </button>
-              ),
-            })
-          : null,
-      N;
+    let primaryActionButton =
+      primaryActionItem != null && primaryActionTitle != null
+        ? X.jsx(jr, {
+            tooltipContent: primaryActionTitle,
+            shortcut:
+              primaryActionItem.commandId == null ? null : primaryShortcut,
+            delayOpen: true,
+            children: (
+              <button
+                aria-label={primaryActionTitle}
+                className={Am}
+                title={primaryActionTitle}
+                type="button"
+                onClick={runPrimaryAction}
+              >
+                {X.jsx(md, {
+                  icon: primaryActionItem.action.icon ?? "tool",
+                })}
+              </button>
+            ),
+          })
+        : null;
     return (
       <div className="ms-auto flex min-w-0 items-center">
-        {l}
-        {k}
-        {M}
+        {commandRegistration}
+        {actionsDropdown}
+        {primaryActionButton}
       </div>
     );
   }
-  let ue = u.formatMessage({
+  let createEnvironmentLabel = intl.formatMessage({
     id: "threadPage.runAction.environment.create",
     defaultMessage: "Create environment",
     description: "CTA to create a local environment from a thread",
   });
-  let de = ue,
-    fe = u.formatMessage({
-      id: "threadPage.runAction.environmentSelector.label",
-      defaultMessage: "Choose environment",
-      description:
-        "Tooltip and aria label for the environment selector button when no environment is selected",
-    });
-  let W = fe,
-    pe = (e) => {
-      setEnvironmentSelection(e);
-      j(false);
+  let environmentSelectorLabel = intl.formatMessage({
+    id: "threadPage.runAction.environmentSelector.label",
+    defaultMessage: "Choose environment",
+    description:
+      "Tooltip and aria label for the environment selector button when no environment is selected",
+  });
+  let environmentSelectorTitle = environmentSelectorLabel,
+    handleEnvironmentSelect = (configPath) => {
+      setEnvironmentSelection(configPath);
+      setMenuOpen(false);
       onOpenChange?.(false);
     };
-  let me = (
-    <Vp
+  let environmentSelectorContent = (
+    <LocalEnvironmentSelectorContent
       localEnvironmentsLoading={localEnvironmentsLoading}
       localEnvironmentsError={localEnvironmentsError}
-      localEnvironments={_}
+      localEnvironments={localEnvironments}
       availableEnvironments={availableEnvironments}
       defaultEnvironment={defaultEnvironment}
       defaultEnvironmentNormalized={defaultEnvironmentNormalized}
       normalizedResolvedConfigPath={normalizedResolvedConfigPath}
-      onSelectEnvironment={pe}
-      onOpenSettings={U}
+      onSelectEnvironment={handleEnvironmentSelect}
+      onOpenSettings={openSettings}
     />
   );
-  let he = me,
-    ge = (e) => {
-      j(e);
-      onOpenChange?.(e);
+  let selectorContent = environmentSelectorContent,
+    handleSelectorOpenChangeRaw = (open) => {
+      setMenuOpen(open);
+      onOpenChange?.(open);
     };
-  let G = ge,
-    ve = X.jsx(qt, {
+  let handleSelectorOpenChange = handleSelectorOpenChangeRaw,
+    electronEnvironmentControls = X.jsx(qt, {
       electron: true,
-      children: w
+      children: hasNoLocalEnvironments
         ? X.jsx(jr, {
-            tooltipContent: de,
+            tooltipContent: createEnvironmentLabel,
             delayOpen: true,
             children: X.jsx(k, {
-              "aria-label": de,
+              "aria-label": createEnvironmentLabel,
               className: "ms-auto",
               color: "ghost",
               disabled: !canChangeEnvironment,
               size: "icon",
               type: "button",
-              onClick: se,
+              onClick: createEnvironment,
               children: <Ae className="icon-sm" />,
             }),
           })
-        : X.jsx(mm, {
+        : X.jsx(LocalEnvironmentSelectorDropdown, {
             canChangeEnvironment,
-            open: A,
-            title: W,
-            onOpenChange: G,
-            children: he,
+            open: isMenuOpen,
+            title: environmentSelectorTitle,
+            onOpenChange: handleSelectorOpenChange,
+            children: selectorContent,
           }),
     });
-  let ye = X.jsx(qt, {
+  let browserEnvironmentControls = X.jsx(qt, {
     browser: true,
     chromeExtension: true,
     extension: true,
-    children: X.jsx(mm, {
+    children: X.jsx(LocalEnvironmentSelectorDropdown, {
       canChangeEnvironment,
-      open: A,
-      title: W,
-      onOpenChange: G,
-      children: he,
+      open: isMenuOpen,
+      title: environmentSelectorTitle,
+      onOpenChange: handleSelectorOpenChange,
+      children: selectorContent,
     }),
   });
   return (
     <>
-      {ve}
-      {ye}
+      {electronEnvironmentControls}
+      {browserEnvironmentControls}
     </>
   );
 }
-function mm(e) {
-  let { canChangeEnvironment, children, open, title, onOpenChange } = e,
-    s = !canChangeEnvironment,
-    c = !canChangeEnvironment,
-    l = <Gt className="icon-sm" />;
-  let u = X.jsx(k, {
+function LocalEnvironmentSelectorDropdown(props) {
+  let { canChangeEnvironment, children, open, title, onOpenChange } = props,
+    isDisabled = !canChangeEnvironment,
+    triggerDisabled = !canChangeEnvironment,
+    triggerIcon = <Gt className="icon-sm" />;
+  let triggerButton = X.jsx(k, {
     "aria-label": title,
     className: "ms-auto",
     color: "ghost",
-    disabled: c,
+    disabled: triggerDisabled,
     size: "icon",
-    children: l,
+    children: triggerIcon,
   });
-  let d = X.jsx(jr, {
+  let tooltipTrigger = X.jsx(jr, {
     tooltipContent: title,
     delayOpen: true,
-    children: u,
+    children: triggerButton,
   });
   return (
     <H
       align="end"
       contentWidth="workspace"
-      disabled={s}
+      disabled={isDisabled}
       open={open}
       side="bottom"
-      triggerButton={d}
+      triggerButton={tooltipTrigger}
       onOpenChange={onOpenChange}
     >
       {children}
     </H>
   );
 }
-function hm(e) {
+function AddLocalEnvironmentActionPopoverContent(props) {
   let {
       configPath,
       environment,
@@ -3277,28 +3363,30 @@ function hm(e) {
       onOpenSettings,
       onRunAction,
       workspaceRoot,
-    } = e,
-    [l, u] = km.useState(gm),
-    d = () => {
+    } = props,
+    [draftAction, setDraftAction] = km.useState(
+      createEmptyLocalEnvironmentActionDraft,
+    ),
+    openSettingsAndClose = () => {
       onClose();
       onOpenSettings();
     };
-  let f = (e) => {
-    u((t) => ({
-      ...t,
-      ...e,
+  let updateDraftAction = (patch) => {
+    setDraftAction((currentDraft) => ({
+      ...currentDraft,
+      ...patch,
     }));
   };
-  let p = (
-    <Xp
-      action={l}
+  let formNode = (
+    <AddLocalEnvironmentActionForm
+      action={draftAction}
       configPath={configPath}
       environment={environment}
       hostConfig={hostConfig}
-      onOpenSettings={d}
+      onOpenSettings={openSettingsAndClose}
       onRunAction={onRunAction}
       onSaved={onClose}
-      onUpdate={f}
+      onUpdate={updateDraftAction}
       workspaceRoot={workspaceRoot}
     />
   );
@@ -3307,85 +3395,86 @@ function hm(e) {
     contentClassName:
       "!w-[379px] max-w-[calc(100vw-2rem)] max-h-[calc(100vh-4rem)] !p-0",
     onOpenChange: onClose,
-    children: p,
+    children: formNode,
   });
 }
-function gm() {
+function createEmptyLocalEnvironmentActionDraft() {
   return pd("");
 }
-function _m(e) {
-  let { actionItem, isPrimaryAction, onRunAction } = e,
+function LocalEnvironmentActionMenuItem(props) {
+  let { actionItem, isPrimaryAction, onRunAction } = props,
     { commandId } = actionItem;
   if (commandId == null) {
-    let e;
-    return X.jsx(ym, {
+    return X.jsx(LocalEnvironmentActionMenuRow, {
       actionItem,
       isPrimaryAction,
       shortcut: null,
       onRunAction,
     });
   }
-  return X.jsx(vm, {
+  return X.jsx(LocalEnvironmentActionMenuItemWithShortcut, {
     actionItem,
     commandId,
     isPrimaryAction,
     onRunAction,
   });
 }
-function vm(e) {
-  let { actionItem, commandId, isPrimaryAction, onRunAction } = e,
-    o = K(ha, commandId);
-  return X.jsx(ym, {
+function LocalEnvironmentActionMenuItemWithShortcut(props) {
+  let { actionItem, commandId, isPrimaryAction, onRunAction } = props,
+    shortcut = K(ha, commandId);
+  return X.jsx(LocalEnvironmentActionMenuRow, {
     actionItem,
     isPrimaryAction,
-    shortcut: o,
+    shortcut: shortcut,
     onRunAction,
   });
 }
-function ym(e) {
-  let { actionItem, isPrimaryAction, shortcut, onRunAction } = e,
+function LocalEnvironmentActionMenuRow(props) {
+  let { actionItem, isPrimaryAction, shortcut, onRunAction } = props,
     { action } = actionItem,
-    s = () => {
+    handleSelect = () => {
       onRunAction(actionItem);
     };
-  let c = action.icon ?? "tool",
-    l = (
+  let iconName = action.icon ?? "tool",
+    iconNode = (
       <Br.ItemIcon>
         {X.jsx(md, {
-          icon: c,
+          icon: iconName,
         })}
       </Br.ItemIcon>
     );
-  let u = <span className="min-w-0 flex-1 truncate">{action.name}</span>;
-  let d = isPrimaryAction
+  let labelNode = (
+    <span className="min-w-0 flex-1 truncate">{action.name}</span>
+  );
+  let primaryMarker = isPrimaryAction
     ? X.jsx(si, {
         className: "icon-xs shrink-0 text-token-description-foreground",
       })
     : null;
-  let f = shortcut ? (
+  let shortcutNode = shortcut ? (
     <span className="shrink-0 text-xs text-token-description-foreground">
       {shortcut}
     </span>
   ) : null;
-  let p = (
+  let contentNode = (
     <span className="flex w-full min-w-0 items-center gap-2">
-      {u}
-      {d}
-      {f}
+      {labelNode}
+      {primaryMarker}
+      {shortcutNode}
     </span>
   );
   return (
-    <Br.Item key={action.name} onSelect={s}>
-      {l}
-      {p}
+    <Br.Item key={action.name} onSelect={handleSelect}>
+      {iconNode}
+      {contentNode}
     </Br.Item>
   );
 }
-function bm(e) {
-  let { actions, conversationId, onRunAction } = e,
-    a = aa.map((item, index) =>
+function RegisterLocalEnvironmentActionCommands(props) {
+  let { actions, conversationId, onRunAction } = props,
+    registeredCommandItems = aa.map((item, index) =>
       X.jsx(
-        xm,
+        RegisterLocalEnvironmentActionCommand,
         {
           actionItem: actions[index],
           commandId: item,
@@ -3396,16 +3485,16 @@ function bm(e) {
         item,
       ),
     );
-  return <>{a}</>;
+  return <>{registeredCommandItems}</>;
 }
-function xm(e) {
-  let { actionItem, commandId, conversationId, index, onRunAction } = e,
-    s = ur(),
-    c = actionItem != null && conversationId != null,
-    l =
+function RegisterLocalEnvironmentActionCommand(props) {
+  let { actionItem, commandId, conversationId, index, onRunAction } = props,
+    intl = ur(),
+    enabled = actionItem != null && conversationId != null,
+    commandTitle =
       actionItem == null
         ? ""
-        : s.formatMessage(
+        : intl.formatMessage(
             {
               id: "threadPage.runAction.commandMenu.title",
               defaultMessage: "Run: {actionName}",
@@ -3416,57 +3505,59 @@ function xm(e) {
               actionName: actionItem.action.name,
             },
           );
-  let u = l,
-    d = () => {
+  let title = commandTitle,
+    runAction = () => {
       actionItem != null && onRunAction(actionItem);
     };
-  let f;
-  f = {
-    enabled: c,
+  let commandConfig;
+  commandConfig = {
+    enabled: enabled,
   };
-  vt(commandId, d, f);
-  let p = actionItem?.action.name,
-    m = actionItem?.action.command,
-    h = actionItem?.action.icon,
-    g = [p, m, h, commandId];
-  let _ = (e) => {
+  vt(commandId, runAction, commandConfig);
+  let actionName = actionItem?.action.name,
+    actionCommand = actionItem?.action.command,
+    actionIcon = actionItem?.action.icon,
+    dependencies = [actionName, actionCommand, actionIcon, commandId];
+  let renderCommandItem = (closeMenu) => {
     if (actionItem == null) return null;
     let { action } = actionItem;
     return X.jsx(dl, {
-      value: u,
+      value: title,
       keywords: ["environment", "action"],
-      title: u,
+      title: title,
       leftAccessory: X.jsx(md, {
         className: "icon-xs shrink-0",
         icon: action.icon ?? "tool",
       }),
-      rightAccessory: <Sm commandId={commandId} />,
+      rightAccessory: (
+        <LocalEnvironmentActionShortcutBadge commandId={commandId} />
+      ),
       onSelect: () => {
         onRunAction(actionItem);
-        e();
+        closeMenu();
       },
     });
   };
-  let v;
+  let registration;
   return (
-    (v = {
+    (registration = {
       id: commandId,
       groupKey: "workspace",
-      enabled: c,
+      enabled: enabled,
       order: index,
-      dependencies: g,
-      render: _,
+      dependencies: dependencies,
+      render: renderCommandItem,
     }),
-    registerThreadSidePanelTab(v),
+    registerThreadSidePanelTab(registration),
     null
   );
 }
-function Sm(e) {
-  let { commandId } = e,
-    r = K(ha, commandId);
-  return r
+function LocalEnvironmentActionShortcutBadge(props) {
+  let { commandId } = props,
+    shortcut = K(ha, commandId);
+  return shortcut
     ? X.jsx(ri, {
-        keysLabel: r,
+        keysLabel: shortcut,
       })
     : null;
 }
@@ -5404,11 +5495,18 @@ var kg,
       staleTime: ln.ONE_MINUTE,
     }));
   });
-function Lg({ pendingReviewerLogins, searchResults }) {
-  let n = new Set(pendingReviewerLogins.map((item) => item.toLowerCase()));
-  return searchResults.filter(({ login }) => !n.has(login.toLowerCase()));
+function filterAlreadyPendingReviewers({
+  pendingReviewerLogins,
+  searchResults,
+}) {
+  let pendingReviewerLoginSet = new Set(
+    pendingReviewerLogins.map((item) => item.toLowerCase()),
+  );
+  return searchResults.filter(
+    ({ login }) => !pendingReviewerLoginSet.has(login.toLowerCase()),
+  );
 }
-function Rg({
+function getReviewerSearchMenuOptions({
   availableReviewers,
   isCurrentQuery,
   query,
@@ -5427,82 +5525,89 @@ function Rg({
           login.toLowerCase(),
         );
 }
-function zg(e, t) {
-  let n = e.find(({ login }) => login.toLowerCase() === t.login.toLowerCase());
-  return n == null ? [...e, t] : e.filter((item) => item !== n);
+function toggleSelectedReviewer(selectedReviewers, reviewer) {
+  let existingReviewer = selectedReviewers.find(
+    ({ login }) => login.toLowerCase() === reviewer.login.toLowerCase(),
+  );
+  return existingReviewer == null
+    ? [...selectedReviewers, reviewer]
+    : selectedReviewers.filter((item) => item !== existingReviewer);
 }
 var Bg,
   Vg = once(() => {
     Bg = toEsModule(Sn(), 1);
   });
-function Hg(e) {
-  let { hostId, item, pendingReviewerLogins, repo } = e,
-    o = B(ut),
-    s = ur(),
-    [c, l] = qg.useState(false),
-    [u, d] = qg.useState(""),
-    f = [];
-  let [p, m] = qg.useState(f),
-    h = u.trim();
-  let g = h,
-    _ = Lr(g, 250),
-    v = {
+function RequestPullRequestReviewersButton(props) {
+  let { hostId, item, pendingReviewerLogins, repo } = props,
+    scope = B(ut),
+    intl = ur(),
+    [open, setOpen] = qg.useState(false),
+    [query, setQuery] = qg.useState(""),
+    emptySelectedReviewers = [];
+  let [selectedReviewers, setSelectedReviewers] = qg.useState(
+      emptySelectedReviewers,
+    ),
+    trimmedQuery = query.trim();
+  let currentQuery = trimmedQuery,
+    debouncedQuery = Lr(currentQuery, 250),
+    searchParams = {
       cwd: item.cwd,
       hostId,
-      query: _,
+      query: debouncedQuery,
       repo,
     };
-  let { data, isError, refetch } = K(Fg, v),
-    S = {
+  let { data, isError, refetch } = K(Fg, searchParams),
+    updateMutationParams = {
       cwd: item.cwd,
       headBranch: item.headBranch,
       hostId,
       operationSource: "pull_request_board",
     };
-  let C = usePullRequestUpdateMutation(S),
-    w = Rg({
+  let updatePullRequestMutation =
+      usePullRequestUpdateMutation(updateMutationParams),
+    reviewerOptions = getReviewerSearchMenuOptions({
       availableReviewers:
         data == null
           ? undefined
-          : Lg({
+          : filterAlreadyPendingReviewers({
               pendingReviewerLogins,
               searchResults: data,
             }),
-      isCurrentQuery: _ === g,
-      query: g,
+      isCurrentQuery: debouncedQuery === currentQuery,
+      query: currentQuery,
       searchHasError: isError,
-      selectedReviewers: p,
-    })?.map(Gg);
-  let T = w,
-    E = new Set(p.map(Wg));
-  let D = E,
-    O = () => {
-      d("");
-      m([]);
-      C.reset();
+      selectedReviewers: selectedReviewers,
+    })?.map(toReviewerSearchOption);
+  let menuOptions = reviewerOptions,
+    selectedOptionIdsSet = new Set(selectedReviewers.map(getReviewerOptionId));
+  let selectedOptionIds = selectedOptionIdsSet,
+    resetReviewerPicker = () => {
+      setQuery("");
+      setSelectedReviewers([]);
+      updatePullRequestMutation.reset();
     };
-  let A = O,
-    j = () => {
-      p.length !== 0 &&
-        (C.reset(),
-        trackPullRequestAction(o, {
+  let clearReviewerPicker = resetReviewerPicker,
+    requestSelectedReviewers = () => {
+      selectedReviewers.length !== 0 &&
+        (updatePullRequestMutation.reset(),
+        trackPullRequestAction(scope, {
           action: "request_approvals",
           item,
           surface: "thread_side_panel",
         }),
-        C.mutate(
+        updatePullRequestMutation.mutate(
           {
             action: "request-reviewers",
             cwd: item.cwd,
             number: item.number,
             repo,
-            reviewers: p.map(Ug),
+            reviewers: selectedReviewers.map(getReviewerLogin),
           },
           {
-            onSuccess: (e) => {
-              e.status === "success" &&
-                (o.get(ti).success(
-                  s.formatMessage(
+            onSuccess: (result) => {
+              result.status === "success" &&
+                (scope.get(ti).success(
+                  intl.formatMessage(
                     {
                       id: "pullRequestSidePanel.approvals.request.successReviewers",
                       defaultMessage:
@@ -5511,39 +5616,39 @@ function Hg(e) {
                         "Toast shown after requesting a pull request approval",
                     },
                     {
-                      count: p.length,
+                      count: selectedReviewers.length,
                     },
                   ),
                 ),
-                l(false),
-                A());
+                setOpen(false),
+                clearReviewerPicker());
             },
           },
         ));
     };
-  let M = j,
-    N = (e) => {
-      l(e);
-      e || A();
+  let handleRequestReviewers = requestSelectedReviewers,
+    handleOpenChange = (nextOpen) => {
+      setOpen(nextOpen);
+      nextOpen || clearReviewerPicker();
     };
-  let P = s.formatMessage({
+  let triggerLabel = intl.formatMessage({
     id: "pullRequestSidePanel.approvals.open",
     defaultMessage: "Request reviewers",
     description:
       "Accessible label for opening the pull request reviewer picker",
   });
-  let F = <Ae aria-hidden={true} className="icon-2xs" />;
-  let I = (
+  let triggerIcon = <Ae aria-hidden={true} className="icon-2xs" />;
+  let triggerButton = (
     <Kn asChild={true}>
       {Jg.jsx(k, {
-        "aria-label": P,
+        "aria-label": triggerLabel,
         color: "secondary",
         size: "iconMd",
-        children: F,
+        children: triggerIcon,
       })}
     </Kn>
   );
-  let L = Jg.jsx(_r, {
+  let dialogTitle = Jg.jsx(_r, {
     className: "sr-only",
     children: (
       <FormattedMessage
@@ -5553,20 +5658,20 @@ function Hg(e) {
       />
     ),
   });
-  let R = s.formatMessage({
+  let searchAriaLabel = intl.formatMessage({
     id: "pullRequestSidePanel.approvals.search.ariaLabel",
     defaultMessage: "Search GitHub users",
     description: "Accessible label for searching pull request reviewers",
   });
-  let z = C.isPending,
-    ee =
-      g.length === 0 ? (
+  let requestPending = updatePullRequestMutation.isPending,
+    emptyMessage =
+      currentQuery.length === 0 ? (
         <FormattedMessage
           id="pullRequestSidePanel.approvals.search.prompt"
           defaultMessage="Search by name or GitHub username"
           description="Prompt shown before searching for a pull request reviewer"
         />
-      ) : isError && _ === g ? (
+      ) : isError && debouncedQuery === currentQuery ? (
         <span className="flex items-center justify-between gap-3 text-token-error-foreground">
           <FormattedMessage
             id="pullRequestSidePanel.approvals.search.error"
@@ -5596,65 +5701,70 @@ function Hg(e) {
           description="Empty state for pull request reviewer search"
         />
       );
-  let V = s.formatMessage({
+  let loadingLabel = intl.formatMessage({
     id: "pullRequestSidePanel.approvals.search.loading",
     defaultMessage: "Searching…",
     description: "Loading message while searching pull request reviewers",
   });
-  let te = s.formatMessage({
+  let placeholder = intl.formatMessage({
     id: "pullRequestSidePanel.approvals.search.placeholder",
     defaultMessage: "Request review from…",
     description: "Placeholder for searching pull request reviewers",
   });
-  let ne = (
+  let leadingSearchIcon = (
     <Nn
       aria-hidden={true}
       className="icon-sm shrink-0 text-token-text-tertiary"
     />
   );
-  let re = () => {
-    l(false);
-    A();
+  let closePicker = () => {
+    setOpen(false);
+    clearReviewerPicker();
   };
-  let ie, H;
-  ie = (e) => {
-    d(e);
+  let handleQueryChange, handleOptionSelect;
+  handleQueryChange = (nextQuery) => {
+    setQuery(nextQuery);
   };
-  H = (e) => {
-    m((t) => zg(t, e));
+  handleOptionSelect = (reviewer) => {
+    setSelectedReviewers((currentReviewers) =>
+      toggleSelectedReviewer(currentReviewers, reviewer),
+    );
   };
-  let ae = (
+  let reviewerSearchMenu = (
     <Pu
-      ariaLabel={R}
-      disabled={z}
-      emptyMessage={ee}
-      loadingLabel={V}
-      options={T}
+      ariaLabel={searchAriaLabel}
+      disabled={requestPending}
+      emptyMessage={emptyMessage}
+      loadingLabel={loadingLabel}
+      options={menuOptions}
       loadingSize="compact"
-      placeholder={te}
-      query={u}
-      selectedOptionIds={D}
+      placeholder={placeholder}
+      query={query}
+      selectedOptionIds={selectedOptionIds}
       variant="menu"
-      leadingContent={ne}
-      onEscape={re}
-      onQueryChange={ie}
-      onSelectOption={H}
+      leadingContent={leadingSearchIcon}
+      onEscape={closePicker}
+      onQueryChange={handleQueryChange}
+      onSelectOption={handleOptionSelect}
     />
   );
-  let U =
-    C.data?.status === "error" || C.isError ? (
+  let requestErrorMessage =
+    updatePullRequestMutation.data?.status === "error" ||
+    updatePullRequestMutation.isError ? (
       <div className="px-2 py-1.5 text-sm" aria-live="polite">
         <span className="text-token-error-foreground">
-          {C.data?.status === "error" ? C.data.error : C.error?.message}
+          {updatePullRequestMutation.data?.status === "error"
+            ? updatePullRequestMutation.data.error
+            : updatePullRequestMutation.error?.message}
         </span>
       </div>
     ) : null;
-  let oe =
-    p.length > 0 || C.isPending ? (
+  let requestFooter =
+    selectedReviewers.length > 0 || updatePullRequestMutation.isPending ? (
       <div className="grid pt-1">
-        {C.isPending ? (
+        {updatePullRequestMutation.isPending ? (
           <span
-            aria-label={s.formatMessage({
+            aria-label={intl.formatMessage({
               id: "pullRequestSidePanel.approvals.request.pending",
               defaultMessage: "Requesting approval…",
               description:
@@ -5671,7 +5781,7 @@ function Hg(e) {
           Jg.jsx(k, {
             color: "secondary",
             size: "toolbar",
-            onClick: M,
+            onClick: handleRequestReviewers,
             children: (
               <span className="mx-auto">
                 <FormattedMessage
@@ -5685,35 +5795,35 @@ function Hg(e) {
         )}
       </div>
     ) : null;
-  let se = (
+  let popoverContent = (
     <Pr align="end">
-      {L}
-      {ae}
-      {U}
-      {oe}
+      {dialogTitle}
+      {reviewerSearchMenu}
+      {requestErrorMessage}
+      {requestFooter}
     </Pr>
   );
   return (
-    <On open={c} onOpenChange={N}>
-      {I}
-      {se}
+    <On open={open} onOpenChange={handleOpenChange}>
+      {triggerButton}
+      {popoverContent}
     </On>
   );
 }
-function Ug(e) {
-  let { login } = e;
+function getReviewerLogin(reviewer) {
+  let { login } = reviewer;
   return login;
 }
-function Wg(e) {
-  let { login } = e;
+function getReviewerOptionId(reviewer) {
+  let { login } = reviewer;
   return login.toLowerCase();
 }
-function Gg(e) {
+function toReviewerSearchOption(reviewer) {
   return {
-    ...e,
-    id: e.login.toLowerCase(),
-    imageUrl: e.avatarUrl,
-    label: e.login,
+    ...reviewer,
+    id: reviewer.login.toLowerCase(),
+    imageUrl: reviewer.avatarUrl,
+    label: reviewer.login,
   };
 }
 var Kg,
@@ -5987,7 +6097,7 @@ function e_(e) {
           {e.map(t_)}
           {f ? (
             <span className="shrink-0">
-              <Hg
+              <RequestPullRequestReviewersButton
                 hostId={hostId}
                 item={item}
                 pendingReviewerLogins={reviewers.requested}
@@ -7051,7 +7161,7 @@ function L_(e) {
           {p && !isExpanded && (
             <Ml linesAdded={p.additions} linesRemoved={p.deletions} />
           )}
-          {B_.jsx(fm, {
+          {B_.jsx(LocalConversationEnvironmentActionControls, {
             conversationId,
             hostConfig,
             onMenuOpenChange: onForceShow,
