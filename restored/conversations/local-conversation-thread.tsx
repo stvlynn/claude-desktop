@@ -110,7 +110,6 @@ import {
   Ki as Ce,
   Kp as we,
   Ku as Te,
-  L as Ee,
   LB as De,
   LN as Oe,
   La as ke,
@@ -544,7 +543,6 @@ import {
   cc as gc,
   cs as _c,
   ct as vc,
-  dl as yc,
   er as bc,
   eu as xc,
   fl as Sc,
@@ -831,6 +829,7 @@ import {
   type BrowserUseSummary,
 } from "./local-conversation-thread-parts/browser-use-summary";
 import { BrowserUseSummaryList } from "./local-conversation-thread-parts/browser-use-summary-list";
+import { ComputerUsePictureInPictureRow } from "./local-conversation-thread-parts/computer-use-pip-row";
 const joinLocalEnvironmentRepoPath = M;
 
 function Fd(e) {
@@ -1171,28 +1170,7 @@ var Of,
         ).ThreadUserMessageNavigationRail,
     );
   }),
-  Nf = once(() => {}),
-  Pf,
-  Ff,
-  If = once(() => {
-    toEsModule(G());
-    Pf = getJsxRuntime();
-    Ff = (e) => (
-      <svg
-        width={29}
-        height={16}
-        viewBox="0 0 29 16"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        {...e}
-      >
-        <path
-          d="M0 14.7754C0 14.4694 0.107422 14.209 0.322266 13.9941C0.537109 13.7728 0.797526 13.6621 1.10352 13.6621H3.24219V2.07031C3.24219 1.38672 3.42773 0.872396 3.79883 0.527344C4.17643 0.175781 4.6875 0 5.33203 0H22.832C23.5156 0 24.0332 0.175781 24.3848 0.527344C24.7428 0.872396 24.9219 1.38672 24.9219 2.07031V13.6621H27.0605C27.3665 13.6621 27.627 13.7728 27.8418 13.9941C28.0566 14.209 28.1641 14.4694 28.1641 14.7754C28.1641 15.0814 28.0566 15.3418 27.8418 15.5566C27.627 15.778 27.3665 15.8887 27.0605 15.8887H1.10352C0.797526 15.8887 0.537109 15.778 0.322266 15.5566C0.107422 15.3418 0 15.0814 0 14.7754ZM4.81445 13.6621H23.3496V2.50977C23.3496 2.19727 23.2715 1.96289 23.1152 1.80664C22.959 1.65039 22.7246 1.57227 22.4121 1.57227H5.75195C5.43945 1.57227 5.20508 1.65039 5.04883 1.80664C4.89258 1.96289 4.81445 2.19727 4.81445 2.50977V13.6621Z"
-          fill="currentColor"
-        />
-      </svg>
-    );
-  });
+  Nf = once(() => {});
 function Lf(e) {
   let { children, empty, getKey, items, listClassName, visibleItemLimit } = e,
     c = visibleItemLimit === undefined ? Hf : visibleItemLimit,
@@ -8129,22 +8107,12 @@ function Sv(e) {
   );
   let Ze = w && (
     <Nm mode="headerless" sectionKey="computer-use-pip">
-      <SummaryPanelRow
-        aria-label={we}
-        icon={<Ff className="icon-xs shrink-0" />}
-        label={
-          <FormattedMessage
-            id="codex.localConversation.remoteHostedPip.computerUse"
-            defaultMessage="Computer Use"
-            description="Label for the Computer Use PiP visibility control in the thread summary side panel"
-          />
-        }
-        onClick={() => {
+      <ComputerUsePictureInPictureRow
+        isVisible={T}
+        onToggle={() => {
           h.set(computerUsePictureInPictureVisibleSignal, !T);
         }}
-        title={we}
-        trailing={<Ov isVisible={T} />}
-        trailingVisible={true}
+        toggleLabel={we}
       />
     </Nm>
   );
@@ -8222,22 +8190,6 @@ function Dv(e) {
   let { showInlineActivity } = e;
   return showInlineActivity;
 }
-function Ov(e) {
-  let { isVisible } = e,
-    r = Q.jsx(yc, {
-      "aria-hidden": "true",
-      className: "size-5",
-    });
-  let i = isVisible ? null : (
-    <Ee aria-hidden="true" className="absolute size-5" />
-  );
-  return (
-    <span className="relative flex size-5 shrink-0 items-center justify-center text-token-text-tertiary">
-      {r}
-      {i}
-    </span>
-  );
-}
 var Av,
   jv,
   Q,
@@ -8260,7 +8212,6 @@ var Av,
     Cl();
     U();
     wc();
-    If();
     Sc();
     pt();
     fc();
