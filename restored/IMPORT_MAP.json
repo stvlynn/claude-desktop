@@ -10911,6 +10911,27 @@
         "t": "SummaryPanelRow"
       },
       "status": "done"
+    },
+    "app-initial~app-main~remote-conversation-page~projects-index-page~hotkey-window-thread-page~ki4n9fl3-Dgn7MiTN": {
+      "restored": "automation/heartbeat-automation-eligibility/index.tsx",
+      "exports": {
+        "a": "ArchiveThreadConfirmDialog",
+        "c": "initThreadPinIconChunk",
+        "d": "initThreadPinControlsChunk",
+        "f": "pinThreadMessage",
+        "h": "threadSwitchTimingTracker",
+        "i": "useOpenThreadInNewWindow",
+        "l": "getThreadPinButtonSlots",
+        "m": "initThreadSwitchTimingTrackerChunk",
+        "n": "initHeartbeatAutomationEligibilityChunk",
+        "o": "initArchiveThreadConfirmDialogChunk",
+        "p": "unpinThreadMessage",
+        "r": "initOpenThreadInNewWindowChunk",
+        "s": "ThreadPinIcon",
+        "t": "heartbeatAutomationEligibilitySignal",
+        "u": "createPinThreadMenuItem"
+      },
+      "status": "done"
     }
   }
 }

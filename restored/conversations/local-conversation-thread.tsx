@@ -636,9 +636,9 @@ import {
   SummaryPanelRow,
 } from "../utils/summary-panel-row";
 import {
-  h as Il,
-  m as Ll,
-} from "./app-initial~app-main~remote-conversation-page~projects-index-page~hotkey-window-thread-page~ki4n9fl3-Dgn7MiTN.js";
+  initThreadSwitchTimingTrackerChunk,
+  threadSwitchTimingTracker,
+} from "../automation/heartbeat-automation-eligibility";
 import {
   m as Rl,
   p as zl,
@@ -12972,7 +12972,7 @@ function NS(e) {
   te = [allowMissingConversation, C, isResuming, N, S, _, F, I];
   GS.useEffect(V, te);
   let ne = (e) => {
-    Il.complete(_, "thread_switch_completed", {
+    threadSwitchTimingTracker.complete(_, "thread_switch_completed", {
       conversationId,
       turnCount: e,
     });
@@ -14010,7 +14010,7 @@ export const initLocalConversationThreadChunk = once(() => {
   initLauncherHotkeyStateChunk();
   Vc();
   Es();
-  Ll();
+  initThreadSwitchTimingTrackerChunk();
   he();
   Ef();
   gf();
