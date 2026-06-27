@@ -345,7 +345,6 @@ import {
   fl as Sc,
   gt as wc,
   ht as Ec,
-  it as Dc,
   iu as activeWorkflowSignal,
   jt as Ac,
   kl as jc,
@@ -355,7 +354,6 @@ import {
   oa as Rc,
   os as zc,
   qa as Vc,
-  rt as Uc,
   sa as Wc,
   sc as Gc,
   ss as Kc,
@@ -674,6 +672,11 @@ import {
   buildLocalConversationVisibleTurnEntries,
   initLocalConversationVisibleTurnEntriesBuilder,
 } from "./local-conversation-thread-parts/local-conversation-visible-turn-entries";
+import {
+  initLocalConversationTurnRowChunk,
+  initLocalConversationTurnRowDependencies,
+  LocalConversationTurnRow,
+} from "./local-conversation-thread-parts/local-conversation-turn-row";
 import {
   initSummaryPanelExpandableList,
   SummaryPanelExpandableList,
@@ -7141,154 +7144,6 @@ var EMPTY_CONVERSATION_REQUESTS,
       appScope,
       (_conversationId) => null,
     );
-  });
-var initLocalConversationTurnRowDependencies = once(() => {
-  nd();
-});
-function LocalConversationTurnRow({ entry, latestTurnFollowContentRef }) {
-  let {
-    conversationId,
-    cwd,
-    hostId,
-    isCollapsed,
-    isMostRecentTurn,
-    isReadOnly,
-    totalTurnCount,
-    turnNumber,
-    isProjectlessConversation,
-    modelProvider,
-    projectlessOutputDirectory,
-    onEditLastTurnMessage,
-    onForkTurnMessage,
-    completedThreadGoal,
-    generatedImages,
-    onSetCollapsedForTurn,
-    parentThreadAttachmentSourceConversationId,
-    preserveServerUserMessages,
-    renderMcpApps,
-    requests,
-    resolvedApps,
-    showInProgressFixedContent,
-    turn,
-    turnState,
-    turnId,
-    turnKey,
-    turnSearchKey,
-    isBackgroundSubagentsEnabled,
-    transcriptBlock,
-    includeTranscriptTurnExtras,
-  } = entry;
-  useScope(localConversationRouteScope);
-  let handleCollapsedChange = useStableCallback((collapsed) => {
-      turnId != null && onSetCollapsedForTurn?.(turnId, collapsed);
-    }),
-    onSetCollapsed =
-      turnId == null || onSetCollapsedForTurn == null
-        ? undefined
-        : handleCollapsedChange,
-    parentThreadAttachment = localConversationTurnRowReactRuntime.useMemo(
-      () =>
-        parentThreadAttachmentSourceConversationId == null
-          ? undefined
-          : {
-              sourceConversationId: parentThreadAttachmentSourceConversationId,
-            },
-      [parentThreadAttachmentSourceConversationId],
-    );
-  return (
-    useStableCallback(() => {}),
-    localConversationTurnRowJsxRuntime.jsx(fs, {
-      name: "LocalConversationTurn",
-      resetKey: turnKey,
-      fallback: (errorBoundary) => (
-        <LocalConversationTurnErrorFallback
-          onRetry={() => {
-            errorBoundary.resetError();
-          }}
-        />
-      ),
-      children: (
-        <Uc
-          conversationId={conversationId}
-          hostId={hostId}
-          turnSearchKey={turnSearchKey}
-          turn={turn}
-          turnState={turnState}
-          turnRequests={requests}
-          preserveServerUserMessages={preserveServerUserMessages}
-          isBackgroundSubagentsEnabled={isBackgroundSubagentsEnabled}
-          cwd={cwd}
-          isMostRecentTurn={isMostRecentTurn}
-          isReadOnly={isReadOnly}
-          totalTurnCount={totalTurnCount}
-          turnNumber={turnNumber}
-          isProjectlessConversation={isProjectlessConversation}
-          modelProvider={modelProvider}
-          projectlessOutputDirectory={projectlessOutputDirectory}
-          parentThreadAttachment={parentThreadAttachment}
-          resolvedApps={resolvedApps}
-          onEditLastTurnMessage={onEditLastTurnMessage}
-          onForkTurnMessage={onForkTurnMessage}
-          completedThreadGoal={completedThreadGoal}
-          generatedImages={generatedImages}
-          isCollapsed={isCollapsed}
-          onSetCollapsed={onSetCollapsed}
-          renderMcpApps={renderMcpApps}
-          showInProgressFixedContent={showInProgressFixedContent}
-          deferOffscreenDiffRendering={true}
-          transcriptBlock={transcriptBlock}
-          includeTranscriptTurnExtras={includeTranscriptTurnExtras}
-          latestTurnFollowContentRef={latestTurnFollowContentRef}
-          onOpenAeonDetails={undefined}
-        />
-      ),
-    })
-  );
-}
-function LocalConversationTurnErrorFallback(props) {
-  let { onRetry } = props,
-    titleNode = (
-      <div className="mb-2 font-medium text-token-text-primary">
-        <FormattedMessage
-          id="localConversation.turnRenderError.title"
-          defaultMessage="This turn couldn't render"
-          description="Error message shown when an individual conversation turn fails to render"
-        />
-      </div>
-    );
-  let retryLabel = (
-    <FormattedMessage
-      id="localConversation.turnRenderError.retry"
-      defaultMessage="Try again"
-      description="Button label to retry rendering a failed conversation turn"
-    />
-  );
-  return (
-    <div className="rounded-lg border border-token-border bg-token-main-surface-primary px-4 py-3 text-sm text-token-text-secondary">
-      {titleNode}
-      {localConversationTurnRowJsxRuntime.jsx(Button, {
-        color: "secondary",
-        size: "default",
-        onClick: onRetry,
-        children: retryLabel,
-      })}
-    </div>
-  );
-}
-var localConversationTurnRowModule,
-  localConversationTurnRowReactRuntime,
-  localConversationTurnRowJsxRuntime,
-  initLocalConversationTurnRowChunk = once(() => {
-    localConversationTurnRowModule = getChunkModuleExports();
-    initScopeRuntime();
-    localConversationTurnRowReactRuntime = toEsModule(loadReactModule(), 1);
-    initIntlRuntime();
-    initButtonComponentPrimitives();
-    Lo();
-    initRouteScope();
-    initKeyboardShortcutLabel();
-    Dc();
-    localConversationTurnRowJsxRuntime = getJsxRuntime();
   });
 function VirtualizedTurnList({
   entries,
