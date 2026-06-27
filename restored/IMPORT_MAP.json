@@ -10594,8 +10594,8 @@
         "t": "ThreadOverflowMenu"
       },
       "status": "draft",
-      "note": "Public draft organized for the updated ref chunk. Producer imports now resolve through current-ref boundaries where available; pin, archive, and pop-in/new-window icon imports resolve to semantic icon modules. Remaining work is semantic split/rename and JSX runtime cleanup before promotion.",
-      "lastUpdated": "2026-06-27T17:03:39.156Z"
+      "note": "Public barrel split for the updated ref chunk. Runtime imports now resolve through current-ref boundaries and semantic icon modules; implementation lives in threads/thread-overflow-menu-parts/thread-overflow-menu-impl.tsx, with the side-chat tab opener split into threads/thread-overflow-menu-parts/open-side-chat-tab.tsx. Remaining work is semantic rename and JSX runtime cleanup inside the menu impl before promotion.",
+      "lastUpdated": "2026-06-27T17:11:52.061Z"
     },
     "above-composer-suggestions-CAXbkE_4": {
       "restored": "composer/above-composer-suggestions.tsx",
