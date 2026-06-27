@@ -116,7 +116,6 @@ import {
   Np as conversationHistoryCompleteSignal,
   Nv as initConversationArtifactRuntime,
   OI as getHotkeyWindowThreadPath,
-  OM as scaleCssPxByWindowZoom,
   ON as initButtonComponentPrimitives,
   OP as createMotionSignal,
   OV as createAtomSignal,
@@ -727,6 +726,24 @@ import {
   initLocalConversationSummaryPanelSignals,
   useLocalConversationSummaryPanelModel,
 } from "./local-conversation-thread-parts/local-conversation-summary-panel-model";
+import {
+  createLatestTurnScrollState,
+  getLatestTurnIdentityKey,
+  getLatestTurnPhase,
+  isPassiveLatestTurnFollowMode,
+  reduceLatestTurnScrollState,
+} from "./local-conversation-thread-parts/local-conversation-latest-turn-scroll-state";
+import {
+  adjustScrollForLatestTurnHeightDelta,
+  createPersistedScrollStateSnapshot,
+  getMaxResponseSpacerHeightPx,
+  getResponseSpacerOverflowPx,
+  getThreadScrollPaddingBottomPx,
+  LATEST_TURN_PLACEMENT_DISTANCE_PX,
+  measureLatestTurnFollowContentOverflow,
+  RESPONSE_SPACER_INTERSECTION_THRESHOLDS,
+  RESPONSE_SPACER_SPRING_TRANSITION,
+} from "./local-conversation-thread-parts/local-conversation-response-spacer";
 import {
   getBottomScrollPaddingPxValue,
   getDistanceFromBottomForTargetElement,
@@ -7545,105 +7562,6 @@ var EMPTY_CONVERSATION_REQUESTS,
       (_conversationId) => null,
     );
   });
-function createLatestTurnScrollState({ followMode = "static" } = {}) {
-  return {
-    followMode,
-  };
-}
-function reduceLatestTurnScrollState(scrollState, event) {
-  switch (event.type) {
-    case "latest_turn_follow_content_changed":
-      return event.latestTurnPhase !== "prework" ||
-        scrollState.followMode !== "prework_watch"
-        ? scrollState
-        : event.followContentOverflowPx > 0
-          ? setLatestTurnFollowMode(scrollState, "prework_follow")
-          : scrollState;
-    case "latest_turn_phase_changed": {
-      let nextScrollState = scrollState;
-      return (
-        event.previousLatestTurnPhase !== "prework" &&
-          event.latestTurnPhase === "prework" &&
-          (nextScrollState.followMode === "static" &&
-            (nextScrollState = setLatestTurnFollowMode(
-              nextScrollState,
-              "prework_watch",
-            )),
-          nextScrollState.followMode === "user_follow" &&
-            (nextScrollState = setLatestTurnFollowMode(
-              nextScrollState,
-              "prework_follow",
-            ))),
-        event.previousLatestTurnPhase === "prework" &&
-          event.latestTurnPhase === "final_answer" &&
-          (nextScrollState = setLatestTurnFollowMode(
-            nextScrollState,
-            nextScrollState.followMode === "prework_follow"
-              ? "user_follow"
-              : "static",
-          )),
-        event.previousLatestTurnPhase !== "idle" &&
-          event.latestTurnPhase === "idle" &&
-          nextScrollState.followMode !== "user_follow" &&
-          (nextScrollState = setLatestTurnFollowMode(
-            nextScrollState,
-            "static",
-          )),
-        nextScrollState
-      );
-    }
-    case "latest_turn_placed":
-      return setLatestTurnFollowMode(scrollState, "static");
-    case "latest_turn_removed":
-      return setLatestTurnFollowMode(scrollState, "static");
-    case "scroll_distance_changed":
-      return event.distanceFromBottomPx <= 24
-        ? scrollState
-        : scrollState.followMode === "prework_follow"
-          ? setLatestTurnFollowMode(scrollState, "prework_watch")
-          : scrollState.followMode === "user_follow"
-            ? setLatestTurnFollowMode(
-                scrollState,
-                event.latestTurnPhase === "prework"
-                  ? "prework_watch"
-                  : "static",
-              )
-            : scrollState;
-    case "scroll_to_bottom":
-      return setLatestTurnFollowMode(
-        scrollState,
-        event.latestTurnPhase === "prework" ? "prework_follow" : "user_follow",
-      );
-  }
-}
-function isPassiveLatestTurnFollowMode(followMode) {
-  return followMode === "static" || followMode === "prework_watch";
-}
-function getLatestTurnPhase(turn) {
-  if (turn.status !== "inProgress") return "idle";
-  let sawCommentaryAgentMessage = false;
-  for (let turnItem of turn.items)
-    if (turnItem.type === "agentMessage") {
-      if (turnItem.phase === "commentary") {
-        sawCommentaryAgentMessage = true;
-        continue;
-      }
-      return "final_answer";
-    }
-  return sawCommentaryAgentMessage || turn.firstTurnWorkItemStartedAtMs != null
-    ? "prework"
-    : turn.finalAssistantStartedAtMs == null
-      ? "idle"
-      : "final_answer";
-}
-function setLatestTurnFollowMode(scrollState, followMode) {
-  return scrollState.followMode === followMode
-    ? scrollState
-    : {
-        ...scrollState,
-        followMode,
-      };
-}
 var initLocalConversationTurnRowDependencies = once(() => {
   nd();
 });
@@ -9071,7 +8989,7 @@ function LocalConversationAutoFollowVirtualizedTurnList({
       },
       {
         root: scrollElement,
-        threshold: responseSpacerIntersectionThresholds,
+        threshold: RESPONSE_SPACER_INTERSECTION_THRESHOLDS,
       },
     );
     return (
@@ -9347,19 +9265,19 @@ function LocalConversationAutoFollowVirtualizedTurnList({
         latestTurnOffsetY.stop();
         latestTurnOffsetY.set(currentSpacerHeightPx);
         scrollController.scrollToDistanceFromBottomPx(
-          latestTurnPlacementDistancePx,
+          LATEST_TURN_PLACEMENT_DISTANCE_PX,
           "instant",
         );
         animateSignalValue(
           latestTurnOffsetY,
           0,
-          responseSpacerSpringTransition,
+          RESPONSE_SPACER_SPRING_TRANSITION,
         );
         currentSpacerHeightPx !== maxSpacerHeightPx &&
           animateSignalValue(
             responseSpacerHeightPx,
             maxSpacerHeightPx,
-            responseSpacerSpringTransition,
+            RESPONSE_SPACER_SPRING_TRANSITION,
           );
       }
       let previousScrollState = scrollStateRef.current;
@@ -9449,125 +9367,9 @@ function LatestTurnAnimatedRow(props) {
     children: rowNode,
   });
 }
-function adjustScrollForLatestTurnHeightDelta({
-  allowResponseSpacerGrowth,
-  behavior = "instant",
-  distanceDeltaPx,
-  responseSpacerHeightPx,
-  scrollController,
-  scrollElement,
-}) {
-  let nextDistanceFromBottomPx =
-    getScrollDistanceFromBottomPx(scrollElement) + distanceDeltaPx;
-  allowResponseSpacerGrowth &&
-    nextDistanceFromBottomPx < 0 &&
-    responseSpacerHeightPx.set(
-      responseSpacerHeightPx.get() - nextDistanceFromBottomPx,
-    );
-  scrollController.scrollToDistanceFromBottomPx(
-    Math.max(0, nextDistanceFromBottomPx),
-    behavior,
-  );
-}
-function measureLatestTurnFollowContentOverflow({
-  scrollElement,
-  turnElement,
-  fallbackBottomViewportOverflowPx,
-  windowZoom,
-}) {
-  return scrollElement == null || turnElement == null
-    ? fallbackBottomViewportOverflowPx
-    : scaleCssPxByWindowZoom(
-        turnElement.getBoundingClientRect().bottom -
-          scrollElement.getBoundingClientRect().bottom,
-        windowZoom,
-      );
-}
-function getMaxResponseSpacerHeightPx({
-  scrollElementHeightPx,
-  scrollPaddingBottomPx,
-}) {
-  let availableViewportHeightPx = Math.max(
-    0,
-    scrollElementHeightPx - scrollPaddingBottomPx,
-  );
-  return Math.max(
-    0,
-    Math.min(
-      availableViewportHeightPx * maxResponseSpacerViewportRatio,
-      availableViewportHeightPx - responseSpacerViewportReservePx,
-    ),
-  );
-}
-function createPersistedScrollStateSnapshot({
-  distanceFromBottomPx,
-  latestTurnPhase,
-  responseSpacerHeightPx,
-  scrollPaddingBottomPx,
-  scrollState,
-}) {
-  return getResponseSpacerOverflowPx({
-    distanceFromBottomPx,
-    responseSpacerHeightPx,
-    scrollPaddingBottomPx,
-  }) > 24
-    ? {
-        distanceFromBottomPx: 0,
-        scrollState: reduceLatestTurnScrollState(scrollState, {
-          type: "scroll_to_bottom",
-          latestTurnPhase,
-        }),
-      }
-    : {
-        distanceFromBottomPx: Math.max(
-          0,
-          distanceFromBottomPx - responseSpacerHeightPx,
-        ),
-        scrollState,
-      };
-}
-function getResponseSpacerOverflowPx({
-  distanceFromBottomPx,
-  responseSpacerHeightPx,
-  scrollPaddingBottomPx,
-}) {
-  return Math.max(
-    0,
-    responseSpacerHeightPx - distanceFromBottomPx - scrollPaddingBottomPx,
-  );
-}
-function getThreadScrollPaddingBottomPx(scrollElement) {
-  let scrollPaddingBottomPx = Number.parseFloat(
-    scrollElement.style.getPropertyValue("--thread-scroll-padding-bottom"),
-  );
-  return Number.isFinite(scrollPaddingBottomPx) ? scrollPaddingBottomPx : 0;
-}
-function getLatestTurnIdentityKey(entry) {
-  let restoreMessageId = getLatestSteeringRestoreMessageId(entry);
-  return restoreMessageId == null
-    ? entry.turnKey
-    : `${entry.turnKey}:${restoreMessageId}`;
-}
-function getLatestSteeringRestoreMessageId(entry) {
-  for (
-    let itemIndex = entry.turn.items.length - 1;
-    itemIndex >= 0;
-    --itemIndex
-  ) {
-    let turnItem = entry.turn.items[itemIndex];
-    if (turnItem?.type === "steeringUserMessage")
-      return turnItem.restoreMessage.id;
-  }
-  return null;
-}
 var autoFollowVirtualizedTurnListModule,
   autoFollowTurnListReactRuntime,
   autoFollowTurnListJsxRuntime,
-  maxResponseSpacerViewportRatio,
-  responseSpacerViewportReservePx,
-  latestTurnPlacementDistancePx,
-  responseSpacerIntersectionThresholds,
-  responseSpacerSpringTransition,
   LatestTurnMotionContext,
   initAutoFollowVirtualizedTurnListChunk = once(() => {
     autoFollowVirtualizedTurnListModule = getChunkModuleExports();
@@ -9585,20 +9387,6 @@ var autoFollowVirtualizedTurnListModule,
     initLocalConversationTurnRowChunk();
     initVirtualizedTurnListChunk();
     autoFollowTurnListJsxRuntime = getJsxRuntime();
-    maxResponseSpacerViewportRatio = 0.6666666666666666;
-    responseSpacerViewportReservePx = 240;
-    latestTurnPlacementDistancePx = 1;
-    responseSpacerIntersectionThresholds = Array.from(
-      {
-        length: 101,
-      },
-      (_unused, index) => index / 100,
-    );
-    responseSpacerSpringTransition = {
-      type: "spring",
-      bounce: 0,
-      duration: 0.5,
-    };
     LatestTurnMotionContext =
       autoFollowTurnListReactRuntime.createContext(null);
   });
