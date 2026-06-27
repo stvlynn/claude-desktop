@@ -12575,6 +12575,18 @@
       "status": "done",
       "note": "Synced current infinite scroll pagination spinner chunk with semantic React component and initializer export.",
       "lastUpdated": "2026-06-27T21:41:41.146Z"
+    },
+    "toolbar-breadcrumb-DNxKTOzt": {
+      "restored": "ui/toolbar-breadcrumb.tsx",
+      "exports": {
+        "n": "initToolbarBreadcrumbChunk",
+        "t": "ToolbarBreadcrumb",
+        "initToolbarBreadcrumbChunk": "initToolbarBreadcrumbChunk",
+        "ToolbarBreadcrumb": "ToolbarBreadcrumb"
+      },
+      "status": "done",
+      "note": "Synced current toolbar breadcrumb chunk with semantic React component and initializer export.",
+      "lastUpdated": "2026-06-27T21:43:31.953Z"
     }
   }
 }
