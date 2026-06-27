@@ -43,7 +43,6 @@ import {
   $N as initVscodeApiBridge,
   $P as initAppScope,
   $h as getHostConfigKey,
-  $i as initSummaryPanelAnimationConfig,
   $j as initStatsigGateSignals,
   $p as modelProviderSignal,
   AB as initScopeRuntime,
@@ -102,7 +101,6 @@ import {
   Ix as environmentTerminalControllerService,
   JV as loadReactModule,
   Ja as CheckCircleIcon,
-  Ji as DropdownMenuItem,
   Jo as be,
   Kg as initNormalizedPathUtilities,
   Ki as DropdownMenuSubmenu,
@@ -114,14 +112,12 @@ import {
   Lj as PlusIcon,
   Ln as initKeyboardModifierState,
   MB as ScopeValueProvider,
-  MP as AnimatePresence,
   MV as useMutation,
   M_ as localConversationRouteScope,
   Mi as initModalRegistrySignal,
   Mj as getScrollDistanceFromBottomPx,
   Mu as initHostCodexHomeQuery,
   initLocalConversationGitSummary as isRenderableConversationTurn,
-  NM as createPersistedScopedSignal,
   Nh as initGitBranchQueryRuntime,
   Nj as initReverseScrollUtilities,
   Np as conversationHistoryCompleteSignal,
@@ -148,9 +144,7 @@ import {
   Pv as lt,
   QP as appScope,
   Qg as initArtifactPathDetectionHelpers,
-  Qi as threadSummaryPanelSectionTransition,
   R as initSlashIcon,
-  RN as reducedMotionPreferenceSignal,
   RP as ChevronIcon,
   Rf as workspaceRootsSignal,
   Rj as _t,
@@ -198,7 +192,6 @@ import {
   _c as CONVERSATION_DETAIL_STEPS_PROSE,
   aM as RefreshIcon,
   aP as QUERY_DURATIONS,
-  aV as loadIsFunctionModule,
   a_ as initFileTypeDetectionHelpers,
   ag as fn,
   ak as initAppServerRequestBridge,
@@ -810,11 +803,11 @@ import {
 import { getLocalConversationTurnSearchKey } from "./local-conversation-thread-parts/turn-search-key";
 import type { BrowserUseSummary } from "./local-conversation-thread-parts/browser-use-summary";
 import {
-  BrowserUseSummarySectionContent,
-  BrowserUseSummarySectionTitle,
-} from "./local-conversation-thread-parts/browser-use-summary-section";
+  initThreadSummaryBrowserSectionsChunk,
+  ThreadSummaryBrowserTabsSection,
+  ThreadSummaryComputerUsePipSection,
+} from "./local-conversation-thread-parts/thread-summary-browser-sections";
 import { useBrowserUseSummaries } from "./local-conversation-thread-parts/browser-use-summary-store";
-import { ComputerUsePictureInPictureRow } from "./local-conversation-thread-parts/computer-use-pip-row";
 import { BackgroundTaskSectionTitle } from "./local-conversation-thread-parts/background-task-section-title";
 import {
   initReviewSearchHighlighter,
@@ -843,6 +836,10 @@ import {
   ThreadSummaryPanelRoot,
   ThreadSummaryPanelSectionCount,
 } from "./local-conversation-thread-parts/thread-summary-panel-chrome-primitives";
+import {
+  initThreadSummaryPanelSectionChunk,
+  ThreadSummaryPanelSection,
+} from "./local-conversation-thread-parts/thread-summary-panel-section";
 const joinLocalEnvironmentRepoPath = joinPath;
 function SummaryPanelArtifactsList(props) {
   let {
@@ -3374,269 +3371,6 @@ var localEnvironmentActionControlsModule,
     localEnvironmentActionIconButtonClassName =
       "flex h-7 w-7 shrink-0 cursor-interaction items-center justify-center rounded-sm border-0 bg-transparent p-0 text-token-text-tertiary hover:bg-token-list-hover-background data-[state=open]:bg-token-list-hover-background";
     EMPTY_LOCAL_ENVIRONMENT_ACTION_ITEMS = [];
-  });
-function ThreadSummaryPanelSection(props) {
-  let {
-      autoCollapse,
-      sectionKey,
-      after,
-      children,
-      mode = "accordion",
-      ref,
-      sectionOptions,
-      defaultCollapsed = false,
-      title,
-      titleSuffix,
-      onChange,
-    } = props,
-    scope = useScope(localConversationRouteScope),
-    autoCollapseState = useScopedValue(
-      threadSummaryPanelSectionAutoCollapseState,
-      sectionKey,
-    ),
-    persistedIsExpanded = useScopedValue(
-      threadSummaryPanelSectionExpandedState,
-      sectionKey,
-    ),
-    shouldHandleAutoCollapse =
-      autoCollapse != null && autoCollapseState !== "canceled",
-    isExpanded =
-      !(autoCollapse === true && autoCollapseState === "collapsed") &&
-      (persistedIsExpanded ?? !defaultCollapsed),
-    shouldUseReducedMotion = useSignalValue(reducedMotionPreferenceSignal),
-    setIsExpanded = (nextIsExpanded) => {
-      scope.set(
-        threadSummaryPanelSectionExpandedState,
-        sectionKey,
-        nextIsExpanded,
-      );
-    };
-  let shouldRenderContent =
-      mode === "headerless" || isExpanded || mode === "dropdown",
-    staticContent = (
-      <div className="relative z-0 mt-0.5 overflow-hidden">
-        <div className="flex flex-col gap-0.5 px-4">{children}</div>
-      </div>
-    );
-  let createImperativeHandle = () => ({
-    collapse: () => setIsExpanded(false),
-    expand: () => setIsExpanded(true),
-  });
-  threadSummaryPanelSectionReactRuntime.useImperativeHandle(
-    ref,
-    createImperativeHandle,
-  );
-  let syncAutoCollapseState = () => {
-    if (!shouldHandleAutoCollapse) return;
-    if (!autoCollapse) {
-      autoCollapseState === "collapsed" &&
-        scope.set(
-          threadSummaryPanelSectionAutoCollapseState,
-          sectionKey,
-          "pending",
-        );
-      return;
-    }
-    if (autoCollapseState !== "pending") return;
-    let timeoutId = window.setTimeout(() => {
-      scope.set(
-        threadSummaryPanelSectionAutoCollapseState,
-        sectionKey,
-        "collapsed",
-      );
-    }, THREAD_SUMMARY_PANEL_SECTION_AUTO_COLLAPSE_DELAY_MS);
-    return () => window.clearTimeout(timeoutId);
-  };
-  let autoCollapseEffectDeps = [
-    autoCollapse,
-    autoCollapseState,
-    shouldHandleAutoCollapse,
-    scope,
-    sectionKey,
-  ];
-  threadSummaryPanelSectionReactRuntime.useEffect(
-    syncAutoCollapseState,
-    autoCollapseEffectDeps,
-  );
-  let cancelAutoCollapse = shouldHandleAutoCollapse
-    ? () => {
-        scope.set(
-          threadSummaryPanelSectionAutoCollapseState,
-          sectionKey,
-          "canceled",
-        );
-      }
-    : undefined;
-  let sectionHeader =
-    mode === "headerless" ? null : (
-      <ThreadSummaryPanelSectionHeader
-        after={
-          isFunctionModule.default(after)
-            ? after({
-                isExpanded,
-              })
-            : after
-        }
-        sectionOptions={sectionOptions}
-        mode={mode}
-        isExpanded={isExpanded}
-        onChange={onChange}
-        onToggle={() => {
-          mode !== "dropdown" && setIsExpanded(!isExpanded);
-        }}
-        shouldUseReducedMotion={shouldUseReducedMotion}
-        titleSuffix={titleSuffix}
-      >
-        {title}
-      </ThreadSummaryPanelSectionHeader>
-    );
-  let sectionContent = shouldUseReducedMotion ? (
-    shouldRenderContent && staticContent
-  ) : (
-    <AnimatePresence initial={false}>
-      {shouldRenderContent &&
-        threadSummaryPanelSectionJsxRuntime.jsx(
-          motion.div,
-          {
-            initial: collapsedSectionMotionState,
-            animate: expandedSectionMotionState,
-            exit: collapsedSectionMotionState,
-            transition: threadSummaryPanelSectionTransition,
-            className: "relative z-0 overflow-hidden",
-            children: (
-              <div className="flex flex-col gap-0.5 px-4">{children}</div>
-            ),
-          },
-          "content",
-        )}
-    </AnimatePresence>
-  );
-  return (
-    <section
-      className="relative z-0 flex flex-col pb-3 after:absolute after:inset-x-4 after:bottom-0 after:h-[0.5px] after:bg-token-border-default after:content-[''] last:pb-0 last:after:hidden"
-      onClick={cancelAutoCollapse}
-    >
-      {sectionHeader}
-      {sectionContent}
-    </section>
-  );
-}
-
-function ThreadSummaryPanelSectionHeader(props) {
-  let {
-      mode,
-      sectionOptions,
-      after,
-      children,
-      isExpanded,
-      onToggle,
-      onChange,
-      shouldUseReducedMotion,
-      titleSuffix,
-    } = props,
-    hasMultipleSectionOptions =
-      sectionOptions != null && sectionOptions.length > 1,
-    toggleHandler = mode === "accordion" ? onToggle : undefined,
-    titleNode = <span className="truncate">{children}</span>;
-  let collapsedTitleSuffix = isExpanded ? null : titleSuffix,
-    chevronIcon =
-      (mode === "accordion" || hasMultipleSectionOptions) &&
-      threadSummaryPanelSectionJsxRuntime.jsx(ChevronIcon, {
-        "aria-hidden": "true",
-        className: classNames(
-          "icon-2xs shrink-0 group-hover/section-toggle:opacity-100 group-focus-visible/section-toggle:opacity-100",
-          !shouldUseReducedMotion && "transition-transform",
-          isExpanded ? "opacity-0" : "opacity-100",
-          isExpanded ? "rotate-0" : "-rotate-90",
-        ),
-      });
-  let toggleButton = (
-    <button
-      aria-expanded={isExpanded}
-      className="group/section-toggle inline-flex min-w-0 shrink-0 cursor-interaction items-center gap-1.5 rounded-md py-0.5 pr-1 text-left focus-visible:outline-2 focus-visible:outline-offset-2"
-      onClick={toggleHandler}
-      type="button"
-    >
-      {titleNode}
-      {collapsedTitleSuffix}
-      {chevronIcon}
-    </button>
-  );
-  let headerControl =
-    mode === "dropdown" && hasMultipleSectionOptions ? (
-      <DropdownMenu triggerButton={toggleButton}>
-        {sectionOptions?.map((option) =>
-          threadSummaryPanelSectionJsxRuntime.jsx(
-            DropdownMenuItem,
-            {
-              onSelect: () => onChange?.(option),
-              children: option,
-            },
-            option,
-          ),
-        )}
-      </DropdownMenu>
-    ) : (
-      toggleButton
-    );
-  let afterNode =
-    after == null ? null : <div className="flex min-w-0 flex-1">{after}</div>;
-  return (
-    <header className="sticky top-0 z-10 flex h-7 w-full min-w-0 items-center justify-start gap-2 bg-token-dropdown-background ps-4 pe-2.5 pb-0.5 text-base text-token-text-tertiary">
-      {headerControl}
-      {afterNode}
-    </header>
-  );
-}
-
-var threadSummaryPanelSectionModule,
-  isFunctionModule,
-  threadSummaryPanelSectionReactRuntime,
-  threadSummaryPanelSectionJsxRuntime,
-  THREAD_SUMMARY_PANEL_SECTION_AUTO_COLLAPSE_DELAY_MS,
-  THREAD_SUMMARY_PANEL_SECTION_EXPANDED_STATE_PREFIX,
-  DEFAULT_THREAD_SUMMARY_PANEL_SECTION_EXPANDED_STATE,
-  collapsedSectionMotionState,
-  expandedSectionMotionState,
-  threadSummaryPanelSectionExpandedState,
-  threadSummaryPanelSectionAutoCollapseState,
-  initThreadSummaryPanelSectionChunk = once(() => {
-    threadSummaryPanelSectionModule = getChunkModuleExports();
-    initClassNameRuntime();
-    initMotionRuntime();
-    isFunctionModule = toEsModule(loadIsFunctionModule(), 1);
-    initScopeRuntime();
-    threadSummaryPanelSectionReactRuntime = toEsModule(loadReactModule(), 1);
-    initDropdownMenuPrimitives();
-    initChevronDownIcon();
-    initRouteScope();
-    initReducedMotionPreference();
-    initSummaryPanelAnimationConfig();
-    $n();
-    threadSummaryPanelSectionJsxRuntime = getJsxRuntime();
-    THREAD_SUMMARY_PANEL_SECTION_AUTO_COLLAPSE_DELAY_MS = 3e4;
-    THREAD_SUMMARY_PANEL_SECTION_EXPANDED_STATE_PREFIX =
-      "thread-summary-panel-section-expanded-";
-    DEFAULT_THREAD_SUMMARY_PANEL_SECTION_EXPANDED_STATE = null;
-    collapsedSectionMotionState = {
-      height: 0,
-      opacity: 0,
-      marginTop: 0,
-    };
-    expandedSectionMotionState = {
-      height: "auto",
-      opacity: 1,
-      marginTop: 2,
-    };
-    threadSummaryPanelSectionExpandedState = createPersistedScopedSignal(
-      (sectionKey) =>
-        `${THREAD_SUMMARY_PANEL_SECTION_EXPANDED_STATE_PREFIX}${sectionKey}`,
-      DEFAULT_THREAD_SUMMARY_PANEL_SECTION_EXPANDED_STATE,
-    );
-    threadSummaryPanelSectionAutoCollapseState = createScopedSignal(
-      localConversationRouteScope,
-      () => "pending",
-    );
   });
 function BranchChangesSummaryRow(props) {
   let { onOpenReviewTab, diffStats, isDiffStatsLoading } = props,
@@ -7771,17 +7505,6 @@ function ThreadSummaryPanelSections(props) {
       description:
         "Accessible label for the thread summary panel action that opens the process manager",
     });
-  let computerUsePipToggleLabel = isComputerUsePipVisible
-    ? intl.formatMessage({
-        id: "codex.localConversation.remoteHostedPip.hide",
-        defaultMessage: "Hide PiP",
-        description: "Accessible label for hiding the Computer Use PiP stream",
-      })
-    : intl.formatMessage({
-        id: "codex.localConversation.remoteHostedPip.show",
-        defaultMessage: "Show PiP",
-        description: "Accessible label for showing the Computer Use PiP stream",
-      });
   let planSectionTitle = intl.formatMessage({
     id: "codex.localConversation.plan.title",
     defaultMessage: "Plan",
@@ -8098,40 +7821,27 @@ function ThreadSummaryPanelSections(props) {
         })}
     </ThreadSummaryPanelSection>
   );
-  let computerUsePipSection = isComputerUsePipAvailable && (
-    <ThreadSummaryPanelSection mode="headerless" sectionKey="computer-use-pip">
-      <ComputerUsePictureInPictureRow
-        isVisible={isComputerUsePipVisible}
-        onToggle={() => {
-          scope.set(
-            computerUsePictureInPictureVisibleSignal,
-            !isComputerUsePipVisible,
-          );
-        }}
-        toggleLabel={computerUsePipToggleLabel}
-      />
-    </ThreadSummaryPanelSection>
+  let computerUsePipSection = (
+    <ThreadSummaryComputerUsePipSection
+      isAvailable={isComputerUsePipAvailable}
+      isVisible={isComputerUsePipVisible}
+      onToggle={() => {
+        scope.set(
+          computerUsePictureInPictureVisibleSignal,
+          !isComputerUsePipVisible,
+        );
+      }}
+    />
   );
-  let browserTabsSection = browserUseSummaries.length > 0 && (
-    <ThreadSummaryPanelSection
-      sectionKey="browser-tabs"
-      title={<BrowserUseSummarySectionTitle />}
-      titleSuffix={localConversationSummaryPanelJsxRuntime.jsx(
-        ThreadSummaryPanelChrome.SectionCount,
-        {
-          count: browserUseSummaries.length,
-        },
-      )}
-    >
-      <BrowserUseSummarySectionContent
-        browserUseSummaries={browserUseSummaries}
-        onOpenBrowserTab={(browserTabId) => {
-          openBrowserSummaryTab(scope, true, {
-            browserTabId,
-          });
-        }}
-      />
-    </ThreadSummaryPanelSection>
+  let browserTabsSection = (
+    <ThreadSummaryBrowserTabsSection
+      browserUseSummaries={browserUseSummaries}
+      onOpenBrowserTab={(browserTabId) => {
+        openBrowserSummaryTab(scope, true, {
+          browserTabId,
+        });
+      }}
+    />
   );
   let sourcesTitle = (
     <FormattedMessage
@@ -8234,6 +7944,7 @@ var localConversationSummaryPanelModule,
     initThreadSummaryAutomationRowChunk();
     initThreadSummarySideChatRowsChunk();
     initThreadSummarySourceRowsChunk();
+    initThreadSummaryBrowserSectionsChunk();
     initBackgroundTerminalSidePanelTabChunk();
     initSummaryPanelRowChunk();
     initThreadSummaryPanelSectionChunk();
