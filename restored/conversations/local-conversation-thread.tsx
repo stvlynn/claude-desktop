@@ -657,32 +657,17 @@ import {
 import {
   A as Yl,
   C as Xl,
-  D as Zl,
   E as Ql,
   F as $l,
   M as eu,
   O as tu,
   P as nu,
-  S as ru,
   T as iu,
-  _ as au,
-  a as ou,
-  b as su,
   d as cu,
-  f as lu,
-  g as uu,
   h as du,
-  i as fu,
   j as pu,
   k as mu,
-  m as hu,
-  n as gu,
-  o as _u,
-  p as vu,
   t as yu,
-  w as bu,
-  x as xu,
-  y as Su,
 } from "./app-initial~app-main~remote-conversation-page~hotkey-window-thread-page~thread-app-shell-ch~ou5otpha-1Hh4BDD9.js";
 import {
   n as Cu,
@@ -707,6 +692,23 @@ import {
   GitBranchSwitcher as Ru,
   initGitBranchSwitcherChunk as Lu,
 } from "../git/git-branch-switcher";
+import {
+  BackgroundTerminalIcon,
+  clearStoppedPendingProcessRows,
+  collectConversationProcessRows,
+  computerUsePictureInPictureAvailableSignal,
+  computerUsePictureInPictureVisibleSignal,
+  getPendingBackgroundProcessRow,
+  isPendingProcessRowExpired,
+  isSameProcessRow,
+  matchProcessMetrics,
+  mergeProcessRows,
+  pendingBackgroundProcessRowsSignal,
+  removePendingBackgroundProcessRow,
+  restoreRegisteredProcessRows,
+  selectRunningProcessRows,
+  setPendingBackgroundProcessRow,
+} from "../app-shell/thread-background-processes";
 import {
   a as zu,
   i as Bu,
@@ -1751,7 +1753,7 @@ function _p(e) {
     } = e,
     f = B(ut),
     p = Op.useRef(isVisible),
-    m = W(uu),
+    m = W(pendingBackgroundProcessRowsSignal),
     h = qr("child-process-kill"),
     g = qr("chat-process-register");
   let v = createBackgroundTerminalCurrentRows({
@@ -1760,39 +1762,43 @@ function _p(e) {
       conversationId,
       hostId,
       processSnapshotTimeMs,
-      resolveProcessMetrics: Su,
+      resolveProcessMetrics: matchProcessMetrics,
     }),
-    y = appendRegisteredBackgroundTerminalRows(v, registeredRows, bu);
+    y = appendRegisteredBackgroundTerminalRows(
+      v,
+      registeredRows,
+      isSameProcessRow,
+    );
   let b = y,
     x = pruneSettledBackgroundTerminalActionStates(
       b,
       m,
       processSnapshotTimeMs,
-      lu,
-      bu,
+      isPendingProcessRowExpired,
+      isSameProcessRow,
     );
   let C = x,
-    w = insertBackgroundTerminalActionRows(b, C, bu);
+    w = insertBackgroundTerminalActionRows(b, C, isSameProcessRow);
   let T = w,
     E,
     D;
   E = () => {
     p.current = isVisible;
-    isVisible || hu(f);
+    isVisible || clearStoppedPendingProcessRows(f);
   };
   D = [isVisible, f];
   Op.useEffect(E, D);
   let O, k;
   O = () => () => {
     p.current = false;
-    hu(f);
+    clearStoppedPendingProcessRows(f);
   };
   k = [f];
   Op.useEffect(O, k);
-  let A = (row, rowIndex) => {
+  let stopBackgroundTerminal = (row, rowIndex) => {
     let pid = row.metrics?.pid;
     pid != null &&
-      (au(f, row.process.id, {
+      (setPendingBackgroundProcessRow(f, row.process.id, {
         row,
         rowIndex,
         sortRow: row,
@@ -1807,7 +1813,7 @@ function _p(e) {
             let { killed } = value;
             if (!killed) throw Error("Process is no longer running");
             if (p.current) {
-              au(f, row.process.id, {
+              setPendingBackgroundProcessRow(f, row.process.id, {
                 row,
                 rowIndex,
                 sortRow: row,
@@ -1815,87 +1821,84 @@ function _p(e) {
               });
               return;
             }
-            vu(f, row.process.id);
+            removePendingBackgroundProcessRow(f, row.process.id);
           },
           () => {
             onStopError();
-            vu(f, row.process.id);
+            removePendingBackgroundProcessRow(f, row.process.id);
           },
         ));
   };
-  let j = A,
-    M = (row, rowIndex) => {
-      let { process } = row;
-      if (process.cwd == null) return;
-      let startedAtMs = Date.now(),
-        sessionId = _e.addSessionForConversation(process.conversationId),
-        startingRow = createStartingBackgroundTerminalRow(
-          row,
-          sessionId,
-          startedAtMs,
-        );
-      au(f, process.id, {
-        expiresAtMs: startedAtMs + Ap,
-        row: startingRow,
+  let startBackgroundTerminal = (row, rowIndex) => {
+    let { process } = row;
+    if (process.cwd == null) return;
+    let startedAtMs = Date.now(),
+      sessionId = _e.addSessionForConversation(process.conversationId),
+      startingRow = createStartingBackgroundTerminalRow(
+        row,
+        sessionId,
+        startedAtMs,
+      );
+    setPendingBackgroundProcessRow(f, process.id, {
+      expiresAtMs: startedAtMs + Ap,
+      row: startingRow,
+      rowIndex,
+      sortRow: row,
+      status: "starting",
+    });
+    g.mutateAsync({
+      persistIfUnmatched: true,
+      record: createBackgroundTerminalRestartRecord(
+        process,
+        sessionId,
+        startedAtMs,
+      ),
+    }).catch(onRestartError);
+    _e.create({
+      conversationId: process.conversationId,
+      conversationTitle: process.chatTitle,
+      cwd: process.cwd,
+      hostId: process.hostId,
+      preserveOnOwnerDestroy: true,
+      sessionId,
+    });
+    _e.runHeadlessAction(sessionId, {
+      command: process.command,
+      cwd: process.cwd,
+    });
+  };
+  let restartBackgroundTerminal = (row, rowIndex) => {
+    let pid = row.metrics?.pid;
+    pid != null &&
+      (setPendingBackgroundProcessRow(f, row.process.id, {
+        row,
         rowIndex,
         sortRow: row,
-        status: "starting",
-      });
-      g.mutateAsync({
-        persistIfUnmatched: true,
-        record: createBackgroundTerminalRestartRecord(
-          process,
-          sessionId,
-          startedAtMs,
-        ),
-      }).catch(onRestartError);
-      _e.create({
-        conversationId: process.conversationId,
-        conversationTitle: process.chatTitle,
-        cwd: process.cwd,
-        hostId: process.hostId,
-        preserveOnOwnerDestroy: true,
-        sessionId,
-      });
-      _e.runHeadlessAction(sessionId, {
-        command: process.command,
-        cwd: process.cwd,
-      });
-    };
-  let N = M,
-    P = (row, rowIndex) => {
-      let pid = row.metrics?.pid;
-      pid != null &&
-        (au(f, row.process.id, {
-          row,
-          rowIndex,
-          sortRow: row,
-          status: "stopping",
-        }),
-        h
-          .mutateAsync({
-            pid,
-          })
-          .then(
-            (value) => {
-              let { killed } = value;
-              if (!killed) throw Error("Process is no longer running");
-              N(row, rowIndex);
-            },
-            () => {
-              onRestartError();
-              vu(f, row.process.id);
-            },
-          ));
-    };
-  let F = P,
-    I;
+        status: "stopping",
+      }),
+      h
+        .mutateAsync({
+          pid,
+        })
+        .then(
+          (value) => {
+            let { killed } = value;
+            if (!killed) throw Error("Process is no longer running");
+            startBackgroundTerminal(row, rowIndex);
+          },
+          () => {
+            onRestartError();
+            removePendingBackgroundProcessRow(f, row.process.id);
+          },
+        ));
+  };
+  let I;
   {
     let e;
     e = (e, t) => {
       let n = resolveBackgroundTerminalStatus(
         e,
-        ou(e, C),
+        getPendingBackgroundProcessRow(e, C),
         childProcesses != null,
       );
       return (
@@ -1925,9 +1928,9 @@ function _p(e) {
             rowIndex: t,
             status: n,
             onOpen,
-            onRestart: F,
-            onStart: N,
-            onStop: j,
+            onRestart: restartBackgroundTerminal,
+            onStart: startBackgroundTerminal,
+            onStop: stopBackgroundTerminal,
           })}
           actionsAlwaysFocusable={true}
           onClick={() => onOpen(e.terminal)}
@@ -7589,7 +7592,7 @@ function sv(e) {
 function cv(e) {
   let { label, onClick, pressed, shortcut, ...rest } = e;
   let s = pressed ? "secondary" : "ghost",
-    c = <Zl className="icon-sm" />;
+    c = <BackgroundTerminalIcon className="icon-sm" />;
   let l = dv.jsx(k, {
     size: "toolbar",
     color: s,
@@ -7793,13 +7796,13 @@ function Sv(e) {
     x = K(Zi, b),
     S = W(z),
     C = Vr("3264431617"),
-    w = W(gu),
-    T = W(fu),
+    w = W(computerUsePictureInPictureAvailableSignal),
+    T = W(computerUsePictureInPictureVisibleSignal),
     E = qr("open-file"),
     O = W(oa),
     k = K(er, b),
     { data } = W(Tl),
-    j = W(uu),
+    j = W(pendingBackgroundProcessRowsSignal),
     M = backgroundAgents.some(Dv);
   let N = M,
     P = backgroundAgents.filter(Ev);
@@ -7857,14 +7860,14 @@ function Sv(e) {
   {
     ve = C
       ? createRestoredBackgroundTerminalRows({
-          attachChildProcessMetrics: _u,
+          attachChildProcessMetrics: selectRunningProcessRows,
           childProcesses: ___data?.processes,
           conversationCwd: O.cwd,
           conversationId: b,
-          createConversationProcessRecords: xu,
+          createConversationProcessRecords: restoreRegisteredProcessRows,
           enabled: isVisible,
           hostId: y.id,
-          mergeRestoredProcesses: ru,
+          mergeRestoredProcesses: mergeProcessRows,
           processSnapshotTimeMs: ge,
           records: _data?.processes,
           restoredProcesses: restoredBackgroundProcesses,
@@ -7883,7 +7886,7 @@ function Sv(e) {
       actionStatesByProcessId: j,
       backgroundTerminals,
       conversationId: b,
-      isSettledActionState: lu,
+      isSettledActionState: isPendingProcessRowExpired,
       processSnapshotTimeMs: ge,
       registeredRows: ve,
     });
@@ -8195,7 +8198,7 @@ function Sv(e) {
           />
         }
         onClick={() => {
-          h.set(fu, !T);
+          h.set(computerUsePictureInPictureVisibleSignal, !T);
         }}
         title={we}
         trailing={<Ov isVisible={T} />}
@@ -8786,7 +8789,9 @@ function cy(e) {
 function ly(e) {
   return e == null
     ? []
-    : su([e]).filter((item) => item.source === "restored-process");
+    : collectConversationProcessRows([e]).filter(
+        (item) => item.source === "restored-process",
+      );
 }
 var uy = once(() => {
   xs();
