@@ -137,7 +137,7 @@ import {
   O_ as initConversationRouteSourceHelpers,
   Oi as $e,
   Oj as normalizeArtifactPathKey,
-  On as tt,
+  On as initAppFsUrlHelpers,
   Op as initConversationStateSelectors,
   Ov as useNavigate,
   PB as useScopedValue,
@@ -148,45 +148,45 @@ import {
   Pp as responseInProgressSignal,
   Pv as lt,
   QP as appScope,
-  Qg as dt,
+  Qg as initArtifactPathDetectionHelpers,
   Qi as threadSummaryPanelSectionTransition,
-  R as pt,
+  R as initSlashIcon,
   RN as reducedMotionPreferenceSignal,
   RP as ChevronIcon,
   Rf as workspaceRootsSignal,
   Rj as _t,
   Rn as useCommandRegistration,
-  Rv as yt,
+  Rv as initMarkdownUtilityNoop,
   SP as initMotionRuntime,
-  SV as xt,
+  SV as initQueryRuntime,
   Sc as useConversationDetailMode,
   Sf as initConfigQueryRuntime,
   Sj as getPathBasename,
   Sk as normalizeMarkdownPlainText,
   Sm as threadSourceSignal,
-  TM as Dt,
-  T_ as Ot,
+  TM as initCheckmarkIcon,
+  T_ as getRouteConversationId,
   Tf as mcpServersQuerySignal,
-  Ti as At,
-  Tm as jt,
+  Ti as DialogFooterActions,
+  Tm as conversationTurnCountSignal,
   Tp as hasConversationSignal,
-  Ts as Nt,
-  UE as Pt,
-  UR as Ft,
-  Uf as It,
-  Ug as Lt,
-  Uh as Rt,
+  Ts as initBrowserFeatureAvailabilitySignals,
+  UE as LOCAL_HOST_ID,
+  UR as isAbsoluteOrWindowsPath,
+  Uf as initHostWorkspaceQueries,
+  Ug as collectAssistantOutputArtifacts,
+  Uh as useGitAvailabilityQuery,
   Up as conversationCollaborationModeSignal,
-  Uv as Bt,
-  Ux as Vt,
-  VE as Ht,
-  VP as Ut,
-  VR as Wt,
-  Vi as Gt,
-  Vn as Kt,
-  Wa as qt,
-  Wg as Jt,
-  XN as Yt,
+  Uv as initMarkdownArtifactHelpers,
+  Ux as initAgentMentionMap,
+  VE as initHostConfigHelpers,
+  VP as initClassNameRuntime,
+  VR as getErrorMessage,
+  Vi as SettingsGearIcon,
+  Vn as dispatchGlobalCommand,
+  Wa as PlatformContentGate,
+  Wg as initMarkdownResourceHelpers,
+  XN as createQueryKey,
   XR as Xt,
   Xi as Zt,
   Xj as Qt,
@@ -2227,7 +2227,7 @@ var backgroundTerminalSummaryRowsModule,
   backgroundTerminalMessages,
   initBackgroundTerminalSummaryRowsChunk = once(() => {
     backgroundTerminalSummaryRowsModule = getChunkModuleExports();
-    Ut();
+    initClassNameRuntime();
     initScopeRuntime();
     backgroundTerminalSummaryRowsReactRuntime = toEsModule(
       loadReactModule(),
@@ -2484,7 +2484,7 @@ function LocalEnvironmentSelectorContent(props) {
   );
   let settingsItem = (
     <Br.Item
-      LeftIcon={Gt}
+      LeftIcon={SettingsGearIcon}
       leftIconClassName="icon-sm"
       onSelect={onOpenSettings}
     >
@@ -2506,7 +2506,7 @@ var localEnvironmentSelectorContentModule,
     Jn();
     an();
     initSpinnerComponent();
-    Dt();
+    initCheckmarkIcon();
     initSettingsGearIcon();
     Fu();
     initLocalEnvironmentDisplayNameHelpers();
@@ -2590,10 +2590,10 @@ function LocalEnvironmentActionSetupForm(props) {
     DialogSection,
     {
       children: (
-        <At className="justify-between">
+        <DialogFooterActions className="justify-between">
           {leftAction}
           {submitButton}
-        </At>
+        </DialogFooterActions>
       ),
     },
   );
@@ -2722,20 +2722,20 @@ function AddLocalEnvironmentActionForm(props) {
         {
           onSuccess: () => {
             queryClient.invalidateQueries({
-              queryKey: Yt("local-environment-config", {
+              queryKey: createQueryKey("local-environment-config", {
                 configPath,
                 hostId: hostConfig.id,
               }),
             });
             queryClient.invalidateQueries({
-              queryKey: Yt("local-environment", {
+              queryKey: createQueryKey("local-environment", {
                 configPath,
                 hostId: hostConfig.id,
               }),
             });
             workspaceRoot != null &&
               queryClient.invalidateQueries({
-                queryKey: Yt("local-environments", {
+                queryKey: createQueryKey("local-environments", {
                   hostId: hostConfig.id,
                   workspaceRoot,
                 }),
@@ -2960,7 +2960,7 @@ function useLocalConversationEnvironmentState(workspaceRoot, hostConfig) {
       recentEnvironmentKey,
       hostConfig.id,
     ),
-    { data } = Rt(
+    { data } = useGitAvailabilityQuery(
       workspaceRoot,
       hostConfig,
       "use_local_conversation_environment",
@@ -3122,7 +3122,7 @@ function LocalConversationEnvironmentActionControls(props) {
       !localEnvironmentsLoading &&
       !localEnvironmentsError &&
       localEnvironments.length === 0,
-    { data } = Rt(
+    { data } = useGitAvailabilityQuery(
       workspaceRoot,
       hostConfig,
       "local_conversation_action_compound_button",
@@ -3367,7 +3367,7 @@ function LocalConversationEnvironmentActionControls(props) {
         <Zt />
         <DropdownMenuSubmenu
           trigger={
-            <Br.Item LeftIcon={Gt} leftIconClassName="icon-sm">
+            <Br.Item LeftIcon={SettingsGearIcon} leftIconClassName="icon-sm">
               <FormattedMessage
                 id="threadPage.runAction.changeEnvironment"
                 defaultMessage="Change environment"
@@ -3476,7 +3476,7 @@ function LocalConversationEnvironmentActionControls(props) {
     };
   let handleSelectorOpenChange = handleSelectorOpenChangeRaw,
     electronEnvironmentControls = localEnvironmentActionControlsJsxRuntime.jsx(
-      qt,
+      PlatformContentGate,
       {
         electron: true,
         children: hasNoLocalEnvironments
@@ -3507,7 +3507,7 @@ function LocalConversationEnvironmentActionControls(props) {
       },
     );
   let browserEnvironmentControls = localEnvironmentActionControlsJsxRuntime.jsx(
-    qt,
+    PlatformContentGate,
     {
       browser: true,
       chromeExtension: true,
@@ -3535,7 +3535,7 @@ function LocalEnvironmentSelectorDropdown(props) {
   let { canChangeEnvironment, children, open, title, onOpenChange } = props,
     isDisabled = !canChangeEnvironment,
     triggerDisabled = !canChangeEnvironment,
-    triggerIcon = <Gt className="icon-sm" />;
+    triggerIcon = <SettingsGearIcon className="icon-sm" />;
   let triggerButton = localEnvironmentActionControlsJsxRuntime.jsx(Button, {
     "aria-label": title,
     className: "ms-auto",
@@ -3788,7 +3788,7 @@ var localEnvironmentActionControlsModule,
   initLocalEnvironmentActionControlsChunk = once(() => {
     localEnvironmentActionControlsModule = getChunkModuleExports();
     Ca();
-    xt();
+    initQueryRuntime();
     initScopeRuntime();
     localEnvironmentActionControlsReactRuntime = toEsModule(
       loadReactModule(),
@@ -3809,7 +3809,7 @@ var localEnvironmentActionControlsModule,
     il();
     initGitQueryKeyHelpers();
     initOsInfoQuery();
-    Dt();
+    initCheckmarkIcon();
     _t();
     initSettingsGearIcon();
     Xi();
@@ -4060,7 +4060,7 @@ var threadSummaryPanelSectionModule,
   threadSummaryPanelSectionAutoCollapseState,
   initThreadSummaryPanelSectionChunk = once(() => {
     threadSummaryPanelSectionModule = getChunkModuleExports();
-    Ut();
+    initClassNameRuntime();
     initMotionRuntime();
     isFunctionModule = toEsModule(un(), 1);
     initScopeRuntime();
@@ -6644,7 +6644,7 @@ var pullRequestOverviewSectionModule,
   pullRequestOverviewSectionJsxRuntime,
   initPullRequestSidePanelOverviewSectionChunk = once(() => {
     pullRequestOverviewSectionModule = getChunkModuleExports();
-    Ut();
+    initClassNameRuntime();
     Jn();
     initSpinnerComponent();
     Gn();
@@ -7189,7 +7189,7 @@ var pullRequestSummaryRowModule,
     pullRequestSummaryRowModule = getChunkModuleExports();
     initScopeRuntime();
     Jn();
-    Nt();
+    initBrowserFeatureAvailabilitySignals();
     Do();
     Yo();
     initExternalUrlHelpers();
@@ -7574,7 +7574,7 @@ function ThreadSummaryEnvironmentModeControls(props) {
   );
   let cloudEnvironmentDropdown =
     composerMode === "cloud" &&
-    threadSummaryEnvironmentModeControlsJsxRuntime.jsx(qt, {
+    threadSummaryEnvironmentModeControlsJsxRuntime.jsx(PlatformContentGate, {
       electron: true,
       browser: true,
       children: threadSummaryEnvironmentModeControlsJsxRuntime.jsx(
@@ -7612,7 +7612,7 @@ var threadSummaryEnvironmentModeControlsModule,
     Fi();
     fa();
     initComposerScope();
-    Ht();
+    initHostConfigHelpers();
     initStatsigFeatureGateHooks();
     threadSummaryEnvironmentModeControlsJsxRuntime = getJsxRuntime();
   });
@@ -8251,7 +8251,7 @@ var threadSummaryPanelReactRuntime,
   ThreadSummaryPanelChrome,
   initThreadSummaryPanelChrome = once(() => {
     threadSummaryPanelReactRuntime = getChunkModuleExports();
-    Ut();
+    initClassNameRuntime();
     initMotionRuntime();
     initScopeRuntime();
     initButtonComponentPrimitives();
@@ -8827,7 +8827,7 @@ function ThreadSummaryPanelSections(props) {
         },
       )}
     >
-      {localConversationSummaryPanelJsxRuntime.jsx(qt, {
+      {localConversationSummaryPanelJsxRuntime.jsx(PlatformContentGate, {
         electron: true,
         children: localConversationSummaryPanelJsxRuntime.jsx(
           BackgroundTerminalSummaryRows,
@@ -8846,7 +8846,7 @@ function ThreadSummaryPanelSections(props) {
         ),
       })}
       {backgroundTerminals.length > 0 &&
-        localConversationSummaryPanelJsxRuntime.jsx(qt, {
+        localConversationSummaryPanelJsxRuntime.jsx(PlatformContentGate, {
           extension: true,
           children: localConversationSummaryPanelJsxRuntime.jsx(
             ThreadSummaryBackgroundActivityRows,
@@ -8943,7 +8943,7 @@ function ThreadSummaryPanelSections(props) {
   );
 }
 function openThreadSummaryProcessManager() {
-  Kt("openProcessManager", "thread_summary_process_manager");
+  dispatchGlobalCommand("openProcessManager", "thread_summary_process_manager");
 }
 function getGeneratedImagePreviewSrc(generatedImage) {
   return Wr(generatedImage) !== "always" || br(generatedImage) == null
@@ -8962,7 +8962,7 @@ var localConversationSummaryPanelModule,
     initConversationStateSelectors();
     El();
     Wl();
-    Nt();
+    initBrowserFeatureAvailabilitySignals();
     initGlobalCommandHandlers();
     Yi();
     initExternalUrlHelpers();
@@ -8973,7 +8973,7 @@ var localConversationSummaryPanelModule,
     initGlobalStateQueryRuntime();
     wc();
     Sc();
-    pt();
+    initSlashIcon();
     fc();
     Qi();
     el();
@@ -9001,7 +9001,7 @@ var localConversationSummaryPanelModule,
     initSummaryPanelRowChunk();
     initThreadSummaryPanelSectionChunk();
     initThreadSummaryPanelChrome();
-    tt();
+    initAppFsUrlHelpers();
     _n();
     initVscodeApiBridge();
     localConversationSummaryPanelJsxRuntime = getJsxRuntime();
@@ -9399,7 +9399,7 @@ function collectOutputArtifactsFromTurnDetails({
           cwd == null ? item.src : resolveWorkspacePathFromCwd(cwd, item.src),
       });
   if (status !== "complete") return artifacts;
-  let renderedArtifacts = Lt({
+  let renderedArtifacts = collectAssistantOutputArtifacts({
     assistantContent,
     isAppgenEndCardEnabled: true,
     projectlessOutputDirectory,
@@ -9455,11 +9455,11 @@ function getOutputArtifactKey(artifact) {
 }
 var initOutputArtifactCollectorDependencies = once(() => {
     gn();
-    dt();
-    Bt();
+    initArtifactPathDetectionHelpers();
+    initMarkdownArtifactHelpers();
     lr();
     initConversationArtifactRuntime();
-    Jt();
+    initMarkdownResourceHelpers();
     initNormalizedPathUtilities();
     di();
   }),
@@ -9477,7 +9477,7 @@ var initOutputArtifactCollectorDependencies = once(() => {
       appScope,
       ({ conversationId, includeGeneratedImages }, { get }) => {
         get(conversationResumeStateSignal, conversationId);
-        get(jt, conversationId);
+        get(conversationTurnCountSignal, conversationId);
         let turns = get(conversationTurnsSignal, conversationId);
         return turns == null
           ? []
@@ -9763,7 +9763,7 @@ function useLocalConversationSummaryPanelModel(
       routeSnapshot.value.routeKind === "local-thread"
         ? routeSnapshot.value.conversationId
         : null,
-    browserSummaryConversationId = Ot(routeSnapshot);
+    browserSummaryConversationId = getRouteConversationId(routeSnapshot);
   let host = useSignalValue(hostConfigSignal),
     turns =
       useScopedValue(conversationTurnsSignal, conversationId) ??
@@ -9848,7 +9848,7 @@ var localConversationSummaryPanelSignalsModule,
     localConversationSummaryPanelSignalsModule = getChunkModuleExports();
     initScopeRuntime();
     initConversationStateSelectors();
-    Nt();
+    initBrowserFeatureAvailabilitySignals();
     Ka();
     yo();
     Yi();
@@ -10114,7 +10114,7 @@ var worktreeRestoreBannerModule,
     Fn();
     initAppScope();
     initLocalHostConstants();
-    Ht();
+    initHostConfigHelpers();
     initEnvironmentTerminalController();
     Mr();
     Ns();
@@ -10270,14 +10270,14 @@ function ForkFromOlderTurnDialog(props) {
     />
   );
   let cancelAction = (
-    <At>
+    <DialogFooterActions>
       {olderTurnForkDialogJsxRuntime.jsx(Button, {
         color: "secondary",
         disabled: isSubmitting,
         onClick: onClose,
         children: cancelLabel,
       })}
-    </At>
+    </DialogFooterActions>
   );
   let dialogBody = olderTurnForkDialogJsxRuntime.jsxs(ui, {
     className: "gap-4",
@@ -10485,7 +10485,7 @@ function formatBackgroundAgentDisplayName({
   return displayName.startsWith("@") ? displayName.slice(1) : displayName;
 }
 var initThreadScrollState = once(() => {
-  Vt();
+  initAgentMentionMap();
 });
 var initLocalConversationSearchAdapterChunk = once(() => {
   nd();
@@ -12288,7 +12288,7 @@ var virtualizedTurnListModule,
   MemoizedVirtualizedTurnItem,
   initVirtualizedTurnListChunk = once(() => {
     virtualizedTurnListModule = getChunkModuleExports();
-    Ut();
+    initClassNameRuntime();
     virtualizedTurnListReactRuntime = toEsModule(loadReactModule(), 1);
     reactDomModule = toEsModule(_i(), 1);
     initWindowZoomContext();
@@ -13384,7 +13384,7 @@ function collectGeneratedImagesForVisibleTurns({
             renderedTurn.status,
           ),
           endResourcePaths = collectEndResourcePaths(
-            Lt({
+            collectAssistantOutputArtifacts({
               assistantContent: assistantItem?.content ?? null,
               projectlessOutputDirectory,
               turn: renderedTurn,
@@ -13463,7 +13463,7 @@ var turnListEntryDeepEqualModule,
     turnListEntryDeepEqualModule = toEsModule(loadIsEqualModule(), 1);
     qs();
     initConversationArtifactRuntime();
-    Jt();
+    initMarkdownResourceHelpers();
     Fc();
   });
 function buildThreadFindItemsForVisibleTurns({
@@ -13574,7 +13574,7 @@ function buildThreadFindPreviewOutputs({
       seenPreviewKeys.has(previewKey) ||
         (seenPreviewKeys.add(previewKey), previewOutputs.push(previewOutput));
     };
-  for (let resource of Lt({
+  for (let resource of collectAssistantOutputArtifacts({
     assistantContent,
     isAppgenEndCardEnabled,
     projectlessOutputDirectory,
@@ -13613,7 +13613,7 @@ function buildThreadFindPreviewOutputs({
     });
   for (let generatedImageSource of generatedImageSources)
     addPreviewOutput(
-      Ft(generatedImageSource)
+      isAbsoluteOrWindowsPath(generatedImageSource)
         ? {
             label: getPathBasename(generatedImageSource),
             type: "file",
@@ -13658,7 +13658,7 @@ var EMPTY_THREAD_FIND_ITEMS,
     zn();
     di();
     initConversationArtifactRuntime();
-    Jt();
+    initMarkdownResourceHelpers();
     EMPTY_THREAD_FIND_ITEMS = [];
     EMPTY_THREAD_FIND_PREVIEW_OUTPUTS = [];
     THREAD_FIND_PREVIEW_OUTPUT_SORT_ORDER = {
@@ -13967,7 +13967,7 @@ function formatResumeConversationError(intl, error) {
         },
         {
           br: <br />,
-          error: Wt(error),
+          error: getErrorMessage(error),
         },
       )
     : intl.formatMessage(
@@ -14023,8 +14023,8 @@ var localConversationThreadRouteReactRuntime,
     Vs();
     Tn();
     initAppScope();
-    It();
-    Ht();
+    initHostWorkspaceQueries();
+    initHostConfigHelpers();
     Mr();
     localConversationThreadRouteJsxRuntime = getJsxRuntime();
   });
@@ -14460,15 +14460,18 @@ function LocalConversationThreadRoute(props) {
       onOpenBackgroundAgent: onOpenBackgroundAgentFromSummary,
     },
   );
-  let floatingSummaryPanel = localConversationThreadJsxRuntime.jsx(qt, {
-    browser: true,
-    electron: true,
-    children: localConversationThreadJsxRuntime.jsx(fs, {
-      name: "ThreadSummaryPanel",
-      fallback: renderSummaryPanelErrorFallback,
-      children: summaryPanel,
-    }),
-  });
+  let floatingSummaryPanel = localConversationThreadJsxRuntime.jsx(
+    PlatformContentGate,
+    {
+      browser: true,
+      electron: true,
+      children: localConversationThreadJsxRuntime.jsx(fs, {
+        name: "ThreadSummaryPanel",
+        fallback: renderSummaryPanelErrorFallback,
+        children: summaryPanel,
+      }),
+    },
+  );
   return (
     <LocalConversationThreadFrame
       key={conversationId}
@@ -14595,21 +14598,24 @@ function ChromeExtensionConversationHeader(props) {
         </span>
       </span>
     );
-  let trailingActions = localConversationThreadJsxRuntime.jsx(qt, {
-    extension: true,
-    children: (
-      <Pd
-        conversationId={conversationId}
-        getConversationMarkdown={getConversationMarkdown}
-        markdownParentConversationId={parentConversationId}
-        cwd={cwd}
-        title={title}
-        canPin={false}
-        hideForkActions={true}
-      />
-    ),
-  });
-  return localConversationThreadJsxRuntime.jsx(qt, {
+  let trailingActions = localConversationThreadJsxRuntime.jsx(
+    PlatformContentGate,
+    {
+      extension: true,
+      children: (
+        <Pd
+          conversationId={conversationId}
+          getConversationMarkdown={getConversationMarkdown}
+          markdownParentConversationId={parentConversationId}
+          cwd={cwd}
+          title={title}
+          canPin={false}
+          hideForkActions={true}
+        />
+      ),
+    },
+  );
+  return localConversationThreadJsxRuntime.jsx(PlatformContentGate, {
     chromeExtension: true,
     extension: true,
     children: (
@@ -14998,7 +15004,7 @@ function LocalConversationComposerFooter({
       conversationTurnsSignal,
       conversationId,
     )?.length,
-    isRemoteHost = hostId !== Pt,
+    isRemoteHost = hostId !== LOCAL_HOST_ID,
     footerConnectionStatus = null;
   isRemoteHost &&
     (hostConnectionStatus === "connecting" ||
@@ -15064,7 +15070,7 @@ function LocalConversationComposerFooter({
           browserConversationId:
             getLocalThreadConversationIdFromRoute(scope.value) ===
             conversationId
-              ? (Ot(scope) ?? undefined)
+              ? (getRouteConversationId(scope) ?? undefined)
               : undefined,
           isResponseInProgress,
           localWorkspaceMaterialization,
@@ -15673,7 +15679,7 @@ var localConversationThreadModule,
 export const initLocalConversationThreadChunk = once(() => {
   localConversationThreadModule = getChunkModuleExports();
   initMotionRuntime();
-  xt();
+  initQueryRuntime();
   toEsModule(gi(), 1);
   initScopeRuntime();
   gn();
@@ -15720,7 +15726,7 @@ export const initLocalConversationThreadChunk = once(() => {
   initAppScope();
   initComposerScope();
   initRouteScope();
-  Ht();
+  initHostConfigHelpers();
   initStatsigFeatureGateHooks();
   initConversationRouteSourceHelpers();
   initThreadLayoutChunk();
@@ -15747,7 +15753,7 @@ export const initLocalConversationThreadChunk = once(() => {
   Qi();
   _o();
   mc();
-  yt();
+  initMarkdownUtilityNoop();
   Wo();
   Ac();
   initLocalConversationSearchAdapterChunk();
