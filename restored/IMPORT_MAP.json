@@ -11055,6 +11055,32 @@
       "status": "done",
       "note": "Current ref duplicate of the pop-in/new-window icon chunk; mapped to the existing semantic PopInMacIcon module with a no-op init export for bundle compatibility.",
       "lastUpdated": "2026-06-27T16:57:21.039Z"
+    },
+    "app-initial~app-main~hotkey-window-thread-page~automations-page~local-conversation-page-BdwGathX": {
+      "restored": "automation/heartbeat-permissions.ts",
+      "exports": {
+        "a": "serializedHeartbeatPermissionsSignal",
+        "i": "heartbeatThreadPermissionsByIdSignal",
+        "n": "getHeartbeatTurnPermissions",
+        "o": "initHeartbeatPermissionsChunk",
+        "r": "resolveHeartbeatPermissions",
+        "t": "updateHeartbeatPermissionsByThreadId"
+      },
+      "status": "done",
+      "note": "Current-ref combined local conversation page producer duplicates heartbeat automation permission normalization and per-thread permission caching.",
+      "lastUpdated": "2026-06-27T18:01:48.013Z"
+    },
+    "local-conversation-stream-role-product-event-DHQpO55W": {
+      "restored": "conversations/local-conversation-stream-role-product-event.tsx",
+      "exports": {
+        "i": "initLocalConversationHeartbeatAutomationThreadStateReporter",
+        "n": "initLocalConversationStreamRoleProductEventReporter",
+        "r": "LocalConversationHeartbeatAutomationThreadStateReporter",
+        "t": "LocalConversationStreamRoleProductEventReporter"
+      },
+      "status": "done",
+      "note": "Restored side-effect reporters for heartbeat automation thread state host messages and stream-role product-event properties.",
+      "lastUpdated": "2026-06-27T18:01:48.013Z"
     }
   }
 }
