@@ -12359,6 +12359,57 @@
       "status": "done",
       "note": "Promoted current artifact preview status renderer with typed status values, exact loading/error copy, and chunk initializer export.",
       "lastUpdated": "2026-06-27T20:55:07.733Z"
+    },
+    "avatar-overlay-debug-state-Bc374YAh": {
+      "restored": "utils/avatar-overlay-debug-state.ts",
+      "exports": {
+        "n": "initAvatarOverlayDebugStateChunk",
+        "t": "avatarOverlayResizeButtonHiddenSignal",
+        "initAvatarOverlayDebugStateChunk": "initAvatarOverlayDebugStateChunk",
+        "avatarOverlayResizeButtonHiddenSignal": "avatarOverlayResizeButtonHiddenSignal"
+      },
+      "status": "done",
+      "note": "Promoted current avatar overlay debug persistent signal with semantic init and signal exports.",
+      "lastUpdated": "2026-06-27T21:01:25.231Z"
+    },
+    "use-home-directory-7PtGooXU": {
+      "restored": "utils/use-home-directory.ts",
+      "exports": {
+        "n": "useHomeDirectory",
+        "r": "useHomeDirectoryQuery",
+        "t": "initUseHomeDirectoryChunk",
+        "useHomeDirectory": "useHomeDirectory",
+        "useHomeDirectoryQuery": "useHomeDirectoryQuery",
+        "initUseHomeDirectoryChunk": "initUseHomeDirectoryChunk"
+      },
+      "status": "done",
+      "note": "Synced current home-directory hook hash with semantic query and value hooks plus initializer export.",
+      "lastUpdated": "2026-06-27T21:01:25.231Z"
+    },
+    "settings-empty-state-DoYKl5S1": {
+      "restored": "utils/settings-empty-state.tsx",
+      "exports": {
+        "n": "initSettingsEmptyStateChunk",
+        "t": "SettingsEmptyState",
+        "SettingsEmptyState": "SettingsEmptyState",
+        "SettingsEmptyStateProps": "SettingsEmptyStateProps",
+        "initSettingsEmptyStateChunk": "initSettingsEmptyStateChunk"
+      },
+      "status": "done",
+      "note": "Synced current settings empty-state hash with typed semantic component and initializer export.",
+      "lastUpdated": "2026-06-27T21:01:25.231Z"
+    },
+    "setup-codex-wizard-step-view-BS-WCe9O": {
+      "restored": "utils/setup-codex-wizard-step-view.ts",
+      "exports": {
+        "n": "useSetupCodexWizardStepView",
+        "t": "initSetupCodexWizardStepViewChunk",
+        "useSetupCodexWizardStepView": "useSetupCodexWizardStepView",
+        "initSetupCodexWizardStepViewChunk": "initSetupCodexWizardStepViewChunk"
+      },
+      "status": "done",
+      "note": "Synced current setup wizard step-view tracking hook with semantic hook and initializer exports.",
+      "lastUpdated": "2026-06-27T21:01:25.231Z"
     }
   }
 }
