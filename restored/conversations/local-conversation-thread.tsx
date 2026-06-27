@@ -831,83 +831,11 @@ import {
   ThreadFindNavigationRail,
   useReviewSearchHighlights,
 } from "./local-conversation-thread-parts/review-search-highlights";
+import {
+  initSummaryPanelExpandableList,
+  SummaryPanelExpandableList,
+} from "./local-conversation-thread-parts/summary-panel-expandable-list";
 const joinLocalEnvironmentRepoPath = joinPath;
-function SummaryPanelExpandableList(props) {
-  let { children, empty, getKey, items, listClassName, visibleItemLimit } =
-      props,
-    maxVisibleItems =
-      visibleItemLimit === undefined
-        ? DEFAULT_SUMMARY_PANEL_VISIBLE_ITEM_LIMIT
-        : visibleItemLimit,
-    [isExpanded, setIsExpanded] =
-      summaryPanelExpandableListReactRuntime.useState(false);
-  if (items.length === 0) return empty ?? null;
-  let hasHiddenItems = items.length > maxVisibleItems,
-    visibleItems = isExpanded ? items : items.slice(0, maxVisibleItems);
-  let hiddenItemCount = items.length - visibleItems.length,
-    renderedItems;
-  {
-    let renderVisibleItem;
-    renderVisibleItem = (item, index) => <>{children(item, index)}</>;
-    renderedItems = visibleItems.map(renderVisibleItem);
-  }
-  let listNode =
-    listClassName == null ? (
-      renderedItems
-    ) : (
-      <div className={listClassName}>{renderedItems}</div>
-    );
-  let toggleButton = hasHiddenItems
-    ? summaryPanelExpandableListJsxRuntime.jsx(Button, {
-        className:
-          "!px-0 !py-0 text-token-text-tertiary hover:text-token-text-secondary",
-        color: "ghostMuted",
-        size: "default",
-        onClick: () => {
-          setIsExpanded(toggleSummaryPanelExpandableListExpanded);
-        },
-        children: isExpanded ? (
-          <FormattedMessage
-            id="codex.localConversation.summaryPanelExpandableList.showLess"
-            defaultMessage="Show less"
-            description="Button label that collapses a long list in the conversation summary panel"
-          />
-        ) : (
-          <FormattedMessage
-            id="codex.localConversation.summaryPanelExpandableList.showMore"
-            defaultMessage={"Show {count, number} more"}
-            description="Button label that expands a long list in the conversation summary panel"
-            values={{
-              count: hiddenItemCount,
-            }}
-          />
-        ),
-      })
-    : null;
-  return (
-    <>
-      {listNode}
-      {toggleButton}
-    </>
-  );
-}
-
-function toggleSummaryPanelExpandableListExpanded(isExpanded) {
-  return !isExpanded;
-}
-
-var summaryPanelExpandableListModule,
-  summaryPanelExpandableListReactRuntime,
-  summaryPanelExpandableListJsxRuntime,
-  DEFAULT_SUMMARY_PANEL_VISIBLE_ITEM_LIMIT,
-  initSummaryPanelExpandableList = once(() => {
-    summaryPanelExpandableListModule = getChunkModuleExports();
-    summaryPanelExpandableListReactRuntime = toEsModule(loadReactModule(), 1);
-    initIntlRuntime();
-    initButtonComponentPrimitives();
-    summaryPanelExpandableListJsxRuntime = getJsxRuntime();
-    DEFAULT_SUMMARY_PANEL_VISIBLE_ITEM_LIMIT = 6;
-  });
 function SummaryPanelArtifactsList(props) {
   let {
       artifacts,
