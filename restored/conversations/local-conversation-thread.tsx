@@ -249,7 +249,6 @@ import {
   mo as initGitHubIcon,
   mr as loadGroupByModule,
   mv as xr,
-  na as GlobeIcon,
   nm as projectlessOutputDirectorySignal,
   ny as initAppToolSourceMatcherCache,
   oM as initRefreshIcon,
@@ -271,8 +270,6 @@ import {
   qj as useStatsigGate,
   rF as defineMessages,
   rO as Ur,
-  r_ as getImagePreviewDisplayMode,
-  ra as initGlobeIcon,
   sF as FormattedMessage,
   sm as conversationRequestsSignal,
   tP as useAppServerMutation,
@@ -409,19 +406,15 @@ import {
   $o as pullRequestMergeConflictAttachmentSignal,
   Ai as Ao,
   Dt as Mo,
-  Fi as No,
   Gt as Po,
   H as Fo,
-  Ii as Io,
   Ja as Lo,
   Ko as composerModeSignal,
   Kt as zo,
   Ma as Bo,
   Na as Vo,
-  Ni as Ho,
   Oi as Uo,
   Ot as Wo,
-  Pi as Go,
   Q as CommentBubbleIcon,
   Qo as attachedPullRequestChecksSignal,
   Qt as Jo,
@@ -460,14 +453,12 @@ import {
   El as Ds,
   Eu as Os,
   Fr as ks,
-  Gd as As,
   Gm as js,
   Hl as Ms,
   In as Ns,
   Ir as Ps,
   Ja as Fs,
   Jn as Ls,
-  Jt as Rs,
   Km as zs,
   Ln as Bs,
   initThreadFindNavigationRail as Vs,
@@ -491,7 +482,6 @@ import {
   Vl as ac,
   Vn as localWorkspaceMaterializationSignal,
   Vu as sc,
-  Wd as cc,
   Xc as lc,
   Xd as uc,
   Yd as dc,
@@ -518,13 +508,10 @@ import {
   lf as Nc,
   ls as Pc,
   lt as Fc,
-  mt as Ic,
   nu as Lc,
   oa as Rc,
   os as zc,
-  pt as Bc,
   qa as Vc,
-  qt as Hc,
   rt as Uc,
   sa as Wc,
   sc as Gc,
@@ -617,10 +604,6 @@ import {
   initUseGitConfigValueChunk as Au,
   useGitConfigValue as ku,
 } from "../utils/use-git-config-value";
-import {
-  initArtifactFilePreviewIconChunk as ju,
-  ArtifactFilePreviewIcon as Mu,
-} from "../utils/artifact-file-preview-icon";
 import {
   initShareInviteAutocompleteChunk as Nu,
   ShareInviteAutocomplete as Pu,
@@ -723,12 +706,6 @@ import {
   ThreadOverflowMenu as Pd,
 } from "../threads/thread-overflow-menu";
 import {
-  formatArtifactTargetLabel,
-  getGeneratedImagePreviewArtifactPaths,
-  getLocalConversationArtifactKey,
-  isGeneratedImageArtifact,
-} from "./local-conversation-thread-parts/artifact-summary";
-import {
   createBackgroundSummaryItems,
   getBackgroundSummaryItemKey,
   getInlineActivityBackgroundAgents,
@@ -800,6 +777,10 @@ import {
   initThreadSummaryOutputOpenHandlersChunk,
   useThreadSummaryOutputOpenHandlers,
 } from "./local-conversation-thread-parts/thread-summary-output-open-handlers";
+import {
+  initSummaryPanelArtifactsListChunk,
+  SummaryPanelArtifactsList,
+} from "./local-conversation-thread-parts/summary-panel-artifacts-list";
 import { BackgroundTaskSectionTitle } from "./local-conversation-thread-parts/background-task-section-title";
 import {
   initReviewSearchHighlighter,
@@ -841,237 +822,6 @@ import {
   ThreadSummaryPanelSection,
 } from "./local-conversation-thread-parts/thread-summary-panel-section";
 const joinLocalEnvironmentRepoPath = joinPath;
-function SummaryPanelArtifactsList(props) {
-  let {
-      artifacts,
-      conversationTitle = null,
-      getImagePreviewSrc,
-      onOpen,
-    } = props,
-    scope = useScope(localConversationRouteScope),
-    intl = useIntl(),
-    generatedImageNumberByPath,
-    generatedImagePreviews;
-  {
-    let generatedImageArtifactPaths = artifacts.flatMap((artifact) =>
-        getGeneratedImagePreviewArtifactPaths(artifact, getPathBasename),
-      ),
-      hasGeneratedImageArtifacts = artifacts.some(isGeneratedImageArtifact);
-    generatedImageNumberByPath = new Map(
-      generatedImageArtifactPaths.map((path, index) => [
-        path,
-        hasGeneratedImageArtifacts
-          ? generatedImageArtifactPaths.length - index
-          : index + 1,
-      ]),
-    );
-    generatedImagePreviews = artifacts
-      .slice()
-      .reverse()
-      .flatMap((artifact) => {
-        if (
-          (artifact.type !== "file" && artifact.type !== "generated-image") ||
-          getImagePreviewDisplayMode(artifact.path) !== "always"
-        )
-          return [];
-        let fileName = getPathBasename(artifact.path),
-          imageNumber = generatedImageNumberByPath.get(artifact.path),
-          previewAlt =
-            imageNumber == null
-              ? fileName
-              : intl.formatMessage(
-                  {
-                    id: "codex.localConversation.artifacts.generatedImage",
-                    defaultMessage: "Generated image {imageNumber}",
-                    description:
-                      "Label for a generated image artifact in the thread summary side panel",
-                  },
-                  {
-                    imageNumber,
-                  },
-                ),
-          tabTitle =
-            imageNumber == null || conversationTitle == null
-              ? previewAlt
-              : intl.formatMessage(
-                  {
-                    id: "codex.localConversation.generatedImageTabTitle",
-                    defaultMessage:
-                      "{conversationTitle} - Generated image {imageNumber}",
-                    description:
-                      "Title for a generated image preview tab, prefixed by the conversation title",
-                  },
-                  {
-                    conversationTitle: conversationTitle,
-                    imageNumber,
-                  },
-                );
-        return [
-          {
-            alt: previewAlt,
-            id: artifact.path,
-            previewSrc: getImagePreviewSrc?.(artifact.path) ?? artifact.path,
-            src: artifact.path,
-            tabTitle,
-          },
-        ];
-      });
-  }
-  let generatedImagePreviewItems = generatedImagePreviews,
-    emptyArtifactsNode = (
-      <div className="py-1 text-base text-token-description-foreground">
-        <FormattedMessage
-          id="codex.localConversation.artifacts.empty"
-          defaultMessage="No artifacts yet"
-          description="Empty state for the artifacts section in the thread summary side panel"
-        />
-      </div>
-    );
-  let renderArtifactRow = (artifact) => {
-    switch (artifact.type) {
-      case "website": {
-        let targetLabel = formatArtifactTargetLabel(
-          artifact.target,
-          isFileUrlLikeTarget,
-          getPathBasename,
-        );
-        return (
-          <SummaryPanelRow
-            icon={<GlobeIcon className="icon-sm shrink-0" />}
-            label={
-              targetLabel ?? (
-                <FormattedMessage
-                  id="codex.localConversation.artifacts.website"
-                  defaultMessage="Web preview"
-                  description="Label for a website artifact in the thread summary side panel"
-                />
-              )
-            }
-            onClick={(event) => onOpen(artifact, event)}
-            title={artifact.target}
-          />
-        );
-      }
-      case "google-drive":
-        return (
-          <SummaryPanelRow
-            icon={
-              <Bc
-                className="icon-sm shrink-0"
-                resourceKind={artifact.resourceKind}
-              />
-            }
-            label={artifact.title}
-            onClick={(event) => onOpen(artifact, event)}
-            title={artifact.url}
-          />
-        );
-      case "appgen-app":
-        return (
-          <SummaryPanelRow
-            icon={<No className="icon-sm shrink-0" />}
-            label={
-              <span className="flex min-w-0 items-center gap-1">
-                <span className="truncate">
-                  {artifact.title ?? Ho(artifact.url) ?? artifact.url}
-                </span>
-                <ExternalLinkIcon
-                  className="icon-xs shrink-0 opacity-0 group-hover/summary-panel-row:opacity-100 group-focus-visible/summary-panel-row:opacity-100"
-                  ExternalIcon={cc}
-                  href={artifact.url}
-                />
-              </span>
-            }
-            labelClassName="min-w-0"
-            onClick={(event) => onOpen(artifact, event)}
-            title={artifact.url}
-          />
-        );
-      case "file":
-      case "generated-image": {
-        let fileName = getPathBasename(artifact.path),
-          imageNumber = generatedImageNumberByPath.get(artifact.path),
-          label =
-            imageNumber == null ? (
-              fileName
-            ) : (
-              <FormattedMessage
-                id="codex.localConversation.artifacts.generatedImage"
-                defaultMessage={"Generated image {imageNumber}"}
-                description="Label for a generated image artifact in the thread summary side panel"
-                values={{
-                  imageNumber,
-                }}
-              />
-            );
-        return (
-          <SummaryPanelRow
-            icon={
-              <Mu
-                getImagePreviewSrc={getImagePreviewSrc}
-                iconClassName="icon-sm"
-                imageClassName="size-5 rounded-sm border border-token-border"
-                path={artifact.path}
-              />
-            }
-            label={label}
-            onClick={(event) => {
-              let previewItem = generatedImagePreviewItems.find(
-                (item) => item.id === artifact.path,
-              );
-              (previewItem != null &&
-                Rs(scope, {
-                  alt: previewItem.alt,
-                  attachmentSrc: artifact.path,
-                  downloadSrc: previewItem.previewSrc,
-                  generatedImages: generatedImagePreviewItems,
-                  initialImageId: previewItem.id,
-                  referrerPolicy: "no-referrer",
-                  src: previewItem.previewSrc,
-                  title: previewItem.tabTitle,
-                })) ||
-                onOpen(artifact, event);
-            }}
-            title={artifact.path}
-          />
-        );
-      }
-    }
-  };
-  return (
-    <SummaryPanelExpandableList
-      items={artifacts}
-      getKey={getLocalConversationArtifactKey}
-      listClassName="-mx-2 flex max-h-[28rem] flex-col gap-0.5 overflow-y-auto px-2"
-      empty={emptyArtifactsNode}
-    >
-      {renderArtifactRow}
-    </SummaryPanelExpandableList>
-  );
-}
-
-var summaryPanelArtifactsModule,
-  summaryPanelArtifactsJsxRuntime,
-  initSummaryPanelArtifactsListChunk = once(() => {
-    summaryPanelArtifactsModule = getChunkModuleExports();
-    initScopeRuntime();
-    initPathHelpers();
-    initIntlRuntime();
-    Go();
-    ju();
-    Xr();
-    Hc();
-    initFileTypeDetectionHelpers();
-    As();
-    initGlobeIcon();
-    Io();
-    Ic();
-    initRouteScope();
-    di();
-    initSummaryPanelExpandableList();
-    initSummaryPanelRowChunk();
-    summaryPanelArtifactsJsxRuntime = getJsxRuntime();
-  });
 function ThreadSummaryBackgroundActivityRows(props) {
   let {
       backgroundAgents,

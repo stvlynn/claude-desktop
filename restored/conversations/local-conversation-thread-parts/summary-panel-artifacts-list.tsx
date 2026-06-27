@@ -1,0 +1,328 @@
+// Restored from ref/webview/assets/local-conversation-thread-Bf38rCmF.js
+// Output artifact list for the local conversation summary panel.
+import type { MouseEvent, ReactNode } from "react";
+import { once } from "../../runtime/commonjs-interop";
+import {
+  AB as initScopeRuntime,
+  FB as useScope,
+  I_ as initRouteScope,
+  M_ as localConversationRouteScope,
+  Sj as getPathBasename,
+  a_ as initFileTypeDetectionHelpers,
+  bF as initPathHelpers,
+  bR as isFileUrlLikeTarget,
+  en as ExternalLinkIcon,
+  na as GlobeIcon,
+  r_ as getImagePreviewDisplayMode,
+  ra as initGlobeIcon,
+  tn as initExternalLinkIconChunk,
+  wj as initArtifactPreviewRuntime,
+} from "../../boundaries/current-ref/appg-thread-shared-producer";
+import {
+  Fi as AppgenAppIcon,
+  Ni as getAppgenArtifactUrlLabel,
+  Pi as initAppgenArtifactUrlHelpers,
+  Ii as initAppgenArtifactIconChunk,
+} from "../../boundaries/current-ref/pull-request-thread-actions-producer";
+import {
+  Gd as initGeneratedImagePreviewRuntime,
+  Jt as openGeneratedImagePreviewTab,
+  Wd as ExternalLinkGlyph,
+  mt as initExternalLinkGlyphChunk,
+  pt as GoogleDriveResourceIcon,
+  qt as initGoogleDriveResourceIconChunk,
+} from "../../boundaries/current-ref/profile-page-producer";
+import { FormattedMessage, useIntl } from "../../vendor/react-intl";
+import {
+  ArtifactFilePreviewIcon,
+  initArtifactFilePreviewIconChunk,
+} from "../../utils/artifact-file-preview-icon";
+import {
+  initSummaryPanelRowChunk,
+  SummaryPanelRow,
+} from "../../utils/summary-panel-row";
+import {
+  formatArtifactTargetLabel,
+  getGeneratedImagePreviewArtifactPaths,
+  getLocalConversationArtifactKey,
+  isGeneratedImageArtifact,
+} from "./artifact-summary";
+import {
+  initSummaryPanelExpandableList,
+  SummaryPanelExpandableList,
+} from "./summary-panel-expandable-list";
+
+type FileOutputArtifact = {
+  path: string;
+  type: "file" | "generated-image";
+};
+
+type WebsiteOutputArtifact = {
+  target: string;
+  type: "website";
+};
+
+type GoogleDriveOutputArtifact = {
+  resourceKind?: string | null;
+  title: ReactNode;
+  type: "google-drive";
+  url: string;
+};
+
+type AppgenAppOutputArtifact = {
+  projectId: string;
+  title?: ReactNode;
+  type: "appgen-app";
+  url: string;
+};
+
+export type SummaryPanelArtifact =
+  | AppgenAppOutputArtifact
+  | FileOutputArtifact
+  | GoogleDriveOutputArtifact
+  | WebsiteOutputArtifact;
+
+type GeneratedImagePreviewItem = {
+  alt: string;
+  id: string;
+  previewSrc: string;
+  src: string;
+  tabTitle: string;
+};
+
+export type SummaryPanelArtifactsListProps = {
+  artifacts: readonly SummaryPanelArtifact[];
+  conversationTitle?: string | null;
+  getImagePreviewSrc?: (path: string) => string | null | undefined;
+  onOpen: (
+    artifact: SummaryPanelArtifact,
+    event: MouseEvent<HTMLElement>,
+  ) => void;
+};
+
+export function SummaryPanelArtifactsList({
+  artifacts,
+  conversationTitle = null,
+  getImagePreviewSrc,
+  onOpen,
+}: SummaryPanelArtifactsListProps) {
+  let scope = useScope(localConversationRouteScope),
+    intl = useIntl(),
+    generatedImageArtifactPaths = artifacts.flatMap((artifact) =>
+      getGeneratedImagePreviewArtifactPaths(artifact, getPathBasename),
+    ),
+    hasGeneratedImageArtifacts = artifacts.some(isGeneratedImageArtifact),
+    generatedImageNumberByPath = new Map(
+      generatedImageArtifactPaths.map((path, index) => [
+        path,
+        hasGeneratedImageArtifacts
+          ? generatedImageArtifactPaths.length - index
+          : index + 1,
+      ]),
+    ),
+    generatedImagePreviews = artifacts
+      .slice()
+      .reverse()
+      .flatMap((artifact): GeneratedImagePreviewItem[] => {
+        if (
+          (artifact.type !== "file" && artifact.type !== "generated-image") ||
+          getImagePreviewDisplayMode(artifact.path) !== "always"
+        ) {
+          return [];
+        }
+
+        let fileName = getPathBasename(artifact.path),
+          imageNumber = generatedImageNumberByPath.get(artifact.path),
+          previewAlt =
+            imageNumber == null
+              ? fileName
+              : intl.formatMessage(
+                  {
+                    id: "codex.localConversation.artifacts.generatedImage",
+                    defaultMessage: "Generated image {imageNumber}",
+                    description:
+                      "Label for a generated image artifact in the thread summary side panel",
+                  },
+                  {
+                    imageNumber,
+                  },
+                ),
+          tabTitle =
+            imageNumber == null || conversationTitle == null
+              ? previewAlt
+              : intl.formatMessage(
+                  {
+                    id: "codex.localConversation.generatedImageTabTitle",
+                    defaultMessage:
+                      "{conversationTitle} - Generated image {imageNumber}",
+                    description:
+                      "Title for a generated image preview tab, prefixed by the conversation title",
+                  },
+                  {
+                    conversationTitle,
+                    imageNumber,
+                  },
+                );
+
+        return [
+          {
+            alt: previewAlt,
+            id: artifact.path,
+            previewSrc: getImagePreviewSrc?.(artifact.path) ?? artifact.path,
+            src: artifact.path,
+            tabTitle,
+          },
+        ];
+      }),
+    emptyArtifactsNode = (
+      <div className="py-1 text-base text-token-description-foreground">
+        <FormattedMessage
+          id="codex.localConversation.artifacts.empty"
+          defaultMessage="No artifacts yet"
+          description="Empty state for the artifacts section in the thread summary side panel"
+        />
+      </div>
+    ),
+    renderArtifactRow = (artifact: SummaryPanelArtifact) => {
+      switch (artifact.type) {
+        case "website": {
+          let targetLabel = formatArtifactTargetLabel(
+            artifact.target,
+            isFileUrlLikeTarget,
+            getPathBasename,
+          );
+          return (
+            <SummaryPanelRow
+              icon={<GlobeIcon className="icon-sm shrink-0" />}
+              label={
+                targetLabel ?? (
+                  <FormattedMessage
+                    id="codex.localConversation.artifacts.website"
+                    defaultMessage="Web preview"
+                    description="Label for a website artifact in the thread summary side panel"
+                  />
+                )
+              }
+              onClick={(event) => onOpen(artifact, event)}
+              title={artifact.target}
+            />
+          );
+        }
+        case "google-drive":
+          return (
+            <SummaryPanelRow
+              icon={
+                <GoogleDriveResourceIcon
+                  className="icon-sm shrink-0"
+                  resourceKind={artifact.resourceKind}
+                />
+              }
+              label={artifact.title}
+              onClick={(event) => onOpen(artifact, event)}
+              title={artifact.url}
+            />
+          );
+        case "appgen-app":
+          return (
+            <SummaryPanelRow
+              icon={<AppgenAppIcon className="icon-sm shrink-0" />}
+              label={
+                <span className="flex min-w-0 items-center gap-1">
+                  <span className="truncate">
+                    {artifact.title ??
+                      getAppgenArtifactUrlLabel(artifact.url) ??
+                      artifact.url}
+                  </span>
+                  <ExternalLinkIcon
+                    className="icon-xs shrink-0 opacity-0 group-hover/summary-panel-row:opacity-100 group-focus-visible/summary-panel-row:opacity-100"
+                    ExternalIcon={ExternalLinkGlyph}
+                    href={artifact.url}
+                  />
+                </span>
+              }
+              labelClassName="min-w-0"
+              onClick={(event) => onOpen(artifact, event)}
+              title={artifact.url}
+            />
+          );
+        case "file":
+        case "generated-image": {
+          let fileName = getPathBasename(artifact.path),
+            imageNumber = generatedImageNumberByPath.get(artifact.path),
+            label =
+              imageNumber == null ? (
+                fileName
+              ) : (
+                <FormattedMessage
+                  id="codex.localConversation.artifacts.generatedImage"
+                  defaultMessage="Generated image {imageNumber}"
+                  description="Label for a generated image artifact in the thread summary side panel"
+                  values={{
+                    imageNumber,
+                  }}
+                />
+              );
+          return (
+            <SummaryPanelRow
+              icon={
+                <ArtifactFilePreviewIcon
+                  getImagePreviewSrc={getImagePreviewSrc}
+                  iconClassName="icon-sm"
+                  imageClassName="size-5 rounded-sm border border-token-border"
+                  path={artifact.path}
+                />
+              }
+              label={label}
+              onClick={(event) => {
+                let previewItem = generatedImagePreviews.find(
+                  (item) => item.id === artifact.path,
+                );
+                (previewItem != null &&
+                  openGeneratedImagePreviewTab(scope, {
+                    alt: previewItem.alt,
+                    attachmentSrc: artifact.path,
+                    downloadSrc: previewItem.previewSrc,
+                    generatedImages: generatedImagePreviews,
+                    initialImageId: previewItem.id,
+                    referrerPolicy: "no-referrer",
+                    src: previewItem.previewSrc,
+                    title: previewItem.tabTitle,
+                  })) ||
+                  onOpen(artifact, event);
+              }}
+              title={artifact.path}
+            />
+          );
+        }
+      }
+    };
+
+  return (
+    <SummaryPanelExpandableList
+      items={artifacts}
+      getKey={getLocalConversationArtifactKey}
+      listClassName="-mx-2 flex max-h-[28rem] flex-col gap-0.5 overflow-y-auto px-2"
+      empty={emptyArtifactsNode}
+    >
+      {renderArtifactRow}
+    </SummaryPanelExpandableList>
+  );
+}
+
+export const initSummaryPanelArtifactsListChunk = once(() => {
+  initScopeRuntime();
+  initPathHelpers();
+  initAppgenArtifactUrlHelpers();
+  initArtifactFilePreviewIconChunk();
+  initExternalLinkIconChunk();
+  initGoogleDriveResourceIconChunk();
+  initFileTypeDetectionHelpers();
+  initGeneratedImagePreviewRuntime();
+  initGlobeIcon();
+  initAppgenArtifactIconChunk();
+  initExternalLinkGlyphChunk();
+  initRouteScope();
+  initArtifactPreviewRuntime();
+  initSummaryPanelExpandableList();
+  initSummaryPanelRowChunk();
+});
