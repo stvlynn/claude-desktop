@@ -508,7 +508,6 @@ import {
   In as Ns,
   Ir as Ps,
   Ja as Fs,
-  Jd as Is,
   Jn as Ls,
   Jt as Rs,
   Km as zs,
@@ -829,7 +828,9 @@ import {
   createBrowserUseSummaryRows,
   createBrowserUseSummarySyncKey,
   subscribeToBrowserUseSummaryChanges,
+  type BrowserUseSummary,
 } from "./local-conversation-thread-parts/browser-use-summary";
+import { BrowserUseSummaryList } from "./local-conversation-thread-parts/browser-use-summary-list";
 const joinLocalEnvironmentRepoPath = M;
 
 function Fd(e) {
@@ -2213,93 +2214,6 @@ var Dp,
           "Tooltip explaining why a background terminal cannot be stopped from the thread summary panel",
       },
     });
-  });
-function Np(e) {
-  let { browserUseSummaries, onOpen } = e,
-    i;
-  {
-    let e;
-    e = (e) => {
-      let t =
-          e.displayUrl == null || e.displayUrl === e.title
-            ? null
-            : e.displayUrl,
-        n = t == null ? e.title : `${e.title} ${t}`,
-        i = e.url.length === 0 ? e.title : `${e.title}\n${e.url}`;
-      return (
-        <SummaryPanelRow
-          key={e.browserTabId}
-          aria-label={n}
-          icon={
-            <span
-              aria-hidden={true}
-              className="icon-xs relative flex shrink-0 items-center justify-center overflow-visible"
-            >
-              <Ln
-                alt=""
-                className={S("size-full", e.isAgentWorking && "opacity-30")}
-                logoUrl={e.faviconUrl}
-                fallback={<Sr />}
-              />
-              {e.isAgentWorking ? (
-                <span className="pointer-events-none absolute inset-0 z-10 flex size-full items-center justify-center">
-                  <Is className="size-4" />
-                </span>
-              ) : null}
-            </span>
-          }
-          label={
-            e.isAgentWorking ? (
-              <span className="loading-shimmer-pure-text w-full max-w-full min-w-0">
-                <span className="flex min-w-0 items-baseline gap-2">
-                  <span className="max-w-[60%] min-w-0 shrink truncate">
-                    {e.title}
-                  </span>
-                  {t == null ? null : (
-                    <span className="max-w-[40%] min-w-0 shrink truncate text-sm">
-                      {t}
-                    </span>
-                  )}
-                </span>
-              </span>
-            ) : (
-              <>
-                <span className="max-w-[60%] min-w-0 shrink truncate">
-                  {e.title}
-                </span>
-                {t == null ? null : (
-                  <span className="max-w-[40%] min-w-0 shrink truncate text-sm text-token-text-secondary">
-                    {t}
-                  </span>
-                )}
-              </>
-            )
-          }
-          labelClassName={S(
-            "min-w-0 flex-1",
-            !e.isAgentWorking && "flex items-baseline gap-2",
-          )}
-          onClick={() => {
-            onOpen(e);
-          }}
-          title={i}
-        />
-      );
-    };
-    i = browserUseSummaries.map(e);
-  }
-  return <div className="flex flex-col gap-1">{i}</div>;
-}
-var Pp,
-  Fp,
-  Ip = once(() => {
-    Pp = q();
-    Ut();
-    Zr();
-    Gr();
-    dc();
-    initSummaryPanelRowChunk();
-    Fp = getJsxRuntime();
   });
 function Lp(e, t) {
   return t?.trim() || zp(e);
@@ -7756,7 +7670,7 @@ export interface LocalConversationSummaryPanelProps {
   webSources: readonly unknown[];
   backgroundAgents: readonly unknown[];
   backgroundTerminals: readonly unknown[];
-  browserUseSummaries: readonly unknown[];
+  browserUseSummaries: readonly BrowserUseSummary[];
   restoredBackgroundProcesses: readonly unknown[];
   plan: unknown;
   onOpenBackgroundAgent?: BackgroundAgentOpenHandler;
@@ -8248,7 +8162,7 @@ function Sv(e) {
         count: browserUseSummaries.length,
       })}
     >
-      <Np
+      <BrowserUseSummaryList
         browserUseSummaries={browserUseSummaries}
         onOpen={(e) => {
           gs(h, true, {
@@ -8368,7 +8282,6 @@ var Av,
     lp();
     gp();
     Mp();
-    Ip();
     V_();
     G_();
     X_();
