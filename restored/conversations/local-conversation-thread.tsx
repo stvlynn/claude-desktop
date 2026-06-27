@@ -6,7 +6,6 @@ import {
   $j as initStatsigGateSignals,
   AB as initScopeRuntime,
   AI as getLocalConversationPath,
-  AN as initSpinnerComponent,
   Al as initComposerScope,
   Au as initOsInfoQuery,
   BV as getJsxRuntime,
@@ -81,28 +80,21 @@ import {
   jM as $n,
   jm as conversationModeSignal,
   ju as useOsInfo,
-  kN as SpinnerIcon,
   lA as cr,
   lD as lr,
-  lF as useIntl,
   mP as logger,
-  mo as initGitHubIcon,
   mv as xr,
   oM as initRefreshIcon,
   oP as initQueryDurationConstants,
   ok as sendAppServerRequest,
   pP as initLoggerRuntime,
-  po as GitHubIcon,
   qV as getChunkModuleExports,
   qj as useStatsigGate,
-  rF as defineMessages,
-  sF as FormattedMessage,
   tP as useAppServerMutation,
   tc as Yr,
   vm as subagentParentThreadIdSignal,
   wj as di,
   wl as composerScope,
-  wp as storedThreadBranchSignal,
   xM as useStableCallback,
   yA as loadFindLastModule,
   yV as createSignal,
@@ -122,25 +114,20 @@ import {
   Od as $i,
   Td as ua,
   Wl as fa,
-  _i as githubCliAvailabilitySignal,
   b as Sa,
   cn as Ea,
-  gi as ka,
   hc as ja,
   js as environmentTerminalControllerSignal,
-  kc as diffStatsSignal,
   kn as Ra,
   l as za,
   mo as Ha,
   nc as Wa,
   nu as Ka,
-  pi as pullRequestStatusQuerySignal,
   ql as bottomPanelTabsStore,
   sd as Xa,
   ts as Qa,
   tu as $a,
   vd as ro,
-  vi as io,
   wo as lo,
   yc as ho,
   yd as rightPanelFullWidthSignal,
@@ -158,56 +145,30 @@ import {
   qa as fs,
 } from "../boundaries/current-ref/pull-request-thread-actions-producer";
 import {
-  $l as createPullRequestActionStateSignal,
   $n as vs,
-  Al as ys,
-  Bl as Ss,
-  Hl as Ms,
   In as Ns,
   Po as Ys,
-  Ql as Qs,
   St as tc,
   Tu as rc,
-  Ul as ic,
-  Xd as uc,
   Yd as dc,
   Yn as fc,
-  Zd as pc,
   ar as mc,
-  au as hc,
   cc as gc,
   cs as backgroundAgentsSignal,
   fl as Sc,
   gt as wc,
-  iu as activeWorkflowSignal,
   jt as Ac,
-  kl as jc,
   ls as Pc,
-  nu as Lc,
   qa as Vc,
   sa as Wc,
   vc as Qc,
   xt as el,
-  zl as nl,
 } from "../boundaries/current-ref/profile-page-producer";
 import {
   it as ul,
   n as fl,
 } from "../boundaries/current-ref/appgen-library-hot-producer";
 import { g as El } from "../boundaries/current-ref/projects-pull-requests-producer";
-import {
-  getPullRequestMergeVisualState,
-  getPullRequestVisualState,
-  initPullRequestVisualStateChunk,
-} from "../utils/pull-request-visual-state";
-import {
-  DiffStats as Ml,
-  initDiffStatsChunk as Nl,
-} from "../git/git-review-primitives";
-import {
-  initSummaryPanelRowChunk,
-  SummaryPanelRow,
-} from "../utils/summary-panel-row";
 import {
   initThreadSwitchTimingTrackerChunk,
   threadSwitchTimingTracker,
@@ -307,17 +268,9 @@ import {
 } from "./local-conversation-thread-parts/local-conversation-thread-scroll-state-signal";
 import { LocalConversationMainThread } from "./local-conversation-thread-parts/local-conversation-thread-entry-components";
 import {
-  initPullRequestSummaryRowChunk,
-  PullRequestSummaryRow,
-} from "./local-conversation-thread-parts/pull-request-summary-row";
-import {
-  initPullRequestStatusDetailRowsChunk,
-  PullRequestStatusDetailRows,
-} from "./local-conversation-thread-parts/pull-request-status-detail-rows";
-import {
-  initPullRequestSidePanelOpenerChunk,
-  openPullRequestSidePanelTab,
-} from "./local-conversation-thread-parts/pull-request-side-panel-tab";
+  BranchChangesSummaryRow,
+  LocalConversationGitSummary,
+} from "./local-conversation-thread-parts/local-conversation-git-summary";
 import {
   initThreadSummaryPanelChromePrimitives,
   ThreadSummaryPanelContent,
@@ -344,382 +297,6 @@ var localEnvironmentRecentActionsModule,
     localEnvironmentRecentActionsModule = getChunkModuleExports();
     initPathHelpers();
     initHostCodexHomeQuery();
-  });
-function BranchChangesSummaryRow(props) {
-  let { onOpenReviewTab, diffStats, isDiffStatsLoading } = props,
-    branchIcon = branchChangesSummaryRowJsxRuntime.jsx(uc, {
-      className: "icon-sm shrink-0",
-    }),
-    changesLabel = (
-      <FormattedMessage
-        id="codex.localConversation.gitSummary.branchChangesLabel"
-        defaultMessage="Changes"
-        description="Label for the branch changes row"
-      />
-    );
-  let trailingDiffStats = isDiffStatsLoading ? (
-    branchChangesSummaryRowJsxRuntime.jsx(SpinnerIcon, {
-      className: "icon-xs text-token-text-tertiary",
-    })
-  ) : diffStats == null ? null : (
-    <Ml
-      className="text-size-chat shrink-0"
-      linesAdded={diffStats.additions}
-      linesRemoved={diffStats.deletions}
-    />
-  );
-  return (
-    <SummaryPanelRow
-      icon={branchIcon}
-      label={changesLabel}
-      onClick={onOpenReviewTab}
-      trailing={trailingDiffStats}
-      trailingVisible={true}
-    />
-  );
-}
-var branchChangesSummaryRowModule,
-  branchChangesSummaryRowJsxRuntime,
-  initBranchChangesSummaryRowChunk = once(() => {
-    branchChangesSummaryRowModule = getChunkModuleExports();
-    initIntlRuntime();
-    initSpinnerComponent();
-    Nl();
-    pc();
-    initSummaryPanelRowChunk();
-    branchChangesSummaryRowJsxRuntime = getJsxRuntime();
-  });
-function getPullRequestTitleOrFallback(title, fallbackTitle) {
-  return title?.trim() || fallbackTitle;
-}
-var initPullRequestTitleFallbackChunk = once(() => {});
-function LocalConversationGitSummary(props) {
-  let {
-      conversationId,
-      cwd,
-      hostConfig,
-      workspaceBrowserRoot,
-      onCreatePullRequest,
-    } = props,
-    scope = useScope(localConversationRouteScope),
-    threadWorkspaceBrowserRoot = useScopedValue(
-      conversationCwdSignal,
-      conversationId,
-    ),
-    storedThreadBranch = useScopedValue(
-      storedThreadBranchSignal,
-      conversationId,
-    ),
-    workspaceRoot = threadWorkspaceBrowserRoot ?? workspaceBrowserRoot,
-    headBranchQuery = ys(
-      workspaceRoot,
-      hostConfig,
-      "local_conversation_git_summary",
-    ),
-    createPullRequestActionParams = {
-      cwd,
-      hostConfig,
-    };
-  let createPullRequestActionState = useScopedValue(
-      createPullRequestActionStateSignal,
-      createPullRequestActionParams,
-    ),
-    headBranchName = headBranchQuery.data?.trim() ?? "",
-    normalizedHeadBranchName = getPullRequestTitleOrFallback(
-      storedThreadBranch,
-      headBranchName,
-    );
-  let headBranch = normalizedHeadBranchName,
-    hasEmptyHeadBranch =
-      headBranchQuery.isSuccess && headBranchName.length === 0,
-    workflowParams = {
-      cwd,
-      hostId: hostConfig.id,
-    };
-  let activeWorkflow = useScopedValue(activeWorkflowSignal, workflowParams),
-    workflowPhase = activeWorkflow?.phase ?? null,
-    isCreatePrWorkflow = activeWorkflow?.workflow === "create-pr",
-    ghCliAvailability = useScopedValue(
-      githubCliAvailabilitySignal,
-      hostConfig.id,
-    ),
-    pullRequestStatusParams = {
-      cwd: workspaceRoot,
-      headBranch: headBranch,
-      hostId: hostConfig.id,
-      operationSource: "local_conversation_git_summary",
-    };
-  let pullRequestStatusQuery = useScopedValue(
-    pullRequestStatusQuerySignal,
-    pullRequestStatusParams,
-  );
-  if (
-    workspaceRoot == null ||
-    (!hasEmptyHeadBranch && headBranchName.length === 0)
-  )
-    return null;
-  if (hasEmptyHeadBranch) {
-    if (
-      isCreatePrWorkflow &&
-      workflowPhase != null &&
-      (pullRequestStatusQuery.type !== "success" ||
-        pullRequestStatusQuery.data.hasOpenPr !== true)
-    ) {
-      let cancelCreatePullRequest = () =>
-        Lc({
-          cwd,
-          hostId: hostConfig.id,
-        });
-      return (
-        <CreatePullRequestProgressSummaryRow
-          phase={workflowPhase}
-          onCancel={cancelCreatePullRequest}
-        />
-      );
-    }
-    return localConversationGitSummaryJsxRuntime.jsx(
-      CreatePullRequestSummaryAction,
-      {
-        createPullRequestActionState: createPullRequestActionState,
-        ghCliAvailability: ghCliAvailability,
-        onCreatePullRequest,
-        workflowPhase: workflowPhase,
-      },
-    );
-  }
-  if (
-    isCreatePrWorkflow &&
-    workflowPhase != null &&
-    (pullRequestStatusQuery.type !== "success" ||
-      pullRequestStatusQuery.data.hasOpenPr !== true)
-  ) {
-    let cancelCreatePullRequest = () =>
-      Lc({
-        cwd,
-        hostId: hostConfig.id,
-      });
-    return (
-      <CreatePullRequestProgressSummaryRow
-        phase={workflowPhase}
-        onCancel={cancelCreatePullRequest}
-      />
-    );
-  }
-  let ghCliStatusRow = getGithubCliStatusSummaryRow(ghCliAvailability);
-  if (ghCliStatusRow != null) return ghCliStatusRow;
-  if (pullRequestStatusQuery.type === "error") {
-    return (
-      <SummaryPanelRow
-        className="!text-token-text-tertiary"
-        icon={<GithubStatusPlaceholderIcon />}
-        label={
-          <FormattedMessage
-            id="codex.localConversation.gitSummary.pullRequestUnavailable"
-            defaultMessage="Pull request status unavailable"
-            description="GitHub status row shown when PR status cannot be loaded"
-          />
-        }
-      />
-    );
-  }
-  if (pullRequestStatusQuery.type === "loading") {
-    return (
-      <SummaryPanelRow
-        icon={<GithubStatusPlaceholderIcon />}
-        label={
-          <FormattedMessage
-            id="codex.localConversation.gitSummary.checkingPullRequest"
-            defaultMessage="Checking pull request"
-            description="GitHub status row shown while loading PR data"
-          />
-        }
-      />
-    );
-  }
-  let createPullRequestRow =
-    createPullRequestActionState === "hidden" ? null : (
-      <CreatePullRequestSummaryRow
-        isCreatePullRequestEnabled={createPullRequestActionState === "enabled"}
-        onCreatePullRequest={onCreatePullRequest}
-        workflowPhase={workflowPhase}
-      />
-    );
-  let fallbackRow = createPullRequestRow;
-  if (pullRequestStatusQuery.type === "not-found") return fallbackRow;
-  let pullRequestStatus = pullRequestStatusQuery.data,
-    visualState = getPullRequestVisualState({
-      hasOpenPr: pullRequestStatus.hasOpenPr,
-      isDraft: pullRequestStatus.isDraft,
-      url: pullRequestStatus.url,
-    });
-  if (visualState == null) return fallbackRow;
-  let mergeVisualState = getPullRequestMergeVisualState({
-      canMerge: pullRequestStatus.canMerge,
-      ciStatus: pullRequestStatus.ciStatus,
-      hasMergeConflicts: pullRequestStatus.mergeBlocker === "conflicts",
-      status: visualState,
-    }),
-    pullRequestSummaryRow = localConversationGitSummaryJsxRuntime.jsx(
-      PullRequestSummaryRow,
-      {
-        conversationId,
-        hostId: hostConfig.id,
-        onOpenSidePanel: ({ hostId, item, repo }) => {
-          openPullRequestSidePanelTab(scope, {
-            hostId,
-            item,
-            repo,
-          });
-        },
-        pullRequestStatus: pullRequestStatus,
-        visualState: mergeVisualState,
-      },
-    );
-  let detailRows = (
-    <PullRequestStatusDetailRows
-      conversationId={conversationId}
-      headBranch={headBranchName}
-      pullRequestStatus={pullRequestStatus}
-    />
-  );
-  return (
-    <div className="relative z-10 flex flex-col">
-      {pullRequestSummaryRow}
-      {detailRows}
-    </div>
-  );
-}
-function CreatePullRequestSummaryAction(props) {
-  let {
-    createPullRequestActionState,
-    ghCliAvailability,
-    onCreatePullRequest,
-    workflowPhase,
-  } = props;
-  if (createPullRequestActionState === "hidden") return null;
-  let ghCliStatusRow = getGithubCliStatusSummaryRow(ghCliAvailability);
-  if (ghCliStatusRow != null) return ghCliStatusRow;
-  let isCreatePullRequestEnabled = createPullRequestActionState === "enabled";
-  return (
-    <CreatePullRequestSummaryRow
-      isCreatePullRequestEnabled={isCreatePullRequestEnabled}
-      onCreatePullRequest={onCreatePullRequest}
-      workflowPhase={workflowPhase}
-    />
-  );
-}
-function CreatePullRequestSummaryRow(props) {
-  let { isCreatePullRequestEnabled, onCreatePullRequest, workflowPhase } =
-      props,
-    isDisabled = workflowPhase != null || !isCreatePullRequestEnabled,
-    icon = <GithubStatusPlaceholderIcon />,
-    label = (
-      <FormattedMessage
-        id="codex.localConversation.gitSummary.createPullRequest"
-        defaultMessage="Create pull request"
-        description="GitHub status row shown when no PR exists for the branch"
-      />
-    );
-  return (
-    <SummaryPanelRow
-      disabled={isDisabled}
-      onClick={onCreatePullRequest}
-      icon={icon}
-      label={label}
-    />
-  );
-}
-function getGithubCliStatusSummaryRow(ghCliAvailability) {
-  switch (ghCliAvailability) {
-    case "loading":
-    case "error":
-      return (
-        <SummaryPanelRow
-          icon={<GithubStatusPlaceholderIcon />}
-          label={
-            <FormattedMessage
-              id="codex.localConversation.gitSummary.checkingPullRequest"
-              defaultMessage="Checking pull request"
-              description="GitHub status row shown while loading PR data"
-            />
-          }
-        />
-      );
-    case "missing":
-      return (
-        <SummaryPanelRow
-          icon={<GithubStatusPlaceholderIcon />}
-          label={
-            <FormattedMessage
-              id="codex.localConversation.gitSummary.githubCliUnavailable"
-              defaultMessage="GitHub CLI unavailable"
-              description="GitHub status row shown when gh is not installed"
-            />
-          }
-        />
-      );
-    case "unauthenticated":
-      return (
-        <SummaryPanelRow
-          icon={<GithubStatusPlaceholderIcon />}
-          label={
-            <FormattedMessage
-              id="codex.localConversation.gitSummary.githubCliSignedOut"
-              defaultMessage="GitHub CLI not authenticated"
-              description="GitHub status row shown when gh is not authenticated"
-            />
-          }
-        />
-      );
-    case "available":
-      return null;
-  }
-}
-function CreatePullRequestProgressSummaryRow(props) {
-  let { phase, onCancel } = props,
-    spinnerIcon = localConversationGitSummaryJsxRuntime.jsx(SpinnerIcon, {
-      className: GITHUB_STATUS_ICON_CLASS_NAME,
-    });
-  let phaseLabel = localConversationGitSummaryJsxRuntime.jsx(nl, {
-    phase,
-  });
-  let cancelButton = <Ms onCancel={onCancel} />;
-  return (
-    <SummaryPanelRow
-      icon={spinnerIcon}
-      label={phaseLabel}
-      trailing={cancelButton}
-      trailingVisible={true}
-    />
-  );
-}
-function GithubStatusPlaceholderIcon() {
-  return <GitHubIcon className={GITHUB_STATUS_ICON_CLASS_NAME} />;
-}
-var localConversationGitSummaryModule,
-  localConversationGitSummaryJsxRuntime,
-  GITHUB_STATUS_ICON_CLASS_NAME,
-  initLocalConversationGitSummaryChunk = once(() => {
-    localConversationGitSummaryModule = getChunkModuleExports();
-    initScopeRuntime();
-    initIntlRuntime();
-    initConversationStateSelectors();
-    initSpinnerComponent();
-    jc();
-    initGitHubIcon();
-    hc();
-    ic();
-    Qs();
-    Ss();
-    initPullRequestVisualStateChunk();
-    io();
-    ka();
-    initSummaryPanelRowChunk();
-    initPullRequestTitleFallbackChunk();
-    initPullRequestSummaryRowChunk();
-    initPullRequestSidePanelOpenerChunk();
-    localConversationGitSummaryJsxRuntime = getJsxRuntime();
-    GITHUB_STATUS_ICON_CLASS_NAME = "icon-sm shrink-0 text-token-text-tertiary";
   });
 var ThreadSummaryPanelChrome,
   initThreadSummaryPanelChrome = once(() => {
@@ -841,6 +418,11 @@ function noopForceShowPopoverSummaryPanel() {}
 var localConversationSummaryPanelModule,
   initLocalConversationGitSummary = once(() => {
     localConversationSummaryPanelModule = getChunkModuleExports();
+    (
+      LocalConversationGitSummary as typeof LocalConversationGitSummary & {
+        initChunk: () => void;
+      }
+    ).initChunk();
     initThreadSummaryPanelChrome();
     ThreadSummaryPanelSections.initChunk();
   });
