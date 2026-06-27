@@ -12601,6 +12601,22 @@
       "status": "done",
       "note": "Synced current recommended skill Statsig overrides chunk with semantic parser, hook, getter, and initializer exports.",
       "lastUpdated": "2026-06-27T21:45:02.884Z"
+    },
+    "home-row-layout-nv_THLYD": {
+      "restored": "ui/home-row-layout.tsx",
+      "exports": {
+        "i": "initHomeRowLayoutChunk",
+        "n": "HomeRowIcon",
+        "r": "HomeRowLabel",
+        "t": "HomeRowContent",
+        "initHomeRowLayoutChunk": "initHomeRowLayoutChunk",
+        "HomeRowIcon": "HomeRowIcon",
+        "HomeRowLabel": "HomeRowLabel",
+        "HomeRowContent": "HomeRowContent"
+      },
+      "status": "done",
+      "note": "Synced current home row layout chunk with semantic row layout primitives and initializer export.",
+      "lastUpdated": "2026-06-27T21:49:07.586Z"
     }
   }
 }
