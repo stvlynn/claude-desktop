@@ -11226,10 +11226,37 @@
       "lastUpdated": "2026-06-27T03:16:46.000Z"
     },
     "app-initial~app-main~remote-conversation-page~pull-requests-page~onboarding-page~projects-i~easvi6ps-Cs84X9Ip": {
-      "restored": "boundaries/current-ref/projects-pull-requests-producer.ts",
-      "status": "boundary",
-      "note": "Current ref passthrough boundary for local-conversation-thread; open until this producer is deep-restored semantically.",
-      "lastUpdated": "2026-06-27T03:16:46.000Z"
+      "restored": "automation/automation-schedule/index.ts",
+      "splitDirectory": "automation/automation-schedule",
+      "exports": {
+        "C": "initAutomationModelDefaultsChunk",
+        "S": "AUTOMATION_REASONING_EFFORT_OPTIONS",
+        "_": "automationsQuerySignal",
+        "a": "formatScheduleConfigSummary",
+        "b": "DEFAULT_AUTOMATION_REASONING_EFFORT",
+        "c": "getAutomationAnalyticsProperties",
+        "d": "isAutomationScheduleConfigValid",
+        "f": "normalizeIntervalHours",
+        "g": "initAutomationsQueryChunk",
+        "h": "parseCronScheduleConfig",
+        "i": "getDefaultCronScheduleConfig",
+        "l": "parseAutomationTime",
+        "m": "parseHeartbeatScheduleConfig",
+        "n": "changeAutomationScheduleMode",
+        "o": "formatAutomationScheduleSummary",
+        "p": "normalizeIntervalMinutes",
+        "r": "getDefaultHeartbeatScheduleConfig",
+        "s": "formatAutomationTime",
+        "t": "serializeAutomationScheduleConfig",
+        "u": "initAutomationScheduleSummaryFormatter",
+        "v": "AutomationStatusCircleIcon",
+        "w": "isAutomationReasoningEffort",
+        "x": "DEFAULT_AUTOMATION_MODEL",
+        "y": "initAutomationStatusCircleIconChunk"
+      },
+      "status": "done",
+      "note": "Deep-restored scheduled-task query/defaults/RRULE/analytics/icon producer; local-conversation consumers now import the semantic automation schedule surface.",
+      "lastUpdated": "2026-06-27T23:21:23.000Z"
     },
     "app-initial~app-main~pets-settings~appearance-settings~general-settings-x4e4q7BN": {
       "restored": "boundaries/current-ref/pets-general-settings-producer.ts",

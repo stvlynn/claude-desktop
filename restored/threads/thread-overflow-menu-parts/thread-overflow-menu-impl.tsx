@@ -81,9 +81,9 @@ import {
   jr as openExistingHeartbeatAutomationTab,
 } from "../../boundaries/current-ref/profile-page-producer";
 import {
-  _ as heartbeatAutomationsQuerySignal,
-  g as initHeartbeatAutomationsQueryChunk,
-} from "../../boundaries/current-ref/projects-pull-requests-producer";
+  automationsQuerySignal as heartbeatAutomationsQuerySignal,
+  initAutomationsQueryChunk as initHeartbeatAutomationsQueryChunk,
+} from "../../automation/automation-schedule";
 import {
   ArchiveThreadConfirmDialog,
   heartbeatAutomationEligibilitySignal,

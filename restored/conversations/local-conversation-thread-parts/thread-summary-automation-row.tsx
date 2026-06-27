@@ -9,9 +9,9 @@ import {
   M_ as localConversationRouteScope,
 } from "../../boundaries/current-ref/appg-thread-shared-producer";
 import {
-  o as formatAutomationScheduleSummary,
-  u as initAutomationScheduleSummaryFormatter,
-} from "../../boundaries/current-ref/projects-pull-requests-producer";
+  formatAutomationScheduleSummary,
+  initAutomationScheduleSummaryFormatter,
+} from "../../automation/automation-schedule";
 import {
   Ar as initAutomationRouteHelpers,
   Fr as formatAutomationNextRunLabel,

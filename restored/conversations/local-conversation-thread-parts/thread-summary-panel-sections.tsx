@@ -77,9 +77,9 @@ import {
   yc as initLocalConversationSummaryPanelSupportChunk,
 } from "../../boundaries/current-ref/profile-page-producer";
 import {
-  _ as automationDataSignal,
-  g as initAutomationDataSignalChunk,
-} from "../../boundaries/current-ref/projects-pull-requests-producer";
+  automationsQuerySignal as automationDataSignal,
+  initAutomationsQueryChunk as initAutomationDataSignalChunk,
+} from "../../automation/automation-schedule";
 import {
   getAttachedHeartbeatAutomationForThread,
   initAttachedHeartbeatAutomationLookupChunk,
