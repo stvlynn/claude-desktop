@@ -12148,9 +12148,9 @@ var lS,
     rs();
     lS = getJsxRuntime();
   });
-function LocalConversationConnectionStatus(e) {
-  let { status } = e,
-    r = pS.jsx(rr, {
+function LocalConversationConnectionStatus(props) {
+  let { status } = props,
+    spinnerIcon = pS.jsx(rr, {
       className: "icon-xs",
     });
   return (
@@ -12159,7 +12159,7 @@ function LocalConversationConnectionStatus(e) {
       className="flex items-center justify-center gap-2 px-4 py-1 text-sm text-token-text-secondary"
       role="status"
     >
-      {r}
+      {spinnerIcon}
       {status === "loading" ? (
         <FormattedMessage
           id="localConversation.loadingThread"
@@ -12184,39 +12184,54 @@ var fS,
     d();
     pS = getJsxRuntime();
   });
-function useMarkConversationReadOnVisibility(e, t) {
-  let r = K(R, e) ?? false,
-    i = W(xo),
-    a = K($t, e),
-    o = K(we, e),
-    s = _S.useRef(null),
-    c = _S.useRef(null),
-    l = _S.useRef(null),
-    u = () => {
-      s.current = e;
-      c.current = o;
-      l.current = a;
-      !(!t || !r) &&
+function useMarkConversationReadOnVisibility(conversationId, hasConversation) {
+  let isUnread = K(R, conversationId) ?? false,
+    isWindowVisible = W(xo),
+    conversationReadMarker = K($t, conversationId),
+    conversationReadState = K(we, conversationId),
+    lastMarkedConversationIdRef = _S.useRef(null),
+    lastConversationReadStateRef = _S.useRef(null),
+    lastConversationReadMarkerRef = _S.useRef(null),
+    markConversationRead = () => {
+      lastMarkedConversationIdRef.current = conversationId;
+      lastConversationReadStateRef.current = conversationReadState;
+      lastConversationReadMarkerRef.current = conversationReadMarker;
+      !(!hasConversation || !isUnread) &&
         Dr("mark-conversation-as-read", {
-          conversationId: e,
+          conversationId,
         });
     };
-  let d = Y(u),
-    f = () => {
-      d();
+  let markConversationReadEvent = Y(markConversationRead),
+    markConversationReadHandler = () => {
+      markConversationReadEvent();
     };
-  let p = _S.useEffectEvent(f),
-    m = () => {
-      if (!(!t || i !== true)) {
-        if (s.current !== e) {
-          p();
+  let markConversationReadEffectEvent = _S.useEffectEvent(
+      markConversationReadHandler,
+    ),
+    markVisibleConversationReadEffect = () => {
+      if (!(!hasConversation || isWindowVisible !== true)) {
+        if (lastMarkedConversationIdRef.current !== conversationId) {
+          markConversationReadEffectEvent();
           return;
         }
-        (c.current === o && l.current === a) || p();
+        (lastConversationReadStateRef.current === conversationReadState &&
+          lastConversationReadMarkerRef.current === conversationReadMarker) ||
+          markConversationReadEffectEvent();
       }
     };
-  let h;
-  return ((h = [e, t, r, i, o, a]), _S.useEffect(m, h), d);
+  let markReadEffectDeps;
+  return (
+    (markReadEffectDeps = [
+      conversationId,
+      hasConversation,
+      isUnread,
+      isWindowVisible,
+      conversationReadState,
+      conversationReadMarker,
+    ]),
+    _S.useEffect(markVisibleConversationReadEffect, markReadEffectDeps),
+    markConversationReadEvent
+  );
 }
 var gS,
   _S,
@@ -12477,99 +12492,97 @@ export function LocalConversationThread(props: LocalConversationThreadProps) {
     />
   );
 }
-function LocalConversationSideChatThread(e) {
-  let { conversationId, lockedCollaborationMode, target } = e,
-    a = B(Fe),
-    o = K(Mt, conversationId),
-    s = K(V, conversationId),
-    c = K(En, conversationId),
-    l = ot(a.value),
-    u = ns();
-  if (!o)
+function LocalConversationSideChatThread(props) {
+  let { conversationId, lockedCollaborationMode, target } = props,
+    scope = B(Fe),
+    hasConversation = K(Mt, conversationId),
+    isExpiredSideChat = K(V, conversationId),
+    hostId = K(En, conversationId),
+    sourceConversationId = ot(scope.value),
+    isBackgroundSubagentsEnabled = ns();
+  if (!hasConversation)
     return (
       <ExpiredSideChatState
         conversationId={conversationId}
-        sourceConversationId={l}
+        sourceConversationId={sourceConversationId}
         target={target}
       />
     );
-  let d = s === true ? null : <Gc conversationId={conversationId} hostId={c} />;
-  let f = Me,
-    p = fi,
-    m = N(conversationId, "side", l),
-    h =
-      s === true ? (
+  let sideChatHeader =
+    isExpiredSideChat === true ? null : (
+      <Gc conversationId={conversationId} hostId={hostId} />
+    );
+  let threadScopeKey = N(conversationId, "side", sourceConversationId),
+    expiredSideChatBanner =
+      isExpiredSideChat === true ? (
         <ExpiredSideChatState
           conversationId={conversationId}
           presentation="banner"
-          sourceConversationId={l}
+          sourceConversationId={sourceConversationId}
           target={target}
         />
       ) : undefined;
-  let g = s === true,
-    _ = s !== true,
-    v = (
+  let isReadOnly = isExpiredSideChat === true,
+    showComposer = isExpiredSideChat !== true,
+    threadFrame = (
       <LocalConversationThreadFrame
         conversationId={conversationId}
-        hasConversation={o}
-        hostId={c}
+        hasConversation={hasConversation}
+        hostId={hostId}
         isResuming={false}
         showExternalFooter={false}
-        footerContent={h}
-        isReadOnly={g}
+        footerContent={expiredSideChatBanner}
+        isReadOnly={isReadOnly}
         lockedCollaborationMode={lockedCollaborationMode}
-        showComposer={_}
-        isBackgroundSubagentsEnabled={u}
+        showComposer={showComposer}
+        isBackgroundSubagentsEnabled={isBackgroundSubagentsEnabled}
       />
     );
-  let y = $.jsx(f, {
-    scope: p,
-    value: m,
-    children: v,
-  });
   return (
     <>
-      {d}
-      {y}
+      {sideChatHeader}
+      <Me scope={fi} value={threadScopeKey}>
+        {threadFrame}
+      </Me>
     </>
   );
 }
-function ExpiredSideChatState(e) {
+function ExpiredSideChatState(props) {
   let {
       conversationId,
       presentation = "page",
       sourceConversationId,
       target,
-    } = e,
-    s = B(Fe),
-    c = ur(),
-    l = K(Wn, sourceConversationId),
-    u = K(En, sourceConversationId),
-    d = K(zt, sourceConversationId),
-    f = K(va(target).tabById$, `sidechat:${conversationId}`)?.title,
-    [p, m] = GS.useState(false),
-    h = () => {
+    } = props,
+    scope = B(Fe),
+    intl = ur(),
+    sourceCwd = K(Wn, sourceConversationId),
+    sourceHostId = K(En, sourceConversationId),
+    sourceCollaborationMode = K(zt, sourceConversationId),
+    displayTitle = K(va(target).tabById$, `sidechat:${conversationId}`)?.title,
+    [isRecreatingSideChat, setIsRecreatingSideChat] = GS.useState(false),
+    recreateSideChat = () => {
       sourceConversationId == null ||
-        p ||
-        (m(true),
-        jd(s, LocalConversationSideChatThread, {
+        isRecreatingSideChat ||
+        (setIsRecreatingSideChat(true),
+        jd(scope, LocalConversationSideChatThread, {
           sourceConversationId,
-          cwd: l,
-          hostId: u,
-          collaborationMode: d,
-          displayTitle: f,
-          intl: c,
+          cwd: sourceCwd,
+          hostId: sourceHostId,
+          collaborationMode: sourceCollaborationMode,
+          displayTitle,
+          intl,
           target,
         }).catch((error) => {
-          m(false);
+          setIsRecreatingSideChat(false);
           gr.error("Error recreating expired side chat", {
             safe: {},
             sensitive: {
               error,
             },
           });
-          s.get(ti).danger(
-            c.formatMessage({
+          scope.get(ti).danger(
+            intl.formatMessage({
               id: "localConversation.sideChat.recreateError",
               defaultMessage: "Failed to start a new side chat",
               description:
@@ -12578,29 +12591,26 @@ function ExpiredSideChatState(e) {
           );
         }));
     };
-  let g = h,
-    _ = (
+  let expiredTitle = (
       <FormattedMessage
         id="localConversation.sideChat.expired.title"
         defaultMessage="Side chat expired"
         description="Title shown when an ephemeral side chat can no longer be continued"
       />
-    );
-  let v = _,
-    y = (
+    ),
+    expiredDescription = (
       <FormattedMessage
         id="localConversation.sideChat.expired.description"
         defaultMessage="This temporary side chat is no longer available; start a new side chat to continue"
         description="Description shown when an ephemeral side chat must be recreated"
       />
-    );
-  let b = y,
-    x =
+    ),
+    actionButton =
       sourceConversationId == null
         ? null
         : $.jsx(k, {
-            loading: p,
-            onClick: g,
+            loading: isRecreatingSideChat,
+            onClick: recreateSideChat,
             children: (
               <FormattedMessage
                 id="localConversation.sideChat.expired.action"
@@ -12609,46 +12619,44 @@ function ExpiredSideChatState(e) {
               />
             ),
           });
-  let S = x;
   if (presentation === "banner") {
-    let e;
     return $.jsx($s, {
       type: "info",
       layout: "vertical",
-      title: v,
-      content: b,
-      customCtas: S,
+      title: expiredTitle,
+      content: expiredDescription,
+      customCtas: actionButton,
     });
   }
   return $.jsx($c, {
     className: "h-full",
     spacing: "compact",
-    title: v,
-    description: b,
-    actions: S,
+    title: expiredTitle,
+    description: expiredDescription,
+    actions: actionButton,
   });
 }
-function LocalConversationMainThread(e) {
-  let { conversationId } = e,
-    r = B(Fe),
-    i = K(Mt, conversationId),
-    a = K(En, conversationId),
-    o = ns(),
+function LocalConversationMainThread(props) {
+  let { conversationId } = props,
+    scope = B(Fe),
+    hasConversation = K(Mt, conversationId),
+    hostId = K(En, conversationId),
+    isBackgroundSubagentsEnabled = ns(),
     { isResuming } = useResumeLocalConversation(conversationId),
-    c = N(conversationId, "main", ot(r.value));
-  let l = (
+    threadScopeKey = N(conversationId, "main", ot(scope.value));
+  let threadFrame = (
     <LocalConversationThreadFrame
       conversationId={conversationId}
-      hasConversation={i}
-      hostId={a}
+      hasConversation={hasConversation}
+      hostId={hostId}
       isResuming={isResuming}
       showExternalFooter={false}
-      isBackgroundSubagentsEnabled={o}
+      isBackgroundSubagentsEnabled={isBackgroundSubagentsEnabled}
     />
   );
   return (
-    <Me scope={fi} value={c}>
-      {l}
+    <Me scope={fi} value={threadScopeKey}>
+      {threadFrame}
     </Me>
   );
 }
@@ -12662,18 +12670,18 @@ export function LocalConversationSummaryThread(
   props: LocalConversationSummaryThreadProps,
 ) {
   let { conversationId, header, onOpenBackgroundAgent } = props,
-    a = B(Fe),
-    o = K(Mt, conversationId),
-    s = K(En, conversationId),
-    c = ns(),
-    l = N(conversationId, "main", ot(a.value));
-  let u = (
+    scope = B(Fe),
+    hasConversation = K(Mt, conversationId),
+    hostId = K(En, conversationId),
+    isBackgroundSubagentsEnabled = ns(),
+    threadScopeKey = N(conversationId, "main", ot(scope.value));
+  let threadFrame = (
     <LocalConversationThreadFrame
       conversationId={conversationId}
-      hasConversation={o}
+      hasConversation={hasConversation}
       header={header}
-      hostId={s}
-      isBackgroundSubagentsEnabled={c}
+      hostId={hostId}
+      isBackgroundSubagentsEnabled={isBackgroundSubagentsEnabled}
       isReadOnly={true}
       isResuming={false}
       onOpenBackgroundAgent={onOpenBackgroundAgent}
@@ -12682,12 +12690,12 @@ export function LocalConversationSummaryThread(
     />
   );
   return (
-    <Me scope={fi} value={l}>
-      {u}
+    <Me scope={fi} value={threadScopeKey}>
+      {threadFrame}
     </Me>
   );
 }
-function LocalConversationThreadRoute(e) {
+function LocalConversationThreadRoute(props) {
   let {
       conversationId,
       shouldResume = true,
@@ -12699,69 +12707,79 @@ function LocalConversationThreadRoute(e) {
       showComposer = true,
       lockedCollaborationMode,
       onOpenBackgroundAgent,
-    } = e,
-    _ = B(Fe),
-    v = ns(),
+    } = props,
+    scope = B(Fe),
+    isBackgroundSubagentsEnabled = ns(),
     { data } = W(launcherHotkeyStateQuery),
-    b = data == null || data.configuredHotkey != null,
-    x = it(b);
-  let S = x,
-    C = K(Mt, conversationId),
-    w = K(En, conversationId);
+    hasConfiguredLauncherHotkey = data == null || data.configuredHotkey != null,
+    launcherFallbackPath = it(hasConfiguredLauncherHotkey),
+    hasConversation = K(Mt, conversationId),
+    hostId = K(En, conversationId);
   K(Wn, conversationId);
   K(Et, conversationId);
-  let T = {
+  let resolvedAppsQueryOptions = {
     enabled: false,
-    hostId: w,
+    hostId,
   };
-  let { data: _data } = Ti(T),
-    D = W(go),
-    O = shouldUseFullWidthRightPanelForRoute({
+  Ti(resolvedAppsQueryOptions);
+  let isRightPanelFullWidth = W(go),
+    hideThreadContent = shouldUseFullWidthRightPanelForRoute({
       conversationId,
-      isRightPanelFullWidth: D,
-      routeConversationId: ot(_.value),
+      isRightPanelFullWidth,
+      routeConversationId: ot(scope.value),
     });
-  let k = O,
-    A = Uv(conversationId),
-    j = useLocalConversationSummaryPanelModel(A.shouldShow),
+  let summaryPanelDisplay = Uv(conversationId),
+    summaryPanelModel = useLocalConversationSummaryPanelModel(
+      summaryPanelDisplay.shouldShow,
+    ),
     { isResuming } = useResumeLocalConversation(
       shouldResume ? (conversationId ?? null) : null,
     ),
-    N = K(oi, conversationId),
-    P = v ? N : null,
-    F = ur(),
-    I = rt(),
-    L = GS.useRef(false),
-    R = GS.useRef(null),
-    z,
-    ee;
-  z = () => {
-    P != null && (R.current = P);
+    subagentParentThreadId = K(oi, conversationId),
+    visibleSubagentParentThreadId = isBackgroundSubagentsEnabled
+      ? subagentParentThreadId
+      : null,
+    intl = ur(),
+    navigate = rt(),
+    hasSeenConversationRef = GS.useRef(false),
+    lastSubagentParentThreadIdRef = GS.useRef(null),
+    rememberSubagentParentThreadId,
+    rememberSubagentParentThreadIdDeps;
+  rememberSubagentParentThreadId = () => {
+    visibleSubagentParentThreadId != null &&
+      (lastSubagentParentThreadIdRef.current = visibleSubagentParentThreadId);
   };
-  ee = [P];
-  GS.useEffect(z, ee);
-  let V = () => {
+  rememberSubagentParentThreadIdDeps = [visibleSubagentParentThreadId];
+  GS.useEffect(
+    rememberSubagentParentThreadId,
+    rememberSubagentParentThreadIdDeps,
+  );
+  let handleMissingConversation = () => {
     if (!allowMissingConversation) {
-      if (C) {
-        L.current = true;
+      if (hasConversation) {
+        hasSeenConversationRef.current = true;
         return;
       }
       if (!isResuming) {
-        if (L.current) {
-          let e = R.current;
-          if (e != null) {
-            I(getConversationNavigationPath(e), {
-              replace: true,
-            });
+        if (hasSeenConversationRef.current) {
+          let lastSubagentParentThreadId =
+            lastSubagentParentThreadIdRef.current;
+          if (lastSubagentParentThreadId != null) {
+            navigate(
+              getConversationNavigationPath(lastSubagentParentThreadId),
+              {
+                replace: true,
+              },
+            );
             return;
           }
-          I(Fs() ? S : "/", {
+          navigate(Fs() ? launcherFallbackPath : "/", {
             replace: true,
           });
           return;
         }
-        _.get(ti).danger(
-          F.formatMessage({
+        scope.get(ti).danger(
+          intl.formatMessage({
             id: "localConversationPage.error.toast",
             defaultMessage: "Conversation not found",
             description:
@@ -12771,75 +12789,90 @@ function LocalConversationThreadRoute(e) {
       }
     }
   };
-  let te;
-  te = [allowMissingConversation, C, isResuming, N, S, _, F, I];
-  GS.useEffect(V, te);
-  let ne = (e) => {
-    threadSwitchTimingTracker.complete(_, "thread_switch_completed", {
+  let missingConversationEffectDeps;
+  missingConversationEffectDeps = [
+    allowMissingConversation,
+    hasConversation,
+    isResuming,
+    subagentParentThreadId,
+    launcherFallbackPath,
+    scope,
+    intl,
+    navigate,
+  ];
+  GS.useEffect(handleMissingConversation, missingConversationEffectDeps);
+  let handleVisibleThreadContentReady = (turnCount) => {
+    threadSwitchTimingTracker.complete(scope, "thread_switch_completed", {
       conversationId,
-      turnCount: e,
+      turnCount,
     });
   };
-  let re = Y(ne),
-    ie = (e) => {
-      openBackgroundAgentFromThread(_, w, e, onOpenBackgroundAgent);
+  let onVisibleThreadContentReady = Y(handleVisibleThreadContentReady),
+    handleOpenBackgroundAgent = (backgroundAgent) => {
+      openBackgroundAgentFromThread(
+        scope,
+        hostId,
+        backgroundAgent,
+        onOpenBackgroundAgent,
+      );
     };
-  let H = Y(ie),
-    ae = <ChromeExtensionConversationHeader conversationId={conversationId} />;
-  let U = ae,
-    oe = k ? undefined : A.contentShift,
-    se = (e) => (
+  let onOpenBackgroundAgentFromSummary = Y(handleOpenBackgroundAgent),
+    headerContent = (
+      <ChromeExtensionConversationHeader conversationId={conversationId} />
+    ),
+    contentX = hideThreadContent ? undefined : summaryPanelDisplay.contentShift,
+    renderSummaryPanelErrorFallback = (errorBoundary) => (
       <SummaryPanelErrorFallback
-        display={A}
+        display={summaryPanelDisplay}
         onRetry={() => {
-          e.resetError();
+          errorBoundary.resetError();
         }}
       />
     );
-  let ce = $.jsx(FloatingLocalConversationSummaryPanel, {
-    ...A,
-    ...j,
-    onOpenBackgroundAgent: H,
+  let summaryPanel = $.jsx(FloatingLocalConversationSummaryPanel, {
+    ...summaryPanelDisplay,
+    ...summaryPanelModel,
+    onOpenBackgroundAgent: onOpenBackgroundAgentFromSummary,
   });
-  let le = $.jsx(qt, {
+  let floatingSummaryPanel = $.jsx(qt, {
     browser: true,
     electron: true,
     children: $.jsx(fs, {
       name: "ThreadSummaryPanel",
-      fallback: se,
-      children: ce,
+      fallback: renderSummaryPanelErrorFallback,
+      children: summaryPanel,
     }),
   });
   return (
     <LocalConversationThreadFrame
       key={conversationId}
       conversationId={conversationId}
-      contentX={oe}
-      floatingContent={le}
-      hasConversation={C}
-      header={U}
-      hideThreadContent={k}
-      hostId={w}
-      isBackgroundSubagentsEnabled={v}
+      contentX={contentX}
+      floatingContent={floatingSummaryPanel}
+      hasConversation={hasConversation}
+      header={headerContent}
+      hideThreadContent={hideThreadContent}
+      hostId={hostId}
+      isBackgroundSubagentsEnabled={isBackgroundSubagentsEnabled}
       isReadOnly={isReadOnly}
       isResuming={isResuming}
       lockedCollaborationMode={lockedCollaborationMode}
       onOpenBackgroundAgent={onOpenBackgroundAgent}
       composerSurfaceClassName={composerSurfaceClassName}
       footerContent={footerContent}
-      onVisibleThreadContentReady={re}
+      onVisibleThreadContentReady={onVisibleThreadContentReady}
       showComposer={showComposer}
       showExternalFooter={showExternalFooter}
     />
   );
 }
-function SummaryPanelErrorFallback(e) {
-  let { display, onRetry } = e;
+function SummaryPanelErrorFallback(props) {
+  let { display, onRetry } = props;
   if (!display.shouldShow) return null;
-  let i = {
+  let panelStyle = {
     width: 300,
   };
-  let a = (
+  let title = (
     <div className="mb-2 font-medium text-token-text-primary">
       <FormattedMessage
         id="localConversation.summaryPanelRenderError.title"
@@ -12848,7 +12881,7 @@ function SummaryPanelErrorFallback(e) {
       />
     </div>
   );
-  let o = (
+  let retryLabel = (
     <FormattedMessage
       id="localConversation.summaryPanelRenderError.retry"
       defaultMessage="Try again"
@@ -12862,14 +12895,14 @@ function SummaryPanelErrorFallback(e) {
           <div
             data-pip-obstacle="thread-summary-panel"
             className="pointer-events-auto rounded-lg border border-token-border bg-token-main-surface-primary px-4 py-3 text-sm text-token-text-secondary shadow-lg"
-            style={i}
+            style={panelStyle}
           >
-            {a}
+            {title}
             {$.jsx(k, {
               color: "secondary",
               size: "default",
               onClick: onRetry,
-              children: o,
+              children: retryLabel,
             })}
           </div>
         </div>
@@ -12877,67 +12910,65 @@ function SummaryPanelErrorFallback(e) {
     </div>
   );
 }
-function ChromeExtensionConversationHeader(e) {
-  let { conversationId } = e,
-    r = B(ut),
-    i = ns(),
-    a = K(oi, conversationId),
-    o = K(Un, conversationId),
-    s = formatBackgroundAgentDisplayName({
-      agentNickname: Cn(o)?.agentNickname ?? null,
+function ChromeExtensionConversationHeader(props) {
+  let { conversationId } = props,
+    scope = B(ut),
+    isBackgroundSubagentsEnabled = ns(),
+    parentConversationId = K(oi, conversationId),
+    backgroundAgentSnapshot = K(Un, conversationId),
+    backgroundAgentName = formatBackgroundAgentDisplayName({
+      agentNickname: Cn(backgroundAgentSnapshot)?.agentNickname ?? null,
       conversationId,
     });
-  let c = s,
-    u = K(Mt, conversationId),
-    d = K(Zi, conversationId),
-    f = K(Wn, conversationId),
-    p = K(Cr, conversationId),
-    m = rt(),
-    h = () => {
-      let { visibleTurnEntries } = r.get(
+  let hasConversation = K(Mt, conversationId),
+    title = K(Zi, conversationId),
+    cwd = K(Wn, conversationId),
+    projectlessOutputDirectory = K(Cr, conversationId),
+    navigate = rt(),
+    getConversationMarkdown = () => {
+      let { visibleTurnEntries } = scope.get(
         localConversationVisibleTurnEntriesSignal,
         {
           conversationId,
-          isBackgroundSubagentsEnabled: i,
+          isBackgroundSubagentsEnabled,
         },
       );
       return renderLocalConversationMarkdownForTurns({
-        cwd: f,
-        isBackgroundSubagentsEnabled: i,
-        projectlessOutputDirectory: p,
-        title: d,
+        cwd,
+        isBackgroundSubagentsEnabled,
+        projectlessOutputDirectory,
+        title,
         visibleTurnEntries,
       });
     };
-  let g = h;
-  if (!u) return null;
-  let _ =
-    a == null
+  if (!hasConversation) return null;
+  let onBack =
+    parentConversationId == null
       ? undefined
       : () => {
-          m(l(a));
+          navigate(l(parentConversationId));
         };
-  let v =
-    a == null ? (
-      d
+  let headerTitle =
+    parentConversationId == null ? (
+      title
     ) : (
       <span className="flex min-w-0 items-center gap-1">
-        <span className="truncate">{d}</span>
+        <span className="truncate">{title}</span>
         <span className="flex shrink-0 items-center gap-1 font-medium">
           <Uo className="icon-2xs" seed={conversationId} aria-hidden={true} />
-          <span>{c}</span>
+          <span>{backgroundAgentName}</span>
         </span>
       </span>
     );
-  let y = $.jsx(qt, {
+  let trailingActions = $.jsx(qt, {
     extension: true,
     children: (
       <Pd
         conversationId={conversationId}
-        getConversationMarkdown={g}
-        markdownParentConversationId={a}
-        cwd={f}
-        title={d}
+        getConversationMarkdown={getConversationMarkdown}
+        markdownParentConversationId={parentConversationId}
+        cwd={cwd}
+        title={title}
         canPin={false}
         hideForkActions={true}
       />
@@ -12949,9 +12980,9 @@ function ChromeExtensionConversationHeader(e) {
     children: (
       <ChromeExtensionHeader
         desktopDeepLinkConversationId={conversationId}
-        onBack={_}
-        title={v}
-        trailing={y}
+        onBack={onBack}
+        title={headerTitle}
+        trailing={trailingActions}
       />
     ),
   });
@@ -12973,8 +13004,8 @@ function shouldShowEmptyResumingThreadState({
         conversationTurns[0]?.items.length === 0))
   );
 }
-function getConversationNavigationPath(e) {
-  return Fs() ? Ke(e) : l(e);
+function getConversationNavigationPath(conversationId) {
+  return Fs() ? Ke(conversationId) : l(conversationId);
 }
 function LocalConversationThreadFrame(props) {
   let {
@@ -13194,10 +13225,10 @@ function LocalConversationThreadFrame(props) {
   );
   let threadScrollLayout = $.jsx(rd, {
     ref: threadScrollLayoutApiRef,
-    hasLiveMcpAppFrame: hasLiveMcpAppFrame,
+    hasLiveMcpAppFrame,
     remoteHostedPIPAnchorHostId: remoteHostedPipAnchorHostId,
     contentX,
-    footer: footer,
+    footer,
     initialOffset: initialScrollOffset,
     onScroll: onThreadScroll,
     onUserScrollToTop: loadOlderConversationHistory,
@@ -13235,27 +13266,37 @@ function LocalConversationThreadFrame(props) {
   });
 }
 function RefreshSummaryPanelObstaclesEffect() {
-  let t = nr(),
-    n,
-    r;
-  return ((n = () => _f(t)), (r = [t]), GS.useEffect(n, r), null);
+  let obstacleRegistry = nr(),
+    refreshObstacles,
+    refreshObstaclesEffectDeps;
+  return (
+    (refreshObstacles = () => _f(obstacleRegistry)),
+    (refreshObstaclesEffectDeps = [obstacleRegistry]),
+    GS.useEffect(refreshObstacles, refreshObstaclesEffectDeps),
+    null
+  );
 }
-function openBackgroundAgentFromThread(e, t, n, r) {
-  if (r != null) {
-    r(n);
+function openBackgroundAgentFromThread(
+  scope,
+  hostId,
+  backgroundAgent,
+  onOpenBackgroundAgent,
+) {
+  if (onOpenBackgroundAgent != null) {
+    onOpenBackgroundAgent(backgroundAgent);
     return;
   }
-  n.showInlineActivity !== true &&
-    openBackgroundAgentThreadTab(e, {
-      backgroundAgent: n,
-      hostId: t,
+  backgroundAgent.showInlineActivity !== true &&
+    openBackgroundAgentThreadTab(scope, {
+      backgroundAgent,
+      hostId,
       TabComponent: LocalConversationMainThread,
     });
 }
-function ComposerWorkspaceDirectoryTree(e) {
-  let { conversationId } = e,
-    r = K(Wn, conversationId);
-  return <Wy conversationId={conversationId} cwd={r} />;
+function ComposerWorkspaceDirectoryTree(props) {
+  let { conversationId } = props,
+    cwd = K(Wn, conversationId);
+  return <Wy conversationId={conversationId} cwd={cwd} />;
 }
 function LocalConversationComposerFooter({
   conversationId,
