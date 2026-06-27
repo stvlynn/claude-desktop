@@ -45,7 +45,7 @@ import {
   $h as i,
   $i as a,
   $j as o,
-  $p as s,
+  $p as modelProviderSignal,
   AB as c,
   AI as l,
   AL as preloadDynamicImport,
@@ -56,7 +56,7 @@ import {
   Ai as h,
   Aj as g,
   Al as _,
-  Am as v,
+  Am as conversationWorkspaceRootSignal,
   Ao as y,
   Ap as b,
   Au as x,
@@ -74,16 +74,16 @@ import {
   Dl as N,
   Dp as P,
   Ei as F,
-  Em as I,
+  Em as conversationTurnsSignal,
   En as L,
-  Ep as R,
-  Es as z,
+  Ep as conversationUnreadSignal,
+  Es as browserSidebarEnabledSignal,
   Ev as ee,
   FB as useScope,
-  Fp as V,
+  Fp as expiredSideChatSignal,
   Fx as te,
   GE as ne,
-  G_ as re,
+  G_ as multiBrowserTabsEnabledSignal,
   Ga as ie,
   Gi as DropdownMenu,
   Gj as ae,
@@ -99,7 +99,7 @@ import {
   IL as pe,
   I_ as me,
   Io as he,
-  Ip as ge,
+  Ip as localResponseInProgressSignal,
   Ix as _e,
   JV as loadReactModule,
   Ja as ve,
@@ -108,7 +108,7 @@ import {
   Jt as xe,
   Kg as Se,
   Ki as Ce,
-  Kp as we,
+  Kp as conversationReadStateSignal,
   Ku as Te,
   LB as De,
   LN as Oe,
@@ -126,7 +126,7 @@ import {
   NM as createPersistedScopedSignal,
   Nh as Ve,
   Nj as He,
-  Np as Ue,
+  Np as conversationHistoryCompleteSignal,
   Nu as We,
   Nv as Ge,
   OI as Ke,
@@ -146,7 +146,7 @@ import {
   PO as at,
   P_ as ot,
   Pi as st,
-  Pp as ct,
+  Pp as responseInProgressSignal,
   Pv as lt,
   QP as ut,
   Qg as dt,
@@ -154,7 +154,7 @@ import {
   R as pt,
   RN as reducedMotionPreferenceSignal,
   RP as ChevronIcon,
-  Rf as gt,
+  Rf as workspaceRootsSignal,
   Rj as _t,
   Rn as vt,
   Rv as yt,
@@ -167,17 +167,17 @@ import {
   Sm as Et,
   TM as Dt,
   T_ as Ot,
-  Tf as kt,
+  Tf as mcpServersQuerySignal,
   Ti as At,
   Tm as jt,
-  Tp as Mt,
+  Tp as hasConversationSignal,
   Ts as Nt,
   UE as Pt,
   UR as Ft,
   Uf as It,
   Ug as Lt,
   Uh as Rt,
-  Up as zt,
+  Up as conversationCollaborationModeSignal,
   Uv as Bt,
   Ux as Vt,
   VE as Ht,
@@ -217,11 +217,11 @@ import {
   cA as Cn,
   cM as wn,
   cP as Tn,
-  cm as En,
+  cm as conversationHostIdSignal,
   dV as Dn,
   di as On,
   dp as kn,
-  eM as An,
+  eM as featureGateSignal,
   eP as jn,
   e_ as Mn,
   ea as Nn,
@@ -231,11 +231,11 @@ import {
   eo as Ln,
   fV as Rn,
   fh as zn,
-  fp as Bn,
+  fp as completedThreadGoalSignal,
   fu as Vn,
   gi as Hn,
-  gm as Un,
-  gp as Wn,
+  gm as backgroundAgentSnapshotSignal,
+  gp as conversationCwdSignal,
   hM as Gn,
   hi as Kn,
   hs as qn,
@@ -245,7 +245,7 @@ import {
   io as Zn,
   jL as Qn,
   jM as $n,
-  jm as er,
+  jm as conversationModeSignal,
   ju as tr,
   kM as nr,
   kN as rr,
@@ -258,7 +258,7 @@ import {
   lF as ur,
   lL as dr,
   lP as fr,
-  lm as pr,
+  lm as conversationResumeStateSignal,
   mM as hr,
   mP as gr,
   mi as _r,
@@ -267,7 +267,7 @@ import {
   ms as br,
   mv as xr,
   na as Sr,
-  nm as Cr,
+  nm as projectlessOutputDirectorySignal,
   ny as wr,
   oM as Tr,
   oP as Er,
@@ -280,7 +280,7 @@ import {
   ph as Nr,
   pi as Pr,
   po as Fr,
-  pp as Ir,
+  pp as shouldResumeConversationSignal,
   pu as Lr,
   pz as Rr,
   qV as getChunkModuleExports,
@@ -298,7 +298,7 @@ import {
   tc as Yr,
   tn as Xr,
   to as Zr,
-  tp as Qr,
+  tp as hostConnectionStatusSignal,
   ty as $r,
   uD as ei,
   uM as ti,
@@ -306,14 +306,14 @@ import {
   vM as ri,
   vR as ii,
   va as ai,
-  vm as oi,
+  vm as subagentParentThreadIdSignal,
   wM as si,
   wP as ci,
   wV as li,
   wi as ui,
   wj as di,
   wl as fi,
-  wp as pi,
+  wp as storedThreadBranchSignal,
   xM as useStableCallback,
   xa as mi,
   xk as hi,
@@ -332,10 +332,10 @@ import {
   $i as Ei,
   A as Di,
   Ar as Oi,
-  Ba as ki,
+  Ba as pullRequestReviewCommentAttachmentsSignal,
   Bo as Ai,
   Cd as ji,
-  Cl as Mi,
+  Cl as pullRequestCurrentBranchSignal,
   Cn as Ni,
   Cs as Pi,
   Dd as Fi,
@@ -344,9 +344,9 @@ import {
   Ec as Ri,
   Es as zi,
   F as Bi,
-  Fr as Vi,
+  Fr as installedMcpAppIdsSignal,
   Ga as Hi,
-  Gl as Ui,
+  Gl as conversationDisplayTitleSignal,
   Ha as Wi,
   Ho as Gi,
   Il as Ki,
@@ -354,16 +354,16 @@ import {
   Ja as Ji,
   Jl as Yi,
   Ka as Xi,
-  Kl as Zi,
+  Kl as conversationTitleSignal,
   Mr as Qi,
   Od as $i,
   Oi as ea,
   On as ta,
   P as na,
-  Rl as ra,
+  Rl as hostConfigSignal,
   Rr as ia,
   Sa as aa,
-  Sl as oa,
+  Sl as workspaceRouteStateSignal,
   Sn as sa,
   So as ca,
   Ss as la,
@@ -372,11 +372,11 @@ import {
   Wl as fa,
   Xa as pa,
   Ya as ma,
-  Yi as ha,
-  Yl as ga,
+  Yi as localEnvironmentActionShortcutSignal,
+  Yl as rightPanelTabsStore,
   Za as _a,
   _c as va,
-  _i as ya,
+  _i as githubCliAvailabilitySignal,
   _s as ba,
   b as Sa,
   ba as Ca,
@@ -390,22 +390,22 @@ import {
   hc as ja,
   ho as Ma,
   hs as Na,
-  id as Pa,
-  jr as Fa,
-  js as Ia,
-  kc as La,
+  id as rightPanelStateSignal,
+  jr as liveMcpAppFrameSignal,
+  js as environmentTerminalControllerSignal,
+  kc as diffStatsSignal,
   kn as Ra,
   l as za,
   ln as Ba,
-  md as Va,
+  md as pinnedSummaryPanelPinnedSignal,
   mo as Ha,
   ms as Ua,
   nc as Wa,
-  nd as Ga,
+  nd as leftPanelStateSignal,
   nu as Ka,
-  pi as qa,
-  ql as Ja,
-  qo as Ya,
+  pi as pullRequestStatusQuerySignal,
+  ql as bottomPanelTabsStore,
+  qo as diffSourceSignal,
   sd as Xa,
   tc as Za,
   ts as Qa,
@@ -418,21 +418,21 @@ import {
   vn as ao,
   vs as oo,
   wd as so,
-  wl as co,
+  wl as currentWorkspaceRootSignal,
   wo as lo,
   ws as uo,
   x as fo,
   xl as po,
   xs as mo,
   yc as ho,
-  yd as go,
+  yd as rightPanelFullWidthSignal,
   yn as _o,
   ys as vo,
   yu as yo,
 } from "../boundaries/current-ref/projects-app-shared-producer";
 import {
   G as bo,
-  W as xo,
+  W as windowVisibleSignal,
   dn as So,
   fn as Co,
   jn as wo,
@@ -444,7 +444,7 @@ import {
 } from "../boundaries/current-ref/worktree-new-thread-panel-producer";
 import {
   $ as Oo,
-  $o as ko,
+  $o as pullRequestMergeConflictAttachmentSignal,
   Ai as Ao,
   Bt as jo,
   Dt as Mo,
@@ -453,7 +453,7 @@ import {
   H as Fo,
   Ii as Io,
   Ja as Lo,
-  Ko as Ro,
+  Ko as composerModeSignal,
   Kt as zo,
   Ma as Bo,
   Na as Vo,
@@ -462,7 +462,7 @@ import {
   Ot as Wo,
   Pi as Go,
   Q as Ko,
-  Qo as qo,
+  Qo as attachedPullRequestChecksSignal,
   Qt as Jo,
   Vt as Yo,
   W as Xo,
@@ -488,13 +488,13 @@ import {
 } from "../boundaries/current-ref/pull-request-thread-actions-producer";
 import {
   $c as openBrowserSummaryTab,
-  $l as _s,
+  $l as createPullRequestActionStateSignal,
   $n as vs,
   Al as ys,
   Ar as bs,
   At as xs,
   Bl as Ss,
-  Bn as Cs,
+  Bn as worktreeStatusQuerySignal,
   Bu as ws,
   Dt as Ts,
   Du as Es,
@@ -530,7 +530,7 @@ import {
   Tu as rc,
   Ul as ic,
   Vl as ac,
-  Vn as oc,
+  Vn as localWorkspaceMaterializationSignal,
   Vu as sc,
   Wd as cc,
   Xc as lc,
@@ -541,7 +541,7 @@ import {
   ar as mc,
   au as hc,
   cc as gc,
-  cs as _c,
+  cs as backgroundAgentsSignal,
   ct as vc,
   er as bc,
   eu as xc,
@@ -551,7 +551,7 @@ import {
   hm as Tc,
   ht as Ec,
   it as Dc,
-  iu as Oc,
+  iu as activeWorkflowSignal,
   jr as kc,
   jt as Ac,
   kl as jc,
@@ -612,7 +612,7 @@ import {
   v as wl,
 } from "../boundaries/current-ref/appgen-publication-terms-producer";
 import {
-  _ as Tl,
+  _ as automationDataSignal,
   g as El,
   o as Dl,
   u as Ol,
@@ -3141,7 +3141,10 @@ function LocalConversationEnvironmentActionControls(props) {
             )
           : actionItems,
     primaryActionItem = sortedActionItems?.[0] ?? null,
-    primaryShortcut = useScopedValue(ha, primaryActionItem?.commandId ?? aa[0]),
+    primaryShortcut = useScopedValue(
+      localEnvironmentActionShortcutSignal,
+      primaryActionItem?.commandId ?? aa[0],
+    ),
     commandActionItems = actionItems ?? EMPTY_LOCAL_ENVIRONMENT_ACTION_ITEMS,
     runEnvironmentAction = useStableCallback((actionRunRequest) => {
       let { action } = actionRunRequest,
@@ -3613,7 +3616,7 @@ function LocalEnvironmentActionMenuItem(props) {
 }
 function LocalEnvironmentActionMenuItemWithShortcut(props) {
   let { actionItem, commandId, isPrimaryAction, onRunAction } = props,
-    shortcut = useScopedValue(ha, commandId);
+    shortcut = useScopedValue(localEnvironmentActionShortcutSignal, commandId);
   return localEnvironmentActionControlsJsxRuntime.jsx(
     LocalEnvironmentActionMenuRow,
     {
@@ -3749,7 +3752,7 @@ function RegisterLocalEnvironmentActionCommand(props) {
 }
 function LocalEnvironmentActionShortcutBadge(props) {
   let { commandId } = props,
-    shortcut = useScopedValue(ha, commandId);
+    shortcut = useScopedValue(localEnvironmentActionShortcutSignal, commandId);
   return shortcut
     ? localEnvironmentActionControlsJsxRuntime.jsx(ri, {
         keysLabel: shortcut,
@@ -4755,8 +4758,14 @@ var pullRequestStatusDetailRowsModule,
 function PullRequestStatusDetailRows(props) {
   let { conversationId, headBranch, pullRequestStatus } = props,
     scope = useScope(fi),
-    storedThreadBranch = useScopedValue(pi, conversationId),
-    reviewCommentAttachments = useScopedValue(ki, conversationId);
+    storedThreadBranch = useScopedValue(
+      storedThreadBranchSignal,
+      conversationId,
+    ),
+    reviewCommentAttachments = useScopedValue(
+      pullRequestReviewCommentAttachmentsSignal,
+      conversationId,
+    );
   if (pullRequestStatus == null || !pullRequestStatus.hasOpenPr) return null;
   let baseBranch = pullRequestStatus.boardItem?.baseBranch ?? null,
     pullRequestHeadBranch =
@@ -5150,7 +5159,7 @@ function PullRequestSidePanelChecksSection(props) {
   let { data, error, fixDisabledReason, item, loading } = props,
     intl = ur(),
     scope = useScope(fi),
-    attachedChecks = useSignalValue(qo),
+    attachedChecks = useSignalValue(attachedPullRequestChecksSignal),
     failingChecks = data?.checks.filter(isFailingPullRequestCheck),
     attachedCheckKeys = new Set(
       attachedChecks.map(getPullRequestCheckAttachmentKey),
@@ -5352,7 +5361,10 @@ function PullRequestSidePanelCommentsSection(props) {
     intl = ur(),
     scope = useScope(fi),
     conversationId = scope.value.routeConversationId,
-    attachedCommentAttachments = useScopedValue(ki, conversationId),
+    attachedCommentAttachments = useScopedValue(
+      pullRequestReviewCommentAttachmentsSignal,
+      conversationId,
+    ),
     content;
   {
     let commentActivityItems =
@@ -5680,7 +5692,9 @@ function PullRequestSidePanelConflictsSection(props) {
   let { error, files, fixDisabledReason, hasError, item, loading, repo } =
       props,
     scope = useScope(fi),
-    conflictsAreAttached = useSignalValue(ko)?.url === item.url,
+    conflictsAreAttached =
+      useSignalValue(pullRequestMergeConflictAttachmentSignal)?.url ===
+      item.url,
     fixDisabledTooltip =
       fixDisabledReason == null
         ? undefined
@@ -6617,7 +6631,7 @@ var pullRequestOverviewSectionModule,
 function PullRequestSidePanelDetails(props) {
   let { bodyError, bodyIsLoading, item, pullRequestBody, request } = props,
     scope = useScope(fi),
-    { data } = useSignalValue(Mi),
+    { data } = useSignalValue(pullRequestCurrentBranchSignal),
     fixDisabledReason = xc({
       currentBranch: data,
       storedThreadBranch: item.headBranch,
@@ -7009,8 +7023,8 @@ function PullRequestSummaryRow(props) {
   let { conversationId, hostId, pullRequestStatus, visualState } = props,
     scope = useScope(localConversationRouteScope),
     intl = ur(),
-    isBrowserSidebarEnabled = useSignalValue(z),
-    canOpenInSidePanel = useScopedValue(An, "1590905736"),
+    isBrowserSidebarEnabled = useSignalValue(browserSidebarEnabledSignal),
+    canOpenInSidePanel = useScopedValue(featureGateSignal, "1590905736"),
     { boardItem } = pullRequestStatus,
     shouldOpenInSidePanel = canOpenInSidePanel && boardItem != null,
     pullRequestUrl = pullRequestStatus.url ?? boardItem?.url ?? null,
@@ -7162,8 +7176,14 @@ function LocalConversationGitSummary(props) {
       workspaceBrowserRoot,
       onCreatePullRequest,
     } = props,
-    threadWorkspaceBrowserRoot = useScopedValue(Wn, conversationId),
-    storedThreadBranch = useScopedValue(pi, conversationId),
+    threadWorkspaceBrowserRoot = useScopedValue(
+      conversationCwdSignal,
+      conversationId,
+    ),
+    storedThreadBranch = useScopedValue(
+      storedThreadBranchSignal,
+      conversationId,
+    ),
     workspaceRoot = threadWorkspaceBrowserRoot ?? workspaceBrowserRoot,
     headBranchQuery = ys(
       workspaceRoot,
@@ -7175,7 +7195,7 @@ function LocalConversationGitSummary(props) {
       hostConfig,
     };
   let createPullRequestActionState = useScopedValue(
-      _s,
+      createPullRequestActionStateSignal,
       createPullRequestActionParams,
     ),
     headBranchName = headBranchQuery.data?.trim() ?? "",
@@ -7190,17 +7210,23 @@ function LocalConversationGitSummary(props) {
       cwd,
       hostId: hostConfig.id,
     };
-  let activeWorkflow = useScopedValue(Oc, workflowParams),
+  let activeWorkflow = useScopedValue(activeWorkflowSignal, workflowParams),
     workflowPhase = activeWorkflow?.phase ?? null,
     isCreatePrWorkflow = activeWorkflow?.workflow === "create-pr",
-    ghCliAvailability = useScopedValue(ya, hostConfig.id),
+    ghCliAvailability = useScopedValue(
+      githubCliAvailabilitySignal,
+      hostConfig.id,
+    ),
     pullRequestStatusParams = {
       cwd: workspaceRoot,
       headBranch: headBranch,
       hostId: hostConfig.id,
       operationSource: "local_conversation_git_summary",
     };
-  let pullRequestStatusQuery = useScopedValue(qa, pullRequestStatusParams);
+  let pullRequestStatusQuery = useScopedValue(
+    pullRequestStatusQuerySignal,
+    pullRequestStatusParams,
+  );
   if (
     workspaceRoot == null ||
     (!hasEmptyHeadBranch && headBranchName.length === 0)
@@ -7465,17 +7491,21 @@ var localConversationGitSummaryModule,
 function ThreadSummaryEnvironmentModeControls(props) {
   let { conversationId, onOpenChange } = props,
     scope = useScope(fi),
-    composerMode = useSignalValue(Ro),
+    composerMode = useSignalValue(composerModeSignal),
     setComposerMode = (nextMode) => {
       $o(scope, null, nextMode);
     };
   let conversationRemoteState = $i(conversationId),
-    threadHostId = useScopedValue(En, conversationId) ?? "local",
-    conversationCwd = useScopedValue(Wn, conversationId),
+    threadHostId =
+      useScopedValue(conversationHostIdSignal, conversationId) ?? "local",
+    conversationCwd = useScopedValue(conversationCwdSignal, conversationId),
     remoteHostConfig = We(conversationRemoteState.hostId),
     isWorktreeConversation = Ar(conversationCwd, remoteHostConfig);
   let isThreadHandoffSummaryEnabled = Vr("1115442235"),
-    conversationTitle = useScopedValue(Ui, conversationId),
+    conversationTitle = useScopedValue(
+      conversationDisplayTitleSignal,
+      conversationId,
+    ),
     threadHandoff =
       isThreadHandoffSummaryEnabled &&
       shouldShowThreadHandoffInSummary({
@@ -7564,8 +7594,10 @@ function ThreadSummaryEnvironmentSection(props) {
       workspaceBrowserRoot,
     } = props,
     routeScope = useScope(localConversationRouteScope),
-    diffStatsQuery = useSignalValue(La),
-    environmentTerminalController = useSignalValue(Ia),
+    diffStatsQuery = useSignalValue(diffStatsSignal),
+    environmentTerminalController = useSignalValue(
+      environmentTerminalControllerSignal,
+    ),
     diffStats = diffStatsQuery.metrics,
     createBranchActionRef =
       threadSummaryEnvironmentSectionReactRuntime.useRef(null),
@@ -8326,13 +8358,13 @@ function ThreadSummaryPanelSections(props) {
     scope = useScope(localConversationRouteScope),
     intl = ur(),
     isElectronRuntime = St() === sn,
-    hostConfig = useSignalValue(ra),
+    hostConfig = useSignalValue(hostConfigSignal),
     conversationId =
       scope.value.routeKind === "local-thread"
         ? scope.value.conversationId
         : null,
-    conversationTitle = useScopedValue(Zi, conversationId),
-    isBrowserSidebarEnabled = useSignalValue(z),
+    conversationTitle = useScopedValue(conversationTitleSignal, conversationId),
+    isBrowserSidebarEnabled = useSignalValue(browserSidebarEnabledSignal),
     isBackgroundProcessTrackingEnabled = Vr("3264431617"),
     isComputerUsePipAvailable = useSignalValue(
       computerUsePictureInPictureAvailableSignal,
@@ -8341,9 +8373,9 @@ function ThreadSummaryPanelSections(props) {
       computerUsePictureInPictureVisibleSignal,
     ),
     openFileMutation = qr("open-file"),
-    workspaceRouteState = useSignalValue(oa),
-    conversationMode = useScopedValue(er, conversationId),
-    { data: automationData } = useSignalValue(Tl),
+    workspaceRouteState = useSignalValue(workspaceRouteStateSignal),
+    conversationMode = useScopedValue(conversationModeSignal, conversationId),
+    { data: automationData } = useSignalValue(automationDataSignal),
     pendingBackgroundProcessRows = useSignalValue(
       pendingBackgroundProcessRowsSignal,
     ),
@@ -8365,8 +8397,11 @@ function ThreadSummaryPanelSections(props) {
       "chat-processes",
       chatProcessesQueryOptions,
     ),
-    conversationWorkspaceRoot = useScopedValue(v, conversationId),
-    currentWorkspaceRoot = useSignalValue(co),
+    conversationWorkspaceRoot = useScopedValue(
+      conversationWorkspaceRootSignal,
+      conversationId,
+    ),
+    currentWorkspaceRoot = useSignalValue(currentWorkspaceRootSignal),
     { data: threadWorkspaceRootHints } = Te(Xt.THREAD_WORKSPACE_ROOT_HINTS),
     isProjectlessConversation = conversationMode === "projectless",
     threadWorkspaceRootHint =
@@ -8541,8 +8576,10 @@ function ThreadSummaryPanelSections(props) {
         isFullScreen: true,
       });
       let tabId = ia(source);
-      scope.get(ga.tabs$).some((item) => item.tabId === tabId) &&
-        (ga.activateTab(scope, tabId), ma(scope));
+      scope
+        .get(rightPanelTabsStore.tabs$)
+        .some((item) => item.tabId === tabId) &&
+        (rightPanelTabsStore.activateTab(scope, tabId), ma(scope));
     };
   let onOpenSource = useStableCallback(handleOpenSource),
     getImagePreviewSrc =
@@ -8999,8 +9036,8 @@ export interface PinnedSummaryPanelLayoutStore {
 export function usePinnedSummaryPanelLayout(
   store: PinnedSummaryPanelLayoutStore,
 ): void {
-  let leftPanelSignal = useSignalValue(Ga),
-    rightPanelSignal = useSignalValue(Pa),
+  let leftPanelSignal = useSignalValue(leftPanelStateSignal),
+    rightPanelSignal = useSignalValue(rightPanelStateSignal),
     layoutContext = localConversationArtifactsReactRuntime.useContext(so),
     fallbackTargetWidthSignal = Xe(0),
     mainContentTargetWidthSignal =
@@ -9048,9 +9085,9 @@ function closePinnedSummaryPanelPopover(
     : state;
 }
 function usePinnedSummaryPanelDisplay(conversationId: unknown) {
-  let isPinned = useSignalValue(Va),
-    leftPanelState = useSignalValue(Ga),
-    rightPanelState = useSignalValue(Pa),
+  let isPinned = useSignalValue(pinnedSummaryPanelPinnedSignal),
+    leftPanelState = useSignalValue(leftPanelStateSignal),
+    rightPanelState = useSignalValue(rightPanelStateSignal),
     pinnedPanelState = useSignalValue(pinnedSummaryPanelState),
     animationsDisabled = useSignalValue(reducedMotionPreferenceSignal),
     layoutContext = localConversationArtifactsReactRuntime.useContext(so),
@@ -9394,14 +9431,17 @@ var initOutputArtifactCollectorDependencies = once(() => {
     historicalOutputArtifactsSignal = Rn(
       ut,
       ({ conversationId, includeGeneratedImages }, { get }) => {
-        get(pr, conversationId);
+        get(conversationResumeStateSignal, conversationId);
         get(jt, conversationId);
-        let turns = get(I, conversationId);
+        let turns = get(conversationTurnsSignal, conversationId);
         return turns == null
           ? []
           : collectLocalConversationOutputArtifacts(turns.slice(0, -1), {
               includeGeneratedImages,
-              projectlessOutputDirectory: get(Cr, conversationId),
+              projectlessOutputDirectory: get(
+                projectlessOutputDirectorySignal,
+                conversationId,
+              ),
             });
       },
     );
@@ -9414,7 +9454,10 @@ var initOutputArtifactCollectorDependencies = once(() => {
             ? []
             : collectLocalConversationOutputArtifacts([currentTurn], {
                 includeGeneratedImages,
-                projectlessOutputDirectory: get(Cr, conversationId),
+                projectlessOutputDirectory: get(
+                  projectlessOutputDirectorySignal,
+                  conversationId,
+                ),
               }),
           get(historicalOutputArtifactsSignal, {
             conversationId,
@@ -9435,7 +9478,8 @@ var initOutputArtifactCollectorDependencies = once(() => {
         get(mergedOutputArtifactsSignal, {
           conversationId,
           includeGeneratedImages:
-            get(er, conversationId) === "projectless" && get(An, "120995366"),
+            get(conversationModeSignal, conversationId) === "projectless" &&
+            get(featureGateSignal, "120995366"),
         }),
     );
   });
@@ -9673,10 +9717,12 @@ function useLocalConversationSummaryPanelModel(
         ? routeSnapshot.value.conversationId
         : null,
     browserSummaryConversationId = Ot(routeSnapshot);
-  let host = useSignalValue(ra),
-    turns = useScopedValue(I, conversationId) ?? EMPTY_SUMMARY_PANEL_TURNS,
-    cwd = useScopedValue(Wn, conversationId),
-    title = useScopedValue(Zi, conversationId),
+  let host = useSignalValue(hostConfigSignal),
+    turns =
+      useScopedValue(conversationTurnsSignal, conversationId) ??
+      EMPTY_SUMMARY_PANEL_TURNS,
+    cwd = useScopedValue(conversationCwdSignal, conversationId),
+    title = useScopedValue(conversationTitleSignal, conversationId),
     backgroundTerminals = includeBackgroundActivity
       ? collectBackgroundTerminalRowsFromTurns(turns)
       : [],
@@ -9698,10 +9744,12 @@ function useLocalConversationSummaryPanelModel(
       conversationId,
     ),
     sideChats = useSignalValue(localConversationSideChatSummariesSignal),
-    installedMcpAppIds = useSignalValue(Vi),
-    isMultiBrowserTabsGateEnabled = useSignalValue(re),
-    rightPanelTabs = useSignalValue(ga.tabs$),
-    bottomPanelTabs = useSignalValue(Ja.tabs$),
+    installedMcpAppIds = useSignalValue(installedMcpAppIdsSignal),
+    isMultiBrowserTabsGateEnabled = useSignalValue(
+      multiBrowserTabsEnabledSignal,
+    ),
+    rightPanelTabs = useSignalValue(rightPanelTabsStore.tabs$),
+    bottomPanelTabs = useSignalValue(bottomPanelTabsStore.tabs$),
     browserUseSummaries = useBrowserUseSummaries({
       blankTitle: ni,
       bottomPanelTabs,
@@ -9715,7 +9763,7 @@ function useLocalConversationSummaryPanelModel(
       hostId: host.id,
     };
   let { data: apps = [] } = Ti(mcpAppsQueryInput),
-    { data: mcpServersQuery } = useScopedValue(kt, host.id),
+    { data: mcpServersQuery } = useScopedValue(mcpServersQuerySignal, host.id),
     toolSources = collectConversationMcpToolSources(
       turns,
       apps,
@@ -9724,7 +9772,10 @@ function useLocalConversationSummaryPanelModel(
     ),
     webSources = collectConversationWebSources(turns),
     plan = getLatestCompletedTurnPlanSummary(turns),
-    backgroundAgents = useScopedValue(_c, ns() ? conversationId : null);
+    backgroundAgents = useScopedValue(
+      backgroundAgentsSignal,
+      ns() ? conversationId : null,
+    );
   return {
     artifacts,
     sideChats,
@@ -9771,14 +9822,20 @@ var localConversationSummaryPanelSignalsModule,
     localConversationSideChatSummariesSignal = Dn(
       localConversationRouteScope,
       ({ get }) =>
-        collectSideChatTabSummaries(get(ga.tabs$), (t) => get(ge, t) ?? false),
+        collectSideChatTabSummaries(
+          get(rightPanelTabsStore.tabs$),
+          (t) => get(localResponseInProgressSignal, t) ?? false,
+        ),
     );
     EMPTY_SUMMARY_PANEL_TURNS = [];
   });
 function ConnectedLocalWorktreeRestoreBanner(props) {
   let { conversationId, cwd } = props,
-    threadHostId = useScopedValue(En, conversationId),
-    hostConnectionStatus = useScopedValue(Qr, threadHostId);
+    threadHostId = useScopedValue(conversationHostIdSignal, conversationId),
+    hostConnectionStatus = useScopedValue(
+      hostConnectionStatusSignal,
+      threadHostId,
+    );
   if (threadHostId !== "local" && hostConnectionStatus !== "connected")
     return null;
   return (
@@ -9797,7 +9854,10 @@ function WorktreeRestoreBanner(props) {
   let worktreeQueryKey = hostKey,
     intl = ur(),
     queryClient = Ci(),
-    worktreeStatusQuery = useScopedValue(Cs, conversationId),
+    worktreeStatusQuery = useScopedValue(
+      worktreeStatusQuerySignal,
+      conversationId,
+    ),
     worktreeStatus = worktreeStatusQuery.data,
     isWorktreeStatusUnavailable =
       worktreeStatusQuery.isError || worktreeStatus?.kind === "unavailable",
@@ -10805,15 +10865,18 @@ var findLastModule,
     localConversationVisibleTurnEntriesSignal = Rn(
       ut,
       ({ conversationId, isBackgroundSubagentsEnabled }, { get }) => {
-        let hasConversation = get(Mt, conversationId) ?? false,
+        let hasConversation =
+            get(hasConversationSignal, conversationId) ?? false,
           conversationRequests =
             get(Kr, conversationId) ?? EMPTY_CONVERSATION_REQUESTS;
-        get(s, conversationId);
-        let conversationResumeState = get(pr, conversationId) ?? "needs_resume",
+        get(modelProviderSignal, conversationId);
+        let conversationResumeState =
+            get(conversationResumeStateSignal, conversationId) ??
+            "needs_resume",
           subagentParentThreadId = isBackgroundSubagentsEnabled
-            ? (get(oi, conversationId) ?? null)
+            ? (get(subagentParentThreadIdSignal, conversationId) ?? null)
             : null,
-          isBerryDisplayMergeEnabled = get(An, "209459230"),
+          isBerryDisplayMergeEnabled = get(featureGateSignal, "209459230"),
           berryDisplayConversationTurns = isBerryDisplayMergeEnabled
             ? get(kn, conversationId)
             : null,
@@ -10832,12 +10895,14 @@ var findLastModule,
           conversationResumeState,
           conversationTurns: shouldUseBerryDisplayTurns
             ? berryDisplayConversationTurns
-            : (get(I, conversationId) ?? EMPTY_CONVERSATION_TURNS),
+            : (get(conversationTurnsSignal, conversationId) ??
+              EMPTY_CONVERSATION_TURNS),
           hasConversation,
           isBackgroundSubagentsEnabled,
           parentConversationTurns: shouldUseBerryDisplayTurns
             ? parentBerryDisplayConversationTurns
-            : (get(I, subagentParentThreadId) ?? EMPTY_CONVERSATION_TURNS),
+            : (get(conversationTurnsSignal, subagentParentThreadId) ??
+              EMPTY_CONVERSATION_TURNS),
           subagentParentThreadId,
         });
       },
@@ -13545,13 +13610,13 @@ async function openBackgroundAgentThreadTab(
   e,
   { backgroundAgent, hostId, TabComponent },
 ) {
-  e.get(Mt, backgroundAgent.conversationId) ||
+  e.get(hasConversationSignal, backgroundAgent.conversationId) ||
     (await Dr("hydrate-background-threads", {
       hostId,
       threadIds: [backgroundAgent.conversationId],
     }));
-  e.get(Mt, backgroundAgent.conversationId) &&
-    ga.openTab(e, TabComponent, {
+  e.get(hasConversationSignal, backgroundAgent.conversationId) &&
+    rightPanelTabsStore.openTab(e, TabComponent, {
       icon: <Uo className="icon-sm" seed={backgroundAgent.conversationId} />,
       props: {
         conversationId: backgroundAgent.conversationId,
@@ -13605,10 +13670,14 @@ var localConversationConnectionStatusModule,
     localConversationConnectionStatusJsxRuntime = getJsxRuntime();
   });
 function useMarkConversationReadOnVisibility(conversationId, hasConversation) {
-  let isUnread = useScopedValue(R, conversationId) ?? false,
-    isWindowVisible = useSignalValue(xo),
+  let isUnread =
+      useScopedValue(conversationUnreadSignal, conversationId) ?? false,
+    isWindowVisible = useSignalValue(windowVisibleSignal),
     conversationReadMarker = useScopedValue($t, conversationId),
-    conversationReadState = useScopedValue(we, conversationId),
+    conversationReadState = useScopedValue(
+      conversationReadStateSignal,
+      conversationId,
+    ),
     lastMarkedConversationIdRef = _S.useRef(null),
     lastConversationReadStateRef = _S.useRef(null),
     lastConversationReadMarkerRef = _S.useRef(null),
@@ -13668,10 +13737,13 @@ function useResumeLocalConversation(conversationId) {
   let scope = useScope(ut),
     intl = ur(),
     { activeMode } = Us(conversationId),
-    { data } = useSignalValue(gt),
+    { data } = useSignalValue(workspaceRootsSignal),
     workspaceRoots = data?.roots,
-    shouldResumeConversation = useScopedValue(Ir, conversationId);
-  useScopedValue(En, conversationId);
+    shouldResumeConversation = useScopedValue(
+      shouldResumeConversationSignal,
+      conversationId,
+    );
+  useScopedValue(conversationHostIdSignal, conversationId);
   let [isResuming, setIsResuming] =
       localConversationThreadRouteReactRuntime.useState(
         shouldResumeConversation,
@@ -13691,7 +13763,10 @@ function useResumeLocalConversation(conversationId) {
           try {
             setIsResuming(true);
             activeResumeConversationIdRef.current = resumeConversationId;
-            let resumeHostId = scope.get(En, resumeConversationId);
+            let resumeHostId = scope.get(
+              conversationHostIdSignal,
+              resumeConversationId,
+            );
             await Dr("maybe-resume-conversation", {
               hostId: resumeHostId,
               conversationId: resumeConversationId,
@@ -13729,13 +13804,14 @@ function useResumeLocalConversation(conversationId) {
             if (
               hostId == null ||
               isArchiving ||
-              !scope.get(Ir, resumeConversationId)
+              !scope.get(shouldResumeConversationSignal, resumeConversationId)
             ) {
               hasShownResumeErrorRef.current = false;
               return;
             }
             let isSubagentChildThread =
-                scope.get(oi, resumeConversationId) != null,
+                scope.get(subagentParentThreadIdSignal, resumeConversationId) !=
+                null,
               shouldAutoRetry = shouldAutoRetryResumeError(error);
             shouldAutoRetry ||
               (blockedAutoRetryConversationIdRef.current =
@@ -13783,7 +13859,7 @@ function useResumeLocalConversation(conversationId) {
         return scope.watch(({ get }) => {
           let hostId = get(P, conversationId);
           hostId != null &&
-            get(oi, conversationId) != null &&
+            get(subagentParentThreadIdSignal, conversationId) != null &&
             fr.dispatchMessage("subagent-thread-opened", {
               hostId,
               conversationId: conversationId,
@@ -13937,9 +14013,9 @@ export function LocalConversationThread(props: LocalConversationThreadProps) {
 function LocalConversationSideChatThread(props) {
   let { conversationId, lockedCollaborationMode, target } = props,
     scope = useScope(localConversationRouteScope),
-    hasConversation = useScopedValue(Mt, conversationId),
-    isExpiredSideChat = useScopedValue(V, conversationId),
-    hostId = useScopedValue(En, conversationId),
+    hasConversation = useScopedValue(hasConversationSignal, conversationId),
+    isExpiredSideChat = useScopedValue(expiredSideChatSignal, conversationId),
+    hostId = useScopedValue(conversationHostIdSignal, conversationId),
     sourceConversationId = ot(scope.value),
     isBackgroundSubagentsEnabled = ns();
   if (!hasConversation)
@@ -13998,9 +14074,15 @@ function ExpiredSideChatState(props) {
     } = props,
     scope = useScope(localConversationRouteScope),
     intl = ur(),
-    sourceCwd = useScopedValue(Wn, sourceConversationId),
-    sourceHostId = useScopedValue(En, sourceConversationId),
-    sourceCollaborationMode = useScopedValue(zt, sourceConversationId),
+    sourceCwd = useScopedValue(conversationCwdSignal, sourceConversationId),
+    sourceHostId = useScopedValue(
+      conversationHostIdSignal,
+      sourceConversationId,
+    ),
+    sourceCollaborationMode = useScopedValue(
+      conversationCollaborationModeSignal,
+      sourceConversationId,
+    ),
     displayTitle = useScopedValue(
       va(target).tabById$,
       `sidechat:${conversationId}`,
@@ -14085,8 +14167,8 @@ function ExpiredSideChatState(props) {
 function LocalConversationMainThread(props) {
   let { conversationId } = props,
     scope = useScope(localConversationRouteScope),
-    hasConversation = useScopedValue(Mt, conversationId),
-    hostId = useScopedValue(En, conversationId),
+    hasConversation = useScopedValue(hasConversationSignal, conversationId),
+    hostId = useScopedValue(conversationHostIdSignal, conversationId),
     isBackgroundSubagentsEnabled = ns(),
     { isResuming } = useResumeLocalConversation(conversationId),
     threadScopeKey = N(conversationId, "main", ot(scope.value));
@@ -14116,8 +14198,8 @@ export function LocalConversationSummaryThread(
 ) {
   let { conversationId, header, onOpenBackgroundAgent } = props,
     scope = useScope(localConversationRouteScope),
-    hasConversation = useScopedValue(Mt, conversationId),
-    hostId = useScopedValue(En, conversationId),
+    hasConversation = useScopedValue(hasConversationSignal, conversationId),
+    hostId = useScopedValue(conversationHostIdSignal, conversationId),
     isBackgroundSubagentsEnabled = ns(),
     threadScopeKey = N(conversationId, "main", ot(scope.value));
   let threadFrame = (
@@ -14158,16 +14240,16 @@ function LocalConversationThreadRoute(props) {
     { data } = useSignalValue(launcherHotkeyStateQuery),
     hasConfiguredLauncherHotkey = data == null || data.configuredHotkey != null,
     launcherFallbackPath = it(hasConfiguredLauncherHotkey),
-    hasConversation = useScopedValue(Mt, conversationId),
-    hostId = useScopedValue(En, conversationId);
-  useScopedValue(Wn, conversationId);
+    hasConversation = useScopedValue(hasConversationSignal, conversationId),
+    hostId = useScopedValue(conversationHostIdSignal, conversationId);
+  useScopedValue(conversationCwdSignal, conversationId);
   useScopedValue(Et, conversationId);
   let resolvedAppsQueryOptions = {
     enabled: false,
     hostId,
   };
   Ti(resolvedAppsQueryOptions);
-  let isRightPanelFullWidth = useSignalValue(go),
+  let isRightPanelFullWidth = useSignalValue(rightPanelFullWidthSignal),
     hideThreadContent = shouldUseFullWidthRightPanelForRoute({
       conversationId,
       isRightPanelFullWidth,
@@ -14180,7 +14262,10 @@ function LocalConversationThreadRoute(props) {
     { isResuming } = useResumeLocalConversation(
       shouldResume ? (conversationId ?? null) : null,
     ),
-    subagentParentThreadId = useScopedValue(oi, conversationId),
+    subagentParentThreadId = useScopedValue(
+      subagentParentThreadIdSignal,
+      conversationId,
+    ),
     visibleSubagentParentThreadId = isBackgroundSubagentsEnabled
       ? subagentParentThreadId
       : null,
@@ -14370,16 +14455,25 @@ function ChromeExtensionConversationHeader(props) {
   let { conversationId } = props,
     scope = useScope(ut),
     isBackgroundSubagentsEnabled = ns(),
-    parentConversationId = useScopedValue(oi, conversationId),
-    backgroundAgentSnapshot = useScopedValue(Un, conversationId),
+    parentConversationId = useScopedValue(
+      subagentParentThreadIdSignal,
+      conversationId,
+    ),
+    backgroundAgentSnapshot = useScopedValue(
+      backgroundAgentSnapshotSignal,
+      conversationId,
+    ),
     backgroundAgentName = formatBackgroundAgentDisplayName({
       agentNickname: Cn(backgroundAgentSnapshot)?.agentNickname ?? null,
       conversationId,
     });
-  let hasConversation = useScopedValue(Mt, conversationId),
-    title = useScopedValue(Zi, conversationId),
-    cwd = useScopedValue(Wn, conversationId),
-    projectlessOutputDirectory = useScopedValue(Cr, conversationId),
+  let hasConversation = useScopedValue(hasConversationSignal, conversationId),
+    title = useScopedValue(conversationTitleSignal, conversationId),
+    cwd = useScopedValue(conversationCwdSignal, conversationId),
+    projectlessOutputDirectory = useScopedValue(
+      projectlessOutputDirectorySignal,
+      conversationId,
+    ),
     navigate = rt(),
     getConversationMarkdown = () => {
       let { visibleTurnEntries } = scope.get(
@@ -14484,8 +14578,12 @@ function LocalConversationThreadFrame(props) {
       showExternalFooter,
     } = props,
     scope = useScope(localConversationRouteScope),
-    isConversationHistoryComplete = useScopedValue(Ue, conversationId) ?? true,
-    visibleSubagentParentThreadId = useScopedValue(oi, conversationId),
+    isConversationHistoryComplete =
+      useScopedValue(conversationHistoryCompleteSignal, conversationId) ?? true,
+    visibleSubagentParentThreadId = useScopedValue(
+      subagentParentThreadIdSignal,
+      conversationId,
+    ),
     isScrollToTopEnabled = Vr("1579719221"),
     shouldShowSummaryPanelObstacles = Vr("3563904085"),
     savedThreadScrollState = scope.get(threadScrollStateSignal, conversationId);
@@ -14520,7 +14618,9 @@ function LocalConversationThreadFrame(props) {
                 : [visibleSubagentParentThreadId],
           }),
           await to(),
-          (scope.get(Ue, conversationId) ?? true) ? "stop" : "continue"
+          (scope.get(conversationHistoryCompleteSignal, conversationId) ?? true)
+            ? "stop"
+            : "continue"
         );
       } catch (error) {
         let loadError = error;
@@ -14636,7 +14736,7 @@ function LocalConversationThreadFrame(props) {
   let threadLayoutContainerRef = useStableCallback(
       handleThreadLayoutContainerRef,
     ),
-    hasLiveMcpAppFrame = useSignalValue(Fa),
+    hasLiveMcpAppFrame = useSignalValue(liveMcpAppFrameSignal),
     shouldMountSummaryPanelObstacles =
       shouldShowSummaryPanelObstacles && hasConversation && !hideThreadContent,
     handleOpenBackgroundAgent = (backgroundAgent) => {
@@ -14781,7 +14881,7 @@ function openBackgroundAgentFromThread(
 }
 function ComposerWorkspaceDirectoryTree(props) {
   let { conversationId } = props,
-    cwd = useScopedValue(Wn, conversationId);
+    cwd = useScopedValue(conversationCwdSignal, conversationId);
   return (
     <ConnectedLocalWorktreeRestoreBanner
       conversationId={conversationId}
@@ -14806,8 +14906,11 @@ function LocalConversationComposerFooter({
   let scope = useScope(localConversationRouteScope);
   localConversationThreadReactRuntime.useContext(rl);
   ci();
-  let hostConnectionStatus = useScopedValue(Qr, hostId),
-    hasConversationTurns = !!useScopedValue(I, conversationId)?.length,
+  let hostConnectionStatus = useScopedValue(hostConnectionStatusSignal, hostId),
+    hasConversationTurns = !!useScopedValue(
+      conversationTurnsSignal,
+      conversationId,
+    )?.length,
     isRemoteHost = hostId !== Pt,
     footerConnectionStatus = null;
   isRemoteHost &&
@@ -14817,21 +14920,25 @@ function LocalConversationComposerFooter({
       : isResuming &&
         !hasConversationTurns &&
         (footerConnectionStatus = "loading"));
-  let localResponseInProgress = useScopedValue(ge, conversationId) ?? false,
-    localWorkspaceMaterialization = useScopedValue(oc, conversationId);
+  let localResponseInProgress =
+      useScopedValue(localResponseInProgressSignal, conversationId) ?? false,
+    localWorkspaceMaterialization = useScopedValue(
+      localWorkspaceMaterializationSignal,
+      conversationId,
+    );
   useScopedValue(b, conversationId);
-  useScopedValue(s, conversationId);
+  useScopedValue(modelProviderSignal, conversationId);
   let subagentResponseInProgress =
       useScopedValue(subagentResponseInProgressSignal, conversationId) ?? false,
     hasActiveSubagent = useScopedValue(
-      _c,
+      backgroundAgentsSignal,
       isBackgroundSubagentsEnabled ? conversationId : null,
     ).some(({ status }) => status === "active"),
     isResponseInProgress = isBackgroundSubagentsEnabled
       ? subagentResponseInProgress || hasActiveSubagent || false
       : localResponseInProgress || false,
     composerModeAvailability =
-      useScopedValue(er, conversationId) === "projectless"
+      useScopedValue(conversationModeSignal, conversationId) === "projectless"
         ? {
             fallbackMode: "local",
             isAvailabilityLoading: false,
@@ -14951,19 +15058,34 @@ function LocalConversationThreadContent({
   let scope = useScope(localConversationRouteScope),
     navigate = rt(),
     isAppgenEndCardEnabled = Vo(),
-    hasConversation = useScopedValue(Mt, conversationId),
-    modelProvider = useScopedValue(s, conversationId),
-    cwd = useScopedValue(Wn, conversationId),
-    hostId = useScopedValue(En, conversationId),
+    hasConversation = useScopedValue(hasConversationSignal, conversationId),
+    modelProvider = useScopedValue(modelProviderSignal, conversationId),
+    cwd = useScopedValue(conversationCwdSignal, conversationId),
+    hostId = useScopedValue(conversationHostIdSignal, conversationId),
     conversationResumeState =
-      useScopedValue(pr, conversationId) ?? "needs_resume",
-    isConversationHistoryComplete = useScopedValue(Ue, conversationId) ?? false,
-    isResponseInProgress = useScopedValue(ct, conversationId),
-    completedThreadGoal = useScopedValue(Bn, conversationId),
+      useScopedValue(conversationResumeStateSignal, conversationId) ??
+      "needs_resume",
+    isConversationHistoryComplete =
+      useScopedValue(conversationHistoryCompleteSignal, conversationId) ??
+      false,
+    isResponseInProgress = useScopedValue(
+      responseInProgressSignal,
+      conversationId,
+    ),
+    completedThreadGoal = useScopedValue(
+      completedThreadGoalSignal,
+      conversationId,
+    ),
     isProjectlessConversation =
-      useScopedValue(er, conversationId) === "projectless",
-    projectlessOutputDirectory = useScopedValue(Cr, conversationId),
-    collaborationMode = useScopedValue(zt, conversationId),
+      useScopedValue(conversationModeSignal, conversationId) === "projectless",
+    projectlessOutputDirectory = useScopedValue(
+      projectlessOutputDirectorySignal,
+      conversationId,
+    ),
+    collaborationMode = useScopedValue(
+      conversationCollaborationModeSignal,
+      conversationId,
+    ),
     {
       conversationTurns,
       hasInheritedParentTurns,
@@ -14988,7 +15110,10 @@ function LocalConversationThreadContent({
       hostId,
     }),
     renderMcpApps = Qt("2138468235").get("enable_mcp_apps", false),
-    subagentParentThreadId = useScopedValue(oi, conversationId),
+    subagentParentThreadId = useScopedValue(
+      subagentParentThreadIdSignal,
+      conversationId,
+    ),
     visibleSubagentParentThreadId = isBackgroundSubagentsEnabled
       ? subagentParentThreadId
       : null,
@@ -15047,7 +15172,7 @@ function LocalConversationThreadContent({
   hasConversationRef.current = hasConversation;
   conversationTurnsRef.current = conversationTurns;
   isBackgroundSubagentsEnabledRef.current = isBackgroundSubagentsEnabled;
-  let diffSource = useSignalValue(Ya),
+  let diffSource = useSignalValue(diffSourceSignal),
     routeContextId =
       conversationId == null ? "unavailable" : `conversation:${conversationId}`;
   useReviewSearchHighlights({
@@ -15560,11 +15685,17 @@ export const initLocalConversationThreadChunk = once(() => {
   EMPTY_RESOLVED_APPS = [];
   collapsedTurnsByConversationSignal = Ze({});
   subagentResponseInProgressSignal = Rn(ut, (conversationId, { get }) => {
-    let parentConversationId = get(oi, conversationId);
-    if (parentConversationId == null) return get(ge, conversationId) ?? false;
-    let conversationTurns = get(I, conversationId) ?? EMPTY_THREAD_TURNS,
+    let parentConversationId = get(
+      subagentParentThreadIdSignal,
+      conversationId,
+    );
+    if (parentConversationId == null)
+      return get(localResponseInProgressSignal, conversationId) ?? false;
+    let conversationTurns =
+        get(conversationTurnsSignal, conversationId) ?? EMPTY_THREAD_TURNS,
       parentConversationTurns =
-        get(I, parentConversationId) ?? EMPTY_THREAD_TURNS;
+        get(conversationTurnsSignal, parentConversationId) ??
+        EMPTY_THREAD_TURNS;
     return (
       getConversationTurnsNotInParent({
         areTurnItemsEqual: deepEqualModule.default,
