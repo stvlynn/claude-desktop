@@ -257,7 +257,8 @@
       "exports": {
         "t": "permissionRequestModel"
       },
-      "status": "done"
+      "status": "done",
+      "note": "Superseded previous hash; semantic module now tracks the current synced ref bundle while preserving this alias mapping."
     },
     "command-execution-command-OqCVdN_Y": {
       "restored": "utils/command-execution-command.ts",
@@ -5006,7 +5007,8 @@
       "exports": {
         "t": "openInTargetsQuery"
       },
-      "status": "done"
+      "status": "done",
+      "note": "Superseded previous hash; semantic module now tracks the current synced ref bundle while preserving this alias mapping."
     },
     "extension-info-BdwFqNRB": {
       "restored": "utils/extension-info.ts",
@@ -6302,7 +6304,8 @@
         "n": "getAutomationHomeUseCases",
         "t": "HOME_USE_CASES"
       },
-      "status": "done"
+      "status": "done",
+      "note": "Superseded previous hash; semantic module now tracks the current synced ref bundle while preserving this alias mapping."
     },
     "local-environments-utils-BZSdDG8Z": {
       "restored": "environments/local-environments-utils/index.ts",
@@ -10123,7 +10126,8 @@
       "exports": {
         "t": "isExperimentalFeatureVisible"
       },
-      "status": "done"
+      "status": "done",
+      "note": "Superseded previous hash; semantic module now tracks the current synced ref bundle while preserving this alias mapping."
     },
     "browser-sidebar-availability-B0FcnqMw": {
       "restored": "browser/browser-sidebar-availability.ts",
@@ -10489,7 +10493,8 @@
       "exports": {
         "t": "useAppsAvailability"
       },
-      "status": "done"
+      "status": "done",
+      "note": "Superseded previous hash; semantic module now tracks the current synced ref bundle while preserving this alias mapping."
     },
     "ambient-suggestion-apps-DdP0OibX": {
       "restored": "connectors/ambient-suggestion-apps.ts",
@@ -12124,6 +12129,52 @@
       },
       "status": "done",
       "note": "Current synced locale messages regenerated from the ref bundle runtime exports."
+    },
+    "permission-request-model-CdaesUo1": {
+      "restored": "utils/permission-request-model.ts",
+      "exports": {
+        "n": "initPermissionRequestModelChunk",
+        "t": "permissionRequestModel"
+      },
+      "status": "done",
+      "note": "Current synced permission request model restored as a typed semantic utility with explicit chunk init export."
+    },
+    "experimental-feature-visibility-BwMbMzzx": {
+      "restored": "features/experimental-features/visibility.ts",
+      "exports": {
+        "n": "isExperimentalFeatureVisible",
+        "t": "initExperimentalFeatureVisibilityChunk"
+      },
+      "status": "done",
+      "note": "Current synced experimental feature visibility predicate restored with realtime_* prefix hiding."
+    },
+    "apps-availability-DNfyqHL8": {
+      "restored": "utils/apps-availability.ts",
+      "exports": {
+        "n": "useAppsAvailability",
+        "t": "initAppsAvailabilityChunk"
+      },
+      "status": "done",
+      "note": "Current synced apps availability hook restored with appName-aware success toast handling."
+    },
+    "open-in-targets-query-B1vT8sW1": {
+      "restored": "utils/open-in-targets-query.ts",
+      "exports": {
+        "n": "openInTargetsQuery",
+        "t": "initOpenInTargetsQueryChunk"
+      },
+      "status": "done",
+      "note": "Current synced open-in-targets query restored as the existing semantic query helper."
+    },
+    "home-use-cases-data-B74wpFte": {
+      "restored": "home/home-use-cases-data.ts",
+      "exports": {
+        "n": "getAutomationHomeUseCases",
+        "r": "initHomeUseCasesDataChunk",
+        "t": "HOME_USE_CASES"
+      },
+      "status": "done",
+      "note": "Current synced home use-case data restored with updated CI log-access guidance."
     }
   }
 }
