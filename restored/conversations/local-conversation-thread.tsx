@@ -4201,139 +4201,137 @@ var bh,
     Gn();
     xh = getJsxRuntime();
   });
-function Ch(e) {
+function PullRequestChecksSummaryRow(props) {
   let {
     canFixFailingChecks = false,
     fixTooltipContent,
     onFixFailingChecks,
     pullRequestStatus,
-  } = e;
+  } = props;
   if (pullRequestStatus == null || pullRequestStatus.checks.length === 0)
     return null;
-  let s = pullRequestStatus.checks.filter(Th);
-  let c = s,
-    l,
-    u,
-    d,
-    f;
-  {
-    let e = (e) => pullRequestStatus.checks.filter((item) => item.status === e);
-    let n = Mh.flatMap(e);
-    u = vh;
-    f = c.length > 0 && onFixFailingChecks != null;
-    l = yh;
-    d = n.map(wh);
-  }
-  let p = jh.jsx(l, {
-    children: d,
+  let failingChecks = pullRequestStatus.checks.filter(
+    isFailingPullRequestCheck,
+  );
+  let checksToFix = failingChecks,
+    hasFixableFailingChecks =
+      checksToFix.length > 0 && onFixFailingChecks != null,
+    getChecksByStatus = (status) =>
+      pullRequestStatus.checks.filter((item) => item.status === status),
+    orderedChecks = Mh.flatMap(getChecksByStatus),
+    checkRows = orderedChecks.map(PullRequestCheckFlyoutRowItem);
+  let popoverContent = jh.jsx(yh, {
+    children: checkRows,
   });
-  let m =
-    c.length > 0 && onFixFailingChecks != null
-      ? jh.jsx(PullRequestInlineActionButton, {
-          color: "ghostTertiary",
-          disabled: !canFixFailingChecks,
-          tooltipContent: fixTooltipContent,
-          onClick: () => {
-            onFixFailingChecks(c);
-          },
-          children: (
-            <FormattedMessage
-              id="codex.localConversation.gitSummary.fixFailingChecks"
-              defaultMessage="Fix"
-              description="Summary panel row action label for fixing failing pull request checks"
-            />
-          ),
-        })
-      : undefined;
-  let h = c.length > 0 && onFixFailingChecks != null,
-    g = <Vl checks={pullRequestStatus.checks} />;
-  let _ = kh(pullRequestStatus.checks, pullRequestStatus.ciStatus);
-  let v = (
+  let fixFailingChecksAction = hasFixableFailingChecks
+    ? jh.jsx(PullRequestInlineActionButton, {
+        color: "ghostTertiary",
+        disabled: !canFixFailingChecks,
+        tooltipContent: fixTooltipContent,
+        onClick: () => {
+          onFixFailingChecks(checksToFix);
+        },
+        children: (
+          <FormattedMessage
+            id="codex.localConversation.gitSummary.fixFailingChecks"
+            defaultMessage="Fix"
+            description="Summary panel row action label for fixing failing pull request checks"
+          />
+        ),
+      })
+    : undefined;
+  let actionsVisible = hasFixableFailingChecks,
+    checksIcon = <Vl checks={pullRequestStatus.checks} />;
+  let checksLabel = getPullRequestChecksSummaryLabel(
+    pullRequestStatus.checks,
+    pullRequestStatus.ciStatus,
+  );
+  let summaryRow = (
     <SummaryPanelRow
-      actions={m}
-      actionsVisible={h}
-      icon={g}
+      actions={fixFailingChecksAction}
+      actionsVisible={actionsVisible}
+      icon={checksIcon}
       interactive={true}
       labelClassName="text-token-text-tertiary"
-      label={_}
+      label={checksLabel}
     />
   );
-  return jh.jsx(u, {
-    triggerAsChild: f,
-    content: p,
-    children: v,
+  return jh.jsx(vh, {
+    triggerAsChild: hasFixableFailingChecks,
+    content: popoverContent,
+    children: summaryRow,
   });
 }
-function wh(e, t) {
-  return <Eh key={`${e.name}-${e.workflow ?? ""}-${t}`} check={e} />;
+function PullRequestCheckFlyoutRowItem(check, index) {
+  return (
+    <PullRequestCheckFlyoutRow
+      key={`${check.name}-${check.workflow ?? ""}-${index}`}
+      check={check}
+    />
+  );
 }
-function Th(e) {
-  return e.status === "failing";
+function isFailingPullRequestCheck(check) {
+  return check.status === "failing";
 }
-function Eh(e) {
-  let { check } = e,
-    r = check.link,
-    i = <Dh status={check.status} />;
-  let a = r != null,
-    o = (
+function PullRequestCheckFlyoutRow(props) {
+  let { check } = props,
+    checkLink = check.link,
+    statusIcon = <PullRequestCheckStatusIcon status={check.status} />;
+  let isInteractive = checkLink != null,
+    statusLabel = (
       <span className="text-sm text-token-description-foreground">
-        <Oh status={check.status} />
+        <PullRequestCheckStatusLabel status={check.status} />
       </span>
     );
-  let s =
-    r == null
+  let handleClick =
+    checkLink == null
       ? undefined
-      : (e) => {
+      : (event) => {
           wi({
-            event: e,
-            href: r,
+            event: event,
+            href: checkLink,
             initiator: "pull_request_link",
           });
         };
   return (
     <SummaryPanelRow
-      icon={i}
-      interactive={a}
+      icon={statusIcon}
+      interactive={isInteractive}
       label={check.name}
-      trailing={o}
+      trailing={statusLabel}
       trailingVisible={true}
-      onClick={s}
+      onClick={handleClick}
     />
   );
 }
-function Dh(e) {
-  let { status } = e;
+function PullRequestCheckStatusIcon(props) {
+  let { status } = props;
   switch (status) {
     case "failing": {
-      let e;
       return jh.jsx(zc, {
         className: "icon-sm shrink-0 text-token-charts-red",
       });
     }
     case "passing": {
-      let e;
       return jh.jsx(ve, {
         className: "icon-sm shrink-0 text-token-charts-green",
       });
     }
     case "pending": {
-      let e;
       return <Gl className="icon-sm shrink-0 text-token-charts-yellow" />;
     }
     case "skipped":
     case "unknown": {
-      let e;
       return (
         <PullRequestUnknownCheckIcon className="icon-sm shrink-0 text-token-text-tertiary" />
       );
     }
   }
 }
-function Oh(e) {
-  let { status } = e;
+function PullRequestCheckStatusLabel(props) {
+  let { status } = props;
   switch (status) {
     case "failing": {
-      let e;
       return (
         <FormattedMessage
           id="codex.localConversation.gitSummary.checks.status.failed"
@@ -4343,7 +4341,6 @@ function Oh(e) {
       );
     }
     case "passing": {
-      let e;
       return (
         <FormattedMessage
           id="codex.localConversation.gitSummary.checks.status.succeeded"
@@ -4353,7 +4350,6 @@ function Oh(e) {
       );
     }
     case "pending": {
-      let e;
       return (
         <FormattedMessage
           id="codex.localConversation.gitSummary.checks.status.running"
@@ -4363,7 +4359,6 @@ function Oh(e) {
       );
     }
     case "skipped": {
-      let e;
       return (
         <FormattedMessage
           id="codex.localConversation.gitSummary.checks.status.skipped"
@@ -4373,7 +4368,6 @@ function Oh(e) {
       );
     }
     case "unknown": {
-      let e;
       return (
         <FormattedMessage
           id="codex.localConversation.gitSummary.checks.status.unknown"
@@ -4384,10 +4378,14 @@ function Oh(e) {
     }
   }
 }
-function kh(e, t) {
-  let n = e.filter((item) => item.status === "failing").length,
-    r = e.filter((item) => item.status === "pending").length;
-  if (n > 0)
+function getPullRequestChecksSummaryLabel(checks, ciStatus) {
+  let failingCheckCount = checks.filter(
+      (item) => item.status === "failing",
+    ).length,
+    pendingCheckCount = checks.filter(
+      (item) => item.status === "pending",
+    ).length;
+  if (failingCheckCount > 0)
     return (
       <FormattedMessage
         id="codex.localConversation.gitSummary.failingChecks.count"
@@ -4396,11 +4394,11 @@ function kh(e, t) {
         }
         description="Summary panel row label when pull request checks are failing"
         values={{
-          count: n,
+          count: failingCheckCount,
         }}
       />
     );
-  if (r > 0)
+  if (pendingCheckCount > 0)
     return (
       <FormattedMessage
         id="codex.localConversation.gitSummary.pendingChecks.count"
@@ -4409,11 +4407,11 @@ function kh(e, t) {
         }
         description="Summary panel row label when pull request checks are pending"
         values={{
-          count: r,
+          count: pendingCheckCount,
         }}
       />
     );
-  switch (t) {
+  switch (ciStatus) {
     case "passing":
       return (
         <FormattedMessage
@@ -4466,132 +4464,144 @@ var Ah,
     jh = getJsxRuntime();
     Mh = ["failing", "pending", "skipped", "unknown", "passing"];
   });
-function Ph(e) {
-  let { conversationId, headBranch, pullRequestStatus } = e,
-    a = B(fi),
-    o = K(pi, conversationId),
-    s = K(ki, conversationId);
+function PullRequestStatusDetailRows(props) {
+  let { conversationId, headBranch, pullRequestStatus } = props,
+    scope = B(fi),
+    storedThreadBranch = K(pi, conversationId),
+    reviewCommentAttachments = K(ki, conversationId);
   if (pullRequestStatus == null || !pullRequestStatus.hasOpenPr) return null;
-  let c = pullRequestStatus.boardItem?.baseBranch ?? null,
-    l = pullRequestStatus.boardItem?.headBranch ?? headBranch,
-    u = pullRequestStatus.number,
-    d = pullRequestStatus.url ?? pullRequestStatus.boardItem?.url ?? null,
-    f = new Set(s.map(Ih));
-  let p = f,
-    m;
+  let baseBranch = pullRequestStatus.boardItem?.baseBranch ?? null,
+    pullRequestHeadBranch =
+      pullRequestStatus.boardItem?.headBranch ?? headBranch,
+    pullRequestNumber = pullRequestStatus.number,
+    pullRequestUrl =
+      pullRequestStatus.url ?? pullRequestStatus.boardItem?.url ?? null,
+    existingReviewCommentKeySet = new Set(
+      reviewCommentAttachments.map(getReviewCommentAttachmentKey),
+    );
+  let reviewCommentKeySet = existingReviewCommentKeySet,
+    hasUnresolvedReviewComments;
   {
-    let e;
-    e = (e) => !p.has(se(e));
-    m = pullRequestStatus.commentAttachments.some(e);
+    let isNewCommentAttachment;
+    isNewCommentAttachment = (commentAttachment) =>
+      !reviewCommentKeySet.has(se(commentAttachment));
+    hasUnresolvedReviewComments = pullRequestStatus.commentAttachments.some(
+      isNewCommentAttachment,
+    );
   }
-  let h = m,
-    g = pullRequestStatus.checks.some(Fh);
-  let _ = g,
-    v = pullRequestStatus.mergeBlocker === "conflicts",
-    y = pullRequestStatus.commentAttachments.length > 0,
-    b =
-      _ || v || h
+  let hasNewCommentAttachments = hasUnresolvedReviewComments,
+    hasFailingChecks = pullRequestStatus.checks.some(
+      isFailingPullRequestCheckStatus,
+    );
+  let canShowFailingChecksFix = hasFailingChecks,
+    hasMergeConflicts = pullRequestStatus.mergeBlocker === "conflicts",
+    hasCommentAttachments = pullRequestStatus.commentAttachments.length > 0,
+    fixDisabledReason =
+      canShowFailingChecksFix || hasMergeConflicts || hasNewCommentAttachments
         ? conversationId == null
           ? "missing-conversation"
           : xc({
                 currentBranch: headBranch,
-                storedThreadBranch: o,
+                storedThreadBranch: storedThreadBranch,
               }).hasThreadBranchMismatch
             ? "branch-mismatch"
             : null
         : null,
-    x = _
+    failingChecksFixDisabledReason = canShowFailingChecksFix
       ? ch({
-          baseBranch: c,
+          baseBranch: baseBranch,
           conversationId,
-          fixDisabledReason: b,
+          fixDisabledReason: fixDisabledReason,
           hasOpenPr: pullRequestStatus.hasOpenPr,
-          headBranch: l,
-          prNumber: u,
+          headBranch: pullRequestHeadBranch,
+          prNumber: pullRequestNumber,
         })
       : null;
-  let S = x,
-    C = v
+  let checksFixDisabledReason = failingChecksFixDisabledReason,
+    mergeConflictFixDisabledReason = hasMergeConflicts
       ? ch({
-          baseBranch: c,
+          baseBranch: baseBranch,
           conversationId,
-          fixDisabledReason: b,
+          fixDisabledReason: fixDisabledReason,
           hasOpenPr: pullRequestStatus.hasOpenPr,
-          headBranch: l,
-          prNumber: d == null ? null : u,
+          headBranch: pullRequestHeadBranch,
+          prNumber: pullRequestUrl == null ? null : pullRequestNumber,
         })
       : null;
-  let w = C,
-    T = h
+  let conflictFixDisabledReason = mergeConflictFixDisabledReason,
+    commentsFixDisabledReason = hasNewCommentAttachments
       ? Qm({
-          baseBranch: c,
+          baseBranch: baseBranch,
           conversationId,
-          headBranch: l,
-          prNumber: u,
+          headBranch: pullRequestHeadBranch,
+          prNumber: pullRequestNumber,
         })
       : null;
-  let E = T,
-    D = () => {
+  let reviewCommentsFixDisabledReason = commentsFixDisabledReason,
+    openMergeConflictsFix = () => {
       hh(
-        a,
-        c == null || l == null || u == null || d == null
+        scope,
+        baseBranch == null ||
+          pullRequestHeadBranch == null ||
+          pullRequestNumber == null ||
+          pullRequestUrl == null
           ? null
           : {
-              baseBranch: c,
-              headBranch: l,
-              number: u,
+              baseBranch: baseBranch,
+              headBranch: pullRequestHeadBranch,
+              number: pullRequestNumber,
               repo: pullRequestStatus.repo,
-              url: d,
+              url: pullRequestUrl,
             },
       );
     };
-  let O = D,
-    k = () => {
-      eh(a, {
-        baseBranch: c,
+  let handleFixMergeConflicts = openMergeConflictsFix,
+    openReviewCommentsFix = () => {
+      eh(scope, {
+        baseBranch: baseBranch,
         commentAttachments: pullRequestStatus.commentAttachments,
         conversationId,
         focusComposer: true,
-        headBranch: l,
-        number: u,
+        headBranch: pullRequestHeadBranch,
+        number: pullRequestNumber,
       });
     };
-  let A = k,
-    j = S == null,
-    M =
-      S == null
+  let handleFixReviewComments = openReviewCommentsFix,
+    canFixFailingChecks = checksFixDisabledReason == null,
+    failingChecksTooltipContent =
+      checksFixDisabledReason == null
         ? undefined
         : Rh.jsx(ih, {
-            reason: S,
+            reason: checksFixDisabledReason,
           });
-  let N = (e) => {
-    ph(a, {
-      baseBranch: c,
-      checks: e,
-      headBranch: l,
-      number: u,
+  let handleFixFailingChecks = (checks) => {
+    ph(scope, {
+      baseBranch: baseBranch,
+      checks: checks,
+      headBranch: pullRequestHeadBranch,
+      number: pullRequestNumber,
     });
   };
-  let P = (
-    <Ch
-      canFixFailingChecks={j}
-      fixTooltipContent={M}
-      onFixFailingChecks={N}
+  let checksRow = (
+    <PullRequestChecksSummaryRow
+      canFixFailingChecks={canFixFailingChecks}
+      fixTooltipContent={failingChecksTooltipContent}
+      onFixFailingChecks={handleFixFailingChecks}
       pullRequestStatus={pullRequestStatus}
     />
   );
-  let F = v ? (
+  let mergeConflictsRow = hasMergeConflicts ? (
     <SummaryPanelRow
       actions={Rh.jsx(PullRequestInlineActionButton, {
         color: "ghostTertiary",
-        disabled: w != null,
+        disabled: conflictFixDisabledReason != null,
         tooltipContent:
-          w == null
+          conflictFixDisabledReason == null
             ? undefined
             : Rh.jsx(ih, {
-                reason: w,
+                reason: conflictFixDisabledReason,
               }),
-        onClick: O,
+        onClick: handleFixMergeConflicts,
         children: (
           <FormattedMessage
             id="codex.localConversation.gitSummary.fixMergeConflicts"
@@ -4617,14 +4627,14 @@ function Ph(e) {
       }
     />
   ) : null;
-  let I = y
+  let commentsRow = hasCommentAttachments
     ? Rh.jsx(vh, {
         triggerAsChild: true,
         content: Rh.jsx(yh, {
           children: (
             <div className="flex flex-col gap-2 py-1">
               {pullRequestStatus.commentAttachments.map((item, index) => {
-                let n =
+                let activityItem =
                   item.reviewThreadId == null
                     ? null
                     : pullRequestStatus.activityItems.find(
@@ -4635,13 +4645,13 @@ function Ph(e) {
                 return (
                   <Qo
                     key={`${item.url ?? ""}-${index}`}
-                    authorAvatarUrl={n?.authorAvatarUrl}
-                    authorLogin={n?.authorLogin}
+                    authorAvatarUrl={activityItem?.authorAvatarUrl}
+                    authorLogin={activityItem?.authorLogin}
                     bodyPreview={true}
                     comment={item}
-                    createdAt={n?.createdAt}
+                    createdAt={activityItem?.createdAt}
                     onOpenInReview={() => {
-                      Zs(a, {
+                      Zs(scope, {
                         comment: item,
                       });
                     }}
@@ -4655,17 +4665,17 @@ function Ph(e) {
         children: (
           <SummaryPanelRow
             actions={
-              h
+              hasNewCommentAttachments
                 ? Rh.jsx(PullRequestInlineActionButton, {
                     color: "ghostTertiary",
-                    disabled: E != null,
+                    disabled: reviewCommentsFixDisabledReason != null,
                     tooltipContent:
-                      E == null
+                      reviewCommentsFixDisabledReason == null
                         ? undefined
                         : Rh.jsx(rh, {
-                            reason: E,
+                            reason: reviewCommentsFixDisabledReason,
                           }),
-                    onClick: A,
+                    onClick: handleFixReviewComments,
                     children: (
                       <FormattedMessage
                         id="codex.localConversation.gitSummary.fixComments"
@@ -4676,7 +4686,7 @@ function Ph(e) {
                   })
                 : undefined
             }
-            actionsVisible={h}
+            actionsVisible={hasNewCommentAttachments}
             icon={
               <span className="inline-flex h-[18px] w-[18px] shrink-0 items-center justify-center">
                 <Ko className="icon-xs text-token-text-tertiary" />
@@ -4702,16 +4712,16 @@ function Ph(e) {
     : null;
   return (
     <>
-      {P}
-      {F}
-      {I}
+      {checksRow}
+      {mergeConflictsRow}
+      {commentsRow}
     </>
   );
 }
-function Fh(e) {
+function isFailingPullRequestCheckStatus(e) {
   return e.status === "failing";
 }
-function Ih(e) {
+function getReviewCommentAttachmentKey(e) {
   return se(e);
 }
 var Lh,
@@ -6556,128 +6566,133 @@ var h_,
     p_();
     ho();
   });
-function __(e) {
-  let { conversationId, hostId, pullRequestStatus, visualState } = e,
-    o = B(Fe),
-    s = ur(),
-    c = W(z),
-    l = K(An, "1590905736"),
+function PullRequestSummaryRow(props) {
+  let { conversationId, hostId, pullRequestStatus, visualState } = props,
+    scope = B(Fe),
+    intl = ur(),
+    isBrowserSidebarEnabled = W(z),
+    canOpenInSidePanel = K(An, "1590905736"),
     { boardItem } = pullRequestStatus,
-    d = l && boardItem != null,
-    f = pullRequestStatus.url ?? boardItem?.url ?? null,
-    p = (e) => {
-      f != null &&
+    shouldOpenInSidePanel = canOpenInSidePanel && boardItem != null,
+    pullRequestUrl = pullRequestStatus.url ?? boardItem?.url ?? null,
+    openInBrowser = (event) => {
+      pullRequestUrl != null &&
         (boardItem != null &&
-          trackPullRequestAction(o, {
+          trackPullRequestAction(scope, {
             action: "open_in_browser",
             item: boardItem,
             surface: "thread_side_panel",
           }),
         wi({
-          event: e,
-          href: f,
+          event: event,
+          href: pullRequestUrl,
           initiator: "pull_request_link",
         }));
     };
-  let m = p,
-    h = (e) => {
-      if (f != null) {
-        if (d) {
-          logPullRequestViewedFromSidePanel(o, {
+  let handleOpenInBrowser = openInBrowser,
+    openPullRequest = (event) => {
+      if (pullRequestUrl != null) {
+        if (shouldOpenInSidePanel) {
+          logPullRequestViewedFromSidePanel(scope, {
             item: boardItem,
             surface: "thread_side_panel",
           });
-          m_(o, {
+          m_(scope, {
             hostId,
             item: boardItem,
             repo: pullRequestStatus.repo,
           });
           return;
         }
-        m(e);
+        handleOpenInBrowser(event);
       }
     };
-  let g = h,
-    _ = y_(pullRequestStatus.number, pullRequestStatus.title, s);
-  let v = _,
-    y = (
+  let handleOpenPullRequest = openPullRequest,
+    summaryTitle = formatPullRequestSummaryTitle(
+      pullRequestStatus.number,
+      pullRequestStatus.title,
+      intl,
+    );
+  let rowLabel = summaryTitle,
+    statusIcon = (
       <span className="inline-flex h-[18px] w-[18px] shrink-0 items-center justify-center">
         <Ws className="icon-xs" state={visualState} tone="currentColor" />
       </span>
     );
-  let b =
-    f == null ? undefined : d ? (
+  let externalLinkTrailingIcon =
+    pullRequestUrl == null ? undefined : shouldOpenInSidePanel ? (
       <a
-        aria-label={s.formatMessage({
+        aria-label={intl.formatMessage({
           id: "codex.localConversation.gitSummary.openPullRequestOnGitHub",
           defaultMessage: "Open pull request on GitHub",
           description:
             "Accessible label for opening a pull request on GitHub from its summary row",
         })}
         className="cursor-interaction text-token-text-tertiary hover:text-token-foreground"
-        href={f}
+        href={pullRequestUrl}
         rel="noreferrer"
         target="_blank"
         onClick={(event) => {
           event.stopPropagation();
-          m(event);
+          handleOpenInBrowser(event);
         }}
-        onKeyDown={v_}
+        onKeyDown={stopPullRequestSummaryLinkPropagation}
       >
-        <In className="icon-xs" href={f} />
+        <In className="icon-xs" href={pullRequestUrl} />
       </a>
     ) : (
-      <In className="icon-xs text-token-text-tertiary" href={f} />
+      <In className="icon-xs text-token-text-tertiary" href={pullRequestUrl} />
     );
-  let x = f == null ? undefined : g,
-    S = (
+  let rowClickHandler =
+      pullRequestUrl == null ? undefined : handleOpenPullRequest,
+    summaryRow = (
       <SummaryPanelRow
-        aria-label={v}
-        icon={y}
-        label={v}
-        trailing={b}
-        onClick={x}
+        aria-label={rowLabel}
+        icon={statusIcon}
+        label={rowLabel}
+        trailing={externalLinkTrailingIcon}
+        onClick={rowClickHandler}
       />
     );
-  let C = S;
+  let rowNode = summaryRow;
   if (
     conversationId == null ||
-    f == null ||
+    pullRequestUrl == null ||
     !hs({
-      href: f,
-      isBrowserSidebarEnabled: c,
+      href: pullRequestUrl,
+      isBrowserSidebarEnabled: isBrowserSidebarEnabled,
     })
   )
-    return C;
-  let w = jo({
+    return rowNode;
+  let browserSidebarItems = jo({
     conversationId,
-    href: f,
+    href: pullRequestUrl,
     initiator: "side_panel_menu",
   });
-  return <Eo items={w}>{C}</Eo>;
+  return <Eo items={browserSidebarItems}>{rowNode}</Eo>;
 }
-function v_(event) {
+function stopPullRequestSummaryLinkPropagation(event) {
   event.stopPropagation();
 }
-function y_(e, t, n) {
-  if (t != null) return t;
-  let r =
-    e == null
-      ? n.formatMessage({
+function formatPullRequestSummaryTitle(number, title, intl) {
+  if (title != null) return title;
+  let fallbackNumber =
+    number == null
+      ? intl.formatMessage({
           id: "codex.localConversation.gitSummary.pullRequestFallbackNumber",
           defaultMessage: "-",
           description:
             "Fallback displayed when a pull request number is unavailable",
         })
-      : `#${e}`;
-  return n.formatMessage(
+      : `#${number}`;
+  return intl.formatMessage(
     {
       id: "codex.localConversation.gitSummary.pullRequestWithState",
       defaultMessage: "PR {number}",
       description: "GitHub PR row with pull request number and status",
     },
     {
-      number: r,
+      number: fallbackNumber,
     },
   );
 }
@@ -6700,81 +6715,103 @@ var b_,
     initSummaryPanelRowChunk();
     x_ = getJsxRuntime();
   });
-function C_(e) {
+function LocalConversationGitSummary(props) {
   let {
       conversationId,
       cwd,
       hostConfig,
       workspaceBrowserRoot,
       onCreatePullRequest,
-    } = e,
-    s = K(Wn, conversationId),
-    c = K(pi, conversationId),
-    l = s ?? workspaceBrowserRoot,
-    u = ys(l, hostConfig, "local_conversation_git_summary"),
-    d = {
+    } = props,
+    threadWorkspaceBrowserRoot = K(Wn, conversationId),
+    storedThreadBranch = K(pi, conversationId),
+    workspaceRoot = threadWorkspaceBrowserRoot ?? workspaceBrowserRoot,
+    headBranchQuery = ys(
+      workspaceRoot,
+      hostConfig,
+      "local_conversation_git_summary",
+    ),
+    createPullRequestActionParams = {
       cwd,
       hostConfig,
     };
-  let f = K(_s, d),
-    p,
-    m;
-  p = u.data?.trim() ?? "";
-  m = Bh(c, p);
-  let h = m,
-    g = u.isSuccess && p.length === 0,
-    _ = {
+  let createPullRequestActionState = K(_s, createPullRequestActionParams),
+    headBranchName = headBranchQuery.data?.trim() ?? "",
+    normalizedHeadBranchName = Bh(storedThreadBranch, headBranchName);
+  let headBranch = normalizedHeadBranchName,
+    hasEmptyHeadBranch =
+      headBranchQuery.isSuccess && headBranchName.length === 0,
+    workflowParams = {
       cwd,
       hostId: hostConfig.id,
     };
-  let v = K(Oc, _),
-    y = v?.phase ?? null,
-    b = v?.workflow === "create-pr",
-    x = K(ya, hostConfig.id),
-    S = {
-      cwd: l,
-      headBranch: h,
+  let activeWorkflow = K(Oc, workflowParams),
+    workflowPhase = activeWorkflow?.phase ?? null,
+    isCreatePrWorkflow = activeWorkflow?.workflow === "create-pr",
+    ghCliAvailability = K(ya, hostConfig.id),
+    pullRequestStatusParams = {
+      cwd: workspaceRoot,
+      headBranch: headBranch,
       hostId: hostConfig.id,
       operationSource: "local_conversation_git_summary",
     };
-  let C = K(qa, S);
-  if (l == null || (!g && p.length === 0)) return null;
-  if (g) {
-    if (b && y != null && (C.type !== "success" || C.data.hasOpenPr !== true)) {
-      let e = () =>
+  let pullRequestStatusQuery = K(qa, pullRequestStatusParams);
+  if (
+    workspaceRoot == null ||
+    (!hasEmptyHeadBranch && headBranchName.length === 0)
+  )
+    return null;
+  if (hasEmptyHeadBranch) {
+    if (
+      isCreatePrWorkflow &&
+      workflowPhase != null &&
+      (pullRequestStatusQuery.type !== "success" ||
+        pullRequestStatusQuery.data.hasOpenPr !== true)
+    ) {
+      let cancelCreatePullRequest = () =>
         Lc({
           cwd,
           hostId: hostConfig.id,
         });
-      let n;
-      return <D_ phase={y} onCancel={e} />;
+      return (
+        <CreatePullRequestProgressSummaryRow
+          phase={workflowPhase}
+          onCancel={cancelCreatePullRequest}
+        />
+      );
     }
-    let e;
-    return A_.jsx(w_, {
-      createPullRequestActionState: f,
-      ghCliAvailability: x,
+    return A_.jsx(CreatePullRequestSummaryAction, {
+      createPullRequestActionState: createPullRequestActionState,
+      ghCliAvailability: ghCliAvailability,
       onCreatePullRequest,
-      workflowPhase: y,
+      workflowPhase: workflowPhase,
     });
   }
-  if (b && y != null && (C.type !== "success" || C.data.hasOpenPr !== true)) {
-    let e = () =>
+  if (
+    isCreatePrWorkflow &&
+    workflowPhase != null &&
+    (pullRequestStatusQuery.type !== "success" ||
+      pullRequestStatusQuery.data.hasOpenPr !== true)
+  ) {
+    let cancelCreatePullRequest = () =>
       Lc({
         cwd,
         hostId: hostConfig.id,
       });
-    let n;
-    return <D_ phase={y} onCancel={e} />;
+    return (
+      <CreatePullRequestProgressSummaryRow
+        phase={workflowPhase}
+        onCancel={cancelCreatePullRequest}
+      />
+    );
   }
-  let w = E_(x);
-  let T = w;
-  if (T != null) return T;
-  if (C.type === "error") {
-    let e;
+  let ghCliStatusRow = getGithubCliStatusSummaryRow(ghCliAvailability);
+  if (ghCliStatusRow != null) return ghCliStatusRow;
+  if (pullRequestStatusQuery.type === "error") {
     return (
       <SummaryPanelRow
         className="!text-token-text-tertiary"
-        icon={<O_ />}
+        icon={<GithubStatusPlaceholderIcon />}
         label={
           <FormattedMessage
             id="codex.localConversation.gitSummary.pullRequestUnavailable"
@@ -6785,11 +6822,10 @@ function C_(e) {
       />
     );
   }
-  if (C.type === "loading") {
-    let e;
+  if (pullRequestStatusQuery.type === "loading") {
     return (
       <SummaryPanelRow
-        icon={<O_ />}
+        icon={<GithubStatusPlaceholderIcon />}
         label={
           <FormattedMessage
             id="codex.localConversation.gitSummary.checkingPullRequest"
@@ -6800,104 +6836,96 @@ function C_(e) {
       />
     );
   }
-  let E =
-    f === "hidden" ? null : (
-      <T_
-        isCreatePullRequestEnabled={f === "enabled"}
+  let createPullRequestRow =
+    createPullRequestActionState === "hidden" ? null : (
+      <CreatePullRequestSummaryRow
+        isCreatePullRequestEnabled={createPullRequestActionState === "enabled"}
         onCreatePullRequest={onCreatePullRequest}
-        workflowPhase={y}
+        workflowPhase={workflowPhase}
       />
     );
-  let D = E;
-  if (C.type === "not-found") return D;
-  let O = C.data,
-    k,
-    A;
-  A = Symbol.for("react.early_return_sentinel");
-  bb0: {
-    let e = getPullRequestVisualState({
-      hasOpenPr: O.hasOpenPr,
-      isDraft: O.isDraft,
-      url: O.url,
+  let fallbackRow = createPullRequestRow;
+  if (pullRequestStatusQuery.type === "not-found") return fallbackRow;
+  let pullRequestStatus = pullRequestStatusQuery.data,
+    visualState = getPullRequestVisualState({
+      hasOpenPr: pullRequestStatus.hasOpenPr,
+      isDraft: pullRequestStatus.isDraft,
+      url: pullRequestStatus.url,
     });
-    if (e == null) {
-      A = D;
-      break bb0;
-    }
-    k = getPullRequestMergeVisualState({
-      canMerge: O.canMerge,
-      ciStatus: O.ciStatus,
-      hasMergeConflicts: O.mergeBlocker === "conflicts",
-      status: e,
-    });
-  }
-  if (A !== Symbol.for("react.early_return_sentinel")) return A;
-  let j = k,
-    M = A_.jsx(__, {
+  if (visualState == null) return fallbackRow;
+  let mergeVisualState = getPullRequestMergeVisualState({
+      canMerge: pullRequestStatus.canMerge,
+      ciStatus: pullRequestStatus.ciStatus,
+      hasMergeConflicts: pullRequestStatus.mergeBlocker === "conflicts",
+      status: visualState,
+    }),
+    pullRequestSummaryRow = A_.jsx(PullRequestSummaryRow, {
       conversationId,
       hostId: hostConfig.id,
-      pullRequestStatus: O,
-      visualState: j,
+      pullRequestStatus: pullRequestStatus,
+      visualState: mergeVisualState,
     });
-  let N = (
-    <Ph conversationId={conversationId} headBranch={p} pullRequestStatus={O} />
+  let detailRows = (
+    <PullRequestStatusDetailRows
+      conversationId={conversationId}
+      headBranch={headBranchName}
+      pullRequestStatus={pullRequestStatus}
+    />
   );
   return (
     <div className="relative z-10 flex flex-col">
-      {M}
-      {N}
+      {pullRequestSummaryRow}
+      {detailRows}
     </div>
   );
 }
-function w_(e) {
+function CreatePullRequestSummaryAction(props) {
   let {
     createPullRequestActionState,
     ghCliAvailability,
     onCreatePullRequest,
     workflowPhase,
-  } = e;
+  } = props;
   if (createPullRequestActionState === "hidden") return null;
-  let o = E_(ghCliAvailability);
-  let s = o;
-  if (s != null) return s;
-  let c = createPullRequestActionState === "enabled";
+  let ghCliStatusRow = getGithubCliStatusSummaryRow(ghCliAvailability);
+  if (ghCliStatusRow != null) return ghCliStatusRow;
+  let isCreatePullRequestEnabled = createPullRequestActionState === "enabled";
   return (
-    <T_
-      isCreatePullRequestEnabled={c}
+    <CreatePullRequestSummaryRow
+      isCreatePullRequestEnabled={isCreatePullRequestEnabled}
       onCreatePullRequest={onCreatePullRequest}
       workflowPhase={workflowPhase}
     />
   );
 }
-function T_(e) {
-  let { isCreatePullRequestEnabled, onCreatePullRequest, workflowPhase } = e,
-    a = workflowPhase != null || !isCreatePullRequestEnabled,
-    o,
-    s;
-  o = <O_ />;
-  s = (
-    <FormattedMessage
-      id="codex.localConversation.gitSummary.createPullRequest"
-      defaultMessage="Create pull request"
-      description="GitHub status row shown when no PR exists for the branch"
-    />
-  );
+function CreatePullRequestSummaryRow(props) {
+  let { isCreatePullRequestEnabled, onCreatePullRequest, workflowPhase } =
+      props,
+    isDisabled = workflowPhase != null || !isCreatePullRequestEnabled,
+    icon = <GithubStatusPlaceholderIcon />,
+    label = (
+      <FormattedMessage
+        id="codex.localConversation.gitSummary.createPullRequest"
+        defaultMessage="Create pull request"
+        description="GitHub status row shown when no PR exists for the branch"
+      />
+    );
   return (
     <SummaryPanelRow
-      disabled={a}
+      disabled={isDisabled}
       onClick={onCreatePullRequest}
-      icon={o}
-      label={s}
+      icon={icon}
+      label={label}
     />
   );
 }
-function E_(e) {
-  switch (e) {
+function getGithubCliStatusSummaryRow(ghCliAvailability) {
+  switch (ghCliAvailability) {
     case "loading":
     case "error":
       return (
         <SummaryPanelRow
-          icon={<O_ />}
+          icon={<GithubStatusPlaceholderIcon />}
           label={
             <FormattedMessage
               id="codex.localConversation.gitSummary.checkingPullRequest"
@@ -6910,7 +6938,7 @@ function E_(e) {
     case "missing":
       return (
         <SummaryPanelRow
-          icon={<O_ />}
+          icon={<GithubStatusPlaceholderIcon />}
           label={
             <FormattedMessage
               id="codex.localConversation.gitSummary.githubCliUnavailable"
@@ -6923,7 +6951,7 @@ function E_(e) {
     case "unauthenticated":
       return (
         <SummaryPanelRow
-          icon={<O_ />}
+          icon={<GithubStatusPlaceholderIcon />}
           label={
             <FormattedMessage
               id="codex.localConversation.gitSummary.githubCliSignedOut"
@@ -6937,20 +6965,25 @@ function E_(e) {
       return null;
   }
 }
-function D_(e) {
-  let { phase, onCancel } = e,
-    i = A_.jsx(rr, {
+function CreatePullRequestProgressSummaryRow(props) {
+  let { phase, onCancel } = props,
+    spinnerIcon = A_.jsx(rr, {
       className: j_,
     });
-  let a = A_.jsx(nl, {
+  let phaseLabel = A_.jsx(nl, {
     phase,
   });
-  let o = <Ms onCancel={onCancel} />;
+  let cancelButton = <Ms onCancel={onCancel} />;
   return (
-    <SummaryPanelRow icon={i} label={a} trailing={o} trailingVisible={true} />
+    <SummaryPanelRow
+      icon={spinnerIcon}
+      label={phaseLabel}
+      trailing={cancelButton}
+      trailingVisible={true}
+    />
   );
 }
-function O_() {
+function GithubStatusPlaceholderIcon() {
   return <Fr className={j_} />;
 }
 var k_,
@@ -7220,7 +7253,7 @@ function L_(e) {
     h.current?.();
   };
   let j = (
-    <C_
+    <LocalConversationGitSummary
       conversationId={conversationId}
       cwd={cwd}
       hostConfig={hostConfig}
