@@ -12637,6 +12637,18 @@
       "status": "done",
       "note": "Synced current artifact annotation comment helper chunk with semantic comment helpers and initializer export.",
       "lastUpdated": "2026-06-27T21:50:28.470Z"
+    },
+    "PopcornPageNumberNavigation-CdETRqdh": {
+      "restored": "features/popcorn-page-number-navigation.tsx",
+      "exports": {
+        "n": "initPopcornPageNumberNavigationChunk",
+        "t": "PopcornPageNumberNavigation",
+        "initPopcornPageNumberNavigationChunk": "initPopcornPageNumberNavigationChunk",
+        "PopcornPageNumberNavigation": "PopcornPageNumberNavigation"
+      },
+      "status": "done",
+      "note": "Synced current Popcorn page number navigation chunk with semantic component and initializer export.",
+      "lastUpdated": "2026-06-27T21:51:45.787Z"
     }
   }
 }
