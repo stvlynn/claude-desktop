@@ -410,14 +410,9 @@ import {
   kn as To,
 } from "../boundaries/current-ref/automations-page-producer";
 import {
-  O as Eo,
-  k as Do,
-} from "../boundaries/current-ref/worktree-new-thread-panel-producer";
-import {
   $ as Oo,
   $o as pullRequestMergeConflictAttachmentSignal,
   Ai as Ao,
-  Bt as jo,
   Dt as Mo,
   Fi as No,
   Gt as Po,
@@ -435,7 +430,6 @@ import {
   Q as CommentBubbleIcon,
   Qo as attachedPullRequestChecksSignal,
   Qt as Jo,
-  Vt as Yo,
   W as Xo,
   _o as Zo,
   a as Qo,
@@ -455,7 +449,6 @@ import {
   qa as fs,
   u as ps,
   us as ms,
-  zt as hs,
 } from "../boundaries/current-ref/pull-request-thread-actions-producer";
 import {
   $c as openBrowserSummaryTab,
@@ -719,7 +712,6 @@ import {
   S as initPullRequestCheckStatusIconChunk,
   _ as initPullRequestAnalyticsChunk,
   a as PullRequestMergeActions,
-  b as logPullRequestViewedFromSidePanel,
   i as initPullRequestMetadataRowsChunk,
   m as usePullRequestUpdateMutation,
   n as initPullRequestCheckRowsChunk,
@@ -824,6 +816,10 @@ import {
   initThreadSummarySideChatRowsChunk,
   ThreadSummarySideChatRows,
 } from "./local-conversation-thread-parts/thread-summary-side-chat-rows";
+import {
+  initPullRequestSummaryRowChunk,
+  PullRequestSummaryRow,
+} from "./local-conversation-thread-parts/pull-request-summary-row";
 import {
   initThreadSummarySourceRowsChunk,
   ThreadSummarySourceRows,
@@ -6344,158 +6340,6 @@ var pullRequestSidePanelTabReactRuntime,
     initPullRequestSidePanelTabChunk();
     ho();
   });
-function PullRequestSummaryRow(props) {
-  let { conversationId, hostId, pullRequestStatus, visualState } = props,
-    scope = useScope(localConversationRouteScope),
-    intl = useIntl(),
-    isBrowserSidebarEnabled = useSignalValue(browserSidebarEnabledSignal),
-    canOpenInSidePanel = useScopedValue(featureGateSignal, "1590905736"),
-    { boardItem } = pullRequestStatus,
-    shouldOpenInSidePanel = canOpenInSidePanel && boardItem != null,
-    pullRequestUrl = pullRequestStatus.url ?? boardItem?.url ?? null,
-    openInBrowser = (event) => {
-      pullRequestUrl != null &&
-        (boardItem != null &&
-          trackPullRequestAction(scope, {
-            action: "open_in_browser",
-            item: boardItem,
-            surface: "thread_side_panel",
-          }),
-        openInBrowserFromEvent({
-          event: event,
-          href: pullRequestUrl,
-          initiator: "pull_request_link",
-        }));
-    };
-  let handleOpenInBrowser = openInBrowser,
-    openPullRequest = (event) => {
-      if (pullRequestUrl != null) {
-        if (shouldOpenInSidePanel) {
-          logPullRequestViewedFromSidePanel(scope, {
-            item: boardItem,
-            surface: "thread_side_panel",
-          });
-          openPullRequestSidePanelTab(scope, {
-            hostId,
-            item: boardItem,
-            repo: pullRequestStatus.repo,
-          });
-          return;
-        }
-        handleOpenInBrowser(event);
-      }
-    };
-  let handleOpenPullRequest = openPullRequest,
-    summaryTitle = formatPullRequestSummaryTitle(
-      pullRequestStatus.number,
-      pullRequestStatus.title,
-      intl,
-    );
-  let rowLabel = summaryTitle,
-    statusIcon = (
-      <span className="inline-flex h-[18px] w-[18px] shrink-0 items-center justify-center">
-        <Ws className="icon-xs" state={visualState} tone="currentColor" />
-      </span>
-    );
-  let externalLinkTrailingIcon =
-    pullRequestUrl == null ? undefined : shouldOpenInSidePanel ? (
-      <a
-        aria-label={intl.formatMessage({
-          id: "codex.localConversation.gitSummary.openPullRequestOnGitHub",
-          defaultMessage: "Open pull request on GitHub",
-          description:
-            "Accessible label for opening a pull request on GitHub from its summary row",
-        })}
-        className="cursor-interaction text-token-text-tertiary hover:text-token-foreground"
-        href={pullRequestUrl}
-        rel="noreferrer"
-        target="_blank"
-        onClick={(event) => {
-          event.stopPropagation();
-          handleOpenInBrowser(event);
-        }}
-        onKeyDown={stopPullRequestSummaryLinkPropagation}
-      >
-        <ExternalLinkIcon className="icon-xs" href={pullRequestUrl} />
-      </a>
-    ) : (
-      <ExternalLinkIcon
-        className="icon-xs text-token-text-tertiary"
-        href={pullRequestUrl}
-      />
-    );
-  let rowClickHandler =
-      pullRequestUrl == null ? undefined : handleOpenPullRequest,
-    summaryRow = (
-      <SummaryPanelRow
-        aria-label={rowLabel}
-        icon={statusIcon}
-        label={rowLabel}
-        trailing={externalLinkTrailingIcon}
-        onClick={rowClickHandler}
-      />
-    );
-  let rowNode = summaryRow;
-  if (
-    conversationId == null ||
-    pullRequestUrl == null ||
-    !hs({
-      href: pullRequestUrl,
-      isBrowserSidebarEnabled: isBrowserSidebarEnabled,
-    })
-  )
-    return rowNode;
-  let browserSidebarItems = jo({
-    conversationId,
-    href: pullRequestUrl,
-    initiator: "side_panel_menu",
-  });
-  return <Eo items={browserSidebarItems}>{rowNode}</Eo>;
-}
-function stopPullRequestSummaryLinkPropagation(event) {
-  event.stopPropagation();
-}
-function formatPullRequestSummaryTitle(number, title, intl) {
-  if (title != null) return title;
-  let fallbackNumber =
-    number == null
-      ? intl.formatMessage({
-          id: "codex.localConversation.gitSummary.pullRequestFallbackNumber",
-          defaultMessage: "-",
-          description:
-            "Fallback displayed when a pull request number is unavailable",
-        })
-      : `#${number}`;
-  return intl.formatMessage(
-    {
-      id: "codex.localConversation.gitSummary.pullRequestWithState",
-      defaultMessage: "PR {number}",
-      description: "GitHub PR row with pull request number and status",
-    },
-    {
-      number: fallbackNumber,
-    },
-  );
-}
-var pullRequestSummaryRowModule,
-  pullRequestSummaryRowJsxRuntime,
-  initPullRequestSummaryRowChunk = once(() => {
-    pullRequestSummaryRowModule = getChunkModuleExports();
-    initScopeRuntime();
-    initIntlRuntime();
-    initBrowserFeatureAvailabilitySignals();
-    Do();
-    Yo();
-    initExternalUrlHelpers();
-    Xr();
-    initPullRequestAnalyticsChunk();
-    Js();
-    initRouteScope();
-    initStatsigGateSignals();
-    initPullRequestSidePanelOpenerChunk();
-    initSummaryPanelRowChunk();
-    pullRequestSummaryRowJsxRuntime = getJsxRuntime();
-  });
 function LocalConversationGitSummary(props) {
   let {
       conversationId,
@@ -6504,6 +6348,7 @@ function LocalConversationGitSummary(props) {
       workspaceBrowserRoot,
       onCreatePullRequest,
     } = props,
+    scope = useScope(localConversationRouteScope),
     threadWorkspaceBrowserRoot = useScopedValue(
       conversationCwdSignal,
       conversationId,
@@ -6666,6 +6511,13 @@ function LocalConversationGitSummary(props) {
       {
         conversationId,
         hostId: hostConfig.id,
+        onOpenSidePanel: ({ hostId, item, repo }) => {
+          openPullRequestSidePanelTab(scope, {
+            hostId,
+            item,
+            repo,
+          });
+        },
         pullRequestStatus: pullRequestStatus,
         visualState: mergeVisualState,
       },
@@ -6813,6 +6665,7 @@ var localConversationGitSummaryModule,
     initPullRequestSummaryRowsChunk();
     initPullRequestTitleFallbackChunk();
     initPullRequestSummaryRowChunk();
+    initPullRequestSidePanelOpenerChunk();
     localConversationGitSummaryJsxRuntime = getJsxRuntime();
     GITHUB_STATUS_ICON_CLASS_NAME = "icon-sm shrink-0 text-token-text-tertiary";
   });
