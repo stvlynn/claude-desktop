@@ -330,17 +330,14 @@ import {
   $l as createPullRequestActionStateSignal,
   $n as vs,
   Al as ys,
-  Ar as bs,
   Bl as Ss,
   Bn as worktreeStatusQuerySignal,
   Bu as ws,
   Du as Es,
   Eu as Os,
-  Fr as ks,
   Gm as js,
   Hl as Ms,
   In as Ns,
-  Ir as Ps,
   Jn as Ls,
   Km as zs,
   Ln as Bs,
@@ -373,13 +370,10 @@ import {
   er as bc,
   eu as xc,
   fl as Sc,
-  gm as Cc,
   gt as wc,
-  hm as Tc,
   ht as Ec,
   it as Dc,
   iu as activeWorkflowSignal,
-  jr as kc,
   jt as Ac,
   kl as jc,
   lf as Nc,
@@ -422,8 +416,6 @@ import {
 import {
   _ as automationDataSignal,
   g as El,
-  o as Dl,
-  u as Ol,
 } from "../boundaries/current-ref/projects-pull-requests-producer";
 import {
   getPullRequestMergeVisualState,
@@ -604,7 +596,7 @@ import {
 import { getConversationTurnsNotInParent } from "./local-conversation-thread-parts/parent-conversation-turns";
 import {
   MAIN_THREAD_PIP_HOST_ID,
-  startRemoteHostedPipHostLayoutObserver,
+  RefreshSummaryPanelObstaclesEffect,
 } from "./local-conversation-thread-parts/pip-host-layout-observer";
 import {
   initPinnedSummaryPanelState,
@@ -622,6 +614,10 @@ import {
   ThreadSummaryBrowserTabsSection,
   ThreadSummaryComputerUsePipSection,
 } from "./local-conversation-thread-parts/thread-summary-browser-sections";
+import {
+  initThreadSummaryAutomationRowChunk,
+  ThreadSummaryAutomationRow,
+} from "./local-conversation-thread-parts/thread-summary-automation-row";
 import {
   initThreadSummaryEnvironmentSectionChunk,
   ThreadSummaryEnvironmentSection,
@@ -6344,93 +6340,6 @@ var localConversationGitSummaryModule,
     localConversationGitSummaryJsxRuntime = getJsxRuntime();
     GITHUB_STATUS_ICON_CLASS_NAME = "icon-sm shrink-0 text-token-text-tertiary";
   });
-function ThreadSummaryAutomationRow(props) {
-  let { automation } = props,
-    intl = useIntl(),
-    scope = useScope(localConversationRouteScope),
-    nextRunTooltip;
-  {
-    let nextRunLabel = ks({
-      intl,
-      nextRunAt: automation.nextRunAt,
-      status: automation.status,
-    });
-    nextRunTooltip = intl.formatMessage(
-      {
-        id: "codex.localConversation.heartbeatAutomation.nextRun",
-        defaultMessage: "Next run: {nextRunLabel}",
-        description:
-          "Tooltip shown on the heartbeat automation row in the thread summary panel",
-      },
-      {
-        nextRunLabel,
-      },
-    );
-  }
-  let rowTitle = nextRunTooltip,
-    scheduleSummary = Dl({
-      rrule: automation.rrule,
-      intl,
-      fallbackMessage: intl.formatMessage({
-        id: "settings.automations.rruleSummaryFallback",
-        defaultMessage: "Custom schedule",
-        description: "Fallback label when RRULE summary cannot be generated",
-      }),
-    });
-  let rowAriaLabel = intl.formatMessage({
-    id: "codex.localConversation.heartbeatAutomation.open",
-    defaultMessage: "Open scheduled task",
-    description:
-      "Accessible label for opening the active scheduled task from the thread summary panel",
-  });
-  let rowIcon = <Tc className="icon-xs shrink-0" />;
-  let nameNode = (
-    <span className="min-w-0 flex-1 truncate">{automation.name}</span>
-  );
-  let scheduleNode =
-    scheduleSummary == null ? null : (
-      <span className="text-size-chat max-w-48 shrink-0 truncate text-token-text-secondary">
-        {scheduleSummary}
-      </span>
-    );
-  let label = (
-    <>
-      {nameNode}
-      {scheduleNode}
-    </>
-  );
-  let openAutomation = () => {
-    kc({
-      scope,
-      automationId: automation.id,
-      title: automation.name,
-    });
-  };
-  return (
-    <SummaryPanelRow
-      aria-label={rowAriaLabel}
-      icon={rowIcon}
-      label={label}
-      labelClassName="flex min-w-0 flex-1 items-baseline gap-2"
-      onClick={openAutomation}
-      title={rowTitle}
-    />
-  );
-}
-var threadSummaryAutomationRowModule,
-  threadSummaryAutomationRowJsxRuntime,
-  initThreadSummaryAutomationRowChunk = once(() => {
-    threadSummaryAutomationRowModule = getChunkModuleExports();
-    initScopeRuntime();
-    initIntlRuntime();
-    Ol();
-    Ps();
-    bs();
-    Cc();
-    initRouteScope();
-    initSummaryPanelRowChunk();
-    threadSummaryAutomationRowJsxRuntime = getJsxRuntime();
-  });
 var ThreadSummaryPanelChrome,
   initThreadSummaryPanelChrome = once(() => {
     initThreadSummaryPanelChromePrimitives();
@@ -10049,21 +9958,6 @@ function LocalConversationThreadFrame(props) {
       children: threadLayout,
     }),
   });
-}
-function RefreshSummaryPanelObstaclesEffect() {
-  let windowZoom = useWindowZoom(),
-    refreshObstacles,
-    refreshObstaclesEffectDeps;
-  return (
-    (refreshObstacles = () =>
-      startRemoteHostedPipHostLayoutObserver(windowZoom)),
-    (refreshObstaclesEffectDeps = [windowZoom]),
-    localConversationThreadReactRuntime.useEffect(
-      refreshObstacles,
-      refreshObstaclesEffectDeps,
-    ),
-    null
-  );
 }
 function openBackgroundAgentFromThread(
   scope,

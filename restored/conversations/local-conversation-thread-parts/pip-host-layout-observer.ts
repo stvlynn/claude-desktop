@@ -1,6 +1,8 @@
 // Restored from ref/webview/assets/local-conversation-thread-Bf38rCmF.js
 // Remote-hosted picture-in-picture layout observer for local conversation threads.
 
+import { useEffect } from "react";
+import { kM as useWindowZoom } from "../../boundaries/current-ref/appg-thread-shared-producer";
 import {
   createReviewSearchAnchorPlacement,
   type ViewportRectLike,
@@ -177,6 +179,17 @@ function arePipRectsEqual(
     leftRect.width === rightRect.width &&
     leftRect.height === rightRect.height
   );
+}
+
+export function RefreshSummaryPanelObstaclesEffect() {
+  let windowZoom = useWindowZoom();
+
+  useEffect(
+    () => startRemoteHostedPipHostLayoutObserver(windowZoom),
+    [windowZoom],
+  );
+
+  return null;
 }
 
 function shouldRefreshPipLayoutObservers(mutationRecord: MutationRecord) {
