@@ -53,7 +53,6 @@ import {
   AP as motion,
   AV as initReactQueryRuntime,
   Ai as initDialogLayoutComponents,
-  Aj as resolveWorkspacePathFromCwd,
   Al as initComposerScope,
   Am as conversationWorkspaceRootSignal,
   Ao as initGitBranchIcon,
@@ -89,7 +88,6 @@ import {
   Hg as collectEndResourcePaths,
   Hh as initGitQueryKeyHelpers,
   Hi as initSettingsGearIcon,
-  Hv as collectTurnFileArtifacts,
   Hx as getFallbackBackgroundAgentHandle,
   IB as useSignalValue,
   IL as parseConfigLoadError,
@@ -100,7 +98,6 @@ import {
   JV as loadReactModule,
   Ja as CheckCircleIcon,
   Jo as be,
-  Kg as initNormalizedPathUtilities,
   Ki as DropdownMenuSubmenu,
   Kp as conversationReadStateSignal,
   Ku as useGlobalStateQuery,
@@ -129,7 +126,6 @@ import {
   OV as createAtomSignal,
   O_ as initConversationRouteSourceHelpers,
   Oi as $e,
-  Oj as normalizeArtifactPathKey,
   Op as initConversationStateSelectors,
   Ov as useNavigate,
   PB as useScopedValue,
@@ -140,7 +136,6 @@ import {
   Pp as responseInProgressSignal,
   Pv as lt,
   QP as appScope,
-  Qg as initArtifactPathDetectionHelpers,
   R as initSlashIcon,
   RP as ChevronIcon,
   Rf as workspaceRootsSignal,
@@ -197,7 +192,6 @@ import {
   bF as initPathHelpers,
   bM as initKeyboardShortcutLabel,
   bP as createPersistedSignal,
-  bR as isFileUrlLikeTarget,
   bV as createScopedSignal,
   bc as initConversationDetailModeConstants,
   bk as loadUniqByModule,
@@ -210,7 +204,6 @@ import {
   dp as berryDisplayConversationTurnsSignal,
   eM as featureGateSignal,
   eP as useHostQuery,
-  e_ as isFileReferencePath,
   ea as SearchIcon,
   ed as useConversationHostApi,
   eg as Fn,
@@ -265,7 +258,6 @@ import {
   pu as useDebouncedValue,
   pz as toConversationId,
   qV as getChunkModuleExports,
-  qg as isResourcePathInsideProjectlessOutput,
   qi as MenuChrome,
   qj as useStatsigGate,
   rF as defineMessages,
@@ -278,10 +270,8 @@ import {
   tn as Xr,
   tp as hostConnectionStatusSignal,
   ty as $r,
-  uD as mapTurnStatusToOutputStatus,
   uM as toastSignal,
   vM as KeyboardShortcutKeycap,
-  vR as normalizeHref,
   va as AppDialog,
   vm as subagentParentThreadIdSignal,
   wM as CheckIcon,
@@ -781,6 +771,11 @@ import {
   initSummaryPanelArtifactsListChunk,
   SummaryPanelArtifactsList,
 } from "./local-conversation-thread-parts/summary-panel-artifacts-list";
+import {
+  collectLocalConversationOutputArtifacts,
+  initOutputArtifactCollectorDependencies,
+  mergeUniqueOutputArtifacts,
+} from "./local-conversation-thread-parts/local-conversation-output-artifacts";
 import { BackgroundTaskSectionTitle } from "./local-conversation-thread-parts/background-task-section-title";
 import {
   initReviewSearchHighlighter,
@@ -7517,192 +7512,7 @@ var localConversationArtifactsModule,
     initReducedMotionPreference();
     initPinnedSummaryPanelState();
   });
-function collectLocalConversationOutputArtifacts(
-  turns,
-  { includeGeneratedImages = false, projectlessOutputDirectory = null } = {},
-) {
-  let artifactGroups = [];
-  for (let turnIndex = turns.length - 1; turnIndex >= 0; --turnIndex)
-    artifactGroups.push(
-      collectOutputArtifactsForTurn(
-        turns[turnIndex],
-        projectlessOutputDirectory,
-        includeGeneratedImages,
-      ),
-    );
-  return mergeUniqueOutputArtifacts(artifactGroups);
-}
-function mergeUniqueOutputArtifacts(artifactGroups) {
-  let mergedArtifacts = [],
-    artifactIndexByKey = new Map();
-  for (let artifactGroup of artifactGroups)
-    for (let artifact of artifactGroup) {
-      let artifactKey = getOutputArtifactKey(artifact),
-        existingIndex = artifactIndexByKey.get(artifactKey);
-      if (existingIndex != null) {
-        let existingArtifact = mergedArtifacts[existingIndex];
-        existingArtifact?.type === "file" &&
-          artifact.type === "generated-image" &&
-          (mergedArtifacts[existingIndex] = {
-            ...existingArtifact,
-            type: "generated-image",
-          });
-        continue;
-      }
-      artifactIndexByKey.set(artifactKey, mergedArtifacts.length);
-      mergedArtifacts.push(artifact);
-    }
-  return mergedArtifacts;
-}
-function collectOutputArtifactsForTurn(
-  turn,
-  projectlessOutputDirectory,
-  includeGeneratedImages,
-) {
-  let status = mapTurnStatusToOutputStatus(turn.status),
-    turnArtifacts = collectTurnFileArtifacts(turn),
-    cwd =
-      turn.params.cwd == null ? null : normalizeWorkspacePath(turn.params.cwd);
-  return collectOutputArtifactsFromTurnDetails({
-    assistantContent:
-      status === "complete" ? getLatestAgentMessageText(turn) : null,
-    cwd,
-    includeGeneratedImages,
-    projectlessOutputDirectory,
-    status,
-    turn,
-    turnArtifacts,
-  });
-}
-function getLatestAgentMessageText(turn) {
-  for (let itemIndex = turn.items.length - 1; itemIndex >= 0; --itemIndex) {
-    let item = turn.items[itemIndex];
-    if (item?.type === "agentMessage") return item.text;
-  }
-  return null;
-}
-function collectOutputArtifactsFromTurnDetails({
-  assistantContent,
-  cwd,
-  includeGeneratedImages,
-  projectlessOutputDirectory,
-  status,
-  turn,
-  turnArtifacts,
-}) {
-  let artifacts = [],
-    artifactIndexByKey = new Map(),
-    addArtifact = (artifact) => {
-      let artifactKey = getOutputArtifactKey(artifact),
-        existingIndex = artifactIndexByKey.get(artifactKey);
-      if (existingIndex == null) {
-        artifactIndexByKey.set(artifactKey, artifacts.length);
-        artifacts.push(artifact);
-        return;
-      }
-      (artifacts[existingIndex]?.type === "file" ||
-        artifacts[existingIndex]?.type === "generated-image") &&
-        (artifact.type === "website" || artifact.type === "generated-image") &&
-        (artifacts[existingIndex] = artifact);
-    };
-  for (let referencedFilePath of turnArtifacts.referencedFilePaths)
-    isFileReferencePath(referencedFilePath) &&
-      isResourcePathInsideProjectlessOutput({
-        cwd,
-        projectlessOutputDirectory,
-        resourcePath: referencedFilePath,
-      }) &&
-      addArtifact({
-        type: "file",
-        path:
-          cwd == null
-            ? referencedFilePath
-            : resolveWorkspacePathFromCwd(cwd, referencedFilePath),
-      });
-  let itemsToScan = includeGeneratedImages
-    ? turn.items.slice().reverse()
-    : turn.items;
-  for (let item of itemsToScan)
-    item?.type === "imageGeneration" &&
-      item.src != null &&
-      isFileReferencePath(item.src) &&
-      (includeGeneratedImages ||
-        isResourcePathInsideProjectlessOutput({
-          cwd,
-          projectlessOutputDirectory,
-          resourcePath: item.src,
-        })) &&
-      addArtifact({
-        type: includeGeneratedImages ? "generated-image" : "file",
-        path:
-          cwd == null ? item.src : resolveWorkspacePathFromCwd(cwd, item.src),
-      });
-  if (status !== "complete") return artifacts;
-  let renderedArtifacts = collectAssistantOutputArtifacts({
-    assistantContent,
-    isAppgenEndCardEnabled: true,
-    projectlessOutputDirectory,
-    turn: {
-      artifacts: turnArtifacts,
-      collaborationMode: turn.params.collaborationMode ?? null,
-      cwd,
-      items: lt(turn, []).items,
-      status,
-    },
-  });
-  for (let artifact of renderedArtifacts)
-    switch (artifact.type) {
-      case "file":
-        addArtifact({
-          type: "file",
-          path:
-            cwd == null
-              ? artifact.path
-              : resolveWorkspacePathFromCwd(cwd, artifact.path),
-        });
-        break;
-      case "google-drive":
-      case "appgen-app":
-        addArtifact(artifact);
-        break;
-      case "website":
-        addArtifact({
-          type: "website",
-          target:
-            isFileUrlLikeTarget(artifact.target) || cwd == null
-              ? artifact.target
-              : resolveWorkspacePathFromCwd(cwd, artifact.target),
-        });
-        break;
-    }
-  return artifacts;
-}
-function getOutputArtifactKey(artifact) {
-  switch (artifact.type) {
-    case "file":
-    case "generated-image":
-      return `path:${normalizeArtifactPathKey(artifact.path)}`;
-    case "google-drive":
-      return `google-drive:${artifact.url}`;
-    case "appgen-app":
-      return `appgen-app:${artifact.projectId}`;
-    case "website":
-      return isFileUrlLikeTarget(artifact.target)
-        ? `url:${normalizeHref(artifact.target)}`
-        : `path:${normalizeArtifactPathKey(artifact.target)}`;
-  }
-}
-var initOutputArtifactCollectorDependencies = once(() => {
-    initPathHelpers();
-    initArtifactPathDetectionHelpers();
-    initMarkdownArtifactHelpers();
-    lr();
-    initConversationArtifactRuntime();
-    initMarkdownResourceHelpers();
-    initNormalizedPathUtilities();
-    di();
-  }),
-  historicalOutputArtifactsSignal,
+var historicalOutputArtifactsSignal,
   mergedOutputArtifactsSignal,
   localConversationOutputArtifactsSignal,
   localConversationSummaryArtifactsSignal,

@@ -1,5 +1,6 @@
 // Restored from ref/webview/assets/local-conversation-thread-Bf38rCmF.js
 // Artifact summary helpers for the local conversation thread side panel.
+import type { ReactNode } from "react";
 
 const generatedImageFileNamePattern =
   /^ig_[a-f0-9]{32,}\.(?:avif|gif|jpeg|jpg|png|webp)$/i;
@@ -8,37 +9,44 @@ interface ArtifactWithType {
   type: string;
 }
 
-interface FileArtifact extends ArtifactWithType {
+export interface FileArtifact extends ArtifactWithType {
   type: "file";
   path: string;
 }
 
-interface GeneratedImageArtifact extends ArtifactWithType {
+export interface GeneratedImageArtifact extends ArtifactWithType {
   type: "generated-image";
   path: string;
 }
 
-interface GoogleDriveArtifact extends ArtifactWithType {
+export interface GoogleDriveArtifact extends ArtifactWithType {
+  resourceKind?: string | null;
+  title?: ReactNode;
   type: "google-drive";
   url: string;
 }
 
-interface AppgenAppArtifact extends ArtifactWithType {
+export interface AppgenAppArtifact extends ArtifactWithType {
   type: "appgen-app";
   projectId: string;
+  title?: ReactNode;
+  url: string;
 }
 
-interface WebsiteArtifact extends ArtifactWithType {
+export interface WebsiteArtifact extends ArtifactWithType {
   type: "website";
   target: string;
 }
 
-export type LocalConversationArtifactKeySource =
+export type LocalConversationOutputArtifact =
   | FileArtifact
   | GeneratedImageArtifact
   | GoogleDriveArtifact
   | AppgenAppArtifact
   | WebsiteArtifact;
+
+export type LocalConversationArtifactKeySource =
+  LocalConversationOutputArtifact;
 
 function hasArtifactPath(
   artifact: ArtifactWithType,

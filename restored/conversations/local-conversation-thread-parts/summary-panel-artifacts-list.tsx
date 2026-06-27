@@ -1,6 +1,6 @@
 // Restored from ref/webview/assets/local-conversation-thread-Bf38rCmF.js
 // Output artifact list for the local conversation summary panel.
-import type { MouseEvent, ReactNode } from "react";
+import type { MouseEvent } from "react";
 import { once } from "../../runtime/commonjs-interop";
 import {
   AB as initScopeRuntime,
@@ -46,41 +46,14 @@ import {
   getGeneratedImagePreviewArtifactPaths,
   getLocalConversationArtifactKey,
   isGeneratedImageArtifact,
+  type LocalConversationOutputArtifact,
 } from "./artifact-summary";
 import {
   initSummaryPanelExpandableList,
   SummaryPanelExpandableList,
 } from "./summary-panel-expandable-list";
 
-type FileOutputArtifact = {
-  path: string;
-  type: "file" | "generated-image";
-};
-
-type WebsiteOutputArtifact = {
-  target: string;
-  type: "website";
-};
-
-type GoogleDriveOutputArtifact = {
-  resourceKind?: string | null;
-  title: ReactNode;
-  type: "google-drive";
-  url: string;
-};
-
-type AppgenAppOutputArtifact = {
-  projectId: string;
-  title?: ReactNode;
-  type: "appgen-app";
-  url: string;
-};
-
-export type SummaryPanelArtifact =
-  | AppgenAppOutputArtifact
-  | FileOutputArtifact
-  | GoogleDriveOutputArtifact
-  | WebsiteOutputArtifact;
+export type SummaryPanelArtifact = LocalConversationOutputArtifact;
 
 type GeneratedImagePreviewItem = {
   alt: string;
