@@ -10580,8 +10580,8 @@
         "z": "useReviewSearchHighlights"
       },
       "status": "draft",
-      "note": "Draft for the updated ref chunk. Current pass isolated all unresolved current-ref producer imports under boundaries/current-ref passthrough modules and renamed the local-remote / pull-request-check current-ref import bindings at their local consumption sites. These boundaries are open and must be replaced by semantic producer restores before final completion.",
-      "lastUpdated": "2026-06-27T03:21:10.000Z"
+      "note": "Draft for the updated ref chunk. Current pass isolated all unresolved current-ref producer imports under boundaries/current-ref passthrough modules, renamed the local-remote / pull-request-check current-ref import bindings, gave the main local conversation thread route/frame/footer/content helpers semantic names, and cleaned up the resume-conversation error handling helpers. These boundaries are open and must be replaced by semantic producer restores before final completion.",
+      "lastUpdated": "2026-06-27T03:29:35.000Z"
     },
     "thread-overflow-menu-CM-Eo7JH": {
       "restored": "threads/thread-overflow-menu.tsx",

@@ -4234,7 +4234,9 @@ function Dh(e) {
     case "skipped":
     case "unknown": {
       let e;
-      return <PullRequestUnknownCheckIcon className="icon-sm shrink-0 text-token-text-tertiary" />;
+      return (
+        <PullRequestUnknownCheckIcon className="icon-sm shrink-0 text-token-text-tertiary" />
+      );
     }
   }
 }
@@ -5195,7 +5197,13 @@ function bg(e) {
     });
     s = files.map(e);
   }
-  return <PullRequestMetadataRows density="comfortable" items={s} labelTone="primary" />;
+  return (
+    <PullRequestMetadataRows
+      density="comfortable"
+      items={s}
+      labelTone="primary"
+    />
+  );
 }
 var xg,
   Sg,
@@ -12006,7 +12014,7 @@ var lS,
     rs();
     lS = getJsxRuntime();
   });
-function dS(e) {
+function LocalConversationConnectionStatus(e) {
   let { status } = e,
     r = pS.jsx(rr, {
       className: "icon-xs",
@@ -12087,32 +12095,32 @@ var gS,
     bo();
     _n();
   });
-function useResumeLocalConversation(e) {
-  let t = B(ut),
-    n = ur(),
-    { activeMode } = Us(e),
+function useResumeLocalConversation(conversationId) {
+  let scope = B(ut),
+    intl = ur(),
+    { activeMode } = Us(conversationId),
     { data } = W(gt),
-    a = data?.roots,
-    o = K(Ir, e);
-  K(En, e);
-  let [s, c] = wS.useState(o),
-    l = wS.useRef(null),
-    u = wS.useRef(null),
-    d = wS.useRef(false),
-    f = wS.useRef(null),
-    [p, m] = wS.useState(0),
-    h = wS.useEffectEvent(async (e) => {
+    workspaceRoots = data?.roots,
+    shouldResumeConversation = K(Ir, conversationId);
+  K(En, conversationId);
+  let [isResuming, setIsResuming] = wS.useState(shouldResumeConversation),
+    activeResumeConversationIdRef = wS.useRef(null),
+    retryTimerRef = wS.useRef(null),
+    hasShownResumeErrorRef = wS.useRef(false),
+    blockedAutoRetryConversationIdRef = wS.useRef(null),
+    [retryTick, setRetryTick] = wS.useState(0),
+    resumeConversation = wS.useEffectEvent(async (e) => {
       try {
-        c(true);
-        l.current = e;
-        let n = t.get(En, e);
+        setIsResuming(true);
+        activeResumeConversationIdRef.current = e;
+        let n = scope.get(En, e);
         await Dr("maybe-resume-conversation", {
           hostId: n,
           conversationId: e,
           model: null,
-          serviceTier: await Ma(t, n, activeMode?.settings.model ?? null),
+          serviceTier: await Ma(scope, n, activeMode?.settings.model ?? null),
           reasoningEffort: null,
-          workspaceRoots: a ?? [],
+          workspaceRoots: workspaceRoots ?? [],
           collaborationMode: activeMode,
           showThreadGoalResumeConfirmation: false,
         });
@@ -12125,10 +12133,10 @@ function useResumeLocalConversation(e) {
               error: r,
             },
           }),
-          l.current !== e)
+          activeResumeConversationIdRef.current !== e)
         )
           return;
-        let i = t.get(P, e),
+        let i = scope.get(P, e),
           a =
             i == null
               ? false
@@ -12136,73 +12144,83 @@ function useResumeLocalConversation(e) {
                   hostId: i,
                   conversationId: e,
                 });
-        if (i == null || a || !t.get(Ir, e)) {
-          d.current = false;
+        if (i == null || a || !scope.get(Ir, e)) {
+          hasShownResumeErrorRef.current = false;
           return;
         }
-        let o = t.get(oi, e) != null,
-          s = xS(r);
-        s || (f.current = e);
-        SS({
-          hasShownResumeError: d.current,
+        let o = scope.get(oi, e) != null,
+          s = shouldAutoRetryResumeError(r);
+        s || (blockedAutoRetryConversationIdRef.current = e);
+        shouldShowResumeErrorToast({
+          hasShownResumeError: hasShownResumeErrorRef.current,
           isSubagentChildThread: o,
           shouldAutoRetry: s,
         }) &&
-          (t.get(ti).danger(bS(n, r), {
+          (scope.get(ti).danger(formatResumeConversationError(intl, r), {
             id: `resume-task-error-${e}`,
           }),
-          (d.current = true));
+          (hasShownResumeErrorRef.current = true));
         s &&
-          u.current == null &&
-          (u.current = setTimeout(() => {
-            u.current = null;
-            m((e) => e + 1);
+          retryTimerRef.current == null &&
+          (retryTimerRef.current = setTimeout(() => {
+            retryTimerRef.current = null;
+            setRetryTick((e) => e + 1);
           }, 750));
       } finally {
-        l.current === e && ((l.current = null), c(false));
+        activeResumeConversationIdRef.current === e &&
+          ((activeResumeConversationIdRef.current = null),
+          setIsResuming(false));
       }
     });
   return (
     wS.useEffect(() => {
-      o ||
-        ((l.current = null),
-        (d.current = false),
-        f.current === e && (f.current = null),
-        u.current != null && (clearTimeout(u.current), (u.current = null)));
-    }, [e, o]),
+      shouldResumeConversation ||
+        ((activeResumeConversationIdRef.current = null),
+        (hasShownResumeErrorRef.current = false),
+        blockedAutoRetryConversationIdRef.current === conversationId &&
+          (blockedAutoRetryConversationIdRef.current = null),
+        retryTimerRef.current != null &&
+          (clearTimeout(retryTimerRef.current),
+          (retryTimerRef.current = null)));
+    }, [conversationId, shouldResumeConversation]),
     wS.useEffect(() => {
-      f.current = null;
-    }, [e]),
+      blockedAutoRetryConversationIdRef.current = null;
+    }, [conversationId]),
     wS.useEffect(() => {
-      if (e != null)
-        return t.watch(({ get }) => {
-          let n = get(P, e);
+      if (conversationId != null)
+        return scope.watch(({ get }) => {
+          let n = get(P, conversationId);
           n != null &&
-            get(oi, e) != null &&
+            get(oi, conversationId) != null &&
             fr.dispatchMessage("subagent-thread-opened", {
               hostId: n,
-              conversationId: e,
+              conversationId: conversationId,
             });
         });
-    }, [e, t]),
+    }, [conversationId, scope]),
     wS.useEffect(() => {
-      e && o && e !== l.current && e !== f.current && h(e);
-    }, [o, e, p]),
+      conversationId &&
+        shouldResumeConversation &&
+        conversationId !== activeResumeConversationIdRef.current &&
+        conversationId !== blockedAutoRetryConversationIdRef.current &&
+        resumeConversation(conversationId);
+    }, [shouldResumeConversation, conversationId, retryTick]),
     wS.useEffect(
       () => () => {
-        u.current != null && (clearTimeout(u.current), (u.current = null));
+        retryTimerRef.current != null &&
+          (clearTimeout(retryTimerRef.current), (retryTimerRef.current = null));
       },
       [],
     ),
     {
-      isResuming: o && s,
+      isResuming: shouldResumeConversation && isResuming,
     }
   );
 }
-function bS(e, t) {
-  let n = CS(t);
-  return n == null
-    ? e.formatMessage(
+function formatResumeConversationError(intl, error) {
+  let configErrorDetails = getResumeConfigErrorDetails(error);
+  return configErrorDetails == null
+    ? intl.formatMessage(
         {
           id: "localTaskRow.resumeError.v2",
           defaultMessage: "Failed to resume chat{br}{error}",
@@ -12210,10 +12228,10 @@ function bS(e, t) {
         },
         {
           br: <br />,
-          error: Wt(t),
+          error: Wt(error),
         },
       )
-    : e.formatMessage(
+    : intl.formatMessage(
         {
           id: "localTaskRow.resumeConfigError",
           defaultMessage:
@@ -12223,29 +12241,33 @@ function bS(e, t) {
         },
         {
           br: <br />,
-          location: n.location,
-          detail: n.detail,
+          location: configErrorDetails.location,
+          detail: configErrorDetails.detail,
         },
       );
 }
-function xS(e) {
-  return CS(e) == null;
+function shouldAutoRetryResumeError(error) {
+  return getResumeConfigErrorDetails(error) == null;
 }
-function SS({ hasShownResumeError, isSubagentChildThread, shouldAutoRetry }) {
+function shouldShowResumeErrorToast({
+  hasShownResumeError,
+  isSubagentChildThread,
+  shouldAutoRetry,
+}) {
   return !isSubagentChildThread && (!hasShownResumeError || !shouldAutoRetry);
 }
-function CS(e) {
-  let t = pe(e);
-  return t == null
+function getResumeConfigErrorDetails(error) {
+  let configError = pe(error);
+  return configError == null
     ? null
     : {
         location:
-          t.filePath == null
+          configError.filePath == null
             ? "config.toml"
-            : t.line == null || t.column == null
-              ? t.filePath
-              : `${t.filePath}:${t.line}:${t.column}`,
-        detail: t.detail,
+            : configError.line == null || configError.column == null
+              ? configError.filePath
+              : `${configError.filePath}:${configError.line}:${configError.column}`,
+        detail: configError.detail,
       };
 }
 var wS,
@@ -12267,9 +12289,9 @@ var wS,
     Mr();
     TS = getJsxRuntime();
   });
-function DS(e) {
+function turnHasMcpAppResource(entry) {
   return (
-    e?.turn.items.some(
+    entry?.turn.items.some(
       (e) => e.type === "mcpToolCall" && e.mcpAppResourceUri != null,
     ) === true
   );
@@ -12307,7 +12329,7 @@ export function LocalConversationThread(props: LocalConversationThreadProps) {
     });
   }
   return (
-    <NS
+    <LocalConversationThreadRoute
       conversationId={conversationId}
       shouldResume={shouldResume}
       allowMissingConversation={allowMissingConversation}
@@ -12331,7 +12353,7 @@ function LocalConversationSideChatThread(e) {
     u = ns();
   if (!o)
     return (
-      <AS
+      <ExpiredSideChatState
         conversationId={conversationId}
         sourceConversationId={l}
         target={target}
@@ -12343,7 +12365,7 @@ function LocalConversationSideChatThread(e) {
     m = N(conversationId, "side", l),
     h =
       s === true ? (
-        <AS
+        <ExpiredSideChatState
           conversationId={conversationId}
           presentation="banner"
           sourceConversationId={l}
@@ -12353,7 +12375,7 @@ function LocalConversationSideChatThread(e) {
   let g = s === true,
     _ = s !== true,
     v = (
-      <RS
+      <LocalConversationThreadFrame
         conversationId={conversationId}
         hasConversation={o}
         hostId={c}
@@ -12378,7 +12400,7 @@ function LocalConversationSideChatThread(e) {
     </>
   );
 }
-function AS(e) {
+function ExpiredSideChatState(e) {
   let {
       conversationId,
       presentation = "page",
@@ -12481,7 +12503,7 @@ function LocalConversationMainThread(e) {
     { isResuming } = useResumeLocalConversation(conversationId),
     c = N(conversationId, "main", ot(r.value));
   let l = (
-    <RS
+    <LocalConversationThreadFrame
       conversationId={conversationId}
       hasConversation={i}
       hostId={a}
@@ -12512,7 +12534,7 @@ export function LocalConversationSummaryThread(
     c = ns(),
     l = N(conversationId, "main", ot(a.value));
   let u = (
-    <RS
+    <LocalConversationThreadFrame
       conversationId={conversationId}
       hasConversation={o}
       header={header}
@@ -12531,7 +12553,7 @@ export function LocalConversationSummaryThread(
     </Me>
   );
 }
-function NS(e) {
+function LocalConversationThreadRoute(e) {
   let {
       conversationId,
       shouldResume = true,
@@ -12594,7 +12616,7 @@ function NS(e) {
         if (L.current) {
           let e = R.current;
           if (e != null) {
-            I(LS(e), {
+            I(getConversationNavigationPath(e), {
               replace: true,
             });
             return;
@@ -12626,14 +12648,14 @@ function NS(e) {
   };
   let re = Y(ne),
     ie = (e) => {
-      BS(_, w, e, onOpenBackgroundAgent);
+      openBackgroundAgentFromThread(_, w, e, onOpenBackgroundAgent);
     };
   let H = Y(ie),
-    ae = <FS conversationId={conversationId} />;
+    ae = <ChromeExtensionConversationHeader conversationId={conversationId} />;
   let U = ae,
     oe = k ? undefined : A.contentShift,
     se = (e) => (
-      <PS
+      <SummaryPanelErrorFallback
         display={A}
         onRetry={() => {
           e.resetError();
@@ -12655,7 +12677,7 @@ function NS(e) {
     }),
   });
   return (
-    <RS
+    <LocalConversationThreadFrame
       key={conversationId}
       conversationId={conversationId}
       contentX={oe}
@@ -12677,7 +12699,7 @@ function NS(e) {
     />
   );
 }
-function PS(e) {
+function SummaryPanelErrorFallback(e) {
   let { display, onRetry } = e;
   if (!display.shouldShow) return null;
   let i = {
@@ -12721,7 +12743,7 @@ function PS(e) {
     </div>
   );
 }
-function FS(e) {
+function ChromeExtensionConversationHeader(e) {
   let { conversationId } = e,
     r = B(ut),
     i = ns(),
@@ -12800,7 +12822,7 @@ function FS(e) {
     ),
   });
 }
-function IS({
+function shouldShowEmptyResumingThreadState({
   conversationTurns,
   hasRenderableTurns,
   isResuming,
@@ -12817,10 +12839,10 @@ function IS({
         conversationTurns[0]?.items.length === 0))
   );
 }
-function LS(e) {
+function getConversationNavigationPath(e) {
   return Fs() ? Ke(e) : l(e);
 }
-function RS(e) {
+function LocalConversationThreadFrame(e) {
   let {
       conversationId,
       contentX,
@@ -12951,14 +12973,14 @@ function RS(e) {
     ye = W(Fa),
     be = E && hasConversation && !hideThreadContent,
     xe = (e) => {
-      BS(S, hostId, e, onOpenBackgroundAgent);
+      openBackgroundAgentFromThread(S, hostId, e, onOpenBackgroundAgent);
     };
   let Se = Y(xe),
-    Ce = be ? $.jsx(zS, {}) : null;
+    Ce = be ? $.jsx(RefreshSummaryPanelObstaclesEffect, {}) : null;
   let we = be ? af : undefined,
     Te = hasConversation ? (
       _ ? (
-        <HS
+        <LocalConversationComposerFooter
           conversationId={conversationId}
           hostId={hostId}
           isResuming={isResuming}
@@ -12977,7 +12999,7 @@ function RS(e) {
       )
     ) : null;
   let Ee = hideThreadContent ? null : (
-    <US
+    <LocalConversationThreadContent
       conversationId={conversationId}
       isReadOnly={isReadOnly}
       initialScrollOffset={k}
@@ -13034,13 +13056,13 @@ function RS(e) {
     }),
   });
 }
-function zS() {
+function RefreshSummaryPanelObstaclesEffect() {
   let t = nr(),
     n,
     r;
   return ((n = () => _f(t)), (r = [t]), GS.useEffect(n, r), null);
 }
-function BS(e, t, n, r) {
+function openBackgroundAgentFromThread(e, t, n, r) {
   if (r != null) {
     r(n);
     return;
@@ -13052,12 +13074,12 @@ function BS(e, t, n, r) {
       TabComponent: LocalConversationMainThread,
     });
 }
-function VS(e) {
+function ComposerWorkspaceDirectoryTree(e) {
   let { conversationId } = e,
     r = K(Wn, conversationId);
   return <Wy conversationId={conversationId} cwd={r} />;
 }
-function HS({
+function LocalConversationComposerFooter({
   conversationId,
   hostId,
   isResuming,
@@ -13117,10 +13139,10 @@ function HS({
     }),
     k = (
       <>
-        <VS conversationId={conversationId} />
+        <ComposerWorkspaceDirectoryTree conversationId={conversationId} />
         {_ == null
           ? null
-          : $.jsx(dS, {
+          : $.jsx(LocalConversationConnectionStatus, {
               status: _,
             })}
         {$.jsx(hl, {
@@ -13183,7 +13205,7 @@ function HS({
     </div>
   );
 }
-function US({
+function LocalConversationThreadContent({
   conversationId,
   isReadOnly,
   initialScrollOffset,
@@ -13257,7 +13279,7 @@ function US({
     ((ue.current = conversationId), (le.current = null));
   let me = _ && !C,
     he = ee != null,
-    ge = IS({
+    ge = shouldShowEmptyResumingThreadState({
       conversationTurns,
       hasRenderableTurns,
       isResuming,
@@ -13328,7 +13350,7 @@ function US({
             sourceConversationId: conversationId,
             targetConversationId: n,
           });
-          h(LS(n), {
+          h(getConversationNavigationPath(n), {
             state: {
               focusComposerNonce: Date.now(),
             },
@@ -13500,12 +13522,15 @@ function US({
     let t = le.current,
       n = visibleTurnEntries.find((item) => item.turnId === t),
       r = new Set();
-    t != null && t !== latestVisibleTurnId && !DS(n) && r.add(t);
+    t != null &&
+      t !== latestVisibleTurnId &&
+      !turnHasMcpAppResource(n) &&
+      r.add(t);
     let i = visibleTurnEntries.at(-4);
     t != null &&
       t !== latestVisibleTurnId &&
       i?.turnId != null &&
-      DS(i) &&
+      turnHasMcpAppResource(i) &&
       r.add(i.turnId);
     r.size > 0 &&
       te((t) => {
