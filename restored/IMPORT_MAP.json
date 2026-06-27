@@ -1406,8 +1406,10 @@
     "filter-Pp6n2Ux0": {
       "restored": "icons/filter-icon.tsx",
       "exports": {
+        "n": "initFilterIconChunk",
         "t": "FilterIcon",
-        "FilterIcon": "FilterIcon"
+        "FilterIcon": "FilterIcon",
+        "initFilterIconChunk": "initFilterIconChunk"
       },
       "status": "done"
     },
@@ -1422,8 +1424,10 @@
     "play-outline-DCaifa0x": {
       "restored": "icons/play-outline-icon.tsx",
       "exports": {
+        "n": "initPlayOutlineIconChunk",
         "t": "PlayOutlineIcon",
-        "PlayOutlineIcon": "PlayOutlineIcon"
+        "PlayOutlineIcon": "PlayOutlineIcon",
+        "initPlayOutlineIconChunk": "initPlayOutlineIconChunk"
       },
       "status": "done"
     },
@@ -12304,6 +12308,57 @@
       },
       "status": "done",
       "note": "Current synced home use-case data restored with updated CI log-access guidance."
+    },
+    "play-outline-Bc_3_YgO": {
+      "restored": "icons/play-outline-icon.tsx",
+      "exports": {
+        "n": "initPlayOutlineIconChunk",
+        "t": "PlayOutlineIcon",
+        "PlayOutlineIcon": "PlayOutlineIcon",
+        "initPlayOutlineIconChunk": "initPlayOutlineIconChunk"
+      },
+      "status": "done",
+      "aliasOf": "play-outline-DCaifa0x",
+      "note": "Synced current play-outline icon hash with the semantic typed icon output and chunk initializer export.",
+      "lastUpdated": "2026-06-27T20:51:12.903Z"
+    },
+    "filter-BUOx0Gs-": {
+      "restored": "icons/filter-icon.tsx",
+      "exports": {
+        "n": "initFilterIconChunk",
+        "t": "FilterIcon",
+        "FilterIcon": "FilterIcon",
+        "initFilterIconChunk": "initFilterIconChunk"
+      },
+      "status": "done",
+      "aliasOf": "filter-Pp6n2Ux0",
+      "note": "Synced current filter icon hash with the semantic typed icon output and chunk initializer export.",
+      "lastUpdated": "2026-06-27T20:53:17.690Z"
+    },
+    "trending-topics-DPEGt8uA": {
+      "restored": "icons/trending-topics-icon.tsx",
+      "exports": {
+        "n": "initTrendingTopicsIconChunk",
+        "t": "TrendingTopicsIcon",
+        "TrendingTopicsIcon": "TrendingTopicsIcon",
+        "initTrendingTopicsIconChunk": "initTrendingTopicsIconChunk"
+      },
+      "status": "done",
+      "note": "Promoted current trending-topics icon chunk as a semantic typed icon output with initializer export.",
+      "lastUpdated": "2026-06-27T20:53:17.690Z"
+    },
+    "artifact-preview-status-BdDDtvat": {
+      "restored": "utils/artifact-preview-status.tsx",
+      "exports": {
+        "n": "ArtifactPreviewStatus",
+        "t": "initArtifactPreviewStatusChunk",
+        "ArtifactPreviewStatus": "ArtifactPreviewStatus",
+        "ArtifactPreviewStatusValue": "ArtifactPreviewStatusValue",
+        "initArtifactPreviewStatusChunk": "initArtifactPreviewStatusChunk"
+      },
+      "status": "done",
+      "note": "Promoted current artifact preview status renderer with typed status values, exact loading/error copy, and chunk initializer export.",
+      "lastUpdated": "2026-06-27T20:55:07.733Z"
     }
   }
 }
