@@ -833,273 +833,336 @@ import { useBrowserUseSummaries } from "./local-conversation-thread-parts/browse
 import { ComputerUsePictureInPictureRow } from "./local-conversation-thread-parts/computer-use-pip-row";
 import { BackgroundTaskSectionTitle } from "./local-conversation-thread-parts/background-task-section-title";
 const joinLocalEnvironmentRepoPath = M;
-function Fd(e) {
-  let n = Ld.useRef(null),
-    r = (t) => {
-      n.current ??= window.setTimeout(() => {
-        n.current = null;
-        t();
-      }, e);
+function useReviewSearchHighlightScheduler(delayMs: number) {
+  let timeoutIdRef = reviewSearchSchedulerReactRuntime.useRef(null),
+    schedule = (callback: () => void) => {
+      timeoutIdRef.current ??= window.setTimeout(() => {
+        timeoutIdRef.current = null;
+        callback();
+      }, delayMs);
     };
-  let i = r,
-    a = () => {
-      n.current != null && (window.clearTimeout(n.current), (n.current = null));
-    };
-  let o = a;
+  let cancel = () => {
+    timeoutIdRef.current != null &&
+      (window.clearTimeout(timeoutIdRef.current),
+      (timeoutIdRef.current = null));
+  };
   return {
-    schedule: i,
-    cancel: o,
+    schedule,
+    cancel,
   };
 }
-var Id,
-  Ld,
-  Rd = once(() => {
-    Id = q();
-    Ld = toEsModule(G(), 1);
+
+var reviewSearchSchedulerModule,
+  reviewSearchSchedulerReactRuntime,
+  initReviewSearchHighlightScheduler = once(() => {
+    reviewSearchSchedulerModule = q();
+    reviewSearchSchedulerReactRuntime = toEsModule(G(), 1);
   });
-function useReviewSearchHighlights(e) {
-  let { containerRef, contextId } = e,
-    i = W(Ai),
-    a = W(Gi),
-    o = i?.contextId === contextId ? i : null,
-    s = o == null ? null : (a?.id ?? null),
-    c = Vd.useRef(null),
-    { schedule, cancel } = Fd(Hd),
-    d = () => {
-      let e = containerRef.current;
-      if (e == null) return;
-      oo(e, {
+
+function useReviewSearchHighlights(props) {
+  let { containerRef, contextId } = props,
+    reviewSearchRun = W(Ai),
+    activeReviewSearchMatch = W(Gi),
+    activeReviewSearchRun =
+      reviewSearchRun?.contextId === contextId ? reviewSearchRun : null,
+    activeMatchId =
+      activeReviewSearchRun == null
+        ? null
+        : (activeReviewSearchMatch?.id ?? null),
+    activeMatchElementRef = reviewSearchReactRuntime.useRef(null),
+    { schedule, cancel } = useReviewSearchHighlightScheduler(
+      REVIEW_SEARCH_HIGHLIGHT_MUTATION_DELAY_MS,
+    ),
+    applySearchHighlights = () => {
+      let containerElement = containerRef.current;
+      if (containerElement == null) return;
+      oo(containerElement, {
         includeShadowRoots: false,
       });
-      let t = c.current;
+      let previousActiveMatchElement = activeMatchElementRef.current;
       if (
-        (t != null && (t.classList.remove(ba), (c.current = null)), o == null)
+        (previousActiveMatchElement != null &&
+          (previousActiveMatchElement.classList.remove(ba),
+          (activeMatchElementRef.current = null)),
+        activeReviewSearchRun == null)
       )
         return;
-      let r = Ii(o.matches),
-        i = new Map();
+      let matchesByContentUnitKey = Ii(activeReviewSearchRun.matches),
+        elementByMatchId = new Map();
       if (
-        (e
+        (containerElement
           .querySelectorAll("[data-content-search-unit-key]")
-          .forEach((item) => {
-            let t = item.dataset.contentSearchUnitKey;
-            if (t == null) return;
-            let n = r.get(t);
-            n == null ||
-              n.length === 0 ||
+          .forEach((contentUnitElement) => {
+            let contentUnitKey =
+              contentUnitElement.dataset.contentSearchUnitKey;
+            if (contentUnitKey == null) return;
+            let unitMatches = matchesByContentUnitKey.get(contentUnitKey);
+            unitMatches == null ||
+              unitMatches.length === 0 ||
               mo({
-                target: item,
-                query: o.query,
-                maxMatches: n.length,
+                target: contentUnitElement,
+                query: activeReviewSearchRun.query,
+                maxMatches: unitMatches.length,
                 includeShadowRoots: false,
-              }).matches.forEach((_item, index) => {
-                let r = n[index];
-                r != null &&
+              }).matches.forEach((matchElement, index) => {
+                let unitMatch = unitMatches[index];
+                unitMatch != null &&
                   (Pi({
-                    element: _item,
-                    matchId: r.id,
+                    element: matchElement,
+                    matchId: unitMatch.id,
                   }),
-                  i.set(r.id, _item));
+                  elementByMatchId.set(unitMatch.id, matchElement));
               });
           }),
-        s == null)
+        activeMatchId == null)
       )
         return;
-      let a = i.get(s);
-      a != null && (a.classList.add(ba), (c.current = a));
+      let activeMatchElement = elementByMatchId.get(activeMatchId);
+      activeMatchElement != null &&
+        (activeMatchElement.classList.add(ba),
+        (activeMatchElementRef.current = activeMatchElement));
     };
-  let f = Vd.useEffectEvent(d),
-    p = () => {
-      let e = containerRef.current;
-      if (e == null || (f(), o?.runId == null)) return;
-      let t = new MutationObserver((e) => {
-        uo(e) && schedule(f);
+  let applySearchHighlightsEffectEvent =
+      reviewSearchReactRuntime.useEffectEvent(applySearchHighlights),
+    observeSearchHighlightMutations = () => {
+      let containerElement = containerRef.current;
+      if (
+        containerElement == null ||
+        (applySearchHighlightsEffectEvent(),
+        activeReviewSearchRun?.runId == null)
+      )
+        return;
+      let mutationObserver = new MutationObserver((mutationRecords) => {
+        uo(mutationRecords) && schedule(applySearchHighlightsEffectEvent);
       });
       return (
-        t.observe(e, {
+        mutationObserver.observe(containerElement, {
           childList: true,
           subtree: true,
           characterData: true,
         }),
         () => {
-          t.disconnect();
+          mutationObserver.disconnect();
           cancel();
         }
       );
     };
-  let m = o?.runId,
-    h;
-  h = [m, s, cancel, containerRef, contextId, schedule];
-  Vd.useEffect(p, h);
+  let activeRunId = activeReviewSearchRun?.runId,
+    observeSearchHighlightMutationDeps;
+  observeSearchHighlightMutationDeps = [
+    activeRunId,
+    activeMatchId,
+    cancel,
+    containerRef,
+    contextId,
+    schedule,
+  ];
+  reviewSearchReactRuntime.useEffect(
+    observeSearchHighlightMutations,
+    observeSearchHighlightMutationDeps,
+  );
 }
-var Bd,
-  Vd,
-  Hd,
+
+var reviewSearchHighlighterModule,
+  reviewSearchReactRuntime,
+  REVIEW_SEARCH_HIGHLIGHT_MUTATION_DELAY_MS,
   initReviewSearchHighlighter = once(() => {
-    Bd = q();
+    reviewSearchHighlighterModule = q();
     c();
-    Vd = toEsModule(G(), 1);
+    reviewSearchReactRuntime = toEsModule(G(), 1);
     la();
     ea();
     Qa();
-    Rd();
-    Hd = 80;
+    initReviewSearchHighlightScheduler();
+    REVIEW_SEARCH_HIGHLIGHT_MUTATION_DELAY_MS = 80;
   });
-var af,
-  of,
-  sf,
-  gf = once(() => {
-    af = "codex-main-thread";
-    of = "data-pip-anchor-host";
-    sf = "data-pip-obstacle";
+
+var MAIN_THREAD_PIP_HOST_ID,
+  PIP_ANCHOR_HOST_ATTRIBUTE,
+  PIP_OBSTACLE_ATTRIBUTE,
+  initThreadPipHostAttributes = once(() => {
+    MAIN_THREAD_PIP_HOST_ID = "codex-main-thread";
+    PIP_ANCHOR_HOST_ATTRIBUTE = "data-pip-anchor-host";
+    PIP_OBSTACLE_ATTRIBUTE = "data-pip-obstacle";
   });
-function _f(e) {
-  let t = window.electronBridge?.sendMessageFromView;
-  if (t == null || document.body == null) return () => {};
-  let n = t,
-    r = Number.isFinite(e) && e > 0 ? e : 1,
-    i = null,
-    a = null,
-    o = null,
-    s = new ResizeObserver(f),
-    c = new MutationObserver((e) => {
-      e.some(xf) && (m(), f());
+
+function startRemoteHostedPipHostLayoutObserver(windowZoom) {
+  let sendMessageFromView = window.electronBridge?.sendMessageFromView;
+  if (sendMessageFromView == null || document.body == null) return () => {};
+  let normalizedWindowZoom =
+      Number.isFinite(windowZoom) && windowZoom > 0 ? windowZoom : 1,
+    animationFrameId = null,
+    previousLayout = null,
+    previousLayoutKey = null,
+    resizeObserver = new ResizeObserver(scheduleLayoutMeasure),
+    bodyMutationObserver = new MutationObserver((mutationRecords) => {
+      mutationRecords.some(shouldRefreshPipLayoutObservers) &&
+        (refreshObservedLayoutElements(), scheduleLayoutMeasure());
     }),
-    l = new MutationObserver(f);
-  function u(e) {
-    let t = yf(e);
-    if (t === o) return;
-    let r =
-        a?.anchorRect != null &&
-        e.anchorRect != null &&
-        bf(e.anchorRect, a.anchorRect),
-      i = {
-        ...e,
-        animated: r,
+    layoutElementMutationObserver = new MutationObserver(scheduleLayoutMeasure);
+  function publishLayoutIfChanged(layout) {
+    let layoutKey = serializePipHostLayout(layout);
+    if (layoutKey === previousLayoutKey) return;
+    let shouldAnimate =
+        previousLayout?.anchorRect != null &&
+        layout.anchorRect != null &&
+        arePipRectsEqual(layout.anchorRect, previousLayout.anchorRect),
+      nextLayout = {
+        ...layout,
+        animated: shouldAnimate,
       };
-    a = i;
-    o = t;
-    n({
-      layout: i,
+    previousLayout = nextLayout;
+    previousLayoutKey = layoutKey;
+    sendMessageFromView({
+      layout: nextLayout,
       type: "remote-hosted-pip-host-layout-changed",
     });
   }
-  function d() {
-    u({
+
+  function publishEmptyLayout() {
+    publishLayoutIfChanged({
       anchors: null,
       anchorRect: null,
       animated: false,
-      hostId: af,
+      hostId: MAIN_THREAD_PIP_HOST_ID,
       presentationScope: "thread",
     });
   }
-  function f() {
-    i ??= window.requestAnimationFrame(() => {
-      i = null;
-      p();
+
+  function scheduleLayoutMeasure() {
+    animationFrameId ??= window.requestAnimationFrame(() => {
+      animationFrameId = null;
+      measureAndPublishLayout();
     });
   }
-  function p() {
-    let e = document.querySelector(Cf);
-    if (e == null) {
-      d();
+
+  function measureAndPublishLayout() {
+    let anchorHostElement = document.querySelector(
+      MAIN_THREAD_PIP_HOST_SELECTOR,
+    );
+    if (anchorHostElement == null) {
+      publishEmptyLayout();
       return;
     }
-    let t = vf(e, r);
-    if (t == null) {
-      d();
+    let hostRect = getScaledElementClientRect(
+      anchorHostElement,
+      normalizedWindowZoom,
+    );
+    if (hostRect == null) {
+      publishEmptyLayout();
       return;
     }
-    let n = [];
-    for (let e of document.querySelectorAll(wf)) {
-      let t = vf(e, r);
-      t != null && n.push(t);
+    let obstacleRects = [];
+    for (let obstacleElement of document.querySelectorAll(
+      PIP_OBSTACLE_SELECTOR,
+    )) {
+      let obstacleRect = getScaledElementClientRect(
+        obstacleElement,
+        normalizedWindowZoom,
+      );
+      obstacleRect != null && obstacleRects.push(obstacleRect);
     }
-    u(
+    publishLayoutIfChanged(
       createReviewSearchAnchorPlacement({
-        hostId: af,
-        hostRect: t,
-        obstacleRects: n,
+        hostId: MAIN_THREAD_PIP_HOST_ID,
+        hostRect,
+        obstacleRects,
       }),
     );
   }
-  function m() {
-    s.disconnect();
-    l.disconnect();
-    for (let e of document.querySelectorAll(Tf)) {
-      s.observe(e);
-      l.observe(e, {
+
+  function refreshObservedLayoutElements() {
+    resizeObserver.disconnect();
+    layoutElementMutationObserver.disconnect();
+    for (let layoutElement of document.querySelectorAll(
+      PIP_LAYOUT_ELEMENT_SELECTOR,
+    )) {
+      resizeObserver.observe(layoutElement);
+      layoutElementMutationObserver.observe(layoutElement, {
         attributeFilter: ["class", "hidden", "style"],
         attributes: true,
       });
     }
   }
   return (
-    c.observe(document.body, {
-      attributeFilter: [of, sf],
+    bodyMutationObserver.observe(document.body, {
+      attributeFilter: [PIP_ANCHOR_HOST_ATTRIBUTE, PIP_OBSTACLE_ATTRIBUTE],
       attributes: true,
       childList: true,
       subtree: true,
     }),
-    window.addEventListener("resize", f),
-    document.addEventListener("scroll", f, true),
-    m(),
-    f(),
+    window.addEventListener("resize", scheduleLayoutMeasure),
+    document.addEventListener("scroll", scheduleLayoutMeasure, true),
+    refreshObservedLayoutElements(),
+    scheduleLayoutMeasure(),
     () => {
-      i != null && window.cancelAnimationFrame(i);
-      s.disconnect();
-      c.disconnect();
-      l.disconnect();
-      window.removeEventListener("resize", f);
-      document.removeEventListener("scroll", f, true);
-      d();
+      animationFrameId != null && window.cancelAnimationFrame(animationFrameId);
+      resizeObserver.disconnect();
+      bodyMutationObserver.disconnect();
+      layoutElementMutationObserver.disconnect();
+      window.removeEventListener("resize", scheduleLayoutMeasure);
+      document.removeEventListener("scroll", scheduleLayoutMeasure, true);
+      publishEmptyLayout();
     }
   );
 }
-function vf(e, t) {
-  if (e.hidden) return null;
-  let n = e.getBoundingClientRect();
-  return n.width <= 0 || n.height <= 0
+
+function getScaledElementClientRect(element, windowZoom) {
+  if (element.hidden) return null;
+  let rect = element.getBoundingClientRect();
+  return rect.width <= 0 || rect.height <= 0
     ? null
     : {
-        height: n.height / t,
-        width: n.width / t,
-        x: n.left / t,
-        y: n.top / t,
+        height: rect.height / windowZoom,
+        width: rect.width / windowZoom,
+        x: rect.left / windowZoom,
+        y: rect.top / windowZoom,
       };
 }
-function yf(e) {
+
+function serializePipHostLayout(layout) {
   return JSON.stringify({
-    anchors: e.anchors,
-    anchorRect: e.anchorRect,
-    hostId: e.hostId,
-    presentationScope: e.presentationScope,
+    anchors: layout.anchors,
+    anchorRect: layout.anchorRect,
+    hostId: layout.hostId,
+    presentationScope: layout.presentationScope,
   });
 }
-function bf(e, t) {
+
+function arePipRectsEqual(leftRect, rightRect) {
   return (
-    e.x === t.x && e.y === t.y && e.width === t.width && e.height === t.height
+    leftRect.x === rightRect.x &&
+    leftRect.y === rightRect.y &&
+    leftRect.width === rightRect.width &&
+    leftRect.height === rightRect.height
   );
 }
-function xf(e) {
-  if (e.type === "attributes") return true;
-  for (let t of e.addedNodes) if (Sf(t)) return true;
-  for (let t of e.removedNodes) if (Sf(t)) return true;
+
+function shouldRefreshPipLayoutObservers(mutationRecord) {
+  if (mutationRecord.type === "attributes") return true;
+  for (let addedNode of mutationRecord.addedNodes)
+    if (nodeContainsPipLayoutElement(addedNode)) return true;
+  for (let removedNode of mutationRecord.removedNodes)
+    if (nodeContainsPipLayoutElement(removedNode)) return true;
   return false;
 }
-function Sf(e) {
+
+function nodeContainsPipLayoutElement(node) {
   return (
-    e instanceof HTMLElement && (e.matches(Tf) || e.querySelector(Tf) != null)
+    node instanceof HTMLElement &&
+    (node.matches(PIP_LAYOUT_ELEMENT_SELECTOR) ||
+      node.querySelector(PIP_LAYOUT_ELEMENT_SELECTOR) != null)
   );
 }
-var Cf,
-  wf,
-  Tf,
-  Ef = once(() => {
-    gf();
-    Cf = `[${of}="${af}"]`;
-    wf = `[${sf}]`;
-    Tf = `${Cf},${wf}`;
+
+var MAIN_THREAD_PIP_HOST_SELECTOR,
+  PIP_OBSTACLE_SELECTOR,
+  PIP_LAYOUT_ELEMENT_SELECTOR,
+  initThreadPipHostSelectors = once(() => {
+    initThreadPipHostAttributes();
+    MAIN_THREAD_PIP_HOST_SELECTOR = `[${PIP_ANCHOR_HOST_ATTRIBUTE}="${MAIN_THREAD_PIP_HOST_ID}"]`;
+    PIP_OBSTACLE_SELECTOR = `[${PIP_OBSTACLE_ATTRIBUTE}]`;
+    PIP_LAYOUT_ELEMENT_SELECTOR = `${MAIN_THREAD_PIP_HOST_SELECTOR},${PIP_OBSTACLE_SELECTOR}`;
   });
 function ThreadFindNavigationRail(e) {
   let { enabled = true, getItems, onRevealItem } = e,
@@ -1172,33 +1235,41 @@ var Of,
     );
   }),
   Nf = once(() => {});
-function Lf(e) {
-  let { children, empty, getKey, items, listClassName, visibleItemLimit } = e,
-    c = visibleItemLimit === undefined ? Hf : visibleItemLimit,
-    [l, u] = Bf.useState(false);
+function SummaryPanelExpandableList(props) {
+  let { children, empty, getKey, items, listClassName, visibleItemLimit } =
+      props,
+    maxVisibleItems =
+      visibleItemLimit === undefined
+        ? DEFAULT_SUMMARY_PANEL_VISIBLE_ITEM_LIMIT
+        : visibleItemLimit,
+    [isExpanded, setIsExpanded] =
+      summaryPanelExpandableListReactRuntime.useState(false);
   if (items.length === 0) return empty ?? null;
-  let d = items.length > c,
-    f = l ? items : items.slice(0, c);
-  let p = f,
-    m = items.length - p.length,
-    h;
+  let hasHiddenItems = items.length > maxVisibleItems,
+    visibleItems = isExpanded ? items : items.slice(0, maxVisibleItems);
+  let hiddenItemCount = items.length - visibleItems.length,
+    renderedItems;
   {
-    let e;
-    e = (e, t) => <>{children(e, t)}</>;
-    h = p.map(e);
+    let renderVisibleItem;
+    renderVisibleItem = (item, index) => <>{children(item, index)}</>;
+    renderedItems = visibleItems.map(renderVisibleItem);
   }
-  let g = h,
-    _ = listClassName == null ? g : <div className={listClassName}>{g}</div>;
-  let v = d
-    ? Vf.jsx(k, {
+  let listNode =
+    listClassName == null ? (
+      renderedItems
+    ) : (
+      <div className={listClassName}>{renderedItems}</div>
+    );
+  let toggleButton = hasHiddenItems
+    ? summaryPanelExpandableListJsxRuntime.jsx(k, {
         className:
           "!px-0 !py-0 text-token-text-tertiary hover:text-token-text-secondary",
         color: "ghostMuted",
         size: "default",
         onClick: () => {
-          u(Rf);
+          setIsExpanded(toggleSummaryPanelExpandableListExpanded);
         },
-        children: l ? (
+        children: isExpanded ? (
           <FormattedMessage
             id="codex.localConversation.summaryPanelExpandableList.showLess"
             defaultMessage="Show less"
@@ -1210,7 +1281,7 @@ function Lf(e) {
             defaultMessage={"Show {count, number} more"}
             description="Button label that expands a long list in the conversation summary panel"
             values={{
-              count: m,
+              count: hiddenItemCount,
             }}
           />
         ),
@@ -1218,56 +1289,67 @@ function Lf(e) {
     : null;
   return (
     <>
-      {_}
-      {v}
+      {listNode}
+      {toggleButton}
     </>
   );
 }
-function Rf(e) {
-  return !e;
+
+function toggleSummaryPanelExpandableListExpanded(isExpanded) {
+  return !isExpanded;
 }
-var zf,
-  Bf,
-  Vf,
-  Hf,
-  Uf = once(() => {
-    zf = q();
-    Bf = toEsModule(G(), 1);
+
+var summaryPanelExpandableListModule,
+  summaryPanelExpandableListReactRuntime,
+  summaryPanelExpandableListJsxRuntime,
+  DEFAULT_SUMMARY_PANEL_VISIBLE_ITEM_LIMIT,
+  initSummaryPanelExpandableList = once(() => {
+    summaryPanelExpandableListModule = q();
+    summaryPanelExpandableListReactRuntime = toEsModule(G(), 1);
     Jn();
     Ye();
-    Vf = getJsxRuntime();
-    Hf = 6;
+    summaryPanelExpandableListJsxRuntime = getJsxRuntime();
+    DEFAULT_SUMMARY_PANEL_VISIBLE_ITEM_LIMIT = 6;
   });
-function Wf(e) {
-  let { artifacts, conversationTitle = null, getImagePreviewSrc, onOpen } = e,
-    s = B(Fe),
-    c = ur(),
-    l,
-    u;
+function SummaryPanelArtifactsList(props) {
+  let {
+      artifacts,
+      conversationTitle = null,
+      getImagePreviewSrc,
+      onOpen,
+    } = props,
+    scope = B(Fe),
+    intl = ur(),
+    generatedImageNumberByPath,
+    generatedImagePreviews;
   {
-    let e = artifacts.flatMap((artifact) =>
+    let generatedImageArtifactPaths = artifacts.flatMap((artifact) =>
         getGeneratedImagePreviewArtifactPaths(artifact, wt),
       ),
-      r = artifacts.some(isGeneratedImageArtifact);
-    let a = r;
-    l = new Map(
-      e.map((item, index) => [item, a ? e.length - index : index + 1]),
+      hasGeneratedImageArtifacts = artifacts.some(isGeneratedImageArtifact);
+    generatedImageNumberByPath = new Map(
+      generatedImageArtifactPaths.map((path, index) => [
+        path,
+        hasGeneratedImageArtifacts
+          ? generatedImageArtifactPaths.length - index
+          : index + 1,
+      ]),
     );
-    u = artifacts
+    generatedImagePreviews = artifacts
       .slice()
       .reverse()
-      .flatMap((item) => {
+      .flatMap((artifact) => {
         if (
-          (item.type !== "file" && item.type !== "generated-image") ||
-          Wr(item.path) !== "always"
+          (artifact.type !== "file" && artifact.type !== "generated-image") ||
+          Wr(artifact.path) !== "always"
         )
           return [];
-        let t = wt(item.path),
-          n = l.get(item.path),
-          r =
-            n == null
-              ? t
-              : c.formatMessage(
+        let fileName = wt(artifact.path),
+          imageNumber = generatedImageNumberByPath.get(artifact.path),
+          previewAlt =
+            imageNumber == null
+              ? fileName
+              : intl.formatMessage(
                   {
                     id: "codex.localConversation.artifacts.generatedImage",
                     defaultMessage: "Generated image {imageNumber}",
@@ -1275,13 +1357,13 @@ function Wf(e) {
                       "Label for a generated image artifact in the thread summary side panel",
                   },
                   {
-                    imageNumber: n,
+                    imageNumber,
                   },
                 ),
-          a =
-            n == null || conversationTitle == null
-              ? r
-              : c.formatMessage(
+          tabTitle =
+            imageNumber == null || conversationTitle == null
+              ? previewAlt
+              : intl.formatMessage(
                   {
                     id: "codex.localConversation.generatedImageTabTitle",
                     defaultMessage:
@@ -1291,22 +1373,22 @@ function Wf(e) {
                   },
                   {
                     conversationTitle: conversationTitle,
-                    imageNumber: n,
+                    imageNumber,
                   },
                 );
         return [
           {
-            alt: r,
-            id: item.path,
-            previewSrc: getImagePreviewSrc?.(item.path) ?? item.path,
-            src: item.path,
-            tabTitle: a,
+            alt: previewAlt,
+            id: artifact.path,
+            previewSrc: getImagePreviewSrc?.(artifact.path) ?? artifact.path,
+            src: artifact.path,
+            tabTitle,
           },
         ];
       });
   }
-  let d = u,
-    f = (
+  let generatedImagePreviewItems = generatedImagePreviews,
+    emptyArtifactsNode = (
       <div className="py-1 text-base text-token-description-foreground">
         <FormattedMessage
           id="codex.localConversation.artifacts.empty"
@@ -1315,15 +1397,15 @@ function Wf(e) {
         />
       </div>
     );
-  let p = (event) => {
-    switch (event.type) {
+  let renderArtifactRow = (artifact) => {
+    switch (artifact.type) {
       case "website": {
-        let t = formatArtifactTargetLabel(event.target, yn, wt);
+        let targetLabel = formatArtifactTargetLabel(artifact.target, yn, wt);
         return (
           <SummaryPanelRow
             icon={<Sr className="icon-sm shrink-0" />}
             label={
-              t ?? (
+              targetLabel ?? (
                 <FormattedMessage
                   id="codex.localConversation.artifacts.website"
                   defaultMessage="Web preview"
@@ -1331,8 +1413,8 @@ function Wf(e) {
                 />
               )
             }
-            onClick={(t) => onOpen(event, t)}
-            title={event.target}
+            onClick={(event) => onOpen(artifact, event)}
+            title={artifact.target}
           />
         );
       }
@@ -1342,12 +1424,12 @@ function Wf(e) {
             icon={
               <Bc
                 className="icon-sm shrink-0"
-                resourceKind={event.resourceKind}
+                resourceKind={artifact.resourceKind}
               />
             }
-            label={event.title}
-            onClick={(t) => onOpen(event, t)}
-            title={event.url}
+            label={artifact.title}
+            onClick={(event) => onOpen(artifact, event)}
+            title={artifact.url}
           />
         );
       case "appgen-app":
@@ -1357,34 +1439,34 @@ function Wf(e) {
             label={
               <span className="flex min-w-0 items-center gap-1">
                 <span className="truncate">
-                  {event.title ?? Ho(event.url) ?? event.url}
+                  {artifact.title ?? Ho(artifact.url) ?? artifact.url}
                 </span>
                 <In
                   className="icon-xs shrink-0 opacity-0 group-hover/summary-panel-row:opacity-100 group-focus-visible/summary-panel-row:opacity-100"
                   ExternalIcon={cc}
-                  href={event.url}
+                  href={artifact.url}
                 />
               </span>
             }
             labelClassName="min-w-0"
-            onClick={(t) => onOpen(event, t)}
-            title={event.url}
+            onClick={(event) => onOpen(artifact, event)}
+            title={artifact.url}
           />
         );
       case "file":
       case "generated-image": {
-        let t = wt(event.path),
-          n = l.get(event.path),
-          r =
-            n == null ? (
-              t
+        let fileName = wt(artifact.path),
+          imageNumber = generatedImageNumberByPath.get(artifact.path),
+          label =
+            imageNumber == null ? (
+              fileName
             ) : (
               <FormattedMessage
                 id="codex.localConversation.artifacts.generatedImage"
                 defaultMessage={"Generated image {imageNumber}"}
                 description="Label for a generated image artifact in the thread summary side panel"
                 values={{
-                  imageNumber: n,
+                  imageNumber,
                 }}
               />
             );
@@ -1395,46 +1477,49 @@ function Wf(e) {
                 getImagePreviewSrc={getImagePreviewSrc}
                 iconClassName="icon-sm"
                 imageClassName="size-5 rounded-sm border border-token-border"
-                path={event.path}
+                path={artifact.path}
               />
             }
-            label={r}
-            onClick={(t) => {
-              let n = d.find((item) => item.id === event.path);
-              (n != null &&
-                Rs(s, {
-                  alt: n.alt,
-                  attachmentSrc: event.path,
-                  downloadSrc: n.previewSrc,
-                  generatedImages: d,
-                  initialImageId: n.id,
+            label={label}
+            onClick={(event) => {
+              let previewItem = generatedImagePreviewItems.find(
+                (item) => item.id === artifact.path,
+              );
+              (previewItem != null &&
+                Rs(scope, {
+                  alt: previewItem.alt,
+                  attachmentSrc: artifact.path,
+                  downloadSrc: previewItem.previewSrc,
+                  generatedImages: generatedImagePreviewItems,
+                  initialImageId: previewItem.id,
                   referrerPolicy: "no-referrer",
-                  src: n.previewSrc,
-                  title: n.tabTitle,
+                  src: previewItem.previewSrc,
+                  title: previewItem.tabTitle,
                 })) ||
-                onOpen(event, t);
+                onOpen(artifact, event);
             }}
-            title={event.path}
+            title={artifact.path}
           />
         );
       }
     }
   };
   return (
-    <Lf
+    <SummaryPanelExpandableList
       items={artifacts}
       getKey={getLocalConversationArtifactKey}
       listClassName="-mx-2 flex max-h-[28rem] flex-col gap-0.5 overflow-y-auto px-2"
-      empty={f}
+      empty={emptyArtifactsNode}
     >
-      {p}
-    </Lf>
+      {renderArtifactRow}
+    </SummaryPanelExpandableList>
   );
 }
-var Yf,
-  Xf,
-  Qf = once(() => {
-    Yf = q();
+
+var summaryPanelArtifactsModule,
+  summaryPanelArtifactsJsxRuntime,
+  initSummaryPanelArtifactsListChunk = once(() => {
+    summaryPanelArtifactsModule = q();
     c();
     gn();
     Jn();
@@ -1449,9 +1534,9 @@ var Yf,
     Ic();
     me();
     di();
-    Uf();
+    initSummaryPanelExpandableList();
     initSummaryPanelRowChunk();
-    Xf = getJsxRuntime();
+    summaryPanelArtifactsJsxRuntime = getJsxRuntime();
   });
 function $f(e) {
   let {
@@ -1562,9 +1647,9 @@ function $f(e) {
       }
     };
   let g = (
-    <Lf items={d} getKey={getBackgroundSummaryItemKey}>
+    <SummaryPanelExpandableList items={d} getKey={getBackgroundSummaryItemKey}>
       {h}
-    </Lf>
+    </SummaryPanelExpandableList>
   );
   let _ = g;
   return f.length > 0 ? (
@@ -1721,7 +1806,7 @@ var op,
     Xc();
     rs();
     Jc();
-    Uf();
+    initSummaryPanelExpandableList();
     initSummaryPanelRowChunk();
     cp = getJsxRuntime();
   });
@@ -1834,14 +1919,16 @@ function BackgroundTerminalSummaryRows(props) {
       sortRow: row,
       status: "starting",
     });
-    registerProcessMutation.mutateAsync({
-      persistIfUnmatched: true,
-      record: createBackgroundTerminalRestartRecord(
-        process,
-        sessionId,
-        startedAtMs,
-      ),
-    }).catch(onRestartError);
+    registerProcessMutation
+      .mutateAsync({
+        persistIfUnmatched: true,
+        record: createBackgroundTerminalRestartRecord(
+          process,
+          sessionId,
+          startedAtMs,
+        ),
+      })
+      .catch(onRestartError);
     _e.create({
       conversationId: process.conversationId,
       conversationTitle: process.chatTitle,
@@ -1930,8 +2017,13 @@ function BackgroundTerminalRowActionMenu(props) {
     isStopping = status === "stopping",
     isStopped = status === "stopped",
     isNotFound = status === "not-found",
-    isMissingLiveProcess = !isStopped && !isNotFound && row.metrics?.pid == null,
-    canStartOrRestart = row.process.cwd != null && !isStarting && !isStopping && !isMissingLiveProcess,
+    isMissingLiveProcess =
+      !isStopped && !isNotFound && row.metrics?.pid == null,
+    canStartOrRestart =
+      row.process.cwd != null &&
+      !isStarting &&
+      !isStopping &&
+      !isMissingLiveProcess,
     restartTooltip =
       row.process.cwd == null ? (
         <FormattedMessage {...jp.restartMissingWorkspaceTooltip} />
@@ -1942,7 +2034,8 @@ function BackgroundTerminalRowActionMenu(props) {
       ) : isMissingLiveProcess ? (
         <FormattedMessage {...jp.restartMissingProcessTooltip} />
       ) : undefined;
-  let startOrRestartMessageDescriptor = isStopped || isNotFound ? jp.start : jp.restart,
+  let startOrRestartMessageDescriptor =
+      isStopped || isNotFound ? jp.start : jp.restart,
     handleStartOrRestart = () => {
       if (isStopped || isNotFound) {
         onStart(row, rowIndex);
@@ -1954,18 +2047,28 @@ function BackgroundTerminalRowActionMenu(props) {
   let triggerClassName = S(ac, "data-[state=open]:text-token-foreground");
   let triggerIcon = <Hi className="icon-2xs" />;
   let triggerButton = (
-    <button type="button" aria-label={actionsLabel} className={triggerClassName} onClick={stopBackgroundTerminalActionTriggerPropagation}>
+    <button
+      type="button"
+      aria-label={actionsLabel}
+      className={triggerClassName}
+      onClick={stopBackgroundTerminalActionTriggerPropagation}
+    >
       {triggerIcon}
     </button>
   );
   let handleOpenOutput = () => onOpen(row.terminal);
   let openOutputLabel = <FormattedMessage {...jp.openOutput} />;
   let openOutputItem = (
-    <Br.Item LeftIcon={ds} leftIconClassName="icon-xs" onSelect={handleOpenOutput}>
+    <Br.Item
+      LeftIcon={ds}
+      leftIconClassName="icon-xs"
+      onSelect={handleOpenOutput}
+    >
       {openOutputLabel}
     </Br.Item>
   );
-  let isStopDisabled = row.metrics?.pid == null || isStarting || isStopping || isStopped,
+  let isStopDisabled =
+      row.metrics?.pid == null || isStarting || isStopping || isStopped,
     stopTooltip =
       row.metrics?.pid == null ? (
         <FormattedMessage {...jp.stopMissingProcessTooltip} />
@@ -1987,7 +2090,9 @@ function BackgroundTerminalRowActionMenu(props) {
   );
   let isStartOrRestartDisabled = !canStartOrRestart,
     isRestartTooltipInteractive = restartTooltip != null,
-    startOrRestartLabel = <FormattedMessage {...startOrRestartMessageDescriptor} />;
+    startOrRestartLabel = (
+      <FormattedMessage {...startOrRestartMessageDescriptor} />
+    );
   let startOrRestartItem = (
     <Br.Item
       LeftIcon={cn}
@@ -2020,7 +2125,9 @@ function stopBackgroundTerminalActionTriggerPropagation(event) {
 function BackgroundTerminalStatusIcon(props) {
   let { status } = props,
     intl = ur(),
-    statusLabel = intl.formatMessage(getBackgroundTerminalStatusMessageDescriptor(status));
+    statusLabel = intl.formatMessage(
+      getBackgroundTerminalStatusMessageDescriptor(status),
+    );
   if (status === "starting") {
     let startingIcon = kp.jsx(rr, {
       className: "icon-xs text-token-charts-green",
@@ -7145,8 +7252,7 @@ function ThreadSummaryEnvironmentSection(props) {
                   {disabled
                     ? null
                     : B_.jsx(ht, {
-                        className:
-                          "icon-2xs shrink-0 text-token-text-tertiary",
+                        className: "icon-2xs shrink-0 text-token-text-tertiary",
                       })}
                 </span>
               }
@@ -7204,9 +7310,13 @@ function ThreadSummaryEnvironmentSection(props) {
   });
   let environmentModeControls =
     conversationId == null ? null : (
-      <ThreadSummaryEnvironmentModeControls conversationId={conversationId} onOpenChange={onForceShow} />
+      <ThreadSummaryEnvironmentModeControls
+        conversationId={conversationId}
+        onOpenChange={onForceShow}
+      />
     );
-  let branchControlOwnsDetachedSetup = isCodexWorktree && workspaceGitRoot != null,
+  let branchControlOwnsDetachedSetup =
+      isCodexWorktree && workspaceGitRoot != null,
     handleCreatePullRequestActionReady,
     handleCreateBranchActionReady;
   handleCreateBranchActionReady = (action) => {
@@ -7244,7 +7354,11 @@ function ThreadSummaryEnvironmentSection(props) {
     />
   );
   return (
-    <Nm sectionKey="environment" after={renderSectionActions} title={sectionTitle}>
+    <Nm
+      sectionKey="environment"
+      after={renderSectionActions}
+      title={sectionTitle}
+    >
       {branchChangesRow}
       {environmentModeControls}
       {branchControlRow}
@@ -7383,9 +7497,9 @@ function K_(e) {
       />
     );
   return (
-    <Lf items={sideChats} getKey={q_}>
+    <SummaryPanelExpandableList items={sideChats} getKey={q_}>
       {i}
-    </Lf>
+    </SummaryPanelExpandableList>
   );
 }
 function q_(e) {
@@ -7397,7 +7511,7 @@ var J_,
     J_ = q();
     d();
     Oo();
-    Uf();
+    initSummaryPanelExpandableList();
     initSummaryPanelRowChunk();
     Y_ = getJsxRuntime();
   });
@@ -8132,7 +8246,7 @@ function ThreadSummaryPanelSections(props) {
         count: artifacts.length,
       })}
     >
-      <Wf
+      <SummaryPanelArtifactsList
         onOpen={onOpenOutput}
         artifacts={artifacts}
         conversationTitle={conversationTitle}
@@ -8358,7 +8472,7 @@ var Av,
     ho();
     Ji();
     lc();
-    Qf();
+    initSummaryPanelArtifactsListChunk();
     lp();
     gp();
     Mp();
@@ -8375,35 +8489,60 @@ var Av,
     n();
     Q = getJsxRuntime();
   });
-function Nv(e) {
-  let t = (e - 736) / 2;
-  return t < 180 ? "overlay" : t < 400 ? "shift" : "gutter";
+function getPinnedSummaryPanelDisplayMode(
+  mainContentTargetWidth: number,
+): PinnedSummaryPanelState["displayMode"] {
+  let sideGutterWidth = (mainContentTargetWidth - 736) / 2;
+  return sideGutterWidth < 180
+    ? "overlay"
+    : sideGutterWidth < 400
+      ? "shift"
+      : "gutter";
 }
-function Pv({ displayMode, isPinned, isPopoverOpen }) {
+
+function getPinnedSummaryPanelVisibility({
+  displayMode,
+  isPinned,
+  isPopoverOpen,
+}: {
+  displayMode: PinnedSummaryPanelState["displayMode"];
+  isPinned: boolean;
+  isPopoverOpen: boolean;
+}) {
   return {
     displayMode,
     shouldHideInlineImmediately: displayMode === "overlay" && isPopoverOpen,
     shouldShow: isPinned && displayMode !== "overlay",
   };
 }
-function Fv({ displayMode, isPinned }) {
-  return isPinned && displayMode === "shift" ? -(300 + Iv) / 2 : 0;
+
+function getPinnedSummaryPanelContentShift({
+  displayMode,
+  isPinned,
+}: {
+  displayMode: PinnedSummaryPanelState["displayMode"];
+  isPinned: boolean;
+}) {
+  return isPinned && displayMode === "shift"
+    ? -(300 + PINNED_SUMMARY_PANEL_GAP_PX) / 2
+    : 0;
 }
-var Iv,
-  Lv = once(() => {
+
+var PINNED_SUMMARY_PANEL_GAP_PX,
+  initPinnedSummaryPanelContentShiftConstants = once(() => {
     Nf();
-    Iv = 16;
+    PINNED_SUMMARY_PANEL_GAP_PX = 16;
   }),
-  Rv,
+  DEFAULT_PINNED_SUMMARY_PANEL_STATE,
   pinnedSummaryPanelState,
   initPinnedSummaryPanelState = once(() => {
     c();
     r();
-    Rv = {
+    DEFAULT_PINNED_SUMMARY_PANEL_STATE = {
       displayMode: "overlay",
       isPopoverOpen: false,
     };
-    pinnedSummaryPanelState = bi(ut, Rv);
+    pinnedSummaryPanelState = bi(ut, DEFAULT_PINNED_SUMMARY_PANEL_STATE);
   });
 interface PinnedSummaryPanelState {
   displayMode: "overlay" | "shift" | "gutter";
@@ -8420,17 +8559,20 @@ export function usePinnedSummaryPanelLayout(
 ): void {
   let leftPanelSignal = W(Ga),
     rightPanelSignal = W(Pa),
-    layoutContext = Jv.useContext(so),
+    layoutContext = localConversationArtifactsReactRuntime.useContext(so),
     fallbackTargetWidthSignal = Xe(0),
     mainContentTargetWidthSignal =
       layoutContext?.mainContentTargetWidth ?? fallbackTargetWidthSignal,
     updatePinnedPanelLayout;
   updatePinnedPanelLayout = (nextWidth: number) => {
-    Gv(store, nextWidth);
+    syncPinnedSummaryPanelStateForWidth(store, nextWidth);
   };
   ar(mainContentTargetWidthSignal, "change", updatePinnedPanelLayout);
   let syncPinnedPanelLayout = () => {
-    Gv(store, mainContentTargetWidthSignal.get());
+    syncPinnedSummaryPanelStateForWidth(
+      store,
+      mainContentTargetWidthSignal.get(),
+    );
   };
   let syncLayoutDependencies;
   syncLayoutDependencies = [
@@ -8439,13 +8581,19 @@ export function usePinnedSummaryPanelLayout(
     mainContentTargetWidthSignal,
     store,
   ];
-  Jv.useLayoutEffect(syncPinnedPanelLayout, syncLayoutDependencies);
+  localConversationArtifactsReactRuntime.useLayoutEffect(
+    syncPinnedPanelLayout,
+    syncLayoutDependencies,
+  );
   let closePopoverOnUnmount, closePopoverDependencies;
   closePopoverOnUnmount = () => () => {
     store.set(pinnedSummaryPanelState, closePinnedSummaryPanelPopover);
   };
   closePopoverDependencies = [store];
-  Jv.useLayoutEffect(closePopoverOnUnmount, closePopoverDependencies);
+  localConversationArtifactsReactRuntime.useLayoutEffect(
+    closePopoverOnUnmount,
+    closePopoverDependencies,
+  );
 }
 function closePinnedSummaryPanelPopover(
   state: PinnedSummaryPanelState,
@@ -8457,110 +8605,160 @@ function closePinnedSummaryPanelPopover(
       }
     : state;
 }
-function Uv(e) {
-  let n = W(Va),
-    r = W(Ga),
-    i = W(Pa),
-    a = W(pinnedSummaryPanelState),
-    o = W(mt),
-    s = Jv.useContext(so),
-    c = Xe(0),
-    l = s?.mainContentTargetWidth ?? c,
-    u = Wv({
-      isPinned: n,
-      mainContentTargetWidth: l.get(),
+function usePinnedSummaryPanelDisplay(conversationId: unknown) {
+  let isPinned = W(Va),
+    leftPanelState = W(Ga),
+    rightPanelState = W(Pa),
+    pinnedPanelState = W(pinnedSummaryPanelState),
+    animationsDisabled = W(mt),
+    layoutContext = localConversationArtifactsReactRuntime.useContext(so),
+    fallbackTargetWidthSignal = Xe(0),
+    mainContentTargetWidthSignal =
+      layoutContext?.mainContentTargetWidth ?? fallbackTargetWidthSignal,
+    initialContentShift = getTargetPinnedSummaryPanelContentShift({
+      isPinned,
+      mainContentTargetWidth: mainContentTargetWidthSignal.get(),
     });
-  let d = Xe(u),
-    f = Jv.useRef(null),
-    p = d.get();
-  let m = Jv.useRef(p),
-    h = Jv.useRef(e),
-    g = Pv({
-      displayMode: a.displayMode,
-      isPinned: n,
-      isPopoverOpen: a.isPopoverOpen,
+  let contentShiftSignal = Xe(initialContentShift),
+    contentShiftAnimationRef =
+      localConversationArtifactsReactRuntime.useRef(null),
+    currentContentShift = contentShiftSignal.get();
+  let targetContentShiftRef =
+      localConversationArtifactsReactRuntime.useRef(currentContentShift),
+    conversationIdRef =
+      localConversationArtifactsReactRuntime.useRef(conversationId),
+    visibility = getPinnedSummaryPanelVisibility({
+      displayMode: pinnedPanelState.displayMode,
+      isPinned,
+      isPopoverOpen: pinnedPanelState.isPopoverOpen,
     });
-  let _ = g,
-    v,
-    y;
-  v = () => {
-    if (h.current === e) return;
-    h.current = e;
-    let t = Wv({
-      isPinned: n,
-      mainContentTargetWidth: l.get(),
+  let resetShiftAfterConversationChange = () => {
+    if (conversationIdRef.current === conversationId) return;
+    conversationIdRef.current = conversationId;
+    let nextContentShift = getTargetPinnedSummaryPanelContentShift({
+      isPinned,
+      mainContentTargetWidth: mainContentTargetWidthSignal.get(),
     });
-    m.current = t;
-    f.current?.stop();
-    d.set(t);
+    targetContentShiftRef.current = nextContentShift;
+    contentShiftAnimationRef.current?.stop();
+    contentShiftSignal.set(nextContentShift);
   };
-  y = [d, n, l, e];
-  Jv.useLayoutEffect(v, y);
-  let b;
-  b = (e) => {
-    let t = Wv({
-      isPinned: n,
-      mainContentTargetWidth: e,
+  let resetShiftAfterConversationChangeDeps = [
+    contentShiftSignal,
+    isPinned,
+    mainContentTargetWidthSignal,
+    conversationId,
+  ];
+  localConversationArtifactsReactRuntime.useLayoutEffect(
+    resetShiftAfterConversationChange,
+    resetShiftAfterConversationChangeDeps,
+  );
+  let syncShiftForTargetWidth = (nextMainContentTargetWidth) => {
+    let nextContentShift = getTargetPinnedSummaryPanelContentShift({
+      isPinned,
+      mainContentTargetWidth: nextMainContentTargetWidth,
     });
-    m.current !== t &&
-      ((m.current = t), f.current?.stop(), (f.current = Kv(d, t, o)));
+    if (targetContentShiftRef.current === nextContentShift) return;
+    targetContentShiftRef.current = nextContentShift;
+    contentShiftAnimationRef.current?.stop();
+    contentShiftAnimationRef.current =
+      setOrAnimatePinnedSummaryPanelContentShift(
+        contentShiftSignal,
+        nextContentShift,
+        animationsDisabled,
+      );
   };
-  ar(l, "change", b);
-  let x = () => {
-    let e = Wv({
-      isPinned: n,
-      mainContentTargetWidth: l.get(),
+  ar(mainContentTargetWidthSignal, "change", syncShiftForTargetWidth);
+  let syncAnimatedContentShift = () => {
+    let nextContentShift = getTargetPinnedSummaryPanelContentShift({
+      isPinned,
+      mainContentTargetWidth: mainContentTargetWidthSignal.get(),
     });
-    m.current !== e &&
-      ((m.current = e), f.current?.stop(), (f.current = Kv(d, e, o)));
+    if (targetContentShiftRef.current === nextContentShift) return;
+    targetContentShiftRef.current = nextContentShift;
+    contentShiftAnimationRef.current?.stop();
+    contentShiftAnimationRef.current =
+      setOrAnimatePinnedSummaryPanelContentShift(
+        contentShiftSignal,
+        nextContentShift,
+        animationsDisabled,
+      );
   };
-  let S;
-  S = [d, n, r, i, l, o];
-  Jv.useEffect(x, S);
-  let C, w;
-  C = () => () => {
-    f.current?.stop();
+  let syncAnimatedContentShiftDeps = [
+    contentShiftSignal,
+    isPinned,
+    leftPanelState,
+    rightPanelState,
+    mainContentTargetWidthSignal,
+    animationsDisabled,
+  ];
+  localConversationArtifactsReactRuntime.useEffect(
+    syncAnimatedContentShift,
+    syncAnimatedContentShiftDeps,
+  );
+  let stopShiftAnimationOnUnmount = () => () => {
+    contentShiftAnimationRef.current?.stop();
   };
-  w = [];
-  Jv.useEffect(C, w);
+  localConversationArtifactsReactRuntime.useEffect(
+    stopShiftAnimationOnUnmount,
+    [],
+  );
   return {
-    contentShift: d,
-    shouldHideInlineImmediately: _.shouldHideInlineImmediately,
-    shouldShow: _.shouldShow,
+    contentShift: contentShiftSignal,
+    shouldHideInlineImmediately: visibility.shouldHideInlineImmediately,
+    shouldShow: visibility.shouldShow,
   };
 }
-function Wv({ isPinned, mainContentTargetWidth }) {
-  return Fv({
-    displayMode: Nv(mainContentTargetWidth),
+
+function getTargetPinnedSummaryPanelContentShift({
+  isPinned,
+  mainContentTargetWidth,
+}) {
+  return getPinnedSummaryPanelContentShift({
+    displayMode: getPinnedSummaryPanelDisplayMode(mainContentTargetWidth),
     isPinned,
   });
 }
-function Gv(e, t) {
-  let n = Nv(t);
-  e.set(pinnedSummaryPanelState, (e) => {
-    let t = n === "overlay" && e.isPopoverOpen;
-    return e.displayMode === n && e.isPopoverOpen === t
-      ? e
+
+function syncPinnedSummaryPanelStateForWidth(
+  store: PinnedSummaryPanelLayoutStore,
+  mainContentTargetWidth: number,
+) {
+  let displayMode = getPinnedSummaryPanelDisplayMode(mainContentTargetWidth);
+  store.set(pinnedSummaryPanelState, (state) => {
+    let shouldKeepPopoverOpen =
+      displayMode === "overlay" && state.isPopoverOpen;
+    return state.displayMode === displayMode &&
+      state.isPopoverOpen === shouldKeepPopoverOpen
+      ? state
       : {
-          displayMode: n,
-          isPopoverOpen: t,
+          displayMode,
+          isPopoverOpen: shouldKeepPopoverOpen,
         };
   });
 }
-function Kv(e, t, n) {
-  return n ? (e.set(t), null) : E(e, t, ji);
+
+function setOrAnimatePinnedSummaryPanelContentShift(
+  contentShiftSignal,
+  nextContentShift,
+  animationsDisabled,
+) {
+  return animationsDisabled
+    ? (contentShiftSignal.set(nextContentShift), null)
+    : E(contentShiftSignal, nextContentShift, ji);
 }
-var qv,
-  Jv,
+
+var localConversationArtifactsModule,
+  localConversationArtifactsReactRuntime,
   initLocalConversationArtifacts = once(() => {
-    qv = q();
+    localConversationArtifactsModule = q();
     bt();
     c();
-    Jv = toEsModule(G(), 1);
+    localConversationArtifactsReactRuntime = toEsModule(G(), 1);
     ua();
     Xa();
     Oe();
-    Lv();
+    initPinnedSummaryPanelContentShiftConstants();
     initPinnedSummaryPanelState();
   });
 function Xv(
@@ -8869,7 +9067,9 @@ function buildMcpServerMetadataByName(mcpServersQuery) {
     };
     for (let serverName of [serverRegistration.name, serverInfo.name]) {
       let lookupKey = normalizeMcpServerLookupKey(serverName);
-      lookupKey.length > 0 && !metadataByName.has(lookupKey) && metadataByName.set(lookupKey, metadata);
+      lookupKey.length > 0 &&
+        !metadataByName.has(lookupKey) &&
+        metadataByName.set(lookupKey, metadata);
     }
   }
   return metadataByName;
@@ -8880,7 +9080,12 @@ function normalizeMcpServerLookupKey(serverName) {
 var Dy = once(() => {
   Sl();
 });
-function collectConversationMcpToolSources(turns, apps, installedMcpAppIds, mcpServersQuery) {
+function collectConversationMcpToolSources(
+  turns,
+  apps,
+  installedMcpAppIds,
+  mcpServersQuery,
+) {
   let toolSources = [],
     toolSourcesById = new Map(),
     serverMetadataByName = buildMcpServerMetadataByName(mcpServersQuery);
@@ -8889,12 +9094,19 @@ function collectConversationMcpToolSources(turns, apps, installedMcpAppIds, mcpS
     for (let itemIndex = turn.items.length - 1; itemIndex >= 0; --itemIndex) {
       let item = turn.items[itemIndex];
       if (item.type !== "mcpToolCall" || item.server === "node_repl") continue;
-      let toolSource = getMcpToolSourceSummary(item, apps, serverMetadataByName),
+      let toolSource = getMcpToolSourceSummary(
+          item,
+          apps,
+          serverMetadataByName,
+        ),
         mcpAppId = Oi(item.id),
-        installedMcpAppId = installedMcpAppIds?.has(mcpAppId) === true ? mcpAppId : undefined,
+        installedMcpAppId =
+          installedMcpAppIds?.has(mcpAppId) === true ? mcpAppId : undefined,
         existingToolSource = toolSourcesById.get(toolSource.id);
       if (existingToolSource != null) {
-        existingToolSource.mcpAppId == null && installedMcpAppId != null && (existingToolSource.mcpAppId = installedMcpAppId);
+        existingToolSource.mcpAppId == null &&
+          installedMcpAppId != null &&
+          (existingToolSource.mcpAppId = installedMcpAppId);
         continue;
       }
       toolSource.mcpAppId = installedMcpAppId;
@@ -8915,7 +9127,9 @@ function collectConversationWebSources(turns) {
       if (item.type !== "webSearch") continue;
       sawWebSearch = true;
       let webSource = getWebSourceFromBrowserAction(item.action);
-      webSource == null || seenUrls.has(webSource.url) || (seenUrls.add(webSource.url), webSources.push(webSource));
+      webSource == null ||
+        seenUrls.has(webSource.url) ||
+        (seenUrls.add(webSource.url), webSources.push(webSource));
     }
   }
   return webSources.length === 0 && sawWebSearch
@@ -8927,7 +9141,10 @@ function collectConversationWebSources(turns) {
     : webSources;
 }
 function getWebSourceFromBrowserAction(action) {
-  if ((action?.type !== "openPage" && action?.type !== "findInPage") || action.url == null)
+  if (
+    (action?.type !== "openPage" && action?.type !== "findInPage") ||
+    action.url == null
+  )
     return null;
   try {
     let url = new URL(action.url);
@@ -8959,7 +9176,9 @@ function getMcpToolSourceSummary(item, apps, serverMetadataByName) {
       logoUrl: appToolSource.logoUrl,
       logoUrlDark: appToolSource.logoUrlDark,
     };
-  let serverMetadata = serverMetadataByName.get(normalizeMcpServerLookupKey(item.server));
+  let serverMetadata = serverMetadataByName.get(
+    normalizeMcpServerLookupKey(item.server),
+  );
   return {
     id: `mcp-server:${item.server}`,
     name: serverMetadata?.name ?? mn(item.server),
@@ -8974,9 +9193,14 @@ var My = once(() => {
   Dy();
   kr();
 });
-function useLocalConversationSummaryPanelModel(includeBackgroundActivity = true) {
+function useLocalConversationSummaryPanelModel(
+  includeBackgroundActivity = true,
+) {
   let routeSnapshot = B(Fe),
-    conversationId = routeSnapshot.value.routeKind === "local-thread" ? routeSnapshot.value.conversationId : null,
+    conversationId =
+      routeSnapshot.value.routeKind === "local-thread"
+        ? routeSnapshot.value.conversationId
+        : null,
     browserSummaryConversationId = Ot(routeSnapshot);
   let host = W(ra),
     turns = K(I, conversationId) ?? Hy,
@@ -9016,7 +9240,12 @@ function useLocalConversationSummaryPanelModel(includeBackgroundActivity = true)
     };
   let { data: apps = [] } = Ti(mcpAppsQueryInput),
     { data: mcpServersQuery } = K(kt, host.id),
-    toolSources = collectConversationMcpToolSources(turns, apps, installedMcpAppIds, mcpServersQuery),
+    toolSources = collectConversationMcpToolSources(
+      turns,
+      apps,
+      installedMcpAppIds,
+      mcpServersQuery,
+    ),
     webSources = collectConversationWebSources(turns),
     plan = getLatestCompletedTurnPlanSummary(turns),
     backgroundAgents = K(_c, ns() ? conversationId : null);
@@ -9063,15 +9292,24 @@ var zy,
     xy();
     wy();
     My();
-    Vy = Dn(Fe, ({ get }) => collectSideChatTabSummaries(get(ga.tabs$), (t) => get(ge, t) ?? false));
+    Vy = Dn(Fe, ({ get }) =>
+      collectSideChatTabSummaries(get(ga.tabs$), (t) => get(ge, t) ?? false),
+    );
     Hy = [];
   });
 function ConnectedLocalWorktreeRestoreBanner(props) {
   let { conversationId, cwd } = props,
     threadHostId = K(En, conversationId),
     hostConnectionStatus = K(Qr, threadHostId);
-  if (threadHostId !== "local" && hostConnectionStatus !== "connected") return null;
-  return <WorktreeRestoreBanner conversationId={conversationId} cwd={cwd} threadHostId={threadHostId} />;
+  if (threadHostId !== "local" && hostConnectionStatus !== "connected")
+    return null;
+  return (
+    <WorktreeRestoreBanner
+      conversationId={conversationId}
+      cwd={cwd}
+      threadHostId={threadHostId}
+    />
+  );
 }
 function WorktreeRestoreBanner(props) {
   let { conversationId, cwd, threadHostId } = props,
@@ -9083,7 +9321,8 @@ function WorktreeRestoreBanner(props) {
     queryClient = Ci(),
     worktreeStatusQuery = K(Cs, conversationId),
     worktreeStatus = worktreeStatusQuery.data,
-    isWorktreeStatusUnavailable = worktreeStatusQuery.isError || worktreeStatus?.kind === "unavailable",
+    isWorktreeStatusUnavailable =
+      worktreeStatusQuery.isError || worktreeStatus?.kind === "unavailable",
     checkWorktreeMutationOptions = {
       mutationFn: (nextCwd) =>
         ec(scope, {
@@ -9158,8 +9397,17 @@ function WorktreeRestoreBanner(props) {
     onSuccess: handleRestoreSuccess,
     onError: handleRestoreError,
   };
-  let restoreWorktreeMutation = w("restore-worktree", host, restoreMutationOptions);
-  if (worktreeStatus?.kind !== "restorable" && worktreeStatus?.kind !== "gone" && !isWorktreeStatusUnavailable) return null;
+  let restoreWorktreeMutation = w(
+    "restore-worktree",
+    host,
+    restoreMutationOptions,
+  );
+  if (
+    worktreeStatus?.kind !== "restorable" &&
+    worktreeStatus?.kind !== "gone" &&
+    !isWorktreeStatusUnavailable
+  )
+    return null;
   let title = isWorktreeStatusUnavailable ? (
     <FormattedMessage
       id="worktreeRestoreBanner.unavailable.title"
@@ -9220,7 +9468,8 @@ function WorktreeRestoreBanner(props) {
   let customCtas =
     isWorktreeStatusUnavailable && cwd != null
       ? qy.jsx(k, {
-          loading: checkWorktreeMutation.isPending || worktreeStatusQuery.isFetching,
+          loading:
+            checkWorktreeMutation.isPending || worktreeStatusQuery.isFetching,
           onClick: () => {
             checkWorktreeMutation.mutate(cwd);
           },
@@ -9337,7 +9586,9 @@ function ForkFromOlderTurnDialog(props) {
         className:
           "icon-xs shrink-0 opacity-75 group-hover:opacity-100 group-focus:opacity-100",
       });
-  let localForkMessageDescriptor = isWorktreeThread ? fo.forkIntoSameWorktree : fo.forkIntoLocal,
+  let localForkMessageDescriptor = isWorktreeThread
+      ? fo.forkIntoSameWorktree
+      : fo.forkIntoLocal,
     localForkTitle = (
       <span className="text-sm font-medium electron:text-base">
         <FormattedMessage {...localForkMessageDescriptor} />
@@ -13341,7 +13592,7 @@ function LocalConversationThreadRoute(props) {
       isRightPanelFullWidth,
       routeConversationId: ot(scope.value),
     });
-  let summaryPanelDisplay = Uv(conversationId),
+  let summaryPanelDisplay = usePinnedSummaryPanelDisplay(conversationId),
     summaryPanelModel = useLocalConversationSummaryPanelModel(
       summaryPanelDisplay.shouldShow,
     ),
@@ -13788,7 +14039,7 @@ function LocalConversationThreadFrame(props) {
       ? $.jsx(RefreshSummaryPanelObstaclesEffect, {})
       : null;
   let remoteHostedPipAnchorHostId = shouldMountSummaryPanelObstacles
-      ? af
+      ? MAIN_THREAD_PIP_HOST_ID
       : undefined,
     footer = hasConversation ? (
       showComposer ? (
@@ -13879,12 +14130,13 @@ function LocalConversationThreadFrame(props) {
   });
 }
 function RefreshSummaryPanelObstaclesEffect() {
-  let obstacleRegistry = nr(),
+  let windowZoom = nr(),
     refreshObstacles,
     refreshObstaclesEffectDeps;
   return (
-    (refreshObstacles = () => _f(obstacleRegistry)),
-    (refreshObstaclesEffectDeps = [obstacleRegistry]),
+    (refreshObstacles = () =>
+      startRemoteHostedPipHostLayoutObserver(windowZoom)),
+    (refreshObstaclesEffectDeps = [windowZoom]),
     GS.useEffect(refreshObstacles, refreshObstaclesEffectDeps),
     null
   );
@@ -13909,7 +14161,12 @@ function openBackgroundAgentFromThread(
 function ComposerWorkspaceDirectoryTree(props) {
   let { conversationId } = props,
     cwd = K(Wn, conversationId);
-  return <ConnectedLocalWorktreeRestoreBanner conversationId={conversationId} cwd={cwd} />;
+  return (
+    <ConnectedLocalWorktreeRestoreBanner
+      conversationId={conversationId}
+      cwd={cwd}
+    />
+  );
 }
 function LocalConversationComposerFooter({
   conversationId,
@@ -14593,8 +14850,8 @@ export const initLocalConversationThreadChunk = once(() => {
   Es();
   initThreadSwitchTimingTrackerChunk();
   he();
-  Ef();
-  gf();
+  initThreadPipHostSelectors();
+  initThreadPipHostAttributes();
   r();
   _();
   me();
