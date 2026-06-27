@@ -10,8 +10,6 @@ import {
   AI as getLocalConversationPath,
   AN as initSpinnerComponent,
   AO as PULL_REQUEST_FIX_PROMPT_PREAMBLE,
-  AV as initReactQueryRuntime,
-  Ai as initDialogLayoutComponents,
   Al as initComposerScope,
   Am as conversationWorkspaceRootSignal,
   Ao as initGitBranchIcon,
@@ -23,10 +21,8 @@ import {
   DL as normalizeWorkspacePath,
   DM as initWindowZoomContext,
   DN as Button,
-  Di as DialogSection,
   Dj as joinPath,
   Dl as createLocalConversationRouteTarget,
-  Ei as DialogHeader,
   Em as conversationTurnsSignal,
   Es as browserSidebarEnabledSignal,
   Ev as useLocation,
@@ -65,7 +61,6 @@ import {
   Nv as initConversationArtifactRuntime,
   ON as initButtonComponentPrimitives,
   O_ as initConversationRouteSourceHelpers,
-  Oi as $e,
   Op as initConversationStateSelectors,
   Ov as useNavigate,
   PB as useScopedValue,
@@ -85,7 +80,6 @@ import {
   Sm as threadSourceSignal,
   TM as initCheckmarkIcon,
   T_ as getRouteConversationId,
-  Ti as DialogFooterActions,
   Tp as hasConversationSignal,
   Ts as initBrowserFeatureAvailabilitySignals,
   UE as LOCAL_HOST_ID,
@@ -100,7 +94,6 @@ import {
   Vn as dispatchGlobalCommand,
   Wa as PlatformContentGate,
   Wg as initMarkdownResourceHelpers,
-  XN as createQueryKey,
   XR as GLOBAL_STATE_KEYS,
   Xi as MenuSeparator,
   YO as initPullRequestReviewCommentHelpers,
@@ -173,22 +166,18 @@ import {
   tn as Xr,
   uM as toastSignal,
   vM as KeyboardShortcutKeycap,
-  va as AppDialog,
   vm as subagentParentThreadIdSignal,
   wM as CheckIcon,
   wV as useSignalState,
-  wi as DialogBody,
   wj as di,
   wl as composerScope,
   wp as storedThreadBranchSignal,
   xM as useStableCallback,
-  xa as initAppDialog,
   yA as loadFindLastModule,
   yM as initKeyboardShortcutKeycap,
   yP as yi,
   yV as createSignal,
   yv as Navigate,
-  zV as useQueryClient,
   za as openInBrowserFromEvent,
   zo as useAppsQuery,
 } from "../boundaries/current-ref/appg-thread-shared-producer";
@@ -352,11 +341,9 @@ import {
 } from "../boundaries/current-ref/profile-page-producer";
 import {
   A as il,
-  en as cl,
   it as ul,
   k as dl,
   n as fl,
-  tn as gl,
 } from "../boundaries/current-ref/appgen-library-hot-producer";
 import {
   i as yl,
@@ -437,15 +424,9 @@ import {
 import { initTeamIconChunk as $u, TeamIcon as ed } from "../icons/team-icon";
 import { initThreadScrollControllerContextChunk as id } from "../utils/thread-scroll-controller-context";
 import {
-  cloneLocalEnvironmentActions as hd,
-  createLocalEnvironmentAction as pd,
   initLocalEnvironmentActionIconChunk as fd,
-  initLocalEnvironmentActionIconOptionsChunk as ud,
   initLocalEnvironmentDefaultsChunk as dd,
   LocalEnvironmentActionIcon as md,
-  LOCAL_ENVIRONMENT_ACTION_ICON_OPTIONS as ld,
-  normalizePlatformScripts as cd,
-  serializeLocalEnvironmentConfig as sd,
 } from "../environments/local-environments-utils";
 import {
   C as PullRequestInlineActionButton,
@@ -521,6 +502,10 @@ import {
   prependRecentLocalEnvironmentAction,
   type RecentLocalEnvironmentActionsByKey,
 } from "./local-conversation-thread-parts/local-environment-recent-actions";
+import {
+  AddLocalEnvironmentActionPopoverContent,
+  initAddLocalEnvironmentActionFormChunk,
+} from "./local-conversation-thread-parts/local-environment-action-form";
 import {
   getLocalEnvironmentResultDisplayName,
   initLocalEnvironmentSelectorContentChunk,
@@ -1473,416 +1458,6 @@ var backgroundTerminalSummaryRowsModule,
       },
     });
   });
-function LocalEnvironmentActionSetupForm(props) {
-  let {
-      headerIcon,
-      title,
-      description,
-      commandLabel,
-      command,
-      onCommandChange,
-      commandPlaceholder,
-      extraFields,
-      leftAction,
-      submitLabel,
-      submitDisabled = false,
-      submitLoading = false,
-      onSubmit,
-    } = props,
-    commandInputId = localEnvironmentActionSetupFormReactRuntime.useId(),
-    headerSection = localEnvironmentActionSetupFormJsxRuntime.jsx(
-      DialogSection,
-      {
-        children: (
-          <DialogHeader
-            icon={headerIcon}
-            subtitle={description}
-            title={title}
-          />
-        ),
-      },
-    );
-  let extraFieldsSection = extraFields
-    ? localEnvironmentActionSetupFormJsxRuntime.jsx(DialogSection, {
-        children: localEnvironmentActionSetupFormJsxRuntime.jsx($e, {
-          className: "gap-3",
-          children: extraFields,
-        }),
-      })
-    : null;
-  let commandLabelNode = (
-    <label
-      className="text-xs font-medium tracking-wide text-token-text-secondary uppercase"
-      htmlFor={commandInputId}
-    >
-      {commandLabel}
-    </label>
-  );
-  let handleCommandInputChange = (event) => {
-    onCommandChange(event.target.value);
-  };
-  let commandTextarea = (
-    <textarea
-      id={commandInputId}
-      className="focus-visible:ring-token-focus min-h-44 w-full resize-none rounded-md border border-token-border bg-token-input-background px-2.5 py-2 font-mono text-sm text-token-text-primary outline-none placeholder:text-token-input-placeholder-foreground focus-visible:ring-2"
-      placeholder={commandPlaceholder}
-      value={command}
-      onChange={handleCommandInputChange}
-    />
-  );
-  let commandFieldSection = localEnvironmentActionSetupFormJsxRuntime.jsx(
-    DialogSection,
-    {
-      children: localEnvironmentActionSetupFormJsxRuntime.jsxs($e, {
-        className: "gap-2",
-        children: [commandLabelNode, commandTextarea],
-      }),
-    },
-  );
-  let submitButton = localEnvironmentActionSetupFormJsxRuntime.jsx(Button, {
-    color: "primary",
-    disabled: submitDisabled,
-    loading: submitLoading,
-    type: "submit",
-    children: submitLabel,
-  });
-  let footerSection = localEnvironmentActionSetupFormJsxRuntime.jsx(
-    DialogSection,
-    {
-      children: (
-        <DialogFooterActions className="justify-between">
-          {leftAction}
-          {submitButton}
-        </DialogFooterActions>
-      ),
-    },
-  );
-  let formContent = localEnvironmentActionSetupFormJsxRuntime.jsxs(DialogBody, {
-    className: "gap-3",
-    children: [
-      headerSection,
-      extraFieldsSection,
-      commandFieldSection,
-      footerSection,
-    ],
-  });
-  return (
-    <form className="flex flex-col gap-0" onSubmit={onSubmit}>
-      {formContent}
-    </form>
-  );
-}
-var localEnvironmentActionSetupFormModule,
-  localEnvironmentActionSetupFormReactRuntime,
-  localEnvironmentActionSetupFormJsxRuntime,
-  initLocalEnvironmentActionSetupFormChunk = once(() => {
-    localEnvironmentActionSetupFormModule = getChunkModuleExports();
-    localEnvironmentActionSetupFormReactRuntime = toEsModule(
-      loadReactModule(),
-      1,
-    );
-    initButtonComponentPrimitives();
-    initDialogLayoutComponents();
-    localEnvironmentActionSetupFormJsxRuntime = getJsxRuntime();
-  });
-function AddLocalEnvironmentActionForm(props) {
-  let {
-      action,
-      configPath,
-      environment,
-      hostConfig,
-      onOpenSettings,
-      onRunAction,
-      onSaved,
-      onUpdate,
-      workspaceRoot,
-    } = props,
-    intl = useIntl(),
-    queryClient = useQueryClient(),
-    saveConfigMutation = useAppServerMutation("local-environment-config-save"),
-    DropdownComponent,
-    SetupFormComponent,
-    nameInputId,
-    handleSubmit,
-    submitDisabled,
-    iconDropdownAlign,
-    commandPlaceholder,
-    descriptionNode,
-    iconDropdownContentWidth,
-    iconDropdownTriggerButton,
-    iconMenuItems,
-    nameRowClassName,
-    nameFieldClassName,
-    nameLabelNode,
-    commandValue,
-    commandLabelNode;
-  {
-    let createIconOption = (iconOptionConfig) => ({
-      ariaLabel: intl.formatMessage(iconOptionConfig.message),
-      icon: addLocalEnvironmentActionFormJsxRuntime.jsx(md, {
-        icon: iconOptionConfig.value,
-      }),
-      value: iconOptionConfig.value,
-    });
-    let iconOptions = ld.map(createIconOption),
-      selectedIconOption =
-        iconOptions.find((item) => item.value === action.icon) ??
-        iconOptions[0],
-      defaultEnvironmentName =
-        cl(workspaceRoot) ??
-        intl.formatMessage({
-          id: "settings.localEnvironments.environment.defaultName",
-          defaultMessage: "local",
-          description: "Fallback name for the local environment",
-        });
-    let environmentName = defaultEnvironmentName,
-      trimmedActionName = action.name.trim();
-    let savedActionName = trimmedActionName,
-      trimmedCommand = action.command.trim();
-    let savedCommand = trimmedCommand;
-    submitDisabled =
-      savedActionName.length === 0 ||
-      savedCommand.length === 0 ||
-      saveConfigMutation.isPending;
-    nameInputId = `local-env-action-name-${action.id}`;
-    let submitNewAction;
-    submitNewAction = (event) => {
-      if ((event.preventDefault(), submitDisabled)) return;
-      let currentEnvironment = environment.environment,
-        savedAction = {
-          ...action,
-          command: savedCommand,
-          name: savedActionName,
-        },
-        runActionPayload = {
-          command: savedCommand,
-          icon: action.icon,
-          name: savedActionName,
-          ...(action.platform
-            ? {
-                platform: action.platform,
-              }
-            : {}),
-        },
-        rawEnvironmentConfig = sd({
-          actions: [...hd(currentEnvironment.actions ?? []), savedAction],
-          cleanupPlatformScripts: cd(currentEnvironment.cleanup),
-          cleanupScript: currentEnvironment.cleanup?.script ?? "",
-          name: currentEnvironment.name || environmentName,
-          setupPlatformScripts: cd(currentEnvironment.setup),
-          setupScript: currentEnvironment.setup.script ?? "",
-          version: currentEnvironment.version ?? 1,
-        });
-      saveConfigMutation.mutate(
-        {
-          configPath,
-          hostId: hostConfig.id,
-          raw: rawEnvironmentConfig,
-        },
-        {
-          onSuccess: () => {
-            queryClient.invalidateQueries({
-              queryKey: createQueryKey("local-environment-config", {
-                configPath,
-                hostId: hostConfig.id,
-              }),
-            });
-            queryClient.invalidateQueries({
-              queryKey: createQueryKey("local-environment", {
-                configPath,
-                hostId: hostConfig.id,
-              }),
-            });
-            workspaceRoot != null &&
-              queryClient.invalidateQueries({
-                queryKey: createQueryKey("local-environments", {
-                  hostId: hostConfig.id,
-                  workspaceRoot,
-                }),
-              });
-            onSaved();
-            onRunAction(runActionPayload);
-          },
-        },
-      );
-    };
-    handleSubmit = submitNewAction;
-    SetupFormComponent = LocalEnvironmentActionSetupForm;
-    commandValue = action.command;
-    commandLabelNode = (
-      <FormattedMessage
-        id="threadPage.runAction.setup.commandLabel"
-        defaultMessage="Command to run"
-        description="Label for run action command input"
-      />
-    );
-    commandPlaceholder = intl.formatMessage({
-      id: "threadPage.runAction.setup.placeholder",
-      defaultMessage: "eg:\nnpm install\nnpm run",
-      description: "Placeholder text for the run action command input",
-    });
-    descriptionNode = (
-      <FormattedMessage
-        id="settings.localEnvironments.actions.add.description"
-        defaultMessage="Create a new command to run from the toolbar."
-        description="Description for adding a local environment action"
-      />
-    );
-    nameFieldClassName = "flex w-full flex-col gap-2";
-    let nameLabelText;
-    nameLabelText = (
-      <FormattedMessage
-        id="settings.localEnvironments.actions.item.name"
-        defaultMessage="Name"
-        description="Label for local environment action name"
-      />
-    );
-    nameLabelNode = (
-      <label
-        className="text-xs font-medium tracking-wide text-token-text-secondary uppercase"
-        htmlFor={nameInputId}
-      >
-        {nameLabelText}
-      </label>
-    );
-    nameRowClassName = "flex items-center gap-2";
-    DropdownComponent = DropdownMenu;
-    iconDropdownAlign = "start";
-    iconDropdownContentWidth = "icon";
-    iconDropdownTriggerButton = addLocalEnvironmentActionFormJsxRuntime.jsx(
-      Button,
-      {
-        id: `local-env-action-icon-${action.id}`,
-        "aria-label": selectedIconOption.ariaLabel,
-        className: "w-12 justify-center text-sm",
-        color: "secondary",
-        size: "toolbar",
-        children: selectedIconOption.icon,
-      },
-    );
-    let renderIconOption;
-    renderIconOption = (iconOption) => (
-      <MenuChrome.Item
-        key={iconOption.value}
-        tooltipText={iconOption.ariaLabel}
-        onSelect={() => {
-          onUpdate({
-            icon: iconOption.value,
-          });
-        }}
-      >
-        {iconOption.icon}
-      </MenuChrome.Item>
-    );
-    iconMenuItems = iconOptions.map(renderIconOption);
-  }
-  let iconDropdown = addLocalEnvironmentActionFormJsxRuntime.jsx(
-    DropdownComponent,
-    {
-      align: iconDropdownAlign,
-      contentWidth: iconDropdownContentWidth,
-      triggerButton: iconDropdownTriggerButton,
-      children: iconMenuItems,
-    },
-  );
-  let handleNameChange = (event) => {
-    onUpdate({
-      name: event.target.value,
-    });
-  };
-  let nameInputField = (
-    <div className="flex-1">
-      <input
-        id={nameInputId}
-        className="w-full rounded-md border border-token-border bg-token-input-background px-2.5 py-1.5 text-sm text-token-text-primary outline-none focus-visible:ring-0"
-        value={action.name}
-        onChange={handleNameChange}
-      />
-    </div>
-  );
-  let nameEditorRow = (
-    <div className={nameRowClassName}>
-      {iconDropdown}
-      {nameInputField}
-    </div>
-  );
-  let extraFields = (
-    <div className={nameFieldClassName}>
-      {nameLabelNode}
-      {nameEditorRow}
-    </div>
-  );
-  let headerIconName = action.icon ?? "tool",
-    headerIcon = addLocalEnvironmentActionFormJsxRuntime.jsx(md, {
-      className: "icon-base text-token-foreground",
-      icon: headerIconName,
-    });
-  let settingsLabel = (
-    <FormattedMessage
-      id="threadPage.runAction.setup.editMore"
-      defaultMessage="Environment settings"
-      description="Edit more action label in run action setup popover"
-    />
-  );
-  let settingsButton = addLocalEnvironmentActionFormJsxRuntime.jsx(Button, {
-    className: "px-0",
-    color: "ghost",
-    size: "toolbar",
-    type: "button",
-    onClick: onOpenSettings,
-    children: settingsLabel,
-  });
-  let saveLabel = (
-    <FormattedMessage
-      id="settings.localEnvironments.actions.add.save"
-      defaultMessage="Save"
-      description="Save button label for adding a local environment action"
-    />
-  );
-  let titleNode = (
-    <FormattedMessage
-      id="settings.localEnvironments.actions.add"
-      defaultMessage="Add action"
-      description="Button label to add a local environment action"
-    />
-  );
-  let handleCommandChange = (command) => {
-    onUpdate({
-      command: command,
-    });
-  };
-  return addLocalEnvironmentActionFormJsxRuntime.jsx(SetupFormComponent, {
-    command: commandValue,
-    commandLabel: commandLabelNode,
-    commandPlaceholder: commandPlaceholder,
-    description: descriptionNode,
-    extraFields: extraFields,
-    headerIcon: headerIcon,
-    leftAction: settingsButton,
-    submitDisabled: submitDisabled,
-    submitLabel: saveLabel,
-    submitLoading: saveConfigMutation.isPending,
-    title: titleNode,
-    onCommandChange: handleCommandChange,
-    onSubmit: handleSubmit,
-  });
-}
-var addLocalEnvironmentActionFormModule,
-  addLocalEnvironmentActionFormJsxRuntime,
-  initAddLocalEnvironmentActionFormChunk = once(() => {
-    addLocalEnvironmentActionFormModule = getChunkModuleExports();
-    initReactQueryRuntime();
-    initIntlRuntime();
-    initButtonComponentPrimitives();
-    initDropdownMenuPrimitives();
-    fd();
-    ud();
-    dd();
-    gl();
-    initVscodeApiBridge();
-    initLocalEnvironmentActionSetupFormChunk();
-    addLocalEnvironmentActionFormJsxRuntime = getJsxRuntime();
-  });
 var recentLocalEnvironmentActionsByKeySignal,
   initRecentLocalEnvironmentActionsSignal = once(() => {
     yi();
@@ -2522,54 +2097,6 @@ function LocalEnvironmentSelectorDropdown(props) {
     </DropdownMenu>
   );
 }
-function AddLocalEnvironmentActionPopoverContent(props) {
-  let {
-      configPath,
-      environment,
-      hostConfig,
-      onClose,
-      onOpenSettings,
-      onRunAction,
-      workspaceRoot,
-    } = props,
-    [draftAction, setDraftAction] =
-      localEnvironmentActionControlsReactRuntime.useState(
-        createEmptyLocalEnvironmentActionDraft,
-      ),
-    openSettingsAndClose = () => {
-      onClose();
-      onOpenSettings();
-    };
-  let updateDraftAction = (patch) => {
-    setDraftAction((currentDraft) => ({
-      ...currentDraft,
-      ...patch,
-    }));
-  };
-  let formNode = (
-    <AddLocalEnvironmentActionForm
-      action={draftAction}
-      configPath={configPath}
-      environment={environment}
-      hostConfig={hostConfig}
-      onOpenSettings={openSettingsAndClose}
-      onRunAction={onRunAction}
-      onSaved={onClose}
-      onUpdate={updateDraftAction}
-      workspaceRoot={workspaceRoot}
-    />
-  );
-  return localEnvironmentActionControlsJsxRuntime.jsx(AppDialog, {
-    open: true,
-    contentClassName:
-      "!w-[379px] max-w-[calc(100vw-2rem)] max-h-[calc(100vh-4rem)] !p-0",
-    onOpenChange: onClose,
-    children: formNode,
-  });
-}
-function createEmptyLocalEnvironmentActionDraft() {
-  return pd("");
-}
 function LocalEnvironmentActionMenuItem(props) {
   let { actionItem, isPrimaryAction, onRunAction } = props,
     { commandId } = actionItem;
@@ -2759,7 +2286,6 @@ var localEnvironmentActionControlsModule,
     initThreadSidePanelTabRegistryChunk();
     initKeyboardModifierState();
     initButtonComponentPrimitives();
-    initAppDialog();
     initDropdownMenuPrimitives();
     initKeyboardShortcutKeycap();
     initModalRegistrySignal();
