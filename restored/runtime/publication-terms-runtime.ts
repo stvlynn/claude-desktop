@@ -7,12 +7,12 @@ import {
   kL as readFileContentSampleByteLimit,
   MD as renderMcpCapabilityIcon,
   Sj as getPathBasename,
-  UR as isAbsoluteOrWindowsPath,
   wj as initArtifactPreviewRuntime,
   xL as isRemoteHostConfig,
   YN as sendHostRequest,
   yR as isUrlLikePath,
 } from "../vendor/appg-thread-shared-runtime";
+import { isAbsoluteOrWindowsPath } from "../boundaries/src-l0hb-mz-p";
 import { getRouteThreadId as readRouteScopeValue } from "../boundaries/current-ref/appg-thread-shared-producer";
 import {
   _c as getSidePanelController,

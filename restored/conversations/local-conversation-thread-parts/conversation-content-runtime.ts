@@ -2,11 +2,11 @@
 // Conversation rendering helpers shared by local conversation thread modules.
 import {
   Sk as normalizeMarkdownPlainTextRaw,
-  UR as isAbsoluteOrWindowsPathRaw,
   Sj as getPathBasenameRaw,
   bF as initConversationPromptContextRuntime,
   wj as initThreadFindResourcePreviewRuntime,
 } from "../../vendor/appg-thread-shared-runtime";
+import { isAbsoluteOrWindowsPath as isAbsoluteOrWindowsPathValue } from "../../boundaries/src-l0hb-mz-p";
 import {
   P as recordForkedConversationSourceRaw,
   cs as focusThreadSourceFrameRaw,
@@ -94,7 +94,7 @@ export function getPathBasename(path: string): string {
 }
 
 export function isAbsoluteOrWindowsPath(path: string): boolean {
-  return isAbsoluteOrWindowsPathRaw(path);
+  return isAbsoluteOrWindowsPathValue(path);
 }
 
 export function parseGitActionDirectives(

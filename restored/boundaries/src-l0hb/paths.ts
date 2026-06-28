@@ -30,6 +30,8 @@ export function srcMr(path: string): boolean {
 export const srcNr = srcMr;
 export const srcJ = srcMr;
 export const isCodexWorktreePath = srcMr;
+export const isAbsolutePath = srcMr;
+export const isAbsoluteOrWindowsPath = srcMr;
 
 export function normalizeWorkspacePath(path: string): string {
   const withoutNamespace = path.match(/^\\\\\?\\UNC\\(.*)$/i)?.[1];
@@ -42,7 +44,8 @@ export function normalizeWorkspacePath(path: string): string {
   );
   if (wsl) return wsl[1] != null && wsl[1].length > 0 ? `/${wsl[1]}` : "/";
   const drive = normalized.match(/^\/?([a-z]):(?:\/(.*))?$/);
-  if (drive) return drive[2] ? `/mnt/${drive[1]}/${drive[2]}` : `/mnt/${drive[1]}`;
+  if (drive)
+    return drive[2] ? `/mnt/${drive[1]}/${drive[2]}` : `/mnt/${drive[1]}`;
   return normalized;
 }
 
