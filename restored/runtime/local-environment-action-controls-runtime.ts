@@ -1,6 +1,10 @@
 // Restored from ref/webview/assets/local-conversation-thread-Bf38rCmF.js
 // Runtime dependencies collected for the local environment action controls.
 export {
+  en as getWorkspaceRootDisplayName,
+  tn as initWorkspaceRootDisplayNameRuntime,
+} from "../boundaries/current-ref/appgen-library-hot-producer";
+export {
   appLogger as logger,
   initAppLoggerRuntime,
 } from "./app-logger";

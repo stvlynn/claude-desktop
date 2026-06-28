@@ -31,9 +31,9 @@ import {
   useQueryClient,
 } from "../../runtime/app-server-mutation-runtime";
 import {
-  en as getWorkspaceRootDisplayName,
-  tn as initWorkspaceRootDisplayNameHelpers,
-} from "../../boundaries/current-ref/appgen-library-hot-producer";
+  getWorkspaceRootDisplayName,
+  initWorkspaceRootDisplayNameRuntime,
+} from "../../runtime/local-environment-action-controls-runtime";
 import {
   cloneLocalEnvironmentActions,
   createLocalEnvironmentAction,
@@ -497,5 +497,5 @@ export const initAddLocalEnvironmentActionFormChunk = once(() => {
   initLocalEnvironmentActionIconChunk();
   initLocalEnvironmentActionIconOptionsChunk();
   initLocalEnvironmentDefaultsChunk();
-  initWorkspaceRootDisplayNameHelpers();
+  initWorkspaceRootDisplayNameRuntime();
 });
