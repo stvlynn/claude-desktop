@@ -1,5 +1,6 @@
 // Restored from ref/webview/assets/reduced-motion-preference-BFM-v_UB.js
 // App-scope signals for resolving the reduced-motion preference.
+import { useEffect, useState } from "react";
 import { _appScopeC, _appScopeG, _appScopeT } from "../boundaries/app-scope";
 import { getSettingValue } from "../settings/setting-storage";
 type ReducedMotionPreference = "system" | "on" | "off";
@@ -49,9 +50,33 @@ function getReducedMotionMediaQuery() {
     ? null
     : window.matchMedia(REDUCED_MOTION_MEDIA_QUERY);
 }
+
+function useSystemPrefersReducedMotion() {
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(
+    getSystemPrefersReducedMotion,
+  );
+
+  useEffect(() => {
+    const mediaQuery = getReducedMotionMediaQuery();
+    if (mediaQuery == null) return;
+
+    const updatePreference = () => {
+      setPrefersReducedMotion(mediaQuery.matches);
+    };
+
+    mediaQuery.addEventListener("change", updatePreference);
+    updatePreference();
+    return () => {
+      mediaQuery.removeEventListener("change", updatePreference);
+    };
+  }, []);
+
+  return prefersReducedMotion;
+}
 export {
   systemPrefersReducedMotionSignal,
   getSystemPrefersReducedMotion,
   shouldReduceMotionSignal,
   getReducedMotionMediaQuery,
+  useSystemPrefersReducedMotion,
 };

@@ -2,7 +2,7 @@
 // Local conversation composer bridge and host connection signals.
 import { appServerConnectionStateSignal as hostConnectionStatusSignal } from "../boundaries/thread-context-inputs.facade";
 import { LOCAL_HOST_ID } from "../boundaries/use-host-config.facade";
-import { wP as useReducedMotionPreference } from "../vendor/appg-thread-shared-runtime";
+import { useSystemPrefersReducedMotion } from "../utils/reduced-motion-preference";
 import {
   Vn as localWorkspaceMaterializationSignal,
   cs as backgroundAgentsSignal,
@@ -32,7 +32,7 @@ export function initLocalConversationComposerRuntime(): void {
 }
 
 export function useLocalConversationComposerRuntime(): void {
-  useReducedMotionPreference();
+  useSystemPrefersReducedMotion();
 }
 
 export function initThreadComposerFooterRuntime(): void {
