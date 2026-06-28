@@ -62,7 +62,7 @@ import { initThreadSwitchTimingTrackerChunk } from "../../automation/heartbeat-a
 import { initLauncherHotkeyStateChunk } from "../../features/hotkey-window-state";
 import { initScrollToBottomButtonChunk } from "../../utils/scroll-to-bottom-buton";
 import { initAutomationHistoryItemsChunk } from "../../utils/use-automation-history-items";
-import { initThreadScrollControllerContextChunk } from "../../utils/thread-scroll-controller-context";
+import { initThreadScrollControllerContextChunk } from "../../threads/thread-scroll-layout/scroll-controller-context";
 import { initThreadOverflowMenuChunk } from "../../threads/thread-overflow-menu";
 import {
   initBackgroundAgentThreadTab,

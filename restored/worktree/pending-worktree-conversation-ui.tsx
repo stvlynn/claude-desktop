@@ -29,7 +29,7 @@ import {
 import { useCommandRegistration } from "../runtime/command-registration-runtime";
 import { Button, initButtonComponentPrimitives } from "../ui/button";
 import { ProgressStepRow } from "../ui/progress-step-row";
-import { ThreadScrollLayout } from "../utils/thread-scroll-layout";
+import { ThreadScrollLayout } from "../threads/thread-scroll-layout";
 import { sendAppServerRequest } from "../boundaries/use-host-config.facade";
 import { formatUnknownError } from "../boundaries/src-l0hb-mz-p";
 import { buildLocalEnvironmentCreateRoute } from "../environments/local-environment-create-route";

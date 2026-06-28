@@ -17,7 +17,7 @@ import {
   ConversationTurnRenderer,
   initConversationTurnRendererRuntime,
 } from "./conversation-content-runtime";
-import { initThreadScrollLayoutStyleChunk } from "../../utils/thread-scroll-layout";
+import { initThreadScrollLayoutStyleChunk } from "../../threads/thread-scroll-layout";
 import { initIntlRuntime, FormattedMessage } from "../../vendor/react-intl";
 
 type LocalConversationTurnRowEntry = {

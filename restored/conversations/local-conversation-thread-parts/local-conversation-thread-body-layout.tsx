@@ -10,7 +10,7 @@ import type { BackgroundAgentOpenHandler } from "./local-conversation-thread-fra
 import {
   initThreadScrollLayoutChunk,
   ThreadScrollLayout,
-} from "../../utils/thread-scroll-layout";
+} from "../../threads/thread-scroll-layout";
 
 export type LocalConversationThreadBodyLayoutProps = {
   contentX?: unknown;

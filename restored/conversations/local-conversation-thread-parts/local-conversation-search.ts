@@ -8,7 +8,7 @@ import {
   initLocalConversationSearchRuntime,
   scrollToLocalConversationSearchMatch,
 } from "./local-conversation-search-runtime";
-import { initThreadScrollLayoutStyleChunk } from "../../utils/thread-scroll-layout";
+import { initThreadScrollLayoutStyleChunk } from "../../threads/thread-scroll-layout";
 
 export type ConversationSearchLocation = {
   contextId: string;

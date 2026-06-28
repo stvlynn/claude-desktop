@@ -22,12 +22,12 @@ import {
   initMotionSignalRuntime,
   motion,
 } from "../../utils/motion-signal-runtime";
-import { initThreadScrollLayoutStyleChunk } from "../../utils/thread-scroll-layout";
+import { initThreadScrollLayoutStyleChunk } from "../../threads/thread-scroll-layout";
 import {
   initThreadScrollControllerContextChunk,
   threadScrollControllerContext,
   useThreadScrollController,
-} from "../../utils/thread-scroll-controller-context";
+} from "../../threads/thread-scroll-layout/scroll-controller-context";
 import {
   createLatestTurnScrollState,
   type ConversationTurnItem,

@@ -44,7 +44,7 @@ import {
 } from "../../vendor/react-intl";
 import { SpinnerIcon } from "../../ui/spinner";
 import { ScrollToBottomButton } from "../../utils/scroll-to-bottom-buton";
-import { useThreadScrollController } from "../../utils/thread-scroll-controller-context";
+import { useThreadScrollController } from "../../threads/thread-scroll-layout/scroll-controller-context";
 
 type WorktreeRestoreBannerProps = {
   conversationId: string;

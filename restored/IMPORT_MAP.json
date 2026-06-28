@@ -5251,7 +5251,8 @@
       "status": "done"
     },
     "thread-scroll-controller-context-value-7UJOrKol": {
-      "restored": "utils/thread-scroll-controller-context.ts",
+      "restored": "threads/thread-scroll-layout/scroll-controller-context.ts",
+      "note": "Moved the public thread scroll controller context into threads/thread-scroll-layout; utils/thread-scroll-controller-context.ts remains as a compatibility barrel.",
       "exports": {
         "n": "useThreadScrollController",
         "t": "threadScrollControllerContext"
@@ -9947,7 +9948,8 @@
       "status": "done"
     },
     "thread-scroll-layout-DsxWR6SP": {
-      "restored": "utils/thread-scroll-layout.tsx",
+      "restored": "threads/thread-scroll-layout/index.tsx",
+      "note": "Moved the public thread scroll layout into threads/thread-scroll-layout; utils/thread-scroll-layout.tsx remains as a compatibility barrel.",
       "exports": {
         "t": "ThreadScrollLayout",
         "n": "initThreadScrollLayoutChunk",
@@ -11071,7 +11073,8 @@
       "status": "done"
     },
     "thread-scroll-controller-context-value-Cl6S6mDJ": {
-      "restored": "utils/thread-scroll-controller-context.ts",
+      "restored": "threads/thread-scroll-layout/scroll-controller-context.ts",
+      "note": "Shares the semantic thread scroll controller context with thread-scroll-controller-context-value-7UJOrKol; utils/thread-scroll-controller-context.ts remains as a compatibility barrel.",
       "exports": {
         "n": "initThreadScrollControllerContextChunk",
         "r": "useThreadScrollController",
@@ -11109,7 +11112,8 @@
       "status": "done"
     },
     "thread-scroll-layout-BNp7nttn": {
-      "restored": "utils/thread-scroll-layout.tsx",
+      "restored": "threads/thread-scroll-layout/index.tsx",
+      "note": "Shares the semantic thread scroll layout with thread-scroll-layout-DsxWR6SP; utils/thread-scroll-layout.tsx remains as a compatibility barrel.",
       "exports": {
         "n": "initThreadScrollLayoutChunk",
         "r": "initThreadScrollLayoutStyleChunk",
