@@ -55,7 +55,7 @@ import {
   SummaryPanelBanner,
   worktreeStatusQueryKey,
   worktreeStatusQuerySignal,
-} from "../../runtime/worktree-restore-runtime";
+} from "../../worktree/worktree-restore-runtime";
 import {
   initIntlRuntime,
   useIntl,

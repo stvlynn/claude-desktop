@@ -4,7 +4,7 @@ import { initLocalConversationComposerRuntime as initLocalConversationComposerBr
 import {
   initWorktreeStatusQueryRuntime,
   localWorkspaceMaterializationSignal,
-} from "../runtime/worktree-restore-runtime";
+} from "../worktree/worktree-restore-runtime";
 
 export type {
   ThreadComposerFooterProps,
