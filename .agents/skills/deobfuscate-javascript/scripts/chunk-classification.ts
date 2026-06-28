@@ -85,6 +85,8 @@ export function classifyVendorDataChunk(
   basename: string,
   source: string,
 ): VendorDataMatch | null {
+  if (isLikelyAppChunk(basename)) return null;
+
   const stem = stripHashSuffix(basename);
   const libPackage = DATA_LIB_STEMS[stem] ?? DATA_LIB_STEMS[stem.toLowerCase()];
   if (libPackage) {
@@ -122,6 +124,7 @@ function stripHashSuffix(basename: string): string {
 }
 
 const APP_PREFIXES = [
+  "app-initial",
   "app-main",
   "app-shell",
   "app-prefetch",
@@ -149,7 +152,7 @@ const APP_PREFIXES = [
   "thread",
 ];
 
-const APP_SEGMENT_RE = /(?:^|[-_])(?:page|panel|view|dialog)(?:[-_]|$)/;
+const APP_SEGMENT_RE = /(?:^|[-_~])(?:page|panel|view|dialog)(?:[-_~]|$)/;
 
 const VENDOR_PREFIXES = [
   "app-scope",
@@ -213,7 +216,11 @@ export function isKnownTerminalBoundaryChunk(
 }
 
 function hasChunkPrefix(basename: string, prefix: string): boolean {
-  return basename === prefix || basename.startsWith(`${prefix}-`);
+  return (
+    basename === prefix ||
+    basename.startsWith(`${prefix}-`) ||
+    basename.startsWith(`${prefix}~`)
+  );
 }
 
 /**

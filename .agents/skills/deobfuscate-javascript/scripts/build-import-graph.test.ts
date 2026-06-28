@@ -369,6 +369,70 @@ describe("buildImportGraph (BFS)", () => {
     expect(second.createdAt).toBe(first.createdAt);
   });
 
+  test("does not preserve skipped stages when a prior npm-leaf becomes local", () => {
+    const rootDir = makeTmpRoot();
+    const targetDir = path.join(rootDir, "decode");
+    fs.mkdirSync(targetDir, { recursive: true });
+    const assets = path.join(rootDir, "assets");
+    fs.mkdirSync(assets, { recursive: true });
+    const appChunk =
+      "app-initial~app-main~worktree-init-v2-page~remote-conversation-page~new-thread-panel-page~o~dv5z3ftk-BhBbJNnt";
+    const entry = path.join(assets, "entry-AaAaAaAa.js");
+
+    fs.writeFileSync(entry, `import "./${appChunk}.js";\n`);
+    fs.writeFileSync(
+      path.join(assets, `${appChunk}.js`),
+      [
+        `const embeddedGrammarPreview = { scopeName: "source.diff", patterns: [], repository: {} };`,
+        `export const route = embeddedGrammarPreview.scopeName;`,
+      ].join("\n") + "\n",
+    );
+
+    const prior = buildImportGraph(entry, { rootDir: assets, targetDir });
+    prior.files[appChunk]!.kind = "npm-leaf";
+    prior.files[appChunk]!.npmPackage = "@shikijs/langs";
+    prior.files[appChunk]!.stages = { skipped: true };
+    prior.files[appChunk]!.owner = "stale-agent";
+
+    const next = buildImportGraph(entry, {
+      rootDir: assets,
+      targetDir,
+      prior,
+    });
+
+    expect(next.files[appChunk]!.kind).toBe("local");
+    expect(next.files[appChunk]!.stages).toEqual({
+      extracted: false,
+      renamed: false,
+      polished: false,
+      finalized: false,
+    });
+    expect(next.files[appChunk]!.owner).toBeNull();
+  });
+
+  test("does not preserve invalid skipped stages on a normal local chunk", () => {
+    const { rootDir, targetDir, entry } = makeFixture();
+    const prior = buildImportGraph(entry, { rootDir, targetDir });
+
+    prior.files["child-BbBbBbBb"]!.stages = { skipped: true };
+    prior.files["child-BbBbBbBb"]!.owner = "stale-agent";
+
+    const next = buildImportGraph(entry, {
+      rootDir,
+      targetDir,
+      prior,
+    });
+
+    expect(next.files["child-BbBbBbBb"]!.kind).toBe("local");
+    expect(next.files["child-BbBbBbBb"]!.stages).toEqual({
+      extracted: false,
+      renamed: false,
+      polished: false,
+      finalized: false,
+    });
+    expect(next.files["child-BbBbBbBb"]!.owner).toBeNull();
+  });
+
   test("preserves organization (domain/path) across a rebuild", () => {
     const { rootDir, targetDir, entry } = makeFixture();
     const first = buildImportGraph(entry, { rootDir, targetDir });

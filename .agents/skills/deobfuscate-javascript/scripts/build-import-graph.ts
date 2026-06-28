@@ -675,18 +675,22 @@ export function buildImportGraph(
     // is always restored regardless of size.
     const oversized =
       maxLines > 0 && lineCount > maxLines && !forceInclude.has(basename);
+    const kind: FileKind = oversized ? "oversized-local" : "local";
+    const priorFile = prior?.files?.[basename];
+    const canReusePriorProgress =
+      priorFile?.kind === kind && !(kind === "local" && priorFile.stages.skipped);
 
     const fileEntry: ManifestFile = {
       path: absPath,
       basename,
-      kind: oversized ? "oversized-local" : "local",
+      kind,
       depth,
       size,
       lineCount,
       imports: parsed.imports,
       exports: parsed.exports,
       stages:
-        prior?.files?.[basename]?.stages ??
+        (canReusePriorProgress ? priorFile?.stages : undefined) ??
         (oversized
           ? { skipped: true }
           : {
@@ -695,9 +699,9 @@ export function buildImportGraph(
               polished: false,
               finalized: false,
             }),
-      organization: prior?.files?.[basename]?.organization,
-      owner: prior?.files?.[basename]?.owner ?? null,
-      claimedAt: prior?.files?.[basename]?.claimedAt ?? null,
+      organization: canReusePriorProgress ? priorFile?.organization : undefined,
+      owner: canReusePriorProgress ? (priorFile?.owner ?? null) : null,
+      claimedAt: canReusePriorProgress ? (priorFile?.claimedAt ?? null) : null,
       lastUpdated: NOW(),
       unresolved: parsed.unresolved.length > 0 ? parsed.unresolved : undefined,
     };

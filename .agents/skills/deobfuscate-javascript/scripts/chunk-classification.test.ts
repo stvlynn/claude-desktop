@@ -58,6 +58,21 @@ describe("classifyVendorDataChunk", () => {
       classifyVendorDataChunk("palette-Kk11Ll22", "export const colors=['red'];"),
     ).toBeNull();
   });
+
+  test("does NOT treat app-initial route chunks with Shiki keys as vendor data", () => {
+    const appChunk = [
+      `import { jsx } from "./jsx-runtime-AbCdEf12.js";`,
+      `const embeddedGrammarPreview = { scopeName: "source.diff", patterns: [], repository: {} };`,
+      `export function AppRoute() { return jsx("div", { children: embeddedGrammarPreview.scopeName }); }`,
+    ].join("\n");
+
+    expect(
+      classifyVendorDataChunk(
+        "app-initial~app-main~worktree-init-v2-page~remote-conversation-page~new-thread-panel-page~o~dv5z3ftk-BhBbJNnt",
+        appChunk,
+      ),
+    ).toBeNull();
+  });
 });
 
 describe("classifyVendorDataChunk on the real bundle (skips if ref/ absent)", () => {
@@ -98,6 +113,11 @@ describe("JS_GLOBALS", () => {
 describe("isLikelyAppChunk (unchanged behaviour)", () => {
   test("still treats app prefixes as app and vendor prefixes as not", () => {
     expect(isLikelyAppChunk("composer-AbCdEf12")).toBe(true);
+    expect(
+      isLikelyAppChunk(
+        "app-initial~app-main~worktree-init-v2-page~remote-conversation-page~new-thread-panel-page~o~dv5z3ftk-BhBbJNnt",
+      ),
+    ).toBe(true);
     expect(isLikelyAppChunk("app-scope-AbCdEf12")).toBe(false);
   });
 });
