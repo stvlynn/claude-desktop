@@ -10374,21 +10374,22 @@
       "status": "done"
     },
     "use-nux-ChpUn11I": {
-      "restored": "utils/use-nux.ts",
+      "restored": "app-shell/nux-state.ts",
+      "note": "Moved the public onboarding NUX hook into app-shell/nux-state.ts; utils/use-nux.ts remains as a compatibility barrel.",
       "exports": {
         "t": "useNux"
       },
       "status": "done"
     },
     "app-initial~app-main~first-run~new-thread-panel-page-DDCPYhDR": {
-      "restored": "utils/use-nux.ts",
+      "restored": "app-shell/nux-state.ts",
       "exports": {
         "n": "useNux",
         "t": "initUseNuxChunk"
       },
       "status": "done",
       "aliasOf": "use-nux-ChpUn11I",
-      "note": "Current-ref first-run/new-thread chunk wraps the same NUX hook with a rolldown init export."
+      "note": "Current-ref first-run/new-thread chunk wraps the same NUX hook with a rolldown init export; public wrapper moved to app-shell/nux-state.ts while utils/use-nux.ts remains as a compatibility barrel."
     },
     "worktrees-settings-page-KeLyIYZM": {
       "restored": "settings/worktrees-settings-page/index.tsx",

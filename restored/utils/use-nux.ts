@@ -1,25 +1,3 @@
 // Restored from ref/webview/assets/use-nux-ChpUn11I.js; synced with ref/webview/assets/app-initial~app-main~first-run~new-thread-panel-page-DDCPYhDR.js.
-// Hook that reports whether the 2025 onboarding NUX should be shown.
-import { globalSettingKeys } from "../boundaries/src-l0hb-mz-p";
-import { useAuth } from "../auth/use-auth";
-import { useGlobalState } from "./use-global-state";
-
-export type NuxState =
-  | "2025-09-15-apikey-auth"
-  | "2025-09-15-full-chatgpt-auth"
-  | "none";
-
-export function initUseNuxChunk(): void {}
-
-export function useNux(): NuxState {
-  const { data: viewedNux, isLoading } = useGlobalState(
-    globalSettingKeys.NUX_2025_09_15,
-  );
-  const { authMethod } = useAuth();
-
-  void viewedNux;
-  void isLoading;
-  void authMethod;
-
-  return "none";
-}
+// Compatibility barrel for the app-shell onboarding NUX state hook.
+export * from "../app-shell/nux-state";
