@@ -1,7 +1,7 @@
 // Restored from ref/webview/assets/local-conversation-thread-Bf38rCmF.js
 // Builds the visible turn entry model for the local conversation thread.
 import { once } from "../../runtime/commonjs-interop";
-import { Mv as isRenderableConversationTurn } from "../../boundaries/current-ref/appg-thread-shared-producer";
+import { isRenderableLocalConversationTurn } from "./conversation-turn-rendering";
 import { getConversationTurnsNotInParent } from "./parent-conversation-turns";
 import {
   collectConversationRequestsForTurnIds,
@@ -143,7 +143,7 @@ export function buildLocalConversationVisibleTurnEntries({
             )
           : emptyConversationRequests;
 
-    isRenderableConversationTurn(turn, requests, {
+    isRenderableLocalConversationTurn(turn, requests, {
       isBackgroundSubagentsEnabled,
     }) &&
       ((turnId != null &&

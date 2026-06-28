@@ -2,11 +2,11 @@
 // Builds searchable conversation turn units for local conversation search.
 import { once } from "../../runtime/commonjs-interop";
 import {
-  Nv as initConversationArtifactRuntime,
-  Pv as formatConversationTurnForSearch,
-  Sk as normalizeMarkdownPlainText,
-  Mv as isRenderableConversationTurn,
-} from "../../boundaries/current-ref/appg-thread-shared-producer";
+  formatLocalConversationTurnForSearch,
+  initLocalConversationTurnRenderingRuntime,
+  isRenderableLocalConversationTurn,
+  normalizeConversationSearchMarkdown,
+} from "./conversation-turn-rendering";
 import { cn as initConversationSearchMatcher } from "../../boundaries/current-ref/projects-app-shared-producer";
 import {
   createLocalConversationSearchAdapter,
@@ -57,24 +57,26 @@ export function createLocalConversationSearchSource({
       return conversationState == null
         ? []
         : conversationState.turns
-            .map((turn, index) =>
-              isRenderableConversationTurn(turn, [], {
+            .map((turn, index) => {
+              let renderOptions = {
                 isBackgroundSubagentsEnabled: getIsBackgroundSubagentsEnabled(),
-              })
+              };
+              return isRenderableLocalConversationTurn(turn, [], renderOptions)
                 ? {
                     turnKey: getLocalConversationTurnSearchKey(
                       turn.turnId,
                       index,
                     ),
                     units: extractConversationSearchUnits(
-                      formatConversationTurnForSearch(turn, [], {
-                        isBackgroundSubagentsEnabled:
-                          getIsBackgroundSubagentsEnabled(),
-                      }).items,
+                      formatLocalConversationTurnForSearch<ConversationTurnItem>(
+                        turn,
+                        [],
+                        renderOptions,
+                      ).items,
                     ),
                   }
-                : null,
-            )
+                : null;
+            })
             .filter((turn): turn is SearchableConversationTurn => turn != null);
     },
     scrollAdapter,
@@ -106,7 +108,7 @@ function extractConversationSearchUnits(
     )
       return;
 
-    let assistantText = normalizeMarkdownPlainText(item.content);
+    let assistantText = normalizeConversationSearchMarkdown(item.content);
     assistantText.length !== 0 &&
       units.push({
         unitId: `${index}:assistant`,
@@ -129,5 +131,5 @@ function findLastIndex<T>(
 export const initConversationSearchUnitExtractor = once(() => {
   initConversationSearchHelpers();
   initConversationSearchMatcher();
-  initConversationArtifactRuntime();
+  initLocalConversationTurnRenderingRuntime();
 });
