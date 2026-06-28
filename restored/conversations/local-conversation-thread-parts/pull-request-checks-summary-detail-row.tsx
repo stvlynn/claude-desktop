@@ -14,9 +14,7 @@ import {
   initResourceOpenRuntime,
   openInBrowserFromEvent,
 } from "../../runtime/resource-open-runtime";
-import {
-  XCircleFilledIcon as PullRequestFailedCheckIcon,
-} from "../../icons/x-circle-filled-icon";
+import { XCircleFilledIcon as PullRequestFailedCheckIcon } from "../../icons/x-circle-filled-icon";
 import {
   HeartbeatAutomationCheckRing,
   HeartbeatAutomationIcon,

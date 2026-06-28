@@ -16,10 +16,7 @@ import {
 import { initSpinnerComponent, Spinner } from "../../ui/spinner";
 import { initTooltipPrimitives, Tooltip } from "../../ui/tooltip-b";
 import { classNames, initClassNameRuntime } from "../../utils/class-names";
-import {
-  useScope,
-  useSignalValue,
-} from "../../runtime/app-scope-hooks";
+import { useScope, useSignalValue } from "../../runtime/app-scope-hooks";
 import {
   appScopeRoot as appScope,
   initAppScopeSignalRuntime,

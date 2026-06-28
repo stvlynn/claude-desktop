@@ -8,9 +8,7 @@ import { initSpinnerComponent, Spinner } from "../../ui/spinner";
 import { initTooltipPrimitives, Tooltip } from "../../ui/tooltip-b";
 import { classNames, initClassNameRuntime } from "../../utils/class-names";
 import { getGithubAvatarUrl } from "../../github/github-avatar-url";
-import {
-  PullRequestCheckStatusIcon as PullRequestMergeStatusIcon,
-} from "../../github/pull-request-status";
+import { PullRequestCheckStatusIcon as PullRequestMergeStatusIcon } from "../../github/pull-request-status";
 import { XCircleFilledIcon as ErrorStatusIcon } from "../../icons/x-circle-filled-icon";
 import {
   initPullRequestCommentIconChunk,
