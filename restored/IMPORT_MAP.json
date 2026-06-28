@@ -8923,7 +8923,8 @@
       "status": "done",
       "boundary": true,
       "vendor": "runtime",
-      "note": "Open host/runtime boundary facade; deep-restore runtime before final full completion."
+      "note": "Open host/runtime boundary. Provides runnable app-server request, host lookup, and path helper shims for synced local-conversation/app-shell builds; deep-restore runtime before final full completion.",
+      "lastUpdated": "2026-06-27T00:00:00.000Z"
     },
     "automation-host-support-pSeSdr0l": {
       "restored": "utils/automation-host-support.ts",
@@ -9393,7 +9394,8 @@
       "status": "done",
       "boundary": true,
       "vendor": "runtime",
-      "note": "Open thread context/state boundary facade; deep-restore before final full completion."
+      "note": "Open thread context/state runtime boundary. Provides runnable signal/app-server/global-state shims for synced local-conversation/app-shell builds; deep-restore before final full completion.",
+      "lastUpdated": "2026-06-27T00:00:00.000Z"
     },
     "codex-analytics-attribution-CQbubOx-": {
       "restored": "utils/codex-analytics-attribution.ts",

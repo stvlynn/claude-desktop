@@ -5,317 +5,324 @@
 // Every export token is exposed as `any`; replace with real types or
 // semantic names (or pass --name-map) as the module is scoped. 300 export token(s).
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { appScopeUnderscore } from "./app-scope";
+import {
+  _appScopeC as createComputedSignal,
+  _appScopeG as createSignal,
+  appScopeRoot,
+  appScopeUnderscore,
+} from "./app-scope";
 
-export declare const $: any;
-export declare const $n: any;
-export declare const $r: any;
-export declare const $t: any;
-export declare const A: any;
-export declare const Aa: any;
-export declare const Ai: any;
-export declare const An: any;
-export declare const Ar: any;
-export declare const At: any;
-export declare const B: any;
-export declare const Bi: any;
-export declare const Bn: any;
-export declare const Br: any;
-export declare const Bt: any;
-export declare const C: any;
-export declare const Ca: any;
-export declare const Ci: any;
-export declare const Cn: any;
-export declare const Cr: any;
-export declare const Ct: any;
-export declare const D: any;
-export declare const Da: any;
-export declare const Di: any;
-export declare const Dn: any;
-export declare const Dr: any;
-export declare const Dt: any;
-export declare const E: any;
-export declare const Ea: any;
-export declare const Ei: any;
-export declare const En: any;
-export declare const Er: any;
-export declare const browserUseEnabledForConversationSignal: any;
-export declare const Et: any;
-export declare const F: any;
-export declare const Fi: any;
-export declare const Fn: any;
-export declare const Fr: any;
-export declare const Ft: any;
-export declare const G: any;
-export declare const Gi: any;
-export declare const Gn: any;
-export declare const Gr: any;
-export declare const Gt: any;
-export declare const H: any;
-export declare const Hi: any;
-export declare const Hn: any;
-export declare const Hr: any;
-export declare const CHROME_NATIVE_APP_DISPLAY_NAME: any;
-export declare const Ht: any;
-export declare const I: any;
-export declare const Ii: any;
-export declare const In: any;
-export declare const Ir: any;
-export declare const It: any;
-export declare const J: any;
-export declare const Ji: any;
-export declare const Jn: any;
-export declare const Jr: any;
-export declare const Jt: any;
-export declare const K: any;
-export declare const Ki: any;
-export declare const Kn: any;
-export declare const Kr: any;
-export declare const Kt: any;
-export declare const L: any;
-export declare const Li: any;
-export declare const Ln: any;
-export declare const Lr: any;
-export declare const Lt: any;
-export declare const M: any;
-export declare const Mi: any;
-export declare const Mn: any;
-export declare const Mr: any;
-export declare const Mt: any;
-export declare const N: any;
-export declare const Ni: any;
-export declare const Nn: any;
-export declare const Nr: any;
-export declare const Nt: any;
-export declare const O: any;
-export declare const Oa: any;
-export declare const Oi: any;
-export declare const On: any;
-export declare const Or: any;
-export declare const Ot: any;
-export declare const P: any;
-export declare const Pi: any;
-export declare const Pn: any;
-export declare const Pr: any;
-export declare const Pt: any;
-export declare const Q: any;
-export declare const Qi: any;
-export declare const Qn: any;
-export declare const Qr: any;
-export declare const Qt: any;
-export declare const R: any;
-export declare const Ri: any;
-export declare const Rn: any;
-export declare const Rr: any;
-export declare const Rt: any;
-export declare const S: any;
-export declare const Sa: any;
-export declare const Si: any;
-export declare const Sn: any;
-export declare const Sr: any;
-export declare const St: any;
-export declare const T: any;
-export declare const Ta: any;
-export declare const Ti: any;
-export declare const Tn: any;
-export declare const Tr: any;
-export declare const Tt: any;
-export declare const U: any;
-export declare const Ui: any;
-export declare const Un: any;
-export declare const Ur: any;
-export declare const isChromeNativeApp: any;
-export declare const Ut: any;
-export declare const V: any;
-export declare const Vi: any;
-export declare const Vn: any;
-export declare const Vr: any;
-export declare const Vt: any;
-export declare const W: any;
-export declare const Wi: any;
-export declare const Wn: any;
-export declare const Wr: any;
-export declare const Wt: any;
-export declare const X: any;
-export declare const Xi: any;
-export declare const Xn: any;
-export declare const Xr: any;
-export declare const Xt: any;
-export declare const Y: any;
-export declare const Yi: any;
-export declare const Yn: any;
-export declare const Yr: any;
-export declare const Yt: any;
-export declare const Z: any;
-export declare const Zi: any;
-export declare const Zn: any;
-export declare const Zr: any;
-export declare const Zt: any;
-export declare const _: any;
-export declare const _a: any;
-export declare const _i: any;
-export declare const _n: any;
-export declare const _r: any;
-export declare const _t: any;
-export declare const a: any;
-export declare const aa: any;
-export declare const ai: any;
-export declare const an: any;
-export declare const ar: any;
-export declare const at: any;
-export declare const b: any;
-export declare const ba: any;
-export declare const bi: any;
-export declare const bn: any;
-export declare const br: any;
-export declare const bt: any;
-export declare const ca: any;
-export declare const ci: any;
-export declare const cn: any;
-export declare const cr: any;
-export declare const ct: any;
-export declare const d: any;
-export declare const da: any;
-export declare const di: any;
-export declare const dn: any;
-export declare const dr: any;
-export declare const dt: any;
-export declare const ei: any;
-export declare const en: any;
-export declare const er: any;
-export declare const et: any;
-export declare const f: any;
-export declare const fa: any;
-export declare const fi: any;
-export declare const fn: any;
-export declare const fr: any;
-export declare const ft: any;
-export declare const g: any;
-export declare const ga: any;
-export declare const gi: any;
-export declare const gn: any;
-export declare const gr: any;
-export declare const gt: any;
-export declare const h: any;
-export declare const ha: any;
-export declare const hi: any;
-export declare const hn: any;
-export declare const hr: any;
-export declare const ht: any;
-export declare const i: any;
-export declare const ia: any;
-export declare const ii: any;
-declare const in_: any;
+const LOCAL_APP_SERVER_HOST_ID = "local";
+
+export const $: any = undefined as any;
+export const $n: any = undefined as any;
+export const $r: any = undefined as any;
+export const $t: any = undefined as any;
+export const A: any = undefined as any;
+export const Aa: any = undefined as any;
+export const Ai: any = undefined as any;
+export const An: any = undefined as any;
+export const Ar: any = undefined as any;
+export const At: any = undefined as any;
+export const B: any = undefined as any;
+export const Bi: any = undefined as any;
+export const Bn: any = undefined as any;
+export const Br: any = undefined as any;
+export const Bt: any = undefined as any;
+export const Ca: any = undefined as any;
+export const Ci: any = undefined as any;
+export const Cn: any = undefined as any;
+export const Cr: any = undefined as any;
+export const Ct: any = undefined as any;
+export const D: any = undefined as any;
+export const Da: any = undefined as any;
+export const Di: any = undefined as any;
+export const Dn: any = undefined as any;
+export const Dr: any = undefined as any;
+export const Dt: any = undefined as any;
+export const E: any = undefined as any;
+export const Ea: any = undefined as any;
+export const Ei: any = undefined as any;
+export const En: any = undefined as any;
+export const Er: any = undefined as any;
+export const browserUseEnabledForConversationSignal: any = undefined as any;
+export const Et: any = undefined as any;
+export const F: any = undefined as any;
+export const Fi: any = undefined as any;
+export const Fn: any = undefined as any;
+export const Fr: any = undefined as any;
+export const Ft: any = undefined as any;
+export const G: any = undefined as any;
+export const Gi: any = undefined as any;
+export const Gn: any = undefined as any;
+export const Gr: any = undefined as any;
+export const Gt: any = undefined as any;
+export const Hi: any = undefined as any;
+export const Hn: any = undefined as any;
+export const Hr: any = undefined as any;
+export const CHROME_NATIVE_APP_DISPLAY_NAME: any = undefined as any;
+export const Ht: any = undefined as any;
+export const I: any = undefined as any;
+export const Ii: any = undefined as any;
+export const In: any = undefined as any;
+export const Ir: any = undefined as any;
+export const It: any = undefined as any;
+export const J: any = undefined as any;
+export const Ji: any = undefined as any;
+export const Jn: any = undefined as any;
+export const Jr: any = undefined as any;
+export const Jt: any = undefined as any;
+export const K: any = undefined as any;
+export const Ki: any = undefined as any;
+export const Kn: any = undefined as any;
+export const Kr: any = undefined as any;
+export const Kt: any = undefined as any;
+export const L: any = undefined as any;
+export const Li: any = undefined as any;
+export const Ln: any = undefined as any;
+export const Lr: any = undefined as any;
+export const Lt: any = undefined as any;
+export const Mi: any = undefined as any;
+export const Mn: any = undefined as any;
+export const Mr: any = undefined as any;
+export const Mt: any = undefined as any;
+export const N: any = undefined as any;
+export const Ni: any = undefined as any;
+export const Nn: any = undefined as any;
+export const Nr: any = undefined as any;
+export const Nt: any = undefined as any;
+export const O: any = undefined as any;
+export const Oa: any = undefined as any;
+export const Oi: any = undefined as any;
+export const On: any = undefined as any;
+export const Or: any = undefined as any;
+export const Ot: any = undefined as any;
+export const P: any = undefined as any;
+export const Pi: any = undefined as any;
+export const Pn: any = undefined as any;
+export const Pr: any = undefined as any;
+export const Pt: any = undefined as any;
+export const Q: any = undefined as any;
+export const Qn: any = undefined as any;
+export const Qr: any = undefined as any;
+export const Qt: any = undefined as any;
+export const R: any = undefined as any;
+export const Ri: any = undefined as any;
+export const Rn: any = undefined as any;
+export const Rr: any = undefined as any;
+export const Rt: any = undefined as any;
+export const S: any = undefined as any;
+export const Sa: any = undefined as any;
+export const Si: any = undefined as any;
+export const Sn: any = undefined as any;
+export const Sr: any = undefined as any;
+export const St: any = undefined as any;
+export const T: any = undefined as any;
+export const Ti: any = undefined as any;
+export const Tn: any = undefined as any;
+export const Tr: any = undefined as any;
+export const Tt: any = undefined as any;
+export const U: any = undefined as any;
+export const Ui: any = undefined as any;
+export const Un: any = undefined as any;
+export const Ur: any = undefined as any;
+export const isChromeNativeApp: any = undefined as any;
+export const Ut: any = undefined as any;
+export const V: any = undefined as any;
+export const Vi: any = undefined as any;
+export const Vn: any = undefined as any;
+export const Vr: any = undefined as any;
+export const Vt: any = undefined as any;
+export const W: any = undefined as any;
+export const Wi: any = undefined as any;
+export const Wn: any = undefined as any;
+export const Wr: any = undefined as any;
+export const Wt: any = undefined as any;
+export const X: any = undefined as any;
+export const Xi: any = undefined as any;
+export const Xn: any = undefined as any;
+export const Xr: any = undefined as any;
+export const Xt: any = undefined as any;
+export const Y: any = undefined as any;
+export const Yi: any = undefined as any;
+export const Yn: any = undefined as any;
+export const Yr: any = undefined as any;
+export const Yt: any = undefined as any;
+export const Z: any = undefined as any;
+export const Zi: any = undefined as any;
+export const Zn: any = undefined as any;
+export const Zr: any = undefined as any;
+export const Zt: any = undefined as any;
+export const _a: any = undefined as any;
+export const _i: any = undefined as any;
+export const _n: any = undefined as any;
+export const _r: any = undefined as any;
+export const _t: any = undefined as any;
+export const a: any = undefined as any;
+export const aa: any = undefined as any;
+export const ai: any = undefined as any;
+export const an: any = undefined as any;
+export const ar: any = undefined as any;
+export const at: any = undefined as any;
+export const ba: any = undefined as any;
+export const bi: any = undefined as any;
+export const bn: any = undefined as any;
+export const br: any = undefined as any;
+export const bt: any = undefined as any;
+export const ca: any = undefined as any;
+export const ci: any = undefined as any;
+export const cn: any = undefined as any;
+export const cr: any = undefined as any;
+export const ct: any = undefined as any;
+export const d: any = undefined as any;
+export const da: any = undefined as any;
+export const di: any = undefined as any;
+export const dr: any = undefined as any;
+export const dt: any = undefined as any;
+export const ei: any = undefined as any;
+export const en: any = undefined as any;
+export const er: any = undefined as any;
+export const et: any = undefined as any;
+export const f: any = undefined as any;
+export const fa: any = undefined as any;
+export const fi: any = undefined as any;
+export const fn: any = undefined as any;
+export const fr: any = undefined as any;
+export const ft: any = undefined as any;
+export const g: any = undefined as any;
+export const ga: any = undefined as any;
+export const gi: any = undefined as any;
+export const gn: any = undefined as any;
+export const gr: any = undefined as any;
+export const ha: any = undefined as any;
+export const hi: any = undefined as any;
+export const hn: any = undefined as any;
+export const hr: any = undefined as any;
+export const ht: any = undefined as any;
+export const i: any = undefined as any;
+export const ia: any = undefined as any;
+export const ii: any = undefined as any;
+const in_: any = undefined as any;
 export { in_ as in };
-export declare const ir: any;
-export declare const it: any;
-export declare const j: any;
-export declare const ji: any;
-export declare const jn: any;
-export declare const jr: any;
-export declare const jt: any;
-export declare const k: any;
-export declare const ka: any;
-export declare const ki: any;
-export declare const kn: any;
-export declare const kr: any;
-export declare const kt: any;
-export declare const l: any;
-export declare const la: any;
-export declare const li: any;
-export declare const ln: any;
-export declare const lr: any;
-export declare const lt: any;
-export declare const m: any;
-export declare const ma: any;
-export declare const mi: any;
-export declare const mn: any;
-export declare const mr: any;
-export declare const mt: any;
-export declare const na: any;
-export declare const ni: any;
-export declare const nn: any;
-export declare const nr: any;
-export declare const nt: any;
-export declare const o: any;
-export declare const oa: any;
-export declare const oi: any;
-export declare const on: any;
-export declare const or: any;
-export declare const ot: any;
-export declare const p: any;
-export declare const pa: any;
-export declare const pi: any;
-export declare const pn: any;
-export declare const pr: any;
-export declare const pt: any;
-export declare const q: any;
-export declare const qi: any;
-export declare const qn: any;
-export declare const qr: any;
-export declare const qt: any;
-export declare const r: any;
-export declare const ra: any;
-export declare const ri: any;
-export declare const rn: any;
-export declare const rr: any;
-export declare const rt: any;
-export declare const sa: any;
-export declare const si: any;
-export declare const sn: any;
-export declare const sr: any;
-export declare const st: any;
-export declare const t: any;
-export declare const ti: any;
-export declare const tn: any;
-export declare const tr: any;
-export declare const tt: any;
-export declare const u: any;
-export declare const ua: any;
-export declare const ui: any;
-export declare const un: any;
-export declare const ur: any;
-export declare const ut: any;
-export declare const v: any;
-export declare const va: any;
-export declare const vi: any;
-export declare const vn: any;
-export declare const vr: any;
-export declare const vt: any;
-export declare const w: any;
-export declare const wa: any;
-export declare const wi: any;
-export declare const wn: any;
-export declare const wr: any;
-export declare const wt: any;
-export declare const x: any;
-export declare const xa: any;
-export declare const xi: any;
-export declare const xn: any;
-export declare const xr: any;
-export declare const xt: any;
-export declare const y: any;
-export declare const ya: any;
-export declare const yi: any;
-export declare const yn: any;
-export declare const yr: any;
-export declare const yt: any;
-export declare const z: any;
-export declare const zi: any;
-export declare const zn: any;
-export declare const zr: any;
-export declare const zt: any;
+export const ir: any = undefined as any;
+export const it: any = undefined as any;
+export const ji: any = undefined as any;
+export const jn: any = undefined as any;
+export const jr: any = undefined as any;
+export const jt: any = undefined as any;
+export const k: any = undefined as any;
+export const ka: any = undefined as any;
+export const ki: any = undefined as any;
+export const kn: any = undefined as any;
+export const kr: any = undefined as any;
+export const kt: any = undefined as any;
+export const l: any = undefined as any;
+export const la: any = undefined as any;
+export const li: any = undefined as any;
+export const ln: any = undefined as any;
+export const lr: any = undefined as any;
+export const lt: any = undefined as any;
+export const ma: any = undefined as any;
+export const mi: any = undefined as any;
+export const mn: any = undefined as any;
+export const mr: any = undefined as any;
+export const mt: any = undefined as any;
+export const na: any = undefined as any;
+export const ni: any = undefined as any;
+export const nn: any = undefined as any;
+export const nr: any = undefined as any;
+export const nt: any = undefined as any;
+export const o: any = undefined as any;
+export const oa: any = undefined as any;
+export const oi: any = undefined as any;
+export const on: any = undefined as any;
+export const or: any = undefined as any;
+export const ot: any = undefined as any;
+export const pa: any = undefined as any;
+export const pi: any = undefined as any;
+export const pr: any = undefined as any;
+export const pt: any = undefined as any;
+export const q: any = undefined as any;
+export const qi: any = undefined as any;
+export const qn: any = undefined as any;
+export const qr: any = undefined as any;
+export const qt: any = undefined as any;
+export const r: any = undefined as any;
+export const ra: any = undefined as any;
+export const ri: any = undefined as any;
+export const rn: any = undefined as any;
+export const rr: any = undefined as any;
+export const rt: any = undefined as any;
+export const sa: any = undefined as any;
+export const si: any = undefined as any;
+export const sn: any = undefined as any;
+export const sr: any = undefined as any;
+export const st: any = undefined as any;
+export const t: any = undefined as any;
+export const ti: any = undefined as any;
+export const tn: any = undefined as any;
+export const tr: any = undefined as any;
+export const tt: any = undefined as any;
+export const u: any = undefined as any;
+export const ua: any = undefined as any;
+export const ui: any = undefined as any;
+export const un: any = undefined as any;
+export const ur: any = undefined as any;
+export const ut: any = undefined as any;
+export const va: any = undefined as any;
+export const vi: any = undefined as any;
+export const vn: any = undefined as any;
+export const vr: any = undefined as any;
+export const vt: any = undefined as any;
+export const w: any = undefined as any;
+export const wa: any = undefined as any;
+export const wi: any = undefined as any;
+export const wn: any = undefined as any;
+export const wr: any = undefined as any;
+export const x: any = undefined as any;
+export const xa: any = undefined as any;
+export const xi: any = undefined as any;
+export const xn: any = undefined as any;
+export const xr: any = undefined as any;
+export const xt: any = undefined as any;
+export const ya: any = undefined as any;
+export const yi: any = undefined as any;
+export const yn: any = undefined as any;
+export const yr: any = undefined as any;
+export const yt: any = undefined as any;
+export const z: any = undefined as any;
+export const zi: any = undefined as any;
+export const zn: any = undefined as any;
+export const zr: any = undefined as any;
+export const zt: any = undefined as any;
 
-export declare const applyRemoteControlHostStatus: any;
-export declare const codexHomeQuery: any;
-export declare const conversationPermissionConfigSignal: any;
-export declare const conversationTitleSignal: any;
-export declare const conversationTurnsSignal: any;
-export declare const conversationVisibleTurnsSignal: any;
-export declare const latestTurnByConversationIdSignal: any;
-export declare const linkedConversationIdSignal: any;
-export declare const remoteControlConnectionStatusSignal: any;
-export declare const selectedHostIdSignal: any;
+export function applyRemoteControlHostStatus(
+  scope: AppScopeStoreLike,
+  hostId: string,
+  status: unknown,
+): void {
+  scope.set(remoteControlConnectionStatusSignal, hostId, status);
+}
+export const codexHomeQuery: any = undefined as any;
+export const conversationPermissionConfigSignal: any = undefined as any;
+export const conversationTitleSignal: any = undefined as any;
+export const conversationTurnsSignal: any = undefined as any;
+export const conversationVisibleTurnsSignal: any = undefined as any;
+export const latestTurnByConversationIdSignal: any = undefined as any;
+export const linkedConversationIdSignal: any = undefined as any;
+export const remoteControlConnectionStatusSignal = appScopeUnderscore(
+  appScopeRoot,
+  () => null,
+);
+export const selectedHostIdSignal = createSignal(
+  appScopeRoot,
+  LOCAL_APP_SERVER_HOST_ID,
+);
+export {
+  selectedHostIdSignal as M,
+  remoteControlConnectionStatusSignal as dn,
+  applyRemoteControlHostStatus as pn,
+};
 export const globalStateSignal = appScopeUnderscore(
   "global-state",
   () => undefined,
@@ -330,44 +337,177 @@ export const n = appScopeUnderscore("active-workspace-roots", () => ({
 export function ta(store: any, key: string, value: unknown): void {
   store?.query?.setData?.(globalStateSignal, key, { value });
 }
-export declare const homeDirectoryQuery: any;
-export declare const createGitQueryOptions: any;
-export declare const disabledGitQueryResult: any;
-export declare const gitRepositoryWatcherSignal: any;
-export declare const gitStableMetadataQuery: any;
-export declare const normalizeHostConfigForWorktreeKey: any;
-export declare const pendingGitQueryResult: any;
-export declare const resolveGitQueryOptions: any;
-export declare const serviceClientForHost: any;
-export declare const trackOnboardingWizardAction: any;
-export declare const useGitRepositoryQuery: any;
-export declare const appServerConnectionErrorSignal: any;
-export declare const appServerConnectionStateSignal: any;
-export declare const appServerConnectionManagerSignal: any;
-export declare const appServerVersionSignal: any;
-export declare const allAppServerManagersSignal: any;
-export declare const hostManagerStoreSignal: any;
-export declare const appServerRegistryVersionSignal: any;
-export declare const conversationAppServerManagerOverrideSignal: any;
-export declare const defaultAppServerManagerSignal: any;
-export declare const getAppServerConnectionStateForHost: any;
-export declare const getAppServerManagerForConversationId: any;
-export declare const registeredAppServerHostIdsSignal: any;
-export declare const setAppServerConnectionState: any;
-export declare const wrapAppServerManager: any;
-export declare const installedCodexVersionSignal: any;
-export declare const parseSkillPathMetadata: any;
-export declare const conversationHostIdByConversationIdSignal: any;
-export declare const latestCollaborationModeByConversationIdSignal: any;
-export declare const localThreadSummaryByConversationIdSignal: any;
-export declare const mcpLoginResultSignal: any;
-export declare const getGlobalStateValue: any;
-export declare const useGitMetadataQuery: any;
-export declare const workspaceRootOptionsQuery: any;
-export declare const workspaceRootOptionsQueryForHost: any;
-export declare const produceImmutableUpdate: any;
-export declare const formatDebugParamsPreview: any;
-export declare const applyActiveProfileConfigOverrides: any;
-export declare const resolveRequestServiceTier: any;
-export declare const resolveServiceTierPreferenceValue: any;
-export declare const serviceTierPreferenceSignal: any;
+export const homeDirectoryQuery: any = undefined as any;
+export const createGitQueryOptions: any = undefined as any;
+export const disabledGitQueryResult: any = undefined as any;
+export const gitRepositoryWatcherSignal: any = undefined as any;
+export const gitStableMetadataQuery: any = undefined as any;
+export const normalizeHostConfigForWorktreeKey: any = undefined as any;
+export const pendingGitQueryResult: any = undefined as any;
+export const resolveGitQueryOptions: any = undefined as any;
+export const serviceClientForHost: any = undefined as any;
+export const trackOnboardingWizardAction: any = undefined as any;
+export const useGitRepositoryQuery: any = undefined as any;
+type AppScopeStoreLike = {
+  get<TValue = unknown>(signal: unknown, ...args: unknown[]): TValue;
+  set(signal: unknown, ...args: unknown[]): void;
+};
+type AppServerConnectionUpdate = {
+  appServerVersion?: unknown;
+  error?: unknown;
+  hostId: string;
+  installedCodexVersion?: unknown;
+  source?: string;
+  state: unknown;
+};
+
+export const appServerConnectionErrorSignal = appScopeUnderscore(
+  appScopeRoot,
+  () => null,
+);
+export const appServerConnectionStateSignal = appScopeUnderscore(
+  appScopeRoot,
+  () => "disconnected",
+);
+export const appServerConnectionManagerSignal = appScopeUnderscore(
+  appScopeRoot,
+  () => null,
+);
+export const appServerVersionSignal = appScopeUnderscore(
+  appScopeRoot,
+  () => null,
+);
+export const installedCodexVersionSignal = appScopeUnderscore(
+  appScopeRoot,
+  () => null,
+);
+export const hostManagerStoreSignal = appScopeUnderscore(
+  appScopeRoot,
+  () => null,
+);
+export const conversationAppServerManagerOverrideSignal = appScopeUnderscore(
+  appScopeRoot,
+  () => null,
+);
+export const registeredAppServerHostIdsSignal = createSignal(
+  appScopeRoot,
+  [] as string[],
+);
+export const appServerRegistryVersionSignal = createSignal(appScopeRoot, 0);
+export const allAppServerManagersSignal = createComputedSignal(
+  appScopeRoot,
+  ({
+    get,
+  }: {
+    get: <TValue = unknown>(signal: unknown, key?: unknown) => TValue;
+  }) =>
+    (get<string[]>(registeredAppServerHostIdsSignal) ?? [])
+      .map((hostId) => get(appServerConnectionManagerSignal, hostId))
+      .filter(Boolean),
+);
+export const defaultAppServerManagerSignal = createComputedSignal(
+  appScopeRoot,
+  ({
+    get,
+  }: {
+    get: <TValue = unknown>(signal: unknown, key?: unknown) => TValue;
+  }) =>
+    get(appServerConnectionManagerSignal, LOCAL_APP_SERVER_HOST_ID) ??
+    (get<unknown[]>(allAppServerManagersSignal) ?? [])[0] ??
+    null,
+);
+export function getAppServerConnectionStateForHost(
+  scope: AppScopeStoreLike,
+  hostId: string,
+): {
+  appServerVersion: unknown;
+  error: any;
+  installedCodexVersion: unknown;
+  state: any;
+} {
+  return {
+    appServerVersion: scope.get(appServerVersionSignal, hostId),
+    error: scope.get(appServerConnectionErrorSignal, hostId),
+    installedCodexVersion: scope.get(installedCodexVersionSignal, hostId),
+    state: scope.get(appServerConnectionStateSignal, hostId),
+  };
+}
+export function getAppServerManagerForConversationId(
+  scope: AppScopeStoreLike,
+  conversationId: string,
+): unknown {
+  return (
+    scope.get(conversationAppServerManagerOverrideSignal, conversationId) ??
+    scope.get(defaultAppServerManagerSignal)
+  );
+}
+export function setAppServerConnectionState(
+  scope: AppScopeStoreLike,
+  update: AppServerConnectionUpdate,
+): void {
+  scope.set(appServerConnectionStateSignal, update.hostId, update.state);
+  scope.set(
+    appServerConnectionErrorSignal,
+    update.hostId,
+    update.error ?? null,
+  );
+  if ("appServerVersion" in update) {
+    scope.set(appServerVersionSignal, update.hostId, update.appServerVersion);
+  }
+  if ("installedCodexVersion" in update) {
+    scope.set(
+      installedCodexVersionSignal,
+      update.hostId,
+      update.installedCodexVersion,
+    );
+  }
+}
+export function wrapAppServerManager<TManager>(manager: TManager): TManager {
+  return manager;
+}
+export {
+  appServerVersionSignal as C,
+  installedCodexVersionSignal as H,
+  wrapAppServerManager as Ta,
+  conversationAppServerManagerOverrideSignal as _,
+  appServerRegistryVersionSignal as b,
+  registeredAppServerHostIdsSignal as gt,
+  hostManagerStoreSignal as h,
+  defaultAppServerManagerSignal as j,
+  appServerConnectionStateSignal as m,
+  appServerConnectionErrorSignal as p,
+  appServerConnectionManagerSignal as v,
+  setAppServerConnectionState as wt,
+  allAppServerManagersSignal as y,
+};
+export const parseSkillPathMetadata: any = undefined as any;
+export const conversationHostIdByConversationIdSignal: any = undefined as any;
+export const latestCollaborationModeByConversationIdSignal: any =
+  undefined as any;
+export const localThreadSummaryByConversationIdSignal: any = undefined as any;
+export const mcpLoginResultSignal: any = undefined as any;
+export function getGlobalStateValue(
+  get: (signal: unknown, key: string) => unknown,
+  key: string,
+  fallbackValue?: unknown,
+): unknown {
+  const storedValue = get(globalStateSignal, key);
+  if (
+    storedValue != null &&
+    typeof storedValue === "object" &&
+    "value" in storedValue
+  ) {
+    return (storedValue as { value: unknown }).value;
+  }
+  return storedValue ?? fallbackValue;
+}
+export { getGlobalStateValue as Qi };
+export const useGitMetadataQuery: any = undefined as any;
+export const workspaceRootOptionsQuery: any = undefined as any;
+export const workspaceRootOptionsQueryForHost: any = undefined as any;
+export const produceImmutableUpdate: any = undefined as any;
+export const formatDebugParamsPreview: any = undefined as any;
+export const applyActiveProfileConfigOverrides: any = undefined as any;
+export const resolveRequestServiceTier: any = undefined as any;
+export const resolveServiceTierPreferenceValue: any = undefined as any;
+export const serviceTierPreferenceSignal: any = undefined as any;

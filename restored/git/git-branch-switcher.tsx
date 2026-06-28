@@ -57,11 +57,11 @@ import {
   xa as J,
   zV as Y,
   zh as oe,
-} from "./app-initial~app-main~remote-conversation-page~plugin-detail-page~new-thread-panel-page~appg~ijdupmx5-CdYgxe-b.js";
+} from "../boundaries/current-ref/appg-thread-shared-producer";
 import {
   Dl as se,
   Tl as ce,
-} from "./app-initial~app-main~remote-conversation-page~new-thread-panel-page~projects-index-page~app~ovcriy74-KTK3czaX.js";
+} from "../boundaries/current-ref/projects-app-shared-producer";
 import {
   Dl as X,
   Jl as le,
@@ -78,7 +78,7 @@ import {
   ru as be,
   su as xe,
   yl as Se,
-} from "./app-initial~app-main~onboarding-page~profile-QLPeiknY.js";
+} from "../boundaries/current-ref/profile-page-producer";
 import {
   DiffStats as Ce,
   initDiffStatsChunk as we,

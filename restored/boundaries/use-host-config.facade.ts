@@ -5,120 +5,126 @@
 // Every export token is exposed as `any`; replace with real types or
 // semantic names (or pass --name-map) as the module is scoped. 133 export token(s).
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { callCodexVscodeApi } from "./vscode-api";
 
-export declare const useHostConfigTn: any;
-export declare const useHostConfigCn: any;
-export declare const useHostConfigWn: any;
-export declare const useHostConfigLn: any;
-export declare const useHostConfigPn: any;
-export declare const useHostConfigFn: any;
-export declare const useHostConfigDn: any;
-export declare const useHostConfigN: any;
-export declare const _useHostConfigSn: any;
-export declare const _useHostConfigTn: any;
-export declare const useHostConfigRn: any;
-export declare const useHostConfigNn: any;
-export declare const useHostConfigIn: any;
-export declare const useHostConfigEn: any;
-export declare const useHostConfigAn: any;
-export declare const useHostConfigGt: any;
-export declare const useHostConfigWt: any;
-export declare const useHostConfigKt: any;
-export declare const useHostConfigNt: any;
-export declare const _useHostConfigZt: any;
-export declare const useHostConfigPt: any;
-export declare const _useHostConfigWt: any;
-export declare const useHostConfigTt: any;
-export declare const useHostConfigDt: any;
-export declare const useHostConfigMt: any;
-export declare const useHostConfigCt: any;
-export declare const _useHostConfigBt: any;
-export declare const _useHostConfigYt: any;
-export declare const _useHostConfigCt: any;
-export declare const _useHostConfigOt: any;
-export declare const _useHostConfigRt: any;
-export declare const _useHostConfigNt: any;
-export declare const _useHostConfigTt: any;
-export declare const _useHostConfigEt: any;
-export declare const useHostConfigX: any;
-export declare const useHostConfigZ: any;
-export declare const useHostConfigU: any;
-export declare const useHostConfigH: any;
-export declare const useHostConfigG: any;
-export declare const useHostConfigM: any;
-export declare const useHostConfigR: any;
-export declare const _useHostConfigJ: any;
-export declare const useHostConfigI: any;
-export declare const _useHostConfigK: any;
-export declare const __useHostConfigT: any;
-export declare const useHostConfigO: any;
-export declare const useHostConfigS: any;
-export declare const _useHostConfigW: any;
-export declare const useHostConfigC: any;
-export declare const _useHostConfigV: any;
-export declare const useHostConfigUnderscore: any;
-export declare const _useHostConfigH: any;
-export declare const _useHostConfigM: any;
-export declare const _useHostConfigU: any;
-export declare const _useHostConfigL: any;
-export declare const _useHostConfigS: any;
-export declare const _useHostConfigI: any;
-export declare const __useHostConfigN: any;
-export declare const $: any;
-export declare const $t: any;
-export declare const useHostConfigA: any;
-export declare const useHostConfigAt: any;
-export declare const useHostConfigB: any;
-export declare const useHostConfigBt: any;
-export declare const useHostConfigD: any;
-export declare const useHostConfigE: any;
-export declare const useHostConfigEt: any;
-export declare const useHostConfigF: any;
-export declare const useHostConfigFt: any;
-export declare const useHostConfigHt: any;
-export declare const useHostConfigIt: any;
-export declare const useHostConfigJ: any;
-export declare const useHostConfigJt: any;
-export declare const useHostConfigK: any;
-export declare const useHostConfigL: any;
-export declare const useHostConfigLt: any;
-export declare const _useHostConfigN: any;
-export declare const useHostConfigOt: any;
-export declare const useHostConfigP: any;
-export declare const useHostConfigQ: any;
-export declare const useHostConfigQt: any;
-export declare const useHostConfigRt: any;
-export declare const useHostConfigSn: any;
-export declare const useHostConfigSt: any;
-export declare const useHostConfigUt: any;
-export declare const useHostConfigV: any;
-export declare const useHostConfigVt: any;
-export declare const useHostConfigW: any;
-export declare const useHostConfigXt: any;
-export declare const useHostConfigY: any;
-export declare const useHostConfigYt: any;
-export declare const useHostConfigZt: any;
-export declare const _t: any;
-export declare const _useHostConfigA: any;
-export declare const at: any;
-export declare const _useHostConfigB: any;
-export declare const useHostConfigBn: any;
-export declare const _useHostConfigC: any;
-export declare const _useHostConfigCn: any;
-export declare const _useHostConfigD: any;
-export declare const _useHostConfigDt: any;
-export declare const _useHostConfigF: any;
-export declare const _useHostConfigFt: any;
-export declare const _useHostConfigG: any;
-export declare const useHostConfigGn: any;
-export declare const _useHostConfigGt: any;
-export declare const useHostConfigHn: any;
-export declare const _useHostConfigHt: any;
-export declare const _useHostConfigIt: any;
-export declare const _useHostConfigJt: any;
-export declare const _useHostConfigKt: any;
-export declare const _useHostConfigLt: any;
-export declare const useHostConfigMn: any;
+export const useHostConfigTn: any = undefined as any;
+export const useHostConfigCn: any = undefined as any;
+export const useHostConfigWn: any = undefined as any;
+export const useHostConfigLn: any = undefined as any;
+export const useHostConfigPn: any = undefined as any;
+export const useHostConfigFn: any = undefined as any;
+export const useHostConfigDn: any = undefined as any;
+export const useHostConfigN: any = undefined as any;
+export const _useHostConfigSn: any = undefined as any;
+export const _useHostConfigTn: any = undefined as any;
+export const useHostConfigRn: any = undefined as any;
+export const useHostConfigNn: any = undefined as any;
+export const useHostConfigIn: any = undefined as any;
+export const useHostConfigEn: any = undefined as any;
+export const useHostConfigAn: any = undefined as any;
+export const useHostConfigGt: any = undefined as any;
+export const useHostConfigWt: any = undefined as any;
+export const useHostConfigKt: any = undefined as any;
+export const useHostConfigNt: any = undefined as any;
+export const _useHostConfigZt: any = undefined as any;
+export const useHostConfigPt: any = undefined as any;
+export const _useHostConfigWt: any = undefined as any;
+export const useHostConfigTt: any = undefined as any;
+export const useHostConfigDt: any = undefined as any;
+export const useHostConfigMt: any = undefined as any;
+export const useHostConfigCt: any = undefined as any;
+export const _useHostConfigBt: any = undefined as any;
+export const _useHostConfigYt: any = undefined as any;
+export const _useHostConfigCt: any = undefined as any;
+export const _useHostConfigOt: any = undefined as any;
+export const _useHostConfigRt: any = undefined as any;
+export const _useHostConfigNt: any = undefined as any;
+export const _useHostConfigTt: any = undefined as any;
+export const _useHostConfigEt: any = undefined as any;
+export const useHostConfigX: any = undefined as any;
+export const useHostConfigZ: any = undefined as any;
+export const useHostConfigU: any = undefined as any;
+export const useHostConfigH: any = undefined as any;
+export const useHostConfigG: any = undefined as any;
+export const useHostConfigM: any = undefined as any;
+export const useHostConfigR: any = undefined as any;
+export const _useHostConfigJ: any = undefined as any;
+export const useHostConfigI: any = undefined as any;
+export const _useHostConfigK: any = undefined as any;
+export const __useHostConfigT: any = undefined as any;
+export const useHostConfigO: any = undefined as any;
+export const useHostConfigS: any = undefined as any;
+export const _useHostConfigW: any = undefined as any;
+export const useHostConfigC: any = undefined as any;
+export const _useHostConfigV: any = undefined as any;
+export const useHostConfigUnderscore: any = undefined as any;
+export const _useHostConfigH: any = undefined as any;
+export const _useHostConfigM: any = undefined as any;
+export const _useHostConfigU: any = undefined as any;
+export const _useHostConfigL: any = undefined as any;
+export function _useHostConfigS(
+  _get: (signal: unknown, key?: string) => unknown,
+  _key: string,
+): unknown {
+  return undefined;
+}
+export { _useHostConfigS as Z, _useHostConfigS as s };
+export const _useHostConfigI: any = undefined as any;
+export const __useHostConfigN: any = undefined as any;
+export const $: any = undefined as any;
+export const $t: any = undefined as any;
+export const useHostConfigA: any = undefined as any;
+export const useHostConfigAt: any = undefined as any;
+export const useHostConfigB: any = undefined as any;
+export const useHostConfigD: any = undefined as any;
+export const useHostConfigE: any = undefined as any;
+export const useHostConfigEt: any = undefined as any;
+export const useHostConfigF: any = undefined as any;
+export const useHostConfigFt: any = undefined as any;
+export const useHostConfigHt: any = undefined as any;
+export const useHostConfigIt: any = undefined as any;
+export const useHostConfigJ: any = undefined as any;
+export const useHostConfigJt: any = undefined as any;
+export const useHostConfigK: any = undefined as any;
+export const useHostConfigL: any = undefined as any;
+export const useHostConfigLt: any = undefined as any;
+export const _useHostConfigN: any = undefined as any;
+export const useHostConfigOt: any = undefined as any;
+export const useHostConfigP: any = undefined as any;
+export const useHostConfigQ: any = undefined as any;
+export const useHostConfigQt: any = undefined as any;
+export const useHostConfigRt: any = undefined as any;
+export const useHostConfigSn: any = undefined as any;
+export const useHostConfigSt: any = undefined as any;
+export const useHostConfigUt: any = undefined as any;
+export const useHostConfigV: any = undefined as any;
+export const useHostConfigVt: any = undefined as any;
+export const useHostConfigW: any = undefined as any;
+export const useHostConfigXt: any = undefined as any;
+export const useHostConfigY: any = undefined as any;
+export const useHostConfigYt: any = undefined as any;
+export const useHostConfigZt: any = undefined as any;
+export const _t: any = undefined as any;
+export const _useHostConfigA: any = undefined as any;
+export const at: any = undefined as any;
+export const _useHostConfigB: any = undefined as any;
+export const useHostConfigBn: any = undefined as any;
+export const _useHostConfigC: any = undefined as any;
+export const _useHostConfigCn: any = undefined as any;
+export const _useHostConfigD: any = undefined as any;
+export const _useHostConfigDt: any = undefined as any;
+export const _useHostConfigF: any = undefined as any;
+export const _useHostConfigFt: any = undefined as any;
+export const _useHostConfigG: any = undefined as any;
+export const useHostConfigGn: any = undefined as any;
+export const _useHostConfigGt: any = undefined as any;
+export const useHostConfigHn: any = undefined as any;
+export const _useHostConfigHt: any = undefined as any;
+export const _useHostConfigIt: any = undefined as any;
+export const _useHostConfigJt: any = undefined as any;
+export const _useHostConfigKt: any = undefined as any;
+export const _useHostConfigLt: any = undefined as any;
+export const useHostConfigMn: any = undefined as any;
 export function _useHostConfigMt(
   hostConfigs: Array<{ id?: string; hostId?: string }> | null | undefined,
   hostId: string | null | undefined,
@@ -130,47 +136,89 @@ export function _useHostConfigMt(
     }) ?? null
   );
 }
-export declare const _useHostConfigO: any;
-export declare const on: any;
-export declare const _useHostConfigP: any;
-export declare const _useHostConfigPt: any;
-export declare const _useHostConfigQ: any;
-export declare const _useHostConfigQt: any;
-export declare const _useHostConfigR: any;
-export declare const _useHostConfigSt: any;
-export declare const ___useHostConfigT: any;
-export declare const useHostConfigUn: any;
-export declare const _useHostConfigUt: any;
-export declare const useHostConfigVn: any;
-export declare const _useHostConfigVt: any;
-export declare const _useHostConfigX: any;
-export declare const useHostConfigXn: any;
-export declare const _useHostConfigXt: any;
-export declare const _useHostConfigY: any;
-export declare const useHostConfigYn: any;
+export const _useHostConfigO: any = undefined as any;
+export const on: any = undefined as any;
+export const _useHostConfigP: any = undefined as any;
+export const _useHostConfigPt: any = undefined as any;
+export const _useHostConfigQ: any = undefined as any;
+export const _useHostConfigQt: any = undefined as any;
+export const _useHostConfigR: any = undefined as any;
+export const _useHostConfigSt: any = undefined as any;
+export const ___useHostConfigT: any = undefined as any;
+export const useHostConfigUn: any = undefined as any;
+export const _useHostConfigUt: any = undefined as any;
+export const useHostConfigVn: any = undefined as any;
+export const _useHostConfigVt: any = undefined as any;
+export const _useHostConfigX: any = undefined as any;
+export const useHostConfigXn: any = undefined as any;
+export const _useHostConfigXt: any = undefined as any;
+export const _useHostConfigY: any = undefined as any;
+export const useHostConfigYn: any = undefined as any;
 
-export declare const sendAppServerRequest: any;
-export declare const formatGoalObjectiveInput: any;
-export declare const useRemoteHostConnections: any;
-export declare const useHostConfigById: any;
-export declare const isBrowserCommentAttachment: any;
+type AppServerRequestHandler = (
+  method: string,
+  params?: Record<string, unknown>,
+) => Promise<unknown> | unknown;
+
+let appServerRequestHandler: AppServerRequestHandler | null = null;
+
+export function setAppServerRequestHandler(
+  handler: AppServerRequestHandler | null,
+): () => void {
+  appServerRequestHandler = handler;
+  return () => {
+    if (appServerRequestHandler === handler) appServerRequestHandler = null;
+  };
+}
+
+export async function sendAppServerRequest(
+  method: string,
+  params: Record<string, unknown> = {},
+): Promise<unknown> {
+  if (appServerRequestHandler != null) {
+    return appServerRequestHandler(method, params);
+  }
+  return callCodexVscodeApi("handle-app-server-request-for-host", {
+    method,
+    params,
+    hostId: params.hostId,
+  });
+}
+
+export const useHostConfigBt = sendAppServerRequest;
+export { sendAppServerRequest as Bt };
+export const formatGoalObjectiveInput: any = undefined as any;
+export const useRemoteHostConnections: any = undefined as any;
+export const useHostConfigById = _useHostConfigMt;
+export const isBrowserCommentAttachment: any = undefined as any;
 export const LOCAL_HOST_ID = "local";
-export declare const _useHostConfigZ: any;
-export declare const getLatestTurn: any;
-export declare const getLatestWaitingRequest: any;
-export declare const getThreadTitle: any;
-export declare const getThreadTurnCount: any;
-export declare const getThreadTurns: any;
-export declare const hasWaitingApprovalRequest: any;
-export declare const isSubAgentThread: any;
-export declare const shouldHideSubAgentThread: any;
-export declare const markdownToSearchText: any;
-export declare const parseHeartbeatMessage: any;
-export declare const infiniteQueryBehavior: any;
-export declare const getConversationPromptTitle: any;
-export declare const getConversationTitleFromSnapshot: any;
-export declare const useSharedObjectState: any;
-export declare function getWorkspaceRelativePath(
+export const _useHostConfigZ: any = undefined as any;
+export const getLatestTurn: any = undefined as any;
+export const getLatestWaitingRequest: any = undefined as any;
+export const getThreadTitle: any = undefined as any;
+export const getThreadTurnCount: any = undefined as any;
+export const getThreadTurns: any = undefined as any;
+export const hasWaitingApprovalRequest: any = undefined as any;
+export const isSubAgentThread: any = undefined as any;
+export const shouldHideSubAgentThread: any = undefined as any;
+export const markdownToSearchText: any = undefined as any;
+export const parseHeartbeatMessage: any = undefined as any;
+export const infiniteQueryBehavior: any = undefined as any;
+export const getConversationPromptTitle: any = undefined as any;
+export const getConversationTitleFromSnapshot: any = undefined as any;
+export const useSharedObjectState: any = undefined as any;
+export function getWorkspaceRelativePath(
   filePath: string,
   workspaceRoot?: string | null,
-): string;
+): string {
+  if (workspaceRoot == null || workspaceRoot === "") return filePath;
+  const normalizedFilePath = filePath.replaceAll("\\", "/");
+  const normalizedWorkspaceRoot = workspaceRoot
+    .replaceAll("\\", "/")
+    .replace(/\/+$/, "");
+  if (normalizedFilePath === normalizedWorkspaceRoot) return ".";
+  const prefix = `${normalizedWorkspaceRoot}/`;
+  return normalizedFilePath.startsWith(prefix)
+    ? normalizedFilePath.slice(prefix.length)
+    : filePath;
+}
