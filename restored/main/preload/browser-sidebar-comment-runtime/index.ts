@@ -36,6 +36,15 @@ export {
   isElementVisibleForBrowserSidebar,
 } from "./element-geometry";
 export {
+  BROWSER_SIDEBAR_COMMENTS_ROOT_ID,
+  BROWSER_SIDEBAR_INTERACTION_BLOCKER_ATTRIBUTE,
+  eventComposedPathIncludes,
+  eventHasBrowserSidebarInteractionBlocker,
+  isBrowserSidebarOverlayElement,
+  isBrowserSidebarRootEvent,
+  stopBrowserSidebarEvent,
+} from "./event-interactions";
+export {
   BROWSER_SIDEBAR_BASE_DESIGN_STYLE_PROPERTIES,
   BROWSER_SIDEBAR_FLEX_DESIGN_STYLE_PROPERTIES,
   getBrowserSidebarElementSnapshot,
@@ -127,6 +136,11 @@ export type {
 } from "./design-dom-types";
 export type { BrowserSidebarElementSnapshot } from "./element-metadata";
 export type { BrowserSidebarTextDraft } from "./element-text";
+export type {
+  BrowserSidebarComposedPathEvent,
+  BrowserSidebarStopEventOptions,
+  BrowserSidebarStoppableEvent,
+} from "./event-interactions";
 export type {
   BrowserSidebarAnchorLike,
   BrowserSidebarDocumentContextInput,
