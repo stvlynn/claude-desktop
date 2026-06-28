@@ -6,7 +6,6 @@ import {
   Aj as resolveWorkspacePathFromCwd,
   CS as initOpenFileOutcomeEventRuntime,
   DE as openFileOutcomeEvent,
-  F_ as readRouteScopeValue,
   i_ as getPathExtension,
   kL as readFileContentSampleByteLimit,
   MD as renderMcpCapabilityIcon,
@@ -21,6 +20,7 @@ import {
   YN as sendHostRequest,
   yR as isUrlLikePath,
 } from "../vendor/appg-thread-shared-runtime";
+import { getRouteThreadId as readRouteScopeValue } from "../boundaries/current-ref/appg-thread-shared-producer";
 import {
   _c as getSidePanelController,
   bc as activateSidePanelPlacement,
