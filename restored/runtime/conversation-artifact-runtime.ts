@@ -7,6 +7,12 @@ import {
   Ug as collectAssistantOutputArtifactsRaw,
   Wg as initMarkdownResourceHelpersRaw,
 } from "../boundaries/current-ref/appg-thread-shared-producer";
+import {
+  Dt as resolveVisibleGeneratedImageOutputsRaw,
+  lt as initRenderedTurnOutputItemGroupingRaw,
+  Ot as initVisibleGeneratedImageOutputChunkRaw,
+  ut as collectRenderedTurnOutputItemsRaw,
+} from "../boundaries/current-ref/profile-page-producer";
 
 export type RenderConversationTurnOptions = {
   isBackgroundSubagentsEnabled?: boolean;
@@ -18,6 +24,31 @@ export type AssistantOutputArtifactsOptions = {
   isAppgenEndCardEnabled?: boolean;
   projectlessOutputDirectory?: string | null;
   turn: unknown;
+};
+
+export type RenderedTurnOutputItems = {
+  assistantItem?: {
+    content?: string | null;
+    [key: string]: unknown;
+  } | null;
+  toolOutputItems: Array<{
+    src?: string | null;
+    [key: string]: unknown;
+  }>;
+};
+
+export type VisibleGeneratedImageOutputOptions = {
+  completedGeneratedImages: readonly unknown[];
+  endResourcePaths: readonly string[];
+  hasPendingGeneratedImages: boolean;
+};
+
+export type VisibleGeneratedImageOutputResult = {
+  visibleCompletedGeneratedImages: Array<{
+    src?: string | null;
+    type?: string;
+    [key: string]: unknown;
+  }>;
 };
 
 export function renderConversationTurnForArtifacts<TTurn = unknown>(
@@ -44,10 +75,33 @@ export function collectConversationEndResourcePaths(
   return collectEndResourcePathsRaw(artifacts) as string[];
 }
 
+export function collectRenderedTurnOutputItems(
+  items: readonly unknown[],
+  status: string,
+): RenderedTurnOutputItems {
+  return collectRenderedTurnOutputItemsRaw(
+    items,
+    status,
+  ) as RenderedTurnOutputItems;
+}
+
+export function resolveVisibleGeneratedImageOutputs(
+  options: VisibleGeneratedImageOutputOptions,
+): VisibleGeneratedImageOutputResult {
+  return resolveVisibleGeneratedImageOutputsRaw(
+    options,
+  ) as VisibleGeneratedImageOutputResult;
+}
+
 export function initConversationArtifactRuntime(): void {
   initConversationArtifactRuntimeRaw();
 }
 
 export function initMarkdownResourceRuntime(): void {
   initMarkdownResourceHelpersRaw();
+}
+
+export function initVisibleGeneratedImageOutputRuntime(): void {
+  initVisibleGeneratedImageOutputChunkRaw();
+  initRenderedTurnOutputItemGroupingRaw();
 }

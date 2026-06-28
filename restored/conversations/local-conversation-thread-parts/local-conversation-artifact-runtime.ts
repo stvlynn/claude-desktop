@@ -3,11 +3,17 @@
 import {
   collectAssistantOutputArtifacts,
   collectConversationEndResourcePaths,
+  collectRenderedTurnOutputItems as collectRenderedTurnOutputItemsRuntime,
   initConversationArtifactRuntime as initConversationArtifactRuntimeRaw,
   initMarkdownResourceRuntime,
+  initVisibleGeneratedImageOutputRuntime as initVisibleGeneratedImageOutputRuntimeRaw,
   renderConversationTurnForArtifacts as renderConversationTurnForArtifactsRaw,
+  resolveVisibleGeneratedImageOutputs as resolveVisibleGeneratedImageOutputsRuntime,
   type AssistantOutputArtifactsOptions,
+  type RenderedTurnOutputItems,
   type RenderConversationTurnOptions,
+  type VisibleGeneratedImageOutputOptions,
+  type VisibleGeneratedImageOutputResult,
 } from "../../runtime/conversation-artifact-runtime";
 
 export function renderLocalConversationTurn<TTurn = unknown>(
@@ -38,10 +44,27 @@ export function collectLocalConversationEndResourcePaths(
   return collectConversationEndResourcePaths(artifacts);
 }
 
+export function collectRenderedTurnOutputItems(
+  items: readonly unknown[],
+  status: string,
+): RenderedTurnOutputItems {
+  return collectRenderedTurnOutputItemsRuntime(items, status);
+}
+
+export function resolveVisibleGeneratedImageOutputs(
+  options: VisibleGeneratedImageOutputOptions,
+): VisibleGeneratedImageOutputResult {
+  return resolveVisibleGeneratedImageOutputsRuntime(options);
+}
+
 export function initLocalConversationArtifactRuntime(): void {
   initConversationArtifactRuntimeRaw();
 }
 
 export function initLocalConversationMarkdownResourceRuntime(): void {
   initMarkdownResourceRuntime();
+}
+
+export function initVisibleGeneratedImageOutputRuntime(): void {
+  initVisibleGeneratedImageOutputRuntimeRaw();
 }

@@ -6,6 +6,10 @@ import {
   oy as initIdentifierTitleFormatter,
   ty as getAppToolSourceMetadataRaw,
 } from "../boundaries/current-ref/appg-thread-shared-producer";
+import {
+  Ar as parseMcpAppIdFromToolCallIdRaw,
+  Mr as initMcpAppIdHelpersRaw,
+} from "../boundaries/current-ref/projects-app-shared-producer";
 
 export type AppToolSourceLookup = {
   apps: readonly unknown[];
@@ -27,6 +31,10 @@ export function initAppToolSourceRuntime(): void {
   initIdentifierTitleFormatter();
 }
 
+export function initMcpAppIdHelpers(): void {
+  initMcpAppIdHelpersRaw();
+}
+
 export function getAppToolSourceMetadata(
   lookup: AppToolSourceLookup,
 ): AppToolSourceMetadata | null {
@@ -35,4 +43,10 @@ export function getAppToolSourceMetadata(
 
 export function formatIdentifierTitle(identifier: string): string {
   return formatIdentifierTitleRaw(identifier);
+}
+
+export function parseMcpAppIdFromToolCallId(
+  toolCallId: string | null | undefined,
+): string | null {
+  return parseMcpAppIdFromToolCallIdRaw(toolCallId) as string | null;
 }

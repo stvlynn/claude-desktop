@@ -5,11 +5,9 @@ import {
   formatIdentifierTitle,
   getAppToolSourceMetadata,
   initAppToolSourceRuntime,
+  initMcpAppIdHelpers,
+  parseMcpAppIdFromToolCallId,
 } from "../../runtime/app-tool-source-runtime";
-import {
-  Ar as parseMcpAppIdFromToolCallId,
-  Mr as initMcpAppIdHelpers,
-} from "../../boundaries/current-ref/projects-app-shared-producer";
 import {
   getMcpServerLogo,
   initMcpServerLogoHelpers,

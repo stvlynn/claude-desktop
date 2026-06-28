@@ -5,16 +5,13 @@ import { isEqualT as createIsEqual } from "../../vendor/lodash-is-equal";
 import {
   collectLocalAssistantOutputArtifacts,
   collectLocalConversationEndResourcePaths,
+  collectRenderedTurnOutputItems,
   initLocalConversationArtifactRuntime,
   initLocalConversationMarkdownResourceRuntime,
+  initVisibleGeneratedImageOutputRuntime,
   renderLocalConversationTurnForArtifacts,
+  resolveVisibleGeneratedImageOutputs,
 } from "./local-conversation-artifact-runtime";
-import {
-  Dt as resolveVisibleGeneratedImageOutputs,
-  lt as initRenderedTurnOutputItemGrouping,
-  Ot as initVisibleGeneratedImageOutputChunk,
-  ut as collectRenderedTurnOutputItems,
-} from "../../boundaries/current-ref/profile-page-producer";
 
 type GeneratedImageOutput = {
   src?: string | null;
@@ -136,8 +133,7 @@ export const initVisibleTurnGeneratedImagesCollector = once(() => {
     leftValue: unknown,
     rightValue: unknown,
   ) => boolean;
-  initVisibleGeneratedImageOutputChunk();
+  initVisibleGeneratedImageOutputRuntime();
   initLocalConversationArtifactRuntime();
   initLocalConversationMarkdownResourceRuntime();
-  initRenderedTurnOutputItemGrouping();
 });
