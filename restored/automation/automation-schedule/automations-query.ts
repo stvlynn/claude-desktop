@@ -2,13 +2,13 @@
 // Query signal for the host-provided list-automations endpoint.
 
 import {
-  $N as initVscodeApiBridge,
-  $P as initAppScopeRuntime,
-  QN as createVscodeQueryOptions,
-  QP as appScopeRoot,
-  aP as queryDurations,
-  oP as initQueryDurationConstants,
-} from "../../boundaries/current-ref/appg-thread-shared-producer";
+  appScopeRoot,
+  createVscodeQueryOptions,
+  initAppScopeRuntime,
+  initQueryDurationConstants,
+  initVscodeApiBridge,
+  queryDurations,
+} from "../../runtime/automation-schedule-runtime";
 import { once } from "../../runtime/commonjs-interop";
 
 export let automationsQuerySignal: unknown;

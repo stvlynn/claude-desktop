@@ -14,7 +14,7 @@ import {
   formatAutomationNextRunLabel,
   initAutomationRouteRuntime,
   openAutomationRoute,
-} from "../../automation/automation-route-runtime";
+} from "../../runtime/automation-route-runtime";
 import {
   HeartbeatAutomationIcon as AutomationIcon,
   initHeartbeatAutomationIconChunk,

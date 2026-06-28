@@ -2,12 +2,12 @@
 // Product analytics attributes derived from scheduled task records.
 
 import {
-  cC as automationStatusValues,
-  iC as reasoningEffortValues,
-  oC as scheduleFrequencyValues,
-  rC as automationKindValues,
-  tC as executionEnvironmentValues,
-} from "../../boundaries/current-ref/appg-thread-shared-producer";
+  automationKindValues,
+  automationStatusValues,
+  executionEnvironmentValues,
+  reasoningEffortValues,
+  scheduleFrequencyValues,
+} from "../../runtime/automation-schedule-runtime";
 import { isAutomationReasoningEffort } from "./model-defaults";
 import { parseAutomationRruleForAnalytics } from "./schedule";
 import type { AutomationForAnalytics } from "./types";
