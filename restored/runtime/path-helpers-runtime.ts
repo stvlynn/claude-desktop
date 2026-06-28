@@ -2,12 +2,12 @@
 // Path helpers shared by local conversation environment surfaces.
 import {
   OL as normalizeWorkspaceBrowserRootRaw,
-  bF as initPathHelpersRaw,
   Dj as joinPathRaw,
 } from "../vendor/appg-thread-shared-runtime";
+import { initAppgRouteAndIntlRuntime } from "./appg-shared-runtime-initializers";
 
 export function initPathHelpersRuntime(): void {
-  initPathHelpersRaw();
+  initAppgRouteAndIntlRuntime();
 }
 
 export function joinPath(...parts: string[]): string {

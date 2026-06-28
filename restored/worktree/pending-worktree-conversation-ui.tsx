@@ -58,9 +58,9 @@ import {
   rx as applyActiveProfileConfigOverridesRaw,
 } from "../vendor/projects-app-shared-runtime";
 import {
-  NI as buildPendingWorktreeRouteRaw,
-  aO as extractPullRequestNumberRaw,
-} from "../vendor/appg-thread-shared-runtime";
+  buildPendingWorktreeRoute,
+  extractPullRequestNumber,
+} from "../runtime/pending-worktree-route-runtime";
 import {
   Vu as setActiveLocalEnvironmentSettingsHostRaw,
   oa as UserMessageBubbleRaw,
@@ -141,10 +141,6 @@ const bindPendingWorktreeConversation =
     },
   ) => boolean;
 
-const buildPendingWorktreeRoute = buildPendingWorktreeRouteRaw as unknown as (
-  pendingWorktreeId: string,
-) => string;
-
 const applyActiveProfileConfigOverrides =
   applyActiveProfileConfigOverridesRaw as unknown as (
     config: unknown,
@@ -155,10 +151,6 @@ const clearPendingWorktreeRestore =
     scope: AppScopeLike,
     pendingWorktreeId: string,
   ) => void;
-
-const extractPullRequestNumber = extractPullRequestNumberRaw as unknown as (
-  prompt?: string | null,
-) => string | number | null;
 
 const recordPendingWorktreeRestore =
   recordPendingWorktreeRestoreRaw as unknown as (

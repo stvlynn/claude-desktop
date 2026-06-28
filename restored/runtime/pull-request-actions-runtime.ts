@@ -1,14 +1,14 @@
 // Restored from ref/webview/assets/pull-request-check-rows-Q1OJv6O3.js
 // Boundary facade for pull request action rows, analytics, mutations, and merge controls.
 import {
-  bF as initRouteHelpers,
-  NI as routeToPendingWorktree,
   ST as pullRequestViewedFromSidePanelEvent,
   VN as initSwitchRuntime,
   bT as pullRequestActionEvent,
   xT as pullRequestKindActionEvent,
 } from "../vendor/appg-thread-shared-runtime";
 import { getLocalConversationPath as routeToConversation } from "../conversations/local-conversation-route-runtime";
+import { initAppgRouteAndIntlRuntime as initRouteHelpers } from "./appg-shared-runtime-initializers";
+import { routeToPendingWorktree } from "./pending-worktree-route-runtime";
 import { initProductEventRuntime as initPullRequestActionEventRuntime } from "./shared-utility-runtime";
 
 import { toastSignal } from "./toast-runtime";
