@@ -11,13 +11,14 @@ import {
   initAutomationScheduleSummaryFormatter,
 } from "../../automation/automation-schedule";
 import {
-  Ar as initAutomationRouteHelpers,
-  Fr as formatAutomationNextRunLabel,
-  gm as initAutomationIconChunk,
-  hm as AutomationIcon,
-  Ir as initAutomationNextRunLabelChunk,
-  jr as openAutomationRoute,
-} from "../../boundaries/current-ref/profile-page-producer";
+  formatAutomationNextRunLabel,
+  initAutomationRouteRuntime,
+  openAutomationRoute,
+} from "../../automation/automation-route-runtime";
+import {
+  HeartbeatAutomationIcon as AutomationIcon,
+  initHeartbeatAutomationIconChunk,
+} from "../../github/pull-request-checks-summary";
 import {
   initSummaryPanelRowChunk,
   SummaryPanelRow,
@@ -105,8 +106,7 @@ export const initThreadSummaryAutomationRowChunk = once(() => {
   initLocalConversationRouteRuntime();
   initIntlRuntime();
   initAutomationScheduleSummaryFormatter();
-  initAutomationNextRunLabelChunk();
-  initAutomationRouteHelpers();
-  initAutomationIconChunk();
+  initAutomationRouteRuntime();
+  initHeartbeatAutomationIconChunk();
   initSummaryPanelRowChunk();
 });
