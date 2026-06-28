@@ -11,8 +11,9 @@ import {
   rF as defineMessages,
   Sj as normalizeTextForCompare,
   VI as getProjectWritableRootsForDisplay,
-  wj as initStringNormalizeRuntime,
 } from "../vendor/appg-thread-shared-runtime";
+import { initStringNormalizeRuntime } from "./string-normalize-runtime";
+
 import { initIntlMessageRuntime } from "./intl-message-runtime";
 
 import { initModalRuntime } from "./modal-runtime";
