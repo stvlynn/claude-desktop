@@ -15,9 +15,8 @@ import {
   openInBrowserFromEvent,
 } from "../../runtime/resource-open-runtime";
 import {
-  os as PullRequestFailedCheckIcon,
-  ss as initPullRequestFailedCheckIconChunk,
-} from "../../boundaries/current-ref/profile-page-producer";
+  XCircleFilledIcon as PullRequestFailedCheckIcon,
+} from "../../icons/x-circle-filled-icon";
 import {
   HeartbeatAutomationCheckRing,
   HeartbeatAutomationIcon,
@@ -389,7 +388,6 @@ const initPullRequestChecksSummaryRowChunk = once(() => {
   initCheckCircleFilledIcon();
   initPullRequestCheckStatusIconChunk();
   initHeartbeatAutomationIconChunk();
-  initPullRequestFailedCheckIconChunk();
   initHeartbeatAutomationCheckRingChunk();
   initPullRequestInlineActionButtonChunk();
   initPullRequestRichTooltipChunk();
