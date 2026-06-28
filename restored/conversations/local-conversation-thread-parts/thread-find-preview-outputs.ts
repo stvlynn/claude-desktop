@@ -1,11 +1,11 @@
 // Restored from ref/webview/assets/local-conversation-thread-Bf38rCmF.js
 // Prompt-rail preview output collection for local conversation thread find.
 import {
-  ph as parseGitActionDirectives,
-  Sj as getPathBasename,
-  Ug as collectAssistantOutputArtifacts,
-  UR as isAbsoluteOrWindowsPath,
-} from "../../boundaries/current-ref/appg-thread-shared-producer";
+  collectThreadFindAssistantOutputArtifacts,
+  getPreviewPathBasename,
+  isAbsoluteGeneratedImagePath,
+  parseThreadFindGitActionDirectives,
+} from "./thread-find-preview-output-sources";
 
 type ThreadFindPreviewOutputType =
   | "app"
@@ -67,7 +67,7 @@ export function buildThreadFindPreviewOutputs({
         (seenPreviewKeys.add(previewKey), previewOutputs.push(previewOutput));
     };
 
-  for (let resource of collectAssistantOutputArtifacts({
+  for (let resource of collectThreadFindAssistantOutputArtifacts({
     assistantContent,
     isAppgenEndCardEnabled,
     projectlessOutputDirectory,
@@ -82,7 +82,7 @@ export function buildThreadFindPreviewOutputs({
         break;
       case "file":
         addPreviewOutput({
-          label: getPathBasename(resource.path),
+          label: getPreviewPathBasename(resource.path),
           type: "file",
         });
         break;
@@ -102,15 +102,15 @@ export function buildThreadFindPreviewOutputs({
 
   for (let editedFilePath of turn.artifacts.editedFilePaths)
     addPreviewOutput({
-      label: getPathBasename(editedFilePath),
+      label: getPreviewPathBasename(editedFilePath),
       type: "file",
     });
 
   for (let generatedImageSource of generatedImageSources)
     addPreviewOutput(
-      isAbsoluteOrWindowsPath(generatedImageSource)
+      isAbsoluteGeneratedImagePath(generatedImageSource)
         ? {
-            label: getPathBasename(generatedImageSource),
+            label: getPreviewPathBasename(generatedImageSource),
             type: "file",
           }
         : {
@@ -119,7 +119,9 @@ export function buildThreadFindPreviewOutputs({
           },
     );
 
-  for (let commandReference of parseGitActionDirectives(assistantContent))
+  for (let commandReference of parseThreadFindGitActionDirectives(
+    assistantContent,
+  ))
     switch (commandReference.type) {
       case "commit":
         addPreviewOutput({
