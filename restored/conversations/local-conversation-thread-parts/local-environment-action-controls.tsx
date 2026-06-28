@@ -1,9 +1,6 @@
 // Restored from ref/webview/assets/local-conversation-thread-Bf38rCmF.js
 import { useState, type ReactNode } from "react";
-import {
-  CheckMdIcon as CheckIcon,
-  initCheckmarkIcon,
-} from "../../icons/check-md-icon";
+import { CheckMdIcon, initCheckmarkIcon } from "../../icons/check-md-icon";
 import { initPlusIcon, PlusIcon } from "../../icons/plus-icon";
 import {
   initSettingsGearIcon,
@@ -78,10 +75,6 @@ import {
   Yi as localEnvironmentActionShortcutSignal,
 } from "../../boundaries/current-ref/projects-app-shared-producer";
 import {
-  en as initPullRequestThreadActionsRuntime,
-  Qt as encodeLocalEnvironmentActionKey,
-} from "../../boundaries/current-ref/pull-request-thread-actions-producer";
-import {
   A as initCommandMenuItemComponent,
   k as CommandMenuItem,
 } from "../../boundaries/current-ref/appgen-library-hot-producer";
@@ -111,6 +104,7 @@ import {
 } from "../../vendor/react-intl";
 import {
   createLocalEnvironmentActionRunId,
+  encodeLocalEnvironmentActionKey,
   getLocalEnvironmentActionItems,
   resolveLocalEnvironmentActionCwd,
   resolveLocalEnvironmentActionKey,
@@ -836,7 +830,7 @@ function LocalEnvironmentActionMenuRow({
       <span className="flex w-full min-w-0 items-center gap-2">
         <span className="min-w-0 flex-1 truncate">{action.name}</span>
         {isPrimaryAction ? (
-          <CheckIcon className="icon-xs shrink-0 text-token-description-foreground" />
+          <CheckMdIcon className="icon-xs shrink-0 text-token-description-foreground" />
         ) : null}
         {shortcut ? (
           <span className="shrink-0 text-xs text-token-description-foreground">
@@ -996,7 +990,6 @@ export const initLocalEnvironmentActionControlsChunk = once(() => {
   initProfileGitSummaryRuntime();
   initLocalEnvironmentDefaultsChunk();
   initEnvironmentTerminalController();
-  initPullRequestThreadActionsRuntime();
   initLoggerRuntime();
   initConfigPathHelpers();
   initUseStableCallback();

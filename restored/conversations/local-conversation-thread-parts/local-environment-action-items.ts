@@ -33,6 +33,14 @@ export interface LocalEnvironmentActionRunIdOptions {
   runId: string;
 }
 
+export function encodeLocalEnvironmentActionKey(environmentKey: string): string {
+  let hash = 5381;
+  for (let index = 0; index < environmentKey.length; index += 1) {
+    hash = (hash * 33 + environmentKey.charCodeAt(index)) % 4294967296;
+  }
+  return hash.toString(36);
+}
+
 function isSupportedLocalEnvironmentPlatform(
   platform: string | null | undefined,
 ): boolean {
