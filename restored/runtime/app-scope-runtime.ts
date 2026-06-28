@@ -39,7 +39,14 @@ export function initAppScopeSignalRuntime(): void {
 export function createAppScopedSignal<TKey, TValue>(
   initializer: ScopedSignalInitializer<TKey, TValue>,
 ): unknown {
-  return createScopedSignalRaw(appScopeRoot, initializer);
+  return createScopedSignal(appScopeRoot, initializer);
+}
+
+export function createScopedSignal<TKey, TValue>(
+  scope: unknown,
+  initializer: ScopedSignalInitializer<TKey, TValue>,
+): unknown {
+  return createScopedSignalRaw(scope, initializer);
 }
 
 export function createAppScopedSignalFamily<TKey, TValue>(

@@ -1,9 +1,8 @@
 // Restored from ref/webview/assets/custom-avatars-query-Bodwj3U-.js
 // Boundary facade for custom avatars, pet install state, and workspace dependency UI helpers.
-import {
-  WA as initAppServicesRuntime,
-  yV as createSignal,
-} from "../vendor/appg-thread-shared-runtime";
+import { WA as initAppServicesRuntime } from "../vendor/appg-thread-shared-runtime";
+import { createSignal } from "../utils/motion-signal-runtime";
+
 import { sendHostRequest } from "./host-request-runtime";
 
 import {

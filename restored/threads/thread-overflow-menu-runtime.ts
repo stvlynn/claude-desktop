@@ -2,14 +2,17 @@
 // Runtime bindings for thread overflow actions, side chat, and heartbeat automation tabs.
 import {
   $j as initSideConversationProducer,
-  ak as initSideConversationPromptProducer,
   cP as initThreadActionMenuRuntime,
-  ok as runConversationAction,
   SV as initQueryRuntime,
   tM as modelSelectionSignal,
   TV as useSignalSnapshot,
   uP as useThreadCommandHandler,
 } from "../vendor/appg-thread-shared-runtime";
+import {
+  initAppServerRequestRuntime as initSideConversationPromptProducer,
+  sendAppServerRequest as runConversationAction,
+} from "../runtime/app-server-request";
+
 import { initToastRuntime, toastSignal } from "../runtime/toast-runtime";
 import { sendHostRequest } from "../runtime/host-request-runtime";
 

@@ -16,6 +16,7 @@ export {
   animateSignalValue,
   createMotionSignal,
   createSignal,
+  initMotionRuntime,
   motion,
   reducedMotionPreferenceSignal,
   useMotionValueEvent,

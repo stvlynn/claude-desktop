@@ -2,9 +2,10 @@
 // Thread summary panel animation config and route-scoped signal helpers.
 import {
   NM as createPersistedScopedSignalRaw,
-  bV as createScopedSignalRaw,
   jM as initScopedSignalRuntime,
 } from "../../vendor/appg-thread-shared-runtime";
+import { createScopedSignal as createScopedSignalRaw } from "../../runtime/app-scope-runtime";
+
 import {
   $i as initSummaryPanelAnimationConfig,
   Qi as threadSummaryPanelSectionTransition,
