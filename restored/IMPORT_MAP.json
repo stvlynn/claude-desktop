@@ -11245,13 +11245,15 @@
       "restored": "composer/thread-composer-footer.tsx",
       "exports": {
         "$": "threadComposerContext",
+        "Dr": "createLazyNavigationRailComponent",
+        "Er": "initLazyNavigationRailRuntime",
         "et": "initThreadComposerContextChunk",
         "it": "initAppShellElementContextChunk",
         "rt": "AppShellElementContext",
         "t": "ThreadComposerFooter"
       },
       "status": "partial",
-      "note": "Composer-facing thread footer and app-shell element context exports now have semantic wrappers with stable context initialization; remaining appgen-library hot-path UI/runtime exports stay isolated behind vendor/appgen-library-hot-runtime.ts until the full mixed chunk is deep-restored.",
+      "note": "Composer-facing thread footer, app-shell element context, and lazy navigation rail exports now have semantic wrappers; remaining appgen-library hot-path UI/runtime exports stay isolated behind vendor/appgen-library-hot-runtime.ts until the full mixed chunk is deep-restored.",
       "lastUpdated": "2026-06-28T00:00:00.000Z",
       "boundary": "boundaries/current-ref/appgen-library-hot-producer.ts"
     },

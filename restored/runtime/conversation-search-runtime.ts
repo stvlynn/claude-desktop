@@ -22,9 +22,9 @@ import {
   ys as getConversationSearchMatchIdRaw,
 } from "../boundaries/current-ref/projects-app-shared-producer";
 import {
-  Dr as createLazyNavigationRailComponentRaw,
-  Er as initLazyNavigationRailRuntimeRaw,
-} from "../boundaries/current-ref/appgen-library-hot-producer";
+  createLazyNavigationRailComponent as createLazyNavigationRailComponentRaw,
+  initLazyNavigationRailRuntime as initLazyNavigationRailRuntimeRaw,
+} from "../utils/lazy-navigation-rail";
 
 export type ContentSearchMatch = {
   id: string;

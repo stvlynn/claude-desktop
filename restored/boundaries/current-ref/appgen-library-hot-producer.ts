@@ -8,4 +8,8 @@ export {
   initAppShellElementContextChunk as it,
   AppShellElementContext as rt,
 } from "../../app-shell/app-shell-element-context";
+export {
+  createLazyNavigationRailComponent as Dr,
+  initLazyNavigationRailRuntime as Er,
+} from "../../utils/lazy-navigation-rail";
 export * from "../../vendor/appgen-library-hot-runtime";
