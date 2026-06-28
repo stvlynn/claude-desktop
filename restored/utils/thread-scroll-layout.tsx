@@ -3,7 +3,7 @@
 import React from "react";
 import clsx from "clsx";
 import { motion } from "framer-motion";
-import { threadContentClassName } from "./thread-layout";
+import { threadContentClassName } from "../threads/thread-layout";
 import { threadScrollControllerContext } from "./thread-scroll-controller-context";
 import { useThreadScrollLayoutController } from "./thread-scroll-layout-controller";
 import {

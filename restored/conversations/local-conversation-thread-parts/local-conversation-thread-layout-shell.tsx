@@ -12,7 +12,10 @@ import {
   initThreadNullRefChunk,
   useNullAppShellRef,
 } from "../../app-shell/thread-background-processes";
-import { initThreadLayoutChunk, ThreadLayout } from "../../utils/thread-layout";
+import {
+  initThreadLayoutChunk,
+  ThreadLayout,
+} from "../../threads/thread-layout";
 
 export type LocalConversationThreadLayoutShellProps = {
   header: ReactNode;

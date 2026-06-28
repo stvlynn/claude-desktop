@@ -14,7 +14,7 @@ import {
   routeScope,
 } from "../runtime/persisted-signal";
 import { appShellElementContext } from "../app-shell/app-shell-ref";
-import { threadContentClassName } from "../utils/thread-layout";
+import { threadContentClassName } from "../threads/thread-layout";
 import {
   cancelOverlayReserveAnimation,
   completeOverlayVisibilityTransition,

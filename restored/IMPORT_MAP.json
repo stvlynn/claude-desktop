@@ -5276,7 +5276,8 @@
       "status": "done"
     },
     "thread-layout-4YZWZt2v": {
-      "restored": "utils/thread-layout.tsx",
+      "restored": "threads/thread-layout.tsx",
+      "note": "Moved the public thread layout shell into threads/ and kept utils/thread-layout.tsx as a compatibility barrel.",
       "exports": {
         "n": "ThreadLayout",
         "t": "threadContentClassName"
@@ -11126,7 +11127,8 @@
       "status": "done"
     },
     "app-initial~app-main~worktree-init-v2-page~remote-conversation-page~new-thread-panel-page~a~hqj10sd5-DiinfLhP": {
-      "restored": "utils/thread-layout.tsx",
+      "restored": "threads/thread-layout.tsx",
+      "note": "Shares the semantic thread layout shell with thread-layout-4YZWZt2v; utils/thread-layout.tsx remains as a compatibility barrel.",
       "exports": {
         "n": "ThreadLayout",
         "r": "initThreadLayoutChunk",
