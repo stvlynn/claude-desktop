@@ -31,17 +31,15 @@ import {
 import { initPathHelpersRuntime } from "../../runtime/path-helpers-runtime";
 import { initVscodeMessageRuntime } from "../../runtime/vscode-message-runtime";
 import { getLocalThreadConversationIdFromRoute } from "../../runtime/local-thread-route";
-import { _c as getSidePanelTargetStore } from "../../boundaries/current-ref/projects-app-shared-producer";
 import {
-  Eu as EmptyConversationState,
-  Ql as initSummaryPanelBannerChunk,
-  Qn as SummaryPanelBanner,
-  Xc as initEmptyPageStateChunk,
-  oa as AutomationDescription,
-  sc as SideChatHeader,
-  st as initSideChatHeaderChunk,
-  wu as EmptyPageState,
-} from "../../boundaries/current-ref/profile-page-producer";
+  AutomationDescription,
+  EmptyConversationState,
+  EmptyPageState,
+  getSidePanelTargetStore,
+  initLocalConversationThreadEntryRuntime,
+  SideChatHeader,
+  SummaryPanelBanner,
+} from "../../runtime/local-conversation-thread-entry-runtime";
 import {
   initOpenSideChatTabChunk,
   openSideChatTab,
@@ -417,9 +415,7 @@ const initLocalConversationThreadEntryComponentsChunk = once(() => {
   initLocalConversationTurnRowChunk();
   initVirtualizedTurnListChunk();
   initLocalConversationTurnSelectors();
-  initSideChatHeaderChunk();
-  initSummaryPanelBannerChunk();
-  initEmptyPageStateChunk();
+  initLocalConversationThreadEntryRuntime();
 });
 
 LocalConversationMainThread.initChunk =
