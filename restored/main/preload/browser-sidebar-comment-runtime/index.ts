@@ -65,6 +65,19 @@ export {
   isLargeEnoughForGoogleDocsAnnotation,
 } from "./google-docs-overlay";
 export {
+  applyBrowserSidebarViewportSizeOverride,
+  BROWSER_SIDEBAR_MARKER_POINT_INSET,
+  browserSidebarRectToOverlayStyle,
+  computeBrowserSidebarEditorOverlayRect,
+  computeBrowserSidebarMarkerViewportSize,
+  getBrowserSidebarThemeVariant,
+  getBrowserSidebarViewportScrollState,
+  getBrowserSidebarViewportSize,
+  getElementMetadataTooltipViewportRect,
+  mergeBrowserSidebarMarkerViewportSize,
+  scaleBrowserSidebarOverlayRect,
+} from "./overlay-layout";
+export {
   areBrowserSidebarPageUrlsEquivalent,
   frameUrlMatchesWindow,
   parseBrowserSidebarPageUrl,
@@ -86,6 +99,14 @@ export type {
   BrowserSidebarRect,
   BrowserSidebarSize,
 } from "./geometry";
+export type {
+  BrowserSidebarMarkerViewportSizeInput,
+  BrowserSidebarMetadataTooltipRectOptions,
+  BrowserSidebarOverlayRectStyle,
+  BrowserSidebarThemeVariant,
+  BrowserSidebarViewportScrollState,
+  BrowserSidebarViewportWindow,
+} from "./overlay-layout";
 export type {
   BrowserSidebarAnchorPoint,
   BrowserSidebarCommentAnchor,
