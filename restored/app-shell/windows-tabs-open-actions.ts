@@ -14,7 +14,7 @@ import {
   selectThreadReviewView,
   type ThreadReviewPanelView,
 } from "../runtime/thread-review-panel-state";
-import { getActiveThreadHostId as getRouteActiveThreadHostId } from "../runtime/thread-route-context";
+import { getActiveThreadHostId as getRouteActiveThreadHostId } from "./thread-route-context";
 import {
   getDefaultThreadTerminalPanelPlacement,
   getOpenThreadTerminalPanelTabIds,

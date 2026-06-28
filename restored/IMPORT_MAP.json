@@ -11186,8 +11186,8 @@
     "app-initial~app-main~remote-conversation-page~new-thread-panel-page~projects-index-page~app~ovcriy74-KTK3czaX": {
       "restored": "vendor/projects-app-shared-runtime.ts",
       "status": "partial",
-      "note": "Compatibility facade moved out of current-ref direct passthrough. The local conversation and projects-app runtime facades expose the needed project shell, panel, and workspace signals semantically, while remaining projects-app shared exports stay isolated behind vendor/projects-app-shared-runtime.ts until deep-restored.",
-      "lastUpdated": "2026-06-28T00:00:00.000Z",
+      "note": "Compatibility facade moved out of current-ref direct passthrough. The local conversation and projects-app runtime facades expose the needed project shell, panel, and workspace signals semantically; app-shell/thread-route-context.ts now owns the active thread host id helper used by windows.tabs.open. Remaining projects-app shared exports stay isolated behind vendor/projects-app-shared-runtime.ts until deep-restored.",
+      "lastUpdated": "2026-06-28T14:19:32.000Z",
       "boundary": "boundaries/current-ref/projects-app-shared-producer.ts"
     },
     "app-initial~app-main~automations-page-bHJfYUGr": {
