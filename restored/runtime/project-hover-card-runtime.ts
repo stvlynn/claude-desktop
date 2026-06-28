@@ -9,9 +9,9 @@ import {
   KE as initKeyboardShortcutRuntime,
   qE as useRemoteHostConfigs,
   rF as defineMessages,
-  Sj as normalizeTextForCompare,
   VI as getProjectWritableRootsForDisplay,
 } from "../vendor/appg-thread-shared-runtime";
+import { getPathBasename as normalizeTextForCompare } from "./path-basename-runtime";
 import { initStringNormalizeRuntime } from "./string-normalize-runtime";
 
 import { initIntlMessageRuntime } from "./intl-message-runtime";
