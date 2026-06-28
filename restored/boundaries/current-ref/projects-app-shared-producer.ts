@@ -1,4 +1,6 @@
 // Restored from ref/webview/assets/app-initial~app-main~remote-conversation-page~new-thread-panel-page~projects-index-page~app~ovcriy74-KTK3czaX.js
+// The current build forwards the legacy projects-app shared raw aliases through
+// vendor/projects-app-shared-runtime from the app-main/new-thread producer chunk.
 export {
   Bn as ThreadAppShellLayout,
   Gl as localConversationTitleSignal,

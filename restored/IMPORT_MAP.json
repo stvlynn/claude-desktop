@@ -11211,9 +11211,10 @@
     "app-initial~app-main~remote-conversation-page~new-thread-panel-page~projects-index-page~app~ovcriy74-KTK3czaX": {
       "restored": "vendor/projects-app-shared-runtime.ts",
       "status": "partial",
-      "note": "Compatibility facade moved out of current-ref direct passthrough. The local conversation and projects-app runtime facades expose the needed project shell, panel, and workspace signals semantically; app-shell/thread-route-context.ts now owns the active thread host id helper used by windows.tabs.open, and app-shell/thread-review-panel-state.ts owns its review panel selection helpers. Remaining projects-app shared exports stay isolated behind vendor/projects-app-shared-runtime.ts until deep-restored.",
-      "lastUpdated": "2026-06-28T14:20:55.000Z",
-      "boundary": "boundaries/current-ref/projects-app-shared-producer.ts"
+      "note": "Legacy projects-app shared compatibility facade. The ovcriy74-KTK3czaX chunk is absent from the current ref snapshot; the raw aliases still consumed by restored modules are all exported by the current app-main/new-thread producer chunk recorded in compatibilitySource. Keep this as an open partial boundary until the producer is semantically split.",
+      "lastUpdated": "2026-06-28T22:10:00.000Z",
+      "boundary": "boundaries/current-ref/projects-app-shared-producer.ts",
+      "compatibilitySource": "app-initial~app-main~worktree-init-v2-page~remote-conversation-page~new-thread-panel-page~o~bj5tp28r-Dcs9S3fj"
     },
     "app-initial~app-main~automations-page-bHJfYUGr": {
       "restored": "app-shell/app-fallback.tsx",
