@@ -6,7 +6,7 @@ import {
   Qi as threadSummaryPanelSectionTransition,
   bV as createScopedSignalRaw,
   jM as initScopedSignalRuntime,
-} from "../boundaries/current-ref/appg-thread-shared-producer";
+} from "../vendor/appg-thread-shared-runtime";
 import {
   $c as openBrowserSummaryTab,
   Cd as pinnedSummaryPanelSpringTransition,
@@ -29,7 +29,7 @@ import {
   Ya as showRightPanel,
   wl as currentWorkspaceRootSignal,
   yu as initWorkspaceRouteStateSignalsRaw,
-} from "../boundaries/current-ref/projects-app-shared-producer";
+} from "../vendor/projects-app-shared-runtime";
 import {
   At as initRestoredProcessRowsCollectorDependenciesRaw,
   cs as backgroundAgentsSignal,
@@ -47,7 +47,7 @@ import {
   xt as initThreadSummarySourceSupportChunkRaw,
   xl as initThreadSummaryPanelSignalsSupportChunkRaw,
   yc as initLocalConversationSummaryPanelSupportChunkRaw,
-} from "../boundaries/current-ref/profile-page-producer";
+} from "../vendor/profile-page-runtime";
 import {
   initLocalConversationRouteRuntime,
   localConversationRouteScope,
