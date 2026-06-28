@@ -7,19 +7,19 @@ import {
   lP as hostMessageBridge,
   mP as appMainLogger,
   pP as initAppFeatureRuntimeChunk,
-} from "../boundaries/current-ref/appg-thread-shared-producer";
+} from "../vendor/appg-thread-shared-runtime";
 import {
   So as initProjectsAppEntryChunk,
   bo as getCodexWindowChrome,
   wo as readCompactWindowPreference,
   xo as initProjectsSharedRuntimeChunk,
-} from "../boundaries/current-ref/projects-app-shared-producer";
+} from "../vendor/projects-app-shared-runtime";
 import {
   c as initAutomationsRuntimeChunk,
   r as initAutomationsStateChunk,
   s as CodexApp,
   t as initCodexAppChunk,
-} from "../boundaries/current-ref/automations-page-producer";
+} from "../vendor/automations-page-runtime";
 
 export type CodexOs = "win32" | "darwin" | "linux" | "unknown";
 export type RendererLogLevel = "error" | "info" | "warn";
