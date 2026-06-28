@@ -2,16 +2,15 @@
 // Tool and web-source chips for the local conversation summary panel.
 import type { ComponentType, MouseEvent, SVGProps } from "react";
 import { once } from "../../runtime/commonjs-interop";
+import { initTooltipPrimitives, Tooltip } from "../../ui/tooltip-b";
 import {
   Jt as ConnectedNodesIcon,
   La as initExternalUrlHelpers,
   Yt as initConnectedNodesIcon,
   eo as ConnectorAppIcon,
-  hM as initTooltipPrimitives,
   io as getKnownAppIconById,
   na as GlobeIcon,
   oo as initKnownAppIconRegistry,
-  pM as Tooltip,
   ra as initGlobeIcon,
   to as initConnectorAppIconRuntime,
   za as openInBrowserFromEvent,

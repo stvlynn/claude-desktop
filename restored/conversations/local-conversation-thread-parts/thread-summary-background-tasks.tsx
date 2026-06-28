@@ -14,6 +14,7 @@ import {
   initDropdownMenuPrimitives,
 } from "../../ui/dropdown";
 import { initSpinnerComponent, Spinner } from "../../ui/spinner";
+import { initTooltipPrimitives, Tooltip } from "../../ui/tooltip-b";
 import { classNames, initClassNameRuntime } from "../../utils/class-names";
 import {
   $N as initVscodeApiBridge,
@@ -26,9 +27,7 @@ import {
   SV as initQueryRuntime,
   ak as initAppServerRequestBridge,
   FB as useScope,
-  hM as initTooltipPrimitives,
   ok as sendAppServerRequest,
-  pM as Tooltip,
   tP as useAppServerMutation,
 } from "../../boundaries/current-ref/appg-thread-shared-producer";
 import {

@@ -2,13 +2,15 @@
 import type { MouseEvent, ReactNode } from "react";
 import { once } from "../../runtime/commonjs-interop";
 import {
+  initTooltipPrimitives,
+  Tooltip,
+  TooltipProvider,
+} from "../../ui/tooltip-b";
+import {
   Ja as CheckCircleIcon,
   La as initExternalUrlHelpers,
   Ya as initCheckCircleFilledIcon,
-  hM as initTooltipPrimitives,
   iF as initIntlRuntime,
-  mM as TooltipProvider,
-  pM as Tooltip,
   za as openInBrowserFromEvent,
 } from "../../boundaries/current-ref/appg-thread-shared-producer";
 import {

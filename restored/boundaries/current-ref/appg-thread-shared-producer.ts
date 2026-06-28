@@ -50,6 +50,11 @@ export {
   initDropdownMenuPrimitives as Zi,
 } from "../../ui/dropdown";
 export {
+  initTooltipPrimitives as hM,
+  Tooltip as pM,
+  TooltipProvider as mM,
+} from "../../ui/tooltip-b";
+export {
   FormattedMessage as sF,
   initIntlRuntime as iF,
   useIntl as lF,

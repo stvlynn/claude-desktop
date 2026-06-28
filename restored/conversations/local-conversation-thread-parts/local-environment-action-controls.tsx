@@ -22,6 +22,7 @@ import {
   DropdownSubmenuItem as DropdownMenuSubmenu,
   initDropdownMenuPrimitives,
 } from "../../ui/dropdown";
+import { initTooltipPrimitives, Tooltip } from "../../ui/tooltip-b";
 import {
   initUseStableCallback,
   useStableCallback,
@@ -41,7 +42,6 @@ import {
   Fx as initEnvironmentTerminalController,
   Ga as initElectronPlatformContent,
   Hh as initGitQueryKeyHelpers,
-  hM as initTooltipPrimitives,
   Ix as environmentTerminalControllerService,
   kj as normalizeConfigPath,
   lL as LOCAL_ENVIRONMENT_CONFIG_PATH_SETTING_KEY,
@@ -54,7 +54,6 @@ import {
   Ov as useNavigate,
   PB as useScopedValue,
   Pi as openScopedModal,
-  pM as Tooltip,
   pP as initLoggerRuntime,
   QP as appScope,
   Rj as initCommandMenuItemRuntime,

@@ -446,6 +446,9 @@ function TooltipInner({
     </>
   );
 }
+
+export function initTooltipPrimitives(): void {}
+
 function renderTrigger({
   children,
   className,

@@ -4,12 +4,11 @@ import type { ReactElement, SVGProps } from "react";
 import { GitBranchIcon, initGitBranchIcon } from "../../icons/git-branch-icon";
 import { once } from "../../runtime/commonjs-interop";
 import { initSpinnerComponent, Spinner } from "../../ui/spinner";
+import { initTooltipPrimitives, Tooltip } from "../../ui/tooltip-b";
 import { classNames, initClassNameRuntime } from "../../utils/class-names";
 import {
-  iF as initIntlRuntime,
-  hM as initTooltipPrimitives,
   mo as initGitHubIcon,
-  pM as Tooltip,
+  iF as initIntlRuntime,
 } from "../../boundaries/current-ref/appg-thread-shared-producer";
 import {
   l as getGithubAvatarUrl,
