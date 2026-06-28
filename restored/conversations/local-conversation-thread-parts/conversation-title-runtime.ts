@@ -2,9 +2,9 @@
 // Conversation title formatting and id normalization helpers used by the local summary panel.
 import {
   iO as formatConversationTitleTextRaw,
-  pz as toConversationIdRaw,
   rO as initConversationTitleFormatterRaw,
 } from "../../vendor/appg-thread-shared-runtime";
+import { normalizeConversationId } from "../../boundaries/src-l0hb-mz-p";
 
 export function initConversationTitleRuntime(): void {
   initConversationTitleFormatterRaw();
@@ -15,5 +15,5 @@ export function formatConversationTitleText(title: string): string {
 }
 
 export function toConversationId(value: string): string {
-  return toConversationIdRaw(value);
+  return normalizeConversationId(value);
 }

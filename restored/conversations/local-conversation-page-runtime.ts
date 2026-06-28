@@ -18,10 +18,10 @@ import {
   dV as createDerivedSignal,
   kj as normalizeConfigPath,
   ok as sendAppServerRequest,
-  pz as toConversationId,
   qV as getChunkModuleExports,
   qj as useStatsigGate,
 } from "../vendor/appg-thread-shared-runtime";
+import { normalizeConversationId as toConversationId } from "../boundaries/src-l0hb-mz-p";
 import {
   Sl as activeWorkspaceDiffSignal,
   nc as appShellIntlSignal,

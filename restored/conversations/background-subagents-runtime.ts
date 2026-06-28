@@ -3,8 +3,8 @@
 import {
   cA as getSubagentSourceMetadataRaw,
   pA as getCachedConversationTurnsRaw,
-  pz as normalizeConversationIdRaw,
 } from "../vendor/appg-thread-shared-runtime";
+import { normalizeConversationId as normalizeConversationIdValue } from "../boundaries/src-l0hb-mz-p";
 import { cs as backgroundAgentsSignal } from "../vendor/profile-page-runtime";
 import { parseUnifiedDiffFileSummaries } from "../utils/unified-diff-file-summaries";
 import { Fv as formatAgentPathDisplayNameRaw } from "../vendor/projects-app-shared-runtime";
@@ -758,7 +758,7 @@ function formatAgentPathDisplayName(agentPath: unknown): string | null {
 }
 
 function normalizeConversationId(value: unknown): string {
-  return normalizeConversationIdRaw(String(value ?? "")) as string;
+  return normalizeConversationIdValue(value);
 }
 
 function asSourceLinkedThread(value: unknown): SourceLinkedThread | null {
