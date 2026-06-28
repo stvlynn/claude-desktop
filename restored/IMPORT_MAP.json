@@ -11239,8 +11239,8 @@
       },
       "status": "partial",
       "boundary": "boundaries/current-ref/automations-page-producer.ts",
-      "note": "Partial app-shell/local-thread restore: Electron root fallback lives in app-shell/app-fallback.tsx with semantic public exports; the current-ref automations-page producer preserves the original Ln/Rn bundle aliases. Appgen publication-terms side-panel handler lives in appgen/publication-terms/side-panel-handler.ts; windows.tabs.open handler lives in app-shell/windows-tabs-open-handler.ts; local-conversation diff summary effects live in conversations/local-conversation-page-parts/local-conversation-diff-summary-effects.tsx; local-thread window focus state lives in runtime/window-focus-state.ts; automation inbox hook/init lives in utils/use-automation-history-items.ts; local-conversation automation tooltip/composer surface lives in automation/automation-surface.tsx. The large Electron CodexApp root remains explicitly isolated behind vendor/automations-page-runtime.ts until the full app router is restored.",
-      "lastUpdated": "2026-06-28T00:00:00.000Z"
+      "note": "Partial app-shell/local-thread restore: Electron root fallback lives in app-shell/app-fallback.tsx with semantic public exports; current automations root aliases are now funneled through vendor/automations-page-runtime.ts, which forwards semantic names from vendor/app-main-current-runtime.ts instead of a stale ref hash. The current-ref automations-page producer preserves the original c/r/s/t compatibility aliases. The large Electron CodexApp root remains an open partial boundary until the full app router is restored.",
+      "lastUpdated": "2026-06-28T21:05:00.000Z"
     },
     "app-initial~app-main~worktree-init-v2-page~remote-conversation-page~new-thread-panel-page~o~bj5tp28r-CQrj7g91": {
       "restored": "ui/browser-sidebar-menu.tsx",
@@ -13008,8 +13008,8 @@
       "exports": {},
       "status": "done",
       "aliasOf": "app-main-lwTO-JL9",
-      "note": "Current synced Electron main-window bootstrap. Semantic app-main runtime bindings were updated to the current producer aliases used by app-main-DxUcMyo0.",
-      "lastUpdated": "2026-06-28T20:55:00.000Z"
+      "note": "Current synced Electron main-window bootstrap. Runtime bindings now import through vendor/app-main-current-runtime.ts instead of direct ref producer paths.",
+      "lastUpdated": "2026-06-28T21:05:00.000Z"
     },
     "local-conversation-thread-BwqAGxoz": {
       "restored": "conversations/local-conversation-thread.tsx",
@@ -13082,6 +13082,69 @@
       "status": "done",
       "note": "Current register-app-actions producer matches the existing app-shell action registration surface with updated app-action schema imports.",
       "lastUpdated": "2026-06-28T20:55:00.000Z"
+    },
+    "app-initial~app-main~worktree-init-v2-page~remote-conversation-page~plugin-detail-page~new-~sfopfmmp-9J50_--p": {
+      "restored": "vendor/app-main-current-runtime.ts",
+      "exports": {
+        "D": "initAppRuntimeChunk",
+        "M": "initAppLoggingChunk",
+        "N": "appMainLogger",
+        "O": "hostMessageBridge"
+      },
+      "status": "partial",
+      "note": "Current app-main shared runtime producer facade for the Electron bootstrap aliases. Still backed by current ref exports until this mixed React/host-message producer is deep-restored.",
+      "lastUpdated": "2026-06-28T21:05:00.000Z"
+    },
+    "app-initial~app-main~worktree-init-v2-page~remote-conversation-page~new-thread-panel-page~o~bj5tp28r-Dcs9S3fj": {
+      "restored": "vendor/app-main-current-runtime.ts",
+      "exports": {
+        "Mb": "refreshStatsigDiagnostics",
+        "jb": "initProjectsAppEntryChunk"
+      },
+      "status": "partial",
+      "note": "Current app-main projects/bootstrap producer facade for Statsig diagnostics refresh and projects app entry initialization; full producer remains an open partial boundary.",
+      "lastUpdated": "2026-06-28T21:05:00.000Z"
+    },
+    "app-initial~app-main~onboarding-page-BUwCKIcU": {
+      "restored": "vendor/app-main-current-runtime.ts",
+      "exports": {
+        "og": "getCodexWindowChrome",
+        "sg": "initAppFeatureRuntimeChunk"
+      },
+      "status": "partial",
+      "note": "Current app-main onboarding/shared producer facade for window chrome and feature runtime initialization; full producer remains an open partial boundary.",
+      "lastUpdated": "2026-06-28T21:05:00.000Z"
+    },
+    "app-initial~app-main~worktree-init-v2-page~appgen-settings-page~page~appgen-page~remote-con~di269h6j-x1JD0lOF": {
+      "restored": "vendor/app-main-current-runtime.ts",
+      "exports": {
+        "_": "initRendererErrorBoundaryStateChunk",
+        "n": "initProjectsSharedRuntimeChunk"
+      },
+      "status": "partial",
+      "note": "Current app-main renderer boundary/projects shared producer facade; full producer remains an open partial boundary.",
+      "lastUpdated": "2026-06-28T21:05:00.000Z"
+    },
+    "app-initial~app-main~remote-conversation-page~pull-requests-page~onboarding-page~hotkey-win~fzw0jvy4-rg89odR_": {
+      "restored": "vendor/app-main-current-runtime.ts",
+      "exports": {
+        "za": "readCompactWindowPreference"
+      },
+      "status": "partial",
+      "note": "Current app-main shell-preference producer facade for compact-window state; full producer remains an open partial boundary.",
+      "lastUpdated": "2026-06-28T21:05:00.000Z"
+    },
+    "app-initial~app-main~automations-page-BfqUlSo6": {
+      "restored": "vendor/app-main-current-runtime.ts",
+      "exports": {
+        "a": "CodexApp",
+        "o": "initAutomationsRuntimeChunk",
+        "r": "initAutomationsStateChunk",
+        "t": "initCodexAppChunk"
+      },
+      "status": "partial",
+      "note": "Current app-main automations/root app producer facade for the Electron CodexApp bootstrap aliases; full app router producer remains an open partial boundary.",
+      "lastUpdated": "2026-06-28T21:05:00.000Z"
     }
   }
 }

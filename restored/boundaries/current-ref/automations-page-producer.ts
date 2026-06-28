@@ -23,14 +23,14 @@ export {
   initAutomationSurface,
 } from "../../automation/automation-surface";
 export {
-  c,
   CodexApp,
+  CodexApp as s,
   initAutomationsRuntimeChunk,
+  initAutomationsRuntimeChunk as c,
   initAutomationsStateChunk,
+  initAutomationsStateChunk as r,
   initCodexAppChunk,
-  r,
-  s,
-  t,
+  initCodexAppChunk as t,
 } from "../../vendor/automations-page-runtime";
 export {
   LocalConversationDiffSummaryView,
