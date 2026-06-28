@@ -53,10 +53,8 @@ import {
   un as waitForThreadLayoutTick,
 } from "../../boundaries/current-ref/projects-app-shared-producer";
 import { useAutomationItems } from "../../utils/use-automation-history-items";
-import {
-  Kt as captureConversationCopy,
-  Na as useAppgenEndCardEnabled,
-} from "../../boundaries/current-ref/pull-request-thread-actions-producer";
+import { Kt as captureConversationCopy } from "../../boundaries/current-ref/pull-request-thread-actions-producer";
+import { useAppgenSitesEntryPointEnabled as useAppgenEndCardEnabled } from "../../features/appgen-gating";
 import {
   Mt as registerContentSearchRevealHandler,
   Nt as scrollContentSearchItemIntoView,
