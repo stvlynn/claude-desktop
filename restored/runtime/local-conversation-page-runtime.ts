@@ -110,7 +110,7 @@ import {
   registerDebugPanelSource,
   unregisterDebugPanelSource,
   useIsDebugPanelEnabled,
-} from "../boundaries/current-ref/debug-panel-producer";
+} from "../debug/debug-panel";
 import {
   initPendingWorktreeChunk,
   PendingWorktreeConversation,
