@@ -81,6 +81,10 @@ export {
   initClassNameRuntime as VP,
 } from "../../utils/class-names";
 export {
+  getErrorMessage as VR,
+  parseConfigLoadError as IL,
+} from "../../utils/config-load-error";
+export {
   Button as DN,
   initButtonComponentPrimitives as ON,
 } from "../../ui/button";

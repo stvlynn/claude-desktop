@@ -1,9 +1,9 @@
 // Restored from ref/webview/assets/local-conversation-thread-Bf38rCmF.js
 // Error classification and localized messages for local conversation resume failures.
 import {
-  IL as parseConfigLoadError,
-  VR as getErrorMessage,
-} from "../../boundaries/current-ref/appg-thread-shared-producer";
+  getErrorMessage,
+  parseConfigLoadError,
+} from "../../utils/config-load-error";
 
 type IntlFormatter = {
   formatMessage(
