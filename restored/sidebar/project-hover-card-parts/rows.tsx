@@ -1,8 +1,10 @@
 // Restored from ref/webview/assets/app-initial~app-main~projects-index-page~local-conversation-page-4SURv8Cr.js
 // Shared project hover card row primitives.
 import type { ReactNode } from "react";
-import { BP as classNames } from "../../boundaries/current-ref/appg-thread-shared-producer";
-import { Wd as RowActionChevronIcon } from "../../boundaries/current-ref/profile-page-producer";
+import {
+  classNames,
+  RowActionChevronIcon,
+} from "../../runtime/project-hover-card-runtime";
 import type { RenderableProjectSourceRow } from "./types";
 
 export function ProjectHoverCardInfoRow({

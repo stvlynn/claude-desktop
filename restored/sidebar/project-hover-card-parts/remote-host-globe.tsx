@@ -2,14 +2,14 @@
 // Stable remote host globe coloring and the colored globe icon component.
 import { once } from "../../runtime/commonjs-interop";
 import {
-  AB as initScopeRuntime,
-  IB as useSignalValue,
-  MM as createPersistentSignal,
-  jM as initPersistentSignalRuntime,
-  na as GlobeIcon,
-  qV as getChunkModuleExports,
-  ra as initSignalHooksRuntime,
-} from "../../boundaries/current-ref/appg-thread-shared-producer";
+  createPersistentSignal,
+  getChunkModuleExports,
+  GlobeIcon,
+  initPersistentSignalRuntime,
+  initScopeRuntime,
+  initSignalHooksRuntime,
+  useSignalValue,
+} from "../../runtime/project-hover-card-runtime";
 
 const REMOTE_HOST_GLOBE_LIGHTNESS = 0.74;
 const MIN_REMOTE_HOST_GLOBE_CHROMA = 0.09;

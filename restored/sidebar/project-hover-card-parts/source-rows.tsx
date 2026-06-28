@@ -1,10 +1,10 @@
 // Restored from ref/webview/assets/app-initial~app-main~projects-index-page~local-conversation-page-4SURv8Cr.js
 // Source row normalization and icon selection for the project hover card.
 import {
-  Sj as normalizeTextForCompare,
-  na as GlobeIcon,
-  wj as initStringNormalizeRuntime,
-} from "../../boundaries/current-ref/appg-thread-shared-producer";
+  GlobeIcon,
+  initStringNormalizeRuntime,
+  normalizeTextForCompare,
+} from "../../runtime/project-hover-card-runtime";
 import { once } from "../../runtime/commonjs-interop";
 import { RemoteHostGlobeIcon } from "./remote-host-globe";
 import { ProjectSourceFolderIcon, RepositorySourceIcon } from "./source-icons";

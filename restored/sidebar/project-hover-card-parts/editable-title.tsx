@@ -2,19 +2,19 @@
 // Inline project title editing and the edit-project action row.
 import React from "react";
 import {
-  Ex as setGlobalSettingValue,
-  FB as useScope,
-  Ku as useGlobalStateQuery,
-  QP as appScope,
-  Vi as EditProjectIcon,
-  XR as globalSettingKeys,
-  lF as useIntl,
-  qn as openLocalProjectEditModal,
-  sF as FormattedMessage,
-  uM as toastControllerSignal,
-  vi as updateWorkspaceRootLabel,
-  zV as useQueryClient,
-} from "../../boundaries/current-ref/appg-thread-shared-producer";
+  appScope,
+  EditProjectIcon,
+  FormattedMessage,
+  globalSettingKeys,
+  openLocalProjectEditModal,
+  setGlobalSettingValue,
+  toastControllerSignal,
+  updateWorkspaceRootLabel,
+  useGlobalStateQuery,
+  useIntl,
+  useQueryClient,
+  useScope,
+} from "../../runtime/project-hover-card-runtime";
 import { localProjectActions } from "../../features/local-projects";
 import { getProjectHoverCardMessage } from "./messages";
 import { ProjectHoverCardRow } from "./rows";

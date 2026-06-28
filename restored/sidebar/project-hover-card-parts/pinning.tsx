@@ -3,13 +3,13 @@
 import type { SVGProps } from "react";
 import { once } from "../../runtime/commonjs-interop";
 import {
-  Cx as getGlobalSettingValue,
-  Ex as setGlobalSettingValue,
-  Tx as initGlobalSettingsRuntime,
-  XR as globalSettingKeys,
-  bF as initIntlMessageRuntime,
-  qV as getChunkModuleExports,
-} from "../../boundaries/current-ref/appg-thread-shared-producer";
+  getChunkModuleExports,
+  getGlobalSettingValue,
+  globalSettingKeys,
+  initGlobalSettingsRuntime,
+  initIntlMessageRuntime,
+  setGlobalSettingValue,
+} from "../../runtime/project-hover-card-runtime";
 import type { ScopeRuntime } from "./types";
 
 function ProjectPinIcon(props: SVGProps<SVGSVGElement>) {

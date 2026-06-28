@@ -1,11 +1,11 @@
 // Restored from ref/webview/assets/app-initial~app-main~projects-index-page~local-conversation-page-4SURv8Cr.js
 // Remote connection status row rendered below host source rows.
 import {
-  BP as classNames,
-  HE as useHostConfigById,
-  lF as useIntl,
-} from "../../boundaries/current-ref/appg-thread-shared-producer";
-import { an as useRemoteConnectionState } from "../../boundaries/current-ref/appgen-library-hot-producer";
+  classNames,
+  useHostConfigById,
+  useIntl,
+  useRemoteConnectionState,
+} from "../../runtime/project-hover-card-runtime";
 import { getRemoteConnectionStatusBadgeModel } from "./remote-connection-status";
 import { ProjectHoverCardInfoRow } from "./rows";
 import type {

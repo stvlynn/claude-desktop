@@ -1,11 +1,11 @@
 // Restored from ref/webview/assets/app-initial~app-main~projects-index-page~local-conversation-page-4SURv8Cr.js
 // Chat, waiting, unread, and active status summary rows for the project hover card.
 import {
-  kN as ActivityIcon,
-  lF as useIntl,
-  sF as FormattedMessage,
-} from "../../boundaries/current-ref/appg-thread-shared-producer";
-import { oi as WaitingStatusIcon } from "../../boundaries/current-ref/appgen-library-hot-producer";
+  ActivityIcon,
+  FormattedMessage,
+  useIntl,
+  WaitingStatusIcon,
+} from "../../runtime/project-hover-card-runtime";
 import { ChatIcon as ChatCountIcon } from "../../icons/chat-icon";
 import { getProjectHoverCardMessage } from "./messages";
 import { ProjectHoverCardInfoRow, ProjectHoverCardRow } from "./rows";

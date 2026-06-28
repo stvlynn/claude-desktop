@@ -2,7 +2,7 @@
 // Inline source row icons carried by the project hover card chunk.
 import type { SVGProps } from "react";
 import { once } from "../../runtime/commonjs-interop";
-import { qV as getChunkModuleExports } from "../../boundaries/current-ref/appg-thread-shared-producer";
+import { getChunkModuleExports } from "../../runtime/project-hover-card-runtime";
 
 export function RepositorySourceIcon(props: SVGProps<SVGSVGElement>) {
   return (

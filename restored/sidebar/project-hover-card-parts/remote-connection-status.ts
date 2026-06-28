@@ -2,9 +2,9 @@
 // Remote app-server connection status text and action model helpers.
 import { once } from "../../runtime/commonjs-interop";
 import {
-  bF as initIntlMessageRuntime,
-  iF as initReactIntlRuntime,
-} from "../../boundaries/current-ref/appg-thread-shared-producer";
+  initIntlMessageRuntime,
+  initReactIntlRuntime,
+} from "../../runtime/project-hover-card-runtime";
 import {
   getRemoteConnectionMessage,
   getRemoteConnectionStateMessage,
