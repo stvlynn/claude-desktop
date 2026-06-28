@@ -1,12 +1,14 @@
 // Restored from ref/webview/assets/local-conversation-thread-BwqAGxoz.js
 // Thread summary panel animation config and route-scoped signal helpers.
 import {
-  $i as initSummaryPanelAnimationConfig,
   NM as createPersistedScopedSignalRaw,
-  Qi as threadSummaryPanelSectionTransition,
   bV as createScopedSignalRaw,
   jM as initScopedSignalRuntime,
 } from "../../vendor/appg-thread-shared-runtime";
+import {
+  $i as initSummaryPanelAnimationConfig,
+  Qi as threadSummaryPanelSectionTransition,
+} from "../../vendor/pull-request-thread-actions-runtime";
 import {
   $c as openBrowserSummaryTab,
   Cd as pinnedSummaryPanelSpringTransition,

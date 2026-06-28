@@ -21,9 +21,11 @@ import {
   VB as createIsArrayLike,
   wA as createIdentity,
   XB as createIsArguments,
+} from "../vendor/appg-thread-shared-runtime";
+import {
   _r as createDefineProperty,
   _u as createBaseAt,
-} from "../vendor/appg-thread-shared-runtime";
+} from "../vendor/pull-request-thread-actions-runtime";
 import { initClassNameRuntime } from "../boundaries/current-ref/appg-thread-shared-producer";
 
 export {

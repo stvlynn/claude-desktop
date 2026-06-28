@@ -9,20 +9,22 @@ import {
   CS as initPullRequestViewedEventRuntime,
   FB as useScope,
   kE as initPullRequestActionEventRuntime,
-  La as initExternalUrlHelpers,
   NI as routeToPendingWorktree,
-  Qt as Switch,
   ST as pullRequestViewedFromSidePanelEvent,
   TS as logScopedProductEvent,
   tP as useAppServerMutation,
   uM as toastSignal,
   VN as initSwitchRuntime,
   XN as queryKey,
-  za as openInBrowserFromEvent,
   zV as useQueryClient,
   bT as pullRequestActionEvent,
   xT as pullRequestKindActionEvent,
 } from "../vendor/appg-thread-shared-runtime";
+import {
+  La as initExternalUrlHelpers,
+  Qt as Switch,
+  za as openInBrowserFromEvent,
+} from "../vendor/pull-request-thread-actions-runtime";
 import {
   Button,
   classNames,
