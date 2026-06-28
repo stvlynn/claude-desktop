@@ -45,7 +45,7 @@ import {
   yc as ho,
   yn as _o,
 } from "../../boundaries/current-ref/projects-app-shared-producer";
-import { Gt as initMarkdownCopyHelpers } from "../../boundaries/current-ref/pull-request-thread-actions-producer";
+import { initMarkdownCopyHelpers } from "../conversation-copy";
 import {
   $n as vs,
   In as Ns,
