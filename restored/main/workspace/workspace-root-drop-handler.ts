@@ -38,6 +38,35 @@ type KeyValueStore = {
   flush?(): Promise<void>;
   getStateFilePath?(): string;
 };
+type DesktopSettingHostStorage =
+  | { kind: "configuration"; key: string }
+  | { kind: "global-state"; key: string }
+  | { kind: "persisted-atom"; key: string };
+type DesktopSettingDefinition = {
+  key: string;
+  default?: unknown;
+  hostStorage: DesktopSettingHostStorage;
+  schema?: unknown;
+};
+type SettingsConfigClient = {
+  readConfig(): Promise<unknown> | unknown;
+  batchWriteConfigValues(request: {
+    edits: Array<{
+      keyPath: string;
+      mergeStrategy: "replace";
+      value: unknown;
+    }>;
+  }): Promise<void> | void;
+};
+type SettingsStoreBoundary = {
+  getStateFilePath(): string;
+  getDesktopConfig(): Record<string, unknown>;
+  get(key: string): unknown;
+  getEffective(key: string): unknown;
+  set(key: string, value: unknown): void;
+  flush(): Promise<void>;
+  initialize(client: SettingsConfigClient): Promise<void>;
+};
 type NativeIntl = {
   formatMessage(message: {
     messageId: string;
@@ -958,7 +987,7 @@ function createDesktopRuntimePaths({ moduleDir }: { moduleDir: string }): {
   desktopRoot: string;
   repoRoot: string;
   globalState: KeyValueStore;
-  settingsStore: unknown;
+  settingsStore: SettingsStoreBoundary;
 } {
   (sharedRuntime.Ar as (() => void) | undefined)?.();
   const codexHome = (sharedRuntime.Ur as () => string)();
@@ -969,16 +998,30 @@ function createDesktopRuntimePaths({ moduleDir }: { moduleDir: string }): {
   if (!existsSync(globalStatePath) && !existsSync(`${globalStatePath}.bak`)) {
     globalState.set(getDesktopFirstSeenAtMsKey(), Date.now());
   }
+  const settingsStore = new FileBackedSettingsStoreBoundary(
+    path.join(codexHome, "config.toml"),
+    globalState,
+  );
+  const shouldSpawnInsideWsl =
+    process.platform === "win32" &&
+    process.env.WSL_DISTRO_NAME == null &&
+    settingsStore.getEffective(getRunCodexInWslSettingKey()) === true &&
+    (sharedRuntime.Kr as (() => unknown | null) | undefined)?.() != null;
+  (sharedRuntime.Yr as ((callback: () => boolean) => void) | undefined)?.(
+    () => shouldSpawnInsideWsl,
+  );
+  applyNativeThemeSource(
+    String(
+      settingsStore.getEffective(getAppearanceThemeSettingKey()) ?? "system",
+    ),
+  );
   return {
     codexHome,
     preloadPath: path.join(moduleDir, "preload.js"),
     desktopRoot,
     repoRoot,
     globalState,
-    settingsStore: createSettingsStoreBoundary(
-      path.join(codexHome, "config.toml"),
-      globalState,
-    ),
+    settingsStore,
   };
 }
 
@@ -1835,41 +1878,453 @@ class FileBackedGlobalStateStore implements KeyValueStore {
   }
 }
 
-function createSettingsStoreBoundary(
-  filePath: string,
-  _globalState: KeyValueStore,
-): {
-  getStateFilePath(): string;
-  get(key: string): unknown;
-  getEffective(key: string): unknown;
-  set(key: string, value: unknown): void;
-  flush(): Promise<void>;
-  initialize(options: {
-    readConfig(): Promise<unknown> | unknown;
-    batchWriteConfigValues?(value: unknown): Promise<void> | void;
-  }): Promise<void>;
-} {
-  const values = new Map<string, unknown>();
-  return {
-    getStateFilePath: () => filePath,
-    get: (key) => values.get(key),
-    getEffective: (key) =>
-      values.get(key) ?? getDefaultDesktopSettingValue(key),
-    set: (key, value) => {
-      if (value === undefined) values.delete(key);
-      else values.set(key, value);
-    },
-    async flush() {},
-    async initialize({ readConfig }) {
-      const config = await readConfig();
-      const desktopConfig =
-        isRecord(config) && isRecord(config.desktop) ? config.desktop : {};
-      values.clear();
-      for (const [key, value] of Object.entries(desktopConfig)) {
-        values.set(key, value);
+class FileBackedSettingsStoreBoundary implements SettingsStoreBoundary {
+  private readonly filePath: string;
+  private readonly globalState: KeyValueStore;
+  private state: Map<string, unknown>;
+  private pendingLegacyMigrations = new Map<string, unknown>();
+  private pendingWrites = new Map<string, unknown>();
+  private desktopConfig: Record<string, unknown>;
+  private configClient: SettingsConfigClient | null = null;
+  private persistQueued: Promise<void> = Promise.resolve();
+
+  constructor(filePath: string, globalState: KeyValueStore) {
+    this.filePath = filePath;
+    this.globalState = globalState;
+    this.desktopConfig = loadDesktopConfigFromToml(filePath);
+    this.state = parseDesktopSettings(this.desktopConfig);
+    migrateLegacyDesktopSettings(
+      this.state,
+      this.pendingLegacyMigrations,
+      this.globalState,
+    );
+  }
+
+  getStateFilePath(): string {
+    return this.filePath;
+  }
+
+  getDesktopConfig(): Record<string, unknown> {
+    return this.desktopConfig;
+  }
+
+  async initialize(configClient: SettingsConfigClient): Promise<void> {
+    this.configClient = configClient;
+    this.desktopConfig = readDesktopConfigFromAppServer(
+      await configClient.readConfig(),
+    );
+    const appServerState = parseDesktopSettings(this.desktopConfig);
+    const migratedAwayKeys = new Set<string>();
+
+    for (const definition of getDesktopSettingDefinitions()) {
+      if (this.pendingWrites.has(definition.key)) continue;
+      if (appServerState.has(definition.key)) {
+        this.state.set(definition.key, appServerState.get(definition.key));
+        if (this.pendingLegacyMigrations.delete(definition.key)) {
+          migratedAwayKeys.add(definition.key);
+        }
+        continue;
       }
-    },
-  };
+      if (!this.pendingLegacyMigrations.has(definition.key)) {
+        this.state.delete(definition.key);
+      }
+    }
+
+    this.migrateExistingUserFollowUpQueueMode();
+    clearMigratedLegacySettings(migratedAwayKeys, this.globalState);
+    await this.persistPendingSettings();
+  }
+
+  get(key: string): unknown {
+    return this.state.get(key);
+  }
+
+  getEffective(key: string): unknown {
+    return this.get(key) ?? getDefaultDesktopSettingValue(key);
+  }
+
+  set(key: string, value: unknown): void {
+    const parsedValue = parseSettingInputValue(key, value);
+    this.state.set(key, parsedValue);
+    this.desktopConfig[key] = serializeDesktopSettingValue(key, parsedValue);
+    this.pendingWrites.set(key, parsedValue);
+    void this.persistPendingSettings();
+  }
+
+  flush(): Promise<void> {
+    return this.persistQueued.then(() => this.persistPendingSettings());
+  }
+
+  private migrateExistingUserFollowUpQueueMode(): void {
+    const followUpQueueModeKey = getFollowUpQueueModeSettingKey();
+    if (this.state.has(followUpQueueModeKey)) return;
+    const persistedAtoms = this.globalState.getStored?.(
+      PERSISTED_ATOM_STATE_KEY,
+    );
+    const projectlessOnboardingCompleted =
+      isRecord(persistedAtoms) &&
+      persistedAtoms["electron:onboarding-projectless-completed"] === true;
+    const hasWorkspaceRoots =
+      arrayOfStrings(this.globalState.getStored?.(getWorkspaceRootOptionsKey()))
+        .length > 0;
+    if (!projectlessOnboardingCompleted && !hasWorkspaceRoots) return;
+
+    this.state.set(followUpQueueModeKey, "queue");
+    this.desktopConfig[followUpQueueModeKey] = serializeDesktopSettingValue(
+      followUpQueueModeKey,
+      "queue",
+    );
+    this.pendingWrites.set(followUpQueueModeKey, "queue");
+  }
+
+  private persistPendingSettings(): Promise<void> {
+    if (this.configClient == null) return this.persistQueued;
+    this.persistQueued = this.persistQueued
+      .catch(() => undefined)
+      .then(async () => {
+        const legacyMigrationSnapshot = new Map(this.pendingLegacyMigrations);
+        const writeSnapshot = new Map(this.pendingWrites);
+        const editsByKey = new Map(legacyMigrationSnapshot);
+        for (const [key, value] of writeSnapshot) editsByKey.set(key, value);
+        if (editsByKey.size === 0) return;
+
+        try {
+          await this.configClient?.batchWriteConfigValues({
+            edits: [...editsByKey.entries()].map(([key, value]) => ({
+              keyPath: `desktop.${key}`,
+              mergeStrategy: "replace",
+              value: serializeDesktopSettingValue(key, value),
+            })),
+          });
+          for (const [key, value] of legacyMigrationSnapshot) {
+            if (this.pendingLegacyMigrations.get(key) === value) {
+              this.pendingLegacyMigrations.delete(key);
+            }
+          }
+          for (const [key, value] of writeSnapshot) {
+            if (this.pendingWrites.get(key) === value) {
+              this.pendingWrites.delete(key);
+            }
+          }
+          clearMigratedLegacySettings(
+            new Set(legacyMigrationSnapshot.keys()),
+            this.globalState,
+          );
+        } catch (error) {
+          settingsLogger().warning("Failed to persist desktop settings", {
+            safe: {},
+            sensitive: { error },
+          });
+        }
+      });
+    return this.persistQueued;
+  }
+}
+
+const settingsLogger = loggerFactory("settings-store");
+
+function loadDesktopConfigFromToml(filePath: string): Record<string, unknown> {
+  if (!existsSync(filePath)) return {};
+  try {
+    const parseToml = sharedRuntime.zr as
+      | ((text: string) => unknown)
+      | undefined;
+    if (typeof parseToml !== "function") return {};
+    return sanitizeDesktopConfig(
+      extractDesktopConfig(parseToml(readFileSync(filePath, "utf8"))),
+    );
+  } catch (error) {
+    settingsLogger().warning(
+      "Failed to load desktop settings from config.toml",
+      {
+        safe: {},
+        sensitive: { error },
+      },
+    );
+    return {};
+  }
+}
+
+function readDesktopConfigFromAppServer(
+  config: unknown,
+): Record<string, unknown> {
+  return sanitizeDesktopConfig(extractDesktopConfig(config));
+}
+
+function extractDesktopConfig(config: unknown): Record<string, unknown> {
+  return isRecord(config) && isRecord(config.desktop) ? config.desktop : {};
+}
+
+function sanitizeDesktopConfig(
+  config: Record<string, unknown>,
+): Record<string, unknown> {
+  const sanitized: Record<string, unknown> = {};
+  for (const [key, value] of Object.entries(config)) {
+    if (!isJsonConfigValue(value)) {
+      settingsLogger().warning("Dropping unsupported desktop config value", {
+        safe: { key },
+        sensitive: {},
+      });
+      continue;
+    }
+    sanitized[key] = value;
+  }
+  return sanitized;
+}
+
+function parseDesktopSettings(
+  desktopConfig: Record<string, unknown>,
+): Map<string, unknown> {
+  const state = new Map<string, unknown>();
+  for (const [key, rawValue] of Object.entries(desktopConfig)) {
+    const definition = getDesktopSettingDefinition(key);
+    if (definition == null) continue;
+    const parsedValue = safeParseSettingValue(definition.key, rawValue, true);
+    if (parsedValue.success) {
+      state.set(definition.key, parsedValue.value);
+      continue;
+    }
+    settingsLogger().warning("Dropping invalid desktop setting", {
+      safe: { key },
+      sensitive: {},
+    });
+  }
+  return state;
+}
+
+function migrateLegacyDesktopSettings(
+  state: Map<string, unknown>,
+  pendingLegacyMigrations: Map<string, unknown>,
+  globalState: KeyValueStore,
+): void {
+  const persistedAtoms = globalState.getStored?.(PERSISTED_ATOM_STATE_KEY);
+  for (const definition of getDesktopSettingDefinitions()) {
+    if (state.has(definition.key)) continue;
+    const legacyValue = readLegacySettingValue(
+      definition,
+      globalState,
+      persistedAtoms,
+    );
+    if (legacyValue === undefined) continue;
+    const parsedValue = safeParseSettingValue(
+      definition.key,
+      legacyValue,
+      false,
+    );
+    if (!parsedValue.success) {
+      settingsLogger().warning("Dropping invalid migrated setting", {
+        safe: { key: definition.key },
+        sensitive: {},
+      });
+      continue;
+    }
+    state.set(definition.key, parsedValue.value);
+    pendingLegacyMigrations.set(definition.key, parsedValue.value);
+  }
+}
+
+function readLegacySettingValue(
+  definition: DesktopSettingDefinition,
+  globalState: KeyValueStore,
+  persistedAtoms: unknown,
+): unknown {
+  switch (definition.hostStorage.kind) {
+    case "configuration": {
+      const storedValue = globalState.getStored?.(definition.hostStorage.key);
+      if (storedValue !== undefined) return storedValue;
+      if (
+        definition.key === getComposerEnterBehaviorSettingKey() &&
+        isRecord(persistedAtoms) &&
+        Object.prototype.hasOwnProperty.call(persistedAtoms, "enter-behavior")
+      ) {
+        return persistedAtoms["enter-behavior"];
+      }
+      if (definition.key === getKeepRemoteControlAwakeSettingKey()) {
+        return globalState.getStored?.(getPreventSleepWhileRunningSettingKey());
+      }
+      return undefined;
+    }
+    case "global-state":
+      return globalState.getStored?.(definition.hostStorage.key);
+    case "persisted-atom":
+      if (
+        !isRecord(persistedAtoms) ||
+        !Object.prototype.hasOwnProperty.call(
+          persistedAtoms,
+          definition.hostStorage.key,
+        )
+      ) {
+        return undefined;
+      }
+      if (definition.key === getDefaultServiceTierSettingKey()) {
+        const readDefaultServiceTier = sharedRuntime.zi as
+          | ((atoms: Record<string, unknown>) => unknown)
+          | undefined;
+        return readDefaultServiceTier?.(persistedAtoms) ?? undefined;
+      }
+      return persistedAtoms[definition.hostStorage.key];
+  }
+}
+
+function clearMigratedLegacySettings(
+  keys: Set<string>,
+  globalState: KeyValueStore,
+): void {
+  if (keys.size === 0) return;
+  const persistedAtoms = globalState.getStored?.(PERSISTED_ATOM_STATE_KEY);
+  const nextPersistedAtoms = isRecord(persistedAtoms)
+    ? { ...persistedAtoms }
+    : null;
+  let persistedAtomsChanged = false;
+
+  for (const key of keys) {
+    const definition = getDesktopSettingDefinition(key);
+    if (definition == null) continue;
+    if (
+      key === getComposerEnterBehaviorSettingKey() &&
+      nextPersistedAtoms != null &&
+      Object.prototype.hasOwnProperty.call(nextPersistedAtoms, "enter-behavior")
+    ) {
+      delete nextPersistedAtoms["enter-behavior"];
+      persistedAtomsChanged = true;
+    }
+
+    switch (definition.hostStorage.kind) {
+      case "configuration":
+      case "global-state":
+        globalState.delete?.(definition.hostStorage.key);
+        break;
+      case "persisted-atom":
+        if (
+          nextPersistedAtoms != null &&
+          Object.prototype.hasOwnProperty.call(
+            nextPersistedAtoms,
+            definition.hostStorage.key,
+          )
+        ) {
+          delete nextPersistedAtoms[definition.hostStorage.key];
+          persistedAtomsChanged = true;
+        }
+        break;
+    }
+  }
+
+  if (persistedAtomsChanged) {
+    globalState.set(
+      PERSISTED_ATOM_STATE_KEY,
+      Object.keys(nextPersistedAtoms ?? {}).length === 0
+        ? undefined
+        : (nextPersistedAtoms ?? undefined),
+    );
+  }
+}
+
+function parseSettingInputValue(key: string, value: unknown): unknown {
+  const schema = getDesktopSettingSchema(key);
+  if (schema == null || typeof schema !== "object") return value;
+  const parser = schema as { parse?: (input: unknown) => unknown };
+  return typeof parser.parse === "function" ? parser.parse(value) : value;
+}
+
+function safeParseSettingValue(
+  key: string,
+  value: unknown,
+  fromToml: boolean,
+): { success: true; value: unknown } | { success: false } {
+  const schema = getDesktopSettingSchema(key);
+  if (schema == null || typeof schema !== "object") {
+    return { success: true, value };
+  }
+  const input = fromToml ? deserializeDesktopSettingValue(key, value) : value;
+  const parsed = (
+    schema as { safeParse?: (input: unknown) => unknown }
+  ).safeParse?.(input);
+  if (isRecord(parsed) && parsed.success === true) {
+    return { success: true, value: parsed.data };
+  }
+  if (parsed == null) {
+    const parser = schema as { parse?: (input: unknown) => unknown };
+    if (typeof parser.parse !== "function") {
+      return { success: true, value: input };
+    }
+    try {
+      return {
+        success: true,
+        value: parser.parse(input),
+      };
+    } catch {
+      return { success: false };
+    }
+  }
+  return { success: false };
+}
+
+function serializeDesktopSettingValue(key: string, value: unknown): unknown {
+  const schema = getDesktopSettingSchema(key);
+  const serialize = sharedRuntime.Di as
+    | ((schema: unknown, value: unknown) => unknown)
+    | undefined;
+  return typeof serialize === "function" && schema != null
+    ? serialize(schema, value)
+    : value;
+}
+
+function deserializeDesktopSettingValue(key: string, value: unknown): unknown {
+  const schema = getDesktopSettingSchema(key);
+  const deserialize = sharedRuntime.Ei as
+    | ((schema: unknown, value: unknown) => unknown)
+    | undefined;
+  return typeof deserialize === "function" && schema != null
+    ? deserialize(schema, value)
+    : value;
+}
+
+function getDesktopSettingDefinitions(): DesktopSettingDefinition[] {
+  const definitions = sharedRuntime.Oi as unknown;
+  return Array.isArray(definitions)
+    ? definitions.filter(isDesktopSettingDefinition)
+    : [];
+}
+
+function getDesktopSettingDefinition(
+  key: string,
+): DesktopSettingDefinition | null {
+  const getDefinition = sharedRuntime.Si as
+    | ((key: string) => unknown)
+    | undefined;
+  const definition = getDefinition?.(key);
+  return isDesktopSettingDefinition(definition) ? definition : null;
+}
+
+function getDesktopSettingSchema(key: string): unknown {
+  const getSchema = sharedRuntime.Ci as ((key: string) => unknown) | undefined;
+  return getSchema?.(key) ?? getDesktopSettingDefinition(key)?.schema;
+}
+
+function isDesktopSettingDefinition(
+  value: unknown,
+): value is DesktopSettingDefinition {
+  return (
+    isRecord(value) &&
+    typeof value.key === "string" &&
+    isRecord(value.hostStorage) &&
+    typeof value.hostStorage.kind === "string" &&
+    typeof value.hostStorage.key === "string"
+  );
+}
+
+function isJsonConfigValue(value: unknown): boolean {
+  if (
+    value == null ||
+    typeof value === "string" ||
+    typeof value === "number" ||
+    typeof value === "boolean"
+  ) {
+    return true;
+  }
+  if (Array.isArray(value)) return value.every(isJsonConfigValue);
+  if (!isRecord(value)) return false;
+  return Object.values(value).every(isJsonConfigValue);
 }
 
 function loadGlobalStateMap(filePath: string): Map<string, unknown> {
@@ -1938,6 +2393,74 @@ function getDesktopFirstSeenAtMsKey(): string {
   return (
     desktopStateKeys?.DESKTOP_FIRST_SEEN_AT_MS ?? "desktop-first-seen-at-ms"
   );
+}
+
+function getWorkspaceRootOptionsKey(): string {
+  const desktopStateKeys = sharedRuntime.Ds as
+    | { WORKSPACE_ROOT_OPTIONS?: string }
+    | undefined;
+  return (
+    desktopStateKeys?.WORKSPACE_ROOT_OPTIONS ?? "electron-saved-workspace-roots"
+  );
+}
+
+function getAppearanceThemeSettingKey(): string {
+  const appearanceSettings = sharedRuntime.Li as
+    | { theme?: { key?: string } }
+    | undefined;
+  return appearanceSettings?.theme?.key ?? "appearanceTheme";
+}
+
+function getRunCodexInWslSettingKey(): string {
+  const composerSettings = sharedRuntime.Pi as
+    | { runCodexInWsl?: { key?: string } }
+    | undefined;
+  return (
+    composerSettings?.runCodexInWsl?.key ?? "runCodexInWindowsSubsystemForLinux"
+  );
+}
+
+function getFollowUpQueueModeSettingKey(): string {
+  const composerSettings = sharedRuntime.Pi as
+    | { followUpQueueMode?: { key?: string } }
+    | undefined;
+  return composerSettings?.followUpQueueMode?.key ?? "followUpQueueMode";
+}
+
+function getComposerEnterBehaviorSettingKey(): string {
+  const composerSettings = sharedRuntime.Pi as
+    | { composerEnterBehavior?: { key?: string } }
+    | undefined;
+  return (
+    composerSettings?.composerEnterBehavior?.key ?? "composerEnterBehavior"
+  );
+}
+
+function getKeepRemoteControlAwakeSettingKey(): string {
+  const composerSettings = sharedRuntime.Pi as
+    | { keepRemoteControlAwakeWhilePluggedIn?: { key?: string } }
+    | undefined;
+  return (
+    composerSettings?.keepRemoteControlAwakeWhilePluggedIn?.key ??
+    "keepRemoteControlAwakeWhilePluggedIn"
+  );
+}
+
+function getPreventSleepWhileRunningSettingKey(): string {
+  const composerSettings = sharedRuntime.Pi as
+    | { preventSleepWhileRunning?: { key?: string } }
+    | undefined;
+  return (
+    composerSettings?.preventSleepWhileRunning?.key ??
+    "preventSleepWhileRunning"
+  );
+}
+
+function getDefaultServiceTierSettingKey(): string {
+  const serviceTierSettings = sharedRuntime.ji as
+    | { defaultServiceTier?: { key?: string } }
+    | undefined;
+  return serviceTierSettings?.defaultServiceTier?.key ?? "default-service-tier";
 }
 
 function filterStringArray(value: unknown): string[] {
