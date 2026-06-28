@@ -4,7 +4,7 @@ import { once } from "../../runtime/commonjs-interop";
 import {
   MY_REQUEST_PROMPT_HEADER,
   PULL_REQUEST_FIX_PROMPT_PREAMBLE,
-} from "../../runtime/pull-request-prompt-runtime";
+} from "./pull-request-prompt-runtime";
 import {
   focusComposerAfterPullRequestPrompt,
   initPullRequestComposerContextChunk,

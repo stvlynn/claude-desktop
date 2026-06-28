@@ -34,11 +34,11 @@ import {
   PullRequestDescriptionMarkdown,
   pullRequestCurrentBranchSignal,
   threadSidePanelPositionControllers,
-} from "../../runtime/pull-request-side-panel-runtime";
+} from "./pull-request-side-panel-runtime";
 import {
   getThreadBranchMismatchState,
   initThreadBranchComparisonRuntime,
-} from "../../runtime/pull-request-prompt-runtime";
+} from "./pull-request-prompt-runtime";
 import { PullRequestStatusIcon } from "../../github/pull-request-status";
 import {
   PullRequestMergeActions,

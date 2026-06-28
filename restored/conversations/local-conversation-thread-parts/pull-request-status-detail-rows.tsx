@@ -21,11 +21,9 @@ import {
   openPullRequestReviewCommentInReviewPanel,
   PullRequestCommentCard,
   pullRequestReviewCommentAttachmentsSignal,
-} from "../../runtime/pull-request-prompt-runtime";
+} from "./pull-request-prompt-runtime";
 import { ChatIcon as CommentBubbleIcon } from "../../icons/chat-icon";
-import {
-  XCircleFilledIcon as PullRequestFailedCheckIcon,
-} from "../../icons/x-circle-filled-icon";
+import { XCircleFilledIcon as PullRequestFailedCheckIcon } from "../../icons/x-circle-filled-icon";
 import {
   PullRequestInlineActionButton,
   initPullRequestInlineActionButtonChunk,

@@ -18,7 +18,7 @@ import {
   initPullRequestReviewCommentRuntime,
   PullRequestCommentCard,
   pullRequestReviewCommentAttachmentsSignal,
-} from "../../runtime/pull-request-prompt-runtime";
+} from "./pull-request-prompt-runtime";
 import {
   PullRequestInlineActionButton,
   initPullRequestInlineActionButtonChunk,

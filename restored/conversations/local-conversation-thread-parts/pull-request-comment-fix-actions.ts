@@ -7,7 +7,7 @@ import {
   initPullRequestReviewCommentRuntime,
   MY_REQUEST_PROMPT_HEADER,
   updatePullRequestReviewCommentAttachments,
-} from "../../runtime/pull-request-prompt-runtime";
+} from "./pull-request-prompt-runtime";
 import {
   focusComposerAfterPullRequestPrompt,
   initPullRequestComposerContextChunk,
