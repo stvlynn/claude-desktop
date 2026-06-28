@@ -28,7 +28,7 @@ import {
   initPullRequestGitSummaryRuntime,
   pullRequestStatusQuerySignal,
   useHeadBranchQuery,
-} from "../../runtime/pull-request-git-summary-runtime";
+} from "./pull-request-git-summary-runtime";
 import {
   getPullRequestMergeVisualState,
   getPullRequestVisualState,
