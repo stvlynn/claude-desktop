@@ -2,7 +2,9 @@
 // Error-boundary fallback used by the Electron app shell root.
 import { once } from "../runtime/commonjs-interop";
 
-export function AppFallback() {
+export type AppFallbackProps = Record<string, never>;
+
+export function AppFallback({}: AppFallbackProps = {}) {
   return (
     <div className="flex h-full flex-col items-center justify-center gap-4 p-6">
       <ErrorFallbackIcon className="icon-lg text-token-error-foreground" />
@@ -42,5 +44,3 @@ function ErrorFallbackIcon({ className }: { className?: string }) {
 }
 
 export const initAppFallbackChunk = once(() => {});
-
-export { AppFallback as Ln, initAppFallbackChunk as Rn };

@@ -67,6 +67,23 @@ describe("collectExportTokens", () => {
     expect(tokens).toContain("bar");
     void usedRegexFallback;
   });
+
+  test("collects CommonJS assignment exports", () => {
+    const { tokens } = collectExportTokens(`
+      exports.alpha = alpha;
+      module.exports.beta = beta;
+      Object.defineProperty(exports, "gamma", {
+        enumerable: true,
+        get: function () { return gamma; },
+      });
+      Object.defineProperties(exports, {
+        delta: { enumerable: true, get: function () { return delta; } },
+        "__esModule": { value: true },
+      });
+    `);
+
+    expect(tokens).toEqual(["alpha", "beta", "delta", "gamma"].sort());
+  });
 });
 
 describe("makeFacade", () => {

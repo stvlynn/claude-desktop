@@ -71,6 +71,20 @@ describe("quality-gate", () => {
     expect(report.issues).toEqual([]);
   });
 
+  test("passes Electron main build provenance headers when required", () => {
+    const source = `
+      // Restored from ref/.vite/build/preload.js
+      export const preloadBridge = true;
+    `.trimStart();
+    const report = analyzeSource(source, "preload.ts", {
+      ...DEFAULT_OPTIONS,
+      allowFlat: true,
+      requireProvenanceHeader: true,
+    });
+    expect(report.hasProvenanceHeader).toBe(true);
+    expect(report.issues).toEqual([]);
+  });
+
   test("fails repeated provenance headers", () => {
     const source = `// Restored from ref/webview/assets/toolbar-ABC123.js
 // Restored from ref/webview/assets/toolbar-ABC123.js
@@ -1427,6 +1441,25 @@ export function __rest(value) {
     expect(codes).toContain("full-restoration-public-file-in-hash-dir");
   });
 
+  test("anti-stall: public-file-in-hash-dir ignores semantic dirs matching non-hashed chunk names", () => {
+    const targetDir = makeTmpRoot();
+    writeFullManifest(targetDir, {
+      preload: {
+        basename: "preload",
+        kind: "local",
+        stages: { promoted: true },
+      },
+    });
+    fs.mkdirSync(path.join(targetDir, "preload"), { recursive: true });
+    fs.writeFileSync(
+      path.join(targetDir, "preload", "electron-bridge-preload.ts"),
+      "export const preloadBridge = true;\n",
+    );
+    const reports = analyzeFullRestorationCoverage(targetDir);
+    const codes = reports.flatMap((r) => r.issues.map((i) => i.code));
+    expect(codes).not.toContain("full-restoration-public-file-in-hash-dir");
+  });
+
   test("anti-stall: a fully promoted tree passes the drain checks", () => {
     const targetDir = makeTmpRoot();
     fs.mkdirSync(path.join(targetDir, "ui"), { recursive: true });
@@ -1983,6 +2016,19 @@ describe("checkFormatting", () => {
     expect(reports.every((r) => r.issues[0]!.code === "unformatted")).toBe(
       true,
     );
+  });
+
+  test("ignores unformatted files under the hidden restoration workspace", () => {
+    const fakeRun = () => ({
+      ok: false,
+      stdout:
+        "Checking formatting...\n[warn] restored/main/.deobfuscate-javascript/_full/files/preload/candidate.ts\n[warn] restored/main/preload/electron-bridge-preload.ts\n[warn] Code style issues found in 2 files.\n",
+      stderr: "",
+    });
+    const reports = checkFormatting("restored/main", fakeRun);
+    expect(reports.map((r) => r.file)).toEqual([
+      "restored/main/preload/electron-bridge-preload.ts",
+    ]);
   });
 
   test("returns no issues when everything is prettier-clean", () => {

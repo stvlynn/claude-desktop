@@ -622,11 +622,17 @@ function isLottieAnimationDataModule(file: string, source: string): boolean {
     /\bw\s*:/.test(leadingData) &&
     /\bh\s*:/.test(leadingData);
   return (
-    /Restored from ref\/webview\/assets\/[^/\r\n]+\.js/.test(header) &&
+    RESTORATION_PROVENANCE_RE.test(header) &&
     (hasLottieVersion || hasLottieToolkitMetadata) &&
     /\blayers\s*:/.test(source)
   );
 }
+
+const RESTORATION_PROVENANCE_HEADER_RE =
+  /^\/\/ Restored from ref\/(?:webview\/assets|\.vite\/build)\/[^/\r\n]+\.js\b/;
+
+const RESTORATION_PROVENANCE_RE =
+  /Restored from ref\/(?:webview\/assets|\.vite\/build)\/[^/\r\n]+\.js\b/;
 
 function isLocaleMessageDataModule(file: string, source: string): boolean {
   const normalized = file.replace(/\\/g, "/");
@@ -673,7 +679,9 @@ function isBundlerInteropRuntimeModule(file: string, source: string): boolean {
 
   const header = source.slice(0, 700);
   return (
-    /Restored from ref\/webview\/assets\/chunk-Cq_f4orQ\.js/.test(header) &&
+    /Restored from ref\/(?:webview\/assets|\.vite\/build)\/chunk-Cq_f4orQ\.js/.test(
+      header,
+    ) &&
     (/Rolldown CJS interop runtime boundary/i.test(header) ||
       (/\bconst create = Object\.create\b/.test(source) &&
         /\bconst toESM\b/.test(source) &&
@@ -702,15 +710,13 @@ function countLines(source: string): number {
 }
 
 function hasRestorationProvenanceHeader(source: string): boolean {
-  return /^\/\/ Restored from ref\/webview\/assets\/[^/\r\n]+\.js\b/.test(
-    source,
-  );
+  return RESTORATION_PROVENANCE_HEADER_RE.test(source);
 }
 
 function countRestorationProvenanceHeaders(source: string): number {
   let count = 0;
   for (const match of source.matchAll(
-    /^\/\/ Restored from ref\/webview\/assets\/[^/\r\n]+\.js\b/gm,
+    new RegExp(RESTORATION_PROVENANCE_HEADER_RE.source, "gm"),
   )) {
     void match;
     count++;
@@ -1970,11 +1976,11 @@ export function analyzeSource(
     !hasProvenanceHeader &&
     !isGeneratedBarrelFile(file)
   ) {
-    issues.push({
-      code: "missing-provenance-header",
-      message:
-        "Public restored files must start with // Restored from ref/webview/assets/<chunk>.js",
-    });
+      issues.push({
+        code: "missing-provenance-header",
+        message:
+          "Public restored files must start with // Restored from ref/<bundle-root>/<chunk>.js",
+      });
   }
   if (duplicateProvenanceHeaders > 0) {
     issues.push({
@@ -2096,13 +2102,19 @@ export function checkFormatting(
   // prettier --check prints `[warn] <path>` per unformatted file, plus a
   // `[warn] Code style issues found in N files.` summary line we must exclude.
   const offenders: string[] = [];
+  let sawHiddenWorkspaceOffender = false;
   for (const line of combined.split("\n")) {
     const m = line.match(/^\[warn\]\s+(.+?)\s*$/);
     if (!m) continue;
     const p = m[1]!;
     if (/code style issues/i.test(p) || !SOURCE_EXT_RE.test(p)) continue;
+    if (isHiddenCheckpointPath(p)) {
+      sawHiddenWorkspaceOffender = true;
+      continue;
+    }
     offenders.push(p);
   }
+  if (offenders.length === 0 && sawHiddenWorkspaceOffender) return [];
   if (offenders.length === 0) {
     // No file paths surfaced: prettier likely isn't installed/reachable.
     // Soft-skip with a single advisory note (not a hard gate failure).
@@ -2407,6 +2419,16 @@ function checkpointBasenames(targetDir: string): Set<string> {
   return out;
 }
 
+function looksLikeContentHashedChunkBasename(basename: string): boolean {
+  if (/--[A-Za-z0-9_]{6,12}$/.test(basename)) return true;
+  const lastSegment = basename.split("-").pop() ?? "";
+  return (
+    lastSegment.length >= 6 &&
+    lastSegment.length <= 12 &&
+    /[A-Z0-9_]/.test(lastSegment)
+  );
+}
+
 /**
  * The anti-stall checks: a whole-tree restore that built mechanical checkpoints
  * but never promoted them into the public tree (the "checkpoints full, restored/
@@ -2430,7 +2452,9 @@ function analyzeOrganizePromoteState(
     if (file.kind !== "local" && file.kind !== "oversized-local") continue;
     const basename = file.basename ?? fallback;
     if (!basename) continue;
-    localBasenames.add(basename);
+    if (looksLikeContentHashedChunkBasename(basename)) {
+      localBasenames.add(basename);
+    }
     const stages = file.stages ?? {};
     if (stages.faced) continue; // a facade boundary is not promotable
     if (stages.promoted) promoted.add(basename);

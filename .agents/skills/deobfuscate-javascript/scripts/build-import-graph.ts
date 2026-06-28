@@ -2,7 +2,7 @@ import * as fs from "node:fs";
 import * as path from "node:path";
 import { parseArgs } from "node:util";
 import * as parser from "@babel/parser";
-import babelTraverse from "@babel/traverse";
+import babelTraverse, { type NodePath } from "@babel/traverse";
 import * as t from "@babel/types";
 import {
   CHUNK_NAME_REGISTRY,
@@ -221,6 +221,79 @@ function describeImportSpecifier(
   return { imported: importedName, local: spec.local.name, kind: "named" };
 }
 
+function literalModuleSpecifier(node: t.Node | null | undefined): string | null {
+  if (!node) return null;
+  if (t.isStringLiteral(node)) return node.value;
+  if (
+    t.isTemplateLiteral(node) &&
+    node.expressions.length === 0 &&
+    node.quasis.length === 1
+  ) {
+    return node.quasis[0]!.value.cooked ?? node.quasis[0]!.value.raw;
+  }
+  return null;
+}
+
+function propertyName(node: t.Expression | t.PrivateName | null | undefined): string | null {
+  if (!node) return null;
+  if (t.isIdentifier(node)) return node.name;
+  if (t.isStringLiteral(node) || t.isNumericLiteral(node)) return String(node.value);
+  return null;
+}
+
+function getterReturnIdentifier(node: t.Expression | t.SpreadElement | null | undefined): string | null {
+  if (!node || !t.isObjectExpression(node)) return null;
+  const getterProp = node.properties.find(
+    (prop) =>
+      t.isObjectProperty(prop) &&
+      !prop.computed &&
+      t.isIdentifier(prop.key, { name: "get" }),
+  );
+  if (!getterProp || !t.isObjectProperty(getterProp)) return null;
+  const value = getterProp.value;
+  if (!t.isFunctionExpression(value) && !t.isArrowFunctionExpression(value)) {
+    return null;
+  }
+  if (t.isIdentifier(value.body)) return value.body.name;
+  if (!t.isBlockStatement(value.body)) return null;
+  for (const stmt of value.body.body) {
+    if (t.isReturnStatement(stmt) && t.isIdentifier(stmt.argument)) {
+      return stmt.argument.name;
+    }
+  }
+  return null;
+}
+
+function describeRequireDeclarator(path: NodePath<t.CallExpression>): ImportSpec[] {
+  const parent = path.parentPath;
+  if (!parent?.isVariableDeclarator() || parent.node.init !== path.node) {
+    return [];
+  }
+  const id = parent.node.id;
+  if (t.isIdentifier(id)) {
+    return [{ imported: "*", local: id.name, kind: "namespace" }];
+  }
+  if (!t.isObjectPattern(id)) {
+    return [];
+  }
+
+  const specs: ImportSpec[] = [];
+  for (const prop of id.properties) {
+    if (!t.isObjectProperty(prop)) continue;
+    const value = prop.value;
+    if (!t.isIdentifier(value)) continue;
+    const key = prop.key;
+    const imported = t.isIdentifier(key)
+      ? key.name
+      : t.isStringLiteral(key)
+        ? key.value
+        : null;
+    if (!imported) continue;
+    specs.push({ imported, local: value.name, kind: "named" });
+  }
+  return specs;
+}
+
 export type ParsedImports = {
   imports: ImportEdge[];
   exports: ExportEntry[];
@@ -394,26 +467,69 @@ export function parseImportsExports(
       }
       exports.push({ exported: "default", local, kind: "default" });
     },
+    AssignmentExpression(path) {
+      const left = path.node.left;
+      if (!t.isMemberExpression(left)) return;
+      const object = left.object;
+      const prop = propertyName(left.property);
+      if (t.isIdentifier(object, { name: "exports" }) && prop) {
+        const right = path.node.right;
+        exports.push({
+          exported: prop,
+          local: t.isIdentifier(right) ? right.name : prop,
+          kind: "named",
+        });
+        return;
+      }
+      if (
+        t.isIdentifier(object, { name: "module" }) &&
+        prop === "exports"
+      ) {
+        const right = path.node.right;
+        exports.push({
+          exported: "default",
+          local: t.isIdentifier(right) ? right.name : "module.exports",
+          kind: "default",
+        });
+      }
+    },
     CallExpression(path) {
       // Dynamic import("…").
       const callee = path.node.callee;
+      if (
+        t.isMemberExpression(callee) &&
+        t.isIdentifier(callee.object, { name: "Object" }) &&
+        propertyName(callee.property) === "defineProperty"
+      ) {
+        const [targetArg, exportNameArg, descriptorArg] = path.node.arguments;
+        if (t.isIdentifier(targetArg, { name: "exports" })) {
+          const exported = literalModuleSpecifier(exportNameArg);
+          const local = getterReturnIdentifier(descriptorArg);
+          if (exported && local) {
+            exports.push({ exported, local, kind: "named" });
+          }
+        }
+      }
+
       if (callee.type === "Import") {
         const arg = path.node.arguments[0];
-        if (arg && t.isStringLiteral(arg)) {
-          recordImport(arg.value, [], false);
-        } else if (
-          arg &&
-          t.isTemplateLiteral(arg) &&
-          arg.expressions.length === 0 &&
-          arg.quasis.length === 1
-        ) {
-          recordImport(
-            arg.quasis[0]!.value.cooked ?? arg.quasis[0]!.value.raw,
-            [],
-            false,
-          );
+        const sourceStr = literalModuleSpecifier(arg);
+        if (sourceStr) {
+          recordImport(sourceStr, [], false);
         } else {
           unresolved.push("dynamic-import-non-literal");
+        }
+        return;
+      }
+
+      // CommonJS require("…") / require(`…`) in Electron main/preload bundles.
+      if (t.isIdentifier(callee, { name: "require" })) {
+        const arg = path.node.arguments[0];
+        const sourceStr = literalModuleSpecifier(arg);
+        if (sourceStr) {
+          recordImport(sourceStr, describeRequireDeclarator(path), false);
+        } else {
+          unresolved.push("require-non-literal");
         }
       }
     },
@@ -428,6 +544,8 @@ export type BuildOptions = {
   treatAsNpm?: Set<string>;
   /** Existing manifest to merge into (preserves stage status). */
   prior?: Manifest;
+  /** Additional entry files to seed into the same restoration graph. */
+  additionalEntries?: string[];
   /**
    * Files exceeding this many lines are marked `oversized-local` and not
    * descended into. The entry is always exempt. Defaults to 0, which disables
@@ -467,6 +585,10 @@ export function buildImportGraph(
     opts.maxLines === undefined ? DEFAULT_MAX_LINES : opts.maxLines;
   const entryBasename = basenameOf(entryPath);
   forceInclude.add(entryBasename);
+  const additionalEntries = opts.additionalEntries ?? [];
+  for (const additionalEntry of additionalEntries) {
+    forceInclude.add(basenameOf(additionalEntry));
+  }
 
   const prior = opts.prior;
   const files: Record<string, ManifestFile> = {};
@@ -486,6 +608,9 @@ export function buildImportGraph(
   };
 
   enqueueLocal(entryBasename, entryPath, 0);
+  for (const additionalEntry of additionalEntries) {
+    enqueueLocal(basenameOf(additionalEntry), additionalEntry, 0);
+  }
 
   while (queue.length > 0) {
     const job = queue.shift()!;
@@ -668,7 +793,7 @@ const USAGE =
   "Usage: bun scripts/build-import-graph.ts [<entry.js>] --target <dir> [--root <dir>] " +
   "[--out <manifest.json>] [--treat-as-npm name,name,...] " +
   "[--max-lines 0] [--include basename1,basename2,...] " +
-  "[--index <index.html>] [--discover] [--no-entry-check]\n" +
+  "[--index <index.html>] [--discover] [--include-all-root-js] [--no-entry-check]\n" +
   "  The entry is optional when --root is given: it is auto-discovered from index.html.";
 
 async function main(): Promise<void> {
@@ -683,6 +808,7 @@ async function main(): Promise<void> {
         "treat-as-npm": { type: "string" },
         "max-lines": { type: "string" },
         include: { type: "string" },
+        "include-all-root-js": { type: "boolean", default: false },
         rebuild: { type: "boolean", default: false },
         index: { type: "string" },
         discover: { type: "boolean", default: false },
@@ -789,6 +915,15 @@ async function main(): Promise<void> {
     }
   }
 
+  const additionalEntries =
+    values["include-all-root-js"] && values.root
+      ? fs
+          .readdirSync(rootDir)
+          .filter((file) => /\.[cm]?jsx?$/i.test(file))
+          .map((file) => path.join(rootDir, file))
+          .filter((file) => path.resolve(file) !== path.resolve(entry))
+      : [];
+
   const progress = new Progress({ label: "graph" });
   const manifest = buildImportGraph(entry, {
     rootDir,
@@ -797,6 +932,7 @@ async function main(): Promise<void> {
     prior,
     maxLines,
     forceInclude,
+    additionalEntries,
     progress,
   });
   progress.done("graph built");

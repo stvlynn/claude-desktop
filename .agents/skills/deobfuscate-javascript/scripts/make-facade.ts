@@ -1,6 +1,7 @@
 import * as fs from "node:fs";
 import { parseArgs } from "node:util";
 import * as parser from "@babel/parser";
+import babelTraverse from "@babel/traverse";
 import * as t from "@babel/types";
 import { PARSER_PLUGINS } from "./extract.ts";
 
@@ -22,6 +23,10 @@ import { PARSER_PLUGINS } from "./extract.ts";
  */
 
 export const FACADE_MARKER = "TYPED BOUNDARY FACADE";
+
+const traverse = ((
+  babelTraverse as unknown as { default?: typeof babelTraverse }
+).default ?? babelTraverse) as typeof babelTraverse;
 
 // Names that cannot appear as `export declare const <name>`.
 const RESERVED = new Set([
@@ -178,6 +183,52 @@ export function collectExportTokens(source: string): {
         }
       }
     }
+    traverse(ast, {
+      AssignmentExpression(path) {
+        const left = path.node.left;
+        if (!t.isMemberExpression(left)) return;
+        const object = left.object;
+        const prop = propertyName(left.property);
+        if (t.isIdentifier(object, { name: "exports" })) {
+          addPublicToken(tokens, prop);
+          return;
+        }
+        if (
+          t.isMemberExpression(object) &&
+          t.isIdentifier(object.object, { name: "module" }) &&
+          propertyName(object.property) === "exports"
+        ) {
+          addPublicToken(tokens, prop);
+        }
+      },
+      CallExpression(path) {
+        const callee = path.node.callee;
+        if (
+          t.isMemberExpression(callee) &&
+          t.isIdentifier(callee.object, { name: "Object" })
+        ) {
+          const method = propertyName(callee.property);
+          if (method === "defineProperty") {
+            const [targetArg, exportNameArg] = path.node.arguments;
+            if (isExportsObject(targetArg)) {
+              addPublicToken(tokens, literalPropertyName(exportNameArg));
+            }
+          } else if (method === "defineProperties") {
+            const [targetArg, descriptorMapArg] = path.node.arguments;
+            if (
+              isExportsObject(targetArg) &&
+              t.isObjectExpression(descriptorMapArg)
+            ) {
+              for (const property of descriptorMapArg.properties) {
+                if (t.isObjectProperty(property)) {
+                  addPublicToken(tokens, propertyName(property.key));
+                }
+              }
+            }
+          }
+        }
+      },
+    });
   } catch (err) {
     parseError = (err as Error).message;
     parsedOk = false;
@@ -205,6 +256,46 @@ export function collectExportTokens(source: string): {
     usedRegexFallback,
     parseError,
   };
+}
+
+function addPublicToken(tokens: Set<string>, name: string | null): void {
+  if (!name || name === "__esModule") return;
+  tokens.add(name);
+}
+
+function propertyName(node: t.Node | null | undefined): string | null {
+  if (!node) return null;
+  if (t.isIdentifier(node)) return node.name;
+  if (t.isStringLiteral(node) || t.isNumericLiteral(node)) {
+    return String(node.value);
+  }
+  if (t.isTemplateLiteral(node) && node.expressions.length === 0) {
+    return node.quasis.map((quasi) => quasi.value.cooked ?? "").join("");
+  }
+  return null;
+}
+
+function literalPropertyName(node: t.Node | null | undefined): string | null {
+  if (!node) return null;
+  if (
+    t.isStringLiteral(node) ||
+    t.isNumericLiteral(node) ||
+    t.isIdentifier(node) ||
+    (t.isTemplateLiteral(node) && node.expressions.length === 0)
+  ) {
+    return propertyName(node);
+  }
+  return null;
+}
+
+function isExportsObject(node: t.Node | null | undefined): boolean {
+  if (!node) return false;
+  if (t.isIdentifier(node, { name: "exports" })) return true;
+  return (
+    t.isMemberExpression(node) &&
+    t.isIdentifier(node.object, { name: "module" }) &&
+    propertyName(node.property) === "exports"
+  );
 }
 
 /**
@@ -261,12 +352,14 @@ export function makeFacade(
     let mapped = 0;
     if (opts.exportStar || !opts.names) {
       lines.push(`export * from "${specifier}";`);
-      if (hasDefaultExport) lines.push(`export { default } from "${specifier}";`);
+      if (hasDefaultExport)
+        lines.push(`export { default } from "${specifier}";`);
     } else {
       const r = emitNamedReexports(opts.names, specifier, nameMap);
       lines.push(...r.lines);
       mapped = r.mapped;
-      if (hasDefaultExport) lines.push(`export { default } from "${specifier}";`);
+      if (hasDefaultExport)
+        lines.push(`export { default } from "${specifier}";`);
     }
     return {
       code: header + "\n" + lines.join("\n") + "\n",
@@ -296,7 +389,10 @@ export function makeFacade(
     const names = opts.names ?? tokens.filter((tk) => tk !== "default");
     const lines: string[] = [];
     let mapped = 0;
-    if (names.length === 0 || (!opts.names && Object.keys(nameMap).length === 0)) {
+    if (
+      names.length === 0 ||
+      (!opts.names && Object.keys(nameMap).length === 0)
+    ) {
       lines.push(`export * from "${refPath}";`);
       if (hasDefaultExport) lines.push(`export { default } from "${refPath}";`);
     } else {
@@ -383,7 +479,7 @@ const USAGE =
   "[--out facade.ts] [--provenance <relpath>]\n" +
   "  Default: emit an `export declare const … : any` typed boundary facade.\n" +
   "  --reexport <specifier> [--export-star | --reexport-named a,b,c]\n" +
-  "      Third-party shim: `export … from \"<specifier>\"` (the chunk IS that npm package).\n" +
+  '      Third-party shim: `export … from "<specifier>"` (the chunk IS that npm package).\n' +
   "  --passthrough <ref-relpath>\n" +
   "      Runtime interim: re-export the original ref chunk with @ts-nocheck + // TODO.\n" +
   "  --name-map maps a public name (what consumers import) → the real export name\n" +

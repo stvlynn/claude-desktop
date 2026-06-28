@@ -1,0 +1,80 @@
+{
+  "chunks": {
+    "avatar-overlay-composition-surface-preload": {
+      "restored": "preload/avatar-overlay-composition-surface-preload.ts",
+      "status": "done"
+    },
+    "preload": {
+      "restored": "preload/electron-bridge-preload.ts",
+      "status": "done"
+    },
+    "sandbox-preload": {
+      "restored": "preload/mcp-sandbox-preload.ts",
+      "status": "done"
+    },
+    "src-BZqs_tzA": {
+      "restored": "runtime/bundler-runtime.ts",
+      "exports": {
+        "a": "toCommonJsModule",
+        "i": "defineGetterNamespace",
+        "n": "createCommonJsModule",
+        "o": "toEsModule",
+        "r": "createLazyInitializer",
+        "t": "loadDebugModule"
+      },
+      "status": "done"
+    },
+    "core-CQO5x8Dn": {
+      "restored": "boundaries/file-type.ts",
+      "exports": {
+        "fileTypeFromBuffer": "fileTypeFromBuffer"
+      },
+      "status": "done",
+      "boundary": true,
+      "vendor": "file-type",
+      "note": "Vendored npm package re-export shim; package implementation excluded."
+    },
+    "src-Bnhv1yNK": {
+      "restored": "boundaries/shared-node-runtime.facade.ts",
+      "status": "faced",
+      "boundary": true,
+      "vendor": "runtime",
+      "openBoundary": true,
+      "note": "Temporary typed facade for mixed Zod/shared-node runtime; app-owned exports still require semantic restoration."
+    },
+    "file-based-logger-D5VNAgCV": {
+      "restored": "logging/file-based-logger/index.ts",
+      "exports": {
+        "a": "shouldUseOwlAppShell",
+        "i": "BuildFlavor",
+        "n": "resolveLogRootDir",
+        "o": "readPackageMetadataField",
+        "r": "bundleIdentifierForBuildFlavor",
+        "t": "createFileBasedLogger"
+      },
+      "status": "done"
+    },
+    "feedback-desktop-log-archive-C5uB_-XF": {
+      "restored": "feedback/desktop-log-archive.ts",
+      "exports": {
+        "n": "removeFeedbackDesktopLogArchive",
+        "t": "createFeedbackDesktopLogArchive"
+      },
+      "status": "done"
+    },
+    "trace-recording-upload-B_08fiJF": {
+      "restored": "tracing/trace-recording-upload.ts",
+      "exports": {
+        "uploadTraceRecording": "uploadTraceRecording"
+      },
+      "status": "done"
+    },
+    "codex-micro-service-DMYylm8w": {
+      "restored": "devices/codex-micro-service.ts",
+      "exports": {
+        "CodexMicroService": "CodexMicroService"
+      },
+      "status": "done"
+    }
+  }
+}

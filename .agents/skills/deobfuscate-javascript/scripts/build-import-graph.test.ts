@@ -195,6 +195,42 @@ describe("parseImportsExports", () => {
     });
   });
 
+  test("CommonJS exports.name assignment is recorded as a named export", () => {
+    const src = `const localValue = 1; exports.publicName = localValue;`;
+    const { exports } = parseImportsExports(src);
+    expect(exports[0]).toEqual({
+      exported: "publicName",
+      local: "localValue",
+      kind: "named",
+    });
+  });
+
+  test("CommonJS module.exports assignment is recorded as a default export", () => {
+    const src = `function createThing() {} module.exports = createThing;`;
+    const { exports } = parseImportsExports(src);
+    expect(exports[0]).toEqual({
+      exported: "default",
+      local: "createThing",
+      kind: "default",
+    });
+  });
+
+  test("Object.defineProperty(exports, name, getter) is recorded as a named export", () => {
+    const src = [
+      `const localValue = 1;`,
+      `Object.defineProperty(exports, "publicName", {`,
+      `  enumerable: true,`,
+      `  get: function () { return localValue; },`,
+      `});`,
+    ].join("\n");
+    const { exports } = parseImportsExports(src);
+    expect(exports[0]).toEqual({
+      exported: "publicName",
+      local: "localValue",
+      kind: "named",
+    });
+  });
+
   test("dynamic import('./other.js') produces a graph edge", () => {
     const src = `const p = import("./other.js");`;
     const { imports } = parseImportsExports(src);
@@ -210,10 +246,45 @@ describe("parseImportsExports", () => {
     expect(imports[0]!.target).toBe("register-app-actions-DNoVtMUb");
   });
 
+  test("CommonJS require of a sibling chunk produces a namespace graph edge", () => {
+    const src = `const shared = require("./shared-AbCdEf12.js");`;
+    const { imports, unresolved } = parseImportsExports(src);
+    expect(unresolved).toEqual([]);
+    expect(imports).toHaveLength(1);
+    expect(imports[0]!.target).toBe("shared-AbCdEf12");
+    expect(imports[0]!.specifiers).toEqual([
+      { imported: "*", local: "shared", kind: "namespace" },
+    ]);
+  });
+
+  test("CommonJS destructuring require records named specifiers", () => {
+    const src = `const { foo, bar: renamedBar } = require("./shared-AbCdEf12.js");`;
+    const { imports } = parseImportsExports(src);
+    expect(imports).toHaveLength(1);
+    expect(imports[0]!.specifiers).toEqual([
+      { imported: "foo", local: "foo", kind: "named" },
+      { imported: "bar", local: "renamedBar", kind: "named" },
+    ]);
+  });
+
+  test("CommonJS require with a static template literal produces a graph edge", () => {
+    const src = "const shared = require(`./shared-AbCdEf12.js`);";
+    const { imports, unresolved } = parseImportsExports(src);
+    expect(unresolved).toEqual([]);
+    expect(imports).toHaveLength(1);
+    expect(imports[0]!.target).toBe("shared-AbCdEf12");
+  });
+
   test("non-literal dynamic import is recorded under unresolved", () => {
     const src = `const p = (n) => import(n);`;
     const { unresolved } = parseImportsExports(src);
     expect(unresolved).toContain("dynamic-import-non-literal");
+  });
+
+  test("non-literal CommonJS require is recorded under unresolved", () => {
+    const src = `const p = (n) => require(n);`;
+    const { unresolved } = parseImportsExports(src);
+    expect(unresolved).toContain("require-non-literal");
   });
 
   test("asset imports (.css, .svg, .woff2) are skipped", () => {
@@ -323,6 +394,31 @@ describe("buildImportGraph (BFS)", () => {
     expect(manifest.files["entry-AaAaAaAa"]!.depth).toBe(0);
     expect(manifest.files["child-BbBbBbBb"]!.depth).toBe(1);
     expect(manifest.files["grandchild-EeEeEeEe"]!.depth).toBe(2);
+  });
+
+  test("seeds additional entries into the same graph", () => {
+    const rootDir = makeTmpRoot();
+    const assets = path.join(rootDir, "assets");
+    fs.mkdirSync(assets, { recursive: true });
+    const entry = path.join(assets, "main-AaAaAaAa.js");
+    const preload = path.join(assets, "preload-BbBbBbBb.js");
+    fs.writeFileSync(entry, `const shared = require("./shared-CcCcCcCc.js");\n`);
+    fs.writeFileSync(preload, `const shared = require("./shared-CcCcCcCc.js");\n`);
+    fs.writeFileSync(path.join(assets, "shared-CcCcCcCc.js"), `exports.x = 1;\n`);
+
+    const manifest = buildImportGraph(entry, {
+      rootDir: assets,
+      targetDir: path.join(rootDir, "decode"),
+      additionalEntries: [preload],
+    });
+
+    expect(Object.keys(manifest.files).sort()).toEqual([
+      "main-AaAaAaAa",
+      "preload-BbBbBbBb",
+      "shared-CcCcCcCc",
+    ]);
+    expect(manifest.files["preload-BbBbBbBb"]?.depth).toBe(0);
+    expect(manifest.files["shared-CcCcCcCc"]?.depth).toBe(1);
   });
 
   test("handles cyclic imports without re-visiting", () => {
