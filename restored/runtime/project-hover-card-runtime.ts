@@ -1,5 +1,6 @@
 // Restored from ref/webview/assets/app-initial~app-main~projects-index-page~local-conversation-page-4SURv8Cr.js
 // Boundary facade for project hover card parts and remote connection rows.
+import { globalSettingKeys } from "../boundaries/src-l0hb-mz-p";
 import {
   $N as initVscodeApiBridge,
   $P as initAppScope,
@@ -27,7 +28,6 @@ import {
   VE as initGlobalStateQueryRuntime,
   VI as getProjectWritableRootsForDisplay,
   wj as initStringNormalizeRuntime,
-  XR as globalSettingKeys,
   zV as useQueryClient,
 } from "../vendor/appg-thread-shared-runtime";
 import {

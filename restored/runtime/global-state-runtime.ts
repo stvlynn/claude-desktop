@@ -1,6 +1,6 @@
 // Restored from ref/webview/assets/app-initial~app-main~remote-conversation-page~plugin-detail-page~new-thread-panel-page~appg~ijdupmx5-CdYgxe-b.js
 // Global state query helpers.
-import { XR as GLOBAL_STATE_KEYS } from "../vendor/appg-thread-shared-runtime";
+import { globalSettingKeys as GLOBAL_STATE_KEYS } from "../boundaries/src-l0hb-mz-p";
 import {
   Gu as initGlobalStateQueryRuntimeRaw,
   Ku as useGlobalStateQueryRaw,
