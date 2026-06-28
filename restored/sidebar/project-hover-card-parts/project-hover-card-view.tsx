@@ -51,7 +51,6 @@ import {
   initWorkspaceResourceOpenerChunk,
   openWorkspaceResource,
 } from "../../appgen/publication-terms";
-import { $ as initPullRequestThreadActionsChunk } from "../../boundaries/current-ref/pull-request-thread-actions-producer";
 import { Gd as initProfileIconsChunk } from "../../boundaries/current-ref/profile-page-producer";
 import {
   EditProjectHoverCardRow,
@@ -291,7 +290,6 @@ export const initProjectHoverCardChunk = once(() => {
   initGlobalSettingsRuntime();
   initCodexAppFrameRuntime();
   initProfileIconsChunk();
-  initPullRequestThreadActionsChunk();
   initSignalHooksRuntime();
   initRemoteConnectionActionsChunk();
   initButtonRuntime();
