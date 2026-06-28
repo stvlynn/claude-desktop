@@ -70,7 +70,7 @@ import {
   wo as isSideChatUnavailable,
   x as threadActionMessages,
 } from "../../boundaries/current-ref/projects-app-shared-producer";
-import { Dn as initPullRequestThreadActionsRuntime } from "../../boundaries/current-ref/pull-request-thread-actions-producer";
+import { initPullRequestThreadActionsRuntime } from "../../conversations/pull-request-thread-actions-runtime";
 import {
   Ar as initAutomationPanelRuntime,
   Jm as initCreateHeartbeatAutomationRuntime,

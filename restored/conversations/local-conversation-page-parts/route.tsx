@@ -98,7 +98,7 @@ import {
   resolveRenderableAgentItems,
   WorkedForCollapsedAgentsLabel,
 } from "../../boundaries/current-ref/profile-page-producer";
-import { nr as initPullRequestThreadActionsChunk } from "../../boundaries/current-ref/pull-request-thread-actions-producer";
+import { initPullRequestThreadActionsChunk } from "../pull-request-thread-actions-runtime";
 import {
   getProjectAppearance,
   initProjectAppearanceChunk,
