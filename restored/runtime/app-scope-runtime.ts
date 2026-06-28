@@ -5,6 +5,7 @@ import {
   AB as initScopeRuntime,
   QP as appScopeRoot,
   bV as createScopedSignalRaw,
+  dV as createDerivedSignalRaw,
   fV as createScopedSignalFamilyRaw,
 } from "../boundaries/current-ref/appg-thread-shared-producer";
 
@@ -36,4 +37,11 @@ export function createAppScopedSignalFamily<TKey, TValue>(
   initializer: ScopedSignalFamilyInitializer<TKey, TValue>,
 ): unknown {
   return createScopedSignalFamilyRaw(appScopeRoot, initializer);
+}
+
+export function createDerivedSignal<TValue>(
+  scope: unknown,
+  derive: (context: ScopedSignalGetter) => TValue,
+): unknown {
+  return createDerivedSignalRaw(scope, derive);
 }

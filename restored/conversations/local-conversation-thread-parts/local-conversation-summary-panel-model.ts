@@ -2,28 +2,40 @@
 // Data model for the local conversation summary panel.
 import { once } from "../../runtime/commonjs-interop";
 import {
-  AB as initScopeRuntime,
-  dV as createDerivedSignal,
-  Em as conversationTurnsSignal,
-  FB as useScope,
-  Gj as initStatsigFeatureGateHooks,
-  gp as conversationCwdSignal,
-  IB as useSignalValue,
-  Io as initConnectorAppsListQuery,
-  Ip as localResponseInProgressSignal,
-  iO as formatConversationTitleText,
-  I_ as initRouteScope,
-  M_ as localConversationRouteScope,
-  O_ as initConversationRouteSourceHelpers,
-  Op as initConversationStateSelectors,
-  PB as useScopedValue,
-  pz as toConversationId,
-  rO as initConversationTitleFormatter,
-  Sf as initConfigQueryRuntime,
-  Tf as mcpServersQuerySignal,
-  Ts as initBrowserFeatureAvailabilitySignals,
-  zo as useAppsQuery,
-} from "../../boundaries/current-ref/appg-thread-shared-producer";
+  useScope,
+  useScopedValue,
+  useSignalValue,
+} from "../../runtime/app-scope-hooks";
+import {
+  createDerivedSignal,
+  initAppScopeSignalRuntime,
+} from "../../runtime/app-scope-runtime";
+import { initBrowserFeatureAvailabilityRuntime } from "../../runtime/browser-feature-runtime";
+import {
+  initConfigQueryRuntime,
+  mcpServersQuerySignal,
+} from "../../runtime/config-query-runtime";
+import {
+  initConnectorAppsRuntime,
+  useAppsQuery,
+} from "../../runtime/connector-apps-runtime";
+import {
+  conversationCwdSignal,
+  conversationTurnsSignal,
+  initConversationStateRuntime,
+  localResponseInProgressSignal,
+} from "../../runtime/conversation-state-runtime";
+import {
+  formatConversationTitleText,
+  initConversationTitleRuntime,
+  toConversationId,
+} from "../../runtime/conversation-title-runtime";
+import { initStatsigFeatureGateRuntime } from "../../runtime/feature-gate-runtime";
+import {
+  initConversationRouteSourceRuntime,
+  initLocalConversationRouteRuntime,
+  localConversationRouteScope,
+} from "../../runtime/local-conversation-route-runtime";
 import {
   Fr as installedMcpAppIdsSignal,
   Il as initRightPanelTabSignals,
@@ -337,25 +349,25 @@ export function useLocalConversationSummaryPanelModel(
 }
 
 export const initLocalConversationSummaryPanelSignals = once(() => {
-  initScopeRuntime();
-  initConversationStateSelectors();
-  initBrowserFeatureAvailabilitySignals();
+  initAppScopeSignalRuntime();
+  initConversationStateRuntime();
+  initBrowserFeatureAvailabilityRuntime();
   initThreadSummaryPanelSignalsRuntime();
   initWorkspaceRouteStateSignals();
   initInstalledMcpAppSignals();
-  initStatsigFeatureGateHooks();
+  initStatsigFeatureGateRuntime();
   initConversationDisplayTitleSignals();
   initThreadSummaryPanelSignalsChunk();
-  initConnectorAppsListQuery();
+  initConnectorAppsRuntime();
   initConfigQueryRuntime();
-  initRouteScope();
+  initLocalConversationRouteRuntime();
   initRightPanelTabSignals();
-  initConversationRouteSourceHelpers();
+  initConversationRouteSourceRuntime();
   initLocalConversationArtifactSignals();
   initSummaryPanelSourceHelpers();
   initRestoredProcessRowsCollectorDependencies();
   initActiveConversationProcessRowsChunk();
-  initConversationTitleFormatter();
+  initConversationTitleRuntime();
   initLocalConversationSummaryPanelMcpSources();
   initThreadSummaryWebSourcesChunk();
   initThreadSummaryBrowserUseModelChunk();
