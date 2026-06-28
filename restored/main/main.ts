@@ -70,6 +70,14 @@ import {
   SHOW_CONTEXT_MENU_CHANNEL,
 } from "./menus/native-menu-ipc";
 import {
+  AVATAR_OVERLAY_COMPOSITION_CONNECT_HOST_CHANNEL,
+  CONNECT_APP_HOST_CHANNEL,
+  createMessagePortRemoteMain,
+  MessagePortStringTransport,
+  registerAppHostConnectionIpc,
+  registerAvatarOverlayCompositionSurfaceHostIpc,
+} from "./ipc/app-host-connection-ipc";
+import {
   GET_BUILD_FLAVOR_CHANNEL,
   GET_SENTRY_INIT_OPTIONS_CHANNEL,
   GET_SHARED_OBJECT_SNAPSHOT_CHANNEL,
@@ -505,7 +513,7 @@ function shouldHandleStateDatabaseOpenError(error: unknown): boolean {
 function createMainStartupOpenBoundaryError(): Error {
   return Object.assign(
     Error(
-      "main--VWTbRdF remains an open restoration boundary: the startup phase map, updater bridge helpers, temporary quit-state controller, app lifecycle/quit handlers, worker main-RPC helper contracts, main-side worker bus manager, desktop tray controller, Windows shell integration helpers, About dialog/app icon helpers, native menu IPC handlers, preload state/theme IPC handlers, and renderer view-message IPC routing are recovered, but window services, app-server lifecycle, application menu assembly, app-host connection IPC, and telemetry still require semantic restoration.",
+      "main--VWTbRdF remains an open restoration boundary: the startup phase map, updater bridge helpers, temporary quit-state controller, app lifecycle/quit handlers, worker main-RPC helper contracts, main-side worker bus manager, desktop tray controller, Windows shell integration helpers, About dialog/app icon helpers, native menu IPC handlers, preload state/theme IPC handlers, renderer view-message IPC routing, and app-host MessagePort connection IPC are recovered, but window services, app-server lifecycle, application menu assembly, RPC runtime binding, and telemetry still require semantic restoration.",
     ),
     {
       code: OPEN_RESTORATION_BOUNDARY_CODE,
@@ -619,6 +627,14 @@ function createMainStartupOpenBoundaryError(): Error {
         registerSentryTestIpcHandler,
         registerViewMessageIpcHandler,
         TRIGGER_SENTRY_TEST_CHANNEL,
+      },
+      appHostConnectionIpcHelpers: {
+        AVATAR_OVERLAY_COMPOSITION_CONNECT_HOST_CHANNEL,
+        CONNECT_APP_HOST_CHANNEL,
+        createMessagePortRemoteMain,
+        MessagePortStringTransport,
+        registerAppHostConnectionIpc,
+        registerAvatarOverlayCompositionSurfaceHostIpc,
       },
     },
   );
