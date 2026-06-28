@@ -1,22 +1,20 @@
 // Restored from ref/webview/assets/app-initial~app-main~automations-page-bHJfYUGr.js
 // App-shell side-panel tab helpers used by publication terms/resource links.
 import {
-  F_ as readRouteScopeValue,
-  MD as renderMcpCapabilityIcon,
-} from "../../boundaries/current-ref/appg-thread-shared-producer";
-import {
-  _c as getSidePanelController,
-  bc as activateSidePanelPlacement,
-  mc as sidePanelPlacements,
-  pn as mcpCapabilityPanelTab,
-  ti as getWorkspaceFilePanelTabSource,
-  vc as getPanelTabPlacement,
-} from "../../boundaries/current-ref/projects-app-shared-producer";
+  activateSidePanelPlacement,
+  getPanelTabPlacement,
+  getSidePanelController,
+  getWorkspaceFilePanelTabSource,
+  mcpCapabilityPanelTab,
+  readRouteScopeValue,
+  renderMcpCapabilityIcon,
+  sidePanelPlacements,
+} from "../../runtime/publication-terms-runtime";
 import {
   findMatchingMcpCapabilityFileViewer,
   mcpCapabilityFileViewerState,
-  type McpCapabilityFileViewer,
-} from "./resource-opener";
+} from "./mcp-file-viewers";
+import type { McpCapabilityFileViewer } from "./resource-opener-types";
 
 type ScopeWithState = {
   get?: <TValue>(state: unknown, key?: unknown) => TValue;

@@ -2,14 +2,16 @@
 // Opens workspace resources into the app-shell side panel for publication terms/resource links.
 import { once } from "../../runtime/commonjs-interop";
 import {
-  Kr as openArtifactPanelTab,
-  Yt as openWorkspaceFilePanelTab,
-  dn as createReadFileContents,
-} from "../../boundaries/current-ref/projects-app-shared-producer";
+  createReadFileContents,
+  openArtifactPanelTab,
+  openWorkspaceFilePanelTab,
+} from "../../runtime/publication-terms-runtime";
 import {
   createFileViewerToolArguments,
   createMcpFileViewerHostResource,
-  getArtifactImportPresentation,
+} from "./mcp-file-viewers";
+import { getArtifactImportPresentation } from "./artifact-presentation";
+import {
   initWorkspaceResourceOpenerChunk,
 } from "./resource-opener";
 import {

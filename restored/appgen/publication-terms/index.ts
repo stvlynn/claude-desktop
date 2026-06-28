@@ -17,13 +17,17 @@ export {
   createFileViewerToolArguments,
   createMcpFileViewerHostResource,
   findMatchingMcpCapabilityFileViewer,
-  getArtifactImportPresentation,
+} from "./mcp-file-viewers";
+export { getArtifactImportPresentation } from "./artifact-presentation";
+export {
   initWorkspaceResourceOpenerChunk,
+  openWorkspaceResource,
+} from "./resource-opener";
+export {
   type McpCapabilityFileViewer,
   type McpHostResourceReader,
-  openWorkspaceResource,
   type WorkspaceResourceOpenRequest,
-} from "./resource-opener";
+} from "./resource-opener-types";
 export {
   appgenPublicationTermsSidePanelHandler,
   initPublicationTermsSidePanelHandlerChunk,
