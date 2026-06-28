@@ -9,11 +9,9 @@ import { initTooltipPrimitives, Tooltip } from "../../ui/tooltip-b";
 import { classNames, initClassNameRuntime } from "../../utils/class-names";
 import { getGithubAvatarUrl } from "../../github/github-avatar-url";
 import {
-  Nl as PullRequestMergeStatusIcon,
-  Pl as initPullRequestMergeStatusIconChunk,
-  os as ErrorStatusIcon,
-  ss as initErrorStatusIconChunk,
-} from "../../boundaries/current-ref/profile-page-producer";
+  PullRequestCheckStatusIcon as PullRequestMergeStatusIcon,
+} from "../../github/pull-request-status";
+import { XCircleFilledIcon as ErrorStatusIcon } from "../../icons/x-circle-filled-icon";
 import {
   initPullRequestCommentIconChunk,
   PullRequestCommentIcon,
@@ -543,9 +541,7 @@ export const initPullRequestSidePanelOverviewSectionChunk = once(() => {
   initPullRequestCommentIconChunk();
   initPullRequestReviewerPlaceholderIconChunk();
   initTeamIconChunk();
-  initErrorStatusIconChunk();
   initPullRequestChecksStatusLabelChunk();
-  initPullRequestMergeStatusIconChunk();
   initGitHubIcon();
   initSummaryPanelRowChunk();
   initRequestPullRequestReviewersButtonChunk();
