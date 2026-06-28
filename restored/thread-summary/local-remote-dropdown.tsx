@@ -5,7 +5,17 @@ import { appScopeO as useAppScopeStore } from "../boundaries/app-scope";
 import { selectedEnvironmentSignal } from "../composer/composer-view-state";
 import { composerPromptScope } from "../composer/prompt-text";
 import type { ScopeStore } from "../composer/composer-view-state/types";
-import { useSignalValue } from "../runtime/app-scope-hooks";
+import {
+  initGitRootQueryRuntime,
+  useGitRootQuery,
+} from "../github/git-root-query";
+import { useCodexCloudAccess } from "../remote/local-remote-selection";
+import { useScopedValue, useSignalValue } from "../runtime/app-scope-hooks";
+import {
+  conversationCwdSignal,
+  conversationHostIdSignal,
+  initConversationStateRuntime,
+} from "../runtime/conversation-state-runtime";
 import {
   useCloudEnvironmentsQuery,
   useWorkspaceEnvironmentSearchQuery,
@@ -76,6 +86,7 @@ type QueryResult<TData> = {
 
 const CODEX_ENVIRONMENTS_URL =
   "https://chatgpt.com/codex/settings/environments";
+const LOCAL_REMOTE_DROPDOWN_SOURCE = "local_remote_dropdown";
 
 export function initThreadHandoffSummaryHelpersChunk(): void {}
 
@@ -85,6 +96,8 @@ export function initLocalRemoteDropdownChunk(): void {
 
 export function initCloudEnvironmentDropdownChunk(): void {
   initIntlRuntime();
+  initConversationStateRuntime();
+  initGitRootQueryRuntime();
 }
 
 export function initLocalRemoteDropdownStateChunk(): void {}
@@ -262,7 +275,7 @@ export function LocalRemoteDropdown({
 
 export function CloudEnvironmentDropdown({
   composerMode,
-  conversationId: _conversationId,
+  conversationId,
   disabled = false,
   onOpenChange,
   side: _side,
@@ -270,6 +283,21 @@ export function CloudEnvironmentDropdown({
 }: CloudEnvironmentDropdownProps): JSX.Element | null {
   let intl = useIntl(),
     composerScopeStore = useAppScopeStore(composerPromptScope) as ScopeStore,
+    conversationCwd = useScopedValue<string | null | undefined>(
+      conversationCwdSignal,
+      conversationId,
+    ),
+    conversationHostId =
+      useScopedValue<string | null | undefined>(
+        conversationHostIdSignal,
+        conversationId,
+      ) ?? "local",
+    { access: cloudAccess } = useCodexCloudAccess(),
+    { gitRoot } = useGitRootQuery(conversationCwd, {
+      enabled: composerMode === "cloud",
+      hostId: conversationHostId,
+      source: LOCAL_REMOTE_DROPDOWN_SOURCE,
+    }),
     selectedEnvironment =
       useSignalValue<CloudEnvironmentRecord | null>(
         selectedEnvironmentSignal,
@@ -350,7 +378,13 @@ export function CloudEnvironmentDropdown({
     composerScopeStore.set(selectedEnvironmentSignal, environments[0]);
   }, [composerScopeStore, environments, selectedEnvironment, shouldQuery]);
 
-  if (composerMode !== "cloud") return null;
+  if (
+    composerMode !== "cloud" ||
+    cloudAccess !== "enabled" ||
+    gitRoot == null
+  ) {
+    return null;
+  }
 
   return (
     <div className="relative inline-flex min-w-0">
