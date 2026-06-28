@@ -56,7 +56,7 @@
       "boundary": true,
       "vendor": "runtime",
       "openBoundary": true,
-      "note": "Temporary typed facade for mixed Zod/shared-node runtime; app-owned exports still require semantic restoration."
+      "note": "Selective runtime facade restored for app-owned helpers consumed by main/workspace: structured logging, BuildFlavor/brand formatting, env/path safety, WSL/Codex home, settings definitions/defaults/TOML bridge, deep-link/plugin helpers, build-version helpers, Owl feature list, and device status colors. Bundled Zod/third-party internals remain excluded, and unused shared-runtime exports remain open."
     },
     "file-based-logger-D5VNAgCV": {
       "restored": "logging/file-based-logger/index.ts",
