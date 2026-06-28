@@ -3,13 +3,11 @@
 import { once } from "../../runtime/commonjs-interop";
 import {
   getReviewCommentAttachmentKeyValue,
+  initPullRequestReviewCommentAttachmentStateRuntime,
   initPullRequestReviewCommentRuntime,
   MY_REQUEST_PROMPT_HEADER,
+  updatePullRequestReviewCommentAttachments,
 } from "../../runtime/pull-request-prompt-runtime";
-import {
-  Ha as updatePullRequestReviewCommentAttachments,
-  Va as initPullRequestReviewCommentAttachmentStateChunk,
-} from "../../boundaries/current-ref/projects-app-shared-producer";
 import {
   focusComposerAfterPullRequestPrompt,
   initPullRequestComposerContextChunk,
@@ -143,7 +141,7 @@ function appendMissingReviewCommentAttachments(
 }
 
 export const initPullRequestCommentFixHelpersChunk = once(() => {
-  initPullRequestReviewCommentAttachmentStateChunk();
+  initPullRequestReviewCommentAttachmentStateRuntime();
   initPullRequestComposerContextChunk();
   initPullRequestPromptActionsChunk();
   initPullRequestReviewCommentRuntime();
