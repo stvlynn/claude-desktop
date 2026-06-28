@@ -1,11 +1,11 @@
 // Restored from ref/webview/assets/thread-side-panel-tabs-_WbpVYWU.js
 // Semantic side-panel tab barrel for the updated Codex webview bundle.
-import { A_ as THREAD_SIDE_PANEL_TAB } from "../boundaries/current-ref/appg-thread-shared-producer";
+import { A_ as THREAD_SIDE_PANEL_TAB } from "../vendor/appg-thread-shared-runtime";
 import {
   Br as openThreadMcpAppSidePanelTab,
   Lr as closeThreadMcpAppSidePanelTab,
   Rr as getThreadMcpAppSidePanelTabId,
-} from "../boundaries/current-ref/projects-app-shared-producer";
+} from "../vendor/projects-app-shared-runtime";
 import {
   $c as openThreadBrowserSidePanelTab,
   Qc as openThreadBranchReviewSidePanelTab,
@@ -19,7 +19,7 @@ import {
   ol as toggleThreadSidePanel,
   rl as openThreadReviewSidePanelTab,
   tl as openThreadBrowserSidePanelTabWithoutAnimation,
-} from "../boundaries/current-ref/profile-page-producer";
+} from "../vendor/profile-page-runtime";
 
 initEmptyPageStateChunk();
 
