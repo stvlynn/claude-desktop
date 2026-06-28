@@ -26,6 +26,14 @@ import {
   loadDesktopTrayIcons,
 } from "./tray/tray-icons";
 import {
+  createQuitConfirmationDetail,
+  createRecoverableChildProcessWarningKey,
+  disposeDesktopRuntimeBeforeQuit,
+  isRecoverableChromiumChildProcessGone,
+  registerDesktopAppLifecycleHandlers,
+  reportRecoverableChromiumChildProcessGone,
+} from "./app/desktop-app-lifecycle";
+import {
   addWindowsRegistryValue,
   armWindowsCurrentProcessTermination,
   buildWindowsFolderContextMenuEntries,
@@ -488,7 +496,7 @@ function shouldHandleStateDatabaseOpenError(error: unknown): boolean {
 function createMainStartupOpenBoundaryError(): Error {
   return Object.assign(
     Error(
-      "main--VWTbRdF remains an open restoration boundary: the startup phase map, updater bridge helpers, worker main-RPC helper contracts, main-side worker bus manager, desktop tray controller, Windows shell integration helpers, About dialog/app icon helpers, native menu IPC handlers, and preload state/theme IPC handlers are recovered, but window services, app-server lifecycle, application menu assembly, remaining view-message IPC registration, and telemetry still require semantic restoration.",
+      "main--VWTbRdF remains an open restoration boundary: the startup phase map, updater bridge helpers, app lifecycle/quit handlers, worker main-RPC helper contracts, main-side worker bus manager, desktop tray controller, Windows shell integration helpers, About dialog/app icon helpers, native menu IPC handlers, and preload state/theme IPC handlers are recovered, but window services, app-server lifecycle, application menu assembly, remaining view-message IPC registration, and telemetry still require semantic restoration.",
     ),
     {
       code: OPEN_RESTORATION_BOUNDARY_CODE,
@@ -507,6 +515,14 @@ function createMainStartupOpenBoundaryError(): Error {
         createInitialUpdateInstallRequestHandler,
         createPostAppServerUpdateInstallRequestHandler,
         createSparkleBridgeHandlers,
+      },
+      appLifecycleHelpers: {
+        createQuitConfirmationDetail,
+        createRecoverableChildProcessWarningKey,
+        disposeDesktopRuntimeBeforeQuit,
+        isRecoverableChromiumChildProcessGone,
+        registerDesktopAppLifecycleHandlers,
+        reportRecoverableChromiumChildProcessGone,
       },
       shouldHandleStateDatabaseOpenError,
       workerMainRpcHelpers: {
