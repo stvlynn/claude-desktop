@@ -2,29 +2,34 @@
 // Chrome extension header for local conversation threads.
 import type { ReactNode } from "react";
 import { once } from "../../runtime/commonjs-interop";
+import { useScope, useScopedValue } from "../../runtime/app-scope-hooks";
 import {
-  $P as initAppScope,
-  AB as initScopeRuntime,
-  AI as getLocalConversationPath,
-  FB as useScope,
-  Ga as initElectronPlatformContent,
-  Gj as initStatsigFeatureGateHooks,
-  Hx as getFallbackBackgroundAgentHandle,
-  I_ as initRouteScope,
-  O_ as initConversationRouteSourceHelpers,
-  Op as initConversationStateSelectors,
-  Ov as useNavigate,
-  PB as useScopedValue,
-  QP as appScope,
-  Tp as hasConversationSignal,
-  Wa as PlatformContentGate,
-  bF as initPathHelpers,
-  cA as getSubagentSourceMetadata,
-  gm as backgroundAgentSnapshotSignal,
-  gp as conversationCwdSignal,
-  nm as projectlessOutputDirectorySignal,
-  vm as subagentParentThreadIdSignal,
-} from "../../boundaries/current-ref/appg-thread-shared-producer";
+  appScopeRoot as appScope,
+  initAppScopeSignalRuntime,
+} from "../../runtime/app-scope-runtime";
+import {
+  backgroundAgentSnapshotSignal,
+  getFallbackBackgroundAgentHandle,
+  getSubagentSourceMetadata,
+} from "../../runtime/background-agent-runtime";
+import {
+  conversationCwdSignal,
+  hasConversationSignal,
+  initConversationStateRuntime,
+  projectlessOutputDirectorySignal,
+  subagentParentThreadIdSignal,
+} from "../../runtime/conversation-state-runtime";
+import { initStatsigFeatureGateRuntime } from "../../runtime/feature-gate-runtime";
+import {
+  getLocalConversationPath,
+  initConversationRouteSourceRuntime,
+  initLocalConversationNavigationRuntime,
+  useNavigate,
+} from "../../runtime/local-conversation-route-runtime";
+import {
+  initPlatformContentRuntime,
+  PlatformContentGate,
+} from "../../runtime/platform-content-runtime";
 import { conversationTitleSignal } from "../../runtime/local-conversation-state";
 import {
   ChromeExtensionHeader,
@@ -180,14 +185,12 @@ export function ChromeExtensionConversationHeader({
 }
 
 export const initChromeExtensionConversationHeaderChunk = once(() => {
-  initScopeRuntime();
-  initPathHelpers();
-  initConversationStateSelectors();
-  initConversationRouteSourceHelpers();
-  initRouteScope();
-  initAppScope();
-  initElectronPlatformContent();
-  initStatsigFeatureGateHooks();
+  initAppScopeSignalRuntime();
+  initLocalConversationNavigationRuntime();
+  initConversationStateRuntime();
+  initConversationRouteSourceRuntime();
+  initPlatformContentRuntime();
+  initStatsigFeatureGateRuntime();
   initBackgroundAgentAvatarChunk();
   initChromeExtensionHeaderChunk();
   initThreadOverflowMenuChunk();

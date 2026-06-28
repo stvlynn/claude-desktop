@@ -5,6 +5,7 @@ import {
   AI as getLocalConversationPathRaw,
   I_ as initRouteScope,
   M_ as localConversationRouteScope,
+  O_ as initConversationRouteSourceHelpers,
   OI as getHotkeyWindowThreadPathRaw,
   Ov as useNavigateRaw,
   bF as initConversationPromptContextRuntime,
@@ -40,6 +41,10 @@ export function initLocalConversationRouteRuntime(): void {
 
 export function initToastSignalRuntime(): void {
   initToastRuntime();
+}
+
+export function initConversationRouteSourceRuntime(): void {
+  initConversationRouteSourceHelpers();
 }
 
 export function initLocalConversationNavigationRuntime(): void {
