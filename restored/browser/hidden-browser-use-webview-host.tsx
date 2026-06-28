@@ -22,7 +22,7 @@ import {
   rightAppShellTabController,
 } from "../app-shell/app-shell-tab-controller";
 import type { BrowserPanelLocation } from "../runtime/persisted-signal";
-import { getBrowserTabIdsForEnabledPanels } from "../runtime/thread-browser-panel-tabs";
+import { getBrowserTabIdsForEnabledPanels } from "../app-shell/thread-browser-panel-tabs";
 import { useWindowZoom } from "../utils/window-zoom-context";
 import { browserSidebarManager } from "./sidebar-manager";
 import type {

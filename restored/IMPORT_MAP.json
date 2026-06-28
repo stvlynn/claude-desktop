@@ -8699,7 +8699,9 @@
         "s": "getPreferredBrowserTabId",
         "t": "findBrowserPanelTab"
       },
-      "status": "done"
+      "status": "done",
+      "note": "App-shell browser panel tab helpers live in app-shell/thread-browser-panel-tabs.ts. Hidden browser webview hosts now import getBrowserTabIdsForEnabledPanels directly from the semantic app-shell module; runtime/thread-browser-panel-tabs.ts remains as a compatibility barrel.",
+      "lastUpdated": "2026-06-28T16:50:51.000Z"
     },
     "thread-browser-panel-tabs-DuBf4ycc": {
       "restored": "app-shell/thread-browser-panel-tabs.ts",
