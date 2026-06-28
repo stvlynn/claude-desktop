@@ -11527,9 +11527,9 @@
       "lastUpdated": "2026-06-28T00:00:00.000Z"
     },
     "worktree-init-v2-page-BAfwy1p_": {
-      "restored": "vendor/worktree-init-v2-page-runtime.ts",
+      "restored": "worktree/pending-worktree-conversation-ui.tsx",
       "status": "partial",
-      "note": "Pending worktree route compatibility facade moved out of current-ref direct passthrough. The route UI remains isolated behind vendor/worktree-init-v2-page-runtime.ts until it is deep-restored against the restored pending-worktree store.",
+      "note": "Pending worktree route compatibility entry moved to a semantic worktree module. The route UI remains isolated behind vendor/worktree-init-v2-page-runtime.ts until it is deep-restored against the restored pending-worktree store.",
       "lastUpdated": "2026-06-28T00:00:00.000Z",
       "exports": {
         "n": "initPendingWorktreeChunk",

@@ -4,5 +4,5 @@ export {
   initPendingWorktreeChunk as n,
   PendingWorktreeConversation,
   PendingWorktreeConversation as t,
-} from "../../vendor/worktree-init-v2-page-runtime";
-export * from "../../vendor/worktree-init-v2-page-runtime";
+} from "../../worktree/pending-worktree-conversation-ui";
+export * from "../../worktree/pending-worktree-conversation-ui";

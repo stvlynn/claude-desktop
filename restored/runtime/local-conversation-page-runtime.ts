@@ -114,7 +114,7 @@ import {
 import {
   initPendingWorktreeChunk,
   PendingWorktreeConversation,
-} from "../boundaries/current-ref/worktree-init-v2-page-producer";
+} from "../worktree/pending-worktree-conversation-ui";
 import {
   $c as syncReviewPanelForRestoredSource,
   Js as scheduleReviewRestore,
