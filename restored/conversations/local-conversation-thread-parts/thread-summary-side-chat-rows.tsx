@@ -2,10 +2,7 @@
 // Side-chat rows for the local conversation summary panel.
 import type { Key, ReactNode } from "react";
 import { once } from "../../runtime/commonjs-interop";
-import {
-  $ as initCommentBubbleIconProducer,
-  Q as CommentBubbleIcon,
-} from "../../boundaries/current-ref/pull-request-thread-actions-producer";
+import { ChatIcon as CommentBubbleIcon } from "../../icons/chat-icon";
 import { SpinnerIcon } from "../../ui/spinner";
 import {
   initSummaryPanelRowChunk,
@@ -61,7 +58,6 @@ function getSideChatSummaryKey(sideChat: ThreadSummarySideChat) {
 }
 
 export const initThreadSummarySideChatRowsChunk = once(() => {
-  initCommentBubbleIconProducer();
   initSummaryPanelExpandableList();
   initSummaryPanelRowChunk();
 });

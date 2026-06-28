@@ -6,7 +6,7 @@ import {
   sF as FormattedMessage,
 } from "../../boundaries/current-ref/appg-thread-shared-producer";
 import { oi as WaitingStatusIcon } from "../../boundaries/current-ref/appgen-library-hot-producer";
-import { Q as ChatCountIcon } from "../../boundaries/current-ref/pull-request-thread-actions-producer";
+import { ChatIcon as ChatCountIcon } from "../../icons/chat-icon";
 import { getProjectHoverCardMessage } from "./messages";
 import { ProjectHoverCardInfoRow, ProjectHoverCardRow } from "./rows";
 import type { IntlShape, ProjectAttentionCounts } from "./types";

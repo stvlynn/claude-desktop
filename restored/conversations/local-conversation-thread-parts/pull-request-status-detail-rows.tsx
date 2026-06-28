@@ -18,10 +18,10 @@ import {
 } from "../../boundaries/current-ref/projects-app-shared-producer";
 import {
   $ as initPullRequestCommentCardPrimitivesChunk,
-  Q as CommentBubbleIcon,
   a as PullRequestCommentCard,
   o as initPullRequestCommentCardChunk,
 } from "../../boundaries/current-ref/pull-request-thread-actions-producer";
+import { ChatIcon as CommentBubbleIcon } from "../../icons/chat-icon";
 import {
   Qc as openPullRequestReviewCommentInReviewPanel,
   eu as getThreadBranchMismatchState,
