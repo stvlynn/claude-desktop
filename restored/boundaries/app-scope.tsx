@@ -133,6 +133,8 @@ export function _appScopeC<T>(
   };
 }
 
+export const appScopeC = _appScopeC;
+
 export function _appScopeL<T>(
   _scope: unknown,
   read: (key: unknown, store: AppScopeStore) => T,
@@ -149,6 +151,7 @@ export function _appScopeM<T>(
   );
 }
 
+export const appScopeM = _appScopeM;
 export const appScopeP = _appScopeM;
 export const _appScopeP = _appScopeM;
 
@@ -163,6 +166,7 @@ export function _appScopeO(): AppScopeStore {
   return rootStore;
 }
 
+export const appScopeO = _appScopeO;
 export const appScopeD = _appScopeO;
 
 export function appScopeH(name: string, value: unknown = null): AppScopeStore {

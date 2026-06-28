@@ -1,6 +1,6 @@
 // Restored from ref/webview/assets/composer-view-state-BolUCsy-.js
 import { appScopeC as createScopedComputedAtom } from "../../boundaries/app-scope";
-import { composerPromptScope } from "../prompt-text";
+import { composerPromptScope } from "../prompt-text/prompt-location";
 import {
   baseComposerViewState,
   composerViewStateWithPromptState,

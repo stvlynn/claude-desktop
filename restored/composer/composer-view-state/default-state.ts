@@ -6,7 +6,7 @@ import {
 import { persistedAtom } from "../../utils/persisted-atom";
 import { createPersistedSignal } from "../../runtime/persisted-signal";
 import { getEnvironmentPrimaryRepoMetadata } from "../../utils/use-environment";
-import { composerPromptScope } from "../prompt-text";
+import { composerPromptScope } from "../prompt-text/prompt-location";
 import { cloudComposerContextState } from "./remote-state";
 import type {
   ComposerMode,

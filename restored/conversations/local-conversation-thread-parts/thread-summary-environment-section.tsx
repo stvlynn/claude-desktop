@@ -44,10 +44,10 @@ import {
   wo as isCompactWindow,
 } from "../../boundaries/current-ref/projects-app-shared-producer";
 import {
-  $o as setComposerModeForScope,
-  Ko as composerModeSignal,
-  ns as initComposerModeRuntime,
-} from "../../boundaries/current-ref/pull-request-thread-actions-producer";
+  composerModeState as composerModeSignal,
+  initComposerModeRuntime,
+  setComposerModeForScope,
+} from "../../composer/composer-view-state";
 import {
   El as initSummaryPanelPullRequestControlsChunk,
   Tl as SummaryPanelPullRequestControls,

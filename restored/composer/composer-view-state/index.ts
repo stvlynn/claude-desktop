@@ -65,10 +65,12 @@ export {
 } from "./selectors";
 export {
   addSelectedTextAttachment,
+  initComposerModeRuntime,
   produceComposerViewState,
   queueLocalSelectedTextAttachment,
   resetComposerViewState,
   setComposerAutoContextEnabled,
+  setComposerModeForScope,
   updateComposerViewStateField,
   updateMcpAppModelContextAttachment,
   useAddLocalSelectedTextAttachment,

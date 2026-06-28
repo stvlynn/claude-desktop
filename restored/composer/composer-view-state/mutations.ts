@@ -2,18 +2,38 @@
 import { appScopeO as useComposerScopeStore } from "../../boundaries/app-scope";
 import { produceImmutableUpdate } from "../../boundaries/thread-context-inputs.facade";
 import { uuidV4 } from "../../utils/uuid-v4";
-import { composerPromptScope } from "../prompt-text";
+import { composerPromptScope } from "../prompt-text/prompt-location";
 import {
+  baseComposerViewState,
   queuedSelectedTextByConversationIdState,
   setPromptText,
   updateComposerViewState,
 } from "./prompt-drafts";
 import { composerAutoContextEnabledSignal } from "./default-state";
 import type {
+  ComposerMode,
   ComposerViewState,
   McpAppModelContextAttachment,
   ScopeStore,
 } from "./types";
+
+export function setComposerModeForScope(
+  scopeStore: ScopeStore,
+  _conversationId: unknown,
+  composerMode: ComposerMode,
+): void {
+  const currentState = scopeStore.get(
+    baseComposerViewState,
+  ) as ComposerViewState;
+  if (currentState.composerMode === composerMode) return;
+
+  updateComposerViewState(scopeStore, (state) => {
+    state.composerMode = composerMode;
+  });
+}
+
+export function initComposerModeRuntime(): void {}
+
 export function resetComposerViewState(scopeStore: ScopeStore): void {
   setPromptText(scopeStore, "");
   updateComposerViewState(scopeStore, (state) => {

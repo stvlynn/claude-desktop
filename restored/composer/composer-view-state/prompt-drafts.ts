@@ -11,11 +11,11 @@ import {
   setPersistedAtomItem,
 } from "../../utils/persisted-atom-store";
 import { createPersistedSignal } from "../../runtime/persisted-signal";
+import { hasRestorableMentionOrPathLink } from "../prompt-text/prompt-link-detection";
 import {
   composerPromptScope,
   getPromptLocationKey,
-  hasRestorableMentionOrPathLink,
-} from "../prompt-text";
+} from "../prompt-text/prompt-location";
 import { defaultComposerViewState } from "./default-state";
 import type { ComposerViewState, ScopeStore } from "./types";
 const COMPOSER_PROMPT_DRAFTS_KEY = "composer-prompt-drafts-v1";
