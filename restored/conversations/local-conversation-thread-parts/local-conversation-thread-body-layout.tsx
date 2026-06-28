@@ -2,7 +2,11 @@
 // Scroll layout and background-agent context wrapper for local conversation bodies.
 import React, { type ReactNode } from "react";
 import { once } from "../../runtime/commonjs-interop";
-import { Dt as BackgroundAgentOpenContext } from "../../boundaries/current-ref/pull-request-thread-actions-producer";
+import {
+  BackgroundAgentOpenContext,
+  initBackgroundAgentOpenContextChunk,
+} from "./local-conversation-background-agent-open-context";
+import type { BackgroundAgentOpenHandler } from "./local-conversation-thread-frame-types";
 import {
   initThreadScrollLayoutChunk,
   ThreadScrollLayout,
@@ -15,7 +19,7 @@ export type LocalConversationThreadBodyLayoutProps = {
   hasLiveMcpAppFrame: boolean;
   initialScrollOffset: number | null;
   loadOlderConversationHistory: () => Promise<unknown> | unknown;
-  onOpenBackgroundAgentFromSummary: (backgroundAgent: unknown) => void;
+  onOpenBackgroundAgentFromSummary: BackgroundAgentOpenHandler;
   onThreadScroll: (distanceFromBottomPx: number, isAtBottom: boolean) => void;
   remoteHostedPipAnchorHostId?: string;
   threadContent: ReactNode;
@@ -61,5 +65,6 @@ export function LocalConversationThreadBodyLayout({
 }
 
 export const initLocalConversationThreadBodyLayoutChunk = once(() => {
+  initBackgroundAgentOpenContextChunk();
   initThreadScrollLayoutChunk();
 });
