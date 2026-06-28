@@ -8,4 +8,4 @@ export {
   scrollToLocalConversationSearchMatch,
   type ConversationSearchLocationLike,
   type ConversationTextMatchResult,
-} from "../../runtime/conversation-search-runtime";
+} from "./conversation-search-runtime";

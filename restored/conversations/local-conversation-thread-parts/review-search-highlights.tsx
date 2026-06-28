@@ -27,7 +27,7 @@ import {
   setContentSearchMatchIdAttribute,
   shouldRefreshSearchHighlightMutations,
   type ContentSearchMatch,
-} from "../../runtime/conversation-search-runtime";
+} from "./conversation-search-runtime";
 import { threadUserMessageNavigationRailDeps } from "./thread-user-message-navigation-rail-deps";
 
 const REVIEW_SEARCH_HIGHLIGHT_MUTATION_DELAY_MS = 80;
@@ -82,9 +82,10 @@ export function useReviewSearchHighlights(props: ReviewSearchHighlightsProps) {
     reviewSearchRun = useSignalValue<ConversationSearchRun | null>(
       conversationSearchResultSignal,
     ),
-    activeReviewSearchMatch = useSignalValue<ActiveConversationSearchMatch | null>(
-      activeConversationSearchMatchSignal,
-    ),
+    activeReviewSearchMatch =
+      useSignalValue<ActiveConversationSearchMatch | null>(
+        activeConversationSearchMatchSignal,
+      ),
     activeReviewSearchRun =
       reviewSearchRun?.contextId === contextId ? reviewSearchRun : null,
     activeMatchId =

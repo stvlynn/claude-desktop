@@ -31,7 +31,7 @@ import {
   initConversationResumeRuntime,
   resolveConversationServiceTier,
   useProfileConversationAgentMode,
-} from "../../runtime/conversation-resume-runtime";
+} from "./local-conversation-resume-runtime";
 import { initHostWorkspaceQueries } from "../../runtime/git-query-runtime";
 import { initHostConfigRuntime } from "../../runtime/host-config-runtime";
 import {

@@ -5,7 +5,7 @@ import { initThreadFindPreviewRuntime } from "../../runtime/conversation-content
 import {
   initThreadFindItemIdRuntime,
   joinThreadFindItemId,
-} from "../../runtime/conversation-search-runtime";
+} from "./conversation-search-runtime";
 import {
   buildThreadFindPreviewOutputs,
   EMPTY_THREAD_FIND_PREVIEW_OUTPUTS,
