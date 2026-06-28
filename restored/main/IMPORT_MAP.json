@@ -91,7 +91,7 @@
       "boundary": true,
       "vendor": "runtime",
       "openBoundary": true,
-      "note": "Semantic worker shell, original nested request/response protocol, Computer Use capture start/watchUpdates dispatcher, Computer Use native Apple Event bridge, OpenIn custom-target command/icon handling, built-in OpenIn target command/icon registry, worker feature-context mapping, and worker-side execution-host RPC client restored; Git request handlers, target launch/open helpers, and telemetry internals remain open app-runtime boundaries."
+      "note": "Semantic worker shell, original nested request/response protocol, Computer Use capture start/watchUpdates dispatcher, Computer Use native Apple Event bridge, OpenIn custom-target command/icon handling, built-in OpenIn target command/icon registry, OpenIn target launch/open helpers, worker feature-context mapping, and worker-side execution-host RPC client restored; Git request handlers and telemetry internals remain open app-runtime boundaries."
     },
     "main--VWTbRdF": {
       "restored": "main.ts",

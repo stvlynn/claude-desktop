@@ -3,9 +3,15 @@
 
 import { existsSync } from "node:fs";
 import { fileURLToPath } from "node:url";
+import { spawnOpenInTargetCommand } from "./launch";
 import { createOpenInPlatformHelpers } from "./platform";
 import { getOpenInPlatformTarget } from "./registry";
-import type { OpenInTargetRequestParams, ShortcutLink } from "./types";
+import type {
+  OpenInHostConfig,
+  OpenInLocation,
+  OpenInTargetRequestParams,
+  ShortcutLink,
+} from "./types";
 
 const platform = createOpenInPlatformHelpers();
 
@@ -78,6 +84,55 @@ export async function getOpenInTargetIcon({
     : normalizeOpenInIconSpecifier(
         platform.stripWindowsIconResourceSuffix(resolvedIconPath),
       );
+}
+
+export async function openPathInOpenInTarget({
+  command,
+  hostConfig,
+  location,
+  params,
+  path,
+  remotePath,
+  remoteWorkspaceRoot,
+}: {
+  params: OpenInTargetRequestParams;
+  command: string | null;
+  path: string;
+  location?: OpenInLocation | null;
+  hostConfig?: OpenInHostConfig | null;
+  remoteWorkspaceRoot?: string | null;
+  remotePath?: string | null;
+}): Promise<void> {
+  if (command == null || command.trim() === "") {
+    throw Error("Open target command is required.");
+  }
+  if (params.customTarget != null) {
+    await spawnOpenInTargetCommand(command, [path]);
+    return;
+  }
+  const platformTarget = getOpenInPlatformTarget(params.target);
+  if (platformTarget.open != null) {
+    await platformTarget.open({
+      command,
+      hostConfig,
+      location,
+      path,
+      remotePath,
+      remoteWorkspaceRoot,
+    });
+    return;
+  }
+  await spawnOpenInTargetCommand(
+    command,
+    platformTarget.args?.(
+      path,
+      location,
+      hostConfig,
+      remoteWorkspaceRoot,
+      remotePath,
+    ) ?? [path],
+    { env: platformTarget.env?.() },
+  );
 }
 
 export function parseOpenInTargetRequestParams(

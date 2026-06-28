@@ -2,6 +2,24 @@
 // Built-in OpenIn target registry and platform target selection.
 
 import { createOpenInPlatformHelpers } from "./platform";
+import {
+  buildCodeEditorArgs,
+  buildFileManagerArgs,
+  buildJetBrainsArgs,
+  buildLaunchServicesArgs,
+  buildTextMateArgs,
+  buildWindowsTerminalArgs,
+  buildWslTerminalArgs,
+  buildZedArgs,
+  createCursorDarwinCliEnv,
+  getDirectoryToOpen,
+  openMacDefault,
+  openWindowsFileManagerPath,
+  openWindowsStartTarget,
+  openWithElectronShell,
+  openXcodePath,
+  openZedPath,
+} from "./launch";
 import type {
   OpenInPlatformName,
   OpenInPlatformTarget,
@@ -62,6 +80,7 @@ const OPEN_IN_TARGET_DEFINITIONS: OpenInTargetDefinition[] = [
         icon: "apps/vscode.png",
         kind: "editor",
         detect: platform.detectVisualStudio,
+        args: (path) => [path],
       },
     },
   },
@@ -94,6 +113,8 @@ const OPEN_IN_TARGET_DEFINITIONS: OpenInTargetDefinition[] = [
           platform.findExistingMacPath([
             "/Applications/Windsurf.app/Contents/Resources/app/bin/windsurf",
           ]),
+        args: buildCodeEditorArgs,
+        supportsSsh: true,
       },
     },
   },
@@ -105,6 +126,7 @@ const OPEN_IN_TARGET_DEFINITIONS: OpenInTargetDefinition[] = [
         icon: "apps/vscode.png",
         kind: "editor",
         detect: platform.detectGitHubDesktop,
+        args: (path) => [getDirectoryToOpen(path)],
       },
     },
   },
@@ -118,6 +140,8 @@ const OPEN_IN_TARGET_DEFINITIONS: OpenInTargetDefinition[] = [
         hidden: true,
         detect: () => "system-default",
         iconPath: () => null,
+        args: (path) => [path],
+        open: ({ appPath, path }) => openMacDefault(path, appPath),
       },
       win32: {
         label: "Default app",
@@ -126,6 +150,8 @@ const OPEN_IN_TARGET_DEFINITIONS: OpenInTargetDefinition[] = [
         hidden: true,
         detect: () => "system-default",
         iconPath: () => null,
+        args: (path) => [path],
+        open: ({ path }) => openWithElectronShell(path),
       },
       linux: {
         label: "Default app",
@@ -134,6 +160,8 @@ const OPEN_IN_TARGET_DEFINITIONS: OpenInTargetDefinition[] = [
         hidden: true,
         detect: () => "system-default",
         iconPath: () => null,
+        args: (path) => [path],
+        open: ({ path }) => openWithElectronShell(path),
       },
     },
   },
@@ -145,12 +173,15 @@ const OPEN_IN_TARGET_DEFINITIONS: OpenInTargetDefinition[] = [
         icon: "apps/finder.png",
         kind: "fileManager",
         detect: () => "open",
+        args: buildFileManagerArgs,
       },
       win32: {
         label: "File Explorer",
         icon: "apps/file-explorer.png",
         kind: "fileManager",
         detect: platform.detectWindowsExplorer,
+        args: buildFileManagerArgs,
+        open: ({ path }) => openWindowsFileManagerPath(path),
       },
     },
   },
@@ -162,6 +193,7 @@ const OPEN_IN_TARGET_DEFINITIONS: OpenInTargetDefinition[] = [
     label: "iTerm2",
     icon: "apps/iterm2.png",
     appPaths: ["/Applications/iTerm.app", "/Applications/iTerm2.app"],
+    appName: "iTerm",
   }),
   createDarwinTerminalTarget({
     id: "ghostty",
@@ -315,6 +347,8 @@ function createCodeFamilyOpenInTarget({
         icon,
         kind: "editor",
         detect: () => platform.findExistingMacPath(darwinCliPaths),
+        args: buildCodeEditorArgs,
+        supportsSsh: true,
       },
       win32: {
         label,
@@ -339,6 +373,8 @@ function createCodeFamilyOpenInTarget({
               : null)
           );
         },
+        args: buildCodeEditorArgs,
+        supportsSsh: true,
       },
     },
   };
@@ -353,12 +389,23 @@ function createCursorOpenInTarget(): OpenInTargetDefinition {
         icon: "apps/cursor.png",
         kind: "editor",
         detect: () => platform.detectCursorDarwin()?.electronBin ?? null,
+        env: createCursorDarwinCliEnv,
+        args: (...args) => {
+          const cursor = platform.detectCursorDarwin();
+          if (cursor == null) {
+            throw Error("Cursor CLI entrypoint not available");
+          }
+          return [cursor.cliJs, ...buildCodeEditorArgs(...args)];
+        },
+        supportsSsh: true,
       },
       win32: {
         label: "Cursor",
         icon: "apps/cursor.png",
         kind: "editor",
         detect: platform.detectCursorWin32,
+        args: buildCodeEditorArgs,
+        supportsSsh: true,
       },
     },
   };
@@ -391,6 +438,7 @@ function createDarwinLaunchServicesTarget({
           platform.findExistingMacPath(explicitAppPaths)
             ? "open"
             : null,
+        args: (path) => buildLaunchServicesArgs(appName, path),
       },
     },
   };
@@ -401,11 +449,13 @@ function createDarwinTerminalTarget({
   label,
   icon,
   appPaths,
+  appName = label,
 }: {
   id: string;
   label: string;
   icon: string;
   appPaths: string[];
+  appName?: string;
 }): OpenInTargetDefinition {
   return {
     id,
@@ -415,6 +465,8 @@ function createDarwinTerminalTarget({
         icon,
         kind: "terminal",
         detect: () => (platform.findExistingMacPath(appPaths) ? "open" : null),
+        args: (path) =>
+          buildLaunchServicesArgs(appName, getDirectoryToOpen(path)),
       },
     },
   };
@@ -429,12 +481,14 @@ function createSublimeTextTarget(): OpenInTargetDefinition {
         icon: "apps/sublime-text.png",
         kind: "editor",
         detect: platform.detectSublimeTextDarwin,
+        args: buildZedArgs,
       },
       win32: {
         label: "Sublime Text",
         icon: "apps/sublime-text.png",
         kind: "editor",
         detect: platform.detectSublimeTextWin32,
+        args: buildZedArgs,
       },
     },
   };
@@ -449,12 +503,15 @@ function createZedOpenInTarget(): OpenInTargetDefinition {
         icon: "apps/zed.png",
         kind: "editor",
         detect: platform.detectZedDarwin,
+        args: buildZedArgs,
+        open: openZedPath,
       },
       win32: {
         label: "Zed",
         icon: "apps/zed.png",
         kind: "editor",
         detect: platform.detectZedWin32,
+        args: buildZedArgs,
       },
     },
   };
@@ -474,6 +531,8 @@ function createTerminalTarget(): OpenInTargetDefinition {
           ])
             ? "open"
             : null,
+        args: (path) =>
+          buildLaunchServicesArgs("Terminal", getDirectoryToOpen(path)),
       },
       win32: {
         label: "Terminal",
@@ -481,6 +540,9 @@ function createTerminalTarget(): OpenInTargetDefinition {
         kind: "terminal",
         detect: platform.detectWindowsTerminal,
         iconPath: () => null,
+        args: buildWindowsTerminalArgs,
+        open: ({ command, path }) =>
+          openWindowsStartTarget(command, buildWindowsTerminalArgs(path)),
       },
     },
   };
@@ -496,6 +558,7 @@ function createGitBashTarget(): OpenInTargetDefinition {
         kind: "terminal",
         detect: platform.detectGitBash,
         iconPath: platform.getGitBashIconPath,
+        args: (path) => [`--cd=${getDirectoryToOpen(path)}`],
       },
     },
   };
@@ -510,6 +573,7 @@ function createCmderTarget(): OpenInTargetDefinition {
         icon: "apps/cmder.png",
         kind: "terminal",
         detect: platform.detectCmder,
+        args: (path) => ["/START", getDirectoryToOpen(path)],
       },
     },
   };
@@ -530,6 +594,9 @@ function createWslTarget(): OpenInTargetDefinition {
         iconPath: () =>
           platform.findWindowsStartMenuShortcut(["WSL.lnk"]) ??
           platform.resolveWindowsAppsExecutionAlias("wsl.exe"),
+        args: buildWslTerminalArgs,
+        open: ({ command, path }) =>
+          openWindowsStartTarget(command, buildWslTerminalArgs(path)),
       },
     },
   };
@@ -547,6 +614,8 @@ function createXcodeTarget(): OpenInTargetDefinition {
           const xcode = platform.detectXcodeDarwin();
           return xcode?.xedPath ?? xcode?.appPath ?? null;
         },
+        args: (path) => [path],
+        open: openXcodePath,
       },
     },
   };
@@ -586,6 +655,7 @@ function createJetBrainsTarget({
           ]) ??
           platform.getJetBrainsToolboxInstallations().get(toolboxTarget) ??
           platform.findMacExecutableByAppPrefix(label, macExecutable),
+        args: buildJetBrainsArgs,
       },
       win32:
         windowsPathCommands &&
@@ -602,6 +672,7 @@ function createJetBrainsTarget({
                   installExecutables: windowsInstallExecutables,
                   fallbackPaths: windowsFallbackPaths,
                 }),
+              args: buildJetBrainsArgs,
             }
           : undefined,
     },
@@ -609,12 +680,20 @@ function createJetBrainsTarget({
 }
 
 function createTextMateTarget(): OpenInTargetDefinition {
-  return createDarwinLaunchServicesTarget({
+  return {
     id: "textmate",
-    label: "TextMate",
-    icon: "apps/textmate.png",
-    kind: "editor",
-    appName: "TextMate",
-    explicitAppPaths: ["/Applications/TextMate.app"],
-  });
+    platforms: {
+      darwin: {
+        label: "TextMate",
+        icon: "apps/textmate.png",
+        kind: "editor",
+        detect: () =>
+          platform.findMacApplicationByName("TextMate") ||
+          platform.findExistingMacPath(["/Applications/TextMate.app"])
+            ? "open"
+            : null,
+        args: buildTextMateArgs,
+      },
+    },
+  };
 }
