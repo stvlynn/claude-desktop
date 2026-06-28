@@ -1,6 +1,7 @@
 // Restored from ref/.vite/build/comment-preload.js
 // Frame-path and nested iframe helpers for browser sidebar anchors.
 
+import { getBrowserSidebarElementSelector } from "./element-selectors";
 import type { BrowserSidebarPoint } from "./geometry";
 
 export const BROWSER_SIDEBAR_SHADOW_FRAME_PATH_PREFIX = "shadow:";
@@ -28,6 +29,42 @@ export function getBrowserSidebarFrameWindow(
   }
 
   return currentWindow;
+}
+
+export function getBrowserSidebarFramePath(
+  frameWindow: Window | null | undefined,
+  rootWindow: Window = window,
+): string[] | null {
+  if (frameWindow == null) return null;
+
+  const framePath: string[] = [];
+  let currentWindow = frameWindow;
+
+  while (currentWindow !== rootWindow) {
+    const frameElement = getFrameElement(currentWindow);
+    if (!isBrowserSidebarFrameElement(frameElement)) return null;
+
+    const frameSelector =
+      getBrowserSidebarShadowAwareFrameSelector(frameElement);
+    if (frameSelector == null) return null;
+    framePath.unshift(frameSelector);
+
+    const parentWindow = frameElement.ownerDocument.defaultView;
+    if (parentWindow == null) return null;
+    currentWindow = parentWindow;
+  }
+
+  return framePath;
+}
+
+export function getBrowserSidebarFramePathForElement(
+  element: Element,
+  rootWindow: Window = window,
+): string[] | null {
+  return getBrowserSidebarFramePath(
+    element.ownerDocument.defaultView,
+    rootWindow,
+  );
 }
 
 export function getBrowserSidebarFrameDocument(
@@ -104,6 +141,54 @@ function getFrameElement(frameWindow: Window): Element | null {
   } catch {
     return null;
   }
+}
+
+function getBrowserSidebarShadowAwareFrameSelector(
+  frameElement: HTMLIFrameElement,
+): string | null {
+  const selectorPath: string[] = [];
+  let currentElement: Element = frameElement;
+
+  for (;;) {
+    const selector = getBrowserSidebarElementSelector(currentElement, {
+      requireUnique: true,
+    });
+    if (selector == null) return null;
+    selectorPath.unshift(selector);
+
+    const root = currentElement.getRootNode();
+    if (isBrowserSidebarDocumentRoot(root)) break;
+    if (!isBrowserSidebarShadowRoot(root)) return null;
+    currentElement = root.host;
+  }
+
+  return selectorPath.length === 1
+    ? (selectorPath[0] ?? null)
+    : `${BROWSER_SIDEBAR_SHADOW_FRAME_PATH_PREFIX}${selectorPath.join(
+        BROWSER_SIDEBAR_SHADOW_FRAME_PATH_SEPARATOR,
+      )}`;
+}
+
+function isBrowserSidebarDocumentRoot(root: Node): boolean {
+  const NodeCtor =
+    root.ownerDocument?.defaultView?.Node ??
+    (typeof Node === "undefined" ? null : Node);
+  return NodeCtor != null && root.nodeType === NodeCtor.DOCUMENT_NODE;
+}
+
+function isBrowserSidebarShadowRoot(
+  root: Node,
+): root is ShadowRoot & { host: Element } {
+  const NodeCtor =
+    root.ownerDocument?.defaultView?.Node ??
+    (typeof Node === "undefined" ? null : Node);
+  return (
+    NodeCtor != null &&
+    root.nodeType === NodeCtor.DOCUMENT_FRAGMENT_NODE &&
+    "host" in root &&
+    isElementWithShadowRoot(root.host) &&
+    root.host.shadowRoot === root
+  );
 }
 
 function isElementWithShadowRoot(

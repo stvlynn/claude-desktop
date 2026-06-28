@@ -35,10 +35,28 @@ export {
   syncBrowserSidebarDesignDraftStyleElement,
 } from "./design-dom-style";
 export {
+  buildBrowserSidebarElementAnchor,
+  buildBrowserSidebarRegionAnchor,
+  isBrowserSidebarElementFixedToRoot,
+} from "./element-anchor-builders";
+export {
+  findBrowserSidebarAnchorTargetElement,
+  isPreferredBrowserSidebarAnchorTarget,
+} from "./element-anchor-targets";
+export {
+  getBrowserSidebarEquivalentElementPoint,
+  reprojectBrowserSidebarElementAnchor,
+  resolveBrowserSidebarElementAnchorState,
+} from "./element-anchor-reprojection";
+export {
   applyBrowserSidebarDesignTextDrafts,
   DEFAULT_DESIGN_ORIGINAL_TEXT_ATTRIBUTE,
   restoreBrowserSidebarDesignTextDrafts,
 } from "./design-dom-text";
+export {
+  escapeBrowserSidebarCssIdentifier,
+  getBrowserSidebarElementSelector,
+} from "./element-selectors";
 export {
   getElementOwnerWindow,
   getVisibleElementViewportRect,
@@ -57,6 +75,8 @@ export {
 export {
   BROWSER_SIDEBAR_SHADOW_FRAME_PATH_PREFIX,
   BROWSER_SIDEBAR_SHADOW_FRAME_PATH_SEPARATOR,
+  getBrowserSidebarFramePath,
+  getBrowserSidebarFramePathForElement,
   getBrowserSidebarFrameDocument,
   getBrowserSidebarFrameWindow,
   getBrowserSidebarWindowFrameOffset,
@@ -123,6 +143,7 @@ export {
   rectBetweenBrowserSidebarRegionDragPoints,
   updateBrowserSidebarRegionDragState,
 } from "./region-drag";
+export { getBrowserSidebarScrollContainerSnapshotsAtPoint } from "./scroll-containers";
 export {
   clampNumber,
   computeCommentEditorRect,
@@ -179,6 +200,8 @@ export type {
   BrowserSidebarDesignDomOptions,
   BrowserSidebarDesignDraftElementResolver,
 } from "./design-dom-types";
+export type { BrowserSidebarElementAnchorState } from "./element-anchor-reprojection";
+export type { BrowserSidebarElementSelectorOptions } from "./element-selectors";
 export type { BrowserSidebarElementSnapshot } from "./element-metadata";
 export type { BrowserSidebarTextDraft } from "./element-text";
 export type {
