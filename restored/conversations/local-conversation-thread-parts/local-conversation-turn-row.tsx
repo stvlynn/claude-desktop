@@ -14,9 +14,9 @@ import {
 } from "../../utils/use-stable-callback";
 import { ErrorBoundary } from "../../runtime/error-boundary";
 import {
-  it as initConversationTurnRendererChunk,
-  rt as ConversationTurnRenderer,
-} from "../../boundaries/current-ref/profile-page-producer";
+  ConversationTurnRenderer,
+  initConversationTurnRendererRuntime,
+} from "../../runtime/conversation-content-runtime";
 import { initThreadScrollLayoutStyleChunk } from "../../utils/thread-scroll-layout";
 import { initIntlRuntime, FormattedMessage } from "../../vendor/react-intl";
 
@@ -206,5 +206,5 @@ export const initLocalConversationTurnRowChunk = once(() => {
   initIntlRuntime();
   initButtonComponentPrimitives();
   initUseStableCallback();
-  initConversationTurnRendererChunk();
+  initConversationTurnRendererRuntime();
 });

@@ -19,9 +19,11 @@ import {
   un as waitForThreadLayoutTickRaw,
 } from "../boundaries/current-ref/projects-app-shared-producer";
 import {
+  it as initConversationTurnRendererChunkRaw,
   Mt as registerContentSearchRevealHandlerRaw,
   Nt as scrollContentSearchItemIntoViewRaw,
   Pt as revealContentSearchItemElementRaw,
+  rt as ConversationTurnRenderer,
   ct as updateCollapsedTurnsByConversationRaw,
 } from "../boundaries/current-ref/profile-page-producer";
 
@@ -59,12 +61,16 @@ export type ContentSearchRevealHandler = {
   revealItem(request: ContentSearchRevealRequest): Promise<void> | void;
 };
 
-export { diffSourceSignal, localConversationMessages };
+export { ConversationTurnRenderer, diffSourceSignal, localConversationMessages };
 
 export function initThreadFindPreviewRuntime(): void {
   initConversationPromptContextRuntime();
   initGitActionDirectiveRuntime();
   initThreadFindResourcePreviewRuntime();
+}
+
+export function initConversationTurnRendererRuntime(): void {
+  initConversationTurnRendererChunkRaw();
 }
 
 export function isRenderableConversationTurn(
