@@ -2,24 +2,22 @@
 import React from "react";
 
 import {
-  Em as conversationTurnsSignal,
-  FB as useScope,
-  M_ as localConversationRouteScope,
-  cm as conversationHostIdSignal,
-  dV as createDerivedSignal,
-  gp as conversationCwdSignal,
-  jm as conversationModeSignal,
-  lm as conversationResumeStateSignal,
-  um as rolloutPathSignal,
-} from "../../boundaries/current-ref/appg-thread-shared-producer";
-import {
+  conversationCwdSignal,
+  conversationHostIdSignal,
+  conversationModeSignal,
+  conversationResumeStateSignal,
+  conversationTurnsSignal,
   createDebugPanelSourceId,
+  createDerivedSignal,
   getEditedFilesFromTurns,
   getReferencedFilesFromTurns,
+  localConversationRouteScope,
   registerDebugPanelSource,
+  rolloutPathSignal,
   unregisterDebugPanelSource,
   useIsDebugPanelEnabled,
-} from "../../boundaries/current-ref/debug-panel-producer";
+  useScope,
+} from "../../runtime/local-conversation-page-runtime";
 import type { Scope } from "./types";
 
 type LocalConversationDebugPanelReporterProps = { conversationId: string };

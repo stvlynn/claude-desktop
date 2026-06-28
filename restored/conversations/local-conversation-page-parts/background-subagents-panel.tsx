@@ -2,16 +2,14 @@
 import React from "react";
 
 import {
-  FB as useScope,
-  M_ as localConversationRouteScope,
-  PB as useScopedValue,
-  gm as backgroundAgentSnapshotSignal,
-  ok as sendAppServerRequest,
-} from "../../boundaries/current-ref/appg-thread-shared-producer";
-import {
   appShellIntlSignal,
+  backgroundAgentSnapshotSignal,
+  localConversationRouteScope,
   rightPanelController,
-} from "../../boundaries/current-ref/projects-app-shared-producer";
+  sendAppServerRequest,
+  useScope,
+  useScopedValue,
+} from "../../runtime/local-conversation-page-runtime";
 import { LocalConversationThread } from "../local-conversation-thread";
 import type { IntlShape, Scope, SubagentThread } from "./types";
 import { FormattedMessage } from "../../vendor/react-intl";
