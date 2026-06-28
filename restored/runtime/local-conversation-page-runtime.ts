@@ -96,7 +96,7 @@ import {
 import {
   getProjectAppearance,
   initProjectAppearanceChunk,
-} from "../boundaries/current-ref/project-appearance-producer";
+} from "../projects/project-appearance";
 import {
   AppgenProjectHeader,
   initAppgenProjectHeaderChunk,
