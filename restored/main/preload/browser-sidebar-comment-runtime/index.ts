@@ -24,6 +24,16 @@ export {
   subscribeToBrowserSidebarScrollContainers,
 } from "./dom-observers";
 export {
+  isBrowserSidebarOwnSelectionMirrorMutation,
+  measureBrowserSidebarFormControlSelectionRects,
+} from "./form-control-measurement";
+export {
+  buildBrowserSidebarFormControlSelection,
+  captureBrowserSidebarFormControlSelection,
+  getBrowserSidebarDeepActiveElement,
+  isBrowserSidebarSelectableFormControl,
+} from "./form-control-selection";
+export {
   addBrowserSidebarElementDesignGroup,
   readBrowserSidebarElementDesignGroups,
   setBrowserSidebarElementDesignGroups,
@@ -144,6 +154,13 @@ export {
   updateBrowserSidebarRegionDragState,
 } from "./region-drag";
 export { getBrowserSidebarScrollContainerSnapshotsAtPoint } from "./scroll-containers";
+export { buildBrowserSidebarTextAnchorState } from "./text-anchor-builder";
+export {
+  captureBrowserSidebarActiveTextAnchorState,
+  captureBrowserSidebarDomTextSelection,
+  restoreBrowserSidebarDomTextSelection,
+  restoreBrowserSidebarTextAnchorState,
+} from "./text-anchor-state";
 export {
   clampNumber,
   computeCommentEditorRect,
@@ -155,6 +172,28 @@ export {
   spreadCoincidentMarkerPoints,
 } from "./geometry";
 export { normalizeBrowserSidebarText } from "./text";
+export {
+  getBrowserSidebarFrameDocumentsUntilPath,
+  getBrowserSidebarShadowHost,
+  getBrowserSidebarTextLocatorFallbackRoot,
+  getBrowserSidebarTextLocatorRoot,
+  getBrowserSidebarTextLocatorRootDescriptor,
+  getBrowserSidebarTextOffsetWithinRoot,
+  isBrowserSidebarDocumentOrShadowRoot,
+  isBrowserSidebarShadowRoot,
+  resolveBrowserSidebarTextLocatorTarget,
+  resolveBrowserSidebarTextPositionAtOffset,
+} from "./text-locators";
+export {
+  browserSidebarRangeIntersectsSecureText,
+  createBrowserSidebarRangeFromTextLocator,
+  getBrowserSidebarNonEmptyBoundingRect,
+  getBrowserSidebarRangeEndpointPoint,
+  getBrowserSidebarRangeFromSelection,
+  getBrowserSidebarRangeRects,
+  getBrowserSidebarSelectionDirection,
+  isBrowserSidebarFixedTextRoot,
+} from "./text-ranges";
 export type {
   BrowserSidebarCommentEditorLayoutOptions,
   BrowserSidebarPoint,
@@ -203,7 +242,18 @@ export type {
 export type { BrowserSidebarElementAnchorState } from "./element-anchor-reprojection";
 export type { BrowserSidebarElementSelectorOptions } from "./element-selectors";
 export type { BrowserSidebarElementSnapshot } from "./element-metadata";
+export type { BrowserSidebarFormControlSelection } from "./form-control-selection";
+export type { BrowserSidebarSelectableFormControl } from "./form-control-selection";
+export type {
+  BrowserSidebarCapturedTextSelection,
+  BrowserSidebarTextAnchorState,
+} from "./text-anchor-builder";
 export type { BrowserSidebarTextDraft } from "./element-text";
+export type {
+  BrowserSidebarTextLocatorRoot,
+  BrowserSidebarTextPosition,
+} from "./text-locators";
+export type { BrowserSidebarTextSelectionDirection } from "./text-ranges";
 export type {
   BrowserSidebarComposedPathEvent,
   BrowserSidebarStopEventOptions,
