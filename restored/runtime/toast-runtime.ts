@@ -1,9 +1,9 @@
-// Restored from ref/webview/assets/app-initial~app-main~remote-conversation-page~plugin-detail-page~new-thread-panel-page~appg~ijdupmx5-CdYgxe-b.js
+// Restored from ref/webview/assets/local-conversation-thread-BwqAGxoz.js
 // Toast signal and controller initialization helpers.
 import {
-  cM as initToastRuntimeRaw,
-  uM as toastSignal,
-} from "../vendor/appg-thread-shared-runtime";
+  Gx as initToastRuntimeRaw,
+  qx as toastSignal,
+} from "../vendor/projects-app-shared-runtime";
 
 export { toastSignal };
 
