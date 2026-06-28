@@ -58,6 +58,17 @@ import {
   SHOW_CONTEXT_MENU_CHANNEL,
 } from "./menus/native-menu-ipc";
 import {
+  GET_BUILD_FLAVOR_CHANNEL,
+  GET_SENTRY_INIT_OPTIONS_CHANNEL,
+  GET_SHARED_OBJECT_SNAPSHOT_CHANNEL,
+  GET_SYSTEM_THEME_VARIANT_CHANNEL,
+  GET_USES_OWL_APP_SHELL_CHANNEL,
+  getCurrentSystemThemeVariant,
+  registerPreloadStateSyncIpcHandlers,
+  registerSystemThemeVariantIpcHandlers,
+  SYSTEM_THEME_VARIANT_UPDATED_CHANNEL,
+} from "./ipc/preload-state-ipc";
+import {
   createMainWorkerBusController,
   MainWorkerAppEventBus,
   MainWorkerThreadManager,
@@ -477,7 +488,7 @@ function shouldHandleStateDatabaseOpenError(error: unknown): boolean {
 function createMainStartupOpenBoundaryError(): Error {
   return Object.assign(
     Error(
-      "main--VWTbRdF remains an open restoration boundary: the startup phase map, updater bridge helpers, worker main-RPC helper contracts, main-side worker bus manager, desktop tray controller, Windows shell integration helpers, About dialog/app icon helpers, and native menu IPC handlers are recovered, but window services, app-server lifecycle, application menu assembly, remaining IPC registration, and telemetry still require semantic restoration.",
+      "main--VWTbRdF remains an open restoration boundary: the startup phase map, updater bridge helpers, worker main-RPC helper contracts, main-side worker bus manager, desktop tray controller, Windows shell integration helpers, About dialog/app icon helpers, native menu IPC handlers, and preload state/theme IPC handlers are recovered, but window services, app-server lifecycle, application menu assembly, remaining view-message IPC registration, and telemetry still require semantic restoration.",
     ),
     {
       code: OPEN_RESTORATION_BOUNDARY_CODE,
@@ -558,6 +569,17 @@ function createMainStartupOpenBoundaryError(): Error {
         resolveNativeContextMenuIcon,
         SHOW_APPLICATION_MENU_CHANNEL,
         SHOW_CONTEXT_MENU_CHANNEL,
+      },
+      preloadStateIpcHelpers: {
+        GET_BUILD_FLAVOR_CHANNEL,
+        GET_SENTRY_INIT_OPTIONS_CHANNEL,
+        GET_SHARED_OBJECT_SNAPSHOT_CHANNEL,
+        GET_SYSTEM_THEME_VARIANT_CHANNEL,
+        GET_USES_OWL_APP_SHELL_CHANNEL,
+        getCurrentSystemThemeVariant,
+        registerPreloadStateSyncIpcHandlers,
+        registerSystemThemeVariantIpcHandlers,
+        SYSTEM_THEME_VARIANT_UPDATED_CHANNEL,
       },
     },
   );
