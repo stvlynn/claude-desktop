@@ -22,6 +22,18 @@ import {
   useConversationHostApi,
 } from "../../runtime/conversation-host-runtime";
 import {
+  diffSourceSignal,
+  focusThreadSourceFrame,
+  localConversationMessages,
+  recordForkedConversationSource,
+  registerContentSearchRevealHandler,
+  resolveServiceTierForModel,
+  revealContentSearchItemElement,
+  scrollContentSearchItemIntoView,
+  updateCollapsedTurnsByConversation,
+  waitForThreadLayoutTick,
+} from "../../runtime/conversation-content-runtime";
+import {
   completedThreadGoalSignal,
   conversationCollaborationModeSignal,
   conversationCwdSignal,
@@ -57,23 +69,9 @@ import {
   createAtomSignal,
   useSignalState,
 } from "../../runtime/signal-state-runtime";
-import {
-  P as recordForkedConversationSource,
-  cs as focusThreadSourceFrame,
-  ho as resolveServiceTierForModel,
-  qo as diffSourceSignal,
-  u as localConversationMessages,
-  un as waitForThreadLayoutTick,
-} from "../../boundaries/current-ref/projects-app-shared-producer";
 import { useAutomationItems } from "../../utils/use-automation-history-items";
 import { captureConversationCopy } from "../conversation-copy";
 import { useAppgenSitesEntryPointEnabled as useAppgenEndCardEnabled } from "../../features/appgen-gating";
-import {
-  Mt as registerContentSearchRevealHandler,
-  Nt as scrollContentSearchItemIntoView,
-  Pt as revealContentSearchItemElement,
-  ct as updateCollapsedTurnsByConversation,
-} from "../../boundaries/current-ref/profile-page-producer";
 import type { LocalConversationThreadContentComponentProps } from "./local-conversation-thread-frame-types";
 import {
   initLocalConversationAppShellSourceRegistrationChunk,
