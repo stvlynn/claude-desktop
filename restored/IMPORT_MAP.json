@@ -11393,7 +11393,7 @@
     "local-remote-dropdown-BcmhHtfg": {
       "restored": "thread-summary/local-remote-dropdown.tsx",
       "status": "partial",
-      "note": "Partial thread-summary/composer restore: all raw aliases now resolve to semantic exports in thread-summary/local-remote-dropdown.tsx, the current-ref producer no longer routes through the vendor facade, and CloudEnvironmentDropdown now gates on Codex cloud access plus git-root availability before loading/searching/selecting environments through restored codex-api hooks. Slash command registration and cross-host handoff dialog parity remain pending.",
+      "note": "Partial thread-summary/composer restore: all raw aliases now resolve to semantic exports in thread-summary/local-remote-dropdown.tsx, the current-ref producer no longer routes through the vendor facade, CloudEnvironmentDropdown now gates on Codex cloud access plus git-root availability before loading/searching/selecting environments through restored codex-api hooks, and LocalRemoteDropdown registers the base local/worktree/cloud prompt slash commands. Per-environment cloud slash commands and cross-host handoff dialog parity remain pending.",
       "lastUpdated": "2026-06-28T00:00:00.000Z",
       "exports": {
         "a": "CloudEnvironmentDropdown",

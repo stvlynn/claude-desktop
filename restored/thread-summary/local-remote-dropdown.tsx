@@ -9,7 +9,13 @@ import {
   initGitRootQueryRuntime,
   useGitRootQuery,
 } from "../github/git-root-query";
-import { useCodexCloudAccess } from "../remote/local-remote-selection";
+import { CloudIcon } from "../icons/cloud-icon";
+import { LaptopIcon } from "../icons/laptop-icon";
+import { WorktreeIcon } from "../icons/worktree-icon";
+import {
+  useCodexCloudAccess,
+  useRegisterPromptLocalRemoteCommand,
+} from "../remote/local-remote-selection";
 import { useScopedValue, useSignalValue } from "../runtime/app-scope-hooks";
 import {
   conversationCwdSignal,
@@ -76,6 +82,17 @@ type DropdownOption = {
   label: ReactNode;
 };
 
+type LocalRemoteSlashCommand = {
+  Icon?: React.ComponentType<{ className?: string }>;
+  dependencies?: React.DependencyList;
+  description?: ReactNode;
+  enabled?: boolean;
+  id: string;
+  onSelect?: () => void | Promise<void>;
+  requiresEmptyComposer?: boolean;
+  title: string;
+};
+
 type QueryResult<TData> = {
   data?: TData;
   error?: unknown;
@@ -92,6 +109,8 @@ export function initThreadHandoffSummaryHelpersChunk(): void {}
 
 export function initLocalRemoteDropdownChunk(): void {
   initIntlRuntime();
+  initConversationStateRuntime();
+  initGitRootQueryRuntime();
 }
 
 export function initCloudEnvironmentDropdownChunk(): void {
@@ -119,6 +138,7 @@ export function isComposerModeVisibleInLocalRemoteDropdown(
 export function LocalRemoteDropdown({
   allowWorktree = false,
   composerMode,
+  conversationId,
   disabled = false,
   footerRemoteState = null,
   hideModeDropdown = false,
@@ -129,6 +149,21 @@ export function LocalRemoteDropdown({
   worktreeLabelOnly = false,
 }: LocalRemoteDropdownProps): JSX.Element | null {
   let intl = useIntl(),
+    conversationCwd = useScopedValue<string | null | undefined>(
+      conversationCwdSignal,
+      conversationId,
+    ),
+    conversationHostId =
+      useScopedValue<string | null | undefined>(
+        conversationHostIdSignal,
+        conversationId,
+      ) ?? "local",
+    { access: cloudAccess } = useCodexCloudAccess(),
+    { gitRoot } = useGitRootQuery(conversationCwd, {
+      enabled: !disabled && !hideModeDropdown,
+      hostId: conversationHostId,
+      source: LOCAL_REMOTE_DROPDOWN_SOURCE,
+    }),
     [isOpen, setIsOpen] = React.useState(false),
     isRemoteThread = getRemoteThreadState(footerRemoteState) != null,
     isSummaryPanel = triggerVariant === "summary-panel",
@@ -142,7 +177,12 @@ export function LocalRemoteDropdown({
       isRemoteThread,
       threadHandoff,
     }),
-    canOpen = !disabled && !hideModeDropdown;
+    canOpen = !disabled && !hideModeDropdown,
+    hasGitRepository = gitRoot != null,
+    canRunInCloud = cloudAccess === "enabled" && hasGitRepository,
+    canRunInWorktree =
+      hasGitRepository &&
+      (allowWorktree || worktreeLabelOnly || threadHandoff != null);
 
   let updateOpen = React.useCallback(
     (nextOpen: boolean) => {
@@ -152,6 +192,60 @@ export function LocalRemoteDropdown({
     },
     [canOpen, onOpenChange],
   );
+
+  useLocalRemoteSlashCommand({
+    Icon: isRemoteThread ? CloudIcon : LaptopIcon,
+    description: intl.formatMessage({
+      id: "composer.mode.localSlashCommand.description",
+      defaultMessage: "Run this chat locally",
+      description: "Description for the local mode slash command",
+    }),
+    enabled: canOpen && composerMode !== "local",
+    id: "local",
+    onSelect: () => setComposerMode("local"),
+    title: intl.formatMessage({
+      id: isRemoteThread ? "composer.mode.remote" : "composer.mode.workLocally",
+      defaultMessage: isRemoteThread ? "Remote" : "Work locally",
+      description: isRemoteThread ? "Remote mode label" : "Local mode label",
+    }),
+  });
+
+  useLocalRemoteSlashCommand({
+    Icon: WorktreeIcon,
+    description: intl.formatMessage({
+      id: "composer.mode.worktreeSlashCommand.description",
+      defaultMessage: "Run this chat in a new worktree",
+      description: "Description for the worktree mode slash command",
+    }),
+    enabled: canOpen && canRunInWorktree && composerMode !== "worktree",
+    id: "worktree",
+    onSelect: () => setComposerMode("worktree"),
+    title: intl.formatMessage({
+      id: isRemoteThread
+        ? "composer.mode.remoteWorktree"
+        : "composer.mode.worktree",
+      defaultMessage: isRemoteThread ? "New remote worktree" : "New worktree",
+      description: "Worktree mode label",
+    }),
+  });
+
+  useLocalRemoteSlashCommand({
+    Icon: CloudIcon,
+    description: intl.formatMessage({
+      id: "composer.mode.cloudSlashCommand.description",
+      defaultMessage: "Run this chat in the cloud",
+      description: "Description for the cloud mode slash command",
+    }),
+    enabled: canOpen && canRunInCloud && composerMode !== "cloud",
+    id: "cloud",
+    onSelect: () => setComposerMode("cloud"),
+    title: intl.formatMessage({
+      id: "composer.mode.runInCloud",
+      defaultMessage: "Cloud",
+      description:
+        "Remote mode label when a Codex task will be run in the cloud",
+    }),
+  });
 
   if (hideModeDropdown && !worktreeLabelOnly) return null;
 
@@ -198,7 +292,7 @@ export function LocalRemoteDropdown({
           description="Description for the cloud mode slash command"
         />
       ),
-      disabled: composerMode === "cloud",
+      disabled: composerMode === "cloud" || !canRunInCloud,
     },
   ];
 
@@ -233,8 +327,7 @@ export function LocalRemoteDropdown({
           description="Tooltip content for worktree mode dropdown item"
         />
       ),
-      disabled:
-        composerMode === "worktree" || (!allowWorktree && !threadHandoff),
+      disabled: composerMode === "worktree" || !canRunInWorktree,
     });
   }
 
@@ -424,6 +517,17 @@ export function CloudEnvironmentDropdown({
       ) : null}
     </div>
   );
+}
+
+function useLocalRemoteSlashCommand({
+  dependencies = [],
+  ...command
+}: LocalRemoteSlashCommand): void {
+  useRegisterPromptLocalRemoteCommand({
+    requiresEmptyComposer: false,
+    ...command,
+    dependencies: [command.onSelect, ...dependencies],
+  } as Parameters<typeof useRegisterPromptLocalRemoteCommand>[0]);
 }
 
 function CloudEnvironmentMenu({
