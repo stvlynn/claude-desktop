@@ -3,35 +3,31 @@
 
 import { once } from "../../runtime/commonjs-interop";
 import {
-  $N as initDeveloperInstructionsProducer,
-  $j as initSideConversationProducer,
-  Db as buildInstructionOverrides,
-  Ob as initConversationCacheProducer,
-  Op as initHostConversationActionsProducer,
-  YN as sendHostRequest,
-  ak as initSideConversationPromptProducer,
-  ii as closeSideChatThreadAssociation,
-  mP as logger,
-  ok as runConversationAction,
-  pP as initConversationActionProducer,
-  ri as initToastProducer,
-  tM as modelSelectionSignal,
-  ti as registerSideChatThreadAssociation,
-  Wp as conversationModelOverrideSignal,
-} from "../../boundaries/current-ref/appg-thread-shared-producer";
-import {
-  _c as getPanelController,
-  ed as bottomPanelActivationSignal,
-  n as initProjectsAppProducer,
-  rd as rightPanelActivationSignal,
-  sd as initThreadPanelProducer,
-  t as SideChatIcon,
-  yc as initNavigationProducer,
-} from "../../boundaries/current-ref/projects-app-shared-producer";
-import {
-  Du as initProfileRouteProducer,
-  Eu as LoadingPanel,
-} from "../../boundaries/current-ref/profile-page-producer";
+  bottomPanelActivationSignal,
+  buildInstructionOverrides,
+  closeSideChatThreadAssociation,
+  conversationModelOverrideSignal,
+  getPanelController,
+  initConversationActionProducer,
+  initConversationCacheProducer,
+  initDeveloperInstructionsProducer,
+  initHostConversationActionsProducer,
+  initNavigationProducer,
+  initProfileRouteProducer,
+  initProjectsAppProducer,
+  initSideConversationProducer,
+  initSideConversationPromptProducer,
+  initThreadPanelProducer,
+  initToastProducer,
+  LoadingPanel,
+  logger,
+  modelSelectionSignal,
+  registerSideChatThreadAssociation,
+  rightPanelActivationSignal,
+  runConversationAction,
+  sendHostRequest,
+  SideChatIcon,
+} from "../../runtime/thread-overflow-menu-runtime";
 
 type SideChatOpenTarget = "right" | "bottom";
 
