@@ -24,7 +24,7 @@ import {
 import {
   createLazyNavigationRailComponent as createLazyNavigationRailComponentRaw,
   initLazyNavigationRailRuntime as initLazyNavigationRailRuntimeRaw,
-} from "../../utils/lazy-navigation-rail";
+} from "../../threads/lazy-navigation-rail";
 
 export type ContentSearchMatch = {
   id: string;

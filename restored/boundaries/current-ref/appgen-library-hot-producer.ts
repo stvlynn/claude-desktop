@@ -12,7 +12,7 @@ export {
 export {
   createLazyNavigationRailComponent as Dr,
   initLazyNavigationRailRuntime as Er,
-} from "../../utils/lazy-navigation-rail";
+} from "../../threads/lazy-navigation-rail";
 export {
   initGitRootQueryRuntime as at,
   useGitRootQuery as st,

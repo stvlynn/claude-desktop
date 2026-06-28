@@ -11291,7 +11291,7 @@
         "tn": "initWorkspaceRootDisplayNameRuntime"
       },
       "status": "partial",
-      "note": "Composer-facing thread footer/component initializer, app-shell element context, lazy navigation rail, git-root query, remote connection state/icon, command menu item, and workspace root display-name exports now have semantic wrappers; remaining appgen-library hot-path UI/runtime exports stay isolated behind vendor/appgen-library-hot-runtime.ts until the full mixed chunk is deep-restored.",
+      "note": "Composer-facing thread footer/component initializer, app-shell element context, thread lazy navigation rail, git-root query, remote connection state/icon, command menu item, and workspace root display-name exports now have semantic wrappers; lazy navigation rail lives at threads/lazy-navigation-rail.tsx with utils/lazy-navigation-rail.tsx as a compatibility barrel. Remaining appgen-library hot-path UI/runtime exports stay isolated behind vendor/appgen-library-hot-runtime.ts until the full mixed chunk is deep-restored.",
       "lastUpdated": "2026-06-28T00:00:00.000Z",
       "boundary": "boundaries/current-ref/appgen-library-hot-producer.ts"
     },
