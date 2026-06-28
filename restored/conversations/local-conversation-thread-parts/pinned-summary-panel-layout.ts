@@ -3,19 +3,16 @@
 
 import React from "react";
 import { once } from "../../runtime/commonjs-interop";
+import { useSignalValue } from "../../runtime/app-scope-hooks";
+import { appScopeRoot as appScope } from "../../runtime/app-scope-runtime";
 import {
-  $P as initAppScope,
-  AB as initScopeRuntime,
-  CP as animateSignalValue,
-  IB as useSignalValue,
-  LN as initReducedMotionPreference,
-  OP as createMotionSignal,
-  QP as appScope,
-  RN as reducedMotionPreferenceSignal,
-  SP as initMotionRuntime,
-  kP as useMotionValueEvent,
-  yV as createSignal,
-} from "../../boundaries/current-ref/appg-thread-shared-producer";
+  animateSignalValue,
+  createMotionSignal,
+  createSignal,
+  initMotionSignalRuntime,
+  reducedMotionPreferenceSignal,
+  useMotionValueEvent,
+} from "../../runtime/motion-signal-runtime";
 import {
   Cd as pinnedSummaryPanelSpringTransition,
   id as rightPanelStateSignal,
@@ -52,10 +49,7 @@ const DEFAULT_PINNED_SUMMARY_PANEL_STATE: PinnedSummaryPanelState = {
 export let pinnedSummaryPanelState: ReturnType<typeof createSignal>;
 
 export const initPinnedSummaryPanelState = once(() => {
-  initMotionRuntime();
-  initScopeRuntime();
-  initAppScope();
-  initReducedMotionPreference();
+  initMotionSignalRuntime();
   pinnedSummaryPanelState = createSignal(
     appScope,
     DEFAULT_PINNED_SUMMARY_PANEL_STATE,

@@ -14,16 +14,14 @@ import {
   initWindowZoomContext,
   useWindowZoom,
 } from "../../utils/window-zoom-context";
+import { useScope } from "../../runtime/app-scope-hooks";
+import { appScopeRoot as appScope } from "../../runtime/app-scope-runtime";
 import {
-  $P as initAppScope,
-  AB as initScopeRuntime,
-  AP as motion,
-  CP as animateSignalValue,
-  FB as useScope,
-  OP as createMotionSignal,
-  QP as appScope,
-  SP as initMotionRuntime,
-} from "../../boundaries/current-ref/appg-thread-shared-producer";
+  animateSignalValue,
+  createMotionSignal,
+  initMotionSignalRuntime,
+  motion,
+} from "../../runtime/motion-signal-runtime";
 import { initThreadScrollLayoutStyleChunk } from "../../utils/thread-scroll-layout";
 import {
   initThreadScrollControllerContextChunk,
@@ -968,10 +966,8 @@ function coerceConversationTurnItems(
 }
 
 export const initAutoFollowVirtualizedTurnListChunk = once(() => {
-  initMotionRuntime();
-  initScopeRuntime();
+  initMotionSignalRuntime();
   initWindowZoomContext();
-  initAppScope();
   initThreadScrollLayoutStyleChunk();
   initThreadScrollControllerContextChunk();
   initReverseScrollUtilities();
