@@ -11392,14 +11392,16 @@
     "local-remote-dropdown-BcmhHtfg": {
       "restored": "thread-summary/local-remote-dropdown.tsx",
       "status": "partial",
-      "note": "Partial thread-summary/composer restore: the compact-window handoff helper plus LocalRemoteDropdown and CloudEnvironmentDropdown summary-panel surfaces now live in thread-summary/local-remote-dropdown.tsx, and the vendor facade no longer re-exports the original ref chunk. Full cloud-environment search, slash command registration, and cross-host handoff dialog parity remain pending.",
+      "note": "Partial thread-summary/composer restore: all raw aliases now resolve to semantic exports in thread-summary/local-remote-dropdown.tsx, and the current-ref producer no longer routes through the vendor facade. Full cloud-environment search, slash command registration, and cross-host handoff dialog parity remain pending.",
       "lastUpdated": "2026-06-28T00:00:00.000Z",
       "exports": {
         "a": "CloudEnvironmentDropdown",
+        "c": "isComposerModeVisibleInLocalRemoteDropdown",
         "i": "initThreadHandoffSummaryHelpersChunk",
         "n": "initLocalRemoteDropdownChunk",
         "o": "initCloudEnvironmentDropdownChunk",
         "r": "shouldShowThreadHandoffInSummary",
+        "s": "initLocalRemoteDropdownStateChunk",
         "t": "LocalRemoteDropdown"
       }
     },
