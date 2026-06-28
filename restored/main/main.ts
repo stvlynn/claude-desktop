@@ -10,6 +10,21 @@ import {
   invokeWorkerMainRpcHandler,
   isWorkerMainRpcRequest,
 } from "./workers/worker-main-rpc";
+import { DesktopTrayController } from "./tray/desktop-tray-controller";
+import {
+  canToggleChronicleSidecar,
+  createTrayThreadMenuItem,
+  createTrayThreadSection,
+  getChronicleTrayMenuLabel,
+  getQuitMenuItemLabel,
+} from "./tray/tray-menu";
+import { isTrayMenuThreadsChangedMessage } from "./tray/tray-types";
+import {
+  createChronicleRunningTrayIcon,
+  getDarwinTrayTemplateIconNames,
+  getWindowsTrayIconName,
+  loadDesktopTrayIcons,
+} from "./tray/tray-icons";
 import {
   createMainWorkerBusController,
   MainWorkerAppEventBus,
@@ -430,7 +445,7 @@ function shouldHandleStateDatabaseOpenError(error: unknown): boolean {
 function createMainStartupOpenBoundaryError(): Error {
   return Object.assign(
     Error(
-      "main--VWTbRdF remains an open restoration boundary: the startup phase map, updater bridge helpers, worker main-RPC helper contracts, and main-side worker bus manager are recovered, but window services, app-server lifecycle, tray/menu assembly, IPC registration, and telemetry still require semantic restoration.",
+      "main--VWTbRdF remains an open restoration boundary: the startup phase map, updater bridge helpers, worker main-RPC helper contracts, main-side worker bus manager, and desktop tray controller are recovered, but window services, app-server lifecycle, application menu assembly, IPC registration, and telemetry still require semantic restoration.",
     ),
     {
       code: OPEN_RESTORATION_BOUNDARY_CODE,
@@ -466,6 +481,19 @@ function createMainStartupOpenBoundaryError(): Error {
         WorkerInvocationSampler,
         workerRequestChannel,
         workerResponseChannel,
+      },
+      trayHelpers: {
+        canToggleChronicleSidecar,
+        createChronicleRunningTrayIcon,
+        createTrayThreadMenuItem,
+        createTrayThreadSection,
+        DesktopTrayController,
+        getChronicleTrayMenuLabel,
+        getDarwinTrayTemplateIconNames,
+        getQuitMenuItemLabel,
+        getWindowsTrayIconName,
+        isTrayMenuThreadsChangedMessage,
+        loadDesktopTrayIcons,
       },
     },
   );
