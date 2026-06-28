@@ -4,8 +4,24 @@
       "restored": "preload/avatar-overlay-composition-surface-preload.ts",
       "status": "done"
     },
+    "bootstrap": {
+      "restored": "bootstrap.ts",
+      "status": "done"
+    },
     "preload": {
       "restored": "preload/electron-bridge-preload.ts",
+      "status": "done"
+    },
+    "comment-preload": {
+      "restored": "preload/browser-sidebar-comment-preload.ts",
+      "status": "faced",
+      "boundary": true,
+      "vendor": "runtime",
+      "openBoundary": true,
+      "note": "Semantic preload entry restored; React browser-sidebar comment overlay UI remains an open app-runtime boundary."
+    },
+    "child-process-snapshot-worker": {
+      "restored": "workers/child-process-snapshot-worker.ts",
       "status": "done"
     },
     "sandbox-preload": {
@@ -69,12 +85,97 @@
       },
       "status": "done"
     },
+    "worker": {
+      "restored": "workers/app-worker.ts",
+      "status": "faced",
+      "boundary": true,
+      "vendor": "runtime",
+      "openBoundary": true,
+      "note": "Semantic worker shell, original nested request/response protocol, and OpenIn custom-target command/icon handling restored; computer-use, Git/process/fs, built-in OpenIn target table, and telemetry internals remain open app-runtime boundaries."
+    },
+    "main--VWTbRdF": {
+      "restored": "main.ts",
+      "exports": {
+        "runMainAppStartup": "runMainAppStartup"
+      },
+      "status": "faced",
+      "boundary": true,
+      "vendor": "runtime",
+      "openBoundary": true,
+      "note": "Startup phase map, SQLite recovery routing predicate, and open-boundary metadata restored; window services, app-server lifecycle, worker handlers, IPC, updater/tray/menu wiring, and telemetry still require semantic restoration."
+    },
     "codex-micro-service-DMYylm8w": {
       "restored": "devices/codex-micro-service.ts",
       "exports": {
         "CodexMicroService": "CodexMicroService"
       },
       "status": "done"
+    },
+    "workspace-root-drop-handler-Cejfos9U": {
+      "restored": "workspace/workspace-root-drop-handler.ts",
+      "exports": {
+        "$": "configureNativeIntl",
+        "A": "AVATAR_OVERLAY_OPEN_CHANNEL",
+        "B": "loadWindowsUpdaterNativeAddon",
+        "C": "createDeepLinkCoordinator",
+        "D": "setInternalUpdateCdnEnabled",
+        "E": "createDesktopRuntimePaths",
+        "F": "LOCAL_REMOTE_CONTROL_INSTALLATION_ID_KEY",
+        "G": "isOwlFeatureEnabled",
+        "H": "desktopReleaseMetadata",
+        "I": "OPENAI_MCP_FORM_ELICITATIONS_ENABLED_KEY",
+        "J": "createWebviewAppUrl",
+        "K": "applyOwlFeatureBootstrapCache",
+        "L": "PERSISTED_ATOM_STATE_KEY",
+        "M": "CHROME_EXTENSION_SYNC_MANAGED_PLUGIN_IDS_KEY",
+        "N": "INTEGRITY_STATE_ENVELOPE_KEY",
+        "O": "applyNativeThemeSource",
+        "P": "LOCAL_REMOTE_CONTROL_ENVIRONMENT_ID_KEY",
+        "Q": "NativeIntlMessages",
+        "R": "REMOTE_CONTROL_CLIENT_ENROLLMENTS_KEY",
+        "S": "getCurrentAppBundlePath",
+        "T": "getDesktopRuntimeState",
+        "U": "codexAppSessionId",
+        "V": "desktopReleaseMetadata",
+        "W": "createOwlFeatureSettingsApi",
+        "X": "filePathFromAppFileUrl",
+        "Y": "webviewRootFromModuleDir",
+        "Z": "registerAppProtocolHandler",
+        "_": "showStateDatabaseRebuiltDialog",
+        "a": "getRemoteWorkspaceRootsForHost",
+        "b": "ignoreConsolePipeErrors",
+        "c": "pushProjectOrder",
+        "d": "setWorkspaceRootOptions",
+        "et": "getNativeIntl",
+        "f": "updateWorkspaceRootLabels",
+        "g": "extractStateDatabasePathFromError",
+        "h": "extractDesktopOpenFileArgs",
+        "i": "getActiveWorkspaceRoots",
+        "j": "BROWSER_DOWNLOAD_HISTORY_KEY",
+        "k": "AVATAR_OVERLAY_BOUNDS_KEY",
+        "l": "ensureInitialWorkspaceRootSelection",
+        "m": "isSupportedDesktopOpenFile",
+        "n": "initializeOpenFileQueue",
+        "nt": "getRuntimeAppName",
+        "o": "getWorkspaceRootLabels",
+        "p": "updateWorkspaceRootOptions",
+        "q": "recoverStateDatabaseAccess",
+        "r": "createDesktopOpenPathHandler",
+        "s": "getWorkspaceRootOptions",
+        "t": "queueDesktopOpenPaths",
+        "tt": "getRuntimeAppBrand",
+        "u": "setActiveWorkspaceRoots",
+        "v": "verifyStateDatabaseAvailable",
+        "w": "shouldUseSingleInstanceLock",
+        "x": "installDesktopLogBridge",
+        "y": "openStateDatabaseWithRecovery",
+        "z": "WORKTREE_CLEANUP_BUFFER_START_MS_KEY"
+      },
+      "status": "faced",
+      "boundary": true,
+      "vendor": "runtime",
+      "openBoundary": true,
+      "note": "Workspace-root selection, app:// protocol handling, deep-link routing, SQLite recovery, Owl feature bootstrap/cache state, and file-backed global state paths restored; updater manager, full settings-store migration, Sentry/OpenTelemetry, and shared-node runtime exports still require semantic restoration."
     }
   }
 }
