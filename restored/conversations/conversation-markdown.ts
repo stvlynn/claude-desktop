@@ -1,32 +1,30 @@
 // Restored from ref/webview/assets/conversation-markdown-BjFKV53f.js
 // Markdown exporter for local Codex conversations.
 import {
-  DL as normalizeWorkspacePath,
-  Gv as initMarkdownNormalizationRuntime,
-  Kg as initNormalizedPathUtilities,
-  Vv as initMarkdownContentRuntime,
-  Wv as rewriteMarkdownResourceLinks,
-  aD as formatShellCommand,
-  bF as initPathHelpers,
-  iD as initCommandMarkdownRuntime,
-  qg as resolveProjectlessResourcePath,
-  wj as initArtifactPreviewRuntime,
-  zv as renderChangeAsUnifiedDiff,
-} from "../boundaries/current-ref/appg-thread-shared-producer";
-import {
-  Ba as groupClosedActivityUnits,
-  Et as isConversationItemInProgress,
-  Ha as initPostAssistantItemGrouping,
-  La as shouldRenderCollapsedActivityDetails,
-  Ra as closeActivitySlices,
-  Tt as initRemoteTaskCreatedItems,
-  Va as collectRenderableAgentUnits,
-  dt as initPersonalityChangedItems,
-  ft as resolveRenderableAgentItems,
-  lt as initRenderableOutputGrouping,
-  ut as getTurnAgentItemGroups,
-  za as wrapActivityUnits,
-} from "../boundaries/current-ref/profile-page-producer";
+  closeActivitySlices,
+  collectRenderableAgentUnits,
+  formatShellCommand,
+  getTurnAgentItemGroups,
+  groupClosedActivityUnits,
+  initArtifactPreviewRuntime,
+  initCommandMarkdownRuntime,
+  initMarkdownContentRuntime,
+  initMarkdownNormalizationRuntime,
+  initNormalizedPathUtilities,
+  initPathHelpers,
+  initPersonalityChangedItems,
+  initPostAssistantItemGrouping,
+  initRemoteTaskCreatedItems,
+  initRenderableOutputGrouping,
+  isConversationItemInProgress,
+  normalizeWorkspacePath,
+  renderChangeAsUnifiedDiff,
+  resolveProjectlessResourcePath,
+  resolveRenderableAgentItems,
+  rewriteMarkdownResourceLinks,
+  shouldRenderCollapsedActivityDetails,
+  wrapActivityUnits,
+} from "../runtime/conversation-markdown-runtime";
 import { once } from "../runtime/commonjs-interop";
 import { conversationMarkdownFormat } from "./conversation-markdown-parts/markdown-format";
 import type { PathContext } from "./conversation-markdown-parts/markdown-format";

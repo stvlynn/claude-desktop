@@ -1,11 +1,11 @@
 // Restored from ref/webview/assets/conversation-markdown-BjFKV53f.js
 // Markdown formatting and path normalization helpers for conversation export.
 import {
-  Oj as normalizeArtifactPathKey,
-  Tj as isAbsolutePath,
-  Wv as rewriteMarkdownResourceLinks,
-  kj as normalizeConfigPath,
-} from "../../boundaries/current-ref/appg-thread-shared-producer";
+  isAbsolutePath,
+  normalizeArtifactPathKey,
+  normalizeConfigPath,
+  rewriteMarkdownResourceLinks,
+} from "../../runtime/conversation-markdown-runtime";
 
 type MarkdownRecord = Record<string, any>;
 
