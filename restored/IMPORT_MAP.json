@@ -11255,9 +11255,10 @@
     "app-initial~app-main~worktree-init-v2-page~remote-conversation-page~pull-requests-page~new-~kvpgbdy1-mhRp2VYQ": {
       "restored": "vendor/pull-request-thread-actions-runtime.ts",
       "status": "partial",
-      "note": "Compatibility facade moved out of current-ref direct passthrough. Narrow restored runtimes consume the needed PR description, comment-card, and review-panel helpers, while the remaining mixed pull-request thread action UI/runtime exports stay isolated behind vendor/pull-request-thread-actions-runtime.ts. Local conversation review-panel actions are exposed through conversations/pull-request-review-panel-actions.ts.",
-      "lastUpdated": "2026-06-28T00:00:00.000Z",
-      "boundary": "boundaries/current-ref/pull-request-thread-actions-producer.ts"
+      "note": "Compatibility facade moved out of stale ref passthrough. Narrow restored runtimes consume the needed PR description, comment-card, and review-panel helpers, while remaining mixed pull-request thread action UI/runtime exports are routed through vendor/pull-request-thread-actions-runtime.ts synced to current kmtatxxf-DEE2TwPG until deep-restored.",
+      "lastUpdated": "2026-06-28T21:35:00.000Z",
+      "boundary": "boundaries/current-ref/pull-request-thread-actions-producer.ts",
+      "aliasOf": "app-initial~app-main~worktree-init-v2-page~remote-conversation-page~pull-requests-page~plug~kmtatxxf-DEE2TwPG"
     },
     "app-initial~app-main~onboarding-page~profile-QLPeiknY": {
       "restored": "vendor/profile-page-runtime.ts",
@@ -13153,6 +13154,13 @@
       "boundary": "boundaries/current-ref/appgen-library-hot-producer.ts",
       "note": "Current synced appgen-library hot-path producer. The semantic aliases used by restored composer/app-shell modules remain exposed through current-ref/appgen-library-hot-producer.ts; residual raw aliases stay in vendor/appgen-library-hot-runtime.ts as an open boundary.",
       "lastUpdated": "2026-06-28T21:20:00.000Z"
+    },
+    "app-initial~app-main~worktree-init-v2-page~remote-conversation-page~pull-requests-page~plug~kmtatxxf-DEE2TwPG": {
+      "restored": "vendor/pull-request-thread-actions-runtime.ts",
+      "status": "partial",
+      "boundary": "boundaries/current-ref/pull-request-thread-actions-producer.ts",
+      "note": "Current synced pull-request thread action producer. It preserves the aliases needed by restored PR review panel/comment-card/description markdown runtimes; residual raw aliases stay in vendor/pull-request-thread-actions-runtime.ts as an open boundary.",
+      "lastUpdated": "2026-06-28T21:35:00.000Z"
     }
   }
 }
