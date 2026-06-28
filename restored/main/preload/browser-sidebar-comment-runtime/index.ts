@@ -57,6 +57,14 @@ export {
   parseGoogleSheetsDocumentId,
 } from "./google-workspace-urls";
 export {
+  getGoogleDocsElementHoverClassName,
+  getGoogleDocsPostedRegionClassName,
+  getGoogleDocsRegionHoverClassName,
+  isGoogleDocsAnnotationOverlay,
+  isGoogleDocsAnnotationTarget,
+  isLargeEnoughForGoogleDocsAnnotation,
+} from "./google-docs-overlay";
+export {
   areBrowserSidebarPageUrlsEquivalent,
   frameUrlMatchesWindow,
   parseBrowserSidebarPageUrl,
