@@ -1,0 +1,3 @@
+import { n as e, t } from "./ruby-BvFGfhJE.js";
+t();
+export { e as default };

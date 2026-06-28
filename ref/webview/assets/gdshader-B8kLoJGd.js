@@ -1,0 +1,3 @@
+import { n as e, t } from "./gdshader-BNFpOmGy.js";
+e();
+export { t as default };

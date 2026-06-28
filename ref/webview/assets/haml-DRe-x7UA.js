@@ -1,0 +1,3 @@
+import { n as e, t } from "./haml-D044reRZ.js";
+e();
+export { t as default };

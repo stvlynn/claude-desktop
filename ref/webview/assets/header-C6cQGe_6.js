@@ -1,0 +1,3 @@
+import { n as e, t } from "./header-DpUZYotp.js";
+e();
+export { t as Header };

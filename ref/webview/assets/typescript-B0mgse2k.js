@@ -1,0 +1,3 @@
+import { n as e, t } from "./typescript-DRgX4Pqk.js";
+t();
+export { e as default };

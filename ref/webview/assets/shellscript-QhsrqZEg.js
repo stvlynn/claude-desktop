@@ -1,0 +1,3 @@
+import { n as e, t } from "./shellscript-DXEWFrev.js";
+t();
+export { e as default };

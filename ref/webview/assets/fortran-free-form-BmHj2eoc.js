@@ -1,0 +1,3 @@
+import { n as e, t } from "./fortran-free-form-B-RC3TY-.js";
+e();
+export { t as default };

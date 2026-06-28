@@ -1,0 +1,3 @@
+import { n as e, t } from "./sql-QSp2f3Bu.js";
+t();
+export { e as default };

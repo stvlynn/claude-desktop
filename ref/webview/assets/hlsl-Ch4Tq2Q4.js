@@ -1,0 +1,3 @@
+import { n as e, t } from "./hlsl-BaNbCG53.js";
+e();
+export { t as default };

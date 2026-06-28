@@ -1,0 +1,3 @@
+import { n as e, t } from "./html-CsY7yZvo.js";
+e();
+export { t as default };

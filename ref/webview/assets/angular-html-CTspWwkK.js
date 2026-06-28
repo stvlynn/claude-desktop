@@ -1,0 +1,3 @@
+import { n as e, t } from "./angular-html-lkpP9geM.js";
+e();
+export { t as default };
