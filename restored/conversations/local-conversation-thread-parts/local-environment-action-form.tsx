@@ -15,20 +15,22 @@ import {
   initDropdownMenuPrimitives,
 } from "../../ui/dropdown";
 import {
+  DialogBody,
+  DialogFooter as DialogFooterActions,
+  DialogHeader,
+  DialogLayout as AppDialog,
+  DialogSection,
+  FieldStack as DialogFieldStack,
+  initAppDialog,
+  initDialogLayoutComponents,
+} from "../../ui/dialog-layout";
+import {
   $N as initVscodeApiBridge,
-  Ai as initDialogLayoutComponents,
   AV as initReactQueryRuntime,
-  Di as DialogSection,
-  Ei as DialogHeader,
   iF as initIntlRuntime,
   lF as useIntl,
-  Oi as DialogFieldStack,
   tP as useAppServerMutation,
-  Ti as DialogFooterActions,
-  va as AppDialog,
-  wi as DialogBody,
   XN as createQueryKey,
-  xa as initAppDialog,
   zV as useQueryClient,
 } from "../../boundaries/current-ref/appg-thread-shared-producer";
 import {

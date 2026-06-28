@@ -5,11 +5,17 @@ import { GitBranchIcon, initGitBranchIcon } from "../../icons/git-branch-icon";
 import { once } from "../../runtime/commonjs-interop";
 import { Button, initButtonComponentPrimitives } from "../../ui/button";
 import {
+  DialogBody,
+  DialogFooter as DialogFooterActions,
+  DialogHeader,
+  DialogLayout as AppDialog,
+  initAppDialog,
+  initDialogLayoutComponents,
+} from "../../ui/dialog-layout";
+import {
   $P as initAppScope,
   AB as initScopeRuntime,
-  Ai as initDialogLayoutComponents,
   DL as normalizeWorkspacePath,
-  Ei as DialogHeader,
   FB as useScope,
   Mu as initHostCodexHomeQuery,
   Ov as useNavigate,
@@ -22,11 +28,7 @@ import {
   mv as initLocalEnvironmentConfigQueryRuntime,
   pP as initLoggerRuntime,
   sF as FormattedMessage,
-  Ti as DialogFooterActions,
   uM as toastSignal,
-  va as AppDialog,
-  wi as DialogBody,
-  xa as initAppDialog,
 } from "../../boundaries/current-ref/appg-thread-shared-producer";
 import {
   A as initPendingWorktreeFactory,

@@ -20,6 +20,11 @@ import {
   FieldStack,
   FormRow,
 } from "./sections";
+
+function initDialogLayoutComponents(): void {}
+
+function initAppDialog(): void {}
+
 export {
   DialogSection,
   DIALOG_OVERLAY_CLASS_NAME,
@@ -36,4 +41,6 @@ export {
   FormRow,
   DIALOG_FOOTER_BUTTON_CLASS,
   DialogDescription,
+  initAppDialog,
+  initDialogLayoutComponents,
 };
