@@ -1,10 +1,5 @@
-// Restored from ref/webview/assets/app-initial~app-main~remote-conversation-page~plugin-detail-page~new-thread-panel-page~appg~ijdupmx5-CdYgxe-b.js
+// Restored from ref/webview/assets/local-conversation-thread-BwqAGxoz.js
 // Local conversation route scope, path, navigation, and toast helpers.
-import {
-  AI as getLocalConversationPathRaw,
-  OI as getHotkeyWindowThreadPathRaw,
-  PI as getHotkeyWindowFallbackPathRaw,
-} from "../vendor/appg-thread-shared-runtime";
 import { initConversationPromptContextRuntime } from "../runtime/conversation-prompt-context-runtime";
 
 import { initToastRuntime, toastSignal } from "../runtime/toast-runtime";
@@ -50,17 +45,19 @@ export function createLocalConversationRouteTarget(
 }
 
 export function getLocalConversationPath(conversationId: string): string {
-  return getLocalConversationPathRaw(conversationId);
+  return `/local/${conversationId}`;
 }
 
 export function getHotkeyWindowThreadPath(conversationId: string): string {
-  return getHotkeyWindowThreadPathRaw(conversationId);
+  return `/hotkey-window/thread/${conversationId}`;
 }
 
 export function getHotkeyWindowFallbackPath(
   hasConfiguredLauncherHotkey: boolean,
 ): string {
-  return getHotkeyWindowFallbackPathRaw(hasConfiguredLauncherHotkey);
+  return hasConfiguredLauncherHotkey
+    ? "/hotkey-window"
+    : "/hotkey-window/new-thread";
 }
 
 export function isHotkeyWindowRoute(): boolean {
