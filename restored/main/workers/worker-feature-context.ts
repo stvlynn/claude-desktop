@@ -6,6 +6,10 @@ import {
   WorkerRemoteExecutionHostClient,
   type WorkerExecutionHostConfig,
 } from "./worker-execution-host-client";
+import {
+  getNextComputerUseCaptureUpdate,
+  startComputerUseCaptureNativeBridge,
+} from "./computer-use-native-bridge";
 import type { WorkerMainRpcRequester } from "./worker-main-rpc-client";
 
 type RpcResult =
@@ -201,22 +205,22 @@ function createComputerUseCaptureDependencies(
   mainRpcClient: WorkerMainRpcRequester,
 ): ComputerUseCaptureWorkerDependencies {
   return {
-    getNextCaptureUpdate: async (params) =>
-      invokeOpenComputerUseCaptureNativeBridge({
-        ...params,
-        serviceProcessIdentifier: await mainRpcClient.request(
-          "computer-use-service-pid",
-          {},
-        ),
-      }),
+    getNextCaptureUpdate: async (params) => {
+      return getNextComputerUseCaptureUpdate({
+        requestId: requireStringValue(params.requestId, "requestId"),
+        serviceProcessIdentifier:
+          await getComputerUseServiceProcessIdentifier(mainRpcClient),
+      });
+    },
     startCapture: async (params) => {
-      const serviceProcessIdentifier = await mainRpcClient.request(
-        "computer-use-service-pid",
-        {},
-      );
+      const serviceProcessIdentifier =
+        await getComputerUseServiceProcessIdentifier(mainRpcClient);
       try {
-        return await invokeOpenComputerUseCaptureNativeBridge({
-          ...params,
+        return await startComputerUseCaptureNativeBridge({
+          animationTarget: params.animationTarget,
+          app: params.app,
+          permissionRequestId: params.permissionRequestId,
+          requestId: requireStringValue(params.requestId, "requestId"),
           serviceProcessIdentifier,
         });
       } catch (error) {
@@ -225,23 +229,32 @@ function createComputerUseCaptureDependencies(
       await mainRpcClient.request("computer-use-invalidate-service-pid", {
         processIdentifier: serviceProcessIdentifier,
       });
-      return invokeOpenComputerUseCaptureNativeBridge({
-        ...params,
-        serviceProcessIdentifier: await mainRpcClient.request(
-          "computer-use-service-pid",
-          {},
-        ),
+      return startComputerUseCaptureNativeBridge({
+        animationTarget: params.animationTarget,
+        app: params.app,
+        permissionRequestId: params.permissionRequestId,
+        requestId: requireStringValue(params.requestId, "requestId"),
+        serviceProcessIdentifier:
+          await getComputerUseServiceProcessIdentifier(mainRpcClient),
       });
     },
   };
 }
 
-async function invokeOpenComputerUseCaptureNativeBridge(
-  _params: Record<string, unknown>,
-): Promise<never> {
-  throw openRestorationBoundaryError(
-    "Computer Use capture Apple Event native bridge remains an open restoration boundary.",
+async function getComputerUseServiceProcessIdentifier(
+  mainRpcClient: WorkerMainRpcRequester,
+): Promise<number> {
+  const serviceProcessIdentifier = await mainRpcClient.request(
+    "computer-use-service-pid",
+    {},
   );
+  if (
+    typeof serviceProcessIdentifier !== "number" ||
+    !Number.isFinite(serviceProcessIdentifier)
+  ) {
+    throw Error("Computer Use service process identifier must be a number");
+  }
+  return serviceProcessIdentifier;
 }
 
 function isComputerUseServiceUnavailableError(error: unknown): boolean {
