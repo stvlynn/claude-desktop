@@ -31,7 +31,7 @@ import {
 import { initPathHelpersRuntime } from "../../runtime/path-helpers-runtime";
 import { PlatformContentGate } from "../../runtime/platform-content-runtime";
 import { initVscodeMessageRuntime } from "../../runtime/vscode-message-runtime";
-import { getLocalThreadConversationIdFromRoute } from "../../runtime/local-thread-route";
+import { getLocalThreadConversationIdFromRoute } from "../local-thread-route";
 import { rightPanelFullWidthSignal } from "../../app-shell/mcp-app-frame";
 import { ErrorBoundary as ThreadSummaryPanelErrorBoundary } from "../../runtime/error-boundary";
 import { threadSwitchTimingTracker } from "../../automation/heartbeat-automation-eligibility";

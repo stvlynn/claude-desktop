@@ -3,7 +3,7 @@ export {
   getRouteThreadId as F_,
   normalizeBrowserTabId as bz,
 } from "../../app-shell/app-view-route-helpers";
-export { getLocalThreadConversationIdFromRoute as P_ } from "../../runtime/local-thread-route";
+export { getLocalThreadConversationIdFromRoute as P_ } from "../../conversations/local-thread-route";
 export {
   getScrollDistanceFromBottomPx as Mj,
   initReverseScrollUtilities as Nj,

@@ -4,7 +4,7 @@ import { once } from "../../runtime/commonjs-interop";
 import {
   getLocalThreadConversationIdFromRoute,
   type LocalThreadRouteValue,
-} from "../../runtime/local-thread-route";
+} from "../local-thread-route";
 import {
   initThreadAppShellSourcesChunk,
   ThreadAppShellSourceRegistration,
