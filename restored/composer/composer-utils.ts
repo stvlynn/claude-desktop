@@ -1,5 +1,5 @@
 // Restored from ref/webview/assets/composer-utils-CytYpctu.js
-import { vscodeApiH, vscodeApiN } from "../boundaries/vscode-api";
+import { callCodexVscodeApi, vscodeLogger } from "../boundaries/vscode-api";
 const CLOSED_AGENT_SEND_FAILED_EVENT = "closed_agent_send_failed";
 function appendPromptText(existingPrompt: string, textToAppend: string) {
   const trimmedText = textToAppend.trim();
@@ -17,7 +17,7 @@ async function fetchIdeContext(
   if (!enabled) return null;
   try {
     return (
-      await vscodeApiN("ide-context", {
+      await callCodexVscodeApi("ide-context", {
         params: includeWorkspaceRoot
           ? {
               workspaceRoot,
@@ -26,7 +26,7 @@ async function fetchIdeContext(
       })
     ).ideContext;
   } catch (error) {
-    vscodeApiH.error("[Composer] failed to fetch ide-context", {
+    vscodeLogger.error("[Composer] failed to fetch ide-context", {
       safe: {},
       sensitive: {
         error,

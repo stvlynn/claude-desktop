@@ -13,7 +13,11 @@ type MutationOptions<TVariables = unknown, TResult = unknown> = {
   mutationFn?: (variables: TVariables) => TResult | Promise<TResult>;
   onError?: (error: unknown, variables: TVariables, context?: unknown) => void;
   onMutate?: (variables: TVariables) => unknown | Promise<unknown>;
-  onSuccess?: (result: TResult, variables: TVariables, context?: unknown) => void;
+  onSuccess?: (
+    result: TResult,
+    variables: TVariables,
+    context?: unknown,
+  ) => void;
 };
 type VscodeResponse<T = unknown> = {
   body: T;
@@ -46,8 +50,11 @@ export const vscodeApiF = {
     this.postMessage({ type, ...((payload as object) ?? {}) });
   },
   postMessage(message: unknown): void {
-    const acquire = (globalThis as { acquireVsCodeApi?: () => { postMessage(message: unknown): void } })
-      .acquireVsCodeApi;
+    const acquire = (
+      globalThis as {
+        acquireVsCodeApi?: () => { postMessage(message: unknown): void };
+      }
+    ).acquireVsCodeApi;
     acquire?.().postMessage(message);
   },
 };
@@ -81,6 +88,7 @@ export const vscodeApiH = {
   info(_message: string, _context?: unknown): void {},
   warn(_message: string, _context?: unknown): void {},
 };
+export const vscodeLogger = vscodeApiH;
 export const vscodeApiT = vscodeApiH;
 
 export async function callCodexVscodeApi<T = unknown>(
@@ -99,7 +107,10 @@ export class vscodeApiL {
     vscodeApiL.instance ??= new vscodeApiL();
     return vscodeApiL.instance;
   }
-  async get<T = unknown>(_url: string, _headers?: Record<string, string>): Promise<VscodeResponse<T>> {
+  async get<T = unknown>(
+    _url: string,
+    _headers?: Record<string, string>,
+  ): Promise<VscodeResponse<T>> {
     return this.emptyResponse<T>();
   }
   async post<T = unknown>(
@@ -152,7 +163,9 @@ export const createVscodeQueryOptions = _vscodeApiA;
 
 export function vscodeApiA(): {
   cancelQueries(options?: { queryKey?: QueryKey }): Promise<void>;
-  getQueriesData<T = unknown>(options?: { queryKey?: QueryKey }): Array<[QueryKey, T]>;
+  getQueriesData<T = unknown>(options?: {
+    queryKey?: QueryKey;
+  }): Array<[QueryKey, T]>;
   getQueryData<T = unknown>(queryKey: QueryKey): T | undefined;
   invalidateQueries(options?: { queryKey?: QueryKey }): Promise<void>;
   removeQueries(options?: { queryKey?: QueryKey }): void;
@@ -178,7 +191,9 @@ export function vscodeApiA(): {
   };
 }
 
-export function vscodeApiV<T = unknown>(options: QueryOptions<T>): {
+export function vscodeApiV<T = unknown>(
+  options: QueryOptions<T>,
+): {
   data: unknown;
   error: unknown;
   isError: boolean;
@@ -186,10 +201,13 @@ export function vscodeApiV<T = unknown>(options: QueryOptions<T>): {
   isPending: boolean;
   refetch(): Promise<{ data: unknown }>;
 } {
-  const cached = options.queryKey ? queryData.get(keyToString(options.queryKey)) : undefined;
+  const cached = options.queryKey
+    ? queryData.get(keyToString(options.queryKey))
+    : undefined;
   const data = cached ?? options.initialData ?? options.placeholderData;
   return {
-    data: options.select && data !== undefined ? options.select(data as T) : data,
+    data:
+      options.select && data !== undefined ? options.select(data as T) : data,
     error: null,
     isError: false,
     isLoading: false,

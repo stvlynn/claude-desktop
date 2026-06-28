@@ -1,6 +1,6 @@
 // Restored from ref/webview/assets/focus-composer-esygSDJO.js
 
-import { _vscodeApiD as VscodeMessageBus } from "../boundaries/vscode-api";
+import { VscodeHostMessageBridge } from "../boundaries/vscode-api";
 type ComposerInputElement = HTMLElement & {
   focus(): void;
 };
@@ -112,7 +112,7 @@ function subscribeFocusedComposerHostEvent(
     >();
     subscription = {
       handlersByComposerInput,
-      unsubscribe: VscodeMessageBus.getInstance().subscribe(
+      unsubscribe: VscodeHostMessageBridge.getInstance().subscribe(
         eventType,
         (message) => {
           const activeComposer = getActiveComposerInput();
