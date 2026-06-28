@@ -84,7 +84,6 @@ import {
   AutomationTooltipSurface,
   ComposerDismissableLayer,
   initAutomationSurface,
-  LocalConversationDiffSummaryView,
 } from "../../boundaries/current-ref/automations-page-producer";
 import {
   getAttachedHeartbeatAutomationForThread,
@@ -155,6 +154,10 @@ import {
 } from "../../app-shell/thread-app-shell-chrome";
 import { BackgroundSubagentsPanel } from "./background-subagents-panel";
 import { LocalConversationDebugPanelReporter } from "./debug-panel";
+import {
+  initLocalConversationDiffSummaryEffectsChunk,
+  LocalConversationDiffSummaryView,
+} from "./local-conversation-diff-summary-effects";
 import type { IntlShape, PanelTab, Scope } from "./types";
 
 function remapWorkspacePathBetweenRoots(
@@ -903,6 +906,7 @@ const initLocalConversationPageChunk = once(() => {
   initConversationRouteSourceHelpers();
   initConnectorAppsListQuery();
   initProjectsAppSharedRuntime();
+  initLocalConversationDiffSummaryEffectsChunk();
   initAutomationSurface();
   initAttachedHeartbeatAutomationLookupChunk();
   initProjectAppearanceChunk();

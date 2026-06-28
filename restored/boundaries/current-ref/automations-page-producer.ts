@@ -15,10 +15,14 @@ export {
 export { appgenPublicationTermsSidePanelHandler as i } from "../../appgen/publication-terms/side-panel-handler";
 export { windowsTabsOpenHandler as n } from "../../app-shell/windows-tabs-open-handler";
 export {
-  Bt as LocalConversationDiffSummaryView,
   Jt as ComposerDismissableLayer,
   Wt as AutomationTooltipSurface,
   Yt as initAutomationSurface,
   dn as initAutomationsPageProducer,
 } from "../../../ref/webview/assets/app-initial~app-main~automations-page-bHJfYUGr.js";
+export {
+  LocalConversationDiffSummaryView,
+  LocalConversationDiffSummaryView as $,
+  initLocalConversationDiffSummaryEffectsChunk,
+} from "../../conversations/local-conversation-page-parts/local-conversation-diff-summary-effects";
 export * from "../../../ref/webview/assets/app-initial~app-main~automations-page-bHJfYUGr.js";

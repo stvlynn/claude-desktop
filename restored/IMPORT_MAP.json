@@ -11189,6 +11189,7 @@
     "app-initial~app-main~automations-page-bHJfYUGr": {
       "restored": "app-shell/app-fallback.tsx",
       "exports": {
+        "$": "LocalConversationDiffSummaryView",
         "G": "initWindowVisibilitySignal",
         "i": "appgenPublicationTermsSidePanelHandler",
         "Ln": "AppFallback",
@@ -11200,7 +11201,7 @@
       },
       "status": "partial",
       "boundary": "boundaries/current-ref/automations-page-producer.ts",
-      "note": "Partial app-shell/local-thread restore: Electron root fallback lives in app-shell/app-fallback.tsx; appgen publication-terms side-panel handler lives in appgen/publication-terms/side-panel-handler.ts; windows.tabs.open handler lives in app-shell/windows-tabs-open-handler.ts; local-thread window focus state lives in runtime/window-focus-state.ts; automation inbox hook/init lives in utils/use-automation-history-items.ts. CodexApp, automation state, and remaining route/UI exports continue through the current-ref compatibility boundary.",
+      "note": "Partial app-shell/local-thread restore: Electron root fallback lives in app-shell/app-fallback.tsx; appgen publication-terms side-panel handler lives in appgen/publication-terms/side-panel-handler.ts; windows.tabs.open handler lives in app-shell/windows-tabs-open-handler.ts; local-conversation diff summary effects live in conversations/local-conversation-page-parts/local-conversation-diff-summary-effects.tsx; local-thread window focus state lives in runtime/window-focus-state.ts; automation inbox hook/init lives in utils/use-automation-history-items.ts. CodexApp, automation state, and remaining route/UI exports continue through the current-ref compatibility boundary.",
       "lastUpdated": "2026-06-28T00:00:00.000Z"
     },
     "app-initial~app-main~worktree-init-v2-page~remote-conversation-page~new-thread-panel-page~o~bj5tp28r-CQrj7g91": {
