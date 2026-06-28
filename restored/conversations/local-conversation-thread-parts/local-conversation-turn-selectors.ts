@@ -3,17 +3,19 @@
 import { once } from "../../runtime/commonjs-interop";
 import { isEqualT as createIsEqual } from "../../vendor/lodash-is-equal";
 import {
-  $j as initStatsigGateSignals,
-  $p as modelProviderSignal,
-  Em as conversationTurnsSignal,
-  Ip as localResponseInProgressSignal,
-  Op as initConversationStateSelectors,
-  Tp as hasConversationSignal,
-  dp as berryDisplayConversationTurnsSignal,
-  eM as featureGateSignal,
-  sm as conversationRequestsSignal,
-  vm as subagentParentThreadIdSignal,
-} from "../../boundaries/current-ref/appg-thread-shared-producer";
+  berryDisplayConversationTurnsSignal,
+  conversationRequestsSignal,
+  conversationTurnsSignal,
+  hasConversationSignal,
+  initConversationStateRuntime,
+  localResponseInProgressSignal,
+  modelProviderSignal,
+  subagentParentThreadIdSignal,
+} from "../../runtime/conversation-state-runtime";
+import {
+  featureGateSignal,
+  initFeatureGateSignalRuntime,
+} from "../../runtime/feature-gate-runtime";
 import { initLocalConversationArtifactRuntime } from "./local-conversation-artifact-runtime";
 import {
   createLocalConversationScopedSignalFamily,
@@ -45,8 +47,8 @@ export let subagentResponseInProgressSignal: unknown;
 
 export const initLocalConversationTurnSelectors = once(() => {
   initLocalConversationScopeRuntime();
-  initConversationStateSelectors();
-  initStatsigGateSignals();
+  initConversationStateRuntime();
+  initFeatureGateSignalRuntime();
   initDeepEqualModule();
   initLocalConversationArtifactRuntime();
   initConversationSearchUnitExtractor();

@@ -2,16 +2,18 @@
 // Scoped artifact signals for local conversation output resources.
 import { once } from "../../runtime/commonjs-interop";
 import {
-  $j as initStatsigGateSignals,
-  Em as conversationTurnsSignal,
-  Op as initConversationStateSelectors,
-  Tm as conversationTurnCountSignal,
-  Xp as latestConversationTurnSignal,
-  eM as featureGateSignal,
-  jm as conversationModeSignal,
-  lm as conversationResumeStateSignal,
-  nm as projectlessOutputDirectorySignal,
-} from "../../boundaries/current-ref/appg-thread-shared-producer";
+  conversationModeSignal,
+  conversationResumeStateSignal,
+  conversationTurnCountSignal,
+  conversationTurnsSignal,
+  initConversationStateRuntime,
+  latestConversationTurnSignal,
+  projectlessOutputDirectorySignal,
+} from "../../runtime/conversation-state-runtime";
+import {
+  featureGateSignal,
+  initFeatureGateSignalRuntime,
+} from "../../runtime/feature-gate-runtime";
 import {
   createLocalConversationScopedSignalFamily,
   initLocalConversationScopeRuntime,
@@ -29,8 +31,8 @@ export let localConversationSummaryArtifactsSignal;
 
 export const initLocalConversationArtifactSignals = once(() => {
   initLocalConversationScopeRuntime();
-  initConversationStateSelectors();
-  initStatsigGateSignals();
+  initConversationStateRuntime();
+  initFeatureGateSignalRuntime();
   initOutputArtifactCollectorDependencies();
   historicalOutputArtifactsSignal = createLocalConversationScopedSignalFamily(
     ({ conversationId, includeGeneratedImages }, { get }) => {
