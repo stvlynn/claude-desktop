@@ -16,4 +16,12 @@ export {
   initGitRootQueryRuntime as at,
   useGitRootQuery as st,
 } from "../../github/git-root-query";
+export {
+  useRemoteConnectionState as an,
+  initRemoteConnectionStateChunk as in,
+  RemoteProjectIcon as nn,
+  WaitingStatusIcon as oi,
+  initRemoteProjectIconChunk as rn,
+  initWaitingStatusIconChunk as si,
+} from "../../remote/remote-connection-runtime";
 export * from "../../vendor/appgen-library-hot-runtime";

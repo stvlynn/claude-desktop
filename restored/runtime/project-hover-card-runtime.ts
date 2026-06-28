@@ -59,13 +59,13 @@ import {
   _i as initDialogRuntime,
 } from "../boundaries/current-ref/appg-thread-shared-producer";
 import {
-  an as useRemoteConnectionState,
-  in as initRemoteConnectionStateChunk,
-  nn as RemoteProjectIcon,
-  oi as WaitingStatusIcon,
-  rn as initRemoteConnectionActionsChunk,
-  si as initRemoteProjectIconChunk,
-} from "../boundaries/current-ref/appgen-library-hot-producer";
+  initRemoteConnectionStateChunk,
+  initRemoteProjectIconChunk,
+  initWaitingStatusIconChunk,
+  RemoteProjectIcon,
+  useRemoteConnectionState,
+  WaitingStatusIcon,
+} from "../remote/remote-connection-runtime";
 import {
   Gd as initProfileIconsChunk,
   Wd as RowActionChevronIcon,
@@ -103,9 +103,9 @@ export {
   initReactIntlRuntime,
   initReactQueryRuntime,
   initReactRuntime,
-  initRemoteConnectionActionsChunk,
+  initRemoteProjectIconChunk as initRemoteConnectionActionsChunk,
   initRemoteConnectionStateChunk,
-  initRemoteProjectIconChunk,
+  initWaitingStatusIconChunk as initRemoteProjectIconChunk,
   initScopeRuntime,
   initSignalHooksRuntime,
   initSpinnerComponent,
