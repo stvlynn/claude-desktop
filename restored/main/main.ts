@@ -34,6 +34,10 @@ import {
   reportRecoverableChromiumChildProcessGone,
 } from "./app/desktop-app-lifecycle";
 import {
+  createQuitStateController,
+  type QuitStateController,
+} from "./app/quit-state";
+import {
   addWindowsRegistryValue,
   armWindowsCurrentProcessTermination,
   buildWindowsFolderContextMenuEntries,
@@ -138,12 +142,6 @@ type AppUpdateViewState = {
   isUpdateReady: boolean;
   lifecycleState: UpdateLifecycleState;
   relaunchNotice: RelaunchNotice | null;
-};
-type QuitStateBoundary = {
-  allowQuitTemporarilyForUpdateInstall(options?: {
-    allowWithoutPrompt?: boolean;
-    skipDrainBeforeQuit?: boolean;
-  }): void;
 };
 type AppQuitBoundary = {
   isPackaged?: boolean;
@@ -317,7 +315,7 @@ function createInitialUpdateInstallRequestHandler({
   quitState,
 }: {
   app: Pick<AppQuitBoundary, "quit">;
-  quitState: Pick<QuitStateBoundary, "allowQuitTemporarilyForUpdateInstall">;
+  quitState: Pick<QuitStateController, "allowQuitTemporarilyForUpdateInstall">;
 }): (request?: InstallUpdatesRequest) => void {
   return (request) => {
     quitState.allowQuitTemporarilyForUpdateInstall();
@@ -337,7 +335,7 @@ function createPostAppServerUpdateInstallRequestHandler({
   cleanupBeforeImmediateExit(): void;
   isWindows: boolean;
   markAppQuitting(): void;
-  quitState: Pick<QuitStateBoundary, "allowQuitTemporarilyForUpdateInstall">;
+  quitState: Pick<QuitStateController, "allowQuitTemporarilyForUpdateInstall">;
 }): (request?: InstallUpdatesRequest) => void {
   return (request) => {
     if (request?.quitImmediately === false) {
@@ -496,7 +494,7 @@ function shouldHandleStateDatabaseOpenError(error: unknown): boolean {
 function createMainStartupOpenBoundaryError(): Error {
   return Object.assign(
     Error(
-      "main--VWTbRdF remains an open restoration boundary: the startup phase map, updater bridge helpers, app lifecycle/quit handlers, worker main-RPC helper contracts, main-side worker bus manager, desktop tray controller, Windows shell integration helpers, About dialog/app icon helpers, native menu IPC handlers, and preload state/theme IPC handlers are recovered, but window services, app-server lifecycle, application menu assembly, remaining view-message IPC registration, and telemetry still require semantic restoration.",
+      "main--VWTbRdF remains an open restoration boundary: the startup phase map, updater bridge helpers, temporary quit-state controller, app lifecycle/quit handlers, worker main-RPC helper contracts, main-side worker bus manager, desktop tray controller, Windows shell integration helpers, About dialog/app icon helpers, native menu IPC handlers, and preload state/theme IPC handlers are recovered, but window services, app-server lifecycle, application menu assembly, remaining view-message IPC registration, and telemetry still require semantic restoration.",
     ),
     {
       code: OPEN_RESTORATION_BOUNDARY_CODE,
@@ -515,6 +513,9 @@ function createMainStartupOpenBoundaryError(): Error {
         createInitialUpdateInstallRequestHandler,
         createPostAppServerUpdateInstallRequestHandler,
         createSparkleBridgeHandlers,
+      },
+      quitStateHelpers: {
+        createQuitStateController,
       },
       appLifecycleHelpers: {
         createQuitConfirmationDetail,

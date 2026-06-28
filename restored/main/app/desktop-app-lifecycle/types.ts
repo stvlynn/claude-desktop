@@ -1,6 +1,8 @@
 // Restored from ref/.vite/build/main--VWTbRdF.js
 // Shared types for desktop app lifecycle and quit handling.
 
+export type { QuitStateController } from "../quit-state";
+
 export type PreventableElectronEvent = {
   preventDefault(): void;
 };
@@ -19,12 +21,6 @@ export type StructuredLogger = {
 
 export type FatalErrorReporter = {
   reportFatal(error: Error, context: unknown): void;
-};
-
-export type QuitStateController = {
-  canQuitWithoutPrompt(): boolean;
-  markQuitApproved(): void;
-  shouldSkipDrainBeforeQuit(): boolean;
 };
 
 export type AppWindowLifecycleController = {
