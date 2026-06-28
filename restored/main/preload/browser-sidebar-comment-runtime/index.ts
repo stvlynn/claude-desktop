@@ -20,6 +20,11 @@ export {
   parseGoogleSheetsDocumentId,
 } from "./google-workspace-urls";
 export {
+  areBrowserSidebarPageUrlsEquivalent,
+  frameUrlMatchesWindow,
+  parseBrowserSidebarPageUrl,
+} from "./page-urls";
+export {
   clampNumber,
   computeCommentEditorRect,
   hasPointMovedPastThreshold,
