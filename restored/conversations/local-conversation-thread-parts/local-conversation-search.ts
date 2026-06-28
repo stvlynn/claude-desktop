@@ -2,14 +2,12 @@
 // Conversation search adapter and searchable turn extraction.
 import { once } from "../../runtime/commonjs-interop";
 import {
-  Ss as initConversationSearchMatchHighlighter,
-  cn as initConversationSearchMatcher,
-  gs as initConversationSearchSnippetBuilder,
-  hs as findConversationTextMatches,
-  ln as scrollToConversationSearchMatch,
-  ms as buildConversationSearchSnippet,
-  ys as getConversationSearchMatchId,
-} from "../../boundaries/current-ref/projects-app-shared-producer";
+  buildLocalConversationSearchSnippet,
+  findLocalConversationTextMatches,
+  getLocalConversationSearchMatchId,
+  initLocalConversationSearchRuntime,
+  scrollToLocalConversationSearchMatch,
+} from "./local-conversation-search-runtime";
 import { initThreadScrollLayoutStyleChunk } from "../../utils/thread-scroll-layout";
 
 export type ConversationSearchLocation = {
@@ -108,9 +106,9 @@ export function createLocalConversationSearchAdapter({
       }
 
       if (turnContainer != null)
-        await scrollToConversationSearchMatch({
+        await scrollToLocalConversationSearchMatch({
           container: turnContainer,
-          matchId: getConversationSearchMatchId(location),
+          matchId: getLocalConversationSearchMatchId(location),
           includeShadowRoots: false,
           signal: options?.signal,
         });
@@ -145,7 +143,7 @@ function searchConversationTurns(
         offsets,
         totalMatches,
         isCapped: matchSearchIsCapped,
-      } = findConversationTextMatches(
+      } = findLocalConversationTextMatches(
         unitText,
         query,
         maxConversationSearchMatches - matches.length,
@@ -165,7 +163,7 @@ function searchConversationTurns(
             start,
             end,
           },
-          snippet: buildConversationSearchSnippet(unitText, start, end),
+          snippet: buildLocalConversationSearchSnippet(unitText, start, end),
         });
       }
     }
@@ -181,8 +179,6 @@ function searchConversationTurns(
 }
 
 export const initConversationSearchHelpers = once(() => {
-  initConversationSearchMatchHighlighter();
-  initConversationSearchMatcher();
-  initConversationSearchSnippetBuilder();
+  initLocalConversationSearchRuntime();
   maxConversationSearchMatches = 250;
 });

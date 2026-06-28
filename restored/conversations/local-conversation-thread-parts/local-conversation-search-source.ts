@@ -7,7 +7,6 @@ import {
   isRenderableLocalConversationTurn,
   normalizeConversationSearchMarkdown,
 } from "./conversation-turn-rendering";
-import { cn as initConversationSearchMatcher } from "../../boundaries/current-ref/projects-app-shared-producer";
 import {
   createLocalConversationSearchAdapter,
   initConversationSearchHelpers,
@@ -130,6 +129,5 @@ function findLastIndex<T>(
 
 export const initConversationSearchUnitExtractor = once(() => {
   initConversationSearchHelpers();
-  initConversationSearchMatcher();
   initLocalConversationTurnRenderingRuntime();
 });
