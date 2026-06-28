@@ -5,7 +5,7 @@ import {
   isAbsoluteOrWindowsPath,
   parseGitActionDirectives,
   type GitActionDirective,
-} from "../../runtime/conversation-content-runtime";
+} from "./conversation-content-runtime";
 import { collectLocalAssistantOutputArtifacts } from "./local-conversation-artifact-runtime";
 
 type AssistantOutputArtifact =

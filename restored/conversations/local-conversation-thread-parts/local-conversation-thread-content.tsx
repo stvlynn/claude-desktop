@@ -32,7 +32,7 @@ import {
   scrollContentSearchItemIntoView,
   updateCollapsedTurnsByConversation,
   waitForThreadLayoutTick,
-} from "../../runtime/conversation-content-runtime";
+} from "./conversation-content-runtime";
 import {
   completedThreadGoalSignal,
   conversationCollaborationModeSignal,

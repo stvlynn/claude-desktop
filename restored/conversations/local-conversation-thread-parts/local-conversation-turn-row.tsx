@@ -16,7 +16,7 @@ import { ErrorBoundary } from "../../runtime/error-boundary";
 import {
   ConversationTurnRenderer,
   initConversationTurnRendererRuntime,
-} from "../../runtime/conversation-content-runtime";
+} from "./conversation-content-runtime";
 import { initThreadScrollLayoutStyleChunk } from "../../utils/thread-scroll-layout";
 import { initIntlRuntime, FormattedMessage } from "../../vendor/react-intl";
 

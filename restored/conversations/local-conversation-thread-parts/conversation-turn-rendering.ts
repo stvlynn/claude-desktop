@@ -4,7 +4,7 @@ import {
   isRenderableConversationTurn,
   normalizeMarkdownPlainText,
   type RenderableConversationTurnOptions,
-} from "../../runtime/conversation-content-runtime";
+} from "./conversation-content-runtime";
 import {
   initLocalConversationArtifactRuntime,
   renderLocalConversationTurn,

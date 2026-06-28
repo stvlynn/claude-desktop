@@ -11,7 +11,7 @@ import { once } from "../../runtime/commonjs-interop";
 import {
   getPathBasename,
   initThreadFindPreviewRuntime,
-} from "../../runtime/conversation-content-runtime";
+} from "./conversation-content-runtime";
 import { useScope } from "../../runtime/app-scope-hooks";
 import {
   initLocalConversationRouteRuntime,
