@@ -6,7 +6,6 @@ import {
 } from "../boundaries/src-l0hb-mz-p";
 import {
   bF as initIntlMessageRuntime,
-  cM as initModalRuntime,
   HI as parseProjectWritableRoots,
   KE as initKeyboardShortcutRuntime,
   qE as useRemoteHostConfigs,
@@ -15,6 +14,8 @@ import {
   VI as getProjectWritableRootsForDisplay,
   wj as initStringNormalizeRuntime,
 } from "../vendor/appg-thread-shared-runtime";
+import { initModalRuntime } from "./modal-runtime";
+
 import { useHostConfigById } from "./host-config-runtime";
 import { toastSignal as toastControllerSignal } from "./toast-runtime";
 import { initGlobalStateQueryRuntime } from "./global-state-runtime";

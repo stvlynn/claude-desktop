@@ -1,7 +1,6 @@
 // Restored from ref/webview/assets/app-initial~app-main~worktree-init-v2-page~appgen-publication-terms-route~remote-conversati~oykv7gy7-B4ar2dlW.js
 // Boundary facade for appgen publication-terms resource opening and panel tabs.
 import {
-  Aj as resolveWorkspacePathFromCwd,
   DE as openFileOutcomeEvent,
   kL as readFileContentSampleByteLimit,
   MD as renderMcpCapabilityIcon,
@@ -10,6 +9,8 @@ import {
   xL as isRemoteHostConfig,
   yR as isUrlLikePath,
 } from "../vendor/appg-thread-shared-runtime";
+import { resolveWorkspacePathFromCwd } from "../conversations/output-artifact-runtime";
+
 import { sendHostRequest } from "./host-request-runtime";
 
 import { initVscodeBridgeRuntime as initVscodeApiBridge } from "./platform-content-runtime";

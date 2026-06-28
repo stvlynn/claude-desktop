@@ -1,6 +1,7 @@
 // Restored from ref/webview/assets/local-conversation-thread-BwqAGxoz.js
 // Background-agent metadata helpers used by local conversation headers.
-import { cA as getSubagentSourceMetadataRaw } from "../../vendor/appg-thread-shared-runtime";
+import { getSubagentSourceMetadata as getSubagentSourceMetadataRaw } from "../subagent-source-metadata-runtime";
+
 import {
   Hx as getFallbackBackgroundAgentHandleRaw,
   gm as backgroundAgentSnapshotSignal,

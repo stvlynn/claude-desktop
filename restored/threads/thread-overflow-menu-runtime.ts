@@ -3,11 +3,12 @@
 import {
   $j as initSideConversationProducer,
   cP as initThreadActionMenuRuntime,
-  SV as initQueryRuntime,
   tM as modelSelectionSignal,
   TV as useSignalSnapshot,
   uP as useThreadCommandHandler,
 } from "../vendor/appg-thread-shared-runtime";
+import { initSignalStateRuntime as initQueryRuntime } from "../runtime/signal-state-runtime";
+
 import {
   initAppServerRequestRuntime as initSideConversationPromptProducer,
   sendAppServerRequest as runConversationAction,

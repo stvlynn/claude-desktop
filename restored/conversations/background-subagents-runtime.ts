@@ -1,13 +1,14 @@
 // Restored from ref/webview/assets/local-conversation-thread-Bf38rCmF.js
 // Background subagent membership/status aggregation for conversation UI.
-import {
-  cA as getSubagentSourceMetadataRaw,
-  pA as getCachedConversationTurnsRaw,
-} from "../vendor/appg-thread-shared-runtime";
+import { pA as getCachedConversationTurnsRaw } from "../vendor/appg-thread-shared-runtime";
 import { normalizeConversationId as normalizeConversationIdValue } from "../boundaries/src-l0hb-mz-p";
 import { cs as backgroundAgentsSignal } from "../vendor/profile-page-runtime";
 import { parseUnifiedDiffFileSummaries } from "../utils/unified-diff-file-summaries";
 import { Fv as formatAgentPathDisplayNameRaw } from "../vendor/projects-app-shared-runtime";
+import {
+  getSubagentSourceMetadata,
+  type SubagentSourceMetadata,
+} from "./subagent-source-metadata-runtime";
 
 export { backgroundAgentsSignal };
 
@@ -43,12 +44,6 @@ type ThreadStatus = {
 
 type ThreadRuntimeStatus = {
   type?: string | null;
-};
-
-type SubagentSourceMetadata = {
-  agentNickname?: string | null;
-  agentRole?: string | null;
-  parentThreadId?: string | null;
 };
 
 type BackgroundAgentMembership = {
@@ -744,12 +739,6 @@ function getCachedConversationTurns(
   return getCachedConversationTurnsRaw(
     conversation,
   ) as readonly ConversationTurn[];
-}
-
-function getSubagentSourceMetadata(
-  source: unknown,
-): SubagentSourceMetadata | null {
-  return getSubagentSourceMetadataRaw(source) as SubagentSourceMetadata | null;
 }
 
 function formatAgentPathDisplayName(agentPath: unknown): string | null {
