@@ -12,21 +12,26 @@ import {
   initAppDialog,
   initDialogLayoutComponents,
 } from "../../ui/dialog-layout";
+import { useScope } from "../../runtime/app-scope-hooks";
 import {
-  $P as initAppScope,
-  AB as initScopeRuntime,
-  DL as normalizeWorkspacePath,
-  FB as useScope,
-  Mu as initHostCodexHomeQuery,
-  Ov as useNavigate,
-  QP as appScope,
-  bF as initPathHelpers,
-  cM as initToastRuntime,
-  mP as logger,
-  mv as initLocalEnvironmentConfigQueryRuntime,
-  pP as initLoggerRuntime,
-  uM as toastSignal,
-} from "../../boundaries/current-ref/appg-thread-shared-producer";
+  appScopeRoot as appScope,
+  initAppScopeSignalRuntime,
+} from "../../runtime/app-scope-runtime";
+import {
+  appLogger as logger,
+  initAppLoggerRuntime,
+} from "../../runtime/app-logger";
+import { initHostWorktreeContextRuntime } from "../../runtime/host-worktree-context";
+import { initLocalEnvironmentConfigRuntime } from "../../runtime/local-environment-config-runtime";
+import {
+  initLocalConversationNavigationRuntime,
+  toastSignal,
+  useNavigate,
+} from "../../runtime/local-conversation-route-runtime";
+import {
+  initOutputArtifactRuntime,
+  normalizeWorkspacePath,
+} from "../../runtime/output-artifact-runtime";
 import {
   A as initPendingWorktreeFactory,
   Cn as initForkDialogLocalIcon,
@@ -314,18 +319,17 @@ const initForkFromOlderTurnDialogChunk = once(() => {
 });
 
 export const initForkFromOlderTurnDialogControllerChunk = once(() => {
-  initScopeRuntime();
-  initPathHelpers();
+  initAppScopeSignalRuntime();
+  initOutputArtifactRuntime();
   initIntlRuntime();
-  initLocalEnvironmentConfigQueryRuntime();
-  initToastRuntime();
+  initLocalEnvironmentConfigRuntime();
+  initLocalConversationNavigationRuntime();
   initPendingWorktreeFactory();
-  initAppScope();
   initGitRootQueryHook();
-  initLoggerRuntime();
+  initAppLoggerRuntime();
   initResolvedLocalEnvironmentConfigPathHook();
   initForkFromOlderTurnDialogChunk();
   initPendingWorktreeNavigationRoute();
   initForkThreadMessages();
-  initHostCodexHomeQuery();
+  initHostWorktreeContextRuntime();
 });

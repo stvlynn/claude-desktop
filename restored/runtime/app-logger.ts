@@ -6,6 +6,13 @@ import {
 } from "../boundaries/current-ref/appg-thread-shared-producer";
 
 export type AppLogger = {
+  error(
+    message: string,
+    fields?: {
+      safe?: Record<string, unknown>;
+      sensitive?: Record<string, unknown>;
+    },
+  ): void;
   warning(
     message: string,
     fields?: {
