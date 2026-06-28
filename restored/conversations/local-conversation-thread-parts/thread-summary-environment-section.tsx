@@ -45,35 +45,23 @@ import {
   initPlatformContentRuntime,
 } from "../../runtime/platform-content-runtime";
 import {
-  $i as getConversationRemoteState,
-  Dd as initConversationRemoteStateHelpers,
-  Ds as openEnvironmentTerminalSession,
-  Ec as initEnvironmentTerminalSessionHelpers,
-  Es as initWorkspaceRouteStateHelpers,
-  Gl as conversationDisplayTitleSignal,
-  js as environmentTerminalControllerSignal,
-  kc as diffStatsSignal,
-  So as initWorkspaceRouteHelpers,
-  Wl as initConversationDisplayTitleSignals,
-  wo as isCompactWindow,
-} from "../../boundaries/current-ref/projects-app-shared-producer";
+  CloudEnvironmentDropdown,
+  conversationDisplayTitleSignal,
+  diffStatsSignal,
+  environmentTerminalControllerSignal,
+  getConversationRemoteState,
+  initThreadSummaryEnvironmentRuntime,
+  isCompactWindow,
+  LocalRemoteDropdown,
+  openEnvironmentTerminalSession,
+  shouldShowThreadHandoffInSummary,
+  SummaryPanelPullRequestControls,
+} from "../../runtime/thread-summary-environment-runtime";
 import {
   composerModeState as composerModeSignal,
   initComposerModeRuntime,
   setComposerModeForScope,
 } from "../../composer/composer-view-state";
-import {
-  El as initSummaryPanelPullRequestControlsChunk,
-  Tl as SummaryPanelPullRequestControls,
-} from "../../boundaries/current-ref/profile-page-producer";
-import {
-  a as CloudEnvironmentDropdown,
-  i as initThreadHandoffHelpersChunk,
-  n as initLocalRemoteDropdownChunk,
-  o as initCloudEnvironmentDropdownChunk,
-  r as shouldShowThreadHandoffInSummary,
-  t as LocalRemoteDropdown,
-} from "../../boundaries/current-ref/local-remote-dropdown-producer";
 import { DiffStats, initDiffStatsChunk } from "../../git/git-review-primitives";
 import {
   GitBranchSwitcher,
@@ -405,23 +393,15 @@ export const initThreadSummaryEnvironmentSectionChunk = once(() => {
   initGitBranchIcon();
   initChevronDownIcon();
   initGitBranchSwitcherChunk();
-  initSummaryPanelPullRequestControlsChunk();
-  initEnvironmentTerminalSessionHelpers();
   initLocalConversationRouteRuntime();
-  initWorkspaceRouteStateHelpers();
+  initThreadSummaryEnvironmentRuntime();
   initSummaryPanelRowChunk();
   initThreadSummaryPanelSectionChunk();
   initConversationStateRuntime();
   initPlatformContentRuntime();
-  initCloudEnvironmentDropdownChunk();
   initComposerModeRuntime();
-  initThreadHandoffHelpersChunk();
-  initLocalRemoteDropdownChunk();
   initHostWorktreeContextRuntime();
-  initConversationRemoteStateHelpers();
-  initConversationDisplayTitleSignals();
   initComposerScopeRuntime();
   initHostConfigRuntime();
   initStatsigFeatureGateRuntime();
-  initWorkspaceRouteHelpers();
 });
