@@ -1,9 +1,9 @@
 // Restored from ref/webview/assets/local-conversation-thread-Bf38rCmF.js
 // Recent local-environment action list helpers.
 import {
-  Nu as getHostCodexHome,
-  pI as isPathInCodexWorktree,
-} from "../../boundaries/current-ref/appg-thread-shared-producer";
+  getHostCodexHome,
+  isPathInCodexWorktree,
+} from "../../runtime/host-worktree-context";
 
 export type RecentLocalEnvironmentActionsByKey = Record<
   string,

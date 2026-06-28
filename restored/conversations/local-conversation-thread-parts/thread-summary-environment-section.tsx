@@ -20,16 +20,18 @@ import {
   I_ as initRouteScope,
   M_ as localConversationRouteScope,
   Mu as initHostCodexHomeQuery,
-  Nu as getHostCodexHome,
   OL as normalizeWorkspaceBrowserRoot,
   Op as initConversationStateSelectors,
   PB as useScopedValue,
-  pI as isPathInCodexWorktree,
   qj as useStatsigGate,
   VE as initHostConfigHelpers,
   Wa as PlatformContentGate,
   wl as composerScope,
 } from "../../boundaries/current-ref/appg-thread-shared-producer";
+import {
+  getHostCodexHome,
+  isPathInCodexWorktree,
+} from "../../runtime/host-worktree-context";
 import {
   $i as getConversationRemoteState,
   Dd as initConversationRemoteStateHelpers,
