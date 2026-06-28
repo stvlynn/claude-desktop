@@ -1,9 +1,7 @@
 // Restored from ref/webview/assets/artifact-tab-content.electron-xyz2yen7.js
-// Draft facade for the Electron artifact side-panel preview chunk.
-// The full formatted draft was generated in the local deobfuscation workspace;
-// keep this facade as draft until the Walnut and dynamic preview producers split.
+// Public artifact side-panel preview facade.
 
-export { ArtifactTabContent } from "../../ref/webview/assets/artifact-tab-content.electron-xyz2yen7.js";
+export { Fr as ArtifactTabContent } from "../vendor/artifact-tab-content-electron";
 
 export const ARTIFACT_PREVIEW_MAX_BYTES = 40 * 1024 * 1024;
 
@@ -24,6 +22,16 @@ export type ArtifactPreviewImportKind =
   | "tsv"
   | "xlsx";
 
+export type ArtifactTabContentProps = {
+  artifactType: ArtifactPreviewKind;
+  chromeMode?: "default" | "standalone";
+  hostId: string;
+  importKind: ArtifactPreviewImportKind | string;
+  path: string;
+  tabId?: string | null;
+  title: string;
+};
+
 export function getArtifactPreviewCacheKey({
   hostId,
   importKind,
@@ -32,30 +40,34 @@ export function getArtifactPreviewCacheKey({
   hostId: string;
   importKind: ArtifactPreviewImportKind | string;
   path: string;
-}) {
+}): string {
   return `${hostId}:${importKind}:${path}`;
 }
 
-export function decodeBase64ArtifactBytes(contentsBase64: string) {
+export function decodeBase64ArtifactBytes(contentsBase64: string): Uint8Array {
   const decoded = atob(contentsBase64);
   const bytes = new Uint8Array(decoded.length);
+
   for (let index = 0; index < decoded.length; index += 1) {
     bytes[index] = decoded.charCodeAt(index);
   }
+
   return bytes;
 }
 
-export function checksumArtifactBytes(bytes: Uint8Array) {
+export function checksumArtifactBytes(bytes: Uint8Array): string {
   let checksum = 0;
+
   for (let index = 0; index < bytes.length; index += 1) {
     checksum = (checksum * 31 + bytes[index]) % 4294967296;
   }
+
   return `${bytes.length}:${checksum.toString(16)}`;
 }
 
 export function getArtifactAnalyticsType(kind: {
   kind: "document" | "presentation" | "spreadsheet";
-}) {
+}): "document" | "slides" | "spreadsheet" {
   switch (kind.kind) {
     case "document":
       return "document";

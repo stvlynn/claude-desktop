@@ -2,16 +2,18 @@
 // Supersedes historical restore from ref/webview/assets/artifact-analytics-FNBRBLp1.js.
 // Product analytics helpers for artifact annotation flows.
 import {
-  ___productLoggerT as logProductEvent,
-  productLoggerC as ArtifactAnnotationStartSource,
-  productLoggerD as artifactAnnotationSubmittedEvent,
-  productLoggerE as ArtifactAnnotationSubmitSource,
-  productLoggerK as artifactAnnotationCanceledEvent,
-  productLoggerO as ArtifactKind,
-  productLoggerS as artifactAnnotationSavedEvent,
-  productLoggerT as ArtifactAnnotationSubmitMode,
-  productLoggerW as artifactAnnotationStartedEvent,
-} from "../generated/product-logger";
+  ArtifactAnnotationStartSource,
+  ArtifactAnnotationSubmitMode,
+  ArtifactAnnotationSubmitSource,
+  ArtifactKind,
+  artifactAnnotationCanceledEvent,
+  artifactAnnotationSavedEvent,
+  artifactAnnotationStartedEvent,
+  artifactAnnotationSubmittedEvent,
+  initArtifactAnalyticsEventDescriptors,
+  initProductLoggerRuntime,
+  logProductEvent,
+} from "../runtime/artifact-analytics-runtime";
 import { once } from "../runtime/commonjs-interop";
 type ProductLoggerScope = {
   get(key: unknown): {
@@ -100,7 +102,10 @@ function buildArtifactPayload({
   };
 }
 
-export const initArtifactAnalyticsChunk = once(() => {});
+export const initArtifactAnalyticsChunk = once(() => {
+  initProductLoggerRuntime();
+  initArtifactAnalyticsEventDescriptors();
+});
 function mapArtifactKind(artifactType: ArtifactType): unknown {
   switch (artifactType) {
     case "document":
