@@ -120,49 +120,67 @@ const __vite__mapDeps = (
 ) => i.map((item) => d[item]);
 import { once as e, toEsModule as t } from "../runtime/commonjs-interop";
 import {
-  MV as _,
-  AV as a,
-  oP as A,
-  PB as b,
-  Button as c,
-  aP as C,
-  DropdownMenu as d,
-  jL as D,
-  initIntlRuntime as E,
   M_ as ee,
-  Gj as f,
-  qj as F,
   MA as g,
-  JV as h,
-  AL as i,
-  rF as I,
-  useStableCallback as ie,
-  ok as j,
-  lP as k,
-  FB as l,
-  FormattedMessage as L,
   I_ as m,
   pv as M,
-  $N as n,
-  qV as N,
-  eP as ne,
+  fv as re,
+  NA as v,
+} from "../vendor/appg-thread-shared-runtime";
+import {
+  Button as c,
+  DropdownMenu as d,
+  initIntlRuntime as E,
+  useStableCallback as ie,
+  FormattedMessage as L,
   classNames as o,
   useIntl as O,
-  IB as p,
   Dropdown as P,
-  AB as r,
-  zV as R,
-  fv as re,
-  BV as s,
   initDropdownMenuPrimitives as S,
-  cP as T,
   initUseStableCallback as te,
   getRouteThreadId as u,
-  NA as v,
-  ak as w,
   initClassNameRuntime as x,
   initButtonComponentPrimitives as y,
 } from "../boundaries/current-ref/appg-thread-shared-producer";
+import {
+  initReactQueryRuntime as a,
+  useMutation as _,
+  useQueryClient as R,
+} from "../runtime/app-server-mutation-runtime";
+import {
+  initAppServerRequestRuntime as w,
+  sendAppServerRequest as j,
+} from "../runtime/app-server-request";
+import { initScopeRuntime as r } from "../runtime/app-scope-runtime";
+import {
+  useScope as l,
+  useScopedValue as b,
+  useSignalValue as p,
+} from "../runtime/app-scope-hooks";
+import {
+  initDynamicModulePreloadRuntime as D,
+  preloadDynamicImport as i,
+} from "../runtime/dynamic-module-preload";
+import {
+  initStatsigFeatureGateRuntime as f,
+  useStatsigGate as F,
+} from "../runtime/feature-gate-runtime";
+import {
+  initQueryDurationConstants as A,
+  queryDurations as C,
+  useHostQuery as ne,
+} from "../runtime/host-query-runtime";
+import { defineMessages as I } from "../runtime/intl-define-messages-runtime";
+import {
+  getChunkModuleExports as N,
+  getJsxRuntime as s,
+  initReactRuntime as h,
+} from "../runtime/shared-utility-runtime";
+import { initVscodeBridgeRuntime as n } from "../runtime/platform-content-runtime";
+import {
+  initVscodeMessageRuntime as T,
+  vscodeMessageBridge as k,
+} from "../runtime/vscode-message-runtime";
 import {
   ei as _e,
   Ba as ae,
