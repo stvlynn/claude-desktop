@@ -32,7 +32,6 @@ import {
 } from "../vendor/projects-app-shared-runtime";
 import {
   At as initRestoredProcessRowsCollectorDependenciesRaw,
-  cs as backgroundAgentsSignal,
   Jn as PlanIcon,
   kt as formatCommandExecutionItemCommand,
   ls as initSummaryPanelSourceHelpersRaw,
@@ -48,6 +47,7 @@ import {
   xl as initThreadSummaryPanelSignalsSupportChunkRaw,
   yc as initLocalConversationSummaryPanelSupportChunkRaw,
 } from "../vendor/profile-page-runtime";
+import { backgroundAgentsSignal } from "./background-subagents-runtime";
 import {
   initLocalConversationRouteRuntime,
   localConversationRouteScope,
