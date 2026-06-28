@@ -8,6 +8,7 @@ import {
   analyzeSource,
   checkFormatting,
   collectBoundaryCheckpointImportFiles,
+  collectImportMapBoundaryFiles,
   DEFAULT_OPTIONS,
 } from "./quality-gate.ts";
 
@@ -1783,6 +1784,69 @@ describe("vendored / facade relaxation", () => {
     });
     expect(codes(vend)).not.toContain("public-cryptic-names");
     expect(codes(vend)).not.toContain("split-required");
+  });
+
+  test("CLI relaxes import-map open boundaries outside boundaries directory", () => {
+    const targetDir = makeTmpRoot();
+    const workspaceDir = path.join(targetDir, "workspace");
+    fs.mkdirSync(workspaceDir, { recursive: true });
+    const boundaryFile = path.join(workspaceDir, "workspace-root.ts");
+    fs.writeFileSync(
+      boundaryFile,
+      [
+        "// Restored from ref/.vite/build/workspace-root-ABC123.js",
+        "// Typed open boundary for a mixed runtime chunk.",
+        "export const A = 1;",
+        "export const b = 2;",
+        "export const c = 3;",
+        "export const d = 4;",
+        "",
+      ].join("\n"),
+    );
+    fs.writeFileSync(
+      path.join(targetDir, "IMPORT_MAP.json"),
+      JSON.stringify(
+        {
+          chunks: {
+            "workspace-root-ABC123": {
+              restored: "workspace/workspace-root.ts",
+              status: "faced",
+              boundary: true,
+              openBoundary: true,
+              vendor: "runtime",
+            },
+          },
+        },
+        null,
+        2,
+      ),
+    );
+
+    expect(collectImportMapBoundaryFiles(targetDir)).toContain(
+      path.resolve(boundaryFile),
+    );
+
+    const result = spawnSync(
+      "bun",
+      [
+        path.join(import.meta.dir, "quality-gate.ts"),
+        targetDir,
+        "--json",
+        "--max-flat-lines",
+        "3",
+      ],
+      { encoding: "utf8" },
+    );
+    expect(result.status).toBe(0);
+    const reports = JSON.parse(result.stdout) as Array<{
+      issues: Array<{ code: string }>;
+    }>;
+    expect(reports.flatMap((report) => codes(report))).not.toContain(
+      "public-cryptic-names",
+    );
+    expect(reports.flatMap((report) => codes(report))).not.toContain(
+      "split-required",
+    );
   });
 
   test("a generated facade is auto-relaxed by its marker (no --vendored)", () => {

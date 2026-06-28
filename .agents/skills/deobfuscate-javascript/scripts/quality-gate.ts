@@ -303,6 +303,7 @@ const KNOWN_GLOBAL_IDENTIFIERS = new Set([
   "HTMLDivElement",
   "HTMLElement",
   "HTMLFormElement",
+  "HTMLIFrameElement",
   "HTMLImageElement",
   "HTMLInputElement",
   "HTMLLinkElement",
@@ -548,6 +549,7 @@ type FullRestorationImportMapEntry = {
   restored?: string;
   file?: string;
   boundary?: boolean;
+  openBoundary?: boolean;
   vendor?: string;
   status?: string;
   note?: string;
@@ -1976,11 +1978,11 @@ export function analyzeSource(
     !hasProvenanceHeader &&
     !isGeneratedBarrelFile(file)
   ) {
-      issues.push({
-        code: "missing-provenance-header",
-        message:
-          "Public restored files must start with // Restored from ref/<bundle-root>/<chunk>.js",
-      });
+    issues.push({
+      code: "missing-provenance-header",
+      message:
+        "Public restored files must start with // Restored from ref/<bundle-root>/<chunk>.js",
+    });
   }
   if (duplicateProvenanceHeaders > 0) {
     issues.push({
@@ -2242,6 +2244,8 @@ function publicEntryForBasename(
 function isBoundaryLikeEntry(entry: FullRestorationImportMapEntry): boolean {
   return Boolean(
     entry.boundary ||
+      entry.openBoundary ||
+      entry.status?.toLowerCase() === "faced" ||
       entry.dependencyBoundary ||
       Object.keys(entry.dependencyBoundaryFacades ?? {}).length > 0 ||
       Object.keys(entry.publicFacades ?? {}).length > 0,
@@ -2307,6 +2311,44 @@ function sourceFilesForPublicTargets(
     }
   }
   return [...files].sort();
+}
+
+function importMapEntries(
+  importMap: FullRestorationImportMap,
+): FullRestorationImportMapEntry[] {
+  return [
+    ...Object.values(importMap.publicOutputs ?? {}),
+    ...Object.values(importMap.chunks ?? {}),
+    ...Object.values(importMap.boundaries ?? {}),
+    ...[
+      importMap.appScope,
+      importMap.vscodeApi,
+      importMap.src,
+      importMap.statsig,
+    ].filter((entry): entry is FullRestorationImportMapEntry => entry != null),
+  ];
+}
+
+export function collectImportMapBoundaryFiles(targetDir: string): Set<string> {
+  const files = new Set<string>();
+  if (!fs.existsSync(targetDir) || !fs.statSync(targetDir).isDirectory()) {
+    return files;
+  }
+
+  const importMapPath = path.join(targetDir, "IMPORT_MAP.json");
+  if (!fs.existsSync(importMapPath)) return files;
+
+  const importMap = parseJsonFile<FullRestorationImportMap>(importMapPath);
+  for (const entry of importMapEntries(importMap)) {
+    if (!isBoundaryLikeEntry(entry)) continue;
+    for (const file of sourceFilesForPublicTargets(
+      targetDir,
+      publicTargetPaths(entry),
+    )) {
+      files.add(path.resolve(file));
+    }
+  }
+  return files;
 }
 
 function inspectAppFeatureTargetFiles(files: string[]): QualityGateIssue[] {
@@ -2386,6 +2428,13 @@ export function collectBoundaryCheckpointImportFiles(
   }
   for (const entry of Object.values(importMap.boundaries ?? {})) {
     if (entry.boundary && isKnownTerminalBoundaryChunk("", entry)) {
+      for (const target of publicTargetPaths(entry)) {
+        addExistingBoundaryFile(allowedFiles, targetDir, target);
+      }
+    }
+  }
+  for (const entry of Object.values(importMap.chunks ?? {})) {
+    if (isBoundaryLikeEntry(entry) && isKnownTerminalBoundaryChunk("", entry)) {
       for (const target of publicTargetPaths(entry)) {
         addExistingBoundaryFile(allowedFiles, targetDir, target);
       }
@@ -2836,6 +2885,7 @@ async function main(): Promise<void> {
     vendored: values["vendored"] ?? false,
     allowedCheckpointImportFiles: collectBoundaryCheckpointImportFiles(input),
   };
+  const importMapBoundaryFiles = collectImportMapBoundaryFiles(input);
 
   let files: string[];
   try {
@@ -2846,7 +2896,11 @@ async function main(): Promise<void> {
   }
 
   const reports = files.map((file) =>
-    analyzeSource(fs.readFileSync(file, "utf-8"), file, options),
+    analyzeSource(fs.readFileSync(file, "utf-8"), file, {
+      ...options,
+      vendored:
+        options.vendored || importMapBoundaryFiles.has(path.resolve(file)),
+    }),
   );
   reports.push(
     ...analyzeFullRestorationCoverage(input, {
