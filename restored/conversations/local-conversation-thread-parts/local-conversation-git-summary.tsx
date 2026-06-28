@@ -1,16 +1,15 @@
 // Restored from ref/webview/assets/local-conversation-thread-Bf38rCmF.js
 // Git and pull-request summary rows used by the local conversation summary panel.
 import { once } from "../../runtime/commonjs-interop";
+import { initSpinnerComponent, Spinner } from "../../ui/spinner";
 import {
   AB as initScopeRuntime,
-  AN as initSpinnerComponent,
   FB as useScope,
   M_ as localConversationRouteScope,
   Op as initConversationStateSelectors,
   PB as useScopedValue,
   gp as conversationCwdSignal,
   iF as initIntlRuntime,
-  kN as SpinnerIcon,
   mo as initGitHubIcon,
   po as GitHubIcon,
   wp as storedThreadBranchSignal,
@@ -149,7 +148,7 @@ export function BranchChangesSummaryRow({
       />
     );
   let trailingDiffStats = isDiffStatsLoading ? (
-    <SpinnerIcon className="icon-xs text-token-text-tertiary" />
+    <Spinner className="icon-xs text-token-text-tertiary" />
   ) : diffStats == null ? null : (
     <DiffStats
       className="text-size-chat shrink-0"
@@ -489,7 +488,7 @@ function CreatePullRequestProgressSummaryRow({
   phase,
   onCancel,
 }: CreatePullRequestProgressSummaryRowProps) {
-  let spinnerIcon = <SpinnerIcon className={GITHUB_STATUS_ICON_CLASS_NAME} />,
+  let spinnerIcon = <Spinner className={GITHUB_STATUS_ICON_CLASS_NAME} />,
     phaseLabel = <CreatePullRequestWorkflowPhaseLabel phase={phase} />,
     cancelButton = <CancelCreatePullRequestButton onCancel={onCancel} />;
   return (

@@ -62,4 +62,7 @@ function Spinner({
 function getInitialAnimationDelay() {
   return `-${Date.now() % 1000}ms`;
 }
-export { SpinnerIcon, Spinner };
+
+function initSpinnerComponent(): void {}
+
+export { SpinnerIcon, Spinner, initSpinnerComponent };

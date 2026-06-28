@@ -2,12 +2,11 @@
 // Pull request side-panel overview section and reviewer badges.
 import type { ReactElement, SVGProps } from "react";
 import { once } from "../../runtime/commonjs-interop";
+import { initSpinnerComponent, Spinner } from "../../ui/spinner";
 import { classNames, initClassNameRuntime } from "../../utils/class-names";
 import {
-  AN as initSpinnerComponent,
   iF as initIntlRuntime,
   hM as initTooltipPrimitives,
-  kN as SpinnerIcon,
   ko as GitBranchIcon,
   mo as initGitHubIcon,
   pM as Tooltip,
@@ -232,7 +231,7 @@ function PullRequestOverviewChecksRow({
     return (
       <SummaryPanelRow
         density="comfortable"
-        icon={<SpinnerIcon className="icon-sm shrink-0" />}
+        icon={<Spinner className="icon-sm shrink-0" />}
         label={
           <FormattedMessage
             id="pullRequestSidePanel.overview.checks.loading"
@@ -286,7 +285,7 @@ function PullRequestOverviewCommentsRow({
     return (
       <SummaryPanelRow
         density="comfortable"
-        icon={<SpinnerIcon className="icon-sm shrink-0" />}
+        icon={<Spinner className="icon-sm shrink-0" />}
         label={
           <FormattedMessage
             id="pullRequestSidePanel.overview.comments.loading"

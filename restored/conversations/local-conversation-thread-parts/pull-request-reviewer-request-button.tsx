@@ -3,11 +3,11 @@
 import { useState, type ReactNode } from "react";
 import { once } from "../../runtime/commonjs-interop";
 import { Button, initButtonComponentPrimitives } from "../../ui/button";
+import { initSpinnerComponent, Spinner } from "../../ui/spinner";
 import {
   $N as initVscodeApiBridge,
   $P as initAppScope,
   AB as initScopeRuntime,
-  AN as initSpinnerComponent,
   Lj as PlusIcon,
   QP as appScope,
   Rj as initScreenReaderTitleChunk,
@@ -20,7 +20,6 @@ import {
   fu as initTaskWorkspaceQueryRuntime,
   hi as PopoverTrigger,
   iF as initIntlRuntime,
-  kN as SpinnerIcon,
   mi as ScreenReaderTitle,
   oP as initQueryDurationConstants,
   pi as PopoverContent,
@@ -464,7 +463,7 @@ function getRequestReviewersFooter({
           className="flex items-center justify-center py-2"
           role="status"
         >
-          <SpinnerIcon className="icon-2xs" />
+          <Spinner className="icon-2xs" />
         </span>
       ) : (
         <Button color="secondary" size="toolbar" onClick={onRequestReviewers}>

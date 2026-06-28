@@ -7,12 +7,12 @@ import {
   type ReactNode,
 } from "react";
 import { once } from "../../runtime/commonjs-interop";
+import { initSpinnerComponent, Spinner } from "../../ui/spinner";
 import { classNames, initClassNameRuntime } from "../../utils/class-names";
 import {
   $N as initVscodeApiBridge,
   $P as initAppScope,
   AB as initScopeRuntime,
-  AN as initSpinnerComponent,
   Fx as initEnvironmentTerminalController,
   Gi as DropdownMenu,
   IB as useSignalValue,
@@ -24,7 +24,6 @@ import {
   FB as useScope,
   hM as initTooltipPrimitives,
   iF as initIntlRuntime,
-  kN as SpinnerIcon,
   ok as sendAppServerRequest,
   oM as initRefreshIcon,
   pM as Tooltip,
@@ -290,7 +289,7 @@ export function ThreadSummaryBackgroundActivityRows({
                     })}
                   >
                     {stoppingTerminalId === item.terminal.id ? (
-                      <SpinnerIcon className="icon-xs" />
+                      <Spinner className="icon-xs" />
                     ) : (
                       <StopIcon className="icon-xs" aria-hidden={true} />
                     )}
@@ -803,7 +802,7 @@ function BackgroundTerminalStatusIcon({
         aria-label={statusLabel}
         role="img"
       >
-        <SpinnerIcon className="icon-xs text-token-charts-green" />
+        <Spinner className="icon-xs text-token-charts-green" />
       </span>
     );
   }

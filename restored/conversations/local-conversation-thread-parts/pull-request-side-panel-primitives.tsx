@@ -2,11 +2,10 @@
 // Shared pull request side-panel primitives and merge-conflict file rows.
 import type { KeyboardEvent, MouseEvent, ReactNode, SVGProps } from "react";
 import { once } from "../../runtime/commonjs-interop";
+import { initSpinnerComponent, Spinner } from "../../ui/spinner";
 import {
-  AN as initSpinnerComponent,
   Gi as initDropdownMenuPrimitives,
   iF as initIntlRuntime,
-  kN as SpinnerIcon,
   qi as MenuChrome,
   RP as ChevronIcon,
   zP as initChevronDownIcon,
@@ -94,7 +93,7 @@ export function PullRequestSidePanelLoadingState({
       aria-busy="true"
       className="flex min-h-16 items-center justify-center text-token-text-tertiary"
     >
-      <SpinnerIcon className="icon-sm" />
+      <Spinner className="icon-sm" />
       <span className="sr-only">{label}</span>
     </div>
   );

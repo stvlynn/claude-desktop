@@ -3,10 +3,10 @@
 import type { ComponentType } from "react";
 import { useRef } from "react";
 import { once } from "../../runtime/commonjs-interop";
+import { initSpinnerComponent, Spinner } from "../../ui/spinner";
 import {
   AB as initScopeRuntime,
   Al as initComposerScope,
-  AN as initSpinnerComponent,
   bF as initPathHelpers,
   cm as conversationHostIdSignal,
   DL as normalizeWorkspacePath,
@@ -17,7 +17,6 @@ import {
   IB as useSignalValue,
   iF as initIntlRuntime,
   I_ as initRouteScope,
-  kN as SpinnerIcon,
   ko as GitBranchIcon,
   M_ as localConversationRouteScope,
   Mu as initHostCodexHomeQuery,
@@ -277,7 +276,7 @@ export function ThreadSummaryEnvironmentSection({
               title={switchTooltipText}
               trailing={
                 isPending ? (
-                  <SpinnerIcon className="icon-xs text-token-text-tertiary" />
+                  <Spinner className="icon-xs text-token-text-tertiary" />
                 ) : null
               }
               trailingVisible={isPending}

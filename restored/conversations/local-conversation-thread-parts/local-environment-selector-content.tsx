@@ -1,11 +1,10 @@
 // Restored from ref/webview/assets/local-conversation-thread-Bf38rCmF.js
 // Local environment display-name helpers and environment selector menu content.
 import { once } from "../../runtime/commonjs-interop";
+import { initSpinnerComponent, Spinner } from "../../ui/spinner";
 import {
-  AN as initSpinnerComponent,
   Hi as initSettingsGearIcon,
   iF as initIntlRuntime,
-  kN as SpinnerIcon,
   kj as normalizeConfigPath,
   lF as useIntl,
   qi as MenuChrome,
@@ -122,7 +121,7 @@ export function LocalEnvironmentSelectorContent({
   let environmentItems =
     localEnvironmentsLoading && localEnvironments.length === 0 ? (
       <div className="flex items-center justify-center py-3">
-        <SpinnerIcon className="icon-xxs" />
+        <Spinner className="icon-xxs" />
       </div>
     ) : localEnvironmentsError ? (
       <MenuChrome.Message compact={true} tone="error">

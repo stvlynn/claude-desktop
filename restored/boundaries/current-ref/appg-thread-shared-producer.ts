@@ -25,6 +25,7 @@ export {
   Button as DN,
   initButtonComponentPrimitives as ON,
 } from "../../ui/button";
+export { initSpinnerComponent as AN, Spinner as kN } from "../../ui/spinner";
 export {
   initUseStableCallback as bM,
   useStableCallback as xM,
