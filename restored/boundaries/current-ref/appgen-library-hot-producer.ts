@@ -2,6 +2,7 @@
 export {
   threadComposerContext as $,
   initThreadComposerContextChunk as et,
+  initThreadComposerFooterChunk as n,
   ThreadComposerFooter as t,
 } from "../../composer/thread-composer-footer";
 export {

@@ -11255,6 +11255,7 @@
         "in": "initRemoteConnectionStateChunk",
         "it": "initAppShellElementContextChunk",
         "k": "CommandMenuItem",
+        "n": "initThreadComposerFooterChunk",
         "nn": "RemoteProjectIcon",
         "oi": "WaitingStatusIcon",
         "rn": "initRemoteProjectIconChunk",
@@ -11265,7 +11266,7 @@
         "tn": "initWorkspaceRootDisplayNameRuntime"
       },
       "status": "partial",
-      "note": "Composer-facing thread footer, app-shell element context, lazy navigation rail, git-root query, remote connection state/icon, command menu item, and workspace root display-name exports now have semantic wrappers; remaining appgen-library hot-path UI/runtime exports stay isolated behind vendor/appgen-library-hot-runtime.ts until the full mixed chunk is deep-restored.",
+      "note": "Composer-facing thread footer/component initializer, app-shell element context, lazy navigation rail, git-root query, remote connection state/icon, command menu item, and workspace root display-name exports now have semantic wrappers; remaining appgen-library hot-path UI/runtime exports stay isolated behind vendor/appgen-library-hot-runtime.ts until the full mixed chunk is deep-restored.",
       "lastUpdated": "2026-06-28T00:00:00.000Z",
       "boundary": "boundaries/current-ref/appgen-library-hot-producer.ts"
     },
