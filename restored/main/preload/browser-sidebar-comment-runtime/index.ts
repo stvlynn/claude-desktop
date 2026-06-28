@@ -14,6 +14,22 @@ export {
   serializeDesignDraftStyles,
 } from "./design-css";
 export {
+  addBrowserSidebarElementDesignGroup,
+  readBrowserSidebarElementDesignGroups,
+  setBrowserSidebarElementDesignGroups,
+  syncBrowserSidebarDesignDraftElements,
+} from "./design-dom-groups";
+export { observeBrowserSidebarDesignDraftDom } from "./design-dom-observer";
+export {
+  DEFAULT_DESIGN_DRAFT_STYLE_ELEMENT_ID,
+  syncBrowserSidebarDesignDraftStyleElement,
+} from "./design-dom-style";
+export {
+  applyBrowserSidebarDesignTextDrafts,
+  DEFAULT_DESIGN_ORIGINAL_TEXT_ATTRIBUTE,
+  restoreBrowserSidebarDesignTextDrafts,
+} from "./design-dom-text";
+export {
   getElementOwnerWindow,
   getVisibleElementViewportRect,
   isBrowserSidebarElement,
@@ -75,6 +91,11 @@ export type {
   BrowserSidebarDesignStyleDeclaration,
   BrowserSidebarDesignStyleDraft,
 } from "./design-css";
+export type {
+  BrowserSidebarDesignDomDraft,
+  BrowserSidebarDesignDomOptions,
+  BrowserSidebarDesignDraftElementResolver,
+} from "./design-dom-types";
 export type { BrowserSidebarElementSnapshot } from "./element-metadata";
 export type { BrowserSidebarTextDraft } from "./element-text";
 export type {
