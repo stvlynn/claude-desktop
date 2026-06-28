@@ -47,6 +47,7 @@ import {
   tP as useAppServerMutation,
 } from "../../boundaries/current-ref/appg-thread-shared-producer";
 import {
+  $c as openBrowserSummaryTab,
   Il as initWorkspaceRouteStateChunk,
   Ir as setThreadSourceFrameState,
   Ja as initThreadSourceFrameStateChunk,
@@ -62,7 +63,6 @@ import {
   Yl as rightPanelTabsStore,
   wl as currentWorkspaceRootSignal,
 } from "../../boundaries/current-ref/projects-app-shared-producer";
-import { $c as openBrowserSummaryTab } from "../../boundaries/current-ref/pull-request-thread-actions-producer";
 import {
   Jn as PlanIcon,
   St as openPlanSidePanelTab,
