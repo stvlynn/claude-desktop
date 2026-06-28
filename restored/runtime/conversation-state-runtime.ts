@@ -7,6 +7,7 @@ import {
   Op as initConversationStateSelectors,
   Tp as hasConversationSignal,
   Xp as latestConversationTurnSignal,
+  wp as storedThreadBranchSignal,
 } from "../boundaries/current-ref/appg-thread-shared-producer";
 
 export {
@@ -15,6 +16,7 @@ export {
   conversationUnreadSignal,
   hasConversationSignal,
   latestConversationTurnSignal,
+  storedThreadBranchSignal,
 };
 
 export function initConversationStateRuntime(): void {

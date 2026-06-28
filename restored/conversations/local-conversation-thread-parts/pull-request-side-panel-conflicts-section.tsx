@@ -2,13 +2,11 @@
 // Merge-conflict section for the pull request side panel.
 import type { ReactNode } from "react";
 import { once } from "../../runtime/commonjs-interop";
+import { useScope, useSignalValue } from "../../runtime/app-scope-hooks";
 import {
-  AB as initScopeRuntime,
-  Al as initComposerScope,
-  FB as useScope,
-  IB as useSignalValue,
-  wl as composerScope,
-} from "../../boundaries/current-ref/appg-thread-shared-producer";
+  composerScope,
+  initComposerScopeRuntime,
+} from "../../runtime/composer-scope-runtime";
 import {
   pullRequestMergeConflictState as pullRequestMergeConflictAttachmentSignal,
 } from "../../composer/composer-view-state";
@@ -145,13 +143,12 @@ export function PullRequestSidePanelConflictsSection({
 }
 
 export const initPullRequestSidePanelConflictsSectionChunk = once(() => {
-  initScopeRuntime();
+  initComposerScopeRuntime();
   initIntlRuntime();
   initPullRequestComposerContextChunk();
   initPullRequestFixDisabledTooltipChunk();
   initPullRequestInlineActionButtonChunk();
   initPullRequestFixActionHelpersChunk();
-  initComposerScope();
   initPullRequestConflictFileRowsChunk();
   initPullRequestSidePanelDetailsSummaryChunk();
 });

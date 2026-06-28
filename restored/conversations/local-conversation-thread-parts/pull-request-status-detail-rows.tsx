@@ -1,17 +1,19 @@
 // Restored from ref/webview/assets/local-conversation-thread-Bf38rCmF.js
 // Pull request status detail rows plus chat-attachment helpers for PR checks, review comments, and merge conflicts.
 import { once } from "../../runtime/commonjs-interop";
+import { useScope, useScopedValue } from "../../runtime/app-scope-hooks";
 import {
-  AB as initScopeRuntime,
-  Al as initComposerScope,
-  FB as useScope,
-  HO as getReviewCommentAttachmentKeyValue,
-  Op as initConversationStateSelectors,
-  PB as useScopedValue,
-  YO as initPullRequestReviewCommentHelpers,
-  wl as composerScope,
-  wp as storedThreadBranchSignal,
-} from "../../boundaries/current-ref/appg-thread-shared-producer";
+  composerScope,
+  initComposerScopeRuntime,
+} from "../../runtime/composer-scope-runtime";
+import {
+  initConversationStateRuntime,
+  storedThreadBranchSignal,
+} from "../../runtime/conversation-state-runtime";
+import {
+  getReviewCommentAttachmentKeyValue,
+  initPullRequestReviewCommentRuntime,
+} from "../../runtime/pull-request-prompt-runtime";
 import {
   Ba as pullRequestReviewCommentAttachmentsSignal,
   Va as initPullRequestReviewCommentAttachmentStateChunk,
@@ -127,11 +129,11 @@ export type PullRequestStatusDetailRowsProps = {
 };
 
 export const initPullRequestStatusDetailRowsChunk = once(() => {
-  initScopeRuntime();
+  initComposerScopeRuntime();
   initIntlRuntime();
-  initConversationStateSelectors();
+  initConversationStateRuntime();
   initPullRequestReviewCommentAttachmentStateChunk();
-  initPullRequestReviewCommentHelpers();
+  initPullRequestReviewCommentRuntime();
   initPullRequestCommentCardPrimitivesChunk();
   initPullRequestReviewCommentNavigationChunk();
   initThreadBranchComparisonChunk();
@@ -141,7 +143,6 @@ export const initPullRequestStatusDetailRowsChunk = once(() => {
   initPullRequestInlineActionButtonChunk();
   initPullRequestFixActionHelpersChunk();
   initPullRequestCommentCardChunk();
-  initComposerScope();
   initPullRequestCommentCardSupportChunk();
   initPullRequestFailedCheckIconChunk();
   (

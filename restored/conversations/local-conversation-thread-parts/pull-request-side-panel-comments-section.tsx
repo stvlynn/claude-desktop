@@ -6,15 +6,15 @@ import {
   Dropdown as MenuChrome,
   initDropdownMenuPrimitives,
 } from "../../ui/dropdown";
+import { useScope, useScopedValue } from "../../runtime/app-scope-hooks";
 import {
-  AB as initScopeRuntime,
-  Al as initComposerScope,
-  FB as useScope,
-  HO as getReviewCommentAttachmentKeyValue,
-  PB as useScopedValue,
-  YO as initPullRequestReviewCommentHelpers,
-  wl as composerScope,
-} from "../../boundaries/current-ref/appg-thread-shared-producer";
+  composerScope,
+  initComposerScopeRuntime,
+} from "../../runtime/composer-scope-runtime";
+import {
+  getReviewCommentAttachmentKeyValue,
+  initPullRequestReviewCommentRuntime,
+} from "../../runtime/pull-request-prompt-runtime";
 import {
   Ba as pullRequestReviewCommentAttachmentsSignal,
   Va as initPullRequestReviewCommentAttachmentStateChunk,
@@ -336,16 +336,15 @@ function findCommentAttachmentForActivityItem(
 }
 
 export const initPullRequestSidePanelCommentsSectionChunk = once(() => {
-  initScopeRuntime();
+  initComposerScopeRuntime();
   initIntlRuntime();
   initPullRequestReviewCommentAttachmentStateChunk();
   initDropdownMenuPrimitives();
-  initPullRequestReviewCommentHelpers();
+  initPullRequestReviewCommentRuntime();
   initPullRequestCommentFixHelpersChunk();
   initPullRequestFixDisabledTooltipChunk();
   initPullRequestInlineActionButtonChunk();
   initPullRequestCommentCardChunk();
-  initComposerScope();
   initPullRequestSidePanelErrorMessageChunk();
   initPullRequestSidePanelDetailsSummaryChunk();
   initPullRequestSidePanelLoadingStateChunk();
