@@ -14,6 +14,11 @@ export {
   serializeDesignDraftStyles,
 } from "./design-css";
 export {
+  BROWSER_SIDEBAR_DOM_OBSERVER_INIT,
+  observeBrowserSidebarExternalDomMutations,
+  subscribeToBrowserSidebarScrollContainers,
+} from "./dom-observers";
+export {
   addBrowserSidebarElementDesignGroup,
   readBrowserSidebarElementDesignGroups,
   setBrowserSidebarElementDesignGroups,
@@ -140,6 +145,10 @@ export type {
   BrowserSidebarDesignStyleDeclaration,
   BrowserSidebarDesignStyleDraft,
 } from "./design-css";
+export type {
+  BrowserSidebarFrameWindowResolver,
+  BrowserSidebarScrollContainerAnchor,
+} from "./dom-observers";
 export type {
   BrowserSidebarDesignDomDraft,
   BrowserSidebarDesignDomOptions,
