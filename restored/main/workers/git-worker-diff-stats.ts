@@ -386,7 +386,7 @@ async function hasRepositoryOperationInProgress(
   return states.some((state) => state !== "missing");
 }
 
-async function writeWorkingTreeSnapshot({
+export async function writeWorkingTreeSnapshot({
   host,
   includeUntrackedFiles,
   root,

@@ -33,7 +33,10 @@ import { readBranchDiffStats } from "./git-worker-diff-stats";
 import { readGitOrigins } from "./git-worker-origin-queries";
 import { readStableMetadata } from "./git-worker-repo-queries";
 import { readIndexInfo, readStatusSummary } from "./git-worker-status-queries";
-import { readSyncedBranch } from "./git-worker-synced-branch";
+import {
+  readSyncedBranch,
+  readSyncedBranchDetailedState,
+} from "./git-worker-synced-branch";
 import { runGitCommand } from "./git-worker-commands";
 import { setWorktreeOwnerThread } from "./git-worker-worktree-thread";
 import { listCodexWorktrees, listWorktrees } from "./git-worker-worktrees";
@@ -355,6 +358,16 @@ export class GitWorkerRequestDispatcher {
         const params = requireRecordParams(request);
         return ok(
           await readSyncedBranch({
+            cwd: requireStringParam(params, "cwd"),
+            host: context.host,
+            signal: context.signal,
+          }),
+        );
+      }
+      case "synced-branch-state": {
+        const params = requireRecordParams(request);
+        return ok(
+          await readSyncedBranchDetailedState({
             cwd: requireStringParam(params, "cwd"),
             host: context.host,
             signal: context.signal,
