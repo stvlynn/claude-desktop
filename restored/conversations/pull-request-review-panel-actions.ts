@@ -1,13 +1,36 @@
-// Restored from ref/webview/assets/app-initial~app-main~worktree-init-v2-page~remote-conversation-page~pull-requests-page~new-~kvpgbdy1-mhRp2VYQ.js
+// Restored from ref/webview/assets/app-initial~app-main~automations-page-BfqUlSo6.js
 // Local conversation review-panel state and side-effect helpers.
+import {
+  av as shouldExpandReviewPanelSignal,
+  Fv as initReviewRouteContextChunkRaw,
+  fv as initReviewSourceChunkRaw,
+  gv as syncReviewPanelForRestoredSource,
+  hv as openInitialReviewPanelTarget,
+  j_ as scheduleReviewRestore,
+  lv as pendingReviewPanelTargetSignal,
+  mv as revealChangedFilesInReviewPanel,
+  ov as initReviewDiffStateChunkRaw,
+  pv as resetReviewPanelEmptyState,
+  rv as initReviewFileListChunkRaw,
+  sv as focusPendingReviewPanelTarget,
+  zv as initReviewSourceModeChunkRaw,
+} from "../app-shared-runtime";
+
 export {
-  $c as syncReviewPanelForRestoredSource,
-  Js as scheduleReviewRestore,
-  nr as initPullRequestThreadActionsChunk,
-  Oc as focusPendingReviewPanelTarget,
-  Pc as pendingReviewPanelTargetSignal,
-  Qc as openInitialReviewPanelTarget,
-  Tc as shouldExpandReviewPanelSignal,
-  Xc as resetReviewPanelEmptyState,
-  Zc as revealChangedFilesInReviewPanel,
-} from "../vendor/pull-request-thread-actions-runtime";
+  focusPendingReviewPanelTarget,
+  openInitialReviewPanelTarget,
+  pendingReviewPanelTargetSignal,
+  resetReviewPanelEmptyState,
+  revealChangedFilesInReviewPanel,
+  scheduleReviewRestore,
+  shouldExpandReviewPanelSignal,
+  syncReviewPanelForRestoredSource,
+};
+
+export function initPullRequestThreadActionsChunk(): void {
+  initReviewRouteContextChunkRaw();
+  initReviewSourceModeChunkRaw();
+  initReviewSourceChunkRaw();
+  initReviewDiffStateChunkRaw();
+  initReviewFileListChunkRaw();
+}
