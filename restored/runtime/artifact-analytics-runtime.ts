@@ -1,15 +1,77 @@
 // Restored from ref/webview/assets/artifact-analytics-DeyIRgFu.js
 
-export {
+import {
   Df as initProductLoggerRuntime,
-  Gf as artifactAnnotationSavedEvent,
-  Jf as ArtifactAnnotationSubmitMode,
-  Kf as ArtifactAnnotationStartSource,
-  Pg as initArtifactAnalyticsEventDescriptors,
-  Qf as artifactAnnotationCanceledEvent,
-  Xf as artifactAnnotationSubmittedEvent,
-  Yf as ArtifactAnnotationSubmitSource,
-  Zf as ArtifactKind,
   kf as logProductEvent,
-  qf as artifactAnnotationStartedEvent,
 } from "../../ref/webview/assets/app-initial~app-main~worktree-init-v2-page~remote-conversation-page~new-thread-panel-page~o~bj5tp28r-Dcs9S3fj.js";
+
+export { initProductLoggerRuntime, logProductEvent };
+
+export type ProductAnalyticsEventDescriptor = {
+  $type: string;
+};
+
+function analyticsEvent($type: string): ProductAnalyticsEventDescriptor {
+  return { $type };
+}
+
+export const artifactAnnotationStartedEvent = analyticsEvent(
+  "protobuf_analytics_events.v1.CodexArtifactAnnotationStarted",
+);
+export const artifactAnnotationCanceledEvent = analyticsEvent(
+  "protobuf_analytics_events.v1.CodexArtifactRefreshClicked",
+);
+export const artifactAnnotationSavedEvent = analyticsEvent(
+  "protobuf_analytics_events.v1.CodexArtifactAnnotationModeEnabled",
+);
+export const artifactAnnotationSubmittedEvent = analyticsEvent(
+  "protobuf_analytics_events.v1.CodexArtifactAnnotationSubmitted",
+);
+
+export const ArtifactKind = {
+  CODEX_ARTIFACT_KIND_UNSPECIFIED: "CODEX_ARTIFACT_KIND_UNSPECIFIED",
+  CODEX_ARTIFACT_KIND_DOCUMENT: "CODEX_ARTIFACT_KIND_DOCUMENT",
+  CODEX_ARTIFACT_KIND_PRESENTATION: "CODEX_ARTIFACT_KIND_PRESENTATION",
+  CODEX_ARTIFACT_KIND_SPREADSHEET: "CODEX_ARTIFACT_KIND_SPREADSHEET",
+  CODEX_ARTIFACT_KIND_PDF: "CODEX_ARTIFACT_KIND_PDF",
+  CODEX_ARTIFACT_KIND_NOTEBOOK: "CODEX_ARTIFACT_KIND_NOTEBOOK",
+  UNRECOGNIZED: "UNRECOGNIZED",
+} as const;
+
+export const ArtifactAnnotationStartSource = {
+  CODEX_ARTIFACT_ANNOTATION_START_SOURCE_UNSPECIFIED:
+    "CODEX_ARTIFACT_ANNOTATION_START_SOURCE_UNSPECIFIED",
+  CODEX_ARTIFACT_ANNOTATION_START_SOURCE_ASK_CODEX_BUTTON:
+    "CODEX_ARTIFACT_ANNOTATION_START_SOURCE_ASK_CODEX_BUTTON",
+  CODEX_ARTIFACT_ANNOTATION_START_SOURCE_ASK_CODEX_SHORTCUT:
+    "CODEX_ARTIFACT_ANNOTATION_START_SOURCE_ASK_CODEX_SHORTCUT",
+  CODEX_ARTIFACT_ANNOTATION_START_SOURCE_ANNOTATION_MODE_POINTER:
+    "CODEX_ARTIFACT_ANNOTATION_START_SOURCE_ANNOTATION_MODE_POINTER",
+  UNRECOGNIZED: "UNRECOGNIZED",
+} as const;
+
+export const ArtifactAnnotationSubmitMode = {
+  CODEX_ARTIFACT_ANNOTATION_SUBMIT_MODE_UNSPECIFIED:
+    "CODEX_ARTIFACT_ANNOTATION_SUBMIT_MODE_UNSPECIFIED",
+  CODEX_ARTIFACT_ANNOTATION_SUBMIT_MODE_DIRECT:
+    "CODEX_ARTIFACT_ANNOTATION_SUBMIT_MODE_DIRECT",
+  CODEX_ARTIFACT_ANNOTATION_SUBMIT_MODE_SAVED:
+    "CODEX_ARTIFACT_ANNOTATION_SUBMIT_MODE_SAVED",
+  UNRECOGNIZED: "UNRECOGNIZED",
+} as const;
+
+export const ArtifactAnnotationSubmitSource = {
+  CODEX_ARTIFACT_ANNOTATION_SUBMIT_SOURCE_UNSPECIFIED:
+    "CODEX_ARTIFACT_ANNOTATION_SUBMIT_SOURCE_UNSPECIFIED",
+  CODEX_ARTIFACT_ANNOTATION_SUBMIT_SOURCE_BUTTON:
+    "CODEX_ARTIFACT_ANNOTATION_SUBMIT_SOURCE_BUTTON",
+  CODEX_ARTIFACT_ANNOTATION_SUBMIT_SOURCE_KEYBOARD:
+    "CODEX_ARTIFACT_ANNOTATION_SUBMIT_SOURCE_KEYBOARD",
+  CODEX_ARTIFACT_ANNOTATION_SUBMIT_SOURCE_DICTATION:
+    "CODEX_ARTIFACT_ANNOTATION_SUBMIT_SOURCE_DICTATION",
+  UNRECOGNIZED: "UNRECOGNIZED",
+} as const;
+
+export function initArtifactAnalyticsEventDescriptors(): void {
+  // Artifact analytics descriptors and enums are initialized as module constants.
+}
