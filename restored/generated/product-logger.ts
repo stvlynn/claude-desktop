@@ -100,6 +100,23 @@ export const productLoggerTn = {
 
 export const productLoggerXn = event("codex_referral_invite_modal");
 
+export const creditPurchaseModalOpenedEvent = {
+  $type: "protobuf_analytics_events.v1.CodexCreditReloadModalShown",
+};
+
+export const addCreditsQuantitySelectedEvent = {
+  $type: "protobuf_analytics_events.v1.CodexCreditReloadPurchaseCtaClicked",
+};
+
+export const creditCheckoutOpenedEvent = {
+  $type: "protobuf_analytics_events.v1.CodexCreditPurchaseButtonClicked",
+};
+
+export const autoTopUpActionEvent = {
+  $type:
+    "protobuf_analytics_events.v1.CodexCreditReloadAutoReloadSettingsChanged",
+};
+
 export const productLoggerQn = {
   CODEX_REFERRAL_INVITE_MODAL_ACTION_BACKEND_ERROR:
     "CODEX_REFERRAL_INVITE_MODAL_ACTION_BACKEND_ERROR",

@@ -37,13 +37,18 @@ export {
 } from "../../runtime/global-state-runtime";
 
 export {
+  bt as resumeStateSignal,
   conversationPermissionConfigSignal,
   Di as conversationTurnsByIdSignal,
+  ft as pendingRequestSignal,
   hr as conversationCwdByIdSignal,
   ii as conversationIdsByHostIdSignal,
+  Ln as usageSettingsSignal,
+  lt as latestTurnIdSignal,
   latestTurnByConversationIdSignal,
   latestTurnByConversationIdSignal as conversationTitleByIdSignal,
   registeredAppServerHostIdsSignal,
+  ut as latestTurnStatusSignal,
   workspaceRootOptionsQuery,
 } from "../thread-context-inputs.facade";
 
@@ -82,6 +87,9 @@ export {
 } from "../../runtime/conversation-state-runtime";
 
 export {
+  LAYERED_CONFIG_RESPONSE_QUERY_KEY as layeredConfigResponseQueryKey,
+  MCP_SERVER_STATUS_QUERY_KEY as mcpServersStatusQueryKey,
+  MCP_SERVERS_CONFIG_QUERY_KEY as mcpServerConfigQueryKey,
   USER_CONFIG_QUERY_KEY,
   userConfigQueryOptions,
 } from "../../config/config-queries";
@@ -110,6 +118,9 @@ export { codexRequest, initCodexRequestRuntime } from "../../runtime/request";
 
 export {
   initGlobalSettingsRuntime,
+  persistGlobalSettingValue,
+  primeGlobalSettingValue,
+  readGlobalSetting,
   setGlobalSettingValue,
 } from "../../runtime/project-hover-card-runtime";
 
@@ -195,8 +206,12 @@ export {
   ___productLoggerT as productLoggerAction,
   __productLoggerR as productLoggerSignal,
   _productLoggerJn as codexReferralInviteModalBackendErrorType,
+  addCreditsQuantitySelectedEvent,
+  autoTopUpActionEvent,
   codexThreadSwitchCompletedEvent,
   codexThreadSwitchKind,
+  creditCheckoutOpenedEvent,
+  creditPurchaseModalOpenedEvent,
   productLoggerQn as codexReferralInviteModalAction,
   productLoggerXn as codexReferralInviteModalEvent,
   productLoggerYn as codexReferralInviteModalErrorResponsibility,
@@ -217,6 +232,14 @@ export {
   Presence,
   RemoveScroll,
 } from "../../vendor/radix-primitives";
+
+export {
+  createContextScope,
+  createWarningContext,
+  hideOthers,
+  useControllableState,
+  useStableId,
+} from "../../vendor/radix-helpers";
 
 export { Spinner, initSpinnerComponent } from "../../ui/spinner";
 

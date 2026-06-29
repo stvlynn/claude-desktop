@@ -35,9 +35,7 @@ import {
   useAppServerMutation,
   useQueryClient,
 } from "./app-server-mutation-runtime";
-import {
-  initButtonComponentPrimitives,
-} from "../ui/button";
+import { initButtonComponentPrimitives } from "../ui/button";
 import { initAppDialog, initDialogLayoutComponents } from "../ui/dialog-layout";
 import {
   FormattedMessage,
@@ -52,10 +50,7 @@ import {
   initSettingsGearIcon,
   SettingsGearIcon as EditProjectIcon,
 } from "../icons/settings-gear-icon";
-import {
-  initSpinnerComponent,
-  Spinner as ActivityIcon,
-} from "../ui/spinner";
+import { initSpinnerComponent, Spinner as ActivityIcon } from "../ui/spinner";
 import { classNames, initClassNameRuntime } from "../utils/class-names";
 import {
   initProjectHoverCardCurrentRefRuntime,
@@ -162,6 +157,13 @@ function getGlobalSettingValue<TData = unknown>(
   return getGlobalStateValue<TData>(get, key);
 }
 
+function readGlobalSetting<TData = unknown>(
+  get: unknown,
+  key: unknown,
+): TData | undefined {
+  return getGlobalSettingValue<TData>(get, key);
+}
+
 async function setGlobalSettingValue(
   scope: unknown,
   key: unknown,
@@ -169,6 +171,25 @@ async function setGlobalSettingValue(
   options?: unknown,
 ): Promise<void> {
   await setGlobalStateValue(scope, key, value, options);
+}
+
+async function persistGlobalSettingValue(
+  scope: unknown,
+  key: unknown,
+  value: unknown,
+  options?: unknown,
+): Promise<void> {
+  await setGlobalSettingValue(scope, key, value, options);
+}
+
+function primeGlobalSettingValue(
+  scope: unknown,
+  key: unknown,
+  value: unknown,
+): void {
+  void scope;
+  void key;
+  void value;
 }
 
 function useGlobalStateQuery<TData = unknown>(key: unknown, options?: unknown) {
@@ -269,6 +290,9 @@ export {
   openLocalProjectEditModal,
   parseProjectWritableRoots,
   ProjectAvatar,
+  persistGlobalSettingValue,
+  primeGlobalSettingValue,
+  readGlobalSetting,
   RemoteProjectIcon,
   RowActionChevronIcon,
   setGlobalSettingValue,
