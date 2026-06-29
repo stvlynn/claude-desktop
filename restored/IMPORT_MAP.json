@@ -14083,6 +14083,27 @@
       "note": "Current wrapper calls the browser-use settings producer init and re-exports the restored BrowserUseSettings page.",
       "lastUpdated": "2026-06-29T00:00:00.000Z"
     },
+    "worktree-init-v2-page-CAOv319r": {
+      "restored": "worktree/pending-worktree-conversation-ui.tsx",
+      "exports": {
+        "n": "initPendingWorktreeChunk",
+        "t": "PendingWorktreeConversation"
+      },
+      "status": "done",
+      "aliasOf": "worktree-init-v2-page-BAfwy1p_",
+      "note": "Current worktree-init producer keeps the pending worktree UI and initializer surface; wrapper chunks may export the same component under WorktreeInitPage.",
+      "lastUpdated": "2026-06-29T00:00:00.000Z"
+    },
+    "worktree-init-v2-page-CaR6TWrH": {
+      "restored": "worktree/worktree-init-page.tsx",
+      "exports": {
+        "WorktreeInitPage": "WorktreeInitPage"
+      },
+      "status": "done",
+      "aliasOf": "worktree-init-v2-page-CAOv319r",
+      "note": "Current wrapper calls initPendingWorktreeChunk and re-exports PendingWorktreeConversation as WorktreeInitPage.",
+      "lastUpdated": "2026-06-29T00:00:00.000Z"
+    },
     "address-utils-CS84EMiz": {
       "restored": "vendor/xlsx-address-utils.ts",
       "exports": {
