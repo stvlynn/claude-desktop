@@ -91,14 +91,15 @@
       "restored": "main.ts",
       "additionalRestored": [
         "auth/devicecheck-attestation/index.ts",
-        "plugins/bundled-plugin-marketplace/index.ts"
+        "plugins/bundled-plugin-marketplace/index.ts",
+        "plugins/local-to-bundled-migration/index.ts"
       ],
       "exports": {
         "runMainAppStartup": "runMainAppStartup"
       },
       "status": "done",
       "vendor": "runtime",
-      "note": "Executable Electron startup bridge restored: runtime handoff, startup telemetry, app:// protocol registration, runtime path/native-intl setup, preload state IPC, system-theme IPC, native menu/context-menu IPC, debug IPC, app-host MessagePort IPC, second-instance focus handling, initial BrowserWindow creation wired to the restored helpers, DeviceCheck attestation helpers split into auth/devicecheck-attestation/, and current bundled-plugin marketplace reconciliation helpers split into plugins/bundled-plugin-marketplace/."
+      "note": "Executable Electron startup bridge restored: runtime handoff, startup telemetry, app:// protocol registration, runtime path/native-intl setup, preload state IPC, system-theme IPC, native menu/context-menu IPC, debug IPC, app-host MessagePort IPC, second-instance focus handling, initial BrowserWindow creation wired to the restored helpers, DeviceCheck attestation helpers split into auth/devicecheck-attestation/, current bundled-plugin marketplace reconciliation helpers split into plugins/bundled-plugin-marketplace/, and browser-use/computer-use local-to-bundled migrations split into plugins/local-to-bundled-migration/."
     },
     "codex-micro-service-rjpeLKbm": {
       "restored": "devices/codex-micro-service.ts",
