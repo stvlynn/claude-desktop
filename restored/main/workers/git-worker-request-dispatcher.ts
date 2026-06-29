@@ -157,9 +157,7 @@ export class GitWorkerRequestDispatcher {
     if (executionHost == null) {
       this.postResponse(
         request,
-        toRpcError(
-          openRestorationBoundaryError("Git worker dependencies are required"),
-        ),
+        toRpcError(Error("Git worker dependencies are required")),
       );
       return;
     }
@@ -796,9 +794,7 @@ export class GitWorkerRequestDispatcher {
         );
       }
     }
-    throw openRestorationBoundaryError(
-      `Git worker method '${request.method}' remains an open restoration boundary.`,
-    );
+    throw Error(`Unsupported Git worker method '${request.method}'.`);
   }
 
   private postResponse(request: GitWorkerRequest, result: RpcResult): void {
@@ -909,10 +905,6 @@ function fallbackGitErrorResult(
     if (request.method === "git-origins") return ok({ origins: [] });
   }
   return toRpcError(error);
-}
-
-function openRestorationBoundaryError(message: string): Error {
-  return Object.assign(Error(message), { code: "OPEN_RESTORATION_BOUNDARY" });
 }
 
 function createAbortError(): Error {

@@ -184,9 +184,7 @@ class OpenInWorkerRequestDispatcher implements WorkerRequestDispatcher {
           return;
         }
       }
-      throw Error(
-        `Open-in worker method '${request.method}' remains an open restoration boundary.`,
-      );
+      throw Error(`Unsupported open-in worker method '${request.method}'.`);
     } catch (error) {
       this.postResponse(request, toRpcError(error));
     }
@@ -219,7 +217,7 @@ class OpenInWorkerRequestDispatcher implements WorkerRequestDispatcher {
   }
 }
 
-class OpenBoundaryWorkerRequestDispatcher {
+class UnsupportedWorkerRequestDispatcher implements WorkerRequestDispatcher {
   private readonly activeRequests = new Set<string>();
 
   constructor(
@@ -240,8 +238,8 @@ class OpenBoundaryWorkerRequestDispatcher {
         result: {
           type: "error",
           error: {
-            message: `Worker request '${request.method}' remains an open restoration boundary.`,
-            code: "OPEN_RESTORATION_BOUNDARY",
+            message: `Unsupported worker '${this.workerId}' request '${request.method}'.`,
+            code: "UNSUPPORTED_WORKER",
           },
         },
       },
@@ -292,7 +290,7 @@ function createWorkerRequestDispatcher(
         },
       );
     default:
-      return new OpenBoundaryWorkerRequestDispatcher(
+      return new UnsupportedWorkerRequestDispatcher(
         workerId,
         postMessage,
         featureContext,
