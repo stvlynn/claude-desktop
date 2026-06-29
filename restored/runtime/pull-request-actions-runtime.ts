@@ -18,16 +18,13 @@ import {
   useAppServerMutation,
   useQueryClient,
 } from "./app-server-mutation-runtime";
+import { Button, initButtonComponentPrimitives } from "../ui/button";
 import {
-  Button,
-  classNames,
-  initButtonComponentPrimitives,
-  initClassNameRuntime,
-  initIntlRuntime,
-  initTooltipPrimitives as initTooltipRuntime,
   Tooltip,
-  useIntl,
-} from "../boundaries/current-ref/appg-thread-shared-producer";
+  initTooltipPrimitives as initTooltipRuntime,
+} from "../ui/tooltip-b";
+import { classNames, initClassNameRuntime } from "../utils/class-names";
+import { initIntlRuntime, useIntl } from "../vendor/react-intl";
 import {
   CS as initPullRequestViewedEventRuntime,
   TS as logScopedProductEvent,
