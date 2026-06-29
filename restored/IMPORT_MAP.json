@@ -13991,23 +13991,30 @@
       "restored": "runtime/app-main-host-runtime.ts",
       "exports": {
         "D": "initAppRuntimeChunk",
+        "I": "getJsxRuntime",
+        "L": "getChunkModuleExports",
         "M": "initAppLoggingChunk",
         "N": "appMainLogger",
-        "O": "hostMessageBridge"
+        "O": "hostMessageBridge",
+        "R": "initReactRuntime"
       },
       "status": "partial",
-      "note": "Current app-main shared runtime producer: Electron host-message bridge, renderer logger, and app runtime/logging init aliases are restored in runtime/app-main-host-runtime.ts. The same source chunk also contains React runtime/vendor and plugin hooks settings helpers that remain outside this scoped app-main alias restore.",
+      "note": "Current app-main shared runtime producer: Electron host-message bridge, renderer logger, app runtime/logging init aliases, and React/jsx/compiler-runtime loader aliases are restored in runtime/app-main-host-runtime.ts. The same source chunk still contains plugin hooks settings helpers outside this scoped app-main alias restore.",
       "lastUpdated": "2026-06-29T00:00:00.000Z"
     },
     "app-initial~app-main~worktree-init-v2-page~remote-conversation-page~new-thread-panel-page~o~bj5tp28r-Dcs9S3fj": {
       "restored": "runtime/app-host-services-runtime.ts",
       "exports": {
+        "_S": "createPersistentSignal",
+        "Bm": "onboardingWizardAction",
+        "Df": "initProductEventRuntime",
         "Mb": "connectAppHostServices",
+        "gS": "initPersistentSignalRuntime",
         "jb": "initAppHostServicesRuntimeChunk",
         "nb": "getCachedConversationTurns"
       },
       "status": "partial",
-      "note": "Current app-main app-host service bootstrap aliases and cached conversation turn reader are isolated in runtime/app-host-services-runtime.ts; the full producer and renderer RPC bridge remain an open partial boundary.",
+      "note": "Current app-main app-host service bootstrap aliases, cached conversation turn reader, persistent-signal factory/runtime, product-event runtime initializer, and onboarding wizard action catalog are isolated in runtime/app-host-services-runtime.ts; the full producer and renderer RPC bridge remain an open partial boundary.",
       "lastUpdated": "2026-06-29T00:00:00.000Z"
     },
     "app-initial~app-main~onboarding-page-BUwCKIcU": {

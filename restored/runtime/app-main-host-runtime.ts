@@ -1,6 +1,11 @@
 // Restored from ref/webview/assets/app-initial~app-main~worktree-init-v2-page~remote-conversation-page~plugin-detail-page~new-~sfopfmmp-9J50_--p.js
 // Electron app-main logging and host-message bridge runtime.
 import { once } from "./commonjs-interop";
+export {
+  getChunkModuleExports,
+  getJsxRuntime,
+  initReactRuntime,
+} from "./app-main-react-runtime";
 
 type AppMainLogLevel = "trace" | "debug" | "info" | "warning" | "error";
 type AppMainLogTags = {
