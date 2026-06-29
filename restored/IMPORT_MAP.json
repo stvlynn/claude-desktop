@@ -13988,7 +13988,7 @@
       "lastUpdated": "2026-06-28T20:55:00.000Z"
     },
     "app-initial~app-main~worktree-init-v2-page~remote-conversation-page~plugin-detail-page~new-~sfopfmmp-9J50_--p": {
-      "restored": "vendor/app-main-current-runtime.ts",
+      "restored": "runtime/app-main-host-runtime.ts",
       "exports": {
         "D": "initAppRuntimeChunk",
         "M": "initAppLoggingChunk",
@@ -13996,8 +13996,8 @@
         "O": "hostMessageBridge"
       },
       "status": "partial",
-      "note": "Current app-main shared runtime producer facade for the Electron bootstrap aliases. Still backed by current ref exports until this mixed React/host-message producer is deep-restored.",
-      "lastUpdated": "2026-06-28T21:05:00.000Z"
+      "note": "Current app-main shared runtime producer: Electron host-message bridge, renderer logger, and app runtime/logging init aliases are restored in runtime/app-main-host-runtime.ts. The same source chunk also contains React runtime/vendor and plugin hooks settings helpers that remain outside this scoped app-main alias restore.",
+      "lastUpdated": "2026-06-29T00:00:00.000Z"
     },
     "app-initial~app-main~worktree-init-v2-page~remote-conversation-page~new-thread-panel-page~o~bj5tp28r-Dcs9S3fj": {
       "restored": "vendor/app-main-current-runtime.ts",
