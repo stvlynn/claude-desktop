@@ -1,35 +1,34 @@
-// Restored from ref/webview/assets/mermaid-parser.core-DWICYyNZ.js
+// Restored from ref/webview/assets/mermaid-parser.core-Bn4SD_xl.js
 // MermaidParserCore chunk restored from the Codex webview bundle.
 const __vite__mapDeps = (
   _MermaidParserCore,
   mermaidParserCoreParam1 = __vite__mapDeps,
   mermaidParserCoreParam2 = mermaidParserCoreParam1.f ||
     (mermaidParserCoreParam1.f = [
-      "./info-OMHHGYJF-VpsoNmpd.js",
-      "./chunk-K5T4RW27-1QwNQQi0.js",
-      "./chunk-Cq_f4orQ.js",
-      "./isEmpty-CKN2Jii3.js",
-      "./_baseFor-eDjxQiUL.js",
-      "./reduce-C4fu3kBc.js",
-      "./flatten-CdNmRCTf.js",
-      "./main-BDm-p1LA.js",
-      "./chunk-KGLVRYIC-DZY-IxHR.js",
-      "./packet-4T2RLAQJ-Cps_a8kh.js",
-      "./chunk-FOC6F5B3-BgcFtwB_.js",
-      "./pie-ZZUOXDRM-CTCvZluc.js",
-      "./chunk-AA7GKIK3-Bic0nqP_.js",
-      "./treeView-SZITEDCU-CQ3h0-LJ.js",
-      "./chunk-ORNJ4GCN-Dtggxgv1.js",
-      "./architecture-YZFGNWBL-hfWpxWZF.js",
-      "./chunk-7N4EOEYR-BEkdQLCb.js",
-      "./gitGraph-7Q5UKJZL-RtuWf9d8.js",
-      "./chunk-67CJDMHE-B3_SAS71.js",
-      "./radar-PYXPWWZC-DenUZrCa.js",
-      "./chunk-2KRD3SAO-Bdi3VHck.js",
-      "./treemap-W4RFUUIX-LvOJWvcJ.js",
-      "./chunk-LIHQZDEY-B0GBEU3_.js",
-      "./wardley-RL74JXVD-DX26H2Am.js",
-      "./chunk-CIAEETIT-DnOj_Z7m.js",
+      "./info-OMHHGYJF-Bma7TJz9.js",
+      "./rolldown-runtime-Czos8NxU.js",
+      "./chunk-K5T4RW27-BasTmxaS.js",
+      "./isEmpty-DLFki7y7.js",
+      "./_baseFor-BRFGaW29.js",
+      "./reduce-CYbtueTs.js",
+      "./main-0NVm2ZVJ.js",
+      "./chunk-KGLVRYIC-DIYgUndE.js",
+      "./packet-4T2RLAQJ-46S0xDQR.js",
+      "./chunk-FOC6F5B3-DtpZceIN.js",
+      "./pie-ZZUOXDRM-C-GbAKjj.js",
+      "./chunk-AA7GKIK3-BiHWd-2t.js",
+      "./treeView-SZITEDCU-B3M3Gal-.js",
+      "./chunk-ORNJ4GCN-CZ8XwNI-.js",
+      "./architecture-YZFGNWBL-XT_h85co.js",
+      "./chunk-7N4EOEYR-D_8ZJ0D8.js",
+      "./gitGraph-7Q5UKJZL-BeodP2Yk.js",
+      "./chunk-67CJDMHE-Vupntdzx.js",
+      "./radar-PYXPWWZC-Bf7n2C1b.js",
+      "./chunk-2KRD3SAO-B08eh9qW.js",
+      "./treemap-W4RFUUIX-nKU19kUU.js",
+      "./chunk-LIHQZDEY-B1YOF2u3.js",
+      "./wardley-RL74JXVD-Um4aCywM.js",
+      "./chunk-CIAEETIT-BaS23YN5.js",
     ]),
 ) =>
   _MermaidParserCore.map(
@@ -49,7 +48,7 @@ var mermaidParserCoreValue1 = {},
             createInfoServices: _createInfoServices,
           };
         },
-        __vite__mapDeps([0, 1, 2, 3, 4, 5, 6, 7, 8]),
+        __vite__mapDeps([0, 1, 2, 3, 4, 5, 6, 7]),
         import.meta.url,
       );
       mermaidParserCoreValue1.info =
@@ -65,7 +64,7 @@ var mermaidParserCoreValue1 = {},
             createPacketServices: _createPacketServices,
           };
         },
-        __vite__mapDeps([9, 1, 2, 3, 4, 5, 6, 7, 10]),
+        __vite__mapDeps([8, 1, 2, 3, 4, 5, 6, 9]),
         import.meta.url,
       );
       mermaidParserCoreValue1.packet =
@@ -81,7 +80,7 @@ var mermaidParserCoreValue1 = {},
             createPieServices: _createPieServices,
           };
         },
-        __vite__mapDeps([11, 1, 2, 3, 4, 5, 6, 7, 12]),
+        __vite__mapDeps([10, 1, 2, 3, 4, 5, 6, 11]),
         import.meta.url,
       );
       mermaidParserCoreValue1.pie =
@@ -96,7 +95,7 @@ var mermaidParserCoreValue1 = {},
             createTreeViewServices: _createTreeViewServices,
           };
         },
-        __vite__mapDeps([13, 1, 2, 3, 4, 5, 6, 7, 14]),
+        __vite__mapDeps([12, 1, 2, 3, 4, 5, 6, 13]),
         import.meta.url,
       );
       mermaidParserCoreValue1.treeView =
@@ -111,7 +110,7 @@ var mermaidParserCoreValue1 = {},
             createArchitectureServices: _createArchitectureServices,
           };
         },
-        __vite__mapDeps([15, 1, 2, 3, 4, 5, 6, 7, 16]),
+        __vite__mapDeps([14, 1, 2, 3, 4, 5, 6, 15]),
         import.meta.url,
       );
       mermaidParserCoreValue1.architecture =
@@ -126,7 +125,7 @@ var mermaidParserCoreValue1 = {},
             createGitGraphServices: _createGitGraphServices,
           };
         },
-        __vite__mapDeps([17, 1, 2, 3, 4, 5, 6, 7, 18]),
+        __vite__mapDeps([16, 1, 2, 3, 4, 5, 6, 17]),
         import.meta.url,
       );
       mermaidParserCoreValue1.gitGraph =
@@ -142,7 +141,7 @@ var mermaidParserCoreValue1 = {},
             createRadarServices: _createRadarServices,
           };
         },
-        __vite__mapDeps([19, 1, 2, 3, 4, 5, 6, 7, 20]),
+        __vite__mapDeps([18, 1, 2, 3, 4, 5, 6, 19]),
         import.meta.url,
       );
       mermaidParserCoreValue1.radar =
@@ -158,7 +157,7 @@ var mermaidParserCoreValue1 = {},
             createTreemapServices: _createTreemapServices,
           };
         },
-        __vite__mapDeps([21, 1, 2, 3, 4, 5, 6, 7, 22]),
+        __vite__mapDeps([20, 1, 2, 3, 4, 5, 6, 21]),
         import.meta.url,
       );
       mermaidParserCoreValue1.treemap =
@@ -174,7 +173,7 @@ var mermaidParserCoreValue1 = {},
             createWardleyServices: _createWardleyServices,
           };
         },
-        __vite__mapDeps([23, 1, 2, 3, 4, 5, 6, 7, 24]),
+        __vite__mapDeps([22, 1, 2, 3, 4, 5, 6, 23]),
         import.meta.url,
       );
       mermaidParserCoreValue1.wardley =
