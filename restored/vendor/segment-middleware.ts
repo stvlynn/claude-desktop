@@ -1,4 +1,4 @@
-// Restored from ref/webview/assets/middleware-BDgBoOJW.js
+// Restored from ref/webview/assets/middleware-CcPovR3s.js
 // Middleware chunk restored from the Codex webview bundle.
 import { createCommonJsModule } from "../runtime/commonjs-interop";
 import {

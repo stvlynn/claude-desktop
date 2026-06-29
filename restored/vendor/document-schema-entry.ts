@@ -1,4 +1,4 @@
-// Restored from ref/webview/assets/document-D7i1z3mE.js
+// Restored from ref/webview/assets/document-DHCO4-l0.js
 // Document chunk restored from the Codex webview bundle.
 import {
   documentT as documentArtifact,
