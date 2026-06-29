@@ -1,23 +1,26 @@
 // Restored from ref/webview/assets/git-branch-switcher-Cb06tz5G.js
 
 import { createQuerySignalFamilyRaw as createQuerySignalFamily } from "../boundaries/current-ref/app-scope-producer";
+import { Button, initButtonComponentPrimitives } from "../ui/button";
 import {
-  Button,
   DialogBody,
   DialogFooter,
   DialogHeader,
   DialogLayout,
   DialogSection,
+  initAppDialog,
+  initDialogLayoutComponents,
+} from "../ui/dialog-layout";
+import {
   Dropdown,
   DropdownMenu,
-  FormattedMessage,
-  initAppDialog,
-  initButtonComponentPrimitives,
-  initDialogLayoutComponents,
   initDropdownMenuPrimitives,
+} from "../ui/dropdown";
+import {
+  FormattedMessage,
   initIntlRuntime,
   useIntl,
-} from "../boundaries/current-ref/appg-thread-shared-producer";
+} from "../vendor/react-intl";
 import {
   gitSettingDefinitions as branchSettingKeys,
   normalizeWorkspacePath,
