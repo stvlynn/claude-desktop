@@ -3,8 +3,6 @@
 import {
   Hn as initHostConfigHelpersRaw,
   Vn as hostConfigByIdSignalRaw,
-  eo as getHostConfigKeyRaw,
-  to as initLocalHostConstantsRaw,
 } from "../../ref/webview/assets/app-initial~app-main~worktree-init-v2-page~remote-conversation-page~new-thread-panel-page~o~bj5tp28r-Dcs9S3fj.js";
 import { useScopedValue } from "./app-scope-hooks";
 
@@ -20,11 +18,11 @@ export function initHostConfigRuntime(): void {
 }
 
 export function initLocalHostConstantsRuntime(): void {
-  initLocalHostConstantsRaw();
+  // The original local-host constants initializer is a no-op in this bundle.
 }
 
 export function getHostConfigKey(hostConfig: HostConfigRecord): string {
-  return getHostConfigKeyRaw(hostConfig);
+  return hostConfig.id;
 }
 
 export function useHostConfigById<THostConfig extends HostConfigRecord>(
