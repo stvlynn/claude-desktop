@@ -6,7 +6,7 @@ import {
   initAutomationsRuntimeChunk,
   initAutomationsStateChunk,
   initCodexAppChunk,
-} from "../vendor/automations-page-runtime";
+} from "./app-main-automations-runtime";
 import {
   connectAppHostServices,
   initAppHostServicesRuntimeChunk,
