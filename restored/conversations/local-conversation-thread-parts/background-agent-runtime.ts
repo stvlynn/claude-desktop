@@ -1,8 +1,7 @@
 // Restored from ref/webview/assets/local-conversation-thread-BwqAGxoz.js
 // Background-agent metadata helpers used by local conversation headers.
 import { getSubagentSourceMetadata as getSubagentSourceMetadataValue } from "../subagent-source-metadata-runtime";
-
-import { gi as backgroundAgentSourceSignal } from "../../vendor/projects-app-shared-runtime";
+import { backgroundAgentSourceSignal } from "../../runtime/background-agent-state-runtime";
 
 export { backgroundAgentSourceSignal };
 export const backgroundAgentSnapshotSignal = backgroundAgentSourceSignal;

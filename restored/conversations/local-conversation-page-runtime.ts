@@ -10,6 +10,7 @@ import {
   initReactRuntime,
   getChunkModuleExports,
 } from "../runtime/shared-utility-runtime";
+import { backgroundAgentSnapshotSignal } from "../runtime/background-agent-state-runtime";
 import {
   initAppServerRequestRuntime as initAppServerRequestBridge,
   sendAppServerRequest,
@@ -77,7 +78,6 @@ import {
   Vp as lastTurnDiffSignal,
   cm as conversationHostIdSignal,
   cv as sourceWorkspaceRootAfterRestoreSignal,
-  gi as backgroundAgentSnapshotSignal,
   gp as conversationCwdSignal,
   jm as conversationModeSignal,
   lm as conversationResumeStateSignal,
