@@ -3,19 +3,12 @@
 // Codex panel of the most recently focused main window (windows.tabs.open).
 
 import {
-  srcBa as createJsonSchemaParser,
-  srcIa as zodToJsonSchema,
+  createJsonSchemaParser,
+  zodToJsonSchema,
 } from "../boundaries/src-l0hb-mz-p";
 import { runAppActionInPrimaryWindow } from "./run-app-action-in-primary-window";
-
-// Provisional facade imports from the commons chunk:
-// - `createToolErrorResult` (orig `Pd`) builds a tool-call error result.
-// - `openCodexTabArgumentsSchema` (chunk-local `MD`) is the zod schema for the
-//   open_in_codex tool arguments (panel target, file/browser/terminal/review).
-import {
-  Pd as createToolErrorResult,
-  MD as openCodexTabArgumentsSchema,
-} from "../../ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js";
+import { windowsTabsOpenRequestSchema as openCodexTabArgumentsSchema } from "./windows-tabs-open-schema";
+import { createToolErrorResult } from "./tool-result-runtime";
 
 export const OPEN_IN_CODEX_TOOL_NAME = "open_in_codex";
 

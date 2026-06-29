@@ -3,16 +3,13 @@
 // thread (windows.show_thread app action).
 
 import {
-  srcAa as zString,
-  srcBa as createJsonSchemaParser,
-  srcIa as zodToJsonSchema,
-  srcKa as zStrictObject,
+  createJsonSchemaParser,
+  zodToJsonSchema,
+  zStrictObject,
+  zString,
 } from "../boundaries/src-l0hb-mz-p";
 import { runAppActionInPrimaryWindow } from "./run-app-action-in-primary-window";
-
-// Provisional facade import: `createToolErrorResult` (orig `Pd`) builds a
-// tool-call error result (`{ contentItems, success: false }`) from a message.
-import { Pd as createToolErrorResult } from "../../ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js";
+import { createToolErrorResult } from "./tool-result-runtime";
 
 export const NAVIGATE_TO_CODEX_PAGE_TOOL_NAME = "navigate_to_codex_page";
 
