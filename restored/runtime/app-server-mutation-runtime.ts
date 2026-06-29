@@ -1,12 +1,12 @@
 // Restored from ref/webview/assets/app-initial~app-main~remote-conversation-page~plugin-detail-page~new-thread-panel-page~appg~ijdupmx5-CdYgxe-b.js
 // React Query mutation helpers for app-server backed local features.
 import {
-  AV as initReactQueryRuntimeRaw,
-  MV as useMutationRaw,
-  tP as useAppServerMutationRaw,
-  XN as createQueryKeyRaw,
-  zV as useQueryClientRaw,
-} from "../vendor/appg-thread-shared-runtime";
+  Ws as useMutationRaw,
+  Zs as useQueryClientRaw,
+  d as useAppServerMutationRaw,
+  l as initReactQueryRuntimeRaw,
+  o as createQueryKeyRaw,
+} from "../../ref/webview/assets/app-initial~app-main~worktree-init-v2-page~remote-conversation-page~new-thread-panel-page~o~dv5z3ftk-BhBbJNnt.js";
 import { initVscodeBridgeRuntime } from "./platform-content-runtime";
 
 export type AppServerMutationOptions<TData, TVariables> = {
