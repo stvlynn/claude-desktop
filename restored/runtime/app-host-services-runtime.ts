@@ -2,6 +2,7 @@
 // App-host service bridge bootstrap used by the Electron app-main entry.
 import { createPersistedSignal } from "./persisted-signal";
 import {
+  Ab as appHostServicesRaw,
   Mb as connectAppHostServicesRaw,
   jb as initAppHostServicesRuntimeChunkRaw,
 } from "../../ref/webview/assets/app-initial~app-main~worktree-init-v2-page~remote-conversation-page~new-thread-panel-page~o~bj5tp28r-Dcs9S3fj.js";
@@ -34,8 +35,16 @@ type CachedConversation<TTurn> = {
   };
   turns?: readonly TTurn[];
 };
+type AppHostServicesBridge = {
+  appInfo: {
+    get: () => unknown;
+  };
+  [serviceName: string]: unknown;
+};
 
 const canonicalHistoryTurnCache = new WeakMap<object, readonly unknown[]>();
+
+export const appHostServices = appHostServicesRaw as AppHostServicesBridge;
 
 export const createPersistentSignal =
   createPersistedSignal as PersistentSignalFactory;

@@ -2,7 +2,7 @@
 // Host config helper initialization.
 import {
   Hn as initHostConfigHelpersRaw,
-  Vn as hostConfigByIdSignal,
+  Vn as hostConfigByIdSignalRaw,
   eo as getHostConfigKeyRaw,
   to as initLocalHostConstantsRaw,
 } from "../../ref/webview/assets/app-initial~app-main~worktree-init-v2-page~remote-conversation-page~new-thread-panel-page~o~bj5tp28r-Dcs9S3fj.js";
@@ -12,6 +12,8 @@ export type HostConfigRecord = {
   id: string;
   kind?: string;
 } & Record<string, unknown>;
+
+export const hostConfigByIdSignal = hostConfigByIdSignalRaw as unknown;
 
 export function initHostConfigRuntime(): void {
   initHostConfigHelpersRaw();

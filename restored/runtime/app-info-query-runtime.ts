@@ -7,9 +7,9 @@ import {
   h as queryDurations,
 } from "../../ref/webview/assets/app-initial~app-main~worktree-init-v2-page~remote-conversation-page~new-thread-panel-page~o~dv5z3ftk-BhBbJNnt.js";
 import {
-  Ab as appHostServices,
-  jb as initProjectsAppEntryChunkRaw,
-} from "../../ref/webview/assets/app-initial~app-main~worktree-init-v2-page~remote-conversation-page~new-thread-panel-page~o~bj5tp28r-Dcs9S3fj.js";
+  appHostServices,
+  initAppHostServicesRuntimeChunk,
+} from "./app-host-services-runtime";
 import {
   appScopeRoot,
   initSharedObjectAppScopeRoot,
@@ -23,7 +23,7 @@ export let appInfoQuerySignal: unknown;
 
 export function initAppInfoQueryRuntime(): void {
   initScopeRuntimeRaw();
-  initProjectsAppEntryChunkRaw();
+  initAppHostServicesRuntimeChunk();
   initSharedObjectAppScopeRoot();
   initQueryDurationConstantsRaw();
 

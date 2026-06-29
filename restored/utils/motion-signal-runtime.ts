@@ -1,7 +1,7 @@
 // Restored from ref/webview/assets/local-conversation-thread-BwqAGxoz.js
 // Motion values, animation helpers, and reduced-motion signal facade.
 import {
-  JC as initReducedMotionPreference,
+  JC as initReducedMotionPreferenceRaw,
   YC as reducedMotionPreferenceSignal,
 } from "../../ref/webview/assets/app-initial~app-main~worktree-init-v2-page~remote-conversation-page~new-thread-panel-page~o~bj5tp28r-Dcs9S3fj.js";
 import {
@@ -25,6 +25,10 @@ export {
   reducedMotionPreferenceSignal,
   useMotionValueEvent,
 };
+
+export function initReducedMotionPreference(): void {
+  initReducedMotionPreferenceRaw();
+}
 
 export function initMotionSignalRuntime(): void {
   initAppScopeSignalRuntime();
