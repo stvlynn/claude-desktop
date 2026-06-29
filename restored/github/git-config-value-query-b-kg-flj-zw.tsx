@@ -1,5 +1,5 @@
 // Restored from ref/webview/assets/git-config-value-query-BKgFljZW.js
-// git-config-value-query-BKgFljZW chunk restored from the Codex webview bundle.
+// Also matches ref/webview/assets/app-initial~app-main~remote-conversation-page~pull-requests-page~new-thread-panel-page~proj~jolrh1c9-BEnPH27A.js.
 import { gitQuerySignal } from "../utils/git-query-signal";
 type GitConfigValueParams = {
   key: string;
@@ -33,3 +33,5 @@ const gitConfigValueQuery = gitQuerySignal({
 export const gitConfigValueQuerySignal = gitConfigValueQuery.fromCwd$;
 export const gitConfigValueByMetadataQuerySignal =
   gitConfigValueQuery.queryByMetadata$;
+
+export function initGitConfigValueQueryChunk(): void {}

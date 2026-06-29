@@ -10155,6 +10155,18 @@
       },
       "status": "done"
     },
+    "app-initial~app-main~remote-conversation-page~pull-requests-page~new-thread-panel-page~proj~jolrh1c9-BEnPH27A": {
+      "restored": "github/git-config-value-query-b-kg-flj-zw.tsx",
+      "exports": {
+        "n": "gitConfigValueQuerySignal",
+        "r": "initGitConfigValueQueryChunk",
+        "t": "gitConfigValueByMetadataQuerySignal"
+      },
+      "status": "done",
+      "aliasOf": "git-config-value-query-BKgFljZW",
+      "note": "Current app-main config-value query producer preserves the same from-cwd and metadata query signals with an added rolldown init export.",
+      "lastUpdated": "2026-06-29T00:00:00.000Z"
+    },
     "git-current-branch-query-CFP8_GIA": {
       "restored": "github/git-current-branch-query.tsx",
       "exports": {
@@ -14050,6 +14062,16 @@
       "status": "partial",
       "boundary": "runtime/shared-object-host-runtime.ts",
       "note": "Current shared-object host state and remote host config producer lifted behind typed semantic wrappers. Existing app-scope/project-hover runtime facades now consume this module instead of importing the current ref chunk directly; the low-level app-scope signal implementation remains backed by the current ref producer until fully reimplemented.",
+      "lastUpdated": "2026-06-29T00:00:00.000Z"
+    },
+    "app-initial~app-main~personalization-settings~appearance-settings~general-settings-DCerg-br": {
+      "restored": "runtime/app-info-query-runtime.ts",
+      "exports": {
+        "n": "initAppInfoQueryRuntime",
+        "t": "appInfoQuerySignal"
+      },
+      "status": "done",
+      "note": "Current app-main app-info query producer restored as a typed runtime wrapper over the app-host service bridge and app-scope query family.",
       "lastUpdated": "2026-06-29T00:00:00.000Z"
     },
     "app-initial~app-main~remote-conversation-page~onboarding-page~projects-index-page~hotkey-wi~jqxaf9bd-D06wdm98": {
