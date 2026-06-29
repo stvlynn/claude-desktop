@@ -124,8 +124,6 @@ export {
   getJsxRuntime,
   initAppScope,
   initClassNameRuntime,
-  initHostWorkspaceQueries,
-  initOnboardingWizardTrackingRuntime,
   initPersistentSignalRuntime,
   initProductEventRuntime,
   initReactRuntime,
