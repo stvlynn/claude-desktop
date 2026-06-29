@@ -1,6 +1,6 @@
 // Restored from ref/webview/assets/app-initial~app-main~remote-conversation-page~plugin-detail-page~new-thread-panel-page~appg~ijdupmx5-CdYgxe-b.js
 // Host message request bridge for webview-to-host commands.
-import { YN as sendHostRequestRaw } from "../vendor/appg-thread-shared-runtime";
+import { a as sendHostRequestRaw } from "../../ref/webview/assets/app-initial~app-main~worktree-init-v2-page~remote-conversation-page~new-thread-panel-page~o~dv5z3ftk-BhBbJNnt.js";
 
 export type HostRequestParams = Record<string, unknown>;
 
