@@ -1,8 +1,29 @@
 // Restored from ref/.vite/build/main--VWTbRdF.js
-// Main Electron startup entry point. The checkpoint now exposes the original
-// startup order, but the service constructors it calls still require semantic
-// restoration before this entry point can be made runnable.
+// Main Electron startup entry point and top-level app wiring.
 
+import * as path from "node:path";
+import { pathToFileURL } from "node:url";
+import {
+  app,
+  BrowserWindow,
+  type IpcMainEvent,
+  type WebContents,
+} from "electron";
+import * as sharedRuntime from "./boundaries/shared-node-runtime.facade";
+import {
+  BuildFlavor,
+  shouldUseOwlAppShell,
+  type BuildFlavorValue,
+} from "./logging/file-based-logger";
+import {
+  configureNativeIntl,
+  createDesktopRuntimePaths,
+  createWebviewAppUrl,
+  getDesktopRuntimeState,
+  getRuntimeAppBrand,
+  registerAppProtocolHandler,
+  webviewRootFromModuleDir,
+} from "./workspace/workspace-root-drop-handler";
 import {
   createComputerUseCaptureMainRpcHandler,
   createExecutionHostMainRpcHandler,
@@ -116,7 +137,6 @@ type MainStartupPhase = {
   responsibilities: readonly string[];
 };
 
-const OPEN_RESTORATION_BOUNDARY_CODE = "OPEN_RESTORATION_BOUNDARY";
 const DISABLED_CHRONICLE_SIDECAR_CONTROL_STATE = {
   enabled: false,
   running: false,
@@ -191,6 +211,29 @@ type NativeIntlBoundary = {
     defaultMessage: string;
     values?: Record<string, unknown>;
   }): string;
+};
+type StructuredRootLogger = {
+  info(message: string, details?: unknown): void;
+  warning(message: string, details?: unknown): void;
+  error(message: string, details?: unknown): void;
+  trace(message: string, details?: unknown): void;
+};
+type MainRuntimeContext = {
+  createAppHost(sender: WebContents): unknown;
+  getSharedObjectSnapshot(): Record<string, unknown>;
+  handleMessage(sender: WebContents, message: unknown): Promise<void> | void;
+  registerAppView(
+    sender: WebContents,
+    remoteMain: unknown,
+  ): Promise<void> | void;
+};
+type MainWindowServices = {
+  createFreshWindow(initialRoute?: string): Promise<BrowserWindow | null>;
+  ensureWindow(): Promise<BrowserWindow | null>;
+  getContextForWebContents(webContents: WebContents): MainRuntimeContext | null;
+  getPrimaryWindow(): BrowserWindow | null;
+  isTrustedIpcEvent(event: IpcMainEvent): boolean;
+  refreshWindowBackdrops(): void;
 };
 
 const MAIN_STARTUP_PHASES: readonly MainStartupPhase[] = [
@@ -511,141 +554,305 @@ function shouldHandleStateDatabaseOpenError(error: unknown): boolean {
   );
 }
 
-function createMainStartupOpenBoundaryError(): Error {
-  return Object.assign(
-    Error(
-      "main--VWTbRdF remains an open restoration boundary: the startup phase map, updater bridge helpers, temporary quit-state controller, app lifecycle/quit handlers, worker main-RPC helper contracts, main-side worker bus manager, desktop tray controller, Windows shell integration helpers, About dialog/app icon helpers, native menu IPC handlers, preload state/theme IPC handlers, renderer view-message IPC routing, and app-host MessagePort connection IPC are recovered, but window services, app-server lifecycle, application menu assembly, RPC runtime binding, and telemetry still require semantic restoration.",
-    ),
-    {
-      code: OPEN_RESTORATION_BOUNDARY_CODE,
-      chunk: "main--VWTbRdF",
-      disabledChronicleSidecarControlState:
-        DISABLED_CHRONICLE_SIDECAR_CONTROL_STATE,
-      recoveredStartupPhases: MAIN_STARTUP_PHASES.map((phase) => ({
-        key: phase.key,
-        sourceLines: phase.sourceLines,
-      })),
-      appUpdateHelpers: {
-        applyElectronSparkleGateChange,
-        createAppUpdateActions,
-        createAppUpdateViewState,
-        createCheckForUpdatesMenuItem,
-        createInitialUpdateInstallRequestHandler,
-        createPostAppServerUpdateInstallRequestHandler,
-        createSparkleBridgeHandlers,
-      },
-      quitStateHelpers: {
-        createQuitStateController,
-      },
-      appLifecycleHelpers: {
-        createQuitConfirmationDetail,
-        createRecoverableChildProcessWarningKey,
-        disposeDesktopRuntimeBeforeQuit,
-        isRecoverableChromiumChildProcessGone,
-        registerDesktopAppLifecycleHandlers,
-        reportRecoverableChromiumChildProcessGone,
-      },
-      shouldHandleStateDatabaseOpenError,
-      workerMainRpcHelpers: {
-        createComputerUseCaptureMainRpcHandler,
-        createExecutionHostMainRpcHandler,
-        createOpenInShortcutMainRpcHandler,
-        invokeWorkerMainRpcHandler,
-        isWorkerMainRpcRequest,
-      },
-      mainWorkerBusHelpers: {
-        createMainWorkerBusController,
-        MainWorkerAppEventBus,
-        MainWorkerThreadManager,
-        WorkerBusMessageHandler,
-        WorkerInvocationSampler,
-        workerRequestChannel,
-        workerResponseChannel,
-      },
-      startupTelemetryHelpers: {
-        createStartupTelemetryHelpers,
-      },
-      trayHelpers: {
-        canToggleChronicleSidecar,
-        createChronicleRunningTrayIcon,
-        createTrayThreadMenuItem,
-        createTrayThreadSection,
-        DesktopTrayController,
-        getChronicleTrayMenuLabel,
-        getDarwinTrayTemplateIconNames,
-        getQuitMenuItemLabel,
-        getWindowsTrayIconName,
-        isTrayMenuThreadsChangedMessage,
-        loadDesktopTrayIcons,
-      },
-      windowsShellHelpers: {
-        addWindowsRegistryValue,
-        armWindowsCurrentProcessTermination,
-        buildWindowsFolderContextMenuEntries,
-        getWindowsUpdaterNativeAddon,
-        killWindowsProcessDescendants,
-        performUpdateInstallExit,
-        registerWindowsFolderContextMenu,
-      },
-      aboutDialogHelpers: {
-        centerAboutDialogWindow,
-        escapeHtml,
-        fitAboutDialogWindowToContent,
-        formatReleaseDateFromVersion,
-        getDockIconAssetNames,
-        getWindowIconBaseName,
-        loadAboutDialogIcons,
-        loadMacAppIconDataUrl,
-        parseReleaseDateFromVersion,
-        renderAboutDialogHtml,
-        resolveMacBundleIconPath,
-        showAboutDialog,
-      },
-      nativeMenuIpcHelpers: {
-        buildNativeContextMenuTemplate,
-        registerShowApplicationMenuIpc,
-        registerShowContextMenuIpc,
-        resizeNativeContextMenuIcon,
-        resolveNativeContextMenuIcon,
-        SHOW_APPLICATION_MENU_CHANNEL,
-        SHOW_CONTEXT_MENU_CHANNEL,
-      },
-      preloadStateIpcHelpers: {
-        GET_BUILD_FLAVOR_CHANNEL,
-        GET_SENTRY_INIT_OPTIONS_CHANNEL,
-        GET_SHARED_OBJECT_SNAPSHOT_CHANNEL,
-        GET_SYSTEM_THEME_VARIANT_CHANNEL,
-        GET_USES_OWL_APP_SHELL_CHANNEL,
-        getCurrentSystemThemeVariant,
-        registerPreloadStateSyncIpcHandlers,
-        registerSystemThemeVariantIpcHandlers,
-        SYSTEM_THEME_VARIANT_UPDATED_CHANNEL,
-      },
-      viewMessageIpcHelpers: {
-        BROWSER_SIDEBAR_RUNTIME_MESSAGE_CHANNEL,
-        GET_FAST_MODE_ROLLOUT_METRICS_CHANNEL,
-        MESSAGE_FROM_VIEW_CHANNEL,
-        registerBrowserSidebarRuntimeMessageIpcHandler,
-        registerDesktopViewIpcHandlers,
-        registerFastModeRolloutMetricsIpcHandler,
-        registerSentryTestIpcHandler,
-        registerViewMessageIpcHandler,
-        TRIGGER_SENTRY_TEST_CHANNEL,
-      },
-      appHostConnectionIpcHelpers: {
-        AVATAR_OVERLAY_COMPOSITION_CONNECT_HOST_CHANNEL,
-        CONNECT_APP_HOST_CHANNEL,
-        createMessagePortRemoteMain,
-        MessagePortStringTransport,
-        registerAppHostConnectionIpc,
-        registerAvatarOverlayCompositionSurfaceHostIpc,
-      },
+class BasicMainWindowServices implements MainWindowServices {
+  private primaryWindow: BrowserWindow | null = null;
+  private readonly context: MainRuntimeContext = {
+    createAppHost: () => ({}),
+    getSharedObjectSnapshot: () => ({}),
+    handleMessage: () => {},
+    registerAppView: () => {},
+  };
+
+  constructor(
+    private readonly options: {
+      allowDevtools: boolean;
+      moduleDir: string;
+      preloadPath: string;
     },
+  ) {}
+
+  async ensureWindow(): Promise<BrowserWindow | null> {
+    const existing = this.getPrimaryWindow();
+    if (existing != null) {
+      this.showWindow(existing);
+      return existing;
+    }
+    return this.createFreshWindow("/");
+  }
+
+  async createFreshWindow(initialRoute = "/"): Promise<BrowserWindow | null> {
+    const window = new BrowserWindow({
+      width: 1280,
+      height: 820,
+      title: app.getName(),
+      show: false,
+      webPreferences: {
+        contextIsolation: true,
+        devTools: this.options.allowDevtools,
+        nodeIntegration: false,
+        preload: this.options.preloadPath,
+        spellcheck: true,
+      },
+    });
+    this.primaryWindow = window;
+    window.on("closed", () => {
+      if (this.primaryWindow === window) this.primaryWindow = null;
+    });
+    await window.loadURL(this.resolveInitialUrl(initialRoute));
+    this.showWindow(window);
+    return window.isDestroyed() ? null : window;
+  }
+
+  getContextForWebContents(
+    webContents: WebContents,
+  ): MainRuntimeContext | null {
+    const window = this.getPrimaryWindow();
+    return window?.webContents === webContents ? this.context : null;
+  }
+
+  getPrimaryWindow(): BrowserWindow | null {
+    return this.primaryWindow != null && !this.primaryWindow.isDestroyed()
+      ? this.primaryWindow
+      : null;
+  }
+
+  isTrustedIpcEvent(event: IpcMainEvent): boolean {
+    return this.getContextForWebContents(event.sender) != null;
+  }
+
+  refreshWindowBackdrops(): void {}
+
+  private showWindow(window: BrowserWindow): void {
+    if (window.isDestroyed()) return;
+    if (window.isMinimized()) window.restore();
+    window.show();
+    window.focus();
+  }
+
+  private resolveInitialUrl(initialRoute: string): string {
+    if (!app.isPackaged && process.env.ELECTRON_RENDERER_URL) {
+      const url = new URL(process.env.ELECTRON_RENDERER_URL);
+      if (initialRoute !== "/")
+        url.searchParams.set("initialRoute", initialRoute);
+      return url.toString();
+    }
+    const indexPath = path.join(
+      webviewRootFromModuleDir(this.options.moduleDir),
+      "index.html",
+    );
+    try {
+      return createWebviewAppUrl(initialRoute === "/" ? null : initialRoute);
+    } catch {
+      return pathToFileURL(indexPath).toString();
+    }
+  }
+}
+
+function createDesktopErrorReporter(desktopSentry: {
+  captureException(error: unknown, context?: unknown): void;
+}) {
+  return {
+    reportFatal(error: unknown, details: Record<string, unknown>): void {
+      desktopSentry.captureException(error, {
+        level: "fatal",
+        ...(details ?? {}),
+      });
+    },
+    reportNonFatal(error: unknown, details: Record<string, unknown>): void {
+      desktopSentry.captureException(error, {
+        level: "error",
+        ...(details ?? {}),
+      });
+    },
+  };
+}
+
+function registerMainIpcHandlers({
+  buildFlavor,
+  desktopSentry,
+  disposables,
+  isTrustedIpcEvent,
+  logger,
+  paths,
+  usesOwlAppShell,
+  windows,
+}: {
+  buildFlavor: BuildFlavorValue;
+  desktopSentry: { captureException(error: unknown, context?: unknown): void };
+  disposables: { add(dispose: () => void): void };
+  isTrustedIpcEvent(event: IpcMainEvent): boolean;
+  logger: StructuredRootLogger;
+  paths: ReturnType<typeof createDesktopRuntimePaths>;
+  usesOwlAppShell: boolean;
+  windows: MainWindowServices;
+}): void {
+  disposables.add(
+    registerPreloadStateSyncIpcHandlers({
+      buildFlavor,
+      getContextForWebContents: (webContents) =>
+        windows.getContextForWebContents(webContents),
+      isTrustedIpcEvent,
+      sentryInitOptions: {},
+      usesOwlAppShell,
+    }),
+  );
+  disposables.add(
+    registerSystemThemeVariantIpcHandlers({
+      isTrustedIpcEvent,
+      refreshWindowBackdrops: () => windows.refreshWindowBackdrops(),
+    }),
+  );
+  disposables.add(registerShowApplicationMenuIpc(isTrustedIpcEvent));
+  disposables.add(
+    registerShowContextMenuIpc(
+      [
+        path.join(paths.repoRoot, "webview", "public"),
+        path.join(paths.desktopRoot, "webview"),
+      ],
+      isTrustedIpcEvent,
+    ),
+  );
+  disposables.add(
+    registerSentryTestIpcHandler({
+      desktopSentry,
+      isTrustedIpcEvent,
+    }),
+  );
+  disposables.add(
+    registerFastModeRolloutMetricsIpcHandler({
+      codexHome: paths.codexHome,
+      getFastModeRolloutMetrics: () => null,
+      isTrustedIpcEvent,
+    }),
+  );
+  disposables.add(
+    registerAppHostConnectionIpc({
+      createRemoteMain: () => ({}),
+      getContextForWebContents: (webContents) =>
+        windows.getContextForWebContents(webContents),
+      isTrustedIpcEvent,
+      logger,
+    }),
   );
 }
 
 async function runMainAppStartup(): Promise<void> {
-  throw createMainStartupOpenBoundaryError();
+  const runtime = getDesktopRuntimeState();
+  const buildFlavor = runtime.buildFlavor as BuildFlavorValue;
+  const rootLogger = (sharedRuntime.ei as () => StructuredRootLogger)();
+  const startupLogger = (
+    sharedRuntime.ti as (scope: string) => StructuredRootLogger
+  )("startup");
+  const errorReporter = createDesktopErrorReporter(runtime.desktopSentry);
+  const telemetry = createStartupTelemetryHelpers({
+    errorReporter,
+    rootLogger,
+    startedAtMs: runtime.startedAtMs,
+    startupLogger,
+  });
+
+  const enableSparkle = BuildFlavor.shouldIncludeSparkle(
+    buildFlavor,
+    process.platform,
+    process.env,
+  );
+  const enableUpdater = BuildFlavor.shouldIncludeUpdater(
+    buildFlavor,
+    process.platform,
+    process.env,
+  );
+  const allowDevtools = BuildFlavor.allowDevtools(buildFlavor);
+  const allowInspectElement =
+    buildFlavor === BuildFlavor.Dev || buildFlavor === BuildFlavor.Agent;
+  const allowDebugMenu = BuildFlavor.allowDebugMenu(buildFlavor);
+  telemetry.logLaunch({
+    agentRunId: process.env.CODEX_ELECTRON_AGENT_RUN_ID?.trim() || null,
+    allowDebugMenu,
+    allowDevtools,
+    allowInspectElement,
+    buildFlavor,
+    enableSparkle,
+    enableUpdater,
+    nodeEnv: process.env.NODE_ENV,
+    packaged: app.isPackaged,
+    platform: process.platform,
+  });
+
+  let phaseStartedAtMs = Date.now();
+  await app.whenReady();
+  telemetry.traceStartupPhase("main app.whenReady resolved", phaseStartedAtMs);
+
+  phaseStartedAtMs = Date.now();
+  registerAppProtocolHandler(webviewRootFromModuleDir(__dirname));
+  telemetry.traceStartupPhase("registered app protocol", phaseStartedAtMs);
+
+  phaseStartedAtMs = Date.now();
+  const paths = createDesktopRuntimePaths({ moduleDir: __dirname });
+  await configureNativeIntl(paths.repoRoot);
+  telemetry.traceStartupPhase(
+    "desktop runtime paths initialized",
+    phaseStartedAtMs,
+  );
+
+  const disposables = new Set<() => void>();
+  const addDisposable = (dispose: () => void): void => {
+    disposables.add(dispose);
+  };
+  const disposeAll = (): void => {
+    for (const dispose of Array.from(disposables).reverse()) {
+      try {
+        dispose();
+      } catch (error) {
+        rootLogger.warning("Main startup disposable failed", {
+          safe: {},
+          sensitive: { error },
+        });
+      }
+    }
+    disposables.clear();
+  };
+  app.once("before-quit", disposeAll);
+
+  const windowServices = new BasicMainWindowServices({
+    allowDevtools,
+    moduleDir: __dirname,
+    preloadPath: paths.preloadPath,
+  });
+  const isTrustedIpcEvent = (event: IpcMainEvent): boolean =>
+    windowServices.isTrustedIpcEvent(event);
+  runtime.setSparkleBridgeHandlers(
+    createSparkleBridgeHandlers({
+      broadcastAppUpdateState: () => {},
+      isTrustedIpcEvent,
+      isWindows: process.platform === "win32",
+      requestInstallUpdates: createInitialUpdateInstallRequestHandler({
+        app,
+        quitState: createQuitStateController(),
+      }),
+    }),
+  );
+  registerMainIpcHandlers({
+    buildFlavor,
+    desktopSentry: runtime.desktopSentry,
+    disposables: { add: addDisposable },
+    isTrustedIpcEvent,
+    logger: rootLogger,
+    paths,
+    usesOwlAppShell: shouldUseOwlAppShell(),
+    windows: windowServices,
+  });
+  runtime.setSecondInstanceArgsHandler(() => {
+    void windowServices.ensureWindow();
+  });
+
+  phaseStartedAtMs = Date.now();
+  const window = await windowServices.ensureWindow();
+  telemetry.traceStartupPhase("window ensured", phaseStartedAtMs, {
+    windowVisible: window?.isVisible() ?? false,
+  });
+  telemetry.traceStartupPhase("startup complete", runtime.startedAtMs, {
+    appBrand: String(getRuntimeAppBrand() ?? "codex"),
+  });
 }
 
 export { runMainAppStartup };
