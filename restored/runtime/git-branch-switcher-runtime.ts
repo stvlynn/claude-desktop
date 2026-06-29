@@ -1,25 +1,25 @@
 // Restored from ref/webview/assets/git-branch-switcher-BokkKYIT.js
 
 export {
-  $h as getHostCacheKey,
-  GN as useGlobalSettingValue,
-  HF as branchSettingKeys,
-  Lj as PlusIcon,
-  Op as initConversationStateSelectors,
-  Rj as initPlusIcon,
   VN as initSwitchRuntime,
-  Vh as useGitOperationQuery,
-  eg as initGitRootQueryRuntime,
   fu as initWorkspaceQueryRuntime,
-  gV as createQuerySignalFamily,
-  gg as setConversationBranchOverride,
-  hg as initConversationBranchOverrideRuntime,
-  jh as createHostQueryOptions,
-  tg as createGitRootQueryOptions,
-  wm as localConversationTitleSignal,
-  zh as updateGitMetadataCache,
 } from "../vendor/appg-thread-shared-runtime";
 
+import {
+  Ba as updateGitMetadataCache,
+  Ha as useGitOperationQuery,
+  Ma as createHostQueryOptions,
+  eo as getHostCacheKey,
+  go as setConversationBranchOverride,
+  ho as initConversationBranchOverrideRuntime,
+  no as createGitRootQueryOptions,
+  ro as initGitRootQueryRuntime,
+  rw as useGlobalSettingValue,
+} from "../../ref/webview/assets/app-initial~app-main~worktree-init-v2-page~remote-conversation-page~new-thread-panel-page~o~bj5tp28r-Dcs9S3fj.js";
+import {
+  W as branchSettingKeys,
+  ws as createQuerySignalFamily,
+} from "../../ref/webview/assets/app-initial~app-main~worktree-init-v2-page~remote-conversation-page~new-thread-panel-page~o~dv5z3ftk-BhBbJNnt.js";
 import {
   Button,
   DialogBody,
@@ -38,6 +38,8 @@ import {
   useIntl,
 } from "../boundaries/current-ref/appg-thread-shared-producer";
 import { normalizeWorkspacePath } from "../boundaries/src-l0hb-mz-p";
+import { initPlusIcon, PlusIcon } from "../icons/plus-icon";
+import { localConversationTitleSignal } from "../threads/local-conversation-title-signals";
 import {
   initReactQueryRuntime,
   useAppServerMutation,
@@ -45,6 +47,7 @@ import {
 } from "./app-server-mutation-runtime";
 import { appScope, initAppScope, initScopeRuntime } from "./app-scope-runtime";
 import { useScope, useScopedValue } from "./app-scope-hooks";
+import { initConversationStateRuntime as initConversationStateSelectors } from "./conversation-state-runtime";
 import {
   initGitBranchQueryRuntime,
   initGitQueryKeyHelpers,
@@ -66,7 +69,11 @@ import { initToastRuntime, toastSignal } from "./toast-runtime";
 
 export {
   appScope,
+  branchSettingKeys,
   Button,
+  createGitRootQueryOptions,
+  createHostQueryOptions,
+  createQuerySignalFamily,
   DialogBody,
   DialogFooter,
   DialogHeader,
@@ -76,28 +83,39 @@ export {
   DropdownMenu,
   FormattedMessage,
   getChunkModuleExports,
+  getHostCacheKey,
   initAppDialog,
   initAppScope,
   initButtonComponentPrimitives,
+  initConversationBranchOverrideRuntime,
+  initConversationStateSelectors,
   initDialogLayoutComponents,
   initDropdownMenuPrimitives,
   initGitBranchQueryRuntime,
   initGitQueryKeyHelpers,
+  initGitRootQueryRuntime,
   initHostQueryRuntime,
   initIntlMessageRuntime,
   initIntlRuntime,
+  initPlusIcon,
   initQueryDurationConstants,
   initReactQueryRuntime,
   initReactRuntime,
   initScopeRuntime,
   initToastRuntime,
   initVscodeApiBridge,
+  localConversationTitleSignal,
   normalizeWorkspacePath,
+  PlusIcon,
   queryDurations,
+  setConversationBranchOverride,
   toastSignal,
+  updateGitMetadataCache,
   useAppServerMutation,
   useDebouncedValue,
   useGitAvailabilityQuery,
+  useGitOperationQuery,
+  useGlobalSettingValue,
   useIntl,
   useQueryClient,
   useScope,
