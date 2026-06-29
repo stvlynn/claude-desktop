@@ -2,28 +2,18 @@
 // Low-level initialization helpers for the local conversation thread chunk.
 import { getChunkModuleExports as getChunkModuleExportsRaw } from "../../runtime/shared-utility-runtime";
 
-import {
-  Rv as initMarkdownUtilityNoopRaw,
-  Ux as initAgentMentionMapRaw,
-  Zu as initThreadInternalStateRaw,
-} from "../../vendor/projects-app-shared-runtime";
-
 export function getChunkModuleExports(chunkName?: string): unknown {
   return chunkName === undefined
     ? getChunkModuleExportsRaw()
     : getChunkModuleExportsRaw(chunkName);
 }
 
-export function initAgentMentionMap(): void {
-  initAgentMentionMapRaw();
-}
+// Current local-conversation-thread initializes these legacy groups through the
+// specific semantic initializers in local-conversation-thread-inits.ts.
+export function initAgentMentionMap(): void {}
 
-export function initMarkdownUtilityNoop(): void {
-  initMarkdownUtilityNoopRaw();
-}
+export function initMarkdownUtilityNoop(): void {}
 
-export function initThreadInternalStateRuntime(): void {
-  initThreadInternalStateRaw();
-}
+export function initThreadInternalStateRuntime(): void {}
 
 export function initThreadAuxiliaryRuntime(): void {}
