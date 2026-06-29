@@ -13101,11 +13101,11 @@
     "app-initial~app-main~worktree-init-v2-page~remote-conversation-page~new-thread-panel-page~o~bj5tp28r-Dcs9S3fj": {
       "restored": "vendor/app-main-current-runtime.ts",
       "exports": {
-        "Mb": "refreshStatsigDiagnostics",
+        "Mb": "connectAppHostServices",
         "jb": "initProjectsAppEntryChunk"
       },
       "status": "partial",
-      "note": "Current app-main projects/bootstrap producer facade for Statsig diagnostics refresh and projects app entry initialization; full producer remains an open partial boundary.",
+      "note": "Current app-main projects/bootstrap producer facade for app-host service connection and projects app entry initialization; full producer remains an open partial boundary.",
       "lastUpdated": "2026-06-28T21:05:00.000Z"
     },
     "app-initial~app-main~onboarding-page-BUwCKIcU": {

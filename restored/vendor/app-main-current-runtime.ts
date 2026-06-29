@@ -8,7 +8,7 @@ export {
   O as hostMessageBridge,
 } from "../../ref/webview/assets/app-initial~app-main~worktree-init-v2-page~remote-conversation-page~plugin-detail-page~new-~sfopfmmp-9J50_--p.js";
 export {
-  Mb as refreshStatsigDiagnostics,
+  Mb as connectAppHostServices,
   jb as initProjectsAppEntryChunk,
 } from "./projects-app-shared-runtime";
 export {

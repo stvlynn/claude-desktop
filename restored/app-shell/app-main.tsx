@@ -18,7 +18,7 @@ import {
   initRendererErrorBoundaryState,
   isCompactWindowPreferred,
   logAppMainStatsigRenderRequest,
-  refreshStatsigDiagnostics,
+  connectAppHostServices,
   type CodexOs,
 } from "../runtime/app-main-runtime";
 import { AppFallback, initAppFallbackChunk } from "./app-fallback";
@@ -50,7 +50,7 @@ let codexRoot: ReactRoot;
 
 async function renderElectronAppRoot(): Promise<void> {
   await prepareAppMainRender();
-  await refreshStatsigDiagnostics();
+  await connectAppHostServices();
   logAppMainStatsigRenderRequest();
   codexRoot.render(
     <React.StrictMode>

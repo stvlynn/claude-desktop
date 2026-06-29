@@ -13,7 +13,7 @@ import {
   initProjectsSharedRuntimeChunk,
   initRendererErrorBoundaryStateChunk,
   readCompactWindowPreference,
-  refreshStatsigDiagnostics,
+  connectAppHostServices,
   appMainLogger,
   hostMessageBridge,
 } from "../vendor/app-main-current-runtime";
@@ -31,7 +31,7 @@ export {
   initCodexAppChunk,
   initProjectsAppEntryChunk,
   initProjectsSharedRuntimeChunk,
-  refreshStatsigDiagnostics,
+  connectAppHostServices,
 };
 
 export function initRendererErrorBoundaryState(): void {
