@@ -10,11 +10,11 @@ import {
   initAppFeatureRuntimeChunk,
   initAppLoggingChunk,
   initAppRuntimeChunk,
+  initAppHostServicesRuntimeChunk,
   initAutomationsRuntimeChunk,
   initAutomationsStateChunk,
   initCodexAppChunk,
   initErrorBoundaryRuntimeChunk,
-  initProjectsAppEntryChunk,
   initRendererSentryRuntimeChunk,
   isCompactWindowPreferred,
   logAppMainStatsigRenderRequest,
@@ -113,7 +113,7 @@ function installGlobalErrorForwarders(): void {
 
 const initAppMainChunk = once(() => {
   initRegisterAppActionsChunk();
-  initProjectsAppEntryChunk();
+  initAppHostServicesRuntimeChunk();
   initAppFallbackChunk();
   initErrorBoundaryRuntimeChunk();
   initPublicationTermsHandlerRegistryChunk();

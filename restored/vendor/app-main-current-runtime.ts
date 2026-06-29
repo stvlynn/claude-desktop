@@ -8,9 +8,9 @@ export {
   initAppRuntimeChunk,
 } from "../runtime/app-main-host-runtime";
 export {
-  Mb as connectAppHostServices,
-  jb as initProjectsAppEntryChunk,
-} from "./projects-app-shared-runtime";
+  connectAppHostServices,
+  initAppHostServicesRuntimeChunk,
+} from "../runtime/app-host-services-runtime";
 export {
   getCodexWindowChrome,
   initAppFeatureRuntimeChunk,
