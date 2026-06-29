@@ -38,6 +38,13 @@ type RuntimeDiagnostics = {
 };
 export const PRIMARY_RUNTIME_SETTINGS_FEATURE_ID = "3026692602";
 export const PRIMARY_RUNTIME_INSTALL_COMMAND_FEATURE_ID = "3502101112";
+
+export function initPrimaryRuntimeFeatureFlagsChunk(): void {}
+
+export function initPrimaryRuntimeInstallEventFormattersChunk(): void {}
+
+export function initPrimaryRuntimeInstallActionChunk(): void {}
+
 function formatPrimaryRuntimeInstallEvent({
   bundleVersion,
   durationMs,
