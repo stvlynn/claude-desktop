@@ -25981,15 +25981,17 @@
     "app-initial~app-main~remote-conversation-page~hotkey-window-thread-page~thread-app-shell-ch~ecjwgenq-_p4PfxvN": {
       "restored": "runtime/current-app-initial/thread-app-shell-rate-limit-runtime.ts",
       "exports": {
-        "i": "ThreadAppShellRateLimitExportLowerIAlias",
-        "n": "ThreadAppShellRateLimitExportLowerNAlias",
-        "r": "ThreadAppShellRateLimitExportLowerRAlias",
-        "t": "ThreadAppShellRateLimitExportLowerTAlias"
+        "i": "initBulletSeparatorChunk",
+        "n": "initThreadAppShellRateLimitSummaryChunk",
+        "r": "BulletSeparator",
+        "t": "RateLimitSummary"
       },
       "status": "done",
-      "note": "Current ref thread app shell rate-limit runtime restored as a semantic alias layer over boundaries/current-ref/current-app-initial-thread-app-shell-rate-limit-runtime-producer.ts.",
+      "note": "Current ref thread app shell rate-limit runtime restored as semantic aliases over ui/rate-limit-summary.tsx and utils/bullet-separator.tsx.",
       "stage3Accepted": true,
-      "lastUpdated": "2026-06-29T19:53:12.718Z"
+      "stage3AcceptedAt": "2026-06-29T23:05:00.000Z",
+      "stage3Review": "Host self-review after replacing the raw current-ref boundary with semantic rate-limit summary exports; quality-gate and prettier passed.",
+      "lastUpdated": "2026-06-29T23:05:00.000Z"
     },
     "app-initial~app-main~home-ambient-suggestions-content-C1TXIiPK": {
       "restored": "runtime/current-app-initial/home-ambient-suggestions-current-runtime.ts",
