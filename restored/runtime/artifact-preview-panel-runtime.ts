@@ -1,4 +1,4 @@
-// Restored from ref/webview/assets/artifact-tab-content.electron-xyz2yen7.js
+// Restored from ref/webview/assets/artifact-tab-content.electron-CggSRQ3S.js
 // Runtime facade for artifact preview panel chunks that are still pending deep split.
 
 export { PopcornElectronDocumentPanel } from "../../ref/webview/assets/PopcornElectronDocumentPanel-3oeRSz37.js";

@@ -1,4 +1,4 @@
-// Restored from ref/webview/assets/artifact-tab-content.electron-xyz2yen7.js
+// Restored from ref/webview/assets/artifact-tab-content.electron-CggSRQ3S.js
 // Public artifact side-panel preview facade.
 
 export { Fr as ArtifactTabContent } from "../vendor/artifact-tab-content-electron";
