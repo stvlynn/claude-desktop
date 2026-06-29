@@ -1,6 +1,6 @@
 // Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
 // Semantic wrapper around the current-ref workspace file-source tab export.
-import { Iu as RawFileSourceTab } from "../../ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js";
+import { FileSourceTab as CurrentRefFileSourceTab } from "../vendor/app-main-current-runtime";
 
 export interface FileSourceTabState {
   scrollLeft?: number;
@@ -22,5 +22,5 @@ export interface FileSourceTabProps {
 }
 
 export function FileSourceTab(props: FileSourceTabProps) {
-  return <RawFileSourceTab {...props} />;
+  return <CurrentRefFileSourceTab {...props} />;
 }

@@ -1,6 +1,6 @@
 // Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
 // Semantic wrapper around the current-ref OpenAI MCP capability view export.
-import { Yu as RawOpenAiMcpCapabilityView } from "../../ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js";
+import { OpenAiMcpCapabilityView as CurrentRefOpenAiMcpCapabilityView } from "../vendor/app-main-current-runtime";
 
 export interface McpCapabilityViewModel {
   hostId: string;
@@ -20,5 +20,5 @@ export interface OpenAiMcpCapabilityViewProps {
 }
 
 export function OpenAiMcpCapabilityView(props: OpenAiMcpCapabilityViewProps) {
-  return <RawOpenAiMcpCapabilityView {...props} />;
+  return <CurrentRefOpenAiMcpCapabilityView {...props} />;
 }
