@@ -108,6 +108,7 @@ import {
   workerRequestChannel,
   workerResponseChannel,
 } from "./workers/main-worker-bus";
+import { createStartupTelemetryHelpers } from "./telemetry/startup-telemetry";
 
 type MainStartupPhase = {
   key: string;
@@ -560,6 +561,9 @@ function createMainStartupOpenBoundaryError(): Error {
         WorkerInvocationSampler,
         workerRequestChannel,
         workerResponseChannel,
+      },
+      startupTelemetryHelpers: {
+        createStartupTelemetryHelpers,
       },
       trayHelpers: {
         canToggleChronicleSidecar,
