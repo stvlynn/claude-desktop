@@ -1,4 +1,4 @@
-// Restored from ref/webview/assets/remote-middleware-DRFk97G2.js
+// Restored from ref/webview/assets/remote-middleware-K7WTYjbM.js
 // RemoteMiddleware chunk restored from the Codex webview bundle.
 import {
   __generator as remoteMiddlewareImport1,

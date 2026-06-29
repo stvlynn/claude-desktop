@@ -1,4 +1,4 @@
-// Restored from ref/webview/assets/metric-helpers-BidZZeRm.js
+// Restored from ref/webview/assets/metric-helpers-7nP-wnaS.js
 // MetricHelpers chunk restored from the Codex webview bundle.
 import {
   __generator as metricHelpersImport1,

@@ -1,5 +1,5 @@
-// Restored from ref/webview/assets/index.umd-CqGTwgME.js
-// index.umd-CqGTwgME chunk restored from the Codex webview bundle.
+// Restored from ref/webview/assets/index.umd-0glM-ceB.js
+// index.umd-0glM-ceB chunk restored from the Codex webview bundle.
 type AnalyticsWindow = Window & {
   analytics: {
     track(

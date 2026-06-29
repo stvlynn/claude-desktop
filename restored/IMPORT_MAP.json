@@ -2391,6 +2391,15 @@
       },
       "status": "done"
     },
+    "index.umd-0glM-ceB": {
+      "restored": "vendor/analytics-video-plugins.ts",
+      "exports": {
+        "default": "default"
+      },
+      "status": "done",
+      "aliasOf": "index.umd-CqGTwgME",
+      "lastUpdated": "2026-06-29T00:00:00.000Z"
+    },
     "useForm-Dc2s3Q7s": {
       "restored": "vendor/tanstack-react-form.ts",
       "status": "done"
@@ -2772,6 +2781,16 @@
       },
       "status": "done"
     },
+    "auto-track-BdOnR2BN": {
+      "restored": "vendor/segment-auto-track.ts",
+      "exports": {
+        "form": "autoTrackForm",
+        "link": "autoTrackLink"
+      },
+      "status": "done",
+      "aliasOf": "auto-track-CVxnO46V",
+      "lastUpdated": "2026-06-29T00:00:00.000Z"
+    },
     "chunk-AGHRB4JF-DNCNxfKz": {
       "restored": "vendor/dompurify.ts",
       "exports": {
@@ -2832,12 +2851,30 @@
       },
       "status": "done"
     },
+    "query-string-CoYNflPh": {
+      "restored": "vendor/segment-query-string.ts",
+      "exports": {
+        "queryString": "QueryString"
+      },
+      "status": "done",
+      "aliasOf": "query-string-FsVg0saL",
+      "lastUpdated": "2026-06-29T00:00:00.000Z"
+    },
     "remote-middleware-DRFk97G2": {
       "restored": "vendor/segment-remote-middleware.ts",
       "exports": {
         "remoteMiddlewares": "remoteMiddleware"
       },
       "status": "done"
+    },
+    "remote-middleware-K7WTYjbM": {
+      "restored": "vendor/segment-remote-middleware.ts",
+      "exports": {
+        "remoteMiddlewares": "remoteMiddleware"
+      },
+      "status": "done",
+      "aliasOf": "remote-middleware-DRFk97G2",
+      "lastUpdated": "2026-06-29T00:00:00.000Z"
     },
     "chunk-AGHRB4JF-Bxy73eEy": {
       "restored": "vendor/dayjs-core-alt.ts",
@@ -3144,6 +3181,26 @@
         "u": "metricHelpersU"
       },
       "status": "done"
+    },
+    "metric-helpers-7nP-wnaS": {
+      "restored": "vendor/segment-metric-helpers.ts",
+      "exports": {
+        "a": "metricHelpersA",
+        "c": "metricHelpersC",
+        "d": "metricHelpersD",
+        "f": "metricHelpersF",
+        "i": "metricHelpersI",
+        "l": "metricHelpersL",
+        "n": "metricHelpersN",
+        "o": "metricHelpersO",
+        "r": "metricHelpersR",
+        "s": "metricHelpersS",
+        "t": "metricHelpersT",
+        "u": "metricHelpersU"
+      },
+      "status": "done",
+      "aliasOf": "metric-helpers-BidZZeRm",
+      "lastUpdated": "2026-06-29T00:00:00.000Z"
     },
     "middleware-Az7vHdEh": {
       "restored": "vendor/segment-middleware-entry.ts",
@@ -4147,6 +4204,30 @@
         "segmentio": "segmentio"
       },
       "status": "done"
+    },
+    "pkg-CsBnWPsQ": {
+      "restored": "vendor/segment-analytics.ts",
+      "exports": {
+        "Analytics": "pkgAnalyticsNode",
+        "AnalyticsBrowser": "pkgAnalyticsBrowser",
+        "AnalyticsNode": "Analytics",
+        "Context": "Context",
+        "ContextCancelation": "ContextCancelation",
+        "EventFactory": "EventFactory",
+        "Group": "Group",
+        "UniversalStorage": "UniversalStorage",
+        "User": "User",
+        "getGlobalAnalytics": "getGlobalAnalytics",
+        "isDestinationPluginWithAddMiddleware": "isDestinationPluginWithAddMiddleware",
+        "resolveAliasArguments": "resolveAliasArguments",
+        "resolveArguments": "resolveArguments",
+        "resolvePageArguments": "resolvePageArguments",
+        "resolveUserArguments": "resolveUserArguments",
+        "segmentio": "segmentio"
+      },
+      "status": "done",
+      "aliasOf": "pkg-CJtlEP_l",
+      "lastUpdated": "2026-06-29T00:00:00.000Z"
     },
     "app-scope-CWE-zIhQ": {
       "restored": "boundaries/app-scope.tsx",
