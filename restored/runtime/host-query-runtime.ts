@@ -1,11 +1,11 @@
-// Restored from ref/webview/assets/app-initial~app-main~remote-conversation-page~plugin-detail-page~new-thread-panel-page~appg~ijdupmx5-CdYgxe-b.js
+// Restored from ref/webview/assets/app-initial~app-main~worktree-init-v2-page~remote-conversation-page~new-thread-panel-page~o~dv5z3ftk-BhBbJNnt.js
 // Host-query hook and shared query duration constants.
 import {
-  ZN as createHostQuerySignalRaw,
-  aP as QUERY_DURATIONS,
-  eP as useHostQueryRaw,
-  oP as initQueryDurationConstantsRaw,
-} from "../vendor/appg-thread-shared-runtime";
+  g as initQueryDurationConstantsRaw,
+  h as QUERY_DURATIONS,
+  s as createHostQuerySignalRaw,
+  u as useHostQueryRaw,
+} from "../../ref/webview/assets/app-initial~app-main~worktree-init-v2-page~remote-conversation-page~new-thread-panel-page~o~dv5z3ftk-BhBbJNnt.js";
 import {
   fu as initTaskWorkspaceQueryRuntime,
   pu as useDebouncedValueRaw,
