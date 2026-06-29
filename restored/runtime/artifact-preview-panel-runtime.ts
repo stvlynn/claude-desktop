@@ -1,22 +1,10 @@
 // Restored from ref/webview/assets/artifact-tab-content.electron-xyz2yen7.js
 // Runtime facade for artifact preview panel chunks that are still pending deep split.
 
-export {
-  PopcornElectronDocumentPanel,
-} from "../../ref/webview/assets/PopcornElectronDocumentPanel-gXourQg0.js";
-export {
-  PopcornElectronPresentationPanel,
-} from "../../ref/webview/assets/PopcornElectronPresentationPanel-DH8-0GS4.js";
-export {
-  PopcornElectronWorkbookPanel,
-} from "../../ref/webview/assets/PopcornElectronWorkbookPanel-0YCYJC_A.js";
+export { PopcornElectronDocumentPanel } from "../../ref/webview/assets/PopcornElectronDocumentPanel-3oeRSz37.js";
+export { PopcornElectronPresentationPanel } from "../../ref/webview/assets/PopcornElectronPresentationPanel-BbgPQaJg.js";
+export { PopcornElectronWorkbookPanel } from "../../ref/webview/assets/PopcornElectronWorkbookPanel-BluQzqwt.js";
 
-export {
-  DocxPreviewPanel,
-} from "../../ref/webview/assets/docx-preview-panel-CsJ6uCtQ.js";
-export {
-  NotebookPreviewPanel,
-} from "../../ref/webview/assets/notebook-preview-panel-tLJRWgZk.js";
-export {
-  PdfPreviewPanel,
-} from "../../ref/webview/assets/pdf-preview-panel-CSg2CbNf.js";
+export { DocxPreviewPanel } from "../../ref/webview/assets/docx-preview-panel-CPMkHiwj.js";
+export { NotebookPreviewPanel } from "../../ref/webview/assets/notebook-preview-panel-UPj_w1N-.js";
+export { PdfPreviewPanel } from "../../ref/webview/assets/pdf-preview-panel-CA-j3mcg.js";
