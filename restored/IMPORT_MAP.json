@@ -11204,9 +11204,8 @@
     "app-initial~app-main~remote-conversation-page~plugin-detail-page~new-thread-panel-page~appg~ijdupmx5-CdYgxe-b": {
       "restored": "vendor/appg-thread-shared-runtime.ts",
       "status": "partial",
-      "note": "Compatibility facade moved out of current-ref direct passthrough. Explicit appg/thread shared aliases in the current-ref producer are backed by restored runtime/utils/ui/app-shell/icon/vendor modules where available; the local conversation composer bridge now uses semantic host config and app-server connection signals for LOCAL_HOST_ID/tp, composer/composer-scope-runtime.ts owns the composer scope token/init helper, conversations/local-conversation-route-runtime.ts owns the local conversation route scope/navigation/toast helpers, and conversations/local-thread-route.ts owns the local-thread conversation id helper with runtime compatibility barrels kept for each. Remaining mixed app/thread shared exports stay isolated behind vendor/appg-thread-shared-runtime.ts until deep-restored.",
-      "lastUpdated": "2026-06-28T16:43:24.000Z",
-      "boundary": "boundaries/current-ref/appg-thread-shared-producer.ts"
+      "note": "Legacy appg/thread shared producer no longer exists in the current ref. The compatibility facade now exposes only no-op initializer aliases while specific restored runtime modules initialize their concrete current producer chunks directly.",
+      "lastUpdated": "2026-06-29T00:00:00.000Z"
     },
     "app-initial~app-main~remote-conversation-page~new-thread-panel-page~projects-index-page~app~ovcriy74-KTK3czaX": {
       "restored": "vendor/projects-app-shared-runtime.ts",

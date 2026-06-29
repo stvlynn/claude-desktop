@@ -1,6 +1,5 @@
 // Restored from ref/webview/assets/app-initial~app-main~remote-conversation-page~plugin-detail-page~new-thread-panel-page~appg~ijdupmx5-CdYgxe-b.js
 // Path, markdown-resource, and output-artifact helpers for conversation summaries.
-import { lD as initMarkdownArtifactRenderingHelpers } from "../vendor/appg-thread-shared-runtime";
 import {
   Qg as mapTurnStatusToOutputStatusRaw,
   _x as normalizeArtifactPathKeyRaw,
@@ -33,7 +32,6 @@ export function initOutputArtifactRuntime(): void {
   initConversationPromptContextRuntime();
   initArtifactPathDetectionHelpers();
   initMarkdownArtifactHelpers();
-  initMarkdownArtifactRenderingHelpers();
   initNormalizedPathUtilities();
   initArtifactPreviewRuntime();
 }
