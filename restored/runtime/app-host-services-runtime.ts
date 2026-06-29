@@ -1,4 +1,4 @@
-// Restored from ref/webview/assets/app-initial~app-main~worktree-init-v2-page~remote-conversation-page~new-thread-panel-page~o~bj5tp28r-Dcs9S3fj.js
+// Restored from ref/webview/assets/app-initial~app-main~remote-conversation-page~new-thread-panel-page~projects-index-page~app~iy8s9c2d-BUvvfhQQ.js
 // App-host service bridge bootstrap used by the Electron app-main entry.
 import { createPersistedSignal } from "./persisted-signal";
 import {
@@ -70,8 +70,8 @@ export const onboardingWizardAction = {
 } satisfies OnboardingWizardActionCatalog;
 
 export function initAppHostServicesRuntimeChunk(): void {
-  // TODO: deep-restore the MessagePort RPC client and remove this final bj5
-  // bridge dependency.
+  // TODO: deep-restore the MessagePort RPC client and replace this current-ref
+  // producer bridge with a typed local implementation.
   initAppHostServicesRuntimeChunkRaw();
 }
 
