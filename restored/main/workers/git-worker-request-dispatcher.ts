@@ -13,6 +13,7 @@ import {
   readBranchCommits,
   readNearestAncestorBranch,
 } from "./git-worker-branch-discovery";
+import { readBranchMetadata } from "./git-worker-branch-metadata";
 import {
   clampBranchSearchLimit,
   searchBranches,
@@ -316,6 +317,16 @@ export class GitWorkerRequestDispatcher {
             signal: context.signal,
           }),
         });
+      }
+      case "branch-metadata": {
+        const params = requireRecordParams(request);
+        return ok(
+          await readBranchMetadata({
+            cwd: requireStringParam(params, "cwd"),
+            host: context.host,
+            signal: context.signal,
+          }),
+        );
       }
       case "status-summary": {
         const params = requireRecordParams(request);
