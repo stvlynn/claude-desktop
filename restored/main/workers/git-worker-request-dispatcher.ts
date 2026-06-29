@@ -9,6 +9,7 @@ import type {
   WorkerExecutionHostClient,
   WorkerExecutionHostConfig,
 } from "./worker-execution-host-client";
+import { readBlameFile } from "./git-worker-blame-file";
 import {
   readBranchCommits,
   readNearestAncestorBranch,
@@ -382,6 +383,17 @@ export class GitWorkerRequestDispatcher {
             fallbackToDisk: optionalBooleanParam(params, "fallbackToDisk"),
             host: context.host,
             oid: optionalStringParam(params, "oid"),
+            path: requireStringParam(params, "path", { allowEmpty: true }),
+            signal: context.signal,
+          }),
+        );
+      }
+      case "blame-file": {
+        const params = requireRecordParams(request);
+        return ok(
+          await readBlameFile({
+            cwd: requireStringParam(params, "cwd"),
+            host: context.host,
             path: requireStringParam(params, "path", { allowEmpty: true }),
             signal: context.signal,
           }),
