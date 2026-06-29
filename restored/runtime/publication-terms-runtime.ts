@@ -16,7 +16,7 @@ import {
   ConnectorLogoImage,
   McpServerIcon,
 } from "../boundaries/onboarding-commons-externals.facade";
-import { getRouteThreadId as readRouteScopeValue } from "../boundaries/current-ref/appg-thread-shared-producer";
+import { getRouteThreadId as readRouteScopeValue } from "../app-shell/app-view-route-helpers";
 import {
   _c as getSidePanelController,
   bc as activateSidePanelPlacement,

@@ -17,7 +17,7 @@ import { initQueryDurationConstants } from "./host-query-runtime";
 import {
   GlobeIcon as FallbackGlobeIcon,
   initGlobeIcon as initGlobeIconChunk,
-} from "../boundaries/current-ref/appg-thread-shared-producer";
+} from "../icons/globe-icon";
 import { initClassNameRuntime } from "../utils/class-names";
 import {
   initAppScope,
