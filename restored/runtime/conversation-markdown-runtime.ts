@@ -1,9 +1,9 @@
-// Restored from ref/webview/assets/conversation-markdown-BjFKV53f.js
+// Restored from ref/webview/assets/conversation-markdown-BBR-zfID.js
 // Boundary facade for conversation markdown rendering and formatting helpers.
 import {
-  aD as formatShellCommand,
-  iD as initCommandMarkdownRuntime,
-} from "../vendor/appg-thread-shared-runtime";
+  Kg as initCommandMarkdownRuntime,
+  qg as formatShellCommand,
+} from "../../ref/webview/assets/app-initial~app-main~worktree-init-v2-page~remote-conversation-page~new-thread-panel-page~o~bj5tp28r-Dcs9S3fj.js";
 import { initPathHelpersRuntime as initPathHelpers } from "./path-helpers-runtime";
 import { initArtifactPreviewRuntime } from "./artifact-preview-runtime";
 
