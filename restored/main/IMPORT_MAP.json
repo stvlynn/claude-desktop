@@ -14,11 +14,8 @@
     },
     "comment-preload": {
       "restored": "preload/browser-sidebar-comment-preload.ts",
-      "status": "faced",
-      "boundary": true,
-      "vendor": "runtime",
-      "openBoundary": true,
-      "note": "Semantic preload IPC bridge, host message queue, navigation/image hooks, WebMCP shim, browser sidebar runtime mount host/message controller, Google Workspace document-context helpers, Google Docs overlay class helpers, overlay geometry/layout utilities, overlay event interaction helpers, anchor-state conversion helpers, hit-testing/scroll passthrough helpers, scroll/mutation observer helpers, region drag helpers, frame-path helpers, anchor viewport/marker positioning helpers, element/region anchor builder helpers, text anchor capture/reattachment helpers, design CSS/color helpers, comment anchor comparison helpers, page/frame URL matching helpers, element metadata/style snapshot helpers, design draft DOM application helpers, and comment screenshot coordination helpers restored; browser sidebar React overlay rendering and design editor UI remain open app-runtime boundaries."
+      "status": "done",
+      "note": "Semantic preload IPC bridge, host message queue, navigation/image hooks, WebMCP shim, browser sidebar runtime mount host/message controller, Google Workspace document-context helpers, Google Docs overlay class helpers, overlay geometry/layout utilities, overlay event interaction helpers, anchor-state conversion helpers, hit-testing/scroll passthrough helpers, scroll/mutation observer helpers, region drag helpers, frame-path helpers, anchor viewport/marker positioning helpers, element/region anchor builder helpers, text anchor capture/reattachment helpers, design CSS/color helpers, comment anchor comparison helpers, page/frame URL matching helpers, element metadata/style snapshot helpers, design draft DOM application helpers, and comment screenshot coordination helpers restored."
     },
     "child-process-snapshot-worker": {
       "restored": "workers/child-process-snapshot-worker.ts",
