@@ -14205,6 +14205,15 @@
       "note": "Current app-main home announcement signal chunk restored with the transient announcement-dismissed signal, persistent has-seen announcement flags, and per-account workspace message last-seen helpers.",
       "lastUpdated": "2026-06-29T00:00:00.000Z"
     },
+    "app-initial~app-main~page~onboarding-page~skills-settings~plugins-settings~remote-connectio~c59x15mv-DDkvwlbO": {
+      "restored": "vendor/use-sync-external-store-with-selector.ts",
+      "exports": {
+        "t": "loadUseSyncExternalStoreWithSelectorModule"
+      },
+      "status": "done",
+      "note": "Deep-restored the bundled use-sync-external-store/shim/with-selector CommonJS module as a typed React compatibility module. The original t export remains a loader function that returns { useSyncExternalStoreWithSelector }.",
+      "lastUpdated": "2026-06-29T00:00:00.000Z"
+    },
     "app-initial~app-main~automations-page-BfqUlSo6": {
       "restored": "vendor/app-main-current-runtime.ts",
       "exports": {
