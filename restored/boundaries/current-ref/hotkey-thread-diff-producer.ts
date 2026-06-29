@@ -59,11 +59,39 @@ export {
 
 export {
   applyCodexThemeToElement,
+  getCodeThemeRegistration,
+  isCodeThemeId as isKnownCodeThemeId,
+  listCodeThemesForVariant,
+  loadChromeThemeSeed as loadChromeThemeSeedForCodeTheme,
   normalizeCodexChromeTheme,
 } from "../../github/diff-view-mode";
 
 export { TerminalPanelIcon } from "../../app-shell/thread-app-shell-chrome/icons";
 
+export { ArrowUpIcon } from "../../icons/arrow-up-icon";
+
+export { CommentIcon } from "../../icons/comment-icon";
+
+export { EditIcon } from "../../icons/edit-icon";
+
+export { SettingsGearIcon } from "../../icons/settings-gear-icon";
+
+export { Checkbox } from "../../utils/checkbox";
+
+export { Tooltip, initTooltipRuntimeChunk } from "../../ui/tooltip-b";
+
 export function initCodexChromeThemeRuntimeChunk(): void {}
 
+export function initCodeThemeRegistryChunk(): void {}
+
 export function initTerminalPanelIconChunk(): void {}
+
+export function initArrowUpIconChunk(): void {}
+
+export function initCheckboxRuntimeChunk(): void {}
+
+export function initCommentIconChunk(): void {}
+
+export function initEditIconChunk(): void {}
+
+export function initSettingsGearIconChunk(): void {}

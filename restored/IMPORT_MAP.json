@@ -16666,12 +16666,12 @@
         "Ni": "MoreHorizontalIcon",
         "Pi": "ChevronDownIcon",
         "Yo": "PinFilledIcon",
-        "dr": "DropdownMenu",
-        "dt": "DropdownMenuTrigger",
-        "ft": "DropdownMenuContent",
+        "dr": "initEditIconChunk",
+        "dt": "CommentIcon",
+        "ft": "initCommentIconChunk",
         "kt": "DropdownMenuItem",
         "qo": "isResourcePathInsideProjectlessOutput",
-        "ur": "DropdownMenuSeparator"
+        "ur": "EditIcon"
       },
       "status": "partial",
       "boundary": "boundaries/current-ref/hotkey-thread-diff-producer.ts",
@@ -20780,20 +20780,18 @@
       }
     },
     "app-initial~app-main~worktree-init-v2-page~remote-conversation-page~new-thread-panel-page~o~fzw0jvy4-rg89odR_": {
+      "restored": "boundaries/current-ref/hotkey-thread-diff-producer.ts",
       "exports": {
-        "At": "Dialog",
-        "Jo": "ArchiveIcon",
-        "Ko": "PinIcon",
-        "Ni": "MoreHorizontalIcon",
-        "Pi": "ChevronDownIcon",
-        "Yo": "PinFilledIcon",
-        "dr": "DropdownMenu",
-        "dt": "DropdownMenuTrigger",
-        "ft": "DropdownMenuContent",
-        "kt": "DropdownMenuItem",
-        "qo": "isResourcePathInsideProjectlessOutput",
-        "ur": "DropdownMenuSeparator"
-      }
+        "dr": "initEditIconChunk",
+        "dt": "CommentIcon",
+        "ft": "initCommentIconChunk",
+        "ur": "EditIcon"
+      },
+      "status": "partial",
+      "boundary": "boundaries/current-ref/hotkey-thread-diff-producer.ts",
+      "aliasOf": "app-initial~app-main~remote-conversation-page~pull-requests-page~onboarding-page~hotkey-win~fzw0jvy4-rg89odR_",
+      "note": "Worktree/new-thread route alias for the shared fzw0jvy4 producer. The confirmed comment/edit icon aliases are routed through the semantic hotkey-thread-diff producer; the remaining raw aliases stay covered by the aliased partial boundary.",
+      "lastUpdated": "2026-06-29T00:00:00.000Z"
     },
     "app-main-Dldh3K_n": {
       "restored": "app-shell/app-main.tsx",
