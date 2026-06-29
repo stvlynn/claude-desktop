@@ -9,6 +9,14 @@ import type {
   WorkerExecutionHostClient,
   WorkerExecutionHostConfig,
 } from "./worker-execution-host-client";
+import {
+  readBranchCommits,
+  readNearestAncestorBranch,
+} from "./git-worker-branch-discovery";
+import {
+  clampBranchSearchLimit,
+  searchBranches,
+} from "./git-worker-branch-search";
 import { runGitCommand } from "./git-worker-commands";
 import type { RpcResult } from "./worker-main-rpc-client";
 import { toRpcError } from "./worker-runtime-utils";
@@ -254,6 +262,41 @@ export class GitWorkerRequestDispatcher {
             requireStringParam(params, "root"),
             context.signal,
           ),
+        });
+      }
+      case "branch-commits": {
+        const params = requireRecordParams(request);
+        return ok({
+          commits: await readBranchCommits({
+            baseBranch: optionalStringParam(params, "baseBranch"),
+            host: context.host,
+            root: requireStringParam(params, "root"),
+            signal: context.signal,
+          }),
+        });
+      }
+      case "search-branches": {
+        const params = requireRecordParams(request);
+        return ok({
+          branches: await searchBranches({
+            host: context.host,
+            limit: clampBranchSearchLimit(params.limit),
+            query: requireStringParam(params, "query", { allowEmpty: true }),
+            root: requireStringParam(params, "root"),
+            signal: context.signal,
+          }),
+        });
+      }
+      case "nearest-ancestor-branch": {
+        const params = requireRecordParams(request);
+        return ok({
+          branch: await readNearestAncestorBranch({
+            candidates: requireStringArrayParam(params, "candidates"),
+            currentBranch: optionalStringParam(params, "currentBranch"),
+            host: context.host,
+            root: requireStringParam(params, "root"),
+            signal: context.signal,
+          }),
         });
       }
     }
@@ -653,10 +696,39 @@ function requireRecordParams(
 function requireStringParam(
   params: Record<string, unknown>,
   key: string,
+  options: { allowEmpty?: boolean } = {},
 ): string {
   const value = params[key];
-  if (typeof value === "string" && value.length > 0) return value;
-  throw Error(`Git worker parameter '${key}' must be a non-empty string`);
+  if (
+    typeof value === "string" &&
+    (options.allowEmpty === true || value.length > 0)
+  ) {
+    return value;
+  }
+  const requirement =
+    options.allowEmpty === true ? "a string" : "a non-empty string";
+  throw Error(`Git worker parameter '${key}' must be ${requirement}`);
+}
+
+function optionalStringParam(
+  params: Record<string, unknown>,
+  key: string,
+): string | null {
+  const value = params[key];
+  if (value == null) return null;
+  if (typeof value === "string") return value;
+  throw Error(`Git worker parameter '${key}' must be a string`);
+}
+
+function requireStringArrayParam(
+  params: Record<string, unknown>,
+  key: string,
+): string[] {
+  const value = params[key];
+  if (Array.isArray(value) && value.every((item) => typeof item === "string")) {
+    return value;
+  }
+  throw Error(`Git worker parameter '${key}' must be a string array`);
 }
 
 function fallbackGitErrorResult(
