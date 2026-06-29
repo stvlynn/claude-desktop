@@ -19,7 +19,7 @@ export {
   ZS as bottomPanelOpenStateKey,
   z_ as getAllBrowserTabIdsForConversation,
   _i as isWindowsStyleAbsolutePath,
-} from "../../ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js";
+} from "../boundaries/current-ref/app-main-current-producer";
 
 export function terminalTabIdForSession(sessionId: unknown): string {
   return `terminal:${String(sessionId)}`;
