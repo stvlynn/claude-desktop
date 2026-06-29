@@ -2,7 +2,7 @@
 // Derived app-scope selectors for the diff-domain find feature: summarizes the
 // active diff find result (matching file paths + totals) and exposes the
 // currently-active diff match.
-import { Tg as findActiveMatchIndexAtom } from "../../ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js";
+import { findActiveMatchIndexAtom } from "./thread-find-atoms";
 import {
   appScopeAtom,
   deriveAppScopeAtom,

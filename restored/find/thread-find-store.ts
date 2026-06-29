@@ -3,16 +3,16 @@
 // find bar, switching search domain (conversation/diff/browser), updating the
 // query, applying browser-provided status and stepping through matches.
 import {
-  Pg as findOpenAtom,
-  jg as findActiveDomainAtom,
-  Fg as findQueryAtom,
-  Ig as findResultAtom,
-  Ng as findLoadingAtom,
-  Tg as findActiveMatchIndexAtom,
-  Dg as findBrowserStatusAtom,
-  Og as findBrowserTargetAtom,
-  Sg as emptyFindBrowserStatus,
-} from "../../ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js";
+  emptyFindBrowserStatus,
+  findActiveDomainAtom,
+  findActiveMatchIndexAtom,
+  findBrowserStatusAtom,
+  findBrowserTargetAtom,
+  findLoadingAtom,
+  findOpenAtom,
+  findQueryAtom,
+  findResultAtom,
+} from "./thread-find-atoms";
 import {
   findActiveOrchestrationAtom,
   findDefaultOrchestrationAtom,
