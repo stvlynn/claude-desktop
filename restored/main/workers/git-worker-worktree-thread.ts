@@ -37,11 +37,50 @@ export async function setWorktreeOwnerThread({
   );
 }
 
+export async function readWorktreeOwnerThread({
+  host,
+  signal,
+  worktree,
+}: {
+  host: WorkerExecutionHostClient;
+  signal: AbortSignal;
+  worktree: string;
+}): Promise<ThreadOwnerConfig | null> {
+  const configPath = await resolveGitPath({
+    host,
+    path: "codex-thread.json",
+    root: worktree,
+    signal,
+  });
+  if (configPath == null) return null;
+
+  try {
+    const contents = await new Response(
+      (await host.readFile(configPath)) as unknown as BodyInit,
+    ).text();
+    return parseThreadOwnerConfig(contents);
+  } catch {
+    return null;
+  }
+}
+
 function createThreadOwnerConfig(ownerThreadId: string): ThreadOwnerConfig {
   return {
     version: 1,
     ownerThreadId,
   };
+}
+
+function parseThreadOwnerConfig(contents: string): ThreadOwnerConfig | null {
+  try {
+    const parsed = JSON.parse(contents) as unknown;
+    if (!isRecord(parsed)) return null;
+    return parsed.version === 1 && typeof parsed.ownerThreadId === "string"
+      ? { version: 1, ownerThreadId: parsed.ownerThreadId }
+      : null;
+  } catch {
+    return null;
+  }
 }
 
 async function resolveGitPath({
@@ -90,4 +129,8 @@ async function resolveGitDir(
   return pathApi.isAbsolute(result.stdout)
     ? result.stdout
     : pathApi.join(root, result.stdout);
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value != null;
 }

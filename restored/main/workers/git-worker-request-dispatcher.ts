@@ -49,6 +49,7 @@ import {
   readManagedWorktreeState,
   readWorktreeSnapshotRef,
 } from "./git-worker-managed-worktree";
+import { resolveWorktreeForThread } from "./git-worker-thread-worktree";
 import { listCodexWorktrees, listWorktrees } from "./git-worker-worktrees";
 import type { RpcResult } from "./worker-main-rpc-client";
 import { toRpcError } from "./worker-runtime-utils";
@@ -515,6 +516,18 @@ export class GitWorkerRequestDispatcher {
             signal: context.signal,
           }),
         });
+      case "resolve-worktree-for-thread": {
+        const params = requireRecordParams(request);
+        return ok(
+          await resolveWorktreeForThread({
+            conversationId: requireStringParam(params, "conversationId"),
+            cwd: requireStringParam(params, "cwd"),
+            host: context.host,
+            signal: context.signal,
+            threadCwd: optionalStringParam(params, "threadCwd"),
+          }),
+        );
+      }
       case "worktree-snapshot-ref": {
         const params = requireRecordParams(request);
         return ok(
