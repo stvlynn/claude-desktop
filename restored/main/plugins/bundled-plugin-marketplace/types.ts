@@ -31,7 +31,7 @@ export type InstalledMarketplacePlugin = {
 
 export type BundledMarketplacePlugin = {
   name: string;
-  source: { path: string; source?: string };
+  source: { path: string; source?: "local" | string };
 };
 
 export type BundledMarketplace = {
