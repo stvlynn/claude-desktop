@@ -2,9 +2,10 @@
 // Background-agent metadata helpers used by local conversation headers.
 import { getSubagentSourceMetadata as getSubagentSourceMetadataValue } from "../subagent-source-metadata-runtime";
 
-import { gm as backgroundAgentSnapshotSignal } from "../../vendor/projects-app-shared-runtime";
+import { gi as backgroundAgentSourceSignal } from "../../vendor/projects-app-shared-runtime";
 
-export { backgroundAgentSnapshotSignal };
+export { backgroundAgentSourceSignal };
+export const backgroundAgentSnapshotSignal = backgroundAgentSourceSignal;
 
 export type SubagentSourceMetadata = {
   agentNickname?: string | null;

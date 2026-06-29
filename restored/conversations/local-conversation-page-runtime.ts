@@ -77,7 +77,7 @@ import {
   Vp as lastTurnDiffSignal,
   cm as conversationHostIdSignal,
   cv as sourceWorkspaceRootAfterRestoreSignal,
-  gm as backgroundAgentSnapshotSignal,
+  gi as backgroundAgentSnapshotSignal,
   gp as conversationCwdSignal,
   jm as conversationModeSignal,
   lm as conversationResumeStateSignal,
