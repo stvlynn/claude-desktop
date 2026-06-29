@@ -2322,12 +2322,30 @@
       },
       "status": "done"
     },
+    "cytoscape-cose-bilkent-CZ_nfQWZ": {
+      "restored": "vendor/cytoscape-cose-bilkent.ts",
+      "exports": {
+        "t": "loadCytoscapeCoseBilkent"
+      },
+      "status": "done",
+      "aliasOf": "cytoscape-cose-bilkent-3yd98erd",
+      "lastUpdated": "2026-06-29T00:00:00.000Z"
+    },
     "cytoscape-fcose-CYmUq-SS": {
       "restored": "vendor/cytoscape-fcose.ts",
       "exports": {
         "t": "loadCytoscapeFcose"
       },
       "status": "done"
+    },
+    "cytoscape-fcose-w_4iexyA": {
+      "restored": "vendor/cytoscape-fcose.ts",
+      "exports": {
+        "t": "loadCytoscapeFcose"
+      },
+      "status": "done",
+      "aliasOf": "cytoscape-fcose-CYmUq-SS",
+      "lastUpdated": "2026-06-29T00:00:00.000Z"
     },
     "docx-preview-Mi4H0G1I": {
       "restored": "vendor/docx-preview.ts",
@@ -3453,6 +3471,19 @@
       "vendor": "runtime",
       "note": "Vendored @lottiefiles/dotlottie-web React runtime bundled inline by the Codex webview; kept as a vendored runtime boundary rather than hand-renaming the WASM/player internals."
     },
+    "browser-1Fy2HWnE": {
+      "restored": "vendor/dotlottie-react.tsx",
+      "exports": {
+        "DotLottieReact": "DotLottieReact",
+        "DotLottieWorkerReact": "DotLottieWorkerReact",
+        "setWasmUrl": "setWasmUrl"
+      },
+      "status": "done",
+      "vendor": "runtime",
+      "note": "Vendored @lottiefiles/dotlottie-web React runtime bundled inline by the Codex webview; kept as a vendored runtime boundary rather than hand-renaming the WASM/player internals.",
+      "aliasOf": "browser-BUZask3G",
+      "lastUpdated": "2026-06-29T00:00:00.000Z"
+    },
     "chunk-ABZYJK2D-8WiwWXHe": {
       "restored": "vendor/katex-auto-render.ts",
       "exports": {
@@ -4063,6 +4094,31 @@
         "u": "chunkS3R3BYOJU"
       },
       "status": "done"
+    },
+    "chunk-S3R3BYOJ-BHdYahbs": {
+      "restored": "vendor/chunk-s3r3byoj.ts",
+      "exports": {
+        "_": "chunkS3R3BYOJM",
+        "a": "chunkS3R3BYOJS",
+        "c": "chunkS3R3BYOJI",
+        "d": "chunkS3R3BYOJH",
+        "f": "chunkS3R3BYOJA",
+        "g": "chunkS3R3BYOJUnderscore",
+        "h": "chunkS3R3BYOJC",
+        "i": "chunkS3R3BYOJD",
+        "l": "chunkS3R3BYOJF",
+        "m": "chunkS3R3BYOJG",
+        "n": "chunkS3R3BYOJL",
+        "o": "chunkS3R3BYOJN",
+        "p": "chunkS3R3BYOJO",
+        "r": "chunkS3R3BYOJP",
+        "s": "chunkS3R3BYOJR",
+        "t": "chunkS3R3BYOJT",
+        "u": "chunkS3R3BYOJU"
+      },
+      "status": "done",
+      "aliasOf": "chunk-S3R3BYOJ-B7UcUgIb",
+      "lastUpdated": "2026-06-29T00:00:00.000Z"
     },
     "handle-D9lWAd6M": {
       "restored": "vendor/unist-handle.ts",
