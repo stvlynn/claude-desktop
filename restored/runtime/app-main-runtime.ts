@@ -42,6 +42,8 @@ export {
   findSingleMatchingCodexAppForPlugin,
   initAppPluginMatchingRuntime,
   pluginMatchesCodexApp,
+  appMainLogger,
+  hostMessageBridge,
   connectAppHostServices,
 };
 export type { CodexAppPluginMatchApp, CodexAppPluginMatchPlugin };
