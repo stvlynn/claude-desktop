@@ -1,6 +1,5 @@
 // Restored from ref/webview/assets/thread-side-panel-tabs-tc-mAOFK.js
 // Semantic side-panel tab barrel for the updated Codex webview bundle.
-import { As as THREAD_SIDE_PANEL_TAB } from "../../ref/webview/assets/app-initial~app-main~worktree-init-v2-page~remote-conversation-page~new-thread-panel-page~o~bj5tp28r-Dcs9S3fj.js";
 import {
   Cl as toggleThreadSidePanel,
   fl as getBrowserTabIdForSidePanelOpen,
@@ -22,6 +21,15 @@ import {
 } from "../plugins/mcp-app-tab";
 
 initThreadSidePanelTabsChunk();
+
+const THREAD_SIDE_PANEL_TAB = {
+  BROWSER: "browser",
+  DIFF: "diff",
+  MCP_APP: "mcp-app",
+  PLAN: "plan",
+  SANDBOX: "sandbox",
+  TIMELINE: "timeline",
+} as const;
 
 export {
   THREAD_SIDE_PANEL_TAB,
