@@ -1,11 +1,9 @@
 // Restored from ref/webview/assets/local-conversation-thread-Bf38rCmF.js
 // Pull-request prompt copy, review-comment attachment state, and comment-card helpers.
 import {
-  AO as PULL_REQUEST_FIX_PROMPT_PREAMBLE,
-  HO as getReviewCommentAttachmentKeyValue,
-  YO as initPullRequestReviewCommentHelpers,
-  kO as MY_REQUEST_PROMPT_HEADER,
-} from "../vendor/appg-thread-shared-runtime";
+  Av as getReviewCommentAttachmentKeyValueRaw,
+  Sv as initConversationPromptContextHelpers,
+} from "../../ref/webview/assets/app-initial~app-main~worktree-init-v2-page~remote-conversation-page~new-thread-panel-page~o~bj5tp28r-Dcs9S3fj.js";
 import {
   Ba as pullRequestReviewCommentAttachmentsSignal,
   Ha as updatePullRequestReviewCommentAttachmentsRaw,
@@ -23,6 +21,14 @@ import {
   yc as initPullRequestReviewCommentNavigationChunkRaw,
   Xc as initPullRequestCommentCardSupportChunkRaw,
 } from "../vendor/profile-page-runtime";
+
+const MY_REQUEST_PROMPT_HEADER = "## My request for Codex:";
+const PULL_REQUEST_FIX_PROMPT_PREAMBLE = "## Pull request fix:";
+
+function getReviewCommentAttachmentKeyValue(attachment: unknown): string {
+  initConversationPromptContextHelpers();
+  return getReviewCommentAttachmentKeyValueRaw(attachment);
+}
 
 export {
   getThreadBranchMismatchState,
@@ -47,7 +53,7 @@ export function updatePullRequestReviewCommentAttachments<TAttachment>(
 }
 
 export function initPullRequestReviewCommentRuntime(): void {
-  initPullRequestReviewCommentHelpers();
+  initConversationPromptContextHelpers();
 }
 
 export function initPullRequestReviewCommentAttachmentStateRuntime(): void {
