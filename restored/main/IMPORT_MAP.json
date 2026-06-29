@@ -110,6 +110,7 @@
         "plugins/bundled-plugin-marketplace/materialize.ts",
         "plugins/bundled-plugin-marketplace/marketplaces.ts",
         "plugins/bundled-plugin-marketplace/native-host-runtime.ts",
+        "plugins/bundled-plugin-marketplace/reconcile.ts",
         "plugins/bundled-plugin-marketplace/resource-roots.ts",
         "plugins/local-to-bundled-migration/index.ts",
         "plugins/node-repl-host-services/index.ts"

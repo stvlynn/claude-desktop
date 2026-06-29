@@ -18,6 +18,7 @@ export * from "./manifests";
 export * from "./marketplaces";
 export * from "./native-host-runtime";
 export * from "./paths";
+export * from "./reconcile";
 export * from "./resource-roots";
 export * from "./stale-cleanup";
 export * from "./types";
