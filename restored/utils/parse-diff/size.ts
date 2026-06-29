@@ -2,6 +2,8 @@
 // parse-diff-C81j2HIg chunk restored from the Codex webview bundle.
 import type { DiffSizeSummary, ParsedPatchFile } from "./types";
 const diffSizeCache = new WeakMap<ParsedPatchFile, DiffSizeSummary>();
+export function initPatchFileSizeSummaryChunk(): void {}
+
 export function getPatchFileSizeSummary(
   file: ParsedPatchFile,
 ): DiffSizeSummary {

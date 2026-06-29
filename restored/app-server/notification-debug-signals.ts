@@ -191,6 +191,8 @@ const appServerNotificationDebugEntriesSignal = createAppScopeSignal(
   },
 );
 const notificationDebugSequenceSignal = createAppScopeSignal(appScopeRoot, 0);
+function initProductEventDebugLogEntriesChunk(): void {}
+function initAppServerNotificationDebugSignalsChunk(): void {}
 function recordAppServerNotificationDebugEntry(
   scope: AppScopeStore,
   {
@@ -233,6 +235,8 @@ export {
   updateProductEventDebugLogEntry,
   appendProductEventDebugLogEntry,
   clearNotificationDebugEntriesForHost,
+  initAppServerNotificationDebugSignalsChunk,
+  initProductEventDebugLogEntriesChunk,
   useProductEventDebugLogEntries,
   recordAppServerNotificationDebugEntry,
   appServerNotificationDebugEntriesSignal,

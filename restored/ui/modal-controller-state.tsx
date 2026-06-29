@@ -19,6 +19,9 @@ const modalControllerStateSignal = _appScopeG(_appScopeT, () => ({
   modals: [],
   nextKey: 1,
 }));
+
+export function initModalControllerStateChunk() {}
+
 function isSameModalComponent(
   left: ComponentType<unknown>,
   right: ComponentType<unknown>,

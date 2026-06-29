@@ -149,7 +149,34 @@ function useIsPullRequestMergeHelperEnabledR(
 function useIsPullRequestMergeHelperEnabledT(): boolean {
   return useGateValue("896050304");
 }
+
+function initPullRequestMergeHelperStateChunk() {}
+
+function initPullRequestMergeHelperGateChunk() {}
+
+const pullRequestMergeHelperStateSignal = useIsPullRequestMergeHelperEnabledA;
+const conversationToPullRequestUrlSignal = useIsPullRequestMergeHelperEnabledO;
+const skipPullRequestMergeHelperConfirmSignal =
+  useIsPullRequestMergeHelperEnabledS;
+const startPullRequestMergeHelper = useIsPullRequestMergeHelperEnabledC;
+const clearPullRequestMergeHelperPendingWorktree =
+  useIsPullRequestMergeHelperEnabledI;
+const attachPullRequestMergeHelperConversation =
+  useIsPullRequestMergeHelperEnabledN;
+const recordPullRequestMergeHelperProgress = useIsPullRequestMergeHelperEnabledR;
+const useIsPullRequestMergeHelperEnabled = useIsPullRequestMergeHelperEnabledT;
+
 export {
+  attachPullRequestMergeHelperConversation,
+  clearPullRequestMergeHelperPendingWorktree,
+  conversationToPullRequestUrlSignal,
+  initPullRequestMergeHelperGateChunk,
+  initPullRequestMergeHelperStateChunk,
+  pullRequestMergeHelperStateSignal,
+  recordPullRequestMergeHelperProgress,
+  skipPullRequestMergeHelperConfirmSignal,
+  startPullRequestMergeHelper,
+  useIsPullRequestMergeHelperEnabled,
   useIsPullRequestMergeHelperEnabledA,
   useIsPullRequestMergeHelperEnabledC,
   useIsPullRequestMergeHelperEnabledI,

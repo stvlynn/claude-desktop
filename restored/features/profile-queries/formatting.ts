@@ -10,8 +10,9 @@ const MAX_USERNAME_LENGTH = 20;
 const USERNAME_PATTERN = /^[a-z0-9._-]+$/;
 const WHITESPACE_PATTERN = /\s/g;
 const PLAN_LABELS: Record<string, string> = {
-  business: "Business",
+  business: "Enterprise",
   enterprise: "Enterprise",
+  enterprise_cbp_automation: "Enterprise",
   enterprise_cbp_usage_based: "Enterprise",
   free: "Free",
   free_workspace: "Free",
@@ -21,7 +22,7 @@ const PLAN_LABELS: Record<string, string> = {
   pro: "Pro",
   prolite: "Pro",
   self_serve_business_usage_based: "Business",
-  team: "Team",
+  team: "Business",
 };
 export class ProfileUsernameValidationError extends Error {
   reason: ProfileUsernameValidationReason;
@@ -36,7 +37,7 @@ export function getProfileInitials(value: string | null | undefined) {
     `${words[0]?.charAt(0) ?? ""}${words.length > 1 ? (words.at(-1)?.charAt(0) ?? "") : ""}`.toUpperCase();
   return initials.length > 0 ? initials : "?";
 }
-function formatPlanLabel(plan: string | null | undefined) {
+export function formatProfilePlanLabel(plan: string | null | undefined) {
   const normalizedPlan = normalizeDisplayString(plan);
   if (normalizedPlan == null) return null;
   return (
@@ -154,7 +155,18 @@ export function resolveProfilePlanLabel({
   return normalizedWorkspaceName != null &&
     accountStructure?.toLowerCase() === "workspace"
     ? normalizedWorkspaceName
-    : formatPlanLabel(plan);
+    : formatProfilePlanLabel(plan);
+}
+export function resolveProfileDisplayName({
+  accountName,
+  displayName,
+  username,
+}: {
+  accountName?: string | null;
+  displayName?: string | null;
+  username?: string | null;
+}) {
+  return displayName ?? username ?? accountName ?? null;
 }
 export function stripUsernamePrefix(value: string) {
   const trimmedValue = value.trim();
@@ -202,3 +214,5 @@ function normalizeDisplayString(value: string | null | undefined) {
     ? null
     : trimmedValue;
 }
+
+export function initProfileQueriesFormattingChunk(): void {}

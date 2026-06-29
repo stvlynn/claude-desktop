@@ -1,4 +1,5 @@
 // Restored from ref/webview/assets/app-initial~app-main~projects-index-page~local-conversation-page-4SURv8Cr.js
+// Also covers ref/webview/assets/app-initial~app-main~appgen-page~remote-conversation-page~new-thread-panel-page~onboarding-~q51dlew8-DBFLWh48.js
 // Stable remote host globe coloring and the colored globe icon component.
 import { once } from "../../runtime/commonjs-interop";
 import {

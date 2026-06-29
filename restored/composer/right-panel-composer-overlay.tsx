@@ -237,6 +237,9 @@ export function RightPanelComposerOverlay({
     ? overlay
     : createPortal(overlay, appShellElement);
 }
+
+export function initRightPanelComposerOverlayChunk(): void {}
+
 function resolveOverlayVisibility(
   shouldShowOverlay: boolean,
   persistedVisibilityState: OverlayVisibilityState,

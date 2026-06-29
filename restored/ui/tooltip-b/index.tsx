@@ -548,4 +548,7 @@ function renderTrigger({
     },
   });
 }
-export { TooltipProvider, TooltipShortcut, Tooltip };
+
+function initTooltipRuntimeChunk(): void {}
+
+export { TooltipProvider, TooltipShortcut, Tooltip, initTooltipRuntimeChunk };

@@ -1,4 +1,5 @@
 // Restored from ref/webview/assets/app-initial~app-main~remote-conversation-page~hotkey-window-thread-page~thread-app-shell-ch~oc6ebzsr-DX7Jokr-.js
+// Also covers ref/webview/assets/app-initial~app-main~remote-conversation-page~hotkey-window-thread-page~thread-app-shell-ch~oc6ebzsr-BwqxraHe.js
 // Operation creation, lookup, and update helpers for thread handoff state.
 import { getThreadHandoffOperationsState } from "./store";
 import type {
@@ -56,8 +57,26 @@ export function applyThreadHandoffOperationUpdate(
   update: ThreadHandoffOperationUpdate,
 ) {
   return typeof update === "function"
-    ? update(operation)
+    ? produceThreadHandoffOperationUpdate(operation, update)
     : { ...operation, ...update };
+}
+
+export function initThreadHandoffOperationUpdateChunk(): void {}
+
+export function produceThreadHandoffOperationUpdate(
+  operation: ThreadHandoffOperation,
+  update: ThreadHandoffOperationUpdate,
+) {
+  if (typeof update !== "function") {
+    return { ...operation, ...update };
+  }
+
+  const draft: ThreadHandoffOperation = {
+    ...operation,
+    steps: operation.steps.map((step) => ({ ...step })),
+  };
+  const result = update(draft);
+  return result ?? draft;
 }
 
 function createPendingThreadHandoffSteps(stepIds: string[]) {

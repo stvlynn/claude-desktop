@@ -19,6 +19,11 @@ export const _srcMa = z.unknown;
 export const srcFa = z.iso.datetime;
 export const srcA = z.discriminatedUnion;
 export const srcBa = z.json;
+export const srcIa = (
+  z as unknown as {
+    toJSONSchema: (schema: ZodTypeAny) => unknown;
+  }
+).toJSONSchema;
 export const zodStringSchema = srcAa;
 export const zodNumberSchema = srcWa;
 export const zodObjectSchema = srcTa;
@@ -26,6 +31,12 @@ export const zodEnumSchema = srcLa;
 export const zodRecordSchema = srcOa;
 export const zodJsonValueSchema = srcBa;
 export const zodPreprocessSchema = z.preprocess;
+export const zString = srcAa;
+export const zStrictObject = srcKa;
+export const createJsonSchemaParser = srcBa;
+export const zodToJsonSchema = srcIa;
+
+export function initZodRuntimeChunk(): void {}
 
 export function srcEa(schema: ZodTypeAny): ZodTypeAny {
   return schema.optional();

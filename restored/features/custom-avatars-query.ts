@@ -7,11 +7,13 @@ import {
 } from "../boundaries/app-scope";
 import { once } from "../runtime/commonjs-interop";
 import {
+  getChunkModuleExports,
   initAppScope,
   initAppServicesRuntime,
   initQueryDurationConstants,
   initScopeRuntime,
 } from "../runtime/feature-support-runtime";
+import { initGlobalSettingsRuntime } from "../runtime/project-hover-card-runtime";
 import { appServices } from "../boundaries/rpc.facade";
 import { globalSettingKeys } from "../boundaries/src-l0hb-mz-p";
 import {
@@ -114,6 +116,17 @@ export const DEFAULT_AVATARS: AvatarDefinition[] = [
 ];
 const SELECTED_AVATAR_SETTING = globalSettingKeys.selectedAvatarId;
 const CODEX_AVATAR_ID = "codex";
+
+export function initDefaultAvatarDefinitionsChunk(): void {}
+
+export const initAvatarSelectionStateChunk = once(() => {
+  getChunkModuleExports();
+  initScopeRuntime();
+  initAppScope();
+  initGlobalSettingsRuntime();
+  initDefaultAvatarDefinitionsChunk();
+});
+
 export function buildAvatarDefinitions(
   customAvatars: CustomAvatar[] | null | undefined,
 ): AvatarDefinition[] {

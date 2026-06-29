@@ -433,6 +433,7 @@ export function useSelectedAccountQuery(refetchOnMount?: boolean) {
     isLoading,
   };
 }
+export function initSelectedAccountQueryChunk(): void {}
 function useAccountCheckQuery(refetchOnMount?: boolean) {
   const { authMethod } = useAuth();
   return useQuery({

@@ -1,5 +1,6 @@
 // Restored from ref/webview/assets/plan-management-state-oe_4sqNh.js
 // plan-management-state-oe_4sqNh chunk restored from the Codex webview bundle.
+// Also covers ref/webview/assets/app-initial~app-main~remote-conversation-page~settings-page~hotkey-window-thread-page~usage~hc2m5m0u-Bxgc6LSO.js
 import { Sku } from "../utils/skus";
 const PLUS_PURCHASE_URL =
   "https://chatgpt.com/codex/purchase/plus?checkout_from=codex_app";
@@ -71,6 +72,9 @@ function isPaidCodexPlan(plan: string) {
     plan === Sku.PRO
   );
 }
+function isCreditSettingsManageablePlan(plan: string) {
+  return isPaidCodexPlan(plan) && plan !== Sku.GO;
+}
 function getPlanChangeKind({
   currentPlan,
   targetPlan,
@@ -115,6 +119,7 @@ function isCodexPlan(plan: string) {
     plan === Sku.PRO
   );
 }
+function initPlanManagementStateChunk(): void {}
 export {
   IOS_SUBSCRIPTION_CANCELLATION_URL,
   getCodexPlanDisplayState,
@@ -125,5 +130,7 @@ export {
   TEAM_PURCHASE_URL,
   getPlanChangeKind,
   ANDROID_SUBSCRIPTION_CANCELLATION_URL,
+  initPlanManagementStateChunk,
+  isCreditSettingsManageablePlan,
   isPaidCodexPlan,
 };

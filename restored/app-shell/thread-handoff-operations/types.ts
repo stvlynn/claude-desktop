@@ -49,4 +49,4 @@ export type ThreadHandoffOperationInput = {
 
 export type ThreadHandoffOperationUpdate =
   | Partial<ThreadHandoffOperation>
-  | ((operation: ThreadHandoffOperation) => ThreadHandoffOperation);
+  | ((operation: ThreadHandoffOperation) => ThreadHandoffOperation | void);

@@ -140,3 +140,5 @@ export function useUpdateProfilePhotoMutation({
     },
   });
 }
+
+export function initProfileQueriesRuntimeChunk(): void {}

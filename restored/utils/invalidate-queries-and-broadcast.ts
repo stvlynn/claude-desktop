@@ -24,3 +24,5 @@ export function invalidateQueriesAndBroadcast(): (
     await invalidateQueriesAndBroadcastKey(queryClient, queryKey);
   };
 }
+
+export function initInvalidateQueriesAndBroadcastChunk(): void {}

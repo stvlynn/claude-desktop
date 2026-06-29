@@ -5,6 +5,7 @@ export type SettingsSectionSlug =
   | "appearance"
   | "pets"
   | "general-settings"
+  | "import"
   | "profile"
   | "keyboard-shortcuts"
   | "codex-micro"
@@ -42,6 +43,11 @@ const SETTINGS_NAV_MESSAGES = defineMessages({
     id: "settings.nav.general-settings",
     defaultMessage: "General",
     description: "Title for general settings section",
+  },
+  import: {
+    id: "settings.nav.import",
+    defaultMessage: "Import",
+    description: "Title for import settings section",
   },
   profile: {
     id: "settings.nav.profile",
@@ -174,6 +180,11 @@ const SETTINGS_SECTION_TITLE_MESSAGES = defineMessages({
     id: "settings.section.general-settings",
     defaultMessage: "General",
     description: "Title for general settings section",
+  },
+  import: {
+    id: "settings.section.import",
+    defaultMessage: "Import",
+    description: "Title for import settings section",
   },
   profile: {
     id: "settings.section.profile",

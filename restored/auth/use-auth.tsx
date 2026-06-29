@@ -57,6 +57,7 @@ function useAuth(): AuthContextValue {
   if (!value) throw Error("useAuth must be used within AuthProvider");
   return value;
 }
+function initAuthRuntimeChunk(): void {}
 function useAuthForHost(hostId: string): AuthContextValue | null {
   return useAuthForManager(
     useAppServerManagerForHost(hostId) as AuthManager | null,
@@ -110,5 +111,6 @@ export {
   AuthContext,
   useUpdateAuthNonce,
   copilotApiAvailabilityQuery,
+  initAuthRuntimeChunk,
   useAuth,
 };

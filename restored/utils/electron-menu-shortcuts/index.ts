@@ -20,3 +20,9 @@ export { isKnownCodexCommand } from "./queries";
 export { isElectronRuntimeCommand } from "./queries";
 export { CODEX_COMMANDS } from "./command-definitions";
 export { isCommandMenuCommand } from "./queries";
+
+export function initElectronMenuShortcutsChunk(): void {}
+
+export function initKeyboardShortcutFormattingChunk(): void {}
+
+export function initKeybindingLabelDebounceMsChunk(): void {}

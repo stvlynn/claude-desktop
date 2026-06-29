@@ -56,6 +56,27 @@ export function setContentSearchMatchId({
   element.setAttribute(MATCH_ID_ATTRIBUTE, matchId);
 }
 
+export function findContentSearchMatchElement({
+  container,
+  matchId,
+  includeShadowRoots,
+}: {
+  container: ParentNode;
+  matchId: string;
+  includeShadowRoots: boolean;
+}): Element | null {
+  const escapedMatchId = escapeCssSelectorValue(matchId);
+  for (const root of collectSearchRoots(container, { includeShadowRoots })) {
+    const match = root.querySelector(
+      `[${MATCH_ID_ATTRIBUTE}="${escapedMatchId}"]`,
+    );
+    if (match != null) {
+      return match;
+    }
+  }
+  return null;
+}
+
 export function clearContentSearchHighlights(
   target: ParentNode,
   options: ContentSearchRootOptions,
@@ -138,6 +159,12 @@ function collectSearchRoots(
     }
   }
   return roots;
+}
+
+function escapeCssSelectorValue(value: string): string {
+  return typeof CSS !== "undefined" && typeof CSS.escape === "function"
+    ? CSS.escape(value)
+    : value.replace(/\\/g, "\\\\").replace(/"/g, '\\"');
 }
 
 function ensureShadowHighlightStyle(shadowRoot: ShadowRoot): void {

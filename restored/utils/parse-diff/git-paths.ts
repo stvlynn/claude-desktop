@@ -81,7 +81,7 @@ function normalizeQuotedPatchPathLine(line: string, prefix: "---" | "+++") {
     ? null
     : `${prefix} ${parsedPath.pathForUnquotedDiffHeader}${lineEnding}`;
 }
-function parseQuotedGitPath(
+export function parseQuotedGitPath(
   input: string,
   startIndex: number,
 ): ParsedGitPath | null {

@@ -42,7 +42,7 @@ const welcomeOnboardingRoleMessages = defineMessages({
   },
   data_science: {
     id: "electron.onboarding.welcomeV2.role.dataScience",
-    defaultMessage: "Data Science",
+    defaultMessage: "Data science",
     description: "Welcome v2 role option for data science users",
   },
   design: {
@@ -147,3 +147,5 @@ export {
   welcomeOnboardingSelectedRolesAtom,
   welcomeOnboardingRoleMessages,
 };
+
+export function initWelcomeOnboardingRolesChunk(): void {}

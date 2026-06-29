@@ -1,4 +1,5 @@
 // Restored from ref/webview/assets/app-initial~app-main~projects-index-page~local-conversation-page-4SURv8Cr.js
+// Also covers ref/webview/assets/app-initial~app-main~projects-index-page~remote-connections-settings~local-conversation-pag~goqedmh7-DWWP2MF3.js
 // Message descriptors used by project hover card status, actions, and remote connection labels.
 import { defineMessages } from "../../runtime/project-hover-card-runtime";
 import type { MessageDescriptor, RemoteConnectionState } from "./types";

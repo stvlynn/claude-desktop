@@ -1,4 +1,5 @@
 // Restored from ref/webview/assets/above-composer-panel-row-B4ykE4a7.js
+// Also covers ref/webview/assets/app-initial~app-main~remote-conversation-page~new-thread-panel-page~appgen-library-page~hot~ji9pfk68-Zbu9owWw.js
 // Composer tray wrappers and comment attachment grouping helpers.
 import React, {
   createContext,
@@ -8,7 +9,11 @@ import React, {
   type ReactNode,
 } from "react";
 import clsx from "clsx";
-import { ComposerTopMenuShell } from "./top-menu-chrome";
+import { once } from "../runtime/commonjs-interop";
+import {
+  ComposerTopMenuShell,
+  initComposerTopMenuChromeChunk,
+} from "./top-menu-chrome";
 import { isBrowserCommentAttachment } from "../boundaries/use-host-config.facade";
 import {
   isArtifactAnnotationCommentAttachment,
@@ -45,6 +50,16 @@ const AboveComposerPanelContext = createContext<AboveComposerPanelContextValue>(
     expandedTopTray: false,
   },
 );
+
+export const initAboveComposerCommentAttachmentGroupingChunk = once(() => {});
+
+export const initAboveComposerPanelRowChunk = once(() => {});
+
+export const initAboveComposerPanelChunk = once(() => {
+  initComposerTopMenuChromeChunk();
+  initAboveComposerPanelRowChunk();
+});
+
 export function AboveComposerPanel({
   className,
   expandedTopTray = false,

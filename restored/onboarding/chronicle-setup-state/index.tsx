@@ -14,6 +14,15 @@ import {
   isChronicleSetupCompletionState,
 } from "./setup-state";
 import { ChronicleSetupDialog } from "./setup-dialog";
+
+export function initChronicleFeatureGateChunk(): void {}
+
+export function initChronicleSetupDialogChunk(): void {}
+
+export function initChronicleSetupStateChunk(): void {}
+
+export function initCodexMemoryStateSnapshotChunk(): void {}
+
 export {
   useIsChronicleResearchPreviewEnabled,
   codexMemorySettingToggledEvent,

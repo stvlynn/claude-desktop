@@ -4,12 +4,12 @@ import { useStatsigClient } from "@statsig/react-bindings";
 import clsx from "clsx";
 import { FormattedMessage } from "react-intl";
 const styles = {
-  cadencedShimmer: "_cadencedShimmer_1bpr9_1",
-  cadencedShimmerSweep: "_cadencedShimmerSweep_1bpr9_12",
-  cadencedShimmerHighlight: "_cadencedShimmerHighlight_1bpr9_35",
-  cadencedShimmerActive: "_cadencedShimmerActive_1bpr9_44",
-  cadencedLoadingShimmerSweep: "_cadencedLoadingShimmerSweep_1bpr9_1",
-  cadencedLoadingShimmerHighlight: "_cadencedLoadingShimmerHighlight_1bpr9_1",
+  cadencedShimmer: "_cadencedShimmer_18j3y_1",
+  cadencedShimmerSweep: "_cadencedShimmerSweep_18j3y_12",
+  cadencedShimmerHighlight: "_cadencedShimmerHighlight_18j3y_37",
+  cadencedShimmerActive: "_cadencedShimmerActive_18j3y_46",
+  cadencedLoadingShimmerSweep: "_cadencedLoadingShimmerSweep_18j3y_1",
+  cadencedLoadingShimmerHighlight: "_cadencedLoadingShimmerHighlight_18j3y_1",
 };
 const CADENCED_SHIMMER_ACTIVE_MS = 1000;
 const CADENCED_SHIMMER_INTERVAL_MS = 4000;
@@ -135,4 +135,13 @@ function ThinkingShimmerMessage({
     </ThinkingShimmer>
   );
 }
-export { ThinkingShimmerMessage, ThinkingShimmer };
+function initThinkingShimmerChunk(): void {}
+
+const ShimmerText = ThinkingShimmer;
+
+export {
+  initThinkingShimmerChunk,
+  ShimmerText,
+  ThinkingShimmerMessage,
+  ThinkingShimmer,
+};

@@ -5,6 +5,36 @@ type OwnerRepo = {
   repoName: string;
 };
 
+export function baseEach<TValue>(
+  collection: ArrayLike<TValue> | Record<string, TValue> | null | undefined,
+  iteratee: (
+    value: TValue,
+    key: number | string,
+    collection: unknown,
+  ) => false | void,
+) {
+  if (collection == null) return collection;
+  if (
+    Array.isArray(collection) ||
+    typeof (collection as { length?: unknown }).length === "number"
+  ) {
+    const arrayLike = collection as ArrayLike<TValue>;
+    for (let index = 0; index < arrayLike.length; index += 1) {
+      if (iteratee(arrayLike[index], index, collection) === false) break;
+    }
+    return collection;
+  }
+  const object = collection as Record<string, TValue>;
+  for (const key of Object.keys(object)) {
+    if (iteratee(object[key], key, collection) === false) break;
+  }
+  return collection;
+}
+
+export const forEachCollection = baseEach;
+
+export function initParseOwnerRepoChunk() {}
+
 export function parseOwnerRepo(value: string): OwnerRepo | null {
   try {
     let normalized = value.trim();

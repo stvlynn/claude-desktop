@@ -1,5 +1,6 @@
 // Restored from ref/webview/assets/use-usage-settings-access-Bq_PKiLc.js
 // Computes whether the usage settings entry point should be shown.
+// Also covers ref/webview/assets/app-initial~app-main~remote-conversation-page~settings-page~hotkey-window-thread-page~usage~hc2m5m0u-Bxgc6LSO.js
 
 import {
   useGateValue,
@@ -91,6 +92,7 @@ export function useUsageSettingsAccess(): UsageSettingsAccess {
     plan,
   };
 }
+export function initUsageSettingsAccessChunk(): void {}
 function resolveUsageSettingsAccess({
   authMethod,
   isEnterpriseUsageSettingsEnabled = false,

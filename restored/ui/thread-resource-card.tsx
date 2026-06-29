@@ -1,16 +1,20 @@
 // Restored from ref/webview/assets/thread-resource-card-1r6t8CDV.js
-// thread-resource-card-1r6t8CDV chunk restored from the Codex webview bundle.
+// Updated to match the current thread resource card implementation bundled in
+// ref/webview/assets/app-initial~app-main~worktree-init-v2-page~remote-conversation-page~new-thread-panel-page~o~cf3a13zj-DZ7tupb9.js.
 import type { MouseEventHandler, ReactNode } from "react";
 import clsx from "clsx";
 import { ChevronIcon } from "../icons/chevron-icon";
-type ThreadResourceCardPadding = "default" | "compact" | "extraCompact";
-type ThreadResourceCardPillSize = "default" | "medium" | "toolbar";
-type ThreadResourceCardProps = {
+
+export type ThreadResourceCardPadding = "default" | "compact" | "extraCompact";
+export type ThreadResourceCardPillSize = "default" | "medium" | "toolbar";
+
+export type ThreadResourceCardProps = {
   as?: "div" | "span";
   children?: ReactNode;
   className?: string;
 };
-type ThreadResourceCardHeaderProps = {
+
+export type ThreadResourceCardHeaderProps = {
   className?: string;
   icon?: ReactNode;
   padding?: ThreadResourceCardPadding;
@@ -20,26 +24,29 @@ type ThreadResourceCardHeaderProps = {
   titleTooltip?: string;
   trailing?: ReactNode;
 };
-type ThreadResourceCardPillProps = {
+
+export type ThreadResourceCardPillProps = {
   label?: ReactNode;
   matchDropdownWidth?: boolean;
   matchDropdownWidthLabel?: ReactNode;
   showChevron?: boolean;
   size?: ThreadResourceCardPillSize;
 };
-type ThreadResourceCardExpandButtonProps = {
+
+export type ThreadResourceCardExpandButtonProps = {
   children?: ReactNode;
   isExpanded: boolean;
   onClick?: MouseEventHandler<HTMLButtonElement>;
 };
+
 const HEADER_PADDING_CLASS_NAMES = {
-  default: "px-4 py-3",
-  compact: "p-2",
+  default: "px-[var(--thread-resource-card-row-padding-x)] py-3",
+  compact: "p-1.5",
   extraCompact: "p-1.5",
 } as const;
 const HEADER_RESERVED_TRAILING_PADDING_CLASS_NAMES = {
-  default: "py-3 pr-10 pl-4",
-  compact: "py-2 pr-8 pl-2",
+  default: "py-3 pr-10 pl-[var(--thread-resource-card-row-padding-x)]",
+  compact: "py-1.5 pr-10 pl-1.5",
   extraCompact: "py-1.5 pr-10 pl-1.5",
 } as const;
 const PILL_TEXT_CLASS_NAMES = {
@@ -52,7 +59,8 @@ const PILL_PADDING_CLASS_NAMES = {
   medium: "px-4 py-1.5",
   toolbar: "px-2 py-0",
 } as const;
-function ThreadResourceCardHeader({
+
+export function ThreadResourceCardHeader({
   className,
   icon,
   padding = "default",
@@ -92,7 +100,7 @@ function ThreadResourceCardHeader({
     </span>
   );
 }
-function ThreadResourceCardExpandButton({
+export function ThreadResourceCardExpandButton({
   children,
   isExpanded,
   onClick,
@@ -109,7 +117,7 @@ function ThreadResourceCardExpandButton({
     </button>
   );
 }
-function ThreadResourceCardPill({
+export function ThreadResourceCardPill({
   label,
   matchDropdownWidth = false,
   matchDropdownWidthLabel,
@@ -154,13 +162,13 @@ function ThreadResourceCardPill({
     </span>
   );
 }
-function ThreadResourceCard({
+export function ThreadResourceCard({
   as = "div",
   children,
   className,
 }: ThreadResourceCardProps) {
   const resolvedClassName = clsx(
-    "flex max-w-full flex-col overflow-hidden rounded-lg border border-token-border bg-token-dropdown-background/50 text-token-foreground shadow-sm extension:bg-token-input-background/50",
+    "flex max-w-full flex-col overflow-hidden rounded-lg bg-token-dropdown-background/50 text-token-foreground [--thread-resource-card-row-padding-x:0.75rem] electron:elevation-stroke extension:border extension:border-token-border extension:bg-token-input-background/50 extension:shadow-sm",
     className,
   );
   if (as === "span") {
@@ -168,9 +176,5 @@ function ThreadResourceCard({
   }
   return <div className={resolvedClassName}>{children}</div>;
 }
-export {
-  ThreadResourceCardHeader,
-  ThreadResourceCardExpandButton,
-  ThreadResourceCardPill,
-  ThreadResourceCard,
-};
+
+export function initThreadResourceCardChunk(): void {}

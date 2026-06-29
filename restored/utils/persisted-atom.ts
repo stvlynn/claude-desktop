@@ -8,6 +8,9 @@ import {
 export function resetPersistedAtomStore() {
   clearPersistedAtomStore();
 }
+
+export function initPersistedAtomRuntime(): void {}
+
 export function persistedAtom<T>(key: string, initialValue: T) {
   return atomWithStorage(key, initialValue, createPersistedAtomStore());
 }

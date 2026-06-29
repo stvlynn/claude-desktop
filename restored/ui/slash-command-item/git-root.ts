@@ -139,9 +139,13 @@ function useGitRootForDirectory(
     isLoading,
   };
 }
+
+function initSlashCommandGitRootRuntime(): void {}
+
 export {
   useGitRootForDirectory,
   useGitRootForOriginUrl,
   useEnvironmentGitRoot,
   resolveGitRootForOriginUrl,
+  initSlashCommandGitRootRuntime,
 };

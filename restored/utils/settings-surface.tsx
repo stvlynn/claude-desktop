@@ -34,3 +34,5 @@ export function SettingsSurface({
     </div>
   );
 }
+
+export function initSettingsSurfaceChunk(): void {}

@@ -26,6 +26,9 @@ const WORKSPACE_ONBOARDING_ENABLE_TEEN_CHECK_GATE_ID = "1482884768";
 const WORKSPACE_ONBOARDING_TEEN_ONBOARDING_GATE_ID = "3150044490";
 const WORKSPACE_ONBOARDING_V2_ARM = "t5_onboarding_v2";
 const WORKSPACE_ONBOARDING_ARM_PARAMETER = "arm";
+
+function initWorkspaceOnboardingExperimentChunk(): void {}
+
 function normalizeWorkspaceOnboardingArm(
   value: unknown,
 ): WorkspaceOnboardingExperimentArm {
@@ -99,6 +102,7 @@ export {
   getWorkspaceOnboardingExperimentArm,
   WORKSPACE_ONBOARDING_PLAYGROUND_NAME,
   isWorkspaceOnboardingExperimentAssignment,
+  initWorkspaceOnboardingExperimentChunk,
   WORKSPACE_ONBOARDING_TEEN_ONBOARDING_GATE_ID,
   isModalCopyCtaPlaygroundArm,
 };

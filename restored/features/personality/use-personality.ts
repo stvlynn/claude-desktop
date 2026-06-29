@@ -1,4 +1,5 @@
 // Restored from ref/webview/assets/use-personality-BfBCBHKs.js
+// Also covers ref/webview/assets/app-initial~app-main~remote-conversation-page~new-thread-panel-page~appgen-library-page~hot~bnuob1na-D8igKadN.js.
 // Reads and writes the effective Codex personality setting for a host/thread.
 import React from "react";
 import {
@@ -18,8 +19,9 @@ import {
   o as readStatsigGateValue,
   r as getStatsigDynamicConfig,
 } from "@statsig/js-client";
+import { once } from "../../runtime/commonjs-interop";
 import {
-  ANALYTICS_CONFIG_QUERY_KEY,
+  USER_CONFIG_QUERY_KEY,
   userConfigQueryOptions,
 } from "../../config/config-queries";
 import { invalidateQueriesAndBroadcast } from "../../utils/invalidate-queries-and-broadcast";
@@ -30,7 +32,7 @@ const PERSONALITY_DYNAMIC_CONFIG = "1867347216";
 const DEFAULT_PERSONALITY_DYNAMIC_CONFIG_FIELD = "default_personality";
 const FALLBACK_PERSONALITY = "friendly";
 const USER_SAVED_CONFIG_QUERY_KEY = ["user-saved-config"] as const;
-type Personality = "friendly" | "pragmatic" | null;
+type Personality = string | null;
 type UsePersonalityOptions = {
   conversationId?: string | null;
   hostId: string;
@@ -87,10 +89,13 @@ async function invalidatePersonalityConfigQueries(
   invalidateQueries: (queryKey: readonly unknown[]) => Promise<unknown>,
 ): Promise<void> {
   await Promise.all([
-    invalidateQueries(ANALYTICS_CONFIG_QUERY_KEY),
+    invalidateQueries(USER_CONFIG_QUERY_KEY),
     invalidateQueries(USER_SAVED_CONFIG_QUERY_KEY),
   ]);
 }
+
+export const initModelPersonalityRuntimeChunk = once(() => {});
+
 export function usePersonality({
   conversationId = null,
   hostId,

@@ -1,5 +1,6 @@
 // Restored from ref/webview/assets/local-remote-selection-DRnEOc8g.js
 // local-remote-selection-DRnEOc8g chunk restored from the Codex webview bundle.
+// Also covers ref/webview/assets/app-initial~app-main~remote-conversation-page~new-thread-panel-page~appgen-library-page~hot~kj79zy13-7BmnrRC1.js
 import React from "react";
 import { useGateValue } from "@statsig/react-bindings";
 import { useAtomValue, useSetAtom } from "jotai";
@@ -38,6 +39,25 @@ type AccessStatusOptions = {
   isLoading: boolean;
   needsOnboarding: boolean;
 };
+type ComposerExecutionModeAvailabilityInput = {
+  canCreateBrowserDefaultHostThreads: boolean;
+  hasBrowserLocalExecutionHost: boolean;
+  hasComposerModeGitRepo: boolean;
+  hasFollowUp: boolean;
+  isBrowser: boolean;
+  isComposerModeGitMetadataLoading: boolean;
+  isResponseInProgress: boolean;
+  isStatsigLoading: boolean;
+  isWorktreeExecutionTargetLoading: boolean;
+  isWorktreePickerEnabled: boolean;
+};
+type ComposerExecutionModeAvailability = {
+  fallbackMode: "cloud" | "local";
+  isAvailabilityLoading: boolean;
+  isCloudAvailable: boolean;
+  isLocalAvailable: boolean;
+  isWorktreeAvailable: boolean;
+};
 const persistedCodexCloudAccessAtom = persistedAtom<CodexCloudAccess | null>(
   "codexCloudAccess",
   null,
@@ -74,6 +94,8 @@ export function CodexCloudAccessSyncer() {
   useSyncCodexCloudAccess();
   return null;
 }
+export function initCodexCloudAccessRuntime(): void {}
+export function initComposerExecutionModeAvailabilityRuntime(): void {}
 function useSyncCodexCloudAccess({
   enabled = true,
 }: {
@@ -183,4 +205,67 @@ function getCodexCloudAccessStatus(
 }
 function getCloudEnvironmentCount(data: unknown) {
   return Array.isArray(data) ? data.length : undefined;
+}
+export function getComposerExecutionModeAvailability({
+  canCreateBrowserDefaultHostThreads,
+  hasBrowserLocalExecutionHost,
+  hasComposerModeGitRepo,
+  hasFollowUp,
+  isBrowser,
+  isComposerModeGitMetadataLoading,
+  isResponseInProgress,
+  isStatsigLoading,
+  isWorktreeExecutionTargetLoading,
+  isWorktreePickerEnabled,
+}: ComposerExecutionModeAvailabilityInput): ComposerExecutionModeAvailability {
+  if (isBrowser) {
+    const shouldPreferLocal =
+      canCreateBrowserDefaultHostThreads && !hasFollowUp;
+    return {
+      fallbackMode: shouldPreferLocal ? "local" : "cloud",
+      isAvailabilityLoading: false,
+      isCloudAvailable: !shouldPreferLocal,
+      isLocalAvailable:
+        hasBrowserLocalExecutionHost || canCreateBrowserDefaultHostThreads,
+      isWorktreeAvailable: false,
+    };
+  }
+  return {
+    fallbackMode: "local",
+    isAvailabilityLoading:
+      isComposerModeGitMetadataLoading ||
+      isStatsigLoading ||
+      isWorktreeExecutionTargetLoading,
+    isCloudAvailable: hasComposerModeGitRepo,
+    isLocalAvailable: true,
+    isWorktreeAvailable:
+      hasComposerModeGitRepo &&
+      !hasFollowUp &&
+      !isResponseInProgress &&
+      isWorktreePickerEnabled,
+  };
+}
+export function resolveComposerExecutionMode({
+  cloudAccess,
+  composerMode,
+  fallbackMode,
+  isAvailabilityLoading,
+  isCloudAvailable,
+  isLocalAvailable,
+  isWorktreeAvailable,
+}: ComposerExecutionModeAvailability & {
+  cloudAccess: CodexCloudAccess;
+  composerMode: "cloud" | "local" | "worktree" | string;
+}) {
+  if (composerMode === "cloud" && cloudAccess !== "enabled")
+    return fallbackMode;
+  if (isAvailabilityLoading) return composerMode;
+  switch (composerMode) {
+    case "cloud":
+      return isCloudAvailable ? "cloud" : fallbackMode;
+    case "local":
+      return isLocalAvailable ? "local" : fallbackMode;
+    case "worktree":
+      return isWorktreeAvailable ? "worktree" : fallbackMode;
+  }
 }

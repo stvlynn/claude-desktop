@@ -1,6 +1,8 @@
 // Restored from ref/webview/assets/workspace-onboarding-controller-FdX3OkH-.js
 // Workspace onboarding controller public API.
 
+export function initWorkspaceOnboardingControllerChunk(): void {}
+
 export {
   getWorkspaceOnboardingPlaygroundName,
   shouldShowDirectWorkspacePicker,

@@ -1,13 +1,24 @@
 // Restored from ref/webview/assets/onboarding-state-Ddi1pOV8.js
+// Also covers ref/webview/assets/app-initial~app-main~remote-conversation-page~new-thread-panel-page~onboarding-page~select-~cvtadpw5-C21Jx6X1.js
 import {
   _appScopeC as createDerivedSignal,
   _appScopeX as createWritableAtom,
   appScopeRoot,
 } from "../boundaries/app-scope";
 import { workspaceRootOptionsQuery } from "../boundaries/thread-context-inputs.facade";
-import { appShellStateExportVAlias as notifyAppShellStateChanged } from "../app-shell/app-shell-state";
+import {
+  ensureBottomPanelLauncherVisibilityDefault,
+  initAppShellStateRuntimeChunk,
+} from "../app-shell/app-shell-state";
+import { initAppScope, initScopeRuntime } from "../runtime/app-scope-runtime";
+import { initPersistentSignalRuntime } from "../runtime/app-host-services-runtime";
+import { initHostConfigRuntime } from "../runtime/host-config-runtime";
 import { createPersistedSignal } from "../runtime/persisted-signal";
-import { persistedAtom } from "../utils/persisted-atom";
+import { initSignalStateRuntime } from "../runtime/signal-state-runtime";
+import {
+  initPersistedAtomRuntime,
+  persistedAtom,
+} from "../utils/persisted-atom";
 type WorkspaceRootsQueryResult = {
   data?: {
     roots: unknown[];
@@ -68,6 +79,21 @@ const onboardingPluginChecklistActiveAtom = persistedAtom(
   "electron:onboarding-plugin-checklist-active",
   false,
 );
+const pluginSuggestionsV2EnabledAtCompletionAtom = persistedAtom(
+  "electron:onboarding-plugin-suggestions-v2-enabled-at-completion",
+  false,
+);
+const homepageOnboardingTilesDebugOverrideAtom = persistedAtom<boolean | null>(
+  "electron:homepage-onboarding-tiles-debug-override",
+  null,
+);
+const onboardingMailProviderDebugOverrideSignal = createPersistedSignal<
+  unknown | null
+>("electron:onboarding-mail-provider-debug-override", null);
+const hideGoogleTilesDebugOverrideSignal = createPersistedSignal(
+  "electron:onboarding-hide-google-tiles-debug-override",
+  false,
+);
 const forceHomeTilesVisibleAtom = persistedAtom(
   "electron:onboarding-force-home-tiles-visible",
   false,
@@ -84,7 +110,9 @@ const lastCompletedOnboardingAtom = createWritableAtom(
     set: (atom: unknown, value: number | null) => void,
     nextCompletedAtSeconds: number | null,
   ) => {
-    if (nextCompletedAtSeconds != null) notifyAppShellStateChanged();
+    if (nextCompletedAtSeconds != null) {
+      ensureBottomPanelLauncherVisibilityDefault();
+    }
     set(persistedLastCompletedOnboardingAtom, nextCompletedAtSeconds);
   },
 );
@@ -141,19 +169,38 @@ const welcomeV2RoleStateAtom = persistedAtom<WelcomeV2RoleState>(
     workMode: null,
   },
 );
+function initOnboardingStateStorageKeysChunk(): void {}
+
+function initOnboardingStateChunk(): void {
+  initSignalStateRuntime();
+  initScopeRuntime();
+  initAppShellStateRuntimeChunk();
+  initAppScope();
+  initHostConfigRuntime();
+  initPersistedAtomRuntime();
+  initPersistentSignalRuntime();
+  initOnboardingStateStorageKeysChunk();
+}
+
 export {
+  initOnboardingStateStorageKeysChunk,
+  initOnboardingStateChunk,
   lastCompletedOnboardingStorageKey,
   onboardingOverrideAtom,
   primaryRuntimeInstallReadyAtom,
   welcomeV2RoleStateAtom,
   workspaceOnboardingAutolaunchAppliedAtom,
+  hideGoogleTilesDebugOverrideSignal,
   isBeforeWorkspaceExperimentCutoff,
   shouldHideFirstNewThreadOnboardingPromos,
   lastCompletedOnboardingAtom,
   primaryRuntimeInstallRequestedAtom,
   hasCompletedProjectlessOnboardingSignal,
   forceHomeTilesVisibleAtom,
+  homepageOnboardingTilesDebugOverrideAtom,
+  onboardingMailProviderDebugOverrideSignal,
   onboardingPluginChecklistActiveAtom,
+  pluginSuggestionsV2EnabledAtCompletionAtom,
   workspaceExperimentAssignmentAtom,
   hideFirstNewThreadOnboardingPromosAtom,
   welcomeOnboardingPendingAtom,

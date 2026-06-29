@@ -56,6 +56,9 @@ type OpenInBrowserFromEventOptions = {
   source?: string;
   useExternalBrowser?: boolean;
 };
+type OpenInBrowserOptions = Omit<OpenInBrowserFromEventOptions, "event"> & {
+  openTargetIntent?: "alternate" | "default" | string;
+};
 
 const EXPLICIT_LINK_PREFIX_PATTERN = /^(?:[a-z][a-z0-9+.-]*:|www\.)/i;
 const MAC_PLATFORM_PATTERN = /Mac|iPhone|iPad|iPod/;
@@ -71,6 +74,10 @@ function ensureHrefProtocol(href: string): string {
 function shouldUsePrimaryModifier(event: ExternalLinkClickEvent): boolean {
   const platform = globalThis.navigator?.platform ?? "";
   return MAC_PLATFORM_PATTERN.test(platform) ? event.metaKey : event.ctrlKey;
+}
+
+function isOpenInBrowserEvent(event: ExternalLinkClickEvent): boolean {
+  return shouldUsePrimaryModifier(event);
 }
 
 function isExternalSystemProtocol(href: string): boolean {
@@ -127,6 +134,34 @@ function openInBrowserFromEvent({
   return true;
 }
 
+function openInBrowser({
+  disposition,
+  href,
+  hostId,
+  initiator,
+  openTarget,
+  openTargetIntent,
+  originHostId,
+  source = "manual",
+  useExternalBrowser,
+}: OpenInBrowserOptions): boolean {
+  const useSystemProtocol = isExternalSystemProtocol(href);
+  if (!useSystemProtocol && !hasExplicitLinkPrefix(href)) return false;
+
+  vscodeMessageBus.dispatchMessage("open-in-browser", {
+    disposition,
+    hostId,
+    initiator,
+    openTarget,
+    openTargetIntent,
+    originHostId,
+    source,
+    useExternalBrowser: useSystemProtocol ? true : useExternalBrowser,
+    url: ensureHrefProtocol(href),
+  });
+  return true;
+}
+
 function initExternalUrlHelpers(): void {}
 
 function initSwitchRuntime(): void {}
@@ -146,7 +181,9 @@ export {
   initSwitchRuntime,
   initTooltipRuntime,
   initVscodeApiBridge,
+  isOpenInBrowserEvent,
   logScopedProductEvent,
+  openInBrowser,
   openInBrowserFromEvent,
   pullRequestActionEvent,
   pullRequestKindActionEvent,

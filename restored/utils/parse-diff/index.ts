@@ -25,9 +25,13 @@ const MAX_RENDERED_FILE_CHANGED_BYTES = 3 * 1024 * 1024;
 const MAX_RENDERED_LINE_BYTES = 1 * 1024 * 1024;
 const MAX_CACHED_DIFF_LENGTH = 200_000;
 const MAX_PARSE_CACHE_ENTRIES = 50;
-const NULL_DIFF_PATH = "/dev/null";
+export const NULL_DIFF_PATH = "/dev/null";
 const parsedDiffCache = new Map<string, Map<string, ParsedDiffFile[]>>();
 let nextDiffCacheKey = 0;
+export function initParseDiffRuntimeChunk(): void {}
+
+export function initDiffPathRuntimeChunk(): void {}
+
 export function shouldSkipFullDiffParse({
   fileCount,
   totalChangedBytes,

@@ -1,4 +1,5 @@
 // Restored from ref/webview/assets/use-fast-mode-personalized-estimate-BHhOBo0i.js
+// Also covers ref/webview/assets/app-initial~app-main~new-thread-panel-page~home-announcements~upgrade-plan-dialog-LPN09Qmo.js
 // use-fast-mode-personalized-estimate-BHhOBo0i chunk restored from the Codex webview bundle.
 import { useAtom } from "jotai";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -6,6 +7,8 @@ import { callCodexVscodeApi } from "../boundaries/vscode-api";
 import { persistedAtom } from "../utils/persisted-atom";
 import { useIsRemoteHost } from "../utils/use-is-remote-host";
 import { defineMessages, useIntl } from "../vendor/react-intl";
+export { LightningBoltIcon as FastModeHomeBannerIcon } from "../icons/lightning-bolt-icon";
+
 type IntlLike = {
   formatMessage: (message: unknown, values?: Record<string, unknown>) => string;
 };
@@ -46,6 +49,11 @@ const requestState: {
   inFlight: null,
   lastStartedBucket: null,
 };
+
+export function initFastModePersonalizedEstimateChunk(): void {}
+
+export function initFastModeHomeBannerIconChunk(): void {}
+
 export function useFastModePersonalizedEstimate(
   enabled: boolean,
 ): FastModePersonalizedEstimateResult {
@@ -159,7 +167,7 @@ const fastModePersonalizedEstimateMessages = defineMessages({
   bodyPersonalized: {
     id: "codex.fastModeHomeBanner.body.personalized",
     defaultMessage:
-      "Based on your work last week across {threadCountLabel}, Fast could have saved about {duration}. Increased plan usage.",
+      "Based on your work last week across {threadCountLabel}, Fast could have saved about {duration}. Increases plan usage.",
     description: "Personalized body shown in the Fast mode home banner",
   },
   threadCountOne: {

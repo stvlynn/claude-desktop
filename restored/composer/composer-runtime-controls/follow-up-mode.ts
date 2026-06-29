@@ -13,6 +13,8 @@ import {
 
 export type FollowUpQueueMode = "queue" | "steer" | string;
 
+export function initFollowUpQueueModeRuntimeChunk(): void {}
+
 export function useFollowUpQueueMode(): {
   mode: FollowUpQueueMode;
   isQueueingEnabled: boolean;
@@ -46,4 +48,16 @@ export function getInvertFollowUpShortcutLabel(
   return composerEnterBehavior === "cmdIfMultiline"
     ? "CmdOrCtrl+Shift+Enter"
     : "CmdOrCtrl+Enter";
+}
+
+export function getComposerSubmitShortcutLabel(
+  composerEnterBehavior: string,
+): string | undefined {
+  switch (composerEnterBehavior) {
+    case "enter":
+      return "CmdOrCtrl+Enter";
+    case "cmdIfMultiline":
+    case "cmdAlways":
+      return "CmdOrCtrl+Shift+Enter";
+  }
 }

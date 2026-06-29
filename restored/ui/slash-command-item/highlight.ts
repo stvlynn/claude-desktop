@@ -43,4 +43,7 @@ function highlightTextSegments(
     };
   });
 }
+
+export function initHighlightTextSegmentsChunk(): void {}
+
 export { highlightTextSegments };

@@ -1,9 +1,8 @@
 // Restored from ref/webview/assets/profile-queries-BWvaDOFi.js
 // profile-queries-BWvaDOFi chunk restored from the Codex webview bundle.
 import { vscodeApiL as VscodeFetchBridge } from "../../boundaries/vscode-api";
-import * as appRuntime from "../../boundaries/src-l0hb-mz-p";
 import { codexRequest } from "../../runtime/request";
-import { encodeBase64Bytes } from "../../utils/base64";
+import { CODEX_BASE64_HEADER, encodeBase64Bytes } from "../../utils/base64";
 import {
   ProfileUsernameValidationError,
   stripUsernamePrefix,
@@ -134,7 +133,7 @@ async function uploadProfilePhoto(photo: File) {
       encodeBase64Bytes(await buildProfilePhotoMultipartBody(photo, boundary)),
       {
         "Content-Type": `multipart/form-data; boundary=${boundary}`,
-        [appRuntime.srcSn]: "1",
+        [CODEX_BASE64_HEADER]: "1",
       },
     )
   ).body.asset_pointer as string;

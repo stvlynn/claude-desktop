@@ -205,4 +205,10 @@ function hasHeader(headers: Record<string, string>, headerName: string) {
 const codexRequest = new CodexRequestClient({
   getAdditionalHeaders: getDefaultRequestHeaders,
 });
-export { getOpenAIRequestHeaders, setRequestLanguage, codexRequest };
+function initCodexRequestRuntime(): void {}
+export {
+  getOpenAIRequestHeaders,
+  initCodexRequestRuntime,
+  setRequestLanguage,
+  codexRequest,
+};

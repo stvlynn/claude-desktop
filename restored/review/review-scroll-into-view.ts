@@ -2,10 +2,7 @@
 // Scroll helpers for bringing a review search match into view, waiting for layout
 // to settle across double animation frames.
 
-// Provisional facade import: `findSearchMatchElement` is an intra-chunk helper
-// (orig `FOe`) that locates a highlighted match element within a container,
-// optionally piercing shadow roots. Resolve to its canonical module when known.
-import { FOe as findSearchMatchElement } from "../../ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js";
+import { findContentSearchMatchElement } from "../find/dom-content-search";
 
 export function waitForDoubleAnimationFrame(): Promise<void> {
   return new Promise((resolve) => {
@@ -35,7 +32,7 @@ export function scrollMatchIntoView({
   timeoutMs = 1500,
 }: ScrollMatchIntoViewOptions): Promise<void> {
   const findMatch = (): Element | null =>
-    findSearchMatchElement({ container, matchId, includeShadowRoots });
+    findContentSearchMatchElement({ container, matchId, includeShadowRoots });
 
   if (signal?.aborted) return Promise.resolve();
 

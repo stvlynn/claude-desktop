@@ -1,4 +1,5 @@
 // Restored from ref/webview/assets/slash-command-item-CjEpy4Fo.js
+// Also covers ref/webview/assets/app-initial~app-main~remote-conversation-page~new-thread-panel-page~appgen-library-page~hot~gm3qqodb-ChZFpJan.js
 // Shared slash-command list item UI plus git-root lookup helpers.
 import React from "react";
 import clsx from "clsx";
@@ -6,11 +7,15 @@ import { Tooltip } from "../tooltip-b";
 import { Command, useCommandState } from "../../vendor/cmdk";
 import {
   resolveGitRootForOriginUrl,
+  initSlashCommandGitRootRuntime,
   useEnvironmentGitRoot,
   useGitRootForDirectory,
   useGitRootForOriginUrl,
 } from "./git-root";
-import { highlightTextSegments } from "./highlight";
+import {
+  highlightTextSegments,
+  initHighlightTextSegmentsChunk,
+} from "./highlight";
 import type { OverflowTooltipTextProps, SlashCommandItemProps } from "./types";
 function SlashCommandItem({
   title,
@@ -144,11 +149,17 @@ function truncateCommandText(text: string) {
 function truncateTooltipContent(content: React.ReactNode) {
   return typeof content === "string" ? truncateCommandText(content) : content;
 }
+
+function initSlashCommandItemComponent(): void {}
+
 export {
   useGitRootForDirectory,
   useGitRootForOriginUrl,
   highlightTextSegments,
+  initHighlightTextSegmentsChunk,
   useEnvironmentGitRoot,
   resolveGitRootForOriginUrl,
+  initSlashCommandGitRootRuntime,
+  initSlashCommandItemComponent,
   SlashCommandItem,
 };

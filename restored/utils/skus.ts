@@ -22,6 +22,10 @@ const skuValues = {
 
 type SkuLike = string | null | undefined;
 
+export function initSkuRuntimeChunk(): void {}
+
+export function initSkuHelpersChunk(): void {}
+
 function isEducationSku(sku: SkuLike) {
   return (
     sku === skuValues.EDUCATION_CBP ||

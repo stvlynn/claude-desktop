@@ -30,6 +30,9 @@ type StartConversationParamsInput = {
 };
 type PendingWorktreeEntry = {
   launchMode: string;
+  id?: string;
+  attempt?: string | number;
+  phase?: string;
   hostId: string;
   sourceConversationId?: string;
   sourceCollaborationMode?: unknown;
@@ -42,6 +45,10 @@ type PendingWorktreeEntry = {
   label?: string;
   threadGoalDraft?: ThreadGoalDraft | null;
   worktreeGitRoot?: string | null;
+  worktreeOutputText?: string | null;
+  localEnvironmentConfigPath?: string | null;
+  errorMessage?: string | null;
+  setupOutputText?: string | null;
   isPinned?: boolean;
   pinnedBeforeThreadId?: string | null;
   browserTransferSourceConversationId?: string | null;
@@ -60,24 +67,33 @@ export async function startPendingWorktreeConversation({
   threadGoalObjective?: string | null;
   workspaceRoot: string;
 }) {
+  const worktreeInit = buildWorktreeInitPayload(entry);
   if (entry.launchMode === "fork-conversation") {
-    return entry.targetTurnId == null
-      ? sendAppServerRequest("fork-conversation-from-latest", {
-          hostId: entry.hostId,
-          conversationId: entry.sourceConversationId,
-          cwd: workspaceRoot,
-          workspaceRoots: [workspaceRoot],
-          collaborationMode: entry.sourceCollaborationMode,
-          threadSource: entry.threadSource,
-        })
-      : sendAppServerRequest("fork-conversation-from-turn", {
-          conversationId: entry.sourceConversationId,
-          targetTurnId: entry.targetTurnId,
-          cwd: workspaceRoot,
-          workspaceRoots: [workspaceRoot],
-          collaborationMode: entry.sourceCollaborationMode,
-          threadSource: entry.threadSource,
-        });
+    const conversationId =
+      entry.targetTurnId == null
+        ? await sendAppServerRequest("fork-conversation-from-latest", {
+            hostId: entry.hostId,
+            conversationId: entry.sourceConversationId,
+            cwd: workspaceRoot,
+            workspaceRoots: [workspaceRoot],
+            collaborationMode: entry.sourceCollaborationMode,
+            threadSource: entry.threadSource,
+          })
+        : await sendAppServerRequest("fork-conversation-from-turn", {
+            conversationId: entry.sourceConversationId,
+            targetTurnId: entry.targetTurnId,
+            cwd: workspaceRoot,
+            workspaceRoots: [workspaceRoot],
+            collaborationMode: entry.sourceCollaborationMode,
+            threadSource: entry.threadSource,
+          });
+    if (worktreeInit != null) {
+      await sendAppServerRequest("add-worktree-init-synthetic-turn", {
+        conversationId,
+        worktreeInit,
+      });
+    }
+    return conversationId;
   }
   if (entry.launchMode !== "start-conversation") {
     throw Error(`Unsupported launch mode: ${entry.launchMode}`);
@@ -93,14 +109,26 @@ export async function startPendingWorktreeConversation({
             formatGoalObjectiveInput(threadGoalObjective),
           ),
         };
+  const projectAssignment = startConversationInput.projectAssignment as
+    | (Record<string, unknown> & { cwd?: string })
+    | null
+    | undefined;
   return sendAppServerRequest("start-conversation", {
     hostId: entry.threadStartHostId ?? entry.hostId,
     ...buildStartConversationParams({
       ...startConversationInput,
       workspaceRoots: [workspaceRoot],
       cwd: workspaceRoot,
+      projectAssignment:
+        projectAssignment == null
+          ? projectAssignment
+          : {
+              ...projectAssignment,
+              cwd: workspaceRoot,
+            },
     } as Parameters<typeof buildStartConversationParams>[0]),
     skipAutoTitleGeneration: entry.initialThreadTitle != null,
+    worktreeInit: worktreeInit ?? undefined,
   });
 }
 export function restorePendingWorktreeBrowserTransferSources(
@@ -234,3 +262,27 @@ function replaceFirstTextInput(
       : item,
   );
 }
+
+function buildWorktreeInitPayload(entry: PendingWorktreeEntry): {
+  id: string;
+  worktreeOutputText?: string | null;
+  setup: null | {
+    outcome: "completed" | "skipped";
+    outputText?: string | null;
+  };
+} | null {
+  if (entry.phase !== "worktree-ready") return null;
+  return {
+    id: `${entry.id}:${entry.attempt}`,
+    worktreeOutputText: entry.worktreeOutputText,
+    setup:
+      entry.localEnvironmentConfigPath == null
+        ? null
+        : {
+            outcome: entry.errorMessage == null ? "completed" : "skipped",
+            outputText: entry.setupOutputText,
+          },
+  };
+}
+
+export function initPendingWorktreeConversationRuntimeChunk(): void {}

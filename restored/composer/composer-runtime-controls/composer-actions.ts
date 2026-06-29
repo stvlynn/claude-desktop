@@ -20,7 +20,8 @@ type ComposerEscapeState = {
 
 type ComposerActionState = ComposerEscapeState & {
   isDictating: boolean;
-  realtimePhase: string | null | undefined;
+  restrictedSessionPhase?: string | null;
+  realtimePhase?: string | null;
   hasFocusedComposer: boolean;
   isTerminalTarget: boolean;
   hasActiveApprovalSurface: boolean;
@@ -35,9 +36,11 @@ type PlanModeToggleState = {
 };
 
 type ComposerModeKeyDownState = PlanModeToggleState & {
+  activateArtifactPluginSuggestion?: () => boolean;
   event: ReactKeyboardEvent | KeyboardEvent;
   isComposerFocused: boolean;
   hasActiveMentionMenu: boolean;
+  isSelectionAtStart?: boolean;
   handleEscape: () => void;
 };
 
@@ -106,17 +109,35 @@ export function togglePlanModeSelection({
   return true;
 }
 
+export function initComposerKeyboardRuntimeChunk(): void {}
+
 export function handleComposerModeKeyDown({
+  activateArtifactPluginSuggestion,
   event,
   isComposerFocused,
   hasActiveMentionMenu,
   hasPlanMode,
   hasDefaultMode,
   isPlanMode,
+  isSelectionAtStart = false,
   setSelectedMode,
   handleEscape,
 }: ComposerModeKeyDownState): boolean {
   if (!isComposerFocused) return false;
+  if (
+    event.key === "Backspace" &&
+    !event.metaKey &&
+    !event.ctrlKey &&
+    !event.altKey &&
+    !event.shiftKey &&
+    isPlanMode &&
+    isSelectionAtStart
+  ) {
+    event.preventDefault();
+    event.stopPropagation();
+    setSelectedMode(hasDefaultMode ? "default" : null);
+    return true;
+  }
   if (
     event.key === "Escape" &&
     !event.metaKey &&
@@ -136,12 +157,13 @@ export function handleComposerModeKeyDown({
     !event.metaKey &&
     !event.ctrlKey &&
     !event.altKey &&
-    togglePlanModeSelection({
-      hasPlanMode,
-      hasDefaultMode,
-      isPlanMode,
-      setSelectedMode,
-    })
+    (activateArtifactPluginSuggestion?.() ||
+      togglePlanModeSelection({
+        hasPlanMode,
+        hasDefaultMode,
+        isPlanMode,
+        setSelectedMode,
+      }))
   ) {
     event.preventDefault();
     event.stopPropagation();

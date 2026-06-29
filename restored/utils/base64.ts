@@ -1,5 +1,7 @@
 // Restored from ref/webview/assets/base64-B03SNoD9.js
 // base64-B03SNoD9 chunk restored from the Codex webview bundle.
+export const CODEX_BASE64_HEADER = "x-codex-base64";
+
 export function decodeBase64Text(encoded: string): string {
   return new TextDecoder().decode(decodeBase64Bytes(encoded));
 }
@@ -23,3 +25,5 @@ export function decodeBase64Bytes(encoded: string): Uint8Array {
   const binary = atob(encoded);
   return Uint8Array.from(binary, (char) => char.charCodeAt(0));
 }
+
+export function initBase64RuntimeChunk(): void {}

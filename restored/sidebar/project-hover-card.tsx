@@ -1,4 +1,5 @@
 // Restored from ref/webview/assets/app-initial~app-main~projects-index-page~local-conversation-page-4SURv8Cr.js
+// Also covers ref/webview/assets/app-initial~app-main~projects-index-page~remote-connections-settings~local-conversation-pag~goqedmh7-DWWP2MF3.js
 // Public project hover card barrel. Implementation is split into semantic parts to keep the restored module reviewable.
 export {
   buildRemoteHostGlobeColors,

@@ -1,12 +1,10 @@
 // Restored from ref/webview/assets/app-initial~app-main~remote-conversation-page~hotkey-window-thread-page~thread-app-shell-ch~oc6ebzsr-DX7Jokr-.js
+// Also covers ref/webview/assets/app-initial~app-main~remote-conversation-page~hotkey-window-thread-page~thread-app-shell-ch~oc6ebzsr-BwqxraHe.js
 // ID generation for queued thread handoff operations.
-export function createThreadHandoffOperationId() {
-  const randomUUID = globalThis.crypto?.randomUUID;
-  if (typeof randomUUID === "function") {
-    return randomUUID.call(globalThis.crypto);
-  }
+import { uuidV4 } from "../../utils/uuid-v4";
 
-  return `thread-handoff-${Date.now().toString(36)}-${Math.random()
-    .toString(36)
-    .slice(2)}`;
+export function initThreadHandoffOperationIdsChunk(): void {}
+
+export function createThreadHandoffOperationId() {
+  return uuidV4() as string;
 }

@@ -3,6 +3,7 @@
 import type { ComponentProps, HTMLAttributes, ReactNode, Ref } from "react";
 import clsx from "clsx";
 import { Command } from "../vendor/cmdk";
+import { once } from "../runtime/commonjs-interop";
 const COMPOSER_TOP_MENU_CHROME_CLASS_NAMES = {
   expandedTopTrayShell: "_expandedTopTrayShell_ly16b_1",
   expandedTopTrayInFlowShell: "_expandedTopTrayInFlowShell_ly16b_9",
@@ -10,6 +11,9 @@ const COMPOSER_TOP_MENU_CHROME_CLASS_NAMES = {
   paddedBodyExpandedTopTrayPanel: "_paddedBodyExpandedTopTrayPanel_ly16b_49",
   embeddedExpandedTopTrayPanel: "_embeddedExpandedTopTrayPanel_ly16b_53",
 } as const;
+
+export const initComposerTopMenuChromeChunk = once(() => {});
+
 type ComposerTopMenuShellProps = HTMLAttributes<HTMLDivElement> & {
   expandedTopTray?: boolean;
   inFlow?: boolean;

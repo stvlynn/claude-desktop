@@ -42,6 +42,19 @@ type McpCapabilityTabOptions = {
   toolArguments?: unknown;
 };
 
+export function initMcpCapabilityPanelIconChunk(): void {}
+
+export function initMcpCapabilityPanelTabChunk(): void {
+  initMcpCapabilityPanelIconChunk();
+}
+
+export function renderMcpCapabilityPanelIcon(
+  icon: McpCapabilityFileViewer["icon"],
+  className: string = "icon-xs",
+) {
+  return renderMcpCapabilityIcon(icon, className);
+}
+
 export function openMcpCapabilityPanelTab(
   scope: unknown,
   view: McpCapabilityFileViewer,
@@ -146,6 +159,8 @@ function getMcpCapabilityPanelTabId(
 ) {
   return `mcp-capability:${view.hostId}:${view.server}:${view.tool?.name}:${instanceId}`;
 }
+
+export { getMcpCapabilityPanelTabId };
 
 function getSidePanelPlacements() {
   return [...(sidePanelPlacements as readonly SidePanelPlacement[])];

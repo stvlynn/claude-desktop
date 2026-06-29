@@ -134,6 +134,11 @@ function buildRuntimesConfig(runtimeConfig: PrimaryRuntimeInstallConfig) {
 function primaryRuntimeDiagnosticsQueryKey(diagnosticName: string) {
   return ["app-host", "primary-runtime", "diagnostics", diagnosticName];
 }
+
+function initPrimaryRuntimeConfigChunk() {}
+
+function initPrimaryRuntimeUpdateStatusQueryKeyChunk() {}
+
 function isPrimaryRuntimeInstallConfig(
   value: unknown,
 ): value is PrimaryRuntimeInstallConfig {
@@ -196,6 +201,8 @@ function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 export {
+  initPrimaryRuntimeConfigChunk,
+  initPrimaryRuntimeUpdateStatusQueryKeyChunk,
   refreshPrimaryRuntimeConfigFromStatsig,
   publishPrimaryRuntimeConfig,
   primaryRuntimeDiagnosticsQueryKey,
