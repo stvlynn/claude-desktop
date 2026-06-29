@@ -3,6 +3,12 @@
 
 export { BrowserSidebarDocumentContextResolver } from "./document-context-resolver";
 export {
+  BROWSER_SIDEBAR_COMMENT_ROOT_Z_INDEX,
+  BROWSER_SIDEBAR_RUNTIME_BOUNDARY_ATTRIBUTE,
+  ensureBrowserSidebarCommentRootHost,
+  mountBrowserSidebarCommentRuntime,
+} from "./mount";
+export {
   getBrowserSidebarAnchorViewportRect,
   getBrowserSidebarBoundingRect,
   getBrowserSidebarTextSelectionViewportRects,
@@ -248,6 +254,20 @@ export type {
   BrowserSidebarScreenshotAnnotation,
   BrowserSidebarScreenshotAnnotationBase,
 } from "./screenshot";
+export type {
+  BrowserSidebarAnnotationMode,
+  BrowserSidebarComment,
+  BrowserSidebarEditorTarget,
+  BrowserSidebarHostMessage,
+  BrowserSidebarInteractionMode,
+  BrowserSidebarIntlConfig,
+  BrowserSidebarRuntimeController,
+  BrowserSidebarRuntimeHost,
+  BrowserSidebarRuntimeMessage,
+  BrowserSidebarRuntimeState,
+  BrowserSidebarRuntimeSyncMessage,
+  BrowserSidebarViewportPoint,
+} from "./mount";
 export type {
   BrowserSidebarAnchorState,
   BrowserSidebarCommentItem,

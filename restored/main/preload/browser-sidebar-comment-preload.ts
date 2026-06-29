@@ -1,70 +1,16 @@
 // Restored from ref/.vite/build/comment-preload.js
 // Browser sidebar comment preload: IPC bridge, host message queue, and navigation hooks.
 import { contextBridge, ipcRenderer } from "electron";
-import { BrowserSidebarDocumentContextResolver } from "./browser-sidebar-comment-runtime";
-
-type BrowserSidebarInteractionMode = "browse" | "comment";
-type BrowserSidebarAnnotationMode = "comment" | "design";
+import {
+  BrowserSidebarDocumentContextResolver,
+  mountBrowserSidebarCommentRuntime,
+  type BrowserSidebarHostMessage,
+  type BrowserSidebarRuntimeController,
+  type BrowserSidebarRuntimeHost,
+  type BrowserSidebarRuntimeMessage,
+  type BrowserSidebarRuntimeState,
+} from "./browser-sidebar-comment-runtime";
 type BrowserSidebarHistoryDirection = "back" | "forward";
-
-type BrowserSidebarComment = Record<string, unknown> & { id: string };
-type IntlConfig = {
-  defaultLocale: string;
-  locale: string;
-  messages: Record<string, string>;
-};
-type BrowserSidebarRuntimeState = {
-  interactionMode: BrowserSidebarInteractionMode;
-  annotationEditorMode: BrowserSidebarAnnotationMode;
-  isAgentControllingBrowser: boolean;
-  canUseTweaks: boolean;
-  isDesignModifierPressed: boolean;
-  isTweaksEditorOpen: boolean;
-  comments: BrowserSidebarComment[];
-  intlConfig: IntlConfig;
-  viewportScale: number;
-  zoomPercent: number;
-};
-type BrowserSidebarHostMessage =
-  | ({
-      type: "browser-sidebar-runtime-sync";
-    } & Partial<BrowserSidebarRuntimeState>)
-  | {
-      type: "browser-sidebar-runtime-history-shortcuts";
-      backAccelerators: string[];
-      forwardAccelerators: string[];
-    }
-  | { type: "browser-sidebar-runtime-capture-text-selection" }
-  | { type: "browser-sidebar-runtime-close-editor" }
-  | {
-      type: "browser-sidebar-runtime-prepare-comment-screenshot";
-      commentId: string;
-    }
-  | { type: "browser-sidebar-runtime-clear-comment-screenshot" }
-  | {
-      type:
-        | "browser-sidebar-runtime-select-comment"
-        | "browser-sidebar-runtime-create-comment-at-point"
-        | "browser-sidebar-runtime-create-comment-from-selection"
-        | "browser-sidebar-runtime-open-design-editor-at-point"
-        | "browser-sidebar-runtime-restore-editor"
-        | "browser-sidebar-runtime-design-scrub-changed";
-      [key: string]: unknown;
-    };
-type BrowserSidebarRuntimeMessage = Record<string, unknown> & { type: string };
-type BrowserSidebarRuntimeHost = {
-  initialState: BrowserSidebarRuntimeState;
-  createDocumentContextResolver(
-    pageUrl: string,
-  ): BrowserSidebarDocumentContextResolver;
-  sendMessageToHost(message: BrowserSidebarRuntimeMessage): void;
-  subscribeToHostMessages(
-    listener: (message: BrowserSidebarHostMessage) => void,
-  ): () => void;
-};
-type BrowserSidebarRuntimeController = {
-  dispose?(): void;
-};
 
 const VIEW_MESSAGE_CHANNEL = "codex_desktop:message-for-view";
 const RUNTIME_MESSAGE_CHANNEL = "codex_desktop:browser-sidebar-runtime-message";
@@ -144,33 +90,6 @@ function installDomHooks(): void {
 
 function mountRuntimeOnce(): void {
   runtimeController ??= mountBrowserSidebarCommentRuntime(createRuntimeHost());
-}
-
-function mountBrowserSidebarCommentRuntime(
-  host: BrowserSidebarRuntimeHost,
-): BrowserSidebarRuntimeController {
-  const runtime = (
-    globalThis as typeof globalThis & {
-      __codexBrowserSidebarCommentRuntime?: {
-        mountBrowserSidebarCommentRuntime?: (
-          host: BrowserSidebarRuntimeHost,
-        ) => BrowserSidebarRuntimeController;
-      };
-    }
-  ).__codexBrowserSidebarCommentRuntime;
-  const mount = runtime?.mountBrowserSidebarCommentRuntime;
-  if (typeof mount === "function") return mount(host);
-  return mountOpenRuntimeBoundary(host);
-}
-
-function mountOpenRuntimeBoundary(
-  host: BrowserSidebarRuntimeHost,
-): BrowserSidebarRuntimeController {
-  void host;
-  console.warn(
-    "Codex browser sidebar comment overlay UI remains an open restoration boundary.",
-  );
-  return {};
 }
 
 function createRuntimeHost(): BrowserSidebarRuntimeHost {
@@ -255,6 +174,7 @@ function updateRuntimeState(
   message: Partial<BrowserSidebarRuntimeState>,
 ): void {
   runtimeState = {
+    activeDesignChange: message.activeDesignChange,
     interactionMode: message.interactionMode ?? runtimeState.interactionMode,
     annotationEditorMode: message.annotationEditorMode ?? "comment",
     isAgentControllingBrowser:
@@ -262,6 +182,7 @@ function updateRuntimeState(
       runtimeState.isAgentControllingBrowser,
     canUseTweaks: message.canUseTweaks !== false,
     isDesignModifierPressed: message.isDesignModifierPressed === true,
+    isOriginalViewEnabled: message.isOriginalViewEnabled === true,
     isTweaksEditorOpen: message.isTweaksEditorOpen === true,
     comments: message.comments ?? runtimeState.comments,
     intlConfig: message.intlConfig ?? runtimeState.intlConfig,
