@@ -26,4 +26,7 @@ export function CodexMobileSetupQueriesIcon(props: IconProps) {
     </svg>
   );
 }
+
+export function initCodexMobileSetupQueriesIconChunk(): void {}
+
 export default CodexMobileSetupQueriesIcon;

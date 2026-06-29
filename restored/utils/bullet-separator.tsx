@@ -18,3 +18,5 @@ export function BulletSeparator({
     </span>
   );
 }
+
+export function initBulletSeparatorChunk(): void {}

@@ -72,3 +72,5 @@ export function avatarOverlayAnalytics({
   }
   return payload;
 }
+
+export function initAvatarOverlayAnalyticsChunk(): void {}
