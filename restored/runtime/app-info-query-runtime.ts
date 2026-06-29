@@ -1,11 +1,9 @@
 // Restored from ref/webview/assets/app-initial~app-main~personalization-settings~appearance-settings~general-settings-DCerg-br.js
 // App info query signal backed by the app-host service bridge.
 import {
-  Ao as initScopeRuntimeRaw,
-  Ts as createQuerySignalFamilyRaw,
-  g as initQueryDurationConstantsRaw,
-  h as queryDurations,
-} from "../../ref/webview/assets/app-initial~app-main~worktree-init-v2-page~remote-conversation-page~new-thread-panel-page~o~dv5z3ftk-BhBbJNnt.js";
+  initQueryDurationConstants,
+  queryDurations,
+} from "./host-query-runtime";
 import {
   appHostServices,
   initAppHostServicesRuntimeChunk,
@@ -14,6 +12,10 @@ import {
   appScopeRoot,
   initSharedObjectAppScopeRoot,
 } from "./shared-object-host-runtime";
+import {
+  createQuerySignal,
+  initScopeRuntimeChunk,
+} from "./scope-signal-runtime";
 
 export type AppInfoQueryResult = Awaited<
   ReturnType<typeof appHostServices.appInfo.get>
@@ -22,12 +24,12 @@ export type AppInfoQueryResult = Awaited<
 export let appInfoQuerySignal: unknown;
 
 export function initAppInfoQueryRuntime(): void {
-  initScopeRuntimeRaw();
+  initScopeRuntimeChunk();
   initAppHostServicesRuntimeChunk();
   initSharedObjectAppScopeRoot();
-  initQueryDurationConstantsRaw();
+  initQueryDurationConstants();
 
-  appInfoQuerySignal ??= createQuerySignalFamilyRaw(appScopeRoot, () => ({
+  appInfoQuerySignal ??= createQuerySignal(appScopeRoot, () => ({
     queryKey: ["app-info"],
     queryFn: () => appHostServices.appInfo.get(),
     staleTime: queryDurations.INFINITE,
