@@ -113,18 +113,18 @@ function installGlobalErrorForwarders(): void {
 
 const initAppMainChunk = once(() => {
   initRegisterAppActionsChunk();
-  initAppHostServicesRuntimeChunk();
-  initAppFallbackChunk();
   initErrorBoundaryRuntimeChunk();
+  initAppFallbackChunk();
+  initAppFeatureRuntimeChunk();
   initPublicationTermsHandlerRegistryChunk();
   initPublicationTermsSidePanelHandlerChunk();
   initAutomationsRuntimeChunk();
-  initAppLoggingChunk();
-  initAutomationsStateChunk();
   initAppRuntimeChunk();
+  initAutomationsStateChunk();
+  initAppHostServicesRuntimeChunk();
   initRendererSentryRuntimeChunk();
   initCodexAppChunk();
-  initAppFeatureRuntimeChunk();
+  initAppLoggingChunk();
   initEmptyAppChunk();
 
   const urlSearchParams = new URL(window.location.href).searchParams;
