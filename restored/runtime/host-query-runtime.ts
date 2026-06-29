@@ -2,10 +2,7 @@
 // Host-query hook and shared query duration constants.
 import * as React from "react";
 
-import {
-  fu as initTaskWorkspaceQueryRuntime,
-  pu as useDebouncedValueRaw,
-} from "../vendor/pull-request-thread-actions-runtime";
+import { useDebouncedValue as useDebouncedValueHook } from "../utils/use-debounced-value";
 import { createQueryKey } from "./app-server-mutation-runtime";
 import {
   initReactQueryRuntimeChunk,
@@ -79,7 +76,7 @@ export function initHostQueryRuntime(): void {
 export function initQueryDurationConstants(): void {}
 
 export function initTaskWorkspaceHostQueryRuntime(): void {
-  initTaskWorkspaceQueryRuntime();
+  initHostQueryRuntime();
 }
 
 export function createHostQuerySignal<
@@ -110,7 +107,7 @@ export function useDebouncedValue<TValue>(
   value: TValue,
   delayMs: number,
 ): TValue {
-  return useDebouncedValueRaw(value, delayMs) as TValue;
+  return useDebouncedValueHook(value, delayMs);
 }
 
 function useStableHostQueryOptions<TData = unknown, TResult = TData>(
