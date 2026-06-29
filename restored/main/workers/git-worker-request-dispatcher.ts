@@ -23,10 +23,12 @@ import {
   readConfigValueForScope,
   readSubmodulePaths,
 } from "./git-worker-config-queries";
+import { readCurrentBranch } from "./git-worker-current-branch";
 import { readBranchDiffStats } from "./git-worker-diff-stats";
 import { readGitOrigins } from "./git-worker-origin-queries";
 import { readStableMetadata } from "./git-worker-repo-queries";
 import { readIndexInfo, readStatusSummary } from "./git-worker-status-queries";
+import { readSyncedBranch } from "./git-worker-synced-branch";
 import { runGitCommand } from "./git-worker-commands";
 import type { RpcResult } from "./worker-main-rpc-client";
 import { toRpcError } from "./worker-runtime-utils";
@@ -342,6 +344,16 @@ export class GitWorkerRequestDispatcher {
           }),
         );
       }
+      case "synced-branch": {
+        const params = requireRecordParams(request);
+        return ok(
+          await readSyncedBranch({
+            cwd: requireStringParam(params, "cwd"),
+            host: context.host,
+            signal: context.signal,
+          }),
+        );
+      }
       case "status-summary": {
         const params = requireRecordParams(request);
         return ok(
@@ -424,36 +436,6 @@ export class GitWorkerRequestDispatcher {
 
 function ok(value: unknown): RpcResult {
   return { type: "ok", value };
-}
-
-async function readCurrentBranch(
-  host: WorkerExecutionHostClient,
-  root: string,
-  signal: AbortSignal,
-): Promise<string | null> {
-  const branchResult = await runGitCommand({
-    args: ["rev-parse", "--abbrev-ref", "HEAD"],
-    cwd: root,
-    host,
-    signal,
-  });
-  if (
-    branchResult.success &&
-    branchResult.stdout &&
-    branchResult.stdout !== "HEAD"
-  ) {
-    return branchResult.stdout;
-  }
-
-  const symbolicHeadResult = await runGitCommand({
-    args: ["symbolic-ref", "--quiet", "--short", "HEAD"],
-    cwd: root,
-    host,
-    signal,
-  });
-  return symbolicHeadResult.success && symbolicHeadResult.stdout
-    ? symbolicHeadResult.stdout
-    : null;
 }
 
 async function readRecentBranches({
