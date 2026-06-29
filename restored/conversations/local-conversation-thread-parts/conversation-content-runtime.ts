@@ -13,8 +13,8 @@ import {
   qo as diffSourceSignal,
   u as localConversationMessages,
   Mv as isRenderableConversationTurnRaw,
-  fh as initGitActionDirectiveRuntime,
-  ph as parseGitActionDirectivesRaw,
+  pa as initGitActionDirectiveRuntime,
+  ma as parseGitActionDirectivesRaw,
 } from "../../vendor/projects-app-shared-runtime";
 import {
   it as initConversationTurnRendererChunkRaw,
