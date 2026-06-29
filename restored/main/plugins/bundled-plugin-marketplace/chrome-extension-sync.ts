@@ -31,6 +31,51 @@ export type ApplyChromeExtensionSyncInput = ChromeExtensionSyncInput & {
   uninstallPlugin(pluginId: string): Promise<void> | void;
 };
 
+export function requireChromeExtensionSyncManagedPluginStore(
+  chromeExtensionSyncManagedPluginStore:
+    | ChromeExtensionManagedPluginStore
+    | null
+    | undefined,
+): ChromeExtensionManagedPluginStore {
+  if (chromeExtensionSyncManagedPluginStore == null) {
+    throw Error("Missing Chrome extension sync managed plugin store.");
+  }
+  return chromeExtensionSyncManagedPluginStore;
+}
+
+export async function readChromeExtensionSyncManagedPluginIds({
+  chromeExtensionSyncManagedPluginStore,
+  logger,
+}: {
+  chromeExtensionSyncManagedPluginStore?: ChromeExtensionManagedPluginStore | null;
+  logger: StructuredLogger;
+}): Promise<Set<string>> {
+  const managedPluginIds = requireChromeExtensionSyncManagedPluginStore(
+    chromeExtensionSyncManagedPluginStore,
+  ).getManagedPluginIds();
+
+  logger.info("bundled_plugins_chrome_extension_sync_marker_read", {
+    safe: { managedPluginCount: managedPluginIds.size },
+    sensitive: {},
+  });
+
+  return managedPluginIds;
+}
+
+export async function writeChromeExtensionSyncManagedPluginMarker({
+  chromeExtensionSyncManagedPluginStore,
+  managed,
+  pluginId,
+}: {
+  chromeExtensionSyncManagedPluginStore?: ChromeExtensionManagedPluginStore | null;
+  managed: boolean;
+  pluginId: string;
+}): Promise<void> {
+  requireChromeExtensionSyncManagedPluginStore(
+    chromeExtensionSyncManagedPluginStore,
+  ).setManagedPluginId(pluginId, managed);
+}
+
 export function decideChromeExtensionSync({
   installedPlugin,
   isExtensionInstalled,

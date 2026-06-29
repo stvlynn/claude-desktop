@@ -43,6 +43,39 @@ export function requireChromeNativeHostResourcesPath(
   return resourcesPath;
 }
 
+export async function restoreBundledPluginEnabledConfig({
+  appServerConnection,
+  enabled,
+  pluginId,
+}: {
+  appServerConnection: {
+    sendAppServerRequest(
+      method: "config/batchWrite",
+      payload: {
+        edits: {
+          keyPath: string;
+          mergeStrategy: "upsert";
+          value: boolean;
+        }[];
+        reloadUserConfig: boolean;
+      },
+    ): Promise<unknown> | unknown;
+  };
+  enabled: boolean;
+  pluginId: string;
+}): Promise<void> {
+  await appServerConnection.sendAppServerRequest("config/batchWrite", {
+    edits: [
+      {
+        keyPath: `plugins.${pluginId}.enabled`,
+        mergeStrategy: "upsert",
+        value: enabled,
+      },
+    ],
+    reloadUserConfig: true,
+  });
+}
+
 export async function cleanupDisabledInstalledBundledPlugins({
   appServerConnection,
   chromeExtensionSyncManagedPluginStore,
