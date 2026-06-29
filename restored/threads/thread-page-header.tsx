@@ -68,3 +68,5 @@ export function ThreadPageHeader({
     </div>
   );
 }
+
+export function initThreadPageHeaderChunk(): void {}

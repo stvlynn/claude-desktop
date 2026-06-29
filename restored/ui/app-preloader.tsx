@@ -4,7 +4,8 @@ import { LoadingPage } from "../ui/loading-page";
 type AppPreloaderProps = {
   debugName?: string;
 };
-function AppPreloader({ debugName }: AppPreloaderProps) {
+export function AppPreloader({ debugName }: AppPreloaderProps) {
   return <LoadingPage debugName={debugName} />;
 }
-export { AppPreloader };
+
+export function initAppPreloaderChunk(): void {}

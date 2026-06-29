@@ -19,3 +19,5 @@ export function useRegisterToggleSidebarCommand(): void {
   useRegisterCommand("toggleSidebar", toggleSidebar);
   vscodeApiP("toggle-sidebar", toggleSidebar, [appScopeStore]);
 }
+
+export function initToggleSidebarCommandChunk(): void {}

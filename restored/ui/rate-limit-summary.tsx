@@ -243,6 +243,9 @@ export function RateLimitSummary({
     </DropdownSubmenuItem>
   );
 }
+
+export function initRateLimitSummaryChunk(): void {}
+
 function RateLimitEntrySummary({
   rateLimit,
   limitName,

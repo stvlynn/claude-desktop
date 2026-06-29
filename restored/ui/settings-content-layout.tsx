@@ -10,6 +10,8 @@ import {
   type ReactNode,
   type Ref,
 } from "react";
+
+import { once } from "../runtime/commonjs-interop";
 type SettingsContentNavigationTarget = {
   navigationKey: unknown;
   targetId: string;
@@ -156,3 +158,5 @@ export function SettingsContentLayout({
     </div>
   );
 }
+
+export const initSettingsContentLayoutChunk = once(() => {});

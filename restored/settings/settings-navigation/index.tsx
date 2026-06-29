@@ -3,8 +3,12 @@
 import { activeSettingsRouteSignal } from "./active-settings-route";
 import { SettingsNavRow } from "./nav-row";
 import { SettingsNavSection } from "./nav-section";
-import { useRegisterToggleSidebarCommand } from "./sidebar-command";
+import {
+  initToggleSidebarCommandChunk,
+  useRegisterToggleSidebarCommand,
+} from "./sidebar-command";
 export {
+  initToggleSidebarCommandChunk,
   useRegisterToggleSidebarCommand,
   SettingsNavRow,
   SettingsNavSection,
