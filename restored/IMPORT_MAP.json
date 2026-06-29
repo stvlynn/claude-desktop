@@ -25904,17 +25904,19 @@
     "app-initial~app-main~remote-conversation-page~local-conversation-page-Dj0nNLPv": {
       "restored": "runtime/current-app-initial/remote-local-conversation-runtime.ts",
       "exports": {
-        "a": "RemoteLocalConversationExportLowerAAlias",
-        "i": "RemoteLocalConversationExportLowerIAlias",
-        "n": "RemoteLocalConversationExportLowerNAlias",
-        "o": "RemoteLocalConversationExportLowerOAlias",
-        "r": "RemoteLocalConversationExportLowerRAlias",
-        "t": "RemoteLocalConversationExportLowerTAlias"
+        "a": "ThreadFindBar",
+        "i": "useRegisterToggleDiffPanelCommand",
+        "n": "initLocalConversationDiffSummaryEffectsChunk",
+        "o": "initThreadFindBarChunk",
+        "r": "initThreadPanelCommandHooksChunk",
+        "t": "LocalConversationDiffSummaryView"
       },
       "status": "done",
-      "note": "Current ref remote/local conversation runtime restored as a semantic alias layer over boundaries/current-ref/current-app-initial-remote-local-conversation-runtime-producer.ts.",
+      "note": "Current ref remote/local conversation runtime restored via split thread find bar UI/bridge, diff-panel command hook, and local conversation diff summary effects.",
       "stage3Accepted": true,
-      "lastUpdated": "2026-06-29T19:53:12.718Z"
+      "stage3AcceptedAt": "2026-06-29T23:59:00.000Z",
+      "stage3Review": "Host self-review: mapped source exports $t/tn/un/en/rn/an to semantic ThreadFindBar, toggle-diff command hook, initializer, and diff summary effects; quality-gate, formatting, and per-file Bun transpile checks passed.",
+      "lastUpdated": "2026-06-29T23:59:00.000Z"
     },
     "app-initial~app-main~worktree-init-v2-page~appgen-settings-page~appgen-publication-terms-ro~g0k1g2bt-B6jrUW_u": {
       "restored": "runtime/current-app-initial/appgen-settings-publication-runtime.ts",
