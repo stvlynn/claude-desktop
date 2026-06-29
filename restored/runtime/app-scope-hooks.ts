@@ -2,11 +2,11 @@
 // React hooks for reading values from the app-scope signal runtime.
 import type { ComponentType, ReactNode } from "react";
 import {
-  FB as useScopeRaw,
-  IB as useSignalValueRaw,
-  MB as ScopeValueProviderRaw,
-  PB as useScopedValueRaw,
-} from "../vendor/appg-thread-shared-runtime";
+  Mo as ScopeValueProviderRaw,
+  Fo as useScopeRaw,
+  Io as useSignalValueRaw,
+  Po as useScopedValueRaw,
+} from "../../ref/webview/assets/app-initial~app-main~worktree-init-v2-page~remote-conversation-page~new-thread-panel-page~o~dv5z3ftk-BhBbJNnt.js";
 
 export type ScopeValueProviderProps = {
   children?: ReactNode;
@@ -29,7 +29,9 @@ export function useScopedValue<TValue = unknown>(
   signal: unknown,
   key?: unknown,
 ): TValue {
-  return (arguments.length === 1
-    ? useScopedValueRaw(signal)
-    : useScopedValueRaw(signal, key)) as TValue;
+  return (
+    arguments.length === 1
+      ? useScopedValueRaw(signal)
+      : useScopedValueRaw(signal, key)
+  ) as TValue;
 }
