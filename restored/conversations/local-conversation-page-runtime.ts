@@ -136,11 +136,11 @@ import {
   syncReviewPanelForRestoredSource,
 } from "./pull-request-review-panel-actions";
 import {
-  Io as initConnectorAppsListQuery,
-  Rn as useCommandRegistration,
-  li as ProjectAvatar,
-  zo as useAppsQuery,
-} from "../vendor/pull-request-thread-actions-runtime";
+  initConnectorAppsRuntime as initConnectorAppsListQuery,
+  useAppsQuery,
+} from "../runtime/connector-apps-runtime";
+import { useCommandRegistration } from "../runtime/command-registration-runtime";
+import { ProjectAvatar } from "../boundaries/current-ref/project-hover-card-producer";
 
 export {
   activeHostIdSignal,
