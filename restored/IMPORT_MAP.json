@@ -14104,6 +14104,44 @@
       "note": "Current wrapper calls initPendingWorktreeChunk and re-exports PendingWorktreeConversation as WorktreeInitPage.",
       "lastUpdated": "2026-06-29T00:00:00.000Z"
     },
+    "avatar-overlay-debug-state-CYRwsB2Y": {
+      "restored": "utils/avatar-overlay-debug-state.ts",
+      "exports": {
+        "n": "initAvatarOverlayDebugStateChunk",
+        "t": "avatarOverlayResizeButtonHiddenSignal"
+      },
+      "status": "done",
+      "aliasOf": "avatar-overlay-debug-state-Bc374YAh",
+      "note": "Current avatar overlay debug state chunk keeps the restored persistent resize-button signal surface.",
+      "lastUpdated": "2026-06-29T00:00:00.000Z"
+    },
+    "pet-install-state-4FjnwCnv": {
+      "restored": "features/pet-install-state.ts",
+      "exports": {
+        "a": "startPetInstallSession",
+        "i": "petInstallSession$",
+        "n": "initPetInstallStateChunk",
+        "r": "installPet",
+        "t": "closePetInstallSession"
+      },
+      "status": "done",
+      "aliasOf": "pet-install-state-DNnY2nH8",
+      "note": "Current pet install producer keeps the restored preview/install state machine export surface.",
+      "lastUpdated": "2026-06-29T00:00:00.000Z"
+    },
+    "pet-install-state-B2ZK4vzU": {
+      "restored": "features/pet-install-state-entry.ts",
+      "exports": {
+        "closePetInstallSession": "closePetInstallSession",
+        "installPet": "installPet",
+        "petInstallSession$": "petInstallSession$",
+        "startPetInstallSession": "startPetInstallSession"
+      },
+      "status": "done",
+      "aliasOf": "pet-install-state-DJxALilf",
+      "note": "Current pet install wrapper calls initPetInstallStateChunk before re-exporting the public API.",
+      "lastUpdated": "2026-06-29T00:00:00.000Z"
+    },
     "address-utils-CS84EMiz": {
       "restored": "vendor/xlsx-address-utils.ts",
       "exports": {
