@@ -29,6 +29,7 @@ import {
   searchBranches,
 } from "./git-worker-branch-search";
 import { readCatFile } from "./git-worker-cat-file";
+import { applyChangesToDestination } from "./git-worker-apply-changes";
 import {
   readConfigValueForScope,
   readSubmodulePaths,
@@ -579,6 +580,22 @@ export class GitWorkerRequestDispatcher {
           await cleanupHostHandoffTransfer({
             host: context.host,
             rolloutPath: requireStringParam(params, "rolloutPath"),
+          }),
+        );
+      }
+      case "apply-changes": {
+        const params = requireRecordParams(request);
+        return ok(
+          await applyChangesToDestination({
+            destinationHeadRef: requireStringParam(
+              params,
+              "destinationHeadRef",
+            ),
+            destinationRoot: requireStringParam(params, "destinationRoot"),
+            host: context.host,
+            signal: context.signal,
+            sourceHeadRef: requireStringParam(params, "sourceHeadRef"),
+            sourceTreeRef: requireStringParam(params, "sourceTreeRef"),
           }),
         );
       }
