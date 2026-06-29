@@ -7,12 +7,12 @@ import {
   Ec as initEnvironmentTerminalSessionHelpersRaw,
   Es as initWorkspaceRouteStateHelpersRaw,
   Gl as conversationDisplayTitleSignal,
-  js as environmentTerminalControllerSignal,
   kc as diffStatsSignal,
   So as initWorkspaceRouteHelpersRaw,
   Wl as initConversationDisplayTitleSignalsRaw,
-  wo as isCompactWindow,
 } from "../../vendor/projects-app-shared-runtime";
+import { isCurrentCompactWindow } from "../../features/is-compact-window-context";
+import { environmentTerminalControllerSignal } from "../../runtime/environment-terminal-runtime";
 import {
   El as initSummaryPanelPullRequestControlsChunkRaw,
   Tl as SummaryPanelPullRequestControls,
@@ -32,12 +32,15 @@ export {
   diffStatsSignal,
   environmentTerminalControllerSignal,
   getConversationRemoteState,
-  isCompactWindow,
   LocalRemoteDropdown,
   openEnvironmentTerminalSession,
   shouldShowThreadHandoffInSummary,
   SummaryPanelPullRequestControls,
 };
+
+export function isCompactWindow(): boolean {
+  return isCurrentCompactWindow();
+}
 
 export function initThreadSummaryEnvironmentRuntime(): void {
   initSummaryPanelPullRequestControlsChunkRaw();
