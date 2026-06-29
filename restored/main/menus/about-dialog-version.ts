@@ -1,4 +1,4 @@
-// Restored from ref/.vite/build/main-r5HnecX_.js
+// Restored from ref/.vite/build/main-Cfnoc8EH.js
 // Version and release-date formatting used by the native About dialog.
 
 type SemanticVersionParts = {

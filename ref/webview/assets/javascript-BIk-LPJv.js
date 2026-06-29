@@ -1,3 +1,0 @@
-import { n as e, t } from "./javascript-BDZDk5xA.js";
-t();
-export { e as default };

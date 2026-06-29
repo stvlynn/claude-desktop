@@ -1,4 +1,4 @@
-// Restored from ref/.vite/build/main-r5HnecX_.js
+// Restored from ref/.vite/build/main-Cfnoc8EH.js
 // Runtime-path logging and Node version probing.
 
 import { execFile as execFileCallback } from "node:child_process";

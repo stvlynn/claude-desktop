@@ -1,4 +1,4 @@
-// Restored from ref/.vite/build/main-r5HnecX_.js
+// Restored from ref/.vite/build/main-Cfnoc8EH.js
 // Browser Use PiP helper types.
 
 export type BrowserUsePipBackend = "cdp" | "chrome" | "iab";

@@ -1,4 +1,4 @@
-// Restored from ref/.vite/build/main-r5HnecX_.js
+// Restored from ref/.vite/build/main-Cfnoc8EH.js
 // Host-side worker RPC handler for the managed Computer Use capture service.
 
 import { unsupportedWorkerMainRpcMethod } from "./responses";

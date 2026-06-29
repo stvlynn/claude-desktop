@@ -1,4 +1,4 @@
-// Restored from ref/.vite/build/main-r5HnecX_.js
+// Restored from ref/.vite/build/main-Cfnoc8EH.js
 // Minimal CBOR encoder used for DeviceCheck token envelopes.
 
 export function encodeUtf8Text(value: string): Buffer {

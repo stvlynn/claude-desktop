@@ -1,4 +1,4 @@
-// Restored from ref/.vite/build/main-r5HnecX_.js
+// Restored from ref/.vite/build/main-Cfnoc8EH.js
 // Computer Use overlay config constants.
 
 export const COMPUTER_USE_CONFIG_DIRECTORY = "computer-use";

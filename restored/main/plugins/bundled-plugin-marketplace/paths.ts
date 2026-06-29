@@ -1,4 +1,4 @@
-// Restored from ref/.vite/build/main-r5HnecX_.js
+// Restored from ref/.vite/build/main-Cfnoc8EH.js
 // Safe path helpers for bundled plugin cache roots.
 
 import * as pathModule from "node:path";

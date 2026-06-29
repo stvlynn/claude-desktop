@@ -1,4 +1,4 @@
-// Restored from ref/.vite/build/main-r5HnecX_.js
+// Restored from ref/.vite/build/main-Cfnoc8EH.js
 // Computer Use config.toml cleanup after migrating local plugin installs.
 
 import { readFile, writeFile } from "node:fs/promises";

@@ -1,4 +1,4 @@
-// Restored from ref/.vite/build/main-r5HnecX_.js
+// Restored from ref/.vite/build/main-Cfnoc8EH.js
 // Windows PowerShell fallback for native desktop app icon extraction.
 
 import { promisify } from "node:util";

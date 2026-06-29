@@ -1,4 +1,4 @@
-// Restored from ref/.vite/build/main-r5HnecX_.js
+// Restored from ref/.vite/build/main-Cfnoc8EH.js
 // Main worker app-event bus and worker invocation sampler.
 
 export class WorkerInvocationSampler {

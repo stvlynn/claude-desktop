@@ -1,0 +1,4 @@
+// Restored from ref/webview/assets/app-initial~app-main~worktree-init-v2-page~remote-conversation-page~onboarding-page~hotkey-~h422e2ym-Dd6oN7BA.js
+// Semantic alias layer for conversation title and platform icon runtime.
+// prettier-ignore
+export { a as ConversationTitlePlatformIconExportLowerAAlias, c as ConversationTitlePlatformIconExportLowerCAlias, i as ConversationTitlePlatformIconExportLowerIAlias, l as ConversationTitlePlatformIconExportLowerLAlias, n as ConversationTitlePlatformIconExportLowerNAlias, o as ConversationTitlePlatformIconExportLowerOAlias, r as ConversationTitlePlatformIconExportLowerRAlias, s as ConversationTitlePlatformIconExportLowerSAlias, t as ConversationTitlePlatformIconExportLowerTAlias } from "../../boundaries/current-ref/current-app-initial-conversation-title-platform-icon-runtime-producer";

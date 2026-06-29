@@ -1,8 +1,8 @@
-// Restored from ref/.vite/build/main-r5HnecX_.js
+// Restored from ref/.vite/build/main-Cfnoc8EH.js
 // Current bundled marketplace content identity constants.
 
 export const BUNDLED_MARKETPLACE_CONTENT_HASHES = [
-  "59e7bb81812ddd5f102e1d580335166e552c91686b5726218a985b59b4f89ca1",
+  "d5cbb8ec1ee520cba7943b1e1accb6b25acd9941ea4e2e9e4dbcf25ff9983a2d",
 ] as const;
 
 export const DEFAULT_BUNDLED_MARKETPLACE_NAME = "openai-bundled";

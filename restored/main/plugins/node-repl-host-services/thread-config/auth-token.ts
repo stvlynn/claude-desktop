@@ -1,4 +1,4 @@
-// Restored from ref/.vite/build/main-r5HnecX_.js
+// Restored from ref/.vite/build/main-Cfnoc8EH.js
 // Sentry user-id extraction from cached auth tokens.
 
 export function extractSentryUserIdFromAuthToken(

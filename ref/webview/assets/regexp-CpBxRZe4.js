@@ -1,3 +1,0 @@
-import { n as e, t } from "./regexp-CiMOjVJH.js";
-t();
-export { e as default };

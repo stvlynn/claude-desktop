@@ -1,4 +1,4 @@
-// Restored from ref/.vite/build/main-r5HnecX_.js
+// Restored from ref/.vite/build/main-Cfnoc8EH.js
 // Windows Computer Use notify config installer/repairer.
 
 import { mkdir, readFile, writeFile } from "node:fs/promises";

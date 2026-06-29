@@ -1,4 +1,4 @@
-// Restored from ref/.vite/build/main-r5HnecX_.js
+// Restored from ref/.vite/build/main-Cfnoc8EH.js
 // Browser/Computer Use thread config for node_repl.
 
 import { createComputerUseServiceEnvironment } from "../../computer-use-native-pipe/env";

@@ -1,4 +1,4 @@
-// Restored from ref/.vite/build/main-r5HnecX_.js
+// Restored from ref/.vite/build/main-Cfnoc8EH.js
 // Startup telemetry helpers for launch logging and phase timing.
 
 type StructuredLogDetails = {

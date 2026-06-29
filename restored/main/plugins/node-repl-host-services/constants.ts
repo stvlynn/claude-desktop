@@ -1,4 +1,4 @@
-// Restored from ref/.vite/build/main-r5HnecX_.js
+// Restored from ref/.vite/build/main-Cfnoc8EH.js
 // Environment constants for node_repl browser/computer-use host services.
 
 export const NODE_REPL_HOST_SERVICES_PIPE_PATH_ENV =

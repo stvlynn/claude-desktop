@@ -1,7 +1,7 @@
 const e = require(`./src-BZqs_tzA.js`),
-  t = require(`./src-C3H9d_bd.js`),
-  n = require(`./file-based-logger-7hbAyAYH.js`),
-  r = require(`./workspace-root-drop-handler-DbDnwAf_.js`);
+  t = require(`./src-CoIhwwHr.js`),
+  n = require(`./file-based-logger-DZ6052-3.js`),
+  r = require(`./workspace-root-drop-handler-DeLi4ACJ.js`);
 let i = require(`electron`),
   a = require(`node:path`);
 a = e.o(a);
@@ -56,7 +56,7 @@ async function y({
     );
   } catch (e) {
     return (
-      t.ei().warning(`Failed to show Intel-on-Apple-Silicon launch warning`, {
+      t.ti().warning(`Failed to show Intel-on-Apple-Silicon launch warning`, {
         safe: { errorName: e instanceof Error ? e.name : null },
       }),
       !0
@@ -68,7 +68,7 @@ function b() {
     return (
       (0, c.execFileSync)(`sysctl`, [`-in`, `sysctl.proc_translated`], {
         encoding: `utf8`,
-        env: t.Qr(process.env),
+        env: t.$r(process.env),
         stdio: [`ignore`, `pipe`, `ignore`],
       }).trim() === `1`
     );
@@ -113,7 +113,7 @@ function S({ buildFlavor: e, env: t }) {
 function C({ appDataPath: e, buildFlavor: n, env: r }) {
   let i = r.CODEX_ELECTRON_USER_DATA_PATH?.trim();
   if (i) return (0, a.resolve)(i);
-  let o = (0, a.join)(e, t.Ca(n)),
+  let o = (0, a.join)(e, t.wa(n)),
     s = r.CODEX_ELECTRON_AGENT_RUN_ID?.trim() || null;
   return n === `agent` && s != null ? (0, a.join)(o, `agent`, s) : o;
 }
@@ -122,14 +122,14 @@ var w = `pending-source-dmg-cleanup.json`,
   E = 250,
   D = (0, o.promisify)(c.execFile),
   ee = t
-    .Yc({
+    .Xc({
       images: t
-        .Hc(
+        .Uc(
           t
-            .Yc({
-              "image-path": t.Qc().optional(),
+            .Xc({
+              "image-path": t.$c().optional(),
               "system-entities": t
-                .Hc(t.Yc({ "mount-point": t.Qc().optional() }).passthrough())
+                .Uc(t.Xc({ "mount-point": t.$c().optional() }).passthrough())
                 .optional(),
             })
             .passthrough(),
@@ -137,7 +137,7 @@ var w = `pending-source-dmg-cleanup.json`,
         .optional(),
     })
     .passthrough(),
-  te = t.Yc({ sourceDmgPath: t.Qc() }).passthrough();
+  te = t.Xc({ sourceDmgPath: t.$c() }).passthrough();
 async function ne({
   clearPendingSourceDmgPath: e = V,
   copyAppBundleToApplicationsFolder: n = A,
@@ -191,7 +191,7 @@ async function ne({
   } catch (n) {
     return (
       e(),
-      t.ei().warning(`Failed to install app in Applications folder`, {
+      t.ti().warning(`Failed to install app in Applications folder`, {
         safe: { errorType: n instanceof Error ? n.name : typeof n },
       }),
       await S.setStatus(`failed`),
@@ -204,7 +204,7 @@ function re({ getCurrentAppBundlePath: e }) {
     if (`isInApplicationsFolder` in i.app)
       return i.app.isInApplicationsFolder();
   } catch (e) {
-    t.ei().warning(`Failed to check app Applications folder status`, {
+    t.ti().warning(`Failed to check app Applications folder status`, {
       safe: { errorType: e instanceof Error ? e.name : typeof e },
     });
   }
@@ -249,7 +249,7 @@ async function A(e) {
   } catch (e) {
     return (
       P(r),
-      t.ei().warning(`Failed to copy app bundle to Applications folder`, {
+      t.ti().warning(`Failed to copy app bundle to Applications folder`, {
         safe: { errorType: e instanceof Error ? e.name : typeof e },
       }),
       null
@@ -261,7 +261,7 @@ async function j(e) {
     return (i.app.releaseSingleInstanceLock(), await D(`open`, [`-n`, e]), !0);
   } catch (e) {
     return (
-      t.ei().warning(`Failed to launch installed app bundle`, {
+      t.ti().warning(`Failed to launch installed app bundle`, {
         safe: { errorType: e instanceof Error ? e.name : typeof e },
       }),
       !1
@@ -332,7 +332,7 @@ function P(e) {
   try {
     s.rmSync(e, { force: !0, recursive: !0 });
   } catch (e) {
-    t.ei().warning(`Failed to remove staging app bundle`, {
+    t.ti().warning(`Failed to remove staging app bundle`, {
       safe: { errorType: e instanceof Error ? e.name : typeof e },
     });
   }
@@ -359,7 +359,7 @@ function I(e) {
     return e();
   } catch (e) {
     return (
-      t.ei().warning(`Failed to find app source DMG`, {
+      t.ti().warning(`Failed to find app source DMG`, {
         safe: { errorType: e instanceof Error ? e.name : typeof e },
       }),
       null
@@ -370,7 +370,7 @@ function L({ setPendingSourceDmgPath: e, sourceDmgPath: n }) {
   try {
     e(n);
   } catch (e) {
-    t.ei().warning(`Failed to remember app source DMG for cleanup`, {
+    t.ti().warning(`Failed to remember app source DMG for cleanup`, {
       safe: { errorType: e instanceof Error ? e.name : typeof e },
     });
   }
@@ -394,14 +394,14 @@ async function R({
   }
   if (!a)
     return (
-      t.ei().warning(`Failed to detach app source DMG after retries`),
+      t.ti().warning(`Failed to detach app source DMG after retries`),
       !1
     );
   try {
     return (await i(r), !0);
   } catch (e) {
     return (
-      t.ei().warning(`Failed to move app source DMG to Trash`, {
+      t.ti().warning(`Failed to move app source DMG to Trash`, {
         safe: { errorType: e instanceof Error ? e.name : typeof e },
       }),
       !1
@@ -415,7 +415,7 @@ function z() {
     return te.parse(JSON.parse(s.readFileSync(e, `utf8`))).sourceDmgPath;
   } catch (e) {
     return (
-      t.ei().warning(`Failed to read pending app source DMG cleanup`, {
+      t.ti().warning(`Failed to read pending app source DMG cleanup`, {
         safe: { errorType: e instanceof Error ? e.name : typeof e },
       }),
       null
@@ -665,7 +665,7 @@ for (let e of S({ buildFlavor: Q, env: process.env }))
 (r.b(),
   r.n(Z),
   ie(),
-  i.app.setName(t.Ca(Q, se)),
+  i.app.setName(t.wa(Q, se)),
   i.app.setPath(
     `userData`,
     C({
@@ -677,7 +677,7 @@ for (let e of S({ buildFlavor: Q, env: process.env }))
   process.platform === `win32` && i.app.setAppUserModelId(n.r(Q)));
 var $ = r.w({ isMacOS: Z, isPackaged: i.app.isPackaged });
 if (!(!$ || i.app.requestSingleInstanceLock()))
-  (t.ei().info(`Exiting second desktop instance`, {
+  (t.ti().info(`Exiting second desktop instance`, {
     safe: { packaged: i.app.isPackaged, platform: process.platform },
   }),
     i.app.exit(0));
@@ -706,13 +706,13 @@ else {
         await a.initialize();
         try {
           let { runMainAppStartup: e } = await Promise.resolve().then(() =>
-            require(`./main-r5HnecX_.js`),
+            require(`./main-Cfnoc8EH.js`),
           );
           await e();
         } catch (e) {
           for (let e of i.BrowserWindow.getAllWindows())
             e.isDestroyed() || e.destroy();
-          (t.ei().error(`Desktop bootstrap failed to start the main app`, {
+          (t.ti().error(`Desktop bootstrap failed to start the main app`, {
             safe: { phase: `bootstrap-import-main` },
           }),
             n.captureException(e, { tags: { phase: `bootstrap-import-main` } }),

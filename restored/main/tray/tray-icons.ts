@@ -1,4 +1,4 @@
-// Restored from ref/.vite/build/main-r5HnecX_.js
+// Restored from ref/.vite/build/main-Cfnoc8EH.js
 // Tray icon resolution and Chronicle running-state badge helpers.
 
 import { join } from "node:path";

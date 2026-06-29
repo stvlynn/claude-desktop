@@ -1,4 +1,4 @@
-// Restored from ref/.vite/build/main-r5HnecX_.js
+// Restored from ref/.vite/build/main-Cfnoc8EH.js
 // Shared worker main-RPC request, response, and host boundary contracts.
 
 export const WORKER_MAIN_RPC_METHODS = [

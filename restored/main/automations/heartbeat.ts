@@ -1,4 +1,4 @@
-// Restored from ref/.vite/build/main-r5HnecX_.js
+// Restored from ref/.vite/build/main-Cfnoc8EH.js
 // Heartbeat renderer state and rollout activity helpers.
 
 import { open } from "node:fs/promises";

@@ -1,5 +1,5 @@
-// Restored from ref/.vite/build/trace-recording-upload-CCNAZiAx.js
-// trace-recording-upload-CCNAZiAx chunk restored from the Codex Electron main bundle.
+// Restored from ref/.vite/build/trace-recording-upload-DPG3eKCS.js
+// trace-recording-upload-DPG3eKCS chunk restored from the Codex Electron main bundle.
 import * as fs from "node:fs/promises";
 import * as path from "node:path";
 import { promisify } from "node:util";

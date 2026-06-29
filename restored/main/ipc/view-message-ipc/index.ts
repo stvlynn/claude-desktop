@@ -1,4 +1,4 @@
-// Restored from ref/.vite/build/main-r5HnecX_.js
+// Restored from ref/.vite/build/main-Cfnoc8EH.js
 // Public exports for renderer view-message IPC handlers.
 
 export * from "./browser-sidebar-runtime-message";

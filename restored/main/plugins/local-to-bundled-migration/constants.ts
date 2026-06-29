@@ -1,4 +1,4 @@
-// Restored from ref/.vite/build/main-r5HnecX_.js
+// Restored from ref/.vite/build/main-Cfnoc8EH.js
 // Local plugin to bundled plugin migration constants.
 
 export const DEFAULT_BUNDLED_MARKETPLACE_NAME = "openai-bundled";

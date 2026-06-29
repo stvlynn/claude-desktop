@@ -1,4 +1,4 @@
-// Restored from ref/.vite/build/main-r5HnecX_.js
+// Restored from ref/.vite/build/main-Cfnoc8EH.js
 // Socket transport for native-pipe JSON-RPC messages.
 
 import net, { Socket } from "node:net";

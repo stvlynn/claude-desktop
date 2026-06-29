@@ -1,4 +1,4 @@
-// Restored from ref/.vite/build/main-r5HnecX_.js
+// Restored from ref/.vite/build/main-Cfnoc8EH.js
 // Automation prompt and collaboration-mode instruction helpers.
 
 import { HEARTBEAT_AUTOMATION_PROMPT_TEMPLATE } from "./constants";

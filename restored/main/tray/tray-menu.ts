@@ -1,4 +1,4 @@
-// Restored from ref/.vite/build/main-r5HnecX_.js
+// Restored from ref/.vite/build/main-Cfnoc8EH.js
 // Native tray menu item helpers.
 
 import { Menu, type MenuItemConstructorOptions } from "electron";

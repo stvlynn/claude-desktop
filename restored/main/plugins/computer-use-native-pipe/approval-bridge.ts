@@ -1,4 +1,4 @@
-// Restored from ref/.vite/build/main-r5HnecX_.js
+// Restored from ref/.vite/build/main-Cfnoc8EH.js
 // Approval request bridge for Computer Use native pipe JSON-RPC.
 
 import { randomUUID } from "node:crypto";

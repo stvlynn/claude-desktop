@@ -1,4 +1,4 @@
-// Restored from ref/.vite/build/main-r5HnecX_.js
+// Restored from ref/.vite/build/main-Cfnoc8EH.js
 // Marketplace JSON cleanup for migrated local plugins.
 
 import { readFile, writeFile } from "node:fs/promises";

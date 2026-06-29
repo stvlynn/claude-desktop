@@ -1,4 +1,4 @@
-// Restored from ref/.vite/build/main-r5HnecX_.js
+// Restored from ref/.vite/build/main-Cfnoc8EH.js
 // Electron app lifecycle event registration and coordinated quit draining.
 
 import { app, BrowserWindow, dialog } from "electron";

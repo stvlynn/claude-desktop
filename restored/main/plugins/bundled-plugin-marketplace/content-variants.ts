@@ -1,4 +1,4 @@
-// Restored from ref/.vite/build/main-r5HnecX_.js
+// Restored from ref/.vite/build/main-Cfnoc8EH.js
 // Bundled plugin content variant file overrides.
 
 import * as fs from "node:fs/promises";

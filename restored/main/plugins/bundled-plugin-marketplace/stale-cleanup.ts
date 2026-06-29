@@ -1,4 +1,4 @@
-// Restored from ref/.vite/build/main-r5HnecX_.js
+// Restored from ref/.vite/build/main-Cfnoc8EH.js
 // Cleanup for stale openai-bundled-* marketplaces and cache directories.
 
 import { existsSync } from "node:fs";

@@ -1,4 +1,4 @@
-// Restored from ref/.vite/build/main-r5HnecX_.js
+// Restored from ref/.vite/build/main-Cfnoc8EH.js
 // Path comparisons used by local plugin migration cleanup.
 
 import { dirname, resolve, sep } from "node:path";

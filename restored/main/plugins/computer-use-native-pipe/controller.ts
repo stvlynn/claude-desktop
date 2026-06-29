@@ -1,4 +1,4 @@
-// Restored from ref/.vite/build/main-r5HnecX_.js
+// Restored from ref/.vite/build/main-Cfnoc8EH.js
 // Feature-gated Computer Use native pipe controller.
 
 import { ensureComputerUseNotifyConfig } from "./notify-config";

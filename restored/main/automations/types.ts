@@ -1,4 +1,4 @@
-// Restored from ref/.vite/build/main-r5HnecX_.js
+// Restored from ref/.vite/build/main-Cfnoc8EH.js
 // Shared automation scheduler helper types.
 
 export type AutomationScheduleKind = "interval" | "wall_clock";

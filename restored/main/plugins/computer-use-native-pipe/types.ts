@@ -1,4 +1,4 @@
-// Restored from ref/.vite/build/main-r5HnecX_.js
+// Restored from ref/.vite/build/main-Cfnoc8EH.js
 // Shared types for the Computer Use native pipe server and controller.
 
 import type { Socket } from "node:net";

@@ -1,4 +1,4 @@
-// Restored from ref/.vite/build/main-r5HnecX_.js
+// Restored from ref/.vite/build/main-Cfnoc8EH.js
 // Automation scheduler constants and prompt templates.
 
 export const AUTOMATION_REMARK_DIRECTIVE_INSTRUCTIONS = `Response MUST end with a remark-directive block.
