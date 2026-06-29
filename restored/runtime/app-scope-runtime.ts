@@ -17,7 +17,39 @@ export type ScopedSignalGetter = {
   get<TValue = unknown>(signal: unknown, key?: unknown): TValue;
 };
 
-export type ScopedSignalInitializer<TKey, TValue> = (key: TKey) => TValue;
+export type ScopedSignalSetter = {
+  set<TValue>(
+    signal: unknown,
+    value: TValue | ((currentValue: TValue) => TValue),
+  ): void;
+  set<TKey, TValue>(
+    signalFamily: unknown,
+    key: TKey,
+    value: TValue | ((currentValue: TValue) => TValue),
+  ): void;
+};
+
+export type ScopedSignalContext = ScopedSignalGetter &
+  ScopedSignalSetter & {
+    queryClient?: unknown;
+    scope?: unknown;
+  };
+
+export type ScopedSignalMountContext<TKey = unknown> = ScopedSignalContext & {
+  key: TKey;
+};
+
+export type ScopedSignalOptions<TKey = unknown, TValue = unknown> = {
+  isEqual?: (left: TValue, right: TValue) => boolean;
+  onMount?: (
+    setValue: (value: TValue) => void,
+    context: ScopedSignalMountContext<TKey>,
+  ) => void | (() => void);
+};
+
+export type ScopedSignalInitializer<TKey = unknown, TValue = TKey> = (
+  context: ScopedSignalContext,
+) => TValue;
 
 export type ScopedSignalInitialValue<TKey, TValue> =
   | TValue
@@ -45,34 +77,39 @@ export function initAppScopeSignalRuntime(): void {
 }
 
 export function createAppScopedSignal<TValue>(initialValue: TValue): unknown;
-export function createAppScopedSignal<TKey, TValue>(
-  initializer: ScopedSignalInitializer<TKey, TValue>,
+export function createAppScopedSignal<TValue>(
+  initializer: ScopedSignalInitializer<unknown, TValue>,
+  options?: ScopedSignalOptions<unknown, TValue>,
 ): unknown;
 export function createAppScopedSignal<TKey, TValue>(
   initializer: ScopedSignalInitialValue<TKey, TValue>,
+  options?: ScopedSignalOptions<unknown, TValue>,
 ): unknown {
-  return createScopedSignalRaw(appScopeRoot, initializer);
+  return createScopedSignalRaw(appScopeRoot, initializer, options);
 }
 
 export function createScopedSignal<TValue>(
   scope: unknown,
   initialValue: TValue,
 ): unknown;
-export function createScopedSignal<TKey, TValue>(
+export function createScopedSignal<TValue>(
   scope: unknown,
-  initializer: ScopedSignalInitializer<TKey, TValue>,
+  initializer: ScopedSignalInitializer<unknown, TValue>,
+  options?: ScopedSignalOptions<unknown, TValue>,
 ): unknown;
 export function createScopedSignal<TKey, TValue>(
   scope: unknown,
   initializer: ScopedSignalInitialValue<TKey, TValue>,
+  options?: ScopedSignalOptions<unknown, TValue>,
 ): unknown {
-  return createScopedSignalRaw(scope, initializer);
+  return createScopedSignalRaw(scope, initializer, options);
 }
 
 export function createAppScopedSignalFamily<TKey, TValue>(
   initializer: ScopedSignalFamilyInitializer<TKey, TValue>,
+  options?: ScopedSignalOptions<TKey, TValue>,
 ): unknown {
-  return createScopedSignalFamilyRaw(appScopeRoot, initializer);
+  return createScopedSignalFamilyRaw(appScopeRoot, initializer, options);
 }
 
 export function createAppScopedDerivedSignalFamily<TKey, TValue>(
