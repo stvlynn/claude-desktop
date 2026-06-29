@@ -1,9 +1,9 @@
 // Restored from ref/webview/assets/app-initial~app-main~remote-conversation-page~plugin-detail-page~new-thread-panel-page~appg~ijdupmx5-CdYgxe-b.js
 // App logger facade used by restored conversation modules.
 import {
-  mP as appLogger,
-  pP as initLoggerRuntimeRaw,
-} from "../vendor/appg-thread-shared-runtime";
+  N as appLogger,
+  M as initLoggerRuntimeRaw,
+} from "../../ref/webview/assets/app-initial~app-main~worktree-init-v2-page~remote-conversation-page~plugin-detail-page~new-~sfopfmmp-9J50_--p.js";
 
 export type AppLogger = {
   debug(
