@@ -12,9 +12,9 @@ export {
   jb as initProjectsAppEntryChunk,
 } from "./projects-app-shared-runtime";
 export {
-  og as getCodexWindowChrome,
-  sg as initAppFeatureRuntimeChunk,
-} from "../../ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js";
+  getCodexWindowChrome,
+  initAppFeatureRuntimeChunk,
+} from "../runtime/window-chrome-runtime";
 export {
   _ as initRendererErrorBoundaryStateChunk,
   n as initProjectsSharedRuntimeChunk,
