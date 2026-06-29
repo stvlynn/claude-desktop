@@ -1,28 +1,28 @@
-// Restored from ref/webview/assets/pkg-CJtlEP_l.js
+// Restored from ref/webview/assets/pkg-CsBnWPsQ.js
 // Pkg chunk restored from the Codex webview bundle.
 const __vite__mapDeps = (
   pkgParam49,
   pkgParam50 = __vite__mapDeps,
   pkgParam51 = pkgParam50.f ||
     (pkgParam50.f = [
-      "./auto-track-CVxnO46V.js",
-      "./callback-BhdA_NIt.js",
-      "./middleware-Az7vHdEh.js",
-      "./middleware-BDgBoOJW.js",
-      "./chunk-Cq_f4orQ.js",
-      "./tslib.es6-dbdzpGto.js",
-      "./query-string-FsVg0saL.js",
-      "./helpers-BDwSRLlu.js",
-      "./gracefulDecodeURIComponent-DByonkCa.js",
-      "./routing-middleware-n84m0mKl.js",
-      "./ajs-destination-C53EKRYC.js",
-      "./metric-helpers-BidZZeRm.js",
-      "./load-script-CELRAn-0.js",
-      "./is-plan-event-enabled-yBXVgx1W.js",
-      "./legacy-video-plugins-BKJsmZCC.js",
-      "./preload-helper-BmHspSiq.js",
-      "./schema-filter-r146tzO0.js",
-      "./remote-middleware-DRFk97G2.js",
+      "./segment-auto-track",
+      "./rolldown-runtime-Czos8NxU.js",
+      "./esm-SB_gc9_7.js",
+      "./app-initial~app-main~remote-conversation-page~new-thread-panel-page~onboarding-page~appgen-~1je6c975-DGpPRr1D.js",
+      "./app-initial~app-main~worktree-init-v2-page~remote-conversation-page~plugin-detail-page~new-~sfopfmmp-9J50_--p.js",
+      "./segment-middleware-entry",
+      "./middleware-CcPovR3s.js",
+      "./segment-query-string",
+      "../utils/graceful-decode-uri-component",
+      "../utils/routing-middleware",
+      "./ajs-destination-CMq26_cD.js",
+      "./segment-metric-helpers",
+      "./segment-load-script",
+      "../utils/is-plan-event-enabled",
+      "../utils/legacy-video-plugins",
+      "./app-initial~app-main~worktree-init-v2-page~remote-conversation-page~new-thread-panel-page~o~dv5z3ftk-BhBbJNnt.js",
+      "../utils/schema-filter",
+      "./segment-remote-middleware",
     ]),
 ) => pkgParam49.map((item) => pkgParam51[item]);
 import { PreloadHelper } from "../utils/preload-helper";
@@ -3118,7 +3118,7 @@ var pkgAnalytics = (function (pkgParam1) {
                   4,
                   PreloadHelper(
                     () => import("./segment-auto-track"),
-                    __vite__mapDeps([0, 1]),
+                    __vite__mapDeps([0, 1, 2, 3, 4]),
                     import.meta.url,
                   ),
                 ];
@@ -3148,7 +3148,7 @@ var pkgAnalytics = (function (pkgParam1) {
                   4,
                   PreloadHelper(
                     () => import("./segment-auto-track"),
-                    __vite__mapDeps([0, 1]),
+                    __vite__mapDeps([0, 1, 2, 3, 4]),
                     import.meta.url,
                   ),
                 ];
@@ -3178,7 +3178,7 @@ var pkgAnalytics = (function (pkgParam1) {
                   4,
                   PreloadHelper(
                     () => import("./segment-auto-track"),
-                    __vite__mapDeps([0, 1]),
+                    __vite__mapDeps([0, 1, 2, 3, 4]),
                     import.meta.url,
                   ),
                 ];
@@ -3208,7 +3208,7 @@ var pkgAnalytics = (function (pkgParam1) {
                   4,
                   PreloadHelper(
                     () => import("./segment-auto-track"),
-                    __vite__mapDeps([0, 1]),
+                    __vite__mapDeps([0, 1, 2, 3, 4]),
                     import.meta.url,
                   ),
                 ];
@@ -3348,7 +3348,7 @@ var pkgAnalytics = (function (pkgParam1) {
                                 4,
                                 PreloadHelper(
                                   () => import("./segment-middleware-entry"),
-                                  __vite__mapDeps([2, 3, 4, 5]),
+                                  __vite__mapDeps([5, 6, 1, 3, 4, 2]),
                                   import.meta.url,
                                 ),
                               ];
@@ -3409,7 +3409,7 @@ var pkgAnalytics = (function (pkgParam1) {
                       4,
                       PreloadHelper(
                         () => import("./segment-query-string"),
-                        __vite__mapDeps([6, 7, 8]),
+                        __vite__mapDeps([7, 1, 2, 3, 4, 8]),
                         import.meta.url,
                       ),
                     ];
@@ -4310,7 +4310,7 @@ function pkgHelper48(
                             );
                           },
                         ),
-                      __vite__mapDeps([9, 4]),
+                      __vite__mapDeps([9, 1]),
                       import.meta.url,
                     ),
                   ]
@@ -4341,7 +4341,7 @@ function pkgHelper48(
                             );
                           },
                         ),
-                      __vite__mapDeps([10, 3, 4, 5, 11, 12, 7, 13]),
+                      __vite__mapDeps([10, 1, 3, 4, 2, 11, 6, 12, 13]),
                       import.meta.url,
                     ),
                   ]
@@ -4365,7 +4365,7 @@ function pkgHelper48(
                             return value.loadLegacyVideoPlugins(pkgParam5);
                           },
                         ),
-                      __vite__mapDeps([14, 4, 15, 5]),
+                      __vite__mapDeps([14, 1, 15, 4, 3]),
                       import.meta.url,
                     ),
                   ]
@@ -4386,7 +4386,7 @@ function pkgHelper48(
                           pkgParam4,
                         );
                       }),
-                    __vite__mapDeps([16, 13, 5]),
+                    __vite__mapDeps([16, 1, 3, 4, 13]),
                     import.meta.url,
                   ),
                 ]
@@ -4513,7 +4513,7 @@ function pkgHelper48(
                             );
                           },
                         ),
-                      __vite__mapDeps([17, 12, 5]),
+                      __vite__mapDeps([17, 1, 3, 4, 12]),
                       import.meta.url,
                     ),
                   ]
