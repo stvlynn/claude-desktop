@@ -74,7 +74,6 @@ import {
   useThreadPinControls,
   WorktreeForkIcon,
 } from "../thread-overflow-menu-runtime";
-import { initPullRequestThreadActionsRuntime } from "../../conversations/pull-request-thread-actions-runtime";
 import {
   automationsQuerySignal as heartbeatAutomationsQuerySignal,
   initAutomationsQueryChunk as initHeartbeatAutomationsQueryChunk,
@@ -778,7 +777,6 @@ export const initThreadOverflowMenuChunk = once(() => {
   initGitBranchIcon();
   initProjectsAppProducer();
   initHeartbeatAutomationTabsRuntime();
-  initPullRequestThreadActionsRuntime();
   initForkDialogLocalIcon();
   initCreateHeartbeatAutomationRuntime();
   initThreadPinIconChunk();
