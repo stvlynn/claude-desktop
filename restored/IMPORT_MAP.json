@@ -26062,31 +26062,35 @@
     "app-initial~app-main~remote-conversation-page~pull-requests-page~hotkey-window-thread-page~~b9vznyj4-Cs4hWsvd": {
       "restored": "runtime/current-app-initial/pull-request-footer-item-runtime.ts",
       "exports": {
-        "a": "PullRequestFooterItemExportLowerAAlias",
-        "i": "PullRequestFooterItemExportLowerIAlias",
-        "n": "PullRequestFooterItemExportLowerNAlias",
-        "r": "PullRequestFooterItemExportLowerRAlias",
-        "t": "PullRequestFooterItemExportLowerTAlias"
+        "a": "initPullRequestFooterClearIconChunk",
+        "i": "PullRequestFooterClearIcon",
+        "n": "PullRequestFooterItemButton",
+        "r": "initPullRequestFooterItemChunk",
+        "t": "PullRequestFooterItem"
       },
       "status": "done",
-      "note": "Current ref pull request footer item runtime restored as a semantic alias layer over boundaries/current-ref/current-app-initial-pull-request-footer-item-runtime-producer.ts.",
+      "note": "Current ref pull request footer item runtime restored as semantic aliases over the split composer/pull-request-footer-item modules.",
       "stage3Accepted": true,
-      "lastUpdated": "2026-06-29T19:53:12.718Z"
+      "stage3AcceptedAt": "2026-06-29T22:32:00.000Z",
+      "stage3Review": "Host self-review after splitting the footer primitive into typed semantic modules; quality-gate and prettier passed on the mapped runtime and implementation files.",
+      "lastUpdated": "2026-06-29T22:32:00.000Z"
     },
     "app-initial~app-main~appgen-page~remote-conversation-page~projects-index-page~appgen-librar~clc2xu64-CruLP2Hm": {
       "restored": "runtime/current-app-initial/appgen-host-status-icons-runtime.ts",
       "exports": {
-        "a": "AppgenHostStatusIconsExportLowerAAlias",
-        "i": "AppgenHostStatusIconsExportLowerIAlias",
-        "n": "AppgenHostStatusIconsExportLowerNAlias",
-        "o": "AppgenHostStatusIconsExportLowerOAlias",
-        "r": "AppgenHostStatusIconsExportLowerRAlias",
-        "t": "AppgenHostStatusIconsExportLowerTAlias"
+        "a": "WorktreeThreadEnvIcon",
+        "i": "RemoteWorktreeThreadEnvIcon",
+        "n": "LocalThreadEnvIcon",
+        "o": "initThreadEnvIconChunk",
+        "r": "RemoteThreadEnvIcon",
+        "t": "CloudThreadEnvIcon"
       },
       "status": "done",
-      "note": "Current ref appgen host status icon runtime restored as a semantic alias layer over boundaries/current-ref/current-app-initial-appgen-host-status-icons-runtime-producer.ts.",
+      "note": "Current ref appgen host status icon runtime restored as semantic aliases over threads/thread-env-icon.tsx.",
       "stage3Accepted": true,
-      "lastUpdated": "2026-06-29T19:53:12.718Z"
+      "stage3AcceptedAt": "2026-06-29T22:21:00.000Z",
+      "stage3Review": "Host self-review after replacing the raw current-ref boundary with semantic thread environment icon aliases; quality-gate and prettier passed.",
+      "lastUpdated": "2026-06-29T22:21:00.000Z"
     },
     "app-initial~app-main~settings-page~open-source-licenses-page~skills-settings~plugins-settin~cxbtmbfc-Bhanoo2P": {
       "restored": "runtime/current-app-initial/settings-section-layout-runtime.ts",
