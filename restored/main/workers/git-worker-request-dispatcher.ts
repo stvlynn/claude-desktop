@@ -39,6 +39,10 @@ import { readCurrentBranch } from "./git-worker-current-branch";
 import { readBranchDiffStats } from "./git-worker-diff-stats";
 import { readGitOrigins } from "./git-worker-origin-queries";
 import { readStableMetadata } from "./git-worker-repo-queries";
+import { readReviewDiff } from "./git-worker-review/file-diff";
+import { readReviewSummary } from "./git-worker-review/metadata";
+import { readReviewPatch } from "./git-worker-review/patch";
+import { searchReviewDiff } from "./git-worker-review/search";
 import { readIndexInfo, readStatusSummary } from "./git-worker-status-queries";
 import {
   readSyncedBranch,
@@ -365,6 +369,64 @@ export class GitWorkerRequestDispatcher {
           }),
         );
       }
+      case "review-summary": {
+        const params = requireRecordParams(request);
+        return ok(
+          await readReviewSummary({
+            baseBranch: optionalStringParam(params, "baseBranch"),
+            commitSha: optionalStringParam(params, "commitSha"),
+            cwd: requireStringParam(params, "cwd"),
+            hideWhitespace: optionalBooleanParam(params, "hideWhitespace"),
+            host: context.host,
+            includeUntrackedFiles: params.includeUntrackedFiles !== false,
+            signal: context.signal,
+            source: requireReviewSourceParam(params),
+          }),
+        );
+      }
+      case "review-diff": {
+        const params = requireRecordParams(request);
+        return ok(
+          await readReviewDiff({
+            baseBranch: optionalStringParam(params, "baseBranch"),
+            binary: optionalBooleanParam(params, "binary"),
+            commitSha: optionalStringParam(params, "commitSha"),
+            cwd: requireStringParam(params, "cwd"),
+            files: requireReviewFilesParam(params),
+            hideWhitespace: optionalBooleanParam(params, "hideWhitespace"),
+            host: context.host,
+            signal: context.signal,
+            source: requireReviewSourceParam(params),
+          }),
+        );
+      }
+      case "review-search": {
+        const params = requireRecordParams(request);
+        return ok(
+          await searchReviewDiff({
+            baseBranch: optionalStringParam(params, "baseBranch"),
+            commitSha: optionalStringParam(params, "commitSha"),
+            cwd: requireStringParam(params, "cwd"),
+            host: context.host,
+            query: requireStringParam(params, "query", { allowEmpty: true }),
+            signal: context.signal,
+            source: requireReviewSourceParam(params),
+          }),
+        );
+      }
+      case "review-patch": {
+        const params = requireRecordParams(request);
+        return ok(
+          await readReviewPatch({
+            baseBranch: optionalStringParam(params, "baseBranch"),
+            commitSha: optionalStringParam(params, "commitSha"),
+            cwd: requireStringParam(params, "cwd"),
+            host: context.host,
+            signal: context.signal,
+            source: requireReviewSourceParam(params),
+          }),
+        );
+      }
       case "commit-message-diff": {
         const params = requireRecordParams(request);
         return ok(
@@ -627,6 +689,81 @@ function optionalBooleanParam(
   if (value == null) return false;
   if (typeof value === "boolean") return value;
   throw Error(`Git worker parameter '${key}' must be a boolean`);
+}
+
+function requireReviewSourceParam(
+  params: Record<string, unknown>,
+): "branch" | "commit" | "staged" | "unstaged" {
+  const source = params.source;
+  if (
+    source === "branch" ||
+    source === "commit" ||
+    source === "staged" ||
+    source === "unstaged"
+  ) {
+    return source;
+  }
+  throw Error("Git worker parameter 'source' must be a review source");
+}
+
+function requireReviewFilesParam(params: Record<string, unknown>): Array<{
+  changeKind?:
+    | "added"
+    | "copied"
+    | "deleted"
+    | "modified"
+    | "renamed"
+    | "type-changed"
+    | "unmerged"
+    | "untracked";
+  path: string;
+  previousPath?: string | null;
+}> {
+  const value = params.files;
+  if (!Array.isArray(value)) {
+    throw Error("Git worker parameter 'files' must be an array");
+  }
+  return value.map((item) => {
+    if (!isRecord(item) || typeof item.path !== "string") {
+      throw Error("Git worker review file entries require a path");
+    }
+    const previousPath = item.previousPath;
+    if (previousPath != null && typeof previousPath !== "string") {
+      throw Error("Git worker review file previousPath must be a string");
+    }
+    const changeKind = item.changeKind;
+    if (changeKind != null && !isReviewFileChangeKind(changeKind)) {
+      throw Error("Git worker review file changeKind is invalid");
+    }
+    return {
+      changeKind,
+      path: item.path,
+      previousPath,
+    };
+  });
+}
+
+function isReviewFileChangeKind(
+  value: unknown,
+): value is
+  | "added"
+  | "copied"
+  | "deleted"
+  | "modified"
+  | "renamed"
+  | "type-changed"
+  | "unmerged"
+  | "untracked" {
+  return (
+    value === "added" ||
+    value === "copied" ||
+    value === "deleted" ||
+    value === "modified" ||
+    value === "renamed" ||
+    value === "type-changed" ||
+    value === "unmerged" ||
+    value === "untracked"
+  );
 }
 
 function fallbackGitErrorResult(
