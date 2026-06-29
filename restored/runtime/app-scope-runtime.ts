@@ -3,6 +3,7 @@
 // App-scope signal primitives shared by restored conversation/runtime modules.
 import {
   Ao as initScopeRuntimeRaw,
+  bs as createScopedDerivedSignalFamilyRaw,
   Ds as createScopedSignalRaw,
   Os as createScopedSignalFamilyRaw,
   ys as createDerivedSignalRaw,
@@ -72,6 +73,12 @@ export function createAppScopedSignalFamily<TKey, TValue>(
   initializer: ScopedSignalFamilyInitializer<TKey, TValue>,
 ): unknown {
   return createScopedSignalFamilyRaw(appScopeRoot, initializer);
+}
+
+export function createAppScopedDerivedSignalFamily<TKey, TValue>(
+  initializer: ScopedSignalFamilyInitializer<TKey, TValue>,
+): unknown {
+  return createScopedDerivedSignalFamilyRaw(appScopeRoot, initializer);
 }
 
 export function createDerivedSignal<TValue>(
