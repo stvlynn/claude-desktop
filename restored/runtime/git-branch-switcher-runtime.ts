@@ -1,10 +1,5 @@
 // Restored from ref/webview/assets/git-branch-switcher-BokkKYIT.js
 
-export {
-  VN as initSwitchRuntime,
-  fu as initWorkspaceQueryRuntime,
-} from "../vendor/appg-thread-shared-runtime";
-
 import {
   Ba as updateGitMetadataCache,
   Ha as useGitOperationQuery,
@@ -20,6 +15,7 @@ import {
   W as branchSettingKeys,
   ws as createQuerySignalFamily,
 } from "../../ref/webview/assets/app-initial~app-main~worktree-init-v2-page~remote-conversation-page~new-thread-panel-page~o~dv5z3ftk-BhBbJNnt.js";
+import { F as initSwitchRuntime } from "../../ref/webview/assets/app-initial~app-main~worktree-init-v2-page~remote-conversation-page~pull-requests-page~plug~kmtatxxf-DEE2TwPG.js";
 import {
   Button,
   DialogBody,
@@ -66,6 +62,12 @@ import {
   initReactRuntime,
 } from "./shared-utility-runtime";
 import { initToastRuntime, toastSignal } from "./toast-runtime";
+
+export { initSwitchRuntime };
+
+export function initWorkspaceQueryRuntime(): void {
+  // Current git-branch-switcher initializes workspace/git queries through the specific query runtimes below.
+}
 
 export {
   appScope,
