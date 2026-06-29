@@ -1,4 +1,31 @@
 // Restored from ref/webview/assets/app-initial~app-main~remote-conversation-page~hotkey-window-thread-page~keyboard-shortcuts-~n7jwlpf0-BaxBxQFI.js
 // Semantic alias layer for keyboard shortcuts and thread account runtime.
-// prettier-ignore
-export { _ as KeyboardShortcutsThreadExportUnderscoreAlias, a as KeyboardShortcutsThreadExportLowerAAlias, b as KeyboardShortcutsThreadExportLowerBAlias, c as KeyboardShortcutsThreadExportLowerCAlias, C as KeyboardShortcutsThreadExportUpperCAlias, d as KeyboardShortcutsThreadExportLowerDAlias, D as KeyboardShortcutsThreadExportUpperDAlias, E as KeyboardShortcutsThreadExportUpperEAlias, f as KeyboardShortcutsThreadExportLowerFAlias, g as KeyboardShortcutsThreadExportLowerGAlias, h as KeyboardShortcutsThreadExportLowerHAlias, i as KeyboardShortcutsThreadExportLowerIAlias, l as KeyboardShortcutsThreadExportLowerLAlias, m as KeyboardShortcutsThreadExportLowerMAlias, n as KeyboardShortcutsThreadExportLowerNAlias, o as KeyboardShortcutsThreadExportLowerOAlias, p as KeyboardShortcutsThreadExportLowerPAlias, r as KeyboardShortcutsThreadExportLowerRAlias, s as KeyboardShortcutsThreadExportLowerSAlias, S as KeyboardShortcutsThreadExportUpperSAlias, t as KeyboardShortcutsThreadExportLowerTAlias, T as KeyboardShortcutsThreadExportUpperTAlias, u as KeyboardShortcutsThreadExportLowerUAlias, v as KeyboardShortcutsThreadExportLowerVAlias, w as KeyboardShortcutsThreadExportLowerWAlias, x as KeyboardShortcutsThreadExportLowerXAlias, y as KeyboardShortcutsThreadExportLowerYAlias } from "../../boundaries/current-ref/current-app-initial-keyboard-shortcuts-thread-runtime-producer";
+export {
+  _ as giftCreditsProfileCoachmarkPendingSignal,
+  a as initUsageSettingsAccessChunk,
+  b as GIFT_CREDITS_FEATURE_GATE,
+  c as useProfileVisibility,
+  C as defaultSettingsSection,
+  d as AccountSwitchIcon,
+  D as settingsSectionIds,
+  E as initSettingsSectionMetadataChunk,
+  f as initAccountSwitchIconChunk,
+  g as initGiftCreditsIconChunk,
+  h as GiftCreditsIcon,
+  i as shouldHideFreeGoPersonalAccountSwitcher,
+  l as ProfileUpgradeSparkleIcon,
+  m as initKeyboardShortcutsMenuIconChunk,
+  n as initProfileDropdownChunk,
+  o as useUsageSettingsAccess,
+  p as KeyboardShortcutsMenuIcon,
+  r as initProfileVisibilityHelpersChunk,
+  s as initProfileVisibilityChunk,
+  S as openGiftCreditsInBrowser,
+  t as ProfileDropdown,
+  T as SettingsSchemaValueType,
+  u as initProfileUpgradeSparkleIconChunk,
+  v as hasSeenGiftCreditsHomeBannerSignal,
+  w as settingsNavigationSections,
+  x as initGiftCreditsLinkChunk,
+  y as initGiftCreditsSignalsChunk,
+} from "../../boundaries/current-ref/current-app-initial-keyboard-shortcuts-thread-runtime-producer";

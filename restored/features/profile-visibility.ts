@@ -6,6 +6,7 @@ import {
   useStatsigClient,
 } from "@statsig/react-bindings";
 import { useAuth } from "../auth/use-auth";
+import { Sku } from "../utils/skus";
 const PROFILE_VISIBILITY_GATE = "2478676115";
 const PROFILE_USAGE_LAYER = "3503973010";
 const SHOW_DROPDOWN_ENTRY_POINT_PARAM = "show_dropdown_entry_point";
@@ -35,4 +36,39 @@ export function useProfileDropdownEntryPointVisible(): boolean {
     hasProfileVisibilityGate &&
     profileUsageLayer.get(SHOW_DROPDOWN_ENTRY_POINT_PARAM, false)
   );
+}
+
+export function initProfileVisibilityHelpersChunk(): void {}
+
+export function initProfileVisibilityChunk(): void {}
+
+type AccountWithStructure = {
+  structure?: string | null;
+};
+
+export function shouldHideFreeGoPersonalAccountSwitcher({
+  authMethod,
+  plan,
+  currentAccount,
+  accounts,
+}: {
+  authMethod?: string | null;
+  plan?: string | null;
+  currentAccount?: AccountWithStructure | null;
+  accounts?: readonly AccountWithStructure[] | null;
+}): boolean {
+  if (
+    authMethod !== "chatgpt" ||
+    (plan !== Sku.FREE && plan !== Sku.GO) ||
+    currentAccount == null ||
+    accounts == null
+  ) {
+    return false;
+  }
+  if (!isPersonalAccount(currentAccount)) return false;
+  return !accounts.some((account) => !isPersonalAccount(account));
+}
+
+function isPersonalAccount(account: AccountWithStructure): boolean {
+  return account.structure?.toLowerCase() === "personal";
 }
