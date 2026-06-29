@@ -1,4 +1,4 @@
-// Restored from ref/webview/assets/app-K22tSs_z.js
-// Empty app bootstrap chunk retained for import-map consumers.
+// Restored from ref/webview/assets/app-BwRVouQs.js
+// Empty app bootstrap chunk retained for current app-main import-map consumers.
 
 export function initEmptyAppChunk(): void {}

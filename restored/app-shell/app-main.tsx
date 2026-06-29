@@ -1,5 +1,5 @@
-// Restored from ref/webview/assets/app-main-DxUcMyo0.js
-// Electron main-window bootstrap for the Codex webview application.
+// Restored from ref/webview/assets/app-main-Dq9Zdi1c.js
+// Electron main-window bootstrap for the Codex webview application; supersedes the earlier app-main-DxUcMyo0 restore with the same runtime surface.
 import React from "react";
 import { createRoot } from "react-dom/client";
 import { once } from "../runtime/commonjs-interop";

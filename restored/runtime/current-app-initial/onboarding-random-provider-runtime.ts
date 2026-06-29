@@ -1,4 +1,30 @@
 // Restored from ref/webview/assets/app-initial~app-main~onboarding-page~pending-request-item-panel-B2KHEzKZ.js
-// Semantic alias layer for onboarding random provider runtime.
-// prettier-ignore
-export { a as OnboardingRandomProviderExportLowerAAlias, i as OnboardingRandomProviderExportLowerIAlias, n as OnboardingRandomProviderExportLowerNAlias, o as OnboardingRandomProviderExportLowerOAlias, r as OnboardingRandomProviderExportLowerRAlias, s as OnboardingRandomProviderExportLowerSAlias, t as OnboardingRandomProviderExportLowerTAlias } from "../../boundaries/current-ref/current-app-initial-onboarding-random-provider-runtime-producer";
+// App-initial bridge for Welcome v2 onboarding role choices.
+import {
+  getShuffledWelcomeOnboardingRoles,
+  getWelcomeOnboardingWorkMode,
+  initWelcomeOnboardingRolesChunk,
+  welcomeOnboardingRoleIds,
+  welcomeOnboardingRoleMessages,
+  welcomeOnboardingSelectedRolesAtom,
+} from "../../onboarding/onboarding-roles";
+
+const technicalWelcomeOnboardingRoles = new Set([
+  "engineering",
+  "data_science",
+]);
+
+export function hasTechnicalWelcomeOnboardingRole(
+  roles: readonly string[],
+): boolean {
+  return roles.some((role) => technicalWelcomeOnboardingRoles.has(role));
+}
+
+export {
+  getShuffledWelcomeOnboardingRoles,
+  getWelcomeOnboardingWorkMode,
+  initWelcomeOnboardingRolesChunk,
+  welcomeOnboardingRoleIds,
+  welcomeOnboardingRoleMessages,
+  welcomeOnboardingSelectedRolesAtom,
+};

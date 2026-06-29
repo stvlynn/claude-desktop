@@ -1,4 +1,21 @@
 // Restored from ref/webview/assets/app-initial~app-main~remote-conversation-page~hotkey-window-detail-layout~local-conversation-page-BnkJ2KOs.js
-// Semantic alias layer for hotkey detail layout shortcut runtime.
-// prettier-ignore
-export { n as HotkeyDetailLayoutShortcutExportLowerNAlias, t as HotkeyDetailLayoutShortcutExportLowerTAlias } from "../../boundaries/current-ref/current-app-initial-hotkey-detail-layout-shortcut-runtime-producer";
+// Registers hotkey-window detail layout shortcuts from command keybindings.
+import { useCommandHotkey } from "../../utils/use-command-hotkey";
+
+export type HotkeyDetailLayoutCommandShortcutOptions = {
+  commandId: string;
+  enabled?: boolean;
+  onKeyDown: (event: KeyboardEvent) => void;
+  onKeyUp?: (event: KeyboardEvent) => void;
+  capture?: boolean;
+  ignoreWithin?: string;
+  keyboardEventTarget?: EventTarget | null;
+};
+
+export function useHotkeyDetailLayoutCommandShortcut(
+  options: HotkeyDetailLayoutCommandShortcutOptions,
+): void {
+  useCommandHotkey(options);
+}
+
+export function initHotkeyDetailLayoutShortcutRuntimeChunk(): void {}

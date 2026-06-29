@@ -1,5 +1,5 @@
-// Restored from ref/webview/assets/app-main-DxUcMyo0.js
-// Semantic app-main runtime bindings backed by restored app-main producer chunks.
+// Restored from ref/webview/assets/app-main-Dq9Zdi1c.js
+// Semantic app-main runtime bindings backed by restored current app-main producer chunks.
 import { isCurrentCompactWindow } from "../features/is-compact-window-context";
 import {
   CodexApp,

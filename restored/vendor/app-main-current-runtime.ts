@@ -1,5 +1,5 @@
-// Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
-// Current app-main/onboarding shared producer semantic alias layer.
+// Restored from ref/webview/assets/app-initial~app-main~onboarding-page-CgNc-Bk2.js
+// Current app-main/onboarding shared producer semantic alias layer; retains legacy BUwCKIcU aliases for compatibility consumers.
 // prettier-ignore
 export {
   $ as appMainCurrentExportDollarAlias, $S as rightPanelOpenStateKey, $_ as appMainCurrentExportDollarUnderscoreAlias, $a as appMainCurrentExportDollarLowerAAlias, $b as appMainCurrentExportDollarLowerBAlias,
