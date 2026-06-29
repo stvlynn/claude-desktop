@@ -1,5 +1,11 @@
-// Restored from ref/webview/assets/subscription-update-plan-D2uMfgET.js
-// subscription-update-plan-D2uMfgET chunk restored from the Codex webview bundle.
+// Restored from ref/webview/assets/subscription-update-plan-D0G2uLaZ.js
+// Also matches ref/webview/assets/subscription-update-plan-D2uMfgET.js.
+import { once } from "../../runtime/commonjs-interop";
+
+export const initSubscriptionUpdatePlanDialogChunk = once(() => {});
+export const initSubscriptionPlanIdChunk = once(() => {});
+export const initPlanBillingPeriodSegmentedControlChunk = once(() => {});
+
 export { PlanBillingPeriodSegmentedControl } from "./billing-period-toggle";
 export { subscriptionPlanIdToSku } from "./plan-id";
 export { SubscriptionUpdatePlanDialog } from "./update-dialog";

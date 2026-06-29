@@ -8770,6 +8770,29 @@
       },
       "status": "done"
     },
+    "subscription-update-plan-D0G2uLaZ": {
+      "restored": "settings/subscription-update-plan/index.ts",
+      "exports": {
+        "a": "initSubscriptionUpdatePlanDialogChunk",
+        "i": "SubscriptionUpdatePlanDialog",
+        "n": "subscriptionPlanIdToSku",
+        "o": "PlanBillingPeriodSegmentedControl",
+        "r": "initSubscriptionPlanIdChunk",
+        "s": "initPlanBillingPeriodSegmentedControlChunk",
+        "t": "skuToSubscriptionPlanId",
+        "initSubscriptionUpdatePlanDialogChunk": "initSubscriptionUpdatePlanDialogChunk",
+        "SubscriptionUpdatePlanDialog": "SubscriptionUpdatePlanDialog",
+        "subscriptionPlanIdToSku": "subscriptionPlanIdToSku",
+        "PlanBillingPeriodSegmentedControl": "PlanBillingPeriodSegmentedControl",
+        "initSubscriptionPlanIdChunk": "initSubscriptionPlanIdChunk",
+        "initPlanBillingPeriodSegmentedControlChunk": "initPlanBillingPeriodSegmentedControlChunk",
+        "skuToSubscriptionPlanId": "skuToSubscriptionPlanId"
+      },
+      "status": "done",
+      "aliasOf": "subscription-update-plan-D2uMfgET",
+      "note": "Current synced subscription update plan chunk with initializer aliases for the dialog, plan-id, and billing-period modules.",
+      "lastUpdated": "2026-06-29T00:00:00.000Z"
+    },
     "chunk-OYMX7WX6-DPwCFRNe": {
       "restored": "vendor/mermaid-state-diagram-runtime-k5.ts",
       "exports": {
@@ -11130,6 +11153,45 @@
         "u": "WorkspaceAccessSelect"
       },
       "status": "done"
+    },
+    "use-workspace-users-D5OfJQX1": {
+      "restored": "collaboration/use-workspace-users/index.ts",
+      "exports": {
+        "a": "initShareTargetRowChunk",
+        "c": "filterAvailableWorkspaceUsers",
+        "d": "initWorkspaceUserQueryHelpersChunk",
+        "f": "ShareDialogPrimaryActions",
+        "h": "initWorkspaceAccessSelectChunk",
+        "i": "ShareTargetRow",
+        "l": "workspaceUserToShareTargetOption",
+        "m": "WorkspaceAccessSelect",
+        "n": "useWorkspaceGroupsQuery",
+        "o": "WorkspaceAccessDropdown",
+        "p": "initShareDialogPrimaryActionsChunk",
+        "r": "useWorkspaceUsersQuery",
+        "s": "initWorkspaceAccessDropdownChunk",
+        "t": "initWorkspaceUserQueriesChunk",
+        "u": "getWorkspaceUserDisplayName",
+        "initShareTargetRowChunk": "initShareTargetRowChunk",
+        "filterAvailableWorkspaceUsers": "filterAvailableWorkspaceUsers",
+        "initWorkspaceUserQueryHelpersChunk": "initWorkspaceUserQueryHelpersChunk",
+        "ShareDialogPrimaryActions": "ShareDialogPrimaryActions",
+        "initWorkspaceAccessSelectChunk": "initWorkspaceAccessSelectChunk",
+        "ShareTargetRow": "ShareTargetRow",
+        "workspaceUserToShareTargetOption": "workspaceUserToShareTargetOption",
+        "WorkspaceAccessSelect": "WorkspaceAccessSelect",
+        "useWorkspaceGroupsQuery": "useWorkspaceGroupsQuery",
+        "WorkspaceAccessDropdown": "WorkspaceAccessDropdown",
+        "initShareDialogPrimaryActionsChunk": "initShareDialogPrimaryActionsChunk",
+        "useWorkspaceUsersQuery": "useWorkspaceUsersQuery",
+        "initWorkspaceAccessDropdownChunk": "initWorkspaceAccessDropdownChunk",
+        "initWorkspaceUserQueriesChunk": "initWorkspaceUserQueriesChunk",
+        "getWorkspaceUserDisplayName": "getWorkspaceUserDisplayName"
+      },
+      "status": "done",
+      "aliasOf": "use-workspace-users-BuMotENr",
+      "note": "Current synced workspace sharing helpers chunk after share autocomplete moved to its own chunk; current aliases map to existing access controls, primary actions, row, query helpers, and initializer exports.",
+      "lastUpdated": "2026-06-29T00:00:00.000Z"
     },
     "external-link-pp1LMUpE": {
       "restored": "utils/external-link/index.tsx",

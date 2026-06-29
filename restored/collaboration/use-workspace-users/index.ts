@@ -1,5 +1,6 @@
-// Restored from ref/webview/assets/use-workspace-users-BuMotENr.js
-// Public sharing helpers and workspace user controls.
+// Restored from ref/webview/assets/use-workspace-users-D5OfJQX1.js
+// Also matches ref/webview/assets/use-workspace-users-BuMotENr.js.
+import { once } from "../../runtime/commonjs-interop";
 import {
   WorkspaceAccessDropdown,
   WorkspaceAccessSelect,
@@ -14,17 +15,31 @@ import {
   workspaceUserToShareTargetOption,
 } from "./queries";
 import { ShareTargetRow } from "./share-target-row";
+
+const initShareTargetRowChunk = once(() => {});
+const initWorkspaceUserQueryHelpersChunk = once(() => {});
+const initWorkspaceAccessSelectChunk = once(() => {});
+const initShareDialogPrimaryActionsChunk = once(() => {});
+const initWorkspaceAccessDropdownChunk = once(() => {});
+const initWorkspaceUserQueriesChunk = once(() => {});
+
 export {
-  ShareTargetAutocomplete,
-  getWorkspaceUserDisplayName,
-  WorkspaceAccessDropdown,
-  ShareDialogPrimaryActions,
-  useWorkspaceUsersQuery,
+  initShareTargetRowChunk,
   filterAvailableWorkspaceUsers,
+  initWorkspaceUserQueryHelpersChunk,
+  ShareDialogPrimaryActions,
+  initWorkspaceAccessSelectChunk,
   ShareTargetRow,
   workspaceUserToShareTargetOption,
-  useWorkspaceGroupsQuery,
   WorkspaceAccessSelect,
+  useWorkspaceGroupsQuery,
+  WorkspaceAccessDropdown,
+  initShareDialogPrimaryActionsChunk,
+  useWorkspaceUsersQuery,
+  initWorkspaceAccessDropdownChunk,
+  initWorkspaceUserQueriesChunk,
+  getWorkspaceUserDisplayName,
+  ShareTargetAutocomplete,
 };
 export type {
   ShareDialogActionConfig,
