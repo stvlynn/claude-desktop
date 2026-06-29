@@ -1,6 +1,8 @@
 // Restored from ref/.vite/build/worker.js
 // Shared types for Git worktree creation helpers.
 
+import type { LocalEnvironmentScriptResult } from "./git-worker-local-environment-types";
+
 export type CreateWorktreeStartingState =
   | {
       type: "branch";
@@ -15,6 +17,7 @@ export type CreateWorktreeResult =
       success: true;
       worktreeGitRoot: string;
       worktreeWorkspaceRoot: string;
+      setupResult: LocalEnvironmentScriptResult | null;
       setupError: string | null;
     }
   | {

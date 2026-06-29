@@ -12,6 +12,7 @@ import {
   WORKTREE_INCLUDE_FILE_NAME,
 } from "./git-worker-create-worktree-files";
 import {
+  removeGitPath,
   readSafeAttributeFilterOverrides,
   readTreeSha,
   removeFailedWorktree,
@@ -19,6 +20,15 @@ import {
   writeJsonToGitPath,
 } from "./git-worker-create-worktree-git";
 import { createWorkingTreeSnapshotCommit } from "./git-worker-create-worktree-snapshot";
+import { readLocalEnvironmentConfig } from "./git-worker-local-environment-config";
+import {
+  LOCAL_ENVIRONMENT_CONFIG_KEY,
+  NO_LOCAL_ENVIRONMENT_CONFIG_VALUE,
+  SHELL_ENVIRONMENT_GIT_PATH,
+  SOURCE_TREE_ENV_VAR,
+  WORKTREE_ENV_VAR,
+} from "./git-worker-local-environment-types";
+import { runLocalEnvironmentSetup } from "./git-worker-local-environment";
 import type {
   CreateWorktreeResult,
   CreateWorktreeStartingState,
@@ -40,8 +50,6 @@ type WorktreePathAllocation = {
   worktreeWorkspaceRoot: string;
 };
 
-const localEnvironmentConfigKey = "codex.localEnvironmentConfigPath";
-const noLocalEnvironmentConfigValue = "__none__";
 const textEncoder = new TextEncoder();
 
 export async function handleCreateWorktreeRequest({
@@ -204,10 +212,10 @@ export async function createWorktree({
   const storedConfig = await storeConfigValueForScope({
     cwd: allocation.worktreeWorkspaceRoot,
     host,
-    key: localEnvironmentConfigKey,
+    key: LOCAL_ENVIRONMENT_CONFIG_KEY,
     scope: "worktree",
     signal,
-    value: localEnvironmentConfigPath ?? noLocalEnvironmentConfigValue,
+    value: localEnvironmentConfigPath ?? NO_LOCAL_ENVIRONMENT_CONFIG_VALUE,
   });
   if (!storedConfig) {
     logStderr(
@@ -222,21 +230,92 @@ export async function createWorktree({
       success: true,
       worktreeGitRoot: allocation.worktreeGitRoot,
       worktreeWorkspaceRoot: allocation.worktreeWorkspaceRoot,
+      setupResult: null,
       setupError: null,
     };
   }
 
   callbacks.onSetupStart?.();
-  const setupError = Error(
-    "Local environment setup remains an open restoration boundary",
+  const localEnvironment = await readLocalEnvironmentConfig(
+    localEnvironmentConfigPath,
+    host,
   );
-  logStderr(callbacks, `${setupError.message}\n`);
-  if (!allowSetupFailure) return { success: false, error: setupError };
+  if (localEnvironment.type === "error") {
+    logStderr(callbacks, `${localEnvironment.error.message}\n`);
+    if (!allowSetupFailure) {
+      return { success: false, error: localEnvironment.error };
+    }
+    return {
+      success: true,
+      worktreeGitRoot: allocation.worktreeGitRoot,
+      worktreeWorkspaceRoot: allocation.worktreeWorkspaceRoot,
+      setupResult: null,
+      setupError: localEnvironment.error.message,
+    };
+  }
+
+  logInfo(callbacks, `Running setup script ${localEnvironment.configPath}\n`);
+  const setup = await runLocalEnvironmentSetup({
+    host,
+    injectedEnvironment: {
+      [SOURCE_TREE_ENV_VAR]: workspaceRoot,
+      [WORKTREE_ENV_VAR]: allocation.worktreeWorkspaceRoot,
+    },
+    localEnvironment,
+    onLog: (stream, data) => callbacks.onLog?.(stream, data),
+    signal,
+    workspaceRoot: allocation.worktreeGitRoot,
+  });
+  if (signal.aborted) return failedCreateWorktree("Request canceled");
+
+  const setupResult = setup?.setupResult ?? null;
+  if (setupResult?.status === "failed") {
+    const setupError = Error(setupResult.error ?? "Setup script failed");
+    logStderr(callbacks, `${setupResult.error ?? "Setup script failed"}\n`);
+    if (!allowSetupFailure) return { success: false, error: setupError };
+    return {
+      success: true,
+      worktreeGitRoot: allocation.worktreeGitRoot,
+      worktreeWorkspaceRoot: allocation.worktreeWorkspaceRoot,
+      setupResult,
+      setupError: setupError.message,
+    };
+  }
+
+  if (setupResult?.status === "succeeded") {
+    logInfo(callbacks, "Setup script completed\n");
+  }
+
+  try {
+    if (setup?.shellEnvironment == null) {
+      await removeGitPath({
+        host,
+        path: SHELL_ENVIRONMENT_GIT_PATH,
+        root: allocation.worktreeGitRoot,
+        signal,
+      });
+    } else {
+      await writeJsonToGitPath({
+        contents: setup.shellEnvironment,
+        host,
+        path: SHELL_ENVIRONMENT_GIT_PATH,
+        root: allocation.worktreeGitRoot,
+        signal,
+      });
+    }
+  } catch (error) {
+    logStderr(
+      callbacks,
+      `Failed to store worktree shell environment: ${String(error)}\n`,
+    );
+  }
+
   return {
     success: true,
     worktreeGitRoot: allocation.worktreeGitRoot,
     worktreeWorkspaceRoot: allocation.worktreeWorkspaceRoot,
-    setupError: setupError.message,
+    setupResult,
+    setupError: null,
   };
 }
 
@@ -286,6 +365,7 @@ async function addWorktree({
       success: true,
       worktreeGitRoot,
       worktreeWorkspaceRoot: worktreeGitRoot,
+      setupResult: null,
       setupError: null,
     };
   } catch (error) {

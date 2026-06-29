@@ -38,6 +38,33 @@ export async function storeConfigValueForScope({
   return (await runGitCommand({ args, cwd, host, signal })).success;
 }
 
+export async function readConfigValueForScope({
+  cwd,
+  host,
+  key,
+  scope,
+  signal,
+}: {
+  cwd: string;
+  host: WorkerExecutionHostClient;
+  key: string;
+  scope: "local" | "worktree";
+  signal: AbortSignal;
+}): Promise<string | null> {
+  const result = await runGitCommand({
+    args: [
+      "config",
+      scope === "local" ? "--local" : "--worktree",
+      "--get",
+      key,
+    ],
+    cwd,
+    host,
+    signal,
+  });
+  return result.success && result.stdout.length > 0 ? result.stdout : null;
+}
+
 export async function writeJsonToGitPath({
   contents,
   host,
@@ -56,6 +83,21 @@ export async function writeJsonToGitPath({
   await host.writeFile(configPath, `${JSON.stringify(contents, null, 2)}\n`, {
     signal,
   });
+}
+
+export async function removeGitPath({
+  host,
+  path,
+  root,
+  signal,
+}: {
+  host: WorkerExecutionHostClient;
+  path: string;
+  root: string;
+  signal: AbortSignal;
+}): Promise<void> {
+  const gitPath = await readGitPath({ host, path, root, signal });
+  if (gitPath != null) await host.remove(gitPath, { force: true });
 }
 
 export async function readSafeAttributeFilterOverrides({

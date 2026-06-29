@@ -3,6 +3,13 @@
 
 import { createHash, randomUUID } from "node:crypto";
 import { runGitCommand, type GitCommandResult } from "./git-worker-commands";
+import { readConfigValueForScope } from "./git-worker-create-worktree-git";
+import { readLocalEnvironmentConfig } from "./git-worker-local-environment-config";
+import {
+  LOCAL_ENVIRONMENT_CONFIG_KEY,
+  NO_LOCAL_ENVIRONMENT_CONFIG_VALUE,
+} from "./git-worker-local-environment-types";
+import { runLocalEnvironmentCleanup } from "./git-worker-local-environment";
 import { readStableMetadata } from "./git-worker-repo-queries";
 import { GitWorkerRepoWatchManager } from "./git-worker-repo-watch";
 import { setWorktreeOwnerThread } from "./git-worker-worktree-thread";
@@ -287,6 +294,11 @@ async function removeWorktree({
   const semaphore = deleteSemaphoreForHost(host);
   await semaphore.acquire();
   try {
+    await runStoredLocalEnvironmentCleanup({
+      host,
+      signal,
+      worktree,
+    });
     const args = ["worktree", "remove"];
     if (force) args.push("--force");
     args.push(worktree);
@@ -305,6 +317,41 @@ async function removeWorktree({
     void worktreeId;
   } finally {
     semaphore.release();
+  }
+}
+
+async function runStoredLocalEnvironmentCleanup({
+  host,
+  signal,
+  worktree,
+}: {
+  host: WorkerExecutionHostClient;
+  signal: AbortSignal;
+  worktree: string;
+}): Promise<void> {
+  const configPath = await readConfigValueForScope({
+    cwd: worktree,
+    host,
+    key: LOCAL_ENVIRONMENT_CONFIG_KEY,
+    scope: "worktree",
+    signal,
+  });
+  if (configPath == null || configPath === NO_LOCAL_ENVIRONMENT_CONFIG_VALUE) {
+    return;
+  }
+
+  const localEnvironment = await readLocalEnvironmentConfig(configPath, host);
+  if (localEnvironment.type === "error") return;
+  if (localEnvironment.environment.cleanup == null) return;
+
+  const cleanupResult = await runLocalEnvironmentCleanup({
+    host,
+    localEnvironment,
+    signal,
+    workspaceRoot: worktree,
+  });
+  if (cleanupResult?.status === "failed") {
+    throw Error(cleanupResult.error ?? "Cleanup script failed");
   }
 }
 
