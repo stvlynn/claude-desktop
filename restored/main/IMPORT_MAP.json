@@ -97,6 +97,7 @@
         "plugins/computer-use-native-pipe/index.ts",
         "plugins/computer-use-config/index.ts",
         "plugins/bundled-plugin-marketplace/index.ts",
+        "plugins/bundled-plugin-marketplace/content-variants.ts",
         "plugins/local-to-bundled-migration/index.ts",
         "plugins/node-repl-host-services/index.ts"
       ],
@@ -105,7 +106,7 @@
       },
       "status": "done",
       "vendor": "runtime",
-      "note": "Executable Electron startup bridge restored: runtime handoff, startup telemetry, app:// protocol registration, runtime path/native-intl setup, preload state IPC, system-theme IPC, native menu/context-menu IPC, debug IPC, app-host MessagePort IPC, second-instance focus handling, initial BrowserWindow creation wired to the restored helpers, DeviceCheck attestation helpers split into auth/devicecheck-attestation/, automation prompt/scheduling/heartbeat helpers split into automations/, Browser Use PiP metadata/native presentation helpers split into browser-use-pip/, native desktop app icon helpers split into native-app-icons/, Computer Use native pipe helpers split into plugins/computer-use-native-pipe/, Computer Use overlay config writer split into plugins/computer-use-config/, current bundled-plugin marketplace reconciliation and stale-cleanup helpers split into plugins/bundled-plugin-marketplace/, browser-use/computer-use local-to-bundled migrations split into plugins/local-to-bundled-migration/, and node_repl host services/thread config/app-server config sync helpers split into plugins/node-repl-host-services/."
+      "note": "Executable Electron startup bridge restored: runtime handoff, startup telemetry, app:// protocol registration, runtime path/native-intl setup, preload state IPC, system-theme IPC, native menu/context-menu IPC, debug IPC, app-host MessagePort IPC, second-instance focus handling, initial BrowserWindow creation wired to the restored helpers, DeviceCheck attestation helpers split into auth/devicecheck-attestation/, automation prompt/scheduling/heartbeat helpers split into automations/, Browser Use PiP metadata/native presentation helpers split into browser-use-pip/, native desktop app icon helpers split into native-app-icons/, Computer Use native pipe helpers split into plugins/computer-use-native-pipe/, Computer Use overlay config writer split into plugins/computer-use-config/, current bundled-plugin marketplace reconciliation, content-variant override, and stale-cleanup helpers split into plugins/bundled-plugin-marketplace/, browser-use/computer-use local-to-bundled migrations split into plugins/local-to-bundled-migration/, and node_repl host services/thread config/app-server config sync helpers split into plugins/node-repl-host-services/."
     },
     "codex-micro-service-rjpeLKbm": {
       "restored": "devices/codex-micro-service.ts",
