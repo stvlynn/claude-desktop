@@ -36,6 +36,7 @@ import { readIndexInfo, readStatusSummary } from "./git-worker-status-queries";
 import { readSyncedBranch } from "./git-worker-synced-branch";
 import { runGitCommand } from "./git-worker-commands";
 import { setWorktreeOwnerThread } from "./git-worker-worktree-thread";
+import { listWorktrees } from "./git-worker-worktrees";
 import type { RpcResult } from "./worker-main-rpc-client";
 import { toRpcError } from "./worker-runtime-utils";
 
@@ -462,6 +463,16 @@ export class GitWorkerRequestDispatcher {
         } catch {
           return rpcError("Failed to set thread worktree owner");
         }
+      }
+      case "list-worktrees": {
+        const params = requireRecordParams(request);
+        return ok({
+          worktrees: await listWorktrees({
+            cwd: requireStringParam(params, "cwd"),
+            host: context.host,
+            signal: context.signal,
+          }),
+        });
       }
     }
     throw openRestorationBoundaryError(
