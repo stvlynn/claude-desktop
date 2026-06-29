@@ -282,9 +282,10 @@ export { composeEventHandlers } from "../../vendor/radix-event-helpers";
 
 export {
   createSlotComponent,
-  normalizeFilesystemPathForDisplay,
   Primitive,
-} from "../../vendor/app-main-current-runtime";
+} from "../../vendor/radix-primitive-helpers";
+
+export { normalizeFilesystemPath as normalizeFilesystemPathForDisplay } from "../rpc.facade";
 
 export {
   composeRefs,
