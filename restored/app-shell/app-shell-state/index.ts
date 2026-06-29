@@ -96,10 +96,17 @@ const appShellStateExportTt = setActiveAppShellFocusArea;
 const appShellStateExportUAlias = sidebarOpenSignal;
 const appShellStateExportUt = appShellStateImpl.appShellStateUtState;
 const appShellStateExportVAlias = appShellStateImpl.appShellStateVState;
+const ensureBottomPanelLauncherVisibilityDefault =
+  appShellStateImpl.appShellStateVState;
 const appShellStateExportWAlias = setReviewFileTreeOpen;
 const appShellStateExportXAlias = setRightPanelOpenWithOptions;
 const appShellStateExportYAlias = appShellStateImpl.appShellStateYState;
 const appShellStateExportZAlias = appShellStateImpl.appShellStateZState;
+
+function initAppShellStateRuntimeChunk(): void {
+  // Importing this module constructs the semantic app-shell state signals.
+}
+
 export {
   bottomPanelPreviousFocusAreaSignal,
   rightPanelFullscreenSignal,
@@ -186,6 +193,8 @@ export {
   appShellStateExportUAlias,
   appShellStateExportUt,
   appShellStateExportVAlias,
+  ensureBottomPanelLauncherVisibilityDefault,
+  initAppShellStateRuntimeChunk,
   appShellStateExportWAlias,
   appShellStateExportXAlias,
   appShellStateExportYAlias,

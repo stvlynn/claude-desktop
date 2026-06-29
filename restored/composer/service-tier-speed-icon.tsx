@@ -4,6 +4,10 @@ import type { ReactElement, SVGProps } from "react";
 
 export type ServiceTierIconKind = "fast" | "ultrafast" | null;
 
+export function initFastServiceTierIcon(): void {}
+
+export function initUltraFastServiceTierIcon(): void {}
+
 export function FastServiceTierIcon(
   props: SVGProps<SVGSVGElement>,
 ): ReactElement {
