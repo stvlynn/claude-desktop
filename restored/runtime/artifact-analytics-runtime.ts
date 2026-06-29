@@ -1,11 +1,15 @@
 // Restored from ref/webview/assets/artifact-analytics-DeyIRgFu.js
 
-import {
-  Df as initProductLoggerRuntime,
-  kf as logProductEvent,
-} from "../../ref/webview/assets/app-initial~app-main~worktree-init-v2-page~remote-conversation-page~new-thread-panel-page~o~bj5tp28r-Dcs9S3fj.js";
+import { __productLoggerR as productLoggerSignal } from "../generated/product-logger";
 
-export { initProductLoggerRuntime, logProductEvent };
+type ProductLogger = {
+  logProductEvent(event: unknown, payload?: unknown): void;
+};
+
+type ProductLoggerScope = {
+  get?(signal: unknown): ProductLogger | null | undefined;
+  logProductEvent?(event: unknown, payload?: unknown): void;
+};
 
 export type ProductAnalyticsEventDescriptor = {
   $type: string;
@@ -74,4 +78,18 @@ export const ArtifactAnnotationSubmitSource = {
 
 export function initArtifactAnalyticsEventDescriptors(): void {
   // Artifact analytics descriptors and enums are initialized as module constants.
+}
+
+export function initProductLoggerRuntime(): void {
+  // The restored product logger signal is initialized by generated/product-logger.
+}
+
+export function logProductEvent(
+  scope: ProductLoggerScope,
+  productEvent: ProductAnalyticsEventDescriptor,
+  payload: unknown = {},
+): void {
+  let scopedLogger = scope.get?.(productLoggerSignal);
+  let logger = scopedLogger ?? scope;
+  logger.logProductEvent?.(productEvent, payload);
 }
