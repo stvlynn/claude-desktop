@@ -1,4 +1,4 @@
-// Restored from ref/webview/assets/pdf-c2WnNMiD.js
+// Restored from ref/webview/assets/pdf-BMUvP2KZ.js
 // Pdf chunk restored from the Codex webview bundle.
 import {
   pdfT as pdfAbortException,
