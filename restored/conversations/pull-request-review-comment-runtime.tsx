@@ -6,10 +6,9 @@ import {
   Va as initPullRequestReviewCommentAttachmentStateChunkRaw,
 } from "../vendor/projects-app-shared-runtime";
 import {
-  $ as initPullRequestCommentCardPrimitivesChunkRaw,
-  a as PullRequestCommentCard,
-  o as initPullRequestCommentCardChunkRaw,
-} from "../vendor/pull-request-thread-actions-runtime";
+  initPullRequestCommentCardChunk as initPullRequestCommentCardChunkRaw,
+  PullRequestCommentCard,
+} from "../boundaries/current-ref/pull-request-comment-card-producer";
 import {
   Qc as openPullRequestReviewCommentInReviewPanel,
   eu as getThreadBranchMismatchState,
@@ -111,7 +110,6 @@ export function initPullRequestReviewCommentAttachmentStateRuntime(): void {
 }
 
 export function initPullRequestCommentCardRuntime(): void {
-  initPullRequestCommentCardPrimitivesChunkRaw();
   initPullRequestCommentCardChunkRaw();
   initPullRequestCommentCardSupportChunkRaw();
 }
