@@ -1,6 +1,6 @@
 // Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
-// Boundary facade (mention-metadata) — typed `any` placeholders for non-exported cross-slice
-// symbols. Open boundary; replace as owning modules are restored. Auto-generated.
+// Boundary facade (mention-metadata) — typed `any` placeholders for non-exported cross-slice symbols.
+// Open boundary; replace as owning modules are restored. Auto-generated from imports.
 
 export const ComposerMentionController: any = undefined as any;
 export const DirectoryApp: any = undefined as any;

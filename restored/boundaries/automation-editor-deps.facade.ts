@@ -1,6 +1,6 @@
 // Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
-// Boundary facade (automation-editor-deps) — typed `any` placeholders for non-exported cross-slice
-// symbols. Open boundary; replace as owning modules are restored. Auto-generated.
+// Boundary facade (automation-editor-deps) — typed `any` placeholders for non-exported cross-slice symbols.
+// Open boundary; replace as owning modules are restored. Auto-generated from imports.
 
 export const ComposerAnchoredOverlay: any = undefined as any;
 export const LOCAL_HOST_ID: any = undefined as any;
