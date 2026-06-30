@@ -9,3 +9,5 @@ export class ImperativeState<TRecords = unknown> {
     this.records = this.init();
   }
 }
+
+export function initChunkQZHKN3VN(): void {}

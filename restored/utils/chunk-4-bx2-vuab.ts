@@ -18,3 +18,5 @@ export function populateCommonDb(
   if (metadata.accTitle) database.setAccTitle?.(metadata.accTitle);
   if (metadata.title) database.setDiagramTitle?.(metadata.title);
 }
+
+export function initChunk4BX2VUAB(): void {}

@@ -220,3 +220,5 @@ export const chunkHN2XXSSUT = chunkAGHRB4JFN(
   "getLineFunctionsWithOffset",
 );
 export { chunkHN2XXSSUN };
+
+export function initChunkHN2XXSSU() {}

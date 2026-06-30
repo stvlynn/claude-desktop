@@ -932,4 +932,5 @@ export const chunkAGHRB4JFI = chunkAGHRB4JFN(function (
         )
       : console.log.bind(console, "[32m", chunkAGHRB4JFValue4("TRACE")));
 }, "setLogLevel");
+export function initDayjsCoreAltChunk() {}
 export { chunkAGHRB4JFA, chunkAGHRB4JFN, chunkAGHRB4JFR };

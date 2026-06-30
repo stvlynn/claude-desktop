@@ -232,3 +232,5 @@ export const chunkBSJP7CBPN = chunkAGHRB4JFN(
   "getLineFunctionsWithOffset",
 );
 export { chunkBSJP7CBPR };
+
+export function initChunkBSJP7CBP() {}

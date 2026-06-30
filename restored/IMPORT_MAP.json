@@ -2479,10 +2479,10 @@
       "exports": {
         "t": "loadHighlightJsCore"
       },
-      "status": "done",
       "aliasOf": "core-CpC1jq0N",
-      "lastUpdated": "2026-06-30T00:00:00.000Z",
-      "note": "Current highlight.js core wrapper preserves the restored loader export surface."
+      "note": "Current highlight.js core wrapper preserves the restored loader export surface.",
+      "status": "done",
+      "lastUpdated": "2026-06-30T08:19:23.819Z"
     },
     "highlight-code-BntQZ0HZ": {
       "restored": "utils/highlight-code.ts",
@@ -2963,10 +2963,10 @@
         "n": "chunkCVBHYZKI",
         "t": "initChunkCVBHYZKI"
       },
-      "status": "done",
       "aliasOf": "chunk-CVBHYZKI-D5c0MJ_k",
-      "lastUpdated": "2026-06-30T00:00:00.000Z",
-      "note": "Current Rolldown lazy-init variant maps the init alias to the restored eager ESM initializer compatibility export."
+      "note": "Current Rolldown lazy-init variant maps the init alias to the restored eager ESM initializer compatibility export.",
+      "status": "done",
+      "lastUpdated": "2026-06-30T08:22:15.325Z"
     },
     "middleware-BDgBoOJW": {
       "restored": "vendor/segment-middleware.ts",
@@ -22789,10 +22789,10 @@
       "exports": {
         "default": "default"
       },
-      "status": "done",
       "aliasOf": "index.umd-CqGTwgME",
-      "lastUpdated": "2026-06-30T00:00:00.000Z",
-      "note": "Current Segment analytics video plugins UMD wrapper preserves the restored default export surface."
+      "note": "Current Segment analytics video plugins UMD wrapper preserves the restored default export surface.",
+      "status": "done",
+      "lastUpdated": "2026-06-30T08:19:23.819Z"
     },
     "chunk-QZHKN3VN-bO7GNZwy": {
       "restored": "vendor/mermaid-imperative-state.ts",
@@ -32481,6 +32481,139 @@
       "note": "Current header hash was fingerprinted from component/helper body strings and preserves this public export surface.",
       "status": "done",
       "lastUpdated": "2026-06-30T00:00:00.000Z"
+    },
+    "chunk-AGHRB4JF-DVNPU_Qo": {
+      "restored": "vendor/dayjs-core-alt.ts",
+      "exports": {
+        "a": "chunkAGHRB4JFI",
+        "i": "chunkAGHRB4JFR",
+        "n": "chunkAGHRB4JFN",
+        "o": "chunkAGHRB4JFA",
+        "r": "initDayjsCoreAltChunk",
+        "t": "chunkAGHRB4JFT"
+      },
+      "aliasOf": "chunk-AGHRB4JF-Bxy73eEy",
+      "note": "Current Day.js/logger wrapper aliases were re-derived from this ref: a=setLogLevel, i=logger, n=defineName, o=dayjs module, r=init thunk, t=define getters.",
+      "status": "done",
+      "lastUpdated": "2026-06-30T08:19:23.819Z"
+    },
+    "chunk-AGHRB4JF-DJZonIPK": {
+      "restored": "vendor/dayjs-core-alt.ts",
+      "exports": {
+        "a": "chunkAGHRB4JFI",
+        "i": "chunkAGHRB4JFR",
+        "n": "chunkAGHRB4JFN",
+        "o": "chunkAGHRB4JFA",
+        "r": "initDayjsCoreAltChunk",
+        "t": "chunkAGHRB4JFT"
+      },
+      "aliasOf": "chunk-AGHRB4JF-Bxy73eEy",
+      "note": "Current Day.js/logger wrapper aliases were re-derived from this ref: a=setLogLevel, i=logger, n=defineName, o=dayjs module, r=init thunk, t=define getters.",
+      "status": "done",
+      "lastUpdated": "2026-06-30T08:19:23.819Z"
+    },
+    "routing-middleware-DNnHn-sA": {
+      "restored": "utils/routing-middleware.ts",
+      "exports": {
+        "tsubMiddleware": "tsubMiddleware"
+      },
+      "aliasOf": "routing-middleware-BMBY4FI3",
+      "note": "Current routing middleware wrapper preserves the restored tsubMiddleware export surface.",
+      "status": "done",
+      "lastUpdated": "2026-06-30T08:19:23.819Z"
+    },
+    "chunk-4BX2VUAB-NwVKKZxX": {
+      "restored": "utils/chunk-4-bx2-vuab.ts",
+      "exports": {
+        "n": "populateCommonDb",
+        "t": "initChunk4BX2VUAB"
+      },
+      "aliasOf": "chunk-4BX2VUAB-Dutn5tdG",
+      "note": "Current Rolldown lazy-init helper hash preserves the restored helper body; n maps to the body export and t maps to the no-op init export.",
+      "status": "done",
+      "lastUpdated": "2026-06-30T08:22:15.325Z"
+    },
+    "chunk-4BX2VUAB-fqlOQUw2": {
+      "restored": "utils/chunk-4-bx2-vuab.ts",
+      "exports": {
+        "n": "populateCommonDb",
+        "t": "initChunk4BX2VUAB"
+      },
+      "aliasOf": "chunk-4BX2VUAB-Dutn5tdG",
+      "note": "Current Rolldown lazy-init helper hash preserves the restored helper body; n maps to the body export and t maps to the no-op init export.",
+      "status": "done",
+      "lastUpdated": "2026-06-30T08:22:15.325Z"
+    },
+    "chunk-FMBD7UC4-DCr6uaVv": {
+      "restored": "utils/chunk-fmbd7-uc4.ts",
+      "exports": {
+        "n": "initChunkFMBD7UC4",
+        "t": "chunkFMBD7UC4"
+      },
+      "aliasOf": "chunk-FMBD7UC4-CT2OagM_",
+      "note": "Current Rolldown lazy-init helper hash preserves the restored helper body; n maps to the body export and t maps to the no-op init export.",
+      "status": "done",
+      "lastUpdated": "2026-06-30T08:22:15.325Z"
+    },
+    "chunk-FMBD7UC4-Cl8oprFb": {
+      "restored": "utils/chunk-fmbd7-uc4.ts",
+      "exports": {
+        "n": "initChunkFMBD7UC4",
+        "t": "chunkFMBD7UC4"
+      },
+      "aliasOf": "chunk-FMBD7UC4-CT2OagM_",
+      "note": "Current Rolldown lazy-init helper hash preserves the restored helper body; n maps to the body export and t maps to the no-op init export.",
+      "status": "done",
+      "lastUpdated": "2026-06-30T08:22:15.325Z"
+    },
+    "chunk-QZHKN3VN-Djc2hI-1": {
+      "restored": "utils/chunk-qzhkn3-vn.ts",
+      "exports": {
+        "n": "initChunkQZHKN3VN",
+        "t": "ImperativeState"
+      },
+      "aliasOf": "chunk-QZHKN3VN-D8sZjzJc",
+      "note": "Current Rolldown lazy-init helper hash preserves the restored helper body; n maps to the body export and t maps to the no-op init export.",
+      "status": "done",
+      "lastUpdated": "2026-06-30T08:22:15.325Z"
+    },
+    "chunk-QZHKN3VN-CjmxHyf9": {
+      "restored": "utils/chunk-qzhkn3-vn.ts",
+      "exports": {
+        "n": "initChunkQZHKN3VN",
+        "t": "ImperativeState"
+      },
+      "aliasOf": "chunk-QZHKN3VN-D8sZjzJc",
+      "note": "Current Rolldown lazy-init helper hash preserves the restored helper body; n maps to the body export and t maps to the no-op init export.",
+      "status": "done",
+      "lastUpdated": "2026-06-30T08:22:15.325Z"
+    },
+    "chunk-BSJP7CBP-CrJpo2xF": {
+      "restored": "vendor/chunk-bsjp7cbp.ts",
+      "exports": {
+        "a": "chunkBSJP7CBPI",
+        "i": "chunkBSJP7CBPR",
+        "n": "chunkBSJP7CBPN",
+        "r": "initChunkBSJP7CBP",
+        "t": "chunkBSJP7CBPT"
+      },
+      "aliasOf": "chunk-BSJP7CBP-kgPEHQNd",
+      "note": "Current chunk-BSJP7CBP hash preserves the restored public helpers; aliases re-derived from the lazy-init export tail.",
+      "status": "done",
+      "lastUpdated": "2026-06-30T08:22:15.325Z"
+    },
+    "chunk-HN2XXSSU-BJwKN-er": {
+      "restored": "vendor/mermaid-relation-markers.ts",
+      "exports": {
+        "i": "chunkHN2XXSSUR",
+        "n": "initChunkHN2XXSSU",
+        "r": "chunkHN2XXSSUN",
+        "t": "chunkHN2XXSSUT"
+      },
+      "aliasOf": "chunk-HN2XXSSU-dadJeUL1",
+      "note": "Current chunk-HN2XXSSU hash preserves the restored relation marker helpers; aliases re-derived from the lazy-init export tail.",
+      "status": "done",
+      "lastUpdated": "2026-06-30T08:22:15.325Z"
     }
   }
 }
