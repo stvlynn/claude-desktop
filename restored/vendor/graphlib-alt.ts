@@ -1,4 +1,4 @@
-// Restored from ref/webview/assets/graphlib-Dk1ocXNC.js
+// Restored from ref/webview/assets/graphlib-ichArG6F.js
 // Graphlib chunk restored from the Codex webview bundle.
 import {
   reduceT as reduceC,
@@ -489,4 +489,5 @@ function graphlibHelper5(graphlibParam50, graphlibParam51) {
     graphlibParam51.name,
   );
 }
-export { Graphlib };
+function initGraphlibAltChunk(): void {}
+export { Graphlib, initGraphlibAltChunk };

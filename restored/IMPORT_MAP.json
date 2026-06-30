@@ -33323,6 +33323,51 @@
       "note": "Current chunk-ATLVNIR6 hash re-derived from chunk-ATLVNIR6-CqT90CcJ.js. Alias n is the Rolldown lazy init thunk; style helper aliases were matched by function names.",
       "stage3Accepted": true,
       "lastUpdated": "2026-06-30T00:00:00.000-05:00"
+    },
+    "lodash-osfEN9vD": {
+      "restored": "vendor/lodash-core.ts",
+      "status": "done",
+      "exports": {
+        "C": "initLodashOsfChunk",
+        "S": "lodashClone",
+        "_": "lodashFind",
+        "a": "lodashOrderBy",
+        "b": "lodashNow",
+        "c": "lodashPick",
+        "d": "lodashMapValues",
+        "f": "lodashIsUndefined",
+        "g": "lodashForOwn",
+        "h": "lodashForEach",
+        "i": "lodashUnion",
+        "l": "lodashMaxBy",
+        "m": "lodashHas",
+        "n": "lodashZipObject",
+        "o": "lodashSize",
+        "p": "lodashValues",
+        "r": "lodashUniqueId",
+        "s": "lodashRange",
+        "t": "initLodashOsfChunk",
+        "u": "lodashMax",
+        "v": "lodashLast",
+        "x": "lodashCloneDeep",
+        "y": "lodashDefaults"
+      },
+      "note": "Current lodash aggregate chunk re-derived from lodash-osfEN9vD.js. Public facade reuses restored lodash helper modules and maps both init aliases to initLodashOsfChunk.",
+      "stage3Accepted": true,
+      "lastUpdated": "2026-06-30T00:00:00.000-05:00"
+    },
+    "graphlib-ichArG6F": {
+      "restored": "vendor/graphlib-alt.ts",
+      "status": "done",
+      "exports": {
+        "n": "Graphlib",
+        "r": "initGraphlibAltChunk",
+        "t": "initGraphlibAltChunk"
+      },
+      "aliasOf": "graphlib-Dk1ocXNC",
+      "note": "Current graphlib hash preserves the graphlib-alt implementation and adds r/t lazy init thunk aliases.",
+      "stage3Accepted": true,
+      "lastUpdated": "2026-06-30T00:00:00.000-05:00"
     }
   }
 }
