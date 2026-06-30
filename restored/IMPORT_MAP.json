@@ -2927,6 +2927,16 @@
       "lastUpdated": "2026-06-30T00:00:00.000Z",
       "note": "Current ref hash keeps the restored color channel helper surface."
     },
+    "channel-fkXXpwx-": {
+      "restored": "vendor/color-channel.ts",
+      "exports": {
+        "t": "channel"
+      },
+      "status": "done",
+      "aliasOf": "channel-ykMIcoPi",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current ref hash keeps the restored color channel helper surface."
+    },
     "line-DIsP-Yv_": {
       "restored": "vendor/d3-shape-line.ts",
       "exports": {
