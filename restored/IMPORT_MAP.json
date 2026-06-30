@@ -12573,7 +12573,7 @@
       "compatibilitySource": "app-initial~app-main~worktree-init-v2-page~remote-conversation-page~new-thread-panel-page~o~bj5tp28r-Dcs9S3fj"
     },
     "app-initial~app-main~remote-conversation-page~new-thread-panel-page~appgen-library-page~hot~djo67r4n-CIs8dplf": {
-      "restored": "composer/thread-composer-footer.tsx",
+      "restored": "runtime/appgen-library-hot-producer-runtime.ts",
       "exports": {
         "$": "threadComposerContext",
         "A": "initCommandMenuItemComponent",
@@ -12596,10 +12596,9 @@
         "t": "ThreadComposerFooter",
         "tn": "initWorkspaceRootDisplayNameRuntime"
       },
-      "status": "partial",
-      "note": "Composer-facing thread footer/component initializer, app-shell element context, thread lazy navigation rail, git-root query, remote connection state/icon, command menu item, and workspace root display-name exports now have semantic wrappers. Remaining appgen-library hot-path runtime exports are routed through vendor/appgen-library-hot-runtime.ts, synced to current ref djo67r4n-CFm41aDU instead of the stale CIs8dplf hash, until the full mixed chunk is deep-restored.",
-      "lastUpdated": "2026-06-28T21:20:00.000Z",
-      "boundary": "boundaries/current-ref/appgen-library-hot-producer.ts"
+      "status": "done",
+      "note": "Legacy appgen-library hot-path producer is complete as a runtime composite: composer/footer, app-shell context, lazy navigation rail, git-root query, remote connection, command menu item, and workspace-root display-name exports are semantic modules, while remaining current hot-path runtime aliases are forwarded through vendor/appgen-library-hot-runtime.ts.",
+      "lastUpdated": "2026-06-30T00:00:00.000Z"
     },
     "app-initial~app-main~remote-conversation-page~onboarding-page~hotkey-window-thread-page~thr~jv7rs281-DxRnxRkd": {
       "restored": "utils/unified-diff-file-summaries.ts",
