@@ -1,131 +1,186 @@
-// Restored from ref/webview/assets/chunk-ATLVNIR6-DShFhP4G.js
-// ChunkATLVNIR6 chunk restored from the Codex webview bundle.
+// Restored from ref/webview/assets/chunk-ATLVNIR6-CqT90CcJ.js
+// Mermaid style parsing and RoughJS option helpers from the Codex webview bundle.
 import { chunkAGHRB4JFN } from "./dompurify";
 import { _chunkABZYJK2DL } from "./katex-auto-render";
-var chunkATLVNIR6T = chunkAGHRB4JFN((chunkATLVNIR6Param6) => {
-    let chunkATLVNIR6Value6 = chunkATLVNIR6Value1([
-      ...(chunkATLVNIR6Param6.cssCompiledStyles || []),
-      ...(chunkATLVNIR6Param6.cssStyles || []),
-      ...(chunkATLVNIR6Param6.labelStyle || []),
+
+export interface MermaidStyleInput {
+  cssCompiledStyles?: readonly string[] | null;
+  cssStyles?: readonly string[] | null;
+  labelStyle?: readonly string[] | null;
+}
+
+export type MermaidStyleEntry = [property: string, value: string | undefined];
+
+export interface CompiledMermaidStyles {
+  stylesMap: Map<string, string | undefined>;
+  stylesArray: MermaidStyleEntry[];
+}
+
+export interface MermaidStyleStrings {
+  labelStyles: string;
+  nodeStyles: string;
+  stylesArray: MermaidStyleEntry[];
+  borderStyles: string[];
+  backgroundStyles: string[];
+}
+
+export type StrokeDashArray = [number, number];
+
+export interface RoughNodeStyleOverrides {
+  roughness: number;
+  fill: string;
+  fillStyle: "hachure";
+  fillWeight: number;
+  hachureGap: number;
+  stroke: string;
+  seed: number;
+  strokeWidth: string | number;
+  fillLineDash: StrokeDashArray;
+  strokeLineDash: StrokeDashArray;
+  [key: string]: unknown;
+}
+
+function stylesToMap(
+  styles: readonly string[],
+): Map<string, string | undefined> {
+  const stylesMap = new Map<string, string | undefined>();
+  styles.forEach((styleDeclaration) => {
+    const [rawProperty, rawValue] = styleDeclaration.split(":");
+    stylesMap.set(rawProperty.trim(), rawValue?.trim());
+  });
+  return stylesMap;
+}
+
+export const compileStyles = chunkAGHRB4JFN(
+  (styleInput: MermaidStyleInput): CompiledMermaidStyles => {
+    const stylesMap = stylesToMap([
+      ...(styleInput.cssCompiledStyles || []),
+      ...(styleInput.cssStyles || []),
+      ...(styleInput.labelStyle || []),
     ]);
     return {
-      stylesMap: chunkATLVNIR6Value6,
-      stylesArray: [...chunkATLVNIR6Value6],
+      stylesMap,
+      stylesArray: [...stylesMap],
     };
-  }, "compileStyles"),
-  chunkATLVNIR6Value1 = chunkAGHRB4JFN((chunkATLVNIR6Param7) => {
-    let chunkATLVNIR6Value7 = new Map();
-    return (
-      chunkATLVNIR6Param7.forEach((item) => {
-        let [_chunkATLVNIR6R, _chunkATLVNIR6T] = item.split(":");
-        chunkATLVNIR6Value7.set(
-          _chunkATLVNIR6R.trim(),
-          _chunkATLVNIR6T?.trim(),
-        );
-      }),
-      chunkATLVNIR6Value7
-    );
-  }, "styles2Map"),
-  chunkATLVNIR6N = chunkAGHRB4JFN(
-    (chunkATLVNIR6Param3) =>
-      chunkATLVNIR6Param3 === "color" ||
-      chunkATLVNIR6Param3 === "font-size" ||
-      chunkATLVNIR6Param3 === "font-family" ||
-      chunkATLVNIR6Param3 === "font-weight" ||
-      chunkATLVNIR6Param3 === "font-style" ||
-      chunkATLVNIR6Param3 === "text-decoration" ||
-      chunkATLVNIR6Param3 === "text-align" ||
-      chunkATLVNIR6Param3 === "text-transform" ||
-      chunkATLVNIR6Param3 === "line-height" ||
-      chunkATLVNIR6Param3 === "letter-spacing" ||
-      chunkATLVNIR6Param3 === "word-spacing" ||
-      chunkATLVNIR6Param3 === "text-shadow" ||
-      chunkATLVNIR6Param3 === "text-overflow" ||
-      chunkATLVNIR6Param3 === "white-space" ||
-      chunkATLVNIR6Param3 === "word-wrap" ||
-      chunkATLVNIR6Param3 === "word-break" ||
-      chunkATLVNIR6Param3 === "overflow-wrap" ||
-      chunkATLVNIR6Param3 === "hyphens",
-    "isLabelStyle",
-  ),
-  chunkATLVNIR6Value2 = chunkAGHRB4JFN((chunkATLVNIR6Param4) => {
-    if (!chunkATLVNIR6Param4) return [0, 0];
-    let chunkATLVNIR6Value5 = chunkATLVNIR6Param4
-      .trim()
-      .split(/\s+/)
-      .map(Number);
-    if (chunkATLVNIR6Value5.length === 1) {
-      let chunkATLVNIR6Value8 = isNaN(chunkATLVNIR6Value5[0])
-        ? 0
-        : chunkATLVNIR6Value5[0];
-      return [chunkATLVNIR6Value8, chunkATLVNIR6Value8];
+  },
+  "compileStyles",
+);
+
+export const isLabelStyle = chunkAGHRB4JFN(
+  (property: string): boolean =>
+    property === "color" ||
+    property === "font-size" ||
+    property === "font-family" ||
+    property === "font-weight" ||
+    property === "font-style" ||
+    property === "text-decoration" ||
+    property === "text-align" ||
+    property === "text-transform" ||
+    property === "line-height" ||
+    property === "letter-spacing" ||
+    property === "word-spacing" ||
+    property === "text-shadow" ||
+    property === "text-overflow" ||
+    property === "white-space" ||
+    property === "word-wrap" ||
+    property === "word-break" ||
+    property === "overflow-wrap" ||
+    property === "hyphens",
+  "isLabelStyle",
+);
+
+export const parseStrokeDashArray = chunkAGHRB4JFN(
+  (dashArray: string | undefined): StrokeDashArray => {
+    if (!dashArray) return [0, 0];
+    const dashValues = dashArray.trim().split(/\s+/).map(Number);
+    if (dashValues.length === 1) {
+      const dashValue = isNaN(dashValues[0]) ? 0 : dashValues[0];
+      return [dashValue, dashValue];
     }
     return [
-      isNaN(chunkATLVNIR6Value5[0]) ? 0 : chunkATLVNIR6Value5[0],
-      isNaN(chunkATLVNIR6Value5[1]) ? 0 : chunkATLVNIR6Value5[1],
+      isNaN(dashValues[0]) ? 0 : dashValues[0],
+      isNaN(dashValues[1]) ? 0 : dashValues[1],
     ];
-  }, "getStrokeDashArray");
-export const chunkATLVNIR6R = chunkAGHRB4JFN((chunkATLVNIR6Param5) => {
-  let { handDrawnSeed: _chunkATLVNIR6R } = _chunkABZYJK2DL();
+  },
+  "getStrokeDashArray",
+);
+
+export const solidStateFill = chunkAGHRB4JFN((color: string) => {
+  const { handDrawnSeed } = _chunkABZYJK2DL();
   return {
-    fill: chunkATLVNIR6Param5,
+    fill: color,
     hachureAngle: 120,
     hachureGap: 4,
     fillWeight: 2,
     roughness: 0.7,
-    stroke: chunkATLVNIR6Param5,
-    seed: _chunkATLVNIR6R,
+    stroke: color,
+    seed: handDrawnSeed,
   };
 }, "solidStateFill");
-export const chunkATLVNIR6I = chunkAGHRB4JFN((chunkATLVNIR6Param1) => {
-  let { stylesArray } = chunkATLVNIR6T(chunkATLVNIR6Param1),
-    _chunkATLVNIR6R = [],
-    chunkATLVNIR6Value3 = [],
-    _chunkATLVNIR6I = [],
-    _chunkATLVNIR6A = [];
-  return (
-    stylesArray.forEach((item) => {
-      let chunkATLVNIR6Value4 = item[0];
-      chunkATLVNIR6N(chunkATLVNIR6Value4)
-        ? _chunkATLVNIR6R.push(item.join(":") + " !important")
-        : (chunkATLVNIR6Value3.push(item.join(":") + " !important"),
-          chunkATLVNIR6Value4.includes("stroke") &&
-            _chunkATLVNIR6I.push(item.join(":") + " !important"),
-          chunkATLVNIR6Value4 === "fill" &&
-            _chunkATLVNIR6A.push(item.join(":") + " !important"));
-    }),
-    {
-      labelStyles: _chunkATLVNIR6R.join(";"),
-      nodeStyles: chunkATLVNIR6Value3.join(";"),
+
+export const styles2String = chunkAGHRB4JFN(
+  (styleInput: MermaidStyleInput): MermaidStyleStrings => {
+    const { stylesArray } = compileStyles(styleInput);
+    const labelStyles: string[] = [];
+    const nodeStyles: string[] = [];
+    const borderStyles: string[] = [];
+    const backgroundStyles: string[] = [];
+
+    stylesArray.forEach((styleEntry) => {
+      const property = styleEntry[0];
+      const styleText = styleEntry.join(":") + " !important";
+      if (isLabelStyle(property)) {
+        labelStyles.push(styleText);
+        return;
+      }
+      nodeStyles.push(styleText);
+      if (property.includes("stroke")) borderStyles.push(styleText);
+      if (property === "fill") backgroundStyles.push(styleText);
+    });
+
+    return {
+      labelStyles: labelStyles.join(";"),
+      nodeStyles: nodeStyles.join(";"),
       stylesArray,
-      borderStyles: _chunkATLVNIR6I,
-      backgroundStyles: _chunkATLVNIR6A,
-    }
-  );
-}, "styles2String");
-export const chunkATLVNIR6A = chunkAGHRB4JFN(
-  (chunkATLVNIR6Param2, _chunkATLVNIR6R) => {
-    let { themeVariables, handDrawnSeed: _chunkATLVNIR6N } = _chunkABZYJK2DL(),
-      { nodeBorder: _chunkATLVNIR6I, mainBkg: _chunkATLVNIR6A } =
-        themeVariables,
-      { stylesMap } = chunkATLVNIR6T(chunkATLVNIR6Param2);
+      borderStyles,
+      backgroundStyles,
+    };
+  },
+  "styles2String",
+);
+
+export const userNodeOverrides = chunkAGHRB4JFN(
+  (
+    styleInput: MermaidStyleInput,
+    overrides?: Record<string, unknown>,
+  ): RoughNodeStyleOverrides => {
+    const { themeVariables, handDrawnSeed } = _chunkABZYJK2DL();
+    const { nodeBorder, mainBkg } = themeVariables;
+    const { stylesMap } = compileStyles(styleInput);
     return Object.assign(
       {
         roughness: 0.7,
-        fill: stylesMap.get("fill") || _chunkATLVNIR6A,
+        fill: stylesMap.get("fill") || mainBkg,
         fillStyle: "hachure",
         fillWeight: 4,
         hachureGap: 5.2,
-        stroke: stylesMap.get("stroke") || _chunkATLVNIR6I,
-        seed: _chunkATLVNIR6N,
+        stroke: stylesMap.get("stroke") || nodeBorder,
+        seed: handDrawnSeed,
         strokeWidth: stylesMap.get("stroke-width")?.replace("px", "") || 1.3,
-        fillLineDash: [0, 0],
-        strokeLineDash: chunkATLVNIR6Value2(stylesMap.get("stroke-dasharray")),
+        fillLineDash: [0, 0] as StrokeDashArray,
+        strokeLineDash: parseStrokeDashArray(stylesMap.get("stroke-dasharray")),
       },
-      _chunkATLVNIR6R,
+      overrides,
     );
   },
   "userNodeOverrides",
 );
-export function initChunkATLVNIR6(): void {}
-export { chunkATLVNIR6N, chunkATLVNIR6T };
+
+export function initMermaidStyleHelpersATLVNIR6Chunk(): void {}
+
+export const chunkATLVNIR6R = solidStateFill;
+export const chunkATLVNIR6I = styles2String;
+export const chunkATLVNIR6A = userNodeOverrides;
+export const chunkATLVNIR6N = isLabelStyle;
+export const chunkATLVNIR6T = compileStyles;
+export const initChunkATLVNIR6 = initMermaidStyleHelpersATLVNIR6Chunk;
