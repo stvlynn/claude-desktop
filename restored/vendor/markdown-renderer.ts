@@ -17,7 +17,10 @@ type CharacterClass = 1 | 2 | undefined;
 const punctuationOrSymbolPattern = /\p{P}|\p{S}/u;
 const whitespacePattern = /\s/;
 
-function matchesCharacterClass(code: number | null | undefined, pattern: RegExp) {
+function matchesCharacterClass(
+  code: number | null | undefined,
+  pattern: RegExp,
+) {
   return (
     code !== null &&
     typeof code === "number" &&
@@ -108,11 +111,17 @@ export function libO(code: number | null | undefined): CharacterClass {
   return undefined;
 }
 
-export function libY(node: MarkdownNode | MarkdownNode[], options?: TextOptions): string {
+export function libY(
+  node: MarkdownNode | MarkdownNode[],
+  options?: TextOptions,
+): string {
   let textOptions = options ?? {};
-  if (Array.isArray(node)) return node.map((child) => libY(child, textOptions)).join("");
+  if (Array.isArray(node))
+    return node.map((child) => libY(child, textOptions)).join("");
   if (node.type === "html" && textOptions.includeHtml === false) return "";
   if (node.value != null) return node.value;
   if (textOptions.includeImageAlt !== false && node.alt) return node.alt;
-  return (node.children ?? []).map((child) => libY(child, textOptions)).join("");
+  return (node.children ?? [])
+    .map((child) => libY(child, textOptions))
+    .join("");
 }

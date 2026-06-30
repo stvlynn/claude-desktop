@@ -30,10 +30,7 @@ var PieTokenBuilder = class extends chunkK5T4RW27T {
   },
   pieServiceModule = {
     parser: {
-      TokenBuilder: chunkK5T4RW27M(
-        () => new PieTokenBuilder(),
-        "TokenBuilder",
-      ),
+      TokenBuilder: chunkK5T4RW27M(() => new PieTokenBuilder(), "TokenBuilder"),
       ValueConverter: chunkK5T4RW27M(
         () => new PieValueConverter(),
         "ValueConverter",

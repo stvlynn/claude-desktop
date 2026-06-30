@@ -19,8 +19,7 @@ var TreemapTokenBuilder = class extends chunkK5T4RW27T {
       super(["treemap"]);
     }
   },
-  classDefStatementPattern =
-    /classDef\s+([A-Z_a-z]\w+)(?:\s+([^\n\r;]*))?;?/,
+  classDefStatementPattern = /classDef\s+([A-Z_a-z]\w+)(?:\s+([^\n\r;]*))?;?/,
   TreemapValueConverter = class extends chunkK5T4RW27N {
     static {
       chunkK5T4RW27M(this, "TreemapValueConverter");

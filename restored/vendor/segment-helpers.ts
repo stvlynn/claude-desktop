@@ -16,7 +16,9 @@ export function helpersT<T>(
 ): value is NonNullable<T> {
   return value != null;
 }
-export function helpersI(value: unknown): value is Record<PropertyKey, unknown> {
+export function helpersI(
+  value: unknown,
+): value is Record<PropertyKey, unknown> {
   return (
     Object.prototype.toString.call(value).slice(8, -1).toLowerCase() ===
     "object"

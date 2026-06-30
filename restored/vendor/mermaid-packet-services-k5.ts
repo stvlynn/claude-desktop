@@ -40,12 +40,12 @@ function createPacketServices(parserConfig = chunkK5T4RW27H) {
     chunkK5T4RW27S,
   );
   const packetServices = chunkK5T4RW27G(
-      chunkK5T4RW27Underscore({
-        shared: sharedServices,
-      }),
-      chunkK5T4RW27C,
-      packetServiceModule,
-    );
+    chunkK5T4RW27Underscore({
+      shared: sharedServices,
+    }),
+    chunkK5T4RW27C,
+    packetServiceModule,
+  );
   sharedServices.ServiceRegistry.register(packetServices);
 
   return {

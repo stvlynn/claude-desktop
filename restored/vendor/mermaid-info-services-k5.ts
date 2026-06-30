@@ -23,10 +23,7 @@ class InfoTokenBuilder extends chunkK5T4RW27T {
 
 const infoServiceModule = {
   parser: {
-    TokenBuilder: chunkK5T4RW27M(
-      () => new InfoTokenBuilder(),
-      "TokenBuilder",
-    ),
+    TokenBuilder: chunkK5T4RW27M(() => new InfoTokenBuilder(), "TokenBuilder"),
     ValueConverter: chunkK5T4RW27M(
       () => new chunkK5T4RW27I(),
       "ValueConverter",
@@ -40,12 +37,12 @@ function createInfoServices(parserConfig = chunkK5T4RW27H) {
     chunkK5T4RW27S,
   );
   const infoServices = chunkK5T4RW27G(
-      chunkK5T4RW27Underscore({
-        shared: sharedServices,
-      }),
-      chunkK5T4RW27O,
-      infoServiceModule,
-    );
+    chunkK5T4RW27Underscore({
+      shared: sharedServices,
+    }),
+    chunkK5T4RW27O,
+    infoServiceModule,
+  );
   sharedServices.ServiceRegistry.register(infoServices);
 
   return {

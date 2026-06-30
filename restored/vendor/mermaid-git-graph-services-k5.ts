@@ -40,12 +40,12 @@ function createGitGraphServices(parserConfig = chunkK5T4RW27H) {
     chunkK5T4RW27S,
   );
   const gitGraphServices = chunkK5T4RW27G(
-      chunkK5T4RW27Underscore({
-        shared: sharedServices,
-      }),
-      chunkK5T4RW27A,
-      gitGraphServiceModule,
-    );
+    chunkK5T4RW27Underscore({
+      shared: sharedServices,
+    }),
+    chunkK5T4RW27A,
+    gitGraphServiceModule,
+  );
   sharedServices.ServiceRegistry.register(gitGraphServices);
 
   return {
