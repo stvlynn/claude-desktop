@@ -1171,7 +1171,7 @@ import {
 import {
   n as Dv,
   t as Ov,
-} from "../../ref/webview/assets/app-initial~app-main~worktree-init-v2-page~appgen-publication-terms-route~remote-conversati~cldi24d6-B1D9-E0F.js";
+} from "../boundaries/current-ref/appgen-plug-icon-producer";
 import {
   b as kv,
   h as Av,
@@ -1254,11 +1254,11 @@ import {
 import {
   n as Ry,
   t as zy,
-} from "../../ref/webview/assets/app-initial~app-main~remote-conversation-page~new-thread-panel-page~appgen-library-page~hot~mubih9a1-DOO64ycY.js";
+} from "../boundaries/current-ref/shield-alert-icon-producer";
 import {
   n as By,
   t as Vy,
-} from "../../ref/webview/assets/app-initial~app-main~remote-conversation-page~new-thread-panel-page~settings-page~appgen-li~h99fup20-DznNRiiU.js";
+} from "../boundaries/current-ref/usage-gauge-icon-producer";
 function Hy(e, t, n) {
   if (t === `transcription`) {
     if (n instanceof K) {

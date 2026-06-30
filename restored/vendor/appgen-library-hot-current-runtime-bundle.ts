@@ -220,7 +220,7 @@ import {
 import {
   n as yt,
   t as bt,
-} from "../../ref/webview/assets/app-initial~app-main~worktree-init-v2-page~appgen-publication-terms-route~remote-conversati~miz7p5nt-CsT6xjQV.js";
+} from "../boundaries/current-ref/cloud-terminal-icon-producer";
 var xt,
   St = e(() => {
     xt = `/pricing-plan`;
