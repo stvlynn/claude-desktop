@@ -42546,6 +42546,19 @@
       "stage3AcceptedAt": "2026-06-30T23:06:02.558Z",
       "stage3Review": "Host self-review: parsed current export table, rebuilt alias-to-compatibility-name exports from auto-renames.json, rewrote dependency imports through restored/IMPORT_MAP.json with consumer rename aliases, and prepared focused quality gates on the backing bundle and runtime.",
       "stage3Note": "Accepted as a current-ref compatibility export over a restored-dependency backing bundle; full semantic split of CodexMobileSetupFlow remains future cleanup."
+    },
+    "codex-mobile-page-CB-Xg-VQ": {
+      "restored": "runtime/current-app-initial/codex-mobile-page-current-runtime.ts",
+      "exports": {
+        "CodexMobilePage": "CodexMobilePage"
+      },
+      "status": "done",
+      "note": "Current Codex mobile page hash maps to a dedicated current-ref runtime over vendor/codex-mobile-page-current-bundle.tsx; aliases are derived from the current file and dependencies are rewritten through restored current bundles.",
+      "lastUpdated": "2026-06-30T23:08:42.578Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T23:08:42.578Z",
+      "stage3Review": "Host self-review: parsed codex-mobile-page-CB-Xg-VQ.js exports, rebuilt the CodexMobilePage compatibility export from auto-renames.json, and rewrote dependency imports through restored/IMPORT_MAP.json with consumer rename aliases.",
+      "stage3Note": "Accepted as a current-ref compatibility export over a restored-dependency backing bundle; full semantic split of the page remains future cleanup."
     }
   }
 }
