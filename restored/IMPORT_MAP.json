@@ -3676,7 +3676,9 @@
         "r": "isEmptyR",
         "t": "isEmptyT"
       },
-      "status": "done"
+      "status": "done",
+      "stage3Accepted": true,
+      "lastUpdated": "2026-06-30T00:00:00.000-05:00"
     },
     "_baseEach-D1JYswpe": {
       "restored": "vendor/lodash-base-each.ts",
