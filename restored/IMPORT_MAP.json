@@ -4235,7 +4235,10 @@
       "status": "done",
       "aliasOf": "quadrantDiagram-AYHSOK5B-WVcJzsPP",
       "lastUpdated": "2026-06-30T00:00:00.000Z",
-      "note": "Current Mermaid diagram wrapper preserves the restored public export surface."
+      "note": "Current Mermaid diagram wrapper preserves the restored public export surface.",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T23:35:00.000Z",
+      "stage3Review": "Host self-review: current ref quadrantDiagram-AYHSOK5B-BzeqrmeH.js exports the quadrant diagram wrapper with parser, db, renderer, styles, and quadrant text positioning; vendor/quadrant-diagram-ayhsok5-b-w-vc-jzs-pp.ts preserves the QuadrantDiagramAYHSOK5B export surface and passes quality-gate --vendored."
     },
     "sankeyDiagram-TZEHDZUN-XAdBsdDZ": {
       "restored": "vendor/sankey-diagram-tzehdzun-x-ad-bsd-dz.ts",
@@ -4261,7 +4264,10 @@
       "status": "done",
       "aliasOf": "sankeyDiagram-TZEHDZUN-XAdBsdDZ",
       "lastUpdated": "2026-06-30T00:00:00.000Z",
-      "note": "Current Mermaid diagram wrapper preserves the restored public export surface."
+      "note": "Current Mermaid diagram wrapper preserves the restored public export surface.",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T23:35:00.000Z",
+      "stage3Review": "Host self-review: current ref sankeyDiagram-TZEHDZUN-CpIVIte0.js exports the Sankey diagram wrapper with preprocessing, parser patch, db, renderer, and styles; vendor/sankey-diagram-tzehdzun-x-ad-bsd-dz.ts preserves the SankeyDiagramTZEHDZUN export surface and passes quality-gate --vendored."
     },
     "timeline-definition-IT6M3QCI-Bx_6jO7O": {
       "restored": "vendor/timeline-definition-it6-m3-qci.ts",
@@ -4287,7 +4293,10 @@
       "status": "done",
       "aliasOf": "timeline-definition-IT6M3QCI-Bx_6jO7O",
       "lastUpdated": "2026-06-30T00:00:00.000Z",
-      "note": "Current Mermaid diagram definition wrapper preserves the restored public export surface."
+      "note": "Current Mermaid diagram definition wrapper preserves the restored public export surface.",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T23:35:00.000Z",
+      "stage3Review": "Host self-review: current ref timeline-definition-IT6M3QCI-CaNPoXgc.js exports the timeline diagram definition with parser, db, renderer, styles, and event-wrapper CSS; vendor/timeline-definition-it6-m3-qci.ts preserves the timelineDefinitionIT6M3QCI export surface and passes quality-gate --vendored."
     },
     "chunk-4BX2VUAB-Dutn5tdG": {
       "restored": "utils/chunk-4-bx2-vuab.ts",
@@ -10731,7 +10740,10 @@
       "status": "done",
       "aliasOf": "diagram-G4DWMVQ6-B4ApuIEg",
       "lastUpdated": "2026-06-30T00:00:00.000Z",
-      "note": "Current Mermaid diagram wrapper preserves the restored public export surface."
+      "note": "Current Mermaid diagram wrapper preserves the restored public export surface.",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T23:30:00.000Z",
+      "stage3Review": "Host self-review: current ref diagram-G4DWMVQ6-BulS6qu1.js exports the treemap diagram wrapper with TreeMapDB, parser, renderer, and styles; vendor/mermaid-treemap-diagram-k5.ts preserves the DiagramG4DWMVQ6 export surface and passes quality-gate --vendored."
     },
     "diagram-G4DWMVQ6-CTxy6OZA": {
       "restored": "vendor/mermaid-treemap-diagram-k5.ts",
@@ -12024,7 +12036,10 @@
       "exports": {
         "diagram": "ClassDiagramV2HSJHXN6E"
       },
-      "status": "done"
+      "status": "done",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T22:04:36.000Z",
+      "stage3Review": "Host self-review: current ref classDiagram-v2-HSJHXN6E wrappers export only diagram; restored/vendor/mermaid-class-diagram-v2-definition-k5.ts preserves that surface through ClassDiagramV2HSJHXN6E/diagram and passes vendored quality gate."
     },
     "stateDiagram-FHFEXIEX-CIdIE1IK": {
       "restored": "vendor/mermaid-state-diagram-definition-k5.ts",
@@ -25008,7 +25023,10 @@
       "status": "done",
       "aliasOf": "classDiagram-v2-HSJHXN6E-Dhbhv0LY",
       "lastUpdated": "2026-06-30T00:00:00.000Z",
-      "note": "Current Mermaid diagram definition wrapper preserves the restored public export surface."
+      "note": "Current Mermaid diagram definition wrapper preserves the restored public export surface.",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T22:04:36.000Z",
+      "stage3Review": "Host self-review: current ref classDiagram-v2-HSJHXN6E-2MKiCbOK.js exports only diagram; restored/vendor/mermaid-class-diagram-v2-definition-k5.ts preserves that surface through ClassDiagramV2HSJHXN6E/diagram and passes vendored quality gate."
     },
     "classDiagram-v2-HSJHXN6E-C72usBT2": {
       "restored": "vendor/mermaid-class-diagram-v2-definition-k5.ts",
@@ -25018,7 +25036,10 @@
       "status": "done",
       "aliasOf": "classDiagram-v2-HSJHXN6E-Dhbhv0LY",
       "lastUpdated": "2026-06-30T00:00:00.000Z",
-      "note": "Current Mermaid diagram definition wrapper preserves the restored public export surface."
+      "note": "Current Mermaid diagram definition wrapper preserves the restored public export surface.",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T22:04:36.000Z",
+      "stage3Review": "Host self-review: current ref classDiagram-v2-HSJHXN6E-C72usBT2.js exports only diagram; restored/vendor/mermaid-class-diagram-v2-definition-k5.ts preserves that surface through ClassDiagramV2HSJHXN6E/diagram and passes vendored quality gate."
     },
     "classDiagram-v2-HSJHXN6E-CbfcHaoM": {
       "restored": "vendor/mermaid-class-diagram-v2-definition-k5.ts",
@@ -25028,7 +25049,10 @@
       "status": "done",
       "aliasOf": "classDiagram-v2-HSJHXN6E-Dhbhv0LY",
       "lastUpdated": "2026-06-30T00:00:00.000Z",
-      "note": "Current Mermaid diagram definition wrapper preserves the restored public export surface."
+      "note": "Current Mermaid diagram definition wrapper preserves the restored public export surface.",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T22:04:36.000Z",
+      "stage3Review": "Host self-review: current ref classDiagram-v2-HSJHXN6E-CbfcHaoM.js exports only diagram; restored/vendor/mermaid-class-diagram-v2-definition-k5.ts preserves that surface through ClassDiagramV2HSJHXN6E/diagram and passes vendored quality gate."
     },
     "stateDiagram-v2-QKLJ7IA2-DK5qXNDf": {
       "restored": "vendor/mermaid-state-diagram-v2-definition-k5.ts",
@@ -25061,7 +25085,10 @@
       "status": "done",
       "aliasOf": "classDiagram-v2-HSJHXN6E-Dhbhv0LY",
       "lastUpdated": "2026-06-30T00:00:00.000Z",
-      "note": "Current Mermaid diagram definition wrapper preserves the restored public export surface."
+      "note": "Current Mermaid diagram definition wrapper preserves the restored public export surface.",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T22:04:36.000Z",
+      "stage3Review": "Host self-review: current ref classDiagram-v2-HSJHXN6E-AM1LZZtP.js exports only diagram; restored/vendor/mermaid-class-diagram-v2-definition-k5.ts preserves that surface through ClassDiagramV2HSJHXN6E/diagram and passes vendored quality gate."
     },
     "chunk-FOC6F5B3-BluoYoGB": {
       "restored": "vendor/mermaid-packet-services-k5.ts",
@@ -41643,6 +41670,89 @@
       "stage3AcceptedAt": "2026-06-30T22:00:09.433Z",
       "stage3Review": "Host self-review: re-derived the current export table from auto-renamed.js, verified the backing bundle import rewrites against IMPORT_MAP dependencies, and passed quality-gate --vendored on the backing bundle plus quality-gate --check-format on the compatibility runtime.",
       "stage3Note": "Accepted as a current-ref compatibility export surface over a restored-dependency backing bundle; full semantic splitting of the large Popcorn text-edit implementation remains a later cleanup."
+    },
+    "popcorn-electron-surface-style-mUJ9CmvY": {
+      "restored": "runtime/current-app-initial/popcorn-electron-surface-style-current-runtime.ts",
+      "exports": {
+        "$": "popcornElectronSurfaceStyleCurrentCompatSlotDollar",
+        "A": "popcornElectronSurfaceStyleCurrentCompatSlotUpperA",
+        "B": "popcornElectronSurfaceStyleCurrentCompatSlotUpperB",
+        "C": "popcornElectronSurfaceStyleCurrentCompatSlotUpperC",
+        "D": "popcornElectronSurfaceStyleCurrentCompatSlotUpperD",
+        "E": "popcornElectronSurfaceStyleCurrentCompatSlotUpperE",
+        "F": "popcornElectronSurfaceStyleCurrentCompatSlotUpperF",
+        "G": "popcornElectronSurfaceStyleCurrentCompatSlotUpperG",
+        "H": "popcornElectronSurfaceStyleCurrentCompatSlotUpperH",
+        "I": "popcornElectronSurfaceStyleCurrentCompatSlotUpperI",
+        "J": "popcornElectronSurfaceStyleCurrentCompatSlotUpperJ",
+        "K": "popcornElectronSurfaceStyleCurrentCompatSlotUpperK",
+        "L": "popcornElectronSurfaceStyleCurrentCompatSlotUpperL",
+        "M": "popcornElectronSurfaceStyleCurrentCompatSlotUpperM",
+        "N": "popcornElectronSurfaceStyleCurrentCompatSlotUpperN",
+        "O": "popcornElectronSurfaceStyleCurrentCompatSlotUpperO",
+        "P": "popcornElectronSurfaceStyleCurrentCompatSlotUpperP",
+        "Q": "popcornElectronSurfaceStyleCurrentCompatSlotUpperQ",
+        "R": "popcornElectronSurfaceStyleCurrentCompatSlotUpperR",
+        "S": "popcornElectronSurfaceStyleCurrentCompatSlotUpperS",
+        "T": "popcornElectronSurfaceStyleCurrentCompatSlotUpperT",
+        "U": "popcornElectronSurfaceStyleCurrentCompatSlotUpperU",
+        "V": "popcornElectronSurfaceStyleCurrentCompatSlotUpperV",
+        "W": "popcornElectronSurfaceStyleCurrentCompatSlotUpperW",
+        "X": "popcornElectronSurfaceStyleCurrentCompatSlotUpperX",
+        "Y": "popcornElectronSurfaceStyleCurrentCompatSlotUpperY",
+        "Z": "popcornElectronSurfaceStyleCurrentCompatSlotUpperZ",
+        "_": "popcornElectronSurfaceStyleCurrentCompatSlotUnderscore",
+        "a": "popcornElectronSurfaceStyleCurrentCompatSlotLowerA",
+        "at": "popcornElectronSurfaceStyleCurrentCompatSlotLowerALowerT",
+        "b": "popcornElectronSurfaceStyleCurrentCompatSlotLowerB",
+        "c": "popcornElectronSurfaceStyleCurrentCompatSlotLowerC",
+        "ct": "popcornElectronSurfaceStyleCurrentCompatSlotLowerCLowerT",
+        "d": "popcornElectronSurfaceStyleCurrentCompatSlotLowerD",
+        "dt": "popcornElectronSurfaceStyleCurrentCompatSlotLowerDLowerT",
+        "et": "popcornElectronSurfaceStyleCurrentCompatSlotLowerELowerT",
+        "f": "popcornElectronSurfaceStyleCurrentCompatSlotLowerF",
+        "ft": "popcornElectronSurfaceStyleCurrentCompatSlotLowerFLowerT",
+        "g": "popcornElectronSurfaceStyleCurrentCompatSlotLowerG",
+        "gt": "popcornElectronSurfaceStyleCurrentCompatSlotLowerGLowerT",
+        "h": "popcornElectronSurfaceStyleCurrentCompatSlotLowerH",
+        "ht": "popcornElectronSurfaceStyleCurrentCompatSlotLowerHLowerT",
+        "i": "popcornElectronSurfaceStyleCurrentCompatSlotLowerI",
+        "it": "popcornElectronSurfaceStyleCurrentCompatSlotLowerILowerT",
+        "j": "popcornElectronSurfaceStyleCurrentCompatSlotLowerJ",
+        "k": "popcornElectronSurfaceStyleCurrentCompatSlotLowerK",
+        "l": "popcornElectronSurfaceStyleCurrentCompatSlotLowerL",
+        "lt": "popcornElectronSurfaceStyleCurrentCompatSlotLowerLLowerT",
+        "m": "popcornElectronSurfaceStyleCurrentCompatSlotLowerM",
+        "mt": "popcornElectronSurfaceStyleCurrentCompatSlotLowerMLowerT",
+        "n": "popcornElectronSurfaceStyleCurrentCompatSlotLowerN",
+        "nt": "popcornElectronSurfaceStyleCurrentCompatSlotLowerNLowerT",
+        "o": "popcornElectronSurfaceStyleCurrentCompatSlotLowerO",
+        "ot": "popcornElectronSurfaceStyleCurrentCompatSlotLowerOLowerT",
+        "p": "popcornElectronSurfaceStyleCurrentCompatSlotLowerP",
+        "pt": "popcornElectronSurfaceStyleCurrentCompatSlotLowerPLowerT",
+        "q": "popcornElectronSurfaceStyleCurrentCompatSlotLowerQ",
+        "r": "popcornElectronSurfaceStyleCurrentCompatSlotLowerR",
+        "rt": "popcornElectronSurfaceStyleCurrentCompatSlotLowerRLowerT",
+        "s": "popcornElectronSurfaceStyleCurrentCompatSlotLowerS",
+        "st": "popcornElectronSurfaceStyleCurrentCompatSlotLowerSLowerT",
+        "t": "popcornElectronSurfaceStyleCurrentCompatSlotLowerT",
+        "tt": "popcornElectronSurfaceStyleCurrentCompatSlotLowerTLowerT",
+        "u": "popcornElectronSurfaceStyleCurrentCompatSlotLowerU",
+        "ut": "popcornElectronSurfaceStyleCurrentCompatSlotLowerULowerT",
+        "v": "popcornElectronSurfaceStyleCurrentCompatSlotLowerV",
+        "w": "popcornElectronSurfaceStyleCurrentCompatSlotLowerW",
+        "x": "popcornElectronSurfaceStyleCurrentCompatSlotLowerX",
+        "y": "popcornElectronSurfaceStyleCurrentCompatSlotLowerY",
+        "z": "popcornElectronSurfaceStyleCurrentCompatSlotLowerZ"
+      },
+      "status": "done",
+      "note": "Current Popcorn electron surface style hash has a re-derived export alias table; it maps to a dedicated current-ref compatibility runtime over vendor/popcorn-electron-surface-style-current-bundle.ts so the older jyyIi7EC alias surface remains distinct.",
+      "lastUpdated": "2026-06-30T22:05:41.902Z",
+      "migratedFrom": "popcorn-electron-surface-style-jyyIi7EC",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T22:05:41.902Z",
+      "stage3Review": "Host self-review: re-derived the current export table from auto-renamed.js, verified backing bundle import rewrites against IMPORT_MAP dependencies, and passed quality-gate --vendored on the backing bundle plus quality-gate --check-format on the compatibility runtime.",
+      "stage3Note": "Accepted as a current-ref compatibility export surface over a restored-dependency backing bundle; full semantic splitting of the large Popcorn electron surface implementation remains a later cleanup."
     }
   }
 }
