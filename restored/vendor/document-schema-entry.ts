@@ -8,7 +8,7 @@ import {
   documentA as documentCommentReference,
   documentO as documentDocument,
   documentS as documentDocumentGrid,
-  documentC as documentDocumentSection,
+  _documentC as documentDocumentSection,
   documentL as documentDocumentSettings,
   documentU as documentEmbeddedFont,
   documentD as documentEmbeddedFontType,
@@ -22,7 +22,7 @@ import {
   documentY as documentPageMargin,
   documentB as documentPageSetup,
   documentX as documentParagraphNumbering,
-  documentS as documentPlayground,
+  _documentS as documentPlayground,
   documentW as documentProtobufPackage,
   documentC as documentSectionBreakType,
 } from "./document-schema";

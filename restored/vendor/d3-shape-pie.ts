@@ -1,121 +1,173 @@
 // Restored from ref/webview/assets/pie-ChHHloNp.js
-// Pie chunk restored from the Codex webview bundle.
+// D3 pie generator restored from the Codex webview bundle.
 import { pathN } from "./d3-path";
 import { mathP } from "./d3-geo-math";
 import { array } from "../utils/array";
-function pieHelper1(pieParam8, pieParam9) {
-  return pieParam9 < pieParam8
+
+type PieDatum = any;
+type PieData = PieDatum[];
+type PieValueAccessor = (
+  datum: PieDatum,
+  index: number,
+  data: PieData,
+) => number;
+type PieAngleAccessor = (...args: any[]) => number;
+type PieComparator<T> = (first: T, second: T) => number;
+type PieArcDatum = {
+  data: PieDatum;
+  index: number;
+  value: number;
+  startAngle: number;
+  endAngle: number;
+  padAngle: number;
+};
+type PieGenerator = {
+  (
+    this: any,
+    data: Iterable<PieDatum> | ArrayLike<PieDatum>,
+    ...args: any[]
+  ): PieArcDatum[];
+  value(): PieValueAccessor;
+  value(accessor: PieValueAccessor | number): PieGenerator;
+  sortValues(): PieComparator<number> | null;
+  sortValues(compare: PieComparator<number> | null): PieGenerator;
+  sort(): PieComparator<PieDatum> | null;
+  sort(compare: PieComparator<PieDatum> | null): PieGenerator;
+  startAngle(): PieAngleAccessor;
+  startAngle(accessor: PieAngleAccessor | number): PieGenerator;
+  endAngle(): PieAngleAccessor;
+  endAngle(accessor: PieAngleAccessor | number): PieGenerator;
+  padAngle(): PieAngleAccessor;
+  padAngle(accessor: PieAngleAccessor | number): PieGenerator;
+};
+
+function descendingValueComparator(firstValue: number, secondValue: number) {
+  return secondValue < firstValue
     ? -1
-    : pieParam9 > pieParam8
+    : secondValue > firstValue
       ? 1
-      : pieParam9 >= pieParam8
+      : secondValue >= firstValue
         ? 0
         : NaN;
 }
-function pieHelper2(pieParam14) {
-  return pieParam14;
+function identityValueAccessor(datum: PieDatum) {
+  return datum;
 }
-export function pie() {
-  var _pie = pieHelper2,
-    pieValue1 = pieHelper1,
-    pieValue2 = null,
-    pieValue3 = pathN(0),
-    pieValue4 = pathN(mathP),
-    pieValue5 = pathN(0);
-  function pieHelper3(pieParam1) {
-    var pieValue6,
-      pieValue7 = (pieParam1 = array(pieParam1)).length,
-      pieValue8,
-      pieValue9,
-      pieValue10 = 0,
-      pieValue11 = Array(pieValue7),
-      pieValue12 = Array(pieValue7),
-      pieValue13 = +pieValue3.apply(this, arguments),
-      pieValue14 = Math.min(
+export function pie(): PieGenerator {
+  var valueAccessor: PieValueAccessor = identityValueAccessor,
+    sortValuesComparator: PieComparator<number> | null =
+      descendingValueComparator,
+    sortDataComparator: PieComparator<PieDatum> | null = null,
+    startAngleAccessor: PieAngleAccessor = pathN(0),
+    endAngleAccessor: PieAngleAccessor = pathN(mathP),
+    padAngleAccessor: PieAngleAccessor = pathN(0);
+  function generatePieArcs(
+    this: any,
+    dataInput: Iterable<PieDatum> | ArrayLike<PieDatum>,
+  ): PieArcDatum[] {
+    var scanIndex,
+      data = array(dataInput) as PieData,
+      dataLength = data.length,
+      datumIndex,
+      arcIndex,
+      totalValue = 0,
+      sortOrder = Array(dataLength),
+      arcValues = Array(dataLength),
+      arcs = Array(dataLength),
+      startAngle = +startAngleAccessor.apply(this, arguments),
+      angleSpan = Math.min(
         mathP,
-        Math.max(-mathP, pieValue4.apply(this, arguments) - pieValue13),
+        Math.max(-mathP, endAngleAccessor.apply(this, arguments) - startAngle),
       ),
-      pieValue15,
-      pieValue16 = Math.min(
-        Math.abs(pieValue14) / pieValue7,
-        pieValue5.apply(this, arguments),
+      nextAngle,
+      padAngle = Math.min(
+        Math.abs(angleSpan) / dataLength,
+        padAngleAccessor.apply(this, arguments),
       ),
-      pieValue17 = pieValue16 * (pieValue14 < 0 ? -1 : 1),
-      pieValue18;
-    for (pieValue6 = 0; pieValue6 < pieValue7; ++pieValue6)
-      (pieValue18 = pieValue12[(pieValue11[pieValue6] = pieValue6)] =
-        +_pie(pieParam1[pieValue6], pieValue6, pieParam1)) > 0 &&
-        (pieValue10 += pieValue18);
+      signedPadAngle = padAngle * (angleSpan < 0 ? -1 : 1),
+      value;
+    for (scanIndex = 0; scanIndex < dataLength; ++scanIndex)
+      (value = arcValues[(sortOrder[scanIndex] = scanIndex)] =
+        +valueAccessor(data[scanIndex], scanIndex, data)) > 0 &&
+        (totalValue += value);
     for (
-      pieValue1 == null
-        ? pieValue2 != null &&
-          pieValue11.sort(function (pieParam10, pieParam11) {
-            return pieValue2(pieParam1[pieParam10], pieParam1[pieParam11]);
+      sortValuesComparator == null
+        ? sortDataComparator != null &&
+          sortOrder.sort(function (firstIndex, secondIndex) {
+            return sortDataComparator!(data[firstIndex], data[secondIndex]);
           })
-        : pieValue11.sort(function (pieParam12, pieParam13) {
-            return pieValue1(pieValue12[pieParam12], pieValue12[pieParam13]);
+        : sortOrder.sort(function (firstIndex, secondIndex) {
+            return sortValuesComparator!(
+              arcValues[firstIndex],
+              arcValues[secondIndex],
+            );
           }),
-        pieValue6 = 0,
-        pieValue9 = pieValue10
-          ? (pieValue14 - pieValue7 * pieValue17) / pieValue10
+        scanIndex = 0,
+        arcIndex = totalValue
+          ? (angleSpan - dataLength * signedPadAngle) / totalValue
           : 0;
-      pieValue6 < pieValue7;
-      ++pieValue6, pieValue13 = pieValue15
+      scanIndex < dataLength;
+      ++scanIndex, startAngle = nextAngle
     ) {
-      pieValue8 = pieValue11[pieValue6];
-      pieValue18 = pieValue12[pieValue8];
-      pieValue15 =
-        pieValue13 + (pieValue18 > 0 ? pieValue18 * pieValue9 : 0) + pieValue17;
-      pieValue12[pieValue8] = {
-        data: pieParam1[pieValue8],
-        index: pieValue6,
-        value: pieValue18,
-        startAngle: pieValue13,
-        endAngle: pieValue15,
-        padAngle: pieValue16,
+      datumIndex = sortOrder[scanIndex];
+      value = arcValues[datumIndex];
+      nextAngle =
+        startAngle + (value > 0 ? value * arcIndex : 0) + signedPadAngle;
+      arcs[datumIndex] = {
+        data: data[datumIndex],
+        index: scanIndex,
+        value,
+        startAngle,
+        endAngle: nextAngle,
+        padAngle,
       };
     }
-    return pieValue12;
+    return arcs;
   }
+  var pieGenerator = generatePieArcs as PieGenerator;
   return (
-    (pieHelper3.value = function (pieParam2) {
+    (pieGenerator.value = function (accessor) {
       return arguments.length
-        ? ((_pie =
-            typeof pieParam2 == "function" ? pieParam2 : pathN(+pieParam2)),
-          pieHelper3)
-        : _pie;
+        ? ((valueAccessor =
+            typeof accessor == "function" ? accessor : pathN(+accessor)),
+          pieGenerator)
+        : valueAccessor;
     }),
-    (pieHelper3.sortValues = function (pieParam6) {
+    (pieGenerator.sortValues = function (compare) {
       return arguments.length
-        ? ((pieValue1 = pieParam6), (pieValue2 = null), pieHelper3)
-        : pieValue1;
+        ? ((sortValuesComparator = compare),
+          (sortDataComparator = null),
+          pieGenerator)
+        : sortValuesComparator;
     }),
-    (pieHelper3.sort = function (pieParam7) {
+    (pieGenerator.sort = function (compare) {
       return arguments.length
-        ? ((pieValue2 = pieParam7), (pieValue1 = null), pieHelper3)
-        : pieValue2;
+        ? ((sortDataComparator = compare),
+          (sortValuesComparator = null),
+          pieGenerator)
+        : sortDataComparator;
     }),
-    (pieHelper3.startAngle = function (pieParam3) {
+    (pieGenerator.startAngle = function (accessor) {
       return arguments.length
-        ? ((pieValue3 =
-            typeof pieParam3 == "function" ? pieParam3 : pathN(+pieParam3)),
-          pieHelper3)
-        : pieValue3;
+        ? ((startAngleAccessor =
+            typeof accessor == "function" ? accessor : pathN(+accessor)),
+          pieGenerator)
+        : startAngleAccessor;
     }),
-    (pieHelper3.endAngle = function (pieParam4) {
+    (pieGenerator.endAngle = function (accessor) {
       return arguments.length
-        ? ((pieValue4 =
-            typeof pieParam4 == "function" ? pieParam4 : pathN(+pieParam4)),
-          pieHelper3)
-        : pieValue4;
+        ? ((endAngleAccessor =
+            typeof accessor == "function" ? accessor : pathN(+accessor)),
+          pieGenerator)
+        : endAngleAccessor;
     }),
-    (pieHelper3.padAngle = function (pieParam5) {
+    (pieGenerator.padAngle = function (accessor) {
       return arguments.length
-        ? ((pieValue5 =
-            typeof pieParam5 == "function" ? pieParam5 : pathN(+pieParam5)),
-          pieHelper3)
-        : pieValue5;
+        ? ((padAngleAccessor =
+            typeof accessor == "function" ? accessor : pathN(+accessor)),
+          pieGenerator)
+        : padAngleAccessor;
     }),
-    pieHelper3
+    pieGenerator
   );
 }
