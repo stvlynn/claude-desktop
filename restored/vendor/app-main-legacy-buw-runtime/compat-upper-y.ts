@@ -1,0 +1,27 @@
+// Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
+// Uppercase Y compatibility aliases for the legacy app-main/onboarding producer.
+export {
+  Y as appMainCurrentCompatSlotUpperY,
+  Y_ as appMainCurrentCompatSlotUpperYUnderscore,
+  Ya as appMainCurrentCompatSlotUpperYLowerA,
+  Yb as appMainCurrentCompatSlotUpperYLowerB,
+  Yc as appMainCurrentCompatSlotUpperYLowerC,
+  Yd as ThreadRowHoverActions,
+  Yf as appMainCurrentCompatSlotUpperYLowerF,
+  Yg as appMainCurrentCompatSlotUpperYLowerG,
+  Yh as appMainCurrentCompatSlotUpperYLowerH,
+  Yi as appMainCurrentCompatSlotUpperYLowerI,
+  Yl as hasSeenAppgenPublicationTermsDisclosureSignal,
+  Ym as appMainCurrentCompatSlotUpperYLowerM,
+  Yn as appMainCurrentCompatSlotUpperYLowerN,
+  Yo as appMainCurrentCompatSlotUpperYLowerO,
+  Yp as appMainCurrentCompatSlotUpperYLowerP,
+  Yr as appMainCurrentCompatSlotUpperYLowerR,
+  Ys as useQueries,
+  YS as appMainCurrentCompatSlotUpperYUpperS,
+  Yt as appMainCurrentCompatSlotUpperYLowerT,
+  Yu as OpenAiMcpCapabilityView,
+  Yv as browserTabSnapshotStore,
+  Yx as appMainCurrentCompatSlotUpperYLowerX,
+  Yy as appMainCurrentCompatSlotUpperYLowerY,
+} from "../app-main-legacy-buw-compat-bundle";

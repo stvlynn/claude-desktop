@@ -17959,7 +17959,7 @@
       "lastUpdated": "2026-06-30T00:00:00.000Z"
     },
     "app-initial~app-main~onboarding-page-BUwCKIcU": {
-      "restored": "vendor/app-main-current-runtime/index.ts",
+      "restored": "vendor/app-main-legacy-buw-runtime/index.ts",
       "exports": {
         "$": "appMainCurrentCompatSlotDollar",
         "$S": "rightPanelOpenStateKey",
@@ -19243,9 +19243,11 @@
         "zy": "appMainCurrentCompatSlotLowerZLowerY"
       },
       "status": "done",
-      "note": "Current app-main onboarding/shared producer restored as a complete semantic alias layer. Confirmed window chrome, app-shell, side-panel, terminal, settings, sidebar, query, review-panel, MCP, and onboarding aliases retain existing semantic names; remaining compatibility slots use stable appMainCurrentCompatSlot* names.",
+      "note": "Historical BUwCKIcU app-main/onboarding producer restored as a thin semantic alias layer in vendor/app-main-legacy-buw-runtime/index.ts, backed by vendor/app-main-legacy-buw-compat-bundle.ts. The current ref migrated this shared runtime to app-initial~app-main~onboarding-page-CgNc-Bk2, whose source has 793 exports; this legacy BUw surface has 1280 exports and must not be aliased to the current CgNc bundle.",
       "lastUpdated": "2026-06-30T00:00:00.000Z",
-      "stage3Accepted": true
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T00:00:00.000Z",
+      "stage3Review": "Host self-review: current ref no longer contains BUwCKIcU; verified vendor/app-main-legacy-buw-runtime exposes the same 1280 semantic export aliases recorded in this entry, while CgNc-Bk2 matches a separate 793-export current mapping."
     },
     "app-initial~app-main~worktree-init-v2-page~appgen-settings-page~page~appgen-page~remote-con~di269h6j-x1JD0lOF": {
       "restored": "runtime/renderer-error-boundary-runtime.ts",

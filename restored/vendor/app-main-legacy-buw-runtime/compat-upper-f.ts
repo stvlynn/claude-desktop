@@ -1,0 +1,28 @@
+// Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
+// Uppercase F compatibility aliases for the legacy app-main/onboarding producer.
+export {
+  F as appMainCurrentCompatSlotUpperF,
+  F_ as initWebLinksAddonChunk,
+  Fa as appMainCurrentCompatSlotUpperFLowerA,
+  Fb as appMainCurrentCompatSlotUpperFLowerB,
+  Fc as appMainCurrentCompatSlotUpperFLowerC,
+  FC as appMainCurrentCompatSlotUpperFUpperC,
+  Fd as appMainCurrentCompatSlotUpperFLowerD,
+  Ff as initThreadRowLayoutRuntimeChunk,
+  Fg as findQueryAtom,
+  Fh as initPendingWorktreeComposerRuntimeChunk,
+  Fi as appMainCurrentCompatSlotUpperFLowerI,
+  Fl as appMainCurrentCompatSlotUpperFLowerL,
+  Fm as appMainCurrentCompatSlotUpperFLowerM,
+  Fn as appMainCurrentCompatSlotUpperFLowerN,
+  Fo as appMainCurrentCompatSlotUpperFLowerO,
+  Fp as appMainCurrentCompatSlotUpperFLowerP,
+  Fr as appMainCurrentCompatSlotUpperFLowerR,
+  Fs as appMainCurrentCompatSlotUpperFLowerS,
+  FS as appMainCurrentCompatSlotUpperFUpperS,
+  Ft as appMainCurrentCompatSlotUpperFLowerT,
+  Fu as appMainCurrentCompatSlotUpperFLowerU,
+  Fv as initReviewRouteContextChunk,
+  Fx as appMainCurrentCompatSlotUpperFLowerX,
+  Fy as appMainCurrentCompatSlotUpperFLowerY,
+} from "../app-main-legacy-buw-compat-bundle";

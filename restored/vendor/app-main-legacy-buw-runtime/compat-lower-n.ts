@@ -1,0 +1,28 @@
+// Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
+// Lowercase n compatibility aliases for the legacy app-main/onboarding producer.
+export {
+  n as appMainCurrentCompatSlotLowerN,
+  n_ as appMainCurrentCompatSlotLowerNUnderscore,
+  na as appMainCurrentCompatSlotLowerNLowerA,
+  nb as appMainCurrentCompatSlotLowerNLowerB,
+  nc as appMainCurrentCompatSlotLowerNLowerC,
+  nC as initWarningContextRuntime,
+  nd as appMainCurrentCompatSlotLowerNLowerD,
+  nf as liveMcpAppFrameSignal,
+  ng as appMainCurrentCompatSlotLowerNLowerG,
+  nh as appMainCurrentCompatSlotLowerNLowerH,
+  ni as appMainCurrentCompatSlotLowerNLowerI,
+  nl as composeEventHandlers,
+  nm as SidebarRowHoverCard,
+  nn as appMainCurrentCompatSlotLowerNLowerN,
+  no as appMainCurrentCompatSlotLowerNLowerO,
+  np as appMainCurrentCompatSlotLowerNLowerP,
+  nr as appMainCurrentCompatSlotLowerNLowerR,
+  ns as appMainCurrentCompatSlotLowerNLowerS,
+  nS as appMainCurrentCompatSlotLowerNUpperS,
+  nt as appMainCurrentCompatSlotLowerNLowerT,
+  nu as appMainCurrentCompatSlotLowerNLowerU,
+  nv as appMainCurrentCompatSlotLowerNLowerV,
+  nx as appMainCurrentCompatSlotLowerNLowerX,
+  ny as appMainCurrentCompatSlotLowerNLowerY,
+} from "../app-main-legacy-buw-compat-bundle";

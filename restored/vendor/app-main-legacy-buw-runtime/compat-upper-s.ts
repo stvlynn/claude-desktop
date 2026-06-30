@@ -1,0 +1,28 @@
+// Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
+// Uppercase S compatibility aliases for the legacy app-main/onboarding producer.
+export {
+  S as appMainCurrentCompatSlotUpperS,
+  S_ as readTerminalThemeFromCss,
+  Sa as appMainCurrentCompatSlotUpperSLowerA,
+  Sb as appMainCurrentCompatSlotUpperSLowerB,
+  Sc as appMainCurrentCompatSlotUpperSLowerC,
+  SC as appMainCurrentCompatSlotUpperSUpperC,
+  Sd as appMainCurrentCompatSlotUpperSLowerD,
+  Sf as appMainCurrentCompatSlotUpperSLowerF,
+  Sg as emptyFindBrowserStatus,
+  Sh as appMainCurrentCompatSlotUpperSLowerH,
+  Si as appMainCurrentCompatSlotUpperSLowerI,
+  Sl as primeBrowserTabTransfers,
+  Sm as appMainCurrentCompatSlotUpperSLowerM,
+  Sn as appMainCurrentCompatSlotUpperSLowerN,
+  So as appMainCurrentCompatSlotUpperSLowerO,
+  Sp as appMainCurrentCompatSlotUpperSLowerP,
+  Sr as appMainCurrentCompatSlotUpperSLowerR,
+  Ss as appMainCurrentCompatSlotUpperSLowerS,
+  SS as appMainCurrentCompatSlotUpperSUpperS,
+  St as appMainCurrentCompatSlotUpperSLowerT,
+  Su as appMainCurrentCompatSlotUpperSLowerU,
+  Sv as appMainCurrentCompatSlotUpperSLowerV,
+  Sx as ThreadRowArchiveAction,
+  Sy as appMainCurrentCompatSlotUpperSLowerY,
+} from "../app-main-legacy-buw-compat-bundle";

@@ -1,0 +1,28 @@
+// Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
+// Uppercase T compatibility aliases for the legacy app-main/onboarding producer.
+export {
+  T as appMainCurrentCompatSlotUpperT,
+  T_ as isTerminalScrolledToBottom,
+  Ta as appMainCurrentCompatSlotUpperTLowerA,
+  Tb as appMainCurrentCompatSlotUpperTLowerB,
+  Tc as appMainCurrentCompatSlotUpperTLowerC,
+  TC as appMainCurrentCompatSlotUpperTUpperC,
+  Td as appMainCurrentCompatSlotUpperTLowerD,
+  Tf as appMainCurrentCompatSlotUpperTLowerF,
+  Tg as findActiveMatchIndexAtom,
+  Th as appMainCurrentCompatSlotUpperTLowerH,
+  Ti as appMainCurrentCompatSlotUpperTLowerI,
+  Tl as appMainCurrentCompatSlotUpperTLowerL,
+  Tm as appMainCurrentCompatSlotUpperTLowerM,
+  Tn as appMainCurrentCompatSlotUpperTLowerN,
+  To as registerForkedConversation,
+  Tp as appMainCurrentCompatSlotUpperTLowerP,
+  Tr as appMainCurrentCompatSlotUpperTLowerR,
+  Ts as appMainCurrentCompatSlotUpperTLowerS,
+  TS as appMainCurrentCompatSlotUpperTUpperS,
+  Tt as appMainCurrentCompatSlotUpperTLowerT,
+  Tu as appMainCurrentCompatSlotUpperTLowerU,
+  Tv as appMainCurrentCompatSlotUpperTLowerV,
+  Tx as appMainCurrentCompatSlotUpperTLowerX,
+  Ty as appMainCurrentCompatSlotUpperTLowerY,
+} from "../app-main-legacy-buw-compat-bundle";

@@ -1,0 +1,28 @@
+// Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
+// Lowercase y compatibility aliases for the legacy app-main/onboarding producer.
+export {
+  y as appMainCurrentCompatSlotLowerY,
+  y_ as patchTerminalMouseCoordsForZoom,
+  ya as appMainCurrentCompatSlotLowerYLowerA,
+  yb as appMainCurrentCompatSlotLowerYLowerB,
+  yc as appMainCurrentCompatSlotLowerYLowerC,
+  yC as appMainCurrentCompatSlotLowerYUpperC,
+  yd as appMainCurrentCompatSlotLowerYLowerD,
+  yf as appMainCurrentCompatSlotLowerYLowerF,
+  yg as appMainCurrentCompatSlotLowerYLowerG,
+  yh as appMainCurrentCompatSlotLowerYLowerH,
+  yi as appMainCurrentCompatSlotLowerYLowerI,
+  yl as openThreadLastTurnReviewSidePanelTab,
+  ym as appMainCurrentCompatSlotLowerYLowerM,
+  yn as appMainCurrentCompatSlotLowerYLowerN,
+  yo as initResolvedHighlightThemesChunk,
+  yp as appMainCurrentCompatSlotLowerYLowerP,
+  yr as appMainCurrentCompatSlotLowerYLowerR,
+  ys as appMainCurrentCompatSlotLowerYLowerS,
+  yS as appMainCurrentCompatSlotLowerYUpperS,
+  yt as appMainCurrentCompatSlotLowerYLowerT,
+  yu as appMainCurrentCompatSlotLowerYLowerU,
+  yv as appMainCurrentCompatSlotLowerYLowerV,
+  yx as resolveWorkspacePathFromCwd,
+  yy as appMainCurrentCompatSlotLowerYLowerY,
+} from "../app-main-legacy-buw-compat-bundle";

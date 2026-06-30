@@ -1,0 +1,27 @@
+// Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
+// Lowercase q compatibility aliases for the legacy app-main/onboarding producer.
+export {
+  q as appMainCurrentCompatSlotLowerQ,
+  q_ as appMainCurrentCompatSlotLowerQUnderscore,
+  qa as appMainCurrentCompatSlotLowerQLowerA,
+  qb as appMainCurrentCompatSlotLowerQLowerB,
+  qc as appMainCurrentCompatSlotLowerQLowerC,
+  qd as appMainCurrentCompatSlotLowerQLowerD,
+  qf as appMainCurrentCompatSlotLowerQLowerF,
+  qg as appMainCurrentCompatSlotLowerQLowerG,
+  qh as appMainCurrentCompatSlotLowerQLowerH,
+  qi as appMainCurrentCompatSlotLowerQLowerI,
+  ql as appMainCurrentCompatSlotLowerQLowerL,
+  qm as appMainCurrentCompatSlotLowerQLowerM,
+  qn as appMainCurrentCompatSlotLowerQLowerN,
+  qo as appMainCurrentCompatSlotLowerQLowerO,
+  qp as appMainCurrentCompatSlotLowerQLowerP,
+  qr as appMainCurrentCompatSlotLowerQLowerR,
+  qs as appMainCurrentCompatSlotLowerQLowerS,
+  qS as appMainCurrentCompatSlotLowerQUpperS,
+  qt as appMainCurrentCompatSlotLowerQLowerT,
+  qu as appMainCurrentCompatSlotLowerQLowerU,
+  qv as appMainCurrentCompatSlotLowerQLowerV,
+  qx as appMainCurrentCompatSlotLowerQLowerX,
+  qy as appMainCurrentCompatSlotLowerQLowerY,
+} from "../app-main-legacy-buw-compat-bundle";

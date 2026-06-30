@@ -1,0 +1,28 @@
+// Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
+// Lowercase b compatibility aliases for the legacy app-main/onboarding producer.
+export {
+  b as appMainCurrentCompatSlotLowerB,
+  b_ as normalizeTerminalFontFamily,
+  ba as appMainCurrentCompatSlotLowerBLowerA,
+  bb as appMainCurrentCompatSlotLowerBLowerB,
+  bc as appMainCurrentCompatSlotLowerBLowerC,
+  bC as appMainCurrentCompatSlotLowerBUpperC,
+  bd as appMainCurrentCompatSlotLowerBLowerD,
+  bf as appMainCurrentCompatSlotLowerBLowerF,
+  bg as appMainCurrentCompatSlotLowerBLowerG,
+  bh as appMainCurrentCompatSlotLowerBLowerH,
+  bi as appMainCurrentCompatSlotLowerBLowerI,
+  bl as openThreadReviewSidePanelTab,
+  bm as appMainCurrentCompatSlotLowerBLowerM,
+  bn as appMainCurrentCompatSlotLowerBLowerN,
+  bo as appMainCurrentCompatSlotLowerBLowerO,
+  bp as appMainCurrentCompatSlotLowerBLowerP,
+  br as SettingsControlRow,
+  bs as appMainCurrentCompatSlotLowerBLowerS,
+  bS as appMainCurrentCompatSlotLowerBUpperS,
+  bt as appMainCurrentCompatSlotLowerBLowerT,
+  bu as appMainCurrentCompatSlotLowerBLowerU,
+  bv as appMainCurrentCompatSlotLowerBLowerV,
+  bx as ThreadRowBranchLabel,
+  by as appMainCurrentCompatSlotLowerBLowerY,
+} from "../app-main-legacy-buw-compat-bundle";

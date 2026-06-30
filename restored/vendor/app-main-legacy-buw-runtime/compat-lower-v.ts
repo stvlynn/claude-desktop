@@ -1,0 +1,28 @@
+// Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
+// Lowercase v compatibility aliases for the legacy app-main/onboarding producer.
+export {
+  v as appMainCurrentCompatSlotLowerV,
+  v_ as initTerminalSurfaceRuntime,
+  va as appMainCurrentCompatSlotLowerVLowerA,
+  vb as SidebarRowRemoteEnvironment,
+  vc as appMainCurrentCompatSlotLowerVLowerC,
+  vC as appMainCurrentCompatSlotLowerVUpperC,
+  vd as appMainCurrentCompatSlotLowerVLowerD,
+  vf as appMainCurrentCompatSlotLowerVLowerF,
+  vg as appMainCurrentCompatSlotLowerVLowerG,
+  vh as appMainCurrentCompatSlotLowerVLowerH,
+  vi as isUncPath,
+  vl as openThreadBrowserSidePanelTabWithoutAnimation,
+  vm as appMainCurrentCompatSlotLowerVLowerM,
+  vn as appMainCurrentCompatSlotLowerVLowerN,
+  vo as sharedHighlightThemeRegistry,
+  vp as appMainCurrentCompatSlotLowerVLowerP,
+  vr as appMainCurrentCompatSlotLowerVLowerR,
+  vs as appMainCurrentCompatSlotLowerVLowerS,
+  vS as appMainCurrentCompatSlotLowerVUpperS,
+  vt as appMainCurrentCompatSlotLowerVLowerT,
+  vu as appMainCurrentCompatSlotLowerVLowerU,
+  vv as appMainCurrentCompatSlotLowerVLowerV,
+  vx as normalizeFilesystemPath,
+  vy as appMainCurrentCompatSlotLowerVLowerY,
+} from "../app-main-legacy-buw-compat-bundle";

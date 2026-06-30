@@ -1,0 +1,28 @@
+// Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
+// Lowercase r compatibility aliases for the legacy app-main/onboarding producer.
+export {
+  r as appMainCurrentCompatSlotLowerR,
+  r_ as appMainCurrentCompatSlotLowerRUnderscore,
+  ra as appMainCurrentCompatSlotLowerRLowerA,
+  rb as appMainCurrentCompatSlotLowerRLowerB,
+  rc as ErrorCircleIcon,
+  rC as Portal,
+  rd as appMainCurrentCompatSlotLowerRLowerD,
+  rf as appMainCurrentCompatSlotLowerRLowerF,
+  rg as appMainCurrentCompatSlotLowerRLowerG,
+  rh as appMainCurrentCompatSlotLowerRLowerH,
+  ri as appMainCurrentCompatSlotLowerRLowerI,
+  rl as SidebarRowKeyboardScope,
+  rm as appMainCurrentCompatSlotLowerRLowerM,
+  rn as appMainCurrentCompatSlotLowerRLowerN,
+  ro as appMainCurrentCompatSlotLowerRLowerO,
+  rp as appMainCurrentCompatSlotLowerRLowerP,
+  rr as appMainCurrentCompatSlotLowerRLowerR,
+  rs as appMainCurrentCompatSlotLowerRLowerS,
+  rS as appMainCurrentCompatSlotLowerRUpperS,
+  rt as appMainCurrentCompatSlotLowerRLowerT,
+  ru as appMainCurrentCompatSlotLowerRLowerU,
+  rv as initReviewFileListChunk,
+  rx as appMainCurrentCompatSlotLowerRLowerX,
+  ry as appMainCurrentCompatSlotLowerRLowerY,
+} from "../app-main-legacy-buw-compat-bundle";

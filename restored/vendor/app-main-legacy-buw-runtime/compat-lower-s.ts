@@ -1,0 +1,28 @@
+// Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
+// Lowercase s compatibility aliases for the legacy app-main/onboarding producer.
+export {
+  s as appMainCurrentCompatSlotLowerS,
+  s_ as appMainCurrentCompatSlotLowerSUnderscore,
+  sa as appMainCurrentCompatSlotLowerSLowerA,
+  sb as appMainCurrentCompatSlotLowerSLowerB,
+  sc as appMainCurrentCompatSlotLowerSLowerC,
+  sC as appMainCurrentCompatSlotLowerSUpperC,
+  sd as appMainCurrentCompatSlotLowerSLowerD,
+  sf as getThreadMcpAppSidePanelTabId,
+  sg as initAppFeatureRuntimeChunk,
+  sh as appMainCurrentCompatSlotLowerSLowerH,
+  si as appMainCurrentCompatSlotLowerSLowerI,
+  sl as SidebarRowShortcutScope,
+  sm as SidebarRowContextMenuItem,
+  sn as appMainCurrentCompatSlotLowerSLowerN,
+  so as appMainCurrentCompatSlotLowerSLowerO,
+  sp as appMainCurrentCompatSlotLowerSLowerP,
+  sr as appMainCurrentCompatSlotLowerSLowerR,
+  ss as appMainCurrentCompatSlotLowerSLowerS,
+  sS as appMainCurrentCompatSlotLowerSUpperS,
+  st as appMainCurrentCompatSlotLowerSLowerT,
+  su as appMainCurrentCompatSlotLowerSLowerU,
+  sv as focusPendingReviewPanelTarget,
+  sx as appMainCurrentCompatSlotLowerSLowerX,
+  sy as appMainCurrentCompatSlotLowerSLowerY,
+} from "../app-main-legacy-buw-compat-bundle";

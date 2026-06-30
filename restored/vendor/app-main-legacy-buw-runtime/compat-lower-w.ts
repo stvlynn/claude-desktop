@@ -1,0 +1,28 @@
+// Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
+// Lowercase w compatibility aliases for the legacy app-main/onboarding producer.
+export {
+  w as appMainCurrentCompatSlotLowerW,
+  w_ as initTerminalMouseCoordinatePatchRuntime,
+  wa as appMainCurrentCompatSlotLowerWLowerA,
+  wb as appMainCurrentCompatSlotLowerWLowerB,
+  wc as appMainCurrentCompatSlotLowerWLowerC,
+  wC as appMainCurrentCompatSlotLowerWUpperC,
+  wd as appMainCurrentCompatSlotLowerWLowerD,
+  wf as appMainCurrentCompatSlotLowerWLowerF,
+  wg as appMainCurrentCompatSlotLowerWLowerG,
+  wh as appMainCurrentCompatSlotLowerWLowerH,
+  wi as appMainCurrentCompatSlotLowerWLowerI,
+  wl as appMainCurrentCompatSlotLowerWLowerL,
+  wm as appMainCurrentCompatSlotLowerWLowerM,
+  wn as appMainCurrentCompatSlotLowerWLowerN,
+  wo as appMainCurrentCompatSlotLowerWLowerO,
+  wp as appMainCurrentCompatSlotLowerWLowerP,
+  wr as appMainCurrentCompatSlotLowerWLowerR,
+  ws as browserTabIdForConversation,
+  wS as appMainCurrentCompatSlotLowerWUpperS,
+  wt as appMainCurrentCompatSlotLowerWLowerT,
+  wu as appMainCurrentCompatSlotLowerWLowerU,
+  wv as appMainCurrentCompatSlotLowerWLowerV,
+  wx as ThreadRowWorktreeMeta,
+  wy as appMainCurrentCompatSlotLowerWLowerY,
+} from "../app-main-legacy-buw-compat-bundle";

@@ -1,0 +1,28 @@
+// Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
+// Uppercase O compatibility aliases for the legacy app-main/onboarding producer.
+export {
+  O as appMainCurrentCompatSlotUpperO,
+  O_ as terminalLinkHandler,
+  Oa as appMainCurrentCompatSlotUpperOLowerA,
+  Ob as appMainCurrentCompatSlotUpperOLowerB,
+  Oc as appMainCurrentCompatSlotUpperOLowerC,
+  OC as createSlotComponent,
+  Od as appMainCurrentCompatSlotUpperOLowerD,
+  Of as appMainCurrentCompatSlotUpperOLowerF,
+  Og as findBrowserTargetAtom,
+  Oh as appMainCurrentCompatSlotUpperOLowerH,
+  Oi as SidebarRowOverflowMenu,
+  Ol as appMainCurrentCompatSlotUpperOLowerL,
+  Om as appMainCurrentCompatSlotUpperOLowerM,
+  On as appMainCurrentCompatSlotUpperOLowerN,
+  Oo as appMainCurrentCompatSlotUpperOLowerO,
+  Op as appMainCurrentCompatSlotUpperOLowerP,
+  Or as appMainCurrentCompatSlotUpperOLowerR,
+  Os as appMainCurrentCompatSlotUpperOLowerS,
+  OS as appMainCurrentCompatSlotUpperOUpperS,
+  Ot as appMainCurrentCompatSlotUpperOLowerT,
+  Ou as appMainCurrentCompatSlotUpperOLowerU,
+  Ov as appMainCurrentCompatSlotUpperOLowerV,
+  Ox as appMainCurrentCompatSlotUpperOLowerX,
+  Oy as appMainCurrentCompatSlotUpperOLowerY,
+} from "../app-main-legacy-buw-compat-bundle";

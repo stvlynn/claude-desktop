@@ -1,0 +1,27 @@
+// Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
+// Uppercase K compatibility aliases for the legacy app-main/onboarding producer.
+export {
+  K as appMainCurrentCompatSlotUpperK,
+  K_ as appMainCurrentCompatSlotUpperKUnderscore,
+  Ka as appMainCurrentCompatSlotUpperKLowerA,
+  Kb as appMainCurrentCompatSlotUpperKLowerB,
+  Kc as appMainCurrentCompatSlotUpperKLowerC,
+  Kd as ThreadRowMeta,
+  Kf as appMainCurrentCompatSlotUpperKLowerF,
+  Kg as appMainCurrentCompatSlotUpperKLowerG,
+  Kh as appMainCurrentCompatSlotUpperKLowerH,
+  Ki as appMainCurrentCompatSlotUpperKLowerI,
+  Kl as appMainCurrentCompatSlotUpperKLowerL,
+  Km as appMainCurrentCompatSlotUpperKLowerM,
+  Kn as appMainCurrentCompatSlotUpperKLowerN,
+  Ko as appMainCurrentCompatSlotUpperKLowerO,
+  Kp as appMainCurrentCompatSlotUpperKLowerP,
+  Kr as appMainCurrentCompatSlotUpperKLowerR,
+  Ks as appMainCurrentCompatSlotUpperKLowerS,
+  KS as appMainCurrentCompatSlotUpperKUpperS,
+  Kt as appMainCurrentCompatSlotUpperKLowerT,
+  Ku as appMainCurrentCompatSlotUpperKLowerU,
+  Kv as rightPanelTabsStore,
+  Kx as appMainCurrentCompatSlotUpperKLowerX,
+  Ky as appMainCurrentCompatSlotUpperKLowerY,
+} from "../app-main-legacy-buw-compat-bundle";

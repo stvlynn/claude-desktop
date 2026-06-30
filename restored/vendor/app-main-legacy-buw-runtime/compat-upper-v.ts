@@ -1,0 +1,27 @@
+// Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
+// Uppercase V compatibility aliases for the legacy app-main/onboarding producer.
+export {
+  V as appMainCurrentCompatSlotUpperV,
+  V_ as appMainCurrentCompatSlotUpperVUnderscore,
+  Va as appMainCurrentCompatSlotUpperVLowerA,
+  Vb as appMainCurrentCompatSlotUpperVLowerB,
+  Vc as appMainCurrentCompatSlotUpperVLowerC,
+  Vd as appMainCurrentCompatSlotUpperVLowerD,
+  Vf as appMainCurrentCompatSlotUpperVLowerF,
+  Vg as appMainCurrentCompatSlotUpperVLowerG,
+  Vh as appMainCurrentCompatSlotUpperVLowerH,
+  Vi as appMainCurrentCompatSlotUpperVLowerI,
+  Vl as appMainCurrentCompatSlotUpperVLowerL,
+  Vm as appMainCurrentCompatSlotUpperVLowerM,
+  Vn as appMainCurrentCompatSlotUpperVLowerN,
+  Vo as appMainCurrentCompatSlotUpperVLowerO,
+  Vp as appMainCurrentCompatSlotUpperVLowerP,
+  Vr as initUltraFastServiceTierIcon,
+  Vs as appMainCurrentCompatSlotUpperVLowerS,
+  VS as appMainCurrentCompatSlotUpperVUpperS,
+  Vt as appMainCurrentCompatSlotUpperVLowerT,
+  Vu as appMainCurrentCompatSlotUpperVLowerU,
+  Vv as initConversationSummarySelectorsChunk,
+  Vx as appMainCurrentCompatSlotUpperVLowerX,
+  Vy as appMainCurrentCompatSlotUpperVLowerY,
+} from "../app-main-legacy-buw-compat-bundle";

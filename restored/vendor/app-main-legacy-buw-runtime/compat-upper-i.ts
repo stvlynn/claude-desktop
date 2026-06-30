@@ -1,0 +1,28 @@
+// Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
+// Uppercase I compatibility aliases for the legacy app-main/onboarding producer.
+export {
+  I as appMainCurrentCompatSlotUpperI,
+  I_ as initFitAddonChunk,
+  Ia as appMainCurrentCompatSlotUpperILowerA,
+  Ib as appMainCurrentCompatSlotUpperILowerB,
+  Ic as appMainCurrentCompatSlotUpperILowerC,
+  IC as appMainCurrentCompatSlotUpperIUpperC,
+  Id as appMainCurrentCompatSlotUpperILowerD,
+  If as appMainCurrentCompatSlotUpperILowerF,
+  Ig as findResultAtom,
+  Ih as RemoteHostStatusIcon,
+  Ii as appMainCurrentCompatSlotUpperILowerI,
+  Il as appMainCurrentCompatSlotUpperILowerL,
+  Im as appMainCurrentCompatSlotUpperILowerM,
+  In as appMainCurrentCompatSlotUpperILowerN,
+  Io as appMainCurrentCompatSlotUpperILowerO,
+  Ip as appMainCurrentCompatSlotUpperILowerP,
+  Ir as appMainCurrentCompatSlotUpperILowerR,
+  Is as appMainCurrentCompatSlotUpperILowerS,
+  IS as appMainCurrentCompatSlotUpperIUpperS,
+  It as appMainCurrentCompatSlotUpperILowerT,
+  Iu as FileSourceTab,
+  Iv as appMainCurrentCompatSlotUpperILowerV,
+  Ix as appMainCurrentCompatSlotUpperILowerX,
+  Iy as appMainCurrentCompatSlotUpperILowerY,
+} from "../app-main-legacy-buw-compat-bundle";

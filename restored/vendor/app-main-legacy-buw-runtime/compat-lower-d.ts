@@ -1,0 +1,28 @@
+// Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
+// Lowercase d compatibility aliases for the legacy app-main/onboarding producer.
+export {
+  d as appMainCurrentCompatSlotLowerD,
+  d_ as appMainCurrentCompatSlotLowerDUnderscore,
+  da as appMainCurrentCompatSlotLowerDLowerA,
+  db as appMainCurrentCompatSlotLowerDLowerB,
+  dc as appMainCurrentCompatSlotLowerDLowerC,
+  dC as appMainCurrentCompatSlotLowerDUpperC,
+  dd as appMainCurrentCompatSlotLowerDLowerD,
+  df as FolderIcon,
+  dg as appMainCurrentCompatSlotLowerDLowerG,
+  dh as appMainCurrentCompatSlotLowerDLowerH,
+  di as appMainCurrentCompatSlotLowerDLowerI,
+  dl as SidebarRowDragHandle,
+  dm as appMainCurrentCompatSlotLowerDLowerM,
+  dn as appMainCurrentCompatSlotLowerDLowerN,
+  do as appMainCurrentCompatSlotLowerDLowerO,
+  dp as appMainCurrentCompatSlotLowerDLowerP,
+  dr as appMainCurrentCompatSlotLowerDLowerR,
+  ds as appMainCurrentCompatSlotLowerDLowerS,
+  dS as appMainCurrentCompatSlotLowerDUpperS,
+  dt as appMainCurrentCompatSlotLowerDLowerT,
+  du as appMainCurrentCompatSlotLowerDLowerU,
+  dv as appMainCurrentCompatSlotLowerDLowerV,
+  dx as getPathBasename,
+  dy as appMainCurrentCompatSlotLowerDLowerY,
+} from "../app-main-legacy-buw-compat-bundle";

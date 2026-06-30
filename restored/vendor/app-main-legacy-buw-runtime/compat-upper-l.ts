@@ -1,0 +1,28 @@
+// Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
+// Uppercase L compatibility aliases for the legacy app-main/onboarding producer.
+export {
+  L as appMainCurrentCompatSlotUpperL,
+  L_ as initPendingWorktreeRouteRuntimeChunk,
+  La as appMainCurrentCompatSlotUpperLLowerA,
+  Lb as appMainCurrentCompatSlotUpperLLowerB,
+  Lc as appMainCurrentCompatSlotUpperLLowerC,
+  LC as appMainCurrentCompatSlotUpperLUpperC,
+  Ld as appMainCurrentCompatSlotUpperLLowerD,
+  Lf as appMainCurrentCompatSlotUpperLLowerF,
+  Lg as appMainCurrentCompatSlotUpperLLowerG,
+  Lh as appMainCurrentCompatSlotUpperLLowerH,
+  Li as appMainCurrentCompatSlotUpperLLowerI,
+  Ll as appMainCurrentCompatSlotUpperLLowerL,
+  Lm as appMainCurrentCompatSlotUpperLLowerM,
+  Ln as appMainCurrentCompatSlotUpperLLowerN,
+  Lo as appMainCurrentCompatSlotUpperLLowerO,
+  Lp as appMainCurrentCompatSlotUpperLLowerP,
+  Lr as appMainCurrentCompatSlotUpperLLowerR,
+  Ls as appMainCurrentCompatSlotUpperLLowerS,
+  LS as appMainCurrentCompatSlotUpperLUpperS,
+  Lt as appMainCurrentCompatSlotUpperLLowerT,
+  Lu as appMainCurrentCompatSlotUpperLLowerU,
+  Lv as appMainCurrentCompatSlotUpperLLowerV,
+  Lx as appMainCurrentCompatSlotUpperLLowerX,
+  Ly as appMainCurrentCompatSlotUpperLLowerY,
+} from "../app-main-legacy-buw-compat-bundle";

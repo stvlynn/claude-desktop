@@ -1,0 +1,28 @@
+// Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
+// Uppercase A compatibility aliases for the legacy app-main/onboarding producer.
+export {
+  A as appMainCurrentCompatSlotUpperA,
+  A_ as initTerminalFontSettingsChunk,
+  Aa as appMainCurrentCompatSlotUpperALowerA,
+  Ab as appMainCurrentCompatSlotUpperALowerB,
+  Ac as appMainCurrentCompatSlotUpperALowerC,
+  AC as appMainCurrentCompatSlotUpperAUpperC,
+  Ad as appMainCurrentCompatSlotUpperALowerD,
+  Af as appMainCurrentCompatSlotUpperALowerF,
+  Ag as appMainCurrentCompatSlotUpperALowerG,
+  Ah as appMainCurrentCompatSlotUpperALowerH,
+  Ai as appMainCurrentCompatSlotUpperALowerI,
+  Al as appMainCurrentCompatSlotUpperALowerL,
+  Am as appMainCurrentCompatSlotUpperALowerM,
+  An as appMainCurrentCompatSlotUpperALowerN,
+  Ao as appMainCurrentCompatSlotUpperALowerO,
+  Ap as appMainCurrentCompatSlotUpperALowerP,
+  Ar as GlobeIcon,
+  As as appMainCurrentCompatSlotUpperALowerS,
+  AS as focusAreaStateKey,
+  At as appMainCurrentCompatSlotUpperALowerT,
+  Au as appMainCurrentCompatSlotUpperALowerU,
+  Av as appMainCurrentCompatSlotUpperALowerV,
+  Ax as appMainCurrentCompatSlotUpperALowerX,
+  Ay as appMainCurrentCompatSlotUpperALowerY,
+} from "../app-main-legacy-buw-compat-bundle";

@@ -1,0 +1,28 @@
+// Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
+// Lowercase x compatibility aliases for the legacy app-main/onboarding producer.
+export {
+  x as appMainCurrentCompatSlotLowerX,
+  x_ as ensureTerminalFontLoaded,
+  xa as appMainCurrentCompatSlotLowerXLowerA,
+  xb as appMainCurrentCompatSlotLowerXLowerB,
+  xc as appMainCurrentCompatSlotLowerXLowerC,
+  xC as appMainCurrentCompatSlotLowerXUpperC,
+  xd as appMainCurrentCompatSlotLowerXLowerD,
+  xf as appMainCurrentCompatSlotLowerXLowerF,
+  xg as appMainCurrentCompatSlotLowerXLowerG,
+  xh as appMainCurrentCompatSlotLowerXLowerH,
+  xi as appMainCurrentCompatSlotLowerXLowerI,
+  xl as openThreadTimelineSidePanel,
+  xm as appMainCurrentCompatSlotLowerXLowerM,
+  xn as appMainCurrentCompatSlotLowerXLowerN,
+  xo as initForkConversationToastRuntime,
+  xp as appMainCurrentCompatSlotLowerXLowerP,
+  xr as initSettingsControlRowChunk,
+  xs as appMainCurrentCompatSlotLowerXLowerS,
+  xS as appMainCurrentCompatSlotLowerXUpperS,
+  xt as appMainCurrentCompatSlotLowerXLowerT,
+  xu as appMainCurrentCompatSlotLowerXLowerU,
+  xv as appMainCurrentCompatSlotLowerXLowerV,
+  xx as ThreadRowCloudMeta,
+  xy as appMainCurrentCompatSlotLowerXLowerY,
+} from "../app-main-legacy-buw-compat-bundle";

@@ -1,0 +1,28 @@
+// Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
+// Uppercase D compatibility aliases for the legacy app-main/onboarding producer.
+export {
+  D as appMainCurrentCompatSlotUpperD,
+  D_ as activateTerminalLink,
+  Da as appMainCurrentCompatSlotUpperDLowerA,
+  Db as appMainCurrentCompatSlotUpperDLowerB,
+  Dc as appMainCurrentCompatSlotUpperDLowerC,
+  DC as initPrimitiveRuntimeChunk,
+  Dd as appMainCurrentCompatSlotUpperDLowerD,
+  Df as appMainCurrentCompatSlotUpperDLowerF,
+  Dg as findBrowserStatusAtom,
+  Dh as appMainCurrentCompatSlotUpperDLowerH,
+  Di as appMainCurrentCompatSlotUpperDLowerI,
+  Dl as appMainCurrentCompatSlotUpperDLowerL,
+  Dm as appMainCurrentCompatSlotUpperDLowerM,
+  Dn as appMainCurrentCompatSlotUpperDLowerN,
+  Do as appMainCurrentCompatSlotUpperDLowerO,
+  Dp as appMainCurrentCompatSlotUpperDLowerP,
+  Dr as appMainCurrentCompatSlotUpperDLowerR,
+  Ds as getBrowserTabIdForPanelTab,
+  DS as appMainCurrentCompatSlotUpperDUpperS,
+  Dt as appMainCurrentCompatSlotUpperDLowerT,
+  Du as appMainCurrentCompatSlotUpperDLowerU,
+  Dv as appMainCurrentCompatSlotUpperDLowerV,
+  Dx as appMainCurrentCompatSlotUpperDLowerX,
+  Dy as appMainCurrentCompatSlotUpperDLowerY,
+} from "../app-main-legacy-buw-compat-bundle";

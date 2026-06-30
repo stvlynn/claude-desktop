@@ -1,0 +1,28 @@
+// Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
+// Lowercase i compatibility aliases for the legacy app-main/onboarding producer.
+export {
+  i as appMainCurrentCompatSlotLowerI,
+  i_ as appMainCurrentCompatSlotLowerIUnderscore,
+  ia as appMainCurrentCompatSlotLowerILowerA,
+  ib as appMainCurrentCompatSlotLowerILowerB,
+  ic as getConversationPanelLayoutSnapshot,
+  iC as appMainCurrentCompatSlotLowerIUpperC,
+  id as appMainCurrentCompatSlotLowerILowerD,
+  if as appMainCurrentCompatSlotLowerILowerF,
+  ig as appMainCurrentCompatSlotLowerILowerG,
+  ih as appMainCurrentCompatSlotLowerILowerH,
+  ii as appMainCurrentCompatSlotLowerILowerI,
+  il as useCloudEnvironmentsQuery,
+  im as appMainCurrentCompatSlotLowerILowerM,
+  in as appMainCurrentCompatSlotLowerILowerN,
+  io as appMainCurrentCompatSlotLowerILowerO,
+  ip as appMainCurrentCompatSlotLowerILowerP,
+  ir as appMainCurrentCompatSlotLowerILowerR,
+  is as appMainCurrentCompatSlotLowerILowerS,
+  iS as appMainCurrentCompatSlotLowerIUpperS,
+  it as appMainCurrentCompatSlotLowerILowerT,
+  iu as appMainCurrentCompatSlotLowerILowerU,
+  iv as appMainCurrentCompatSlotLowerILowerV,
+  ix as appMainCurrentCompatSlotLowerILowerX,
+  iy as appMainCurrentCompatSlotLowerILowerY,
+} from "../app-main-legacy-buw-compat-bundle";

@@ -1,0 +1,27 @@
+// Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
+// Uppercase Z compatibility aliases for the legacy app-main/onboarding producer.
+export {
+  Z as appMainCurrentCompatSlotUpperZ,
+  Z_ as appMainCurrentCompatSlotUpperZUnderscore,
+  Za as appMainCurrentCompatSlotUpperZLowerA,
+  Zb as appMainCurrentCompatSlotUpperZLowerB,
+  Zc as appMainCurrentCompatSlotUpperZLowerC,
+  Zd as appMainCurrentCompatSlotUpperZLowerD,
+  Zf as appMainCurrentCompatSlotUpperZLowerF,
+  Zg as appMainCurrentCompatSlotUpperZLowerG,
+  Zh as appMainCurrentCompatSlotUpperZLowerH,
+  Zi as appMainCurrentCompatSlotUpperZLowerI,
+  Zl as appMainCurrentCompatSlotUpperZLowerL,
+  Zm as appMainCurrentCompatSlotUpperZLowerM,
+  Zn as appMainCurrentCompatSlotUpperZLowerN,
+  Zo as appMainCurrentCompatSlotUpperZLowerO,
+  Zp as appMainCurrentCompatSlotUpperZLowerP,
+  Zr as appMainCurrentCompatSlotUpperZLowerR,
+  Zs as appMainCurrentCompatSlotUpperZLowerS,
+  ZS as bottomPanelOpenStateKey,
+  Zt as appMainCurrentCompatSlotUpperZLowerT,
+  Zu as AppShellOverlayOutlet,
+  Zv as appMainCurrentCompatSlotUpperZLowerV,
+  Zx as appMainCurrentCompatSlotUpperZLowerX,
+  Zy as appMainCurrentCompatSlotUpperZLowerY,
+} from "../app-main-legacy-buw-compat-bundle";

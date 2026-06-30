@@ -1,0 +1,28 @@
+// Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
+// Uppercase E compatibility aliases for the legacy app-main/onboarding producer.
+export {
+  E as appMainCurrentCompatSlotUpperE,
+  E_ as initTerminalLinkHandlerChunk,
+  Ea as appMainCurrentCompatSlotUpperELowerA,
+  Eb as appMainCurrentCompatSlotUpperELowerB,
+  Ec as appMainCurrentCompatSlotUpperELowerC,
+  EC as Primitive,
+  Ed as appMainCurrentCompatSlotUpperELowerD,
+  Ef as appMainCurrentCompatSlotUpperELowerF,
+  Eg as appMainCurrentCompatSlotUpperELowerG,
+  Eh as appMainCurrentCompatSlotUpperELowerH,
+  Ei as appMainCurrentCompatSlotUpperELowerI,
+  El as appMainCurrentCompatSlotUpperELowerL,
+  Em as appMainCurrentCompatSlotUpperELowerM,
+  En as appMainCurrentCompatSlotUpperELowerN,
+  Eo as copyConversationStateToFork,
+  Ep as appMainCurrentCompatSlotUpperELowerP,
+  Er as appMainCurrentCompatSlotUpperELowerR,
+  Es as deriveBrowserConversationId,
+  ES as appMainCurrentCompatSlotUpperEUpperS,
+  Et as appMainCurrentCompatSlotUpperELowerT,
+  Eu as appMainCurrentCompatSlotUpperELowerU,
+  Ev as appMainCurrentCompatSlotUpperELowerV,
+  Ex as appMainCurrentCompatSlotUpperELowerX,
+  Ey as appMainCurrentCompatSlotUpperELowerY,
+} from "../app-main-legacy-buw-compat-bundle";

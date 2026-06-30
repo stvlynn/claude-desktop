@@ -1,0 +1,28 @@
+// Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
+// Uppercase N compatibility aliases for the legacy app-main/onboarding producer.
+export {
+  N as logger,
+  N_ as initTerminalRuntimeChunk,
+  Na as appMainCurrentCompatSlotUpperNLowerA,
+  Nb as appMainCurrentCompatSlotUpperNLowerB,
+  Nc as appMainCurrentCompatSlotUpperNLowerC,
+  NC as appMainCurrentCompatSlotUpperNUpperC,
+  Nd as appMainCurrentCompatSlotUpperNLowerD,
+  Nf as appMainCurrentCompatSlotUpperNLowerF,
+  Ng as findLoadingAtom,
+  Nh as appMainCurrentCompatSlotUpperNLowerH,
+  Ni as appMainCurrentCompatSlotUpperNLowerI,
+  Nl as appMainCurrentCompatSlotUpperNLowerL,
+  Nm as appMainCurrentCompatSlotUpperNLowerM,
+  Nn as SidebarRowActionButton,
+  No as appMainCurrentCompatSlotUpperNLowerO,
+  Np as appMainCurrentCompatSlotUpperNLowerP,
+  Nr as SidebarRowContextMenu,
+  Ns as appMainCurrentCompatSlotUpperNLowerS,
+  NS as appMainCurrentCompatSlotUpperNUpperS,
+  Nt as appMainCurrentCompatSlotUpperNLowerT,
+  Nu as appMainCurrentCompatSlotUpperNLowerU,
+  Nv as appMainCurrentCompatSlotUpperNLowerV,
+  Nx as appMainCurrentCompatSlotUpperNLowerX,
+  Ny as ensureBottomPanelLauncherVisibilityDefault,
+} from "../app-main-legacy-buw-compat-bundle";

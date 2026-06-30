@@ -1,0 +1,27 @@
+// Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
+// Uppercase X compatibility aliases for the legacy app-main/onboarding producer.
+export {
+  X as appMainCurrentCompatSlotUpperX,
+  X_ as appMainCurrentCompatSlotUpperXUnderscore,
+  Xa as appMainCurrentCompatSlotUpperXLowerA,
+  Xb as appMainCurrentCompatSlotUpperXLowerB,
+  Xc as appMainCurrentCompatSlotUpperXLowerC,
+  Xd as appMainCurrentCompatSlotUpperXLowerD,
+  Xf as appMainCurrentCompatSlotUpperXLowerF,
+  Xg as appMainCurrentCompatSlotUpperXLowerG,
+  Xh as appMainCurrentCompatSlotUpperXLowerH,
+  Xi as appMainCurrentCompatSlotUpperXLowerI,
+  Xl as initAppgenPublicationTermsDisclosureRuntime,
+  Xm as appMainCurrentCompatSlotUpperXLowerM,
+  Xn as appMainCurrentCompatSlotUpperXLowerN,
+  Xo as appMainCurrentCompatSlotUpperXLowerO,
+  Xp as appMainCurrentCompatSlotUpperXLowerP,
+  Xr as appMainCurrentCompatSlotUpperXLowerR,
+  Xs as QueryClientProvider,
+  XS as appMainCurrentCompatSlotUpperXUpperS,
+  Xt as appMainCurrentCompatSlotUpperXLowerT,
+  Xu as appMainCurrentCompatSlotUpperXLowerU,
+  Xv as appMainCurrentCompatSlotUpperXLowerV,
+  Xx as appMainCurrentCompatSlotUpperXLowerX,
+  Xy as appMainCurrentCompatSlotUpperXLowerY,
+} from "../app-main-legacy-buw-compat-bundle";
