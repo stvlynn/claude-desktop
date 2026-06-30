@@ -10939,7 +10939,10 @@
       "exports": {
         "diagram": "infoDiagram42DDH7IO"
       },
-      "status": "done"
+      "status": "done",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T22:13:36.000Z",
+      "stage3Review": "Host self-review: current ref infoDiagram-42DDH7IO wrappers export only diagram; restored/vendor/mermaid-info-diagram-k5.ts preserves the fixed 11.14.0 info renderer surface through infoDiagram42DDH7IO/diagram and passes vendored quality gate."
     },
     "infoDiagram-42DDH7IO-By7WsAd5": {
       "restored": "vendor/mermaid-info-diagram-k5.ts",
@@ -10962,7 +10965,10 @@
       "status": "done",
       "aliasOf": "infoDiagram-42DDH7IO-CA5dZBgd",
       "lastUpdated": "2026-06-30T00:00:00.000Z",
-      "note": "Current Mermaid diagram definition wrapper preserves the restored public export surface."
+      "note": "Current Mermaid diagram definition wrapper preserves the restored public export surface.",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T22:13:36.000Z",
+      "stage3Review": "Host self-review: current ref infoDiagram-42DDH7IO-3khaWBDB.js exports only diagram; restored/vendor/mermaid-info-diagram-k5.ts preserves the fixed 11.14.0 info renderer surface through infoDiagram42DDH7IO/diagram and passes vendored quality gate."
     },
     "infoDiagram-42DDH7IO-DzlFnAH6": {
       "restored": "vendor/mermaid-info-diagram-k5.ts",
@@ -10972,7 +10978,10 @@
       "status": "done",
       "aliasOf": "infoDiagram-42DDH7IO-CA5dZBgd",
       "lastUpdated": "2026-06-30T00:00:00.000Z",
-      "note": "Current Mermaid diagram definition wrapper preserves the restored public export surface."
+      "note": "Current Mermaid diagram definition wrapper preserves the restored public export surface.",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T22:13:36.000Z",
+      "stage3Review": "Host self-review: current ref infoDiagram-42DDH7IO-DzlFnAH6.js exports only diagram; restored/vendor/mermaid-info-diagram-k5.ts preserves the fixed 11.14.0 info renderer surface through infoDiagram42DDH7IO/diagram and passes vendored quality gate."
     },
     "infoDiagram-42DDH7IO-FW52P25b": {
       "restored": "vendor/mermaid-info-diagram-k5.ts",
@@ -10982,7 +10991,10 @@
       "status": "done",
       "aliasOf": "infoDiagram-42DDH7IO-CA5dZBgd",
       "lastUpdated": "2026-06-30T00:00:00.000Z",
-      "note": "Current Mermaid diagram definition wrapper preserves the restored public export surface."
+      "note": "Current Mermaid diagram definition wrapper preserves the restored public export surface.",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T22:13:36.000Z",
+      "stage3Review": "Host self-review: current ref infoDiagram-42DDH7IO-FW52P25b.js exports only diagram; restored/vendor/mermaid-info-diagram-k5.ts preserves the fixed 11.14.0 info renderer surface through infoDiagram42DDH7IO/diagram and passes vendored quality gate."
     },
     "pieDiagram-DEJITSTG-D-t1CIhj": {
       "restored": "vendor/mermaid-pie-diagram-k5.ts",
