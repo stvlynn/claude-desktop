@@ -286,7 +286,7 @@ import {
   zh as vr,
   zr as Kee,
   zy as yr,
-} from "../boundaries/current-ref/current-app-initial-remote-projects-app-shared-runtime-producer";
+} from "./remote-projects-app-shared-current-bundle";
 import {
   C as qee,
   Ht as Jee,
@@ -314,7 +314,7 @@ import {
   y as Br,
   yn as Vr,
   zt as Hr,
-} from "../boundaries/current-ref/current-app-initial-pull-request-new-thread-runtime-producer";
+} from "./pull-request-new-thread-current-bundle";
 var Xee = i((e) => {
     var t = K();
     function n(e) {

@@ -115,7 +115,7 @@ import {
   wl as gt,
   yg as L,
   yt as _t,
-} from "../boundaries/current-ref/current-app-initial-remote-projects-app-shared-runtime-producer";
+} from "./remote-projects-app-shared-current-bundle";
 function vt() {
   let e = bt?.H;
   return e != null && e.useState !== e.useReducer;
