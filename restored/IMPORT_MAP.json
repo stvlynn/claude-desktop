@@ -32738,6 +32738,48 @@
       "status": "done",
       "lastUpdated": "2026-06-30T08:30:05.291Z",
       "note": "Mermaid color utility aliases re-derived from dist-Dcs2yc8m.js export tail."
+    },
+    "chunk-336JU56O-DNhqwrXr": {
+      "restored": "vendor/mermaid-layout-loader-k5.ts",
+      "exports": {
+        "i": "chunk336JU56OR",
+        "n": "initMermaidLayoutLoaderK5Chunk",
+        "r": "chunk336JU56ON",
+        "t": "chunk336JU56OT"
+      },
+      "aliasOf": "chunk-336JU56O-Cutebe7h",
+      "note": "Current Mermaid layout loader aliases were re-derived from chunk-336JU56O-DNhqwrXr.js: i=render, n=lazy init thunk, r=registerLayoutLoaders, t=getRegisteredLayoutAlgorithm.",
+      "status": "done",
+      "lastUpdated": "2026-06-30T00:00:00.000Z"
+    },
+    "chunk-4TB4RGXK-BR1f0w2Q": {
+      "restored": "vendor/mermaid-class-diagram-runtime-k5.ts",
+      "exports": {
+        "a": "chunk4TB4RGXKI",
+        "i": "initMermaidClassDiagramRuntimeK5Chunk",
+        "n": "chunk4TB4RGXKN",
+        "r": "chunk4TB4RGXKR",
+        "t": "chunk4TB4RGXKT"
+      },
+      "aliasOf": "chunk-4TB4RGXK-dwuD3qB1",
+      "note": "Current Mermaid class diagram runtime aliases were re-derived from chunk-4TB4RGXK-BR1f0w2Q.js: a=getStyles, i=lazy init thunk, n=parser, r=renderer, t=diagram DB.",
+      "status": "done",
+      "lastUpdated": "2026-06-30T00:00:00.000Z"
+    },
+    "chunk-ENJZ2VHE-Hl7g56sN": {
+      "restored": "vendor/mermaid-edge-renderer-k5.ts",
+      "exports": {
+        "a": "chunkENJZ2VHEI",
+        "i": "chunkENJZ2VHER",
+        "n": "initMermaidEdgeRendererK5Chunk",
+        "o": "chunkENJZ2VHEA",
+        "r": "chunkENJZ2VHEN",
+        "t": "chunkENJZ2VHET"
+      },
+      "aliasOf": "chunk-ENJZ2VHE-ed8XzF1H",
+      "note": "Current Mermaid edge renderer aliases were re-derived from chunk-ENJZ2VHE-Hl7g56sN.js: a=marker definitions, i=insertEdgeLabel, n=lazy init thunk, o=positionEdgeLabel, r=insertEdge, t=clear.",
+      "status": "done",
+      "lastUpdated": "2026-06-30T00:00:00.000Z"
     }
   }
 }

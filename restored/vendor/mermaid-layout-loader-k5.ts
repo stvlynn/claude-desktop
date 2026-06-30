@@ -225,4 +225,5 @@ export const chunk336JU56OR = chunkAGHRB4JFN(
   },
   "render",
 );
+export function initMermaidLayoutLoaderK5Chunk(): void {}
 export { chunk336JU56ON };

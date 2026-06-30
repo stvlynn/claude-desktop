@@ -2635,3 +2635,4 @@ var chunkENJZ2VHEValue15 = chunkAGHRB4JFN(
     ),
   };
 export const chunkENJZ2VHEI = chunkENJZ2VHEValue15;
+export function initMermaidEdgeRendererK5Chunk(): void {}

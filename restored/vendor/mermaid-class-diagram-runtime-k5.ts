@@ -3479,6 +3479,7 @@ export const chunk4TB4RGXKR = {
   ),
 };
 export const chunk4TB4RGXKN = chunk4TB4RGXKValue1;
+export function initMermaidClassDiagramRuntimeK5Chunk(): void {}
 export const chunk4TB4RGXKI = chunkAGHRB4JFN(
   (chunk4TB4RGXKParam13) => `g.classGroup text {
   fill: ${chunk4TB4RGXKParam13.nodeBorder || chunk4TB4RGXKParam13.classText};
