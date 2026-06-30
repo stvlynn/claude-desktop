@@ -42097,6 +42097,47 @@
       "stage3Accepted": true,
       "stage3AcceptedAt": "2026-06-30T22:56:00.000Z",
       "stage3Review": "Host self-review: current ref mindmap-definition-QFDTVHPH-C-RA3VgZ.js exports only diagram; restored/vendor/mermaid-mindmap-definition-k5.ts preserves that surface and passes vendored quality-gate."
+    },
+    "docx-preview-panel-BsZXEpj7": {
+      "restored": "vendor/docx-preview-panel-current-bundle.ts",
+      "exports": {
+        "DocxPreviewPanel": "DocxPreviewPanel"
+      },
+      "status": "done",
+      "note": "Current DocxPreviewPanel hash maps to the restored docx preview backing bundle; the single semantic export is re-derived from the current file.",
+      "lastUpdated": "2026-06-30T23:06:00.000Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T23:06:00.000Z",
+      "stage3Review": "Host self-review: current ref docx-preview-panel-BsZXEpj7.js exports only DocxPreviewPanel; restored/vendor/docx-preview-panel-current-bundle.ts preserves that surface and passes vendored quality-gate.",
+      "stage3Note": "Accepted as a current-ref compatibility export over an existing restored backing module; full semantic split of DocxPreviewPanel remains future cleanup."
+    },
+    "PopcornElectronPresentationPanel-B56eXPt5": {
+      "restored": "generated/popcorn-electron-presentation-panel.tsx",
+      "exports": {
+        "PopcornElectronPresentationPanel": "PopcornElectronPresentationPanel"
+      },
+      "status": "done",
+      "aliasOf": "PopcornElectronPresentationPanel-DyLT7PAB",
+      "note": "Current PopcornElectronPresentationPanel hash maps to the existing presentation panel backing module; current export surface is a single re-derived component export.",
+      "lastUpdated": "2026-06-30T23:06:00.000Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T23:06:00.000Z",
+      "stage3Review": "Host self-review: current ref PopcornElectronPresentationPanel-B56eXPt5.js exports only PopcornElectronPresentationPanel; restored/generated/popcorn-electron-presentation-panel.tsx declares the current hash match and passes vendored quality-gate.",
+      "stage3Note": "Accepted as a current-ref compatibility export over an existing restored backing module; full semantic split of PopcornElectronPresentationPanel remains future cleanup."
+    },
+    "PopcornElectronWorkbookPanel-DEXqsHf5": {
+      "restored": "generated/popcorn-electron-workbook-panel.tsx",
+      "exports": {
+        "PopcornElectronWorkbookPanel": "PopcornElectronWorkbookPanel"
+      },
+      "status": "done",
+      "aliasOf": "PopcornElectronWorkbookPanel-Drl2YYRf",
+      "note": "Current PopcornElectronWorkbookPanel hash maps to the existing workbook panel backing module; current export surface is a single re-derived component export.",
+      "lastUpdated": "2026-06-30T23:06:00.000Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T23:06:00.000Z",
+      "stage3Review": "Host self-review: current ref PopcornElectronWorkbookPanel-DEXqsHf5.js exports only PopcornElectronWorkbookPanel; restored/generated/popcorn-electron-workbook-panel.tsx declares the current hash match and passes vendored quality-gate.",
+      "stage3Note": "Accepted as a current-ref compatibility export over an existing restored backing module; full semantic split of PopcornElectronWorkbookPanel remains future cleanup."
     }
   }
 }
