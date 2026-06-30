@@ -214,6 +214,21 @@ import htmlDerivativeGrammar from "@shikijs/langs/html-derivative";
 import phpGrammar from "@shikijs/langs/php";
 import rubyGrammar from "@shikijs/langs/ruby";
 import vueGrammar from "@shikijs/langs/vue";
+import bladeGrammar from "@shikijs/langs/blade";
+import edgeGrammar from "@shikijs/langs/edge";
+import erbGrammar from "@shikijs/langs/erb";
+import juliaGrammar from "@shikijs/langs/julia";
+import mdcGrammar from "@shikijs/langs/mdc";
+import rstGrammar from "@shikijs/langs/rst";
+import twigGrammar from "@shikijs/langs/twig";
+import vueHtmlGrammar from "@shikijs/langs/vue-html";
+import vueVineGrammar from "@shikijs/langs/vue-vine";
+import angularExpressionGrammar from "@shikijs/langs/angular-expression";
+import angularHtmlGrammar from "@shikijs/langs/angular-html";
+import angularLetDeclarationGrammar from "@shikijs/langs/angular-let-declaration";
+import angularTemplateGrammar from "@shikijs/langs/angular-template";
+import angularTemplateBlocksGrammar from "@shikijs/langs/angular-template-blocks";
+import angularTsGrammar from "@shikijs/langs/angular-ts";
 
 type ShikiGrammarChunkInitializer = () => void;
 
@@ -221,6 +236,16 @@ type ShikiGrammarChunkInitializer = () => void;
 // imports are already initialized, so the restored init aliases are no-ops.
 const initShikiGrammarChunk: ShikiGrammarChunkInitializer = () => {};
 
+const angularExpressionLanguageGrammars = angularExpressionGrammar;
+const initAngularExpressionGrammarChunk = initShikiGrammarChunk;
+const angularLetDeclarationLanguageGrammars = angularLetDeclarationGrammar;
+const initAngularLetDeclarationGrammarChunk = initShikiGrammarChunk;
+const angularTemplateLanguageGrammars = angularTemplateGrammar;
+const initAngularTemplateGrammarChunk = initShikiGrammarChunk;
+const angularTemplateBlocksLanguageGrammars = angularTemplateBlocksGrammar;
+const initAngularTemplateBlocksGrammarChunk = initShikiGrammarChunk;
+const angularHtmlLanguageGrammars = angularHtmlGrammar;
+const initAngularHtmlGrammarChunk = initShikiGrammarChunk;
 const cLanguageGrammars = cGrammar;
 const initCGrammarChunk = initShikiGrammarChunk;
 const cmakeLanguageGrammars = cmakeGrammar;
@@ -552,6 +577,26 @@ export {
   soyGrammar,
   tsTagsGrammar,
   xslGrammar,
+  bladeGrammar,
+  edgeGrammar,
+  erbGrammar,
+  juliaGrammar,
+  mdcGrammar,
+  rstGrammar,
+  twigGrammar,
+  vueHtmlGrammar,
+  vueVineGrammar,
+  angularTsGrammar,
+  angularExpressionLanguageGrammars,
+  initAngularExpressionGrammarChunk,
+  angularLetDeclarationLanguageGrammars,
+  initAngularLetDeclarationGrammarChunk,
+  angularTemplateLanguageGrammars,
+  initAngularTemplateGrammarChunk,
+  angularTemplateBlocksLanguageGrammars,
+  initAngularTemplateBlocksGrammarChunk,
+  angularHtmlLanguageGrammars,
+  initAngularHtmlGrammarChunk,
   cppLanguageGrammars,
   initCppGrammarChunk,
   htmlDerivativeLanguageGrammars,

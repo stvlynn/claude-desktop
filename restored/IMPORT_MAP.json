@@ -39218,6 +39218,104 @@
       "note": "Shiki bundled language producer chunk mapped to npm leaf @shikijs/langs/vue; grammar payload is intentionally not copied into restored/. Bundler init aliases are no-ops because static imports are already initialized.",
       "stage3Accepted": true,
       "lastUpdated": "2026-06-30T00:00:00.000-05:00"
+    },
+    "blade-DK87gFxT": {
+      "restored": "vendor/shiki-languages.ts",
+      "exports": {
+        "default": "bladeGrammar"
+      },
+      "status": "done",
+      "vendor": "@shikijs/langs/blade"
+    },
+    "edge-DPrOGh3M": {
+      "restored": "vendor/shiki-languages.ts",
+      "exports": {
+        "default": "edgeGrammar"
+      },
+      "status": "done",
+      "vendor": "@shikijs/langs/edge"
+    },
+    "erb-dC1kuoP8": {
+      "restored": "vendor/shiki-languages.ts",
+      "exports": {
+        "default": "erbGrammar"
+      },
+      "status": "done",
+      "vendor": "@shikijs/langs/erb"
+    },
+    "julia-NCf7lgSr": {
+      "restored": "vendor/shiki-languages.ts",
+      "exports": {
+        "default": "juliaGrammar"
+      },
+      "status": "done",
+      "vendor": "@shikijs/langs/julia"
+    },
+    "mdc-5IJ9h_iu": {
+      "restored": "vendor/shiki-languages.ts",
+      "exports": {
+        "default": "mdcGrammar"
+      },
+      "status": "done",
+      "vendor": "@shikijs/langs/mdc"
+    },
+    "rst-CAXmzl31": {
+      "restored": "vendor/shiki-languages.ts",
+      "exports": {
+        "default": "rstGrammar"
+      },
+      "status": "done",
+      "vendor": "@shikijs/langs/rst"
+    },
+    "twig-CuMRydOM": {
+      "restored": "vendor/shiki-languages.ts",
+      "exports": {
+        "default": "twigGrammar"
+      },
+      "status": "done",
+      "vendor": "@shikijs/langs/twig"
+    },
+    "vue-html-BjcMXo3O": {
+      "restored": "vendor/shiki-languages.ts",
+      "exports": {
+        "default": "vueHtmlGrammar"
+      },
+      "status": "done",
+      "vendor": "@shikijs/langs/vue-html"
+    },
+    "vue-vine-BXhAHSqJ": {
+      "restored": "vendor/shiki-languages.ts",
+      "exports": {
+        "default": "vueVineGrammar"
+      },
+      "status": "done",
+      "vendor": "@shikijs/langs/vue-vine"
+    },
+    "angular-html-D-J2vtxm": {
+      "restored": "vendor/shiki-languages.ts",
+      "exports": {
+        "a": "angularTemplateLanguageGrammars",
+        "c": "initAngularLetDeclarationGrammarChunk",
+        "i": "initAngularTemplateBlocksGrammarChunk",
+        "l": "angularExpressionLanguageGrammars",
+        "n": "initAngularHtmlGrammarChunk",
+        "o": "initAngularTemplateGrammarChunk",
+        "r": "angularTemplateBlocksLanguageGrammars",
+        "s": "angularLetDeclarationLanguageGrammars",
+        "t": "angularHtmlLanguageGrammars",
+        "u": "initAngularExpressionGrammarChunk"
+      },
+      "status": "done",
+      "vendor": "@shikijs/langs/angular-html",
+      "note": "Current Angular HTML producer aliases re-derived from angular-html-D-J2vtxm.js; init thunks map to no-op static npm imports, grammar arrays map to @shikijs/langs/angular-* subpaths."
+    },
+    "angular-ts-CrRACqVO": {
+      "restored": "vendor/shiki-languages.ts",
+      "exports": {
+        "default": "angularTsGrammar"
+      },
+      "status": "done",
+      "vendor": "@shikijs/langs/angular-ts"
     }
   }
 }
