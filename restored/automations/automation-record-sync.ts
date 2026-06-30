@@ -1,7 +1,7 @@
 // Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
 // Helpers for comparing persisted automation records against derived payloads
 // to detect whether a saved automation is still in sync with local state.
-import { srcBi as isHeartbeatAutomation } from "../boundaries/src-l0hb-mz-p";
+import { isHeartbeatAutomation } from "../boundaries/src-l0hb-mz-p";
 
 type AutomationKind = "cron" | "heartbeat";
 type AutomationStatus = "ACTIVE" | "PAUSED" | "DELETED" | string;

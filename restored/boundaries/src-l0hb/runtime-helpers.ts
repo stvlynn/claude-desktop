@@ -121,6 +121,8 @@ export function srcBi(automation: unknown): boolean {
   return (automation as { kind?: string } | null)?.kind === "heartbeat";
 }
 
+export const isHeartbeatAutomation = srcBi;
+
 export function srcVi(environment: unknown): unknown {
   return environment ?? null;
 }

@@ -3,7 +3,7 @@
 // dropdown, marking chats already claimed by another active heartbeat as
 // unavailable and surfacing the currently selected chat even if unpinned.
 import { useAppScopeValue } from "../boundaries/app-scope";
-import { srcBi as isHeartbeatAutomation } from "../boundaries/src-l0hb-mz-p";
+import { isHeartbeatAutomation } from "../boundaries/src-l0hb-mz-p";
 import { normalizeConversationId } from "../boundaries/src-l0hb-mz-p";
 import { getThreadTitle } from "../boundaries/use-host-config.facade";
 import { useThreadsQuery } from "../boundaries/onboarding-commons-externals.facade";

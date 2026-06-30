@@ -6,7 +6,7 @@
 import type { ReactElement } from "react";
 import { FormattedMessage, useIntl } from "../vendor/react-intl";
 import type { IntlShape } from "../vendor/react-intl";
-import { srcBi as isHeartbeatAutomation } from "../boundaries/src-l0hb-mz-p";
+import { isHeartbeatAutomation } from "../boundaries/src-l0hb-mz-p";
 import { automationsQuerySignal } from "../automation/automation-schedule/automations-query";
 import { getAutomationDirectiveActionMode } from "./shared";
 import {

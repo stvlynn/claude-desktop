@@ -4728,7 +4728,7 @@
         "Ar": "formatUnknownError",
         "At": "srcPi",
         "B": "browserDownloadsCapabilityName",
-        "Bi": "srcBi",
+        "Bi": "isHeartbeatAutomation",
         "Bn": "srcVi",
         "Br": "globalSettingKeys",
         "Bt": "srcMi",

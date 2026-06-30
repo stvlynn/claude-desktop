@@ -34,7 +34,7 @@ import {
   setAutomationDraftDestination,
 } from "./shared";
 import { getAutomationTelemetryProperties } from "../settings/automations/automation-telemetry";
-import { srcBi as isHeartbeatAutomation } from "../boundaries/src-l0hb-mz-p";
+import { isHeartbeatAutomation } from "../boundaries/src-l0hb-mz-p";
 import { formatAutomationNextRun } from "../inbox/automation-next-run-format";
 import {
   useAppScope,
