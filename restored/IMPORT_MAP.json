@@ -40286,6 +40286,13 @@
         "t": "AvatarOverlayNativeFrame"
       },
       "status": "done"
+    },
+    "plan-summary-page-B3al0AKT": {
+      "restored": "routes/plan-summary-page.tsx",
+      "exports": {
+        "PlanSummaryPage": "PlanSummaryPage"
+      },
+      "status": "done"
     }
   }
 }
