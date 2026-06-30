@@ -10850,6 +10850,29 @@
       "note": "Current synced subscription update plan chunk with initializer aliases for the dialog, plan-id, and billing-period modules.",
       "lastUpdated": "2026-06-29T00:00:00.000Z"
     },
+    "subscription-update-plan-C6ivP0af": {
+      "restored": "settings/subscription-update-plan/index.ts",
+      "exports": {
+        "a": "initSubscriptionUpdatePlanDialogChunk",
+        "i": "SubscriptionUpdatePlanDialog",
+        "n": "subscriptionPlanIdToSku",
+        "o": "PlanBillingPeriodSegmentedControl",
+        "r": "initSubscriptionPlanIdChunk",
+        "s": "initPlanBillingPeriodSegmentedControlChunk",
+        "t": "skuToSubscriptionPlanId",
+        "initSubscriptionUpdatePlanDialogChunk": "initSubscriptionUpdatePlanDialogChunk",
+        "SubscriptionUpdatePlanDialog": "SubscriptionUpdatePlanDialog",
+        "subscriptionPlanIdToSku": "subscriptionPlanIdToSku",
+        "PlanBillingPeriodSegmentedControl": "PlanBillingPeriodSegmentedControl",
+        "initSubscriptionPlanIdChunk": "initSubscriptionPlanIdChunk",
+        "initPlanBillingPeriodSegmentedControlChunk": "initPlanBillingPeriodSegmentedControlChunk",
+        "skuToSubscriptionPlanId": "skuToSubscriptionPlanId"
+      },
+      "status": "done",
+      "aliasOf": "subscription-update-plan-D0G2uLaZ",
+      "note": "Current subscription update plan hash re-derived from subscription-update-plan-C6ivP0af.js; aliases preserve dialog, plan-id conversion, billing-period control, and their initializers.",
+      "lastUpdated": "2026-06-30T00:00:00.000Z"
+    },
     "chunk-OYMX7WX6-DPwCFRNe": {
       "restored": "vendor/mermaid-state-diagram-runtime-k5.ts",
       "exports": {
