@@ -21,8 +21,10 @@ type StatsigCore = {
 };
 const statsigCore = loadStatsigCore() as StatsigCore;
 export type ChatGptLoginRequestOptions = {
+  appBrand?: string;
   hostId?: string;
   signal?: AbortSignal;
+  useHostedLoginSuccessPage?: boolean;
   useStreamlinedLogin?: boolean;
 };
 export type BuildChatGptAuthUrlOptions = {
@@ -48,19 +50,25 @@ export type OnboardingLoginContentProps = {
   onShowApiKeyEntry: () => void;
 };
 export async function startChatGptLogin({
+  appBrand,
   hostId = LOCAL_HOST_ID as string,
   signal,
+  useHostedLoginSuccessPage,
   useStreamlinedLogin,
 }: ChatGptLoginRequestOptions) {
   const abortController = createAbortControllerFromSignal(signal);
   return hostId === LOCAL_HOST_ID
     ? sendAppServerRequest("login-with-chatgpt", {
         abortController,
+        ...(useHostedLoginSuccessPage && appBrand != null ? { appBrand } : {}),
+        useHostedLoginSuccessPage,
         useStreamlinedLogin,
       })
     : sendAppServerRequest("login-with-chatgpt-for-host", {
         abortController,
         hostId,
+        ...(useHostedLoginSuccessPage && appBrand != null ? { appBrand } : {}),
+        useHostedLoginSuccessPage,
         useStreamlinedLogin,
       });
 }

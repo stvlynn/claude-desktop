@@ -194,4 +194,15 @@ export function logProductEvent(
   logger.logProductEvent?.(productEvent, payload);
 }
 
+export const productLoggerT = logProductEvent;
 export const ___productLoggerT = logProductEvent;
+
+export const productLoggerVt = {
+  $type: "protobuf_analytics_events.v1.CodexLoginMethodSelected",
+};
+export const productLoggerUt = {
+  $type: "protobuf_analytics_events.v1.CodexLoginSuccess",
+};
+export const productLoggerBt = {
+  $type: "protobuf_analytics_events.v1.CodexLoginFailure",
+};

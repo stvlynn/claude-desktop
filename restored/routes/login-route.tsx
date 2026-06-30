@@ -68,6 +68,7 @@ type SnakeBoard = {
 };
 const DESKTOP_AUTH_LAYER_ID = "3446609779";
 const PROVIDER_SIGN_IN_LAYER_ID = "1561420571";
+const HOSTED_LOGIN_SUCCESS_PAGE_GATE_ID = "2936610421";
 const CODEX_ORIGIN_STABLE_ID_GATE_ID = "3963726525";
 const SNAKE_MIN_CELLS = 12;
 const SNAKE_BASE_CELL_SIZE = 18;
@@ -219,11 +220,20 @@ function DesktopOnboardingLoginRoute() {
           resolveDesktopAuthOptions(
             statsigClient.getLayer(DESKTOP_AUTH_LAYER_ID),
           );
+        const useHostedLoginSuccessPage = statsigClient.checkGate(
+          HOSTED_LOGIN_SUCCESS_PAGE_GATE_ID,
+        );
         const includeCodexOriginStableId = statsigClient.checkGate(
           CODEX_ORIGIN_STABLE_ID_GATE_ID,
         );
         const { authUrl, completion } = await startChatGptLogin({
           signal: abortController.signal,
+          ...(useHostedLoginSuccessPage
+            ? {
+                appBrand: appIdentityId,
+              }
+            : {}),
+          useHostedLoginSuccessPage,
           useStreamlinedLogin: useStreamlinedLoginUx,
         });
         if (authUrl) {
