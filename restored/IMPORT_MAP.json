@@ -14319,9 +14319,12 @@
         "z": "useReviewSearchHighlights"
       },
       "status": "done",
-      "aliasOf": "local-conversation-thread-BwqAGxoz",
-      "note": "Historical local-conversation-thread hash retained for compatibility. The current ref tree and full-restore manifest use local-conversation-thread-BwqAGxoz, which preserves this public export alias surface.",
-      "lastUpdated": "2026-06-29T00:00:00.000Z"
+      "aliasOf": "local-conversation-thread-BvhTyO40",
+      "note": "Historical local-conversation-thread hash retained for compatibility. The current synced ref tree contains local-conversation-thread-BvhTyO40, whose export alias table preserves this public surface.",
+      "lastUpdated": "2026-06-30T18:45:00.000Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T18:45:00.000Z",
+      "stage3Review": "Host self-review: current ref no longer contains Bf38rCmF; verified local-conversation-thread-BvhTyO40's 39 export aliases match this historical mapping and the semantic barrel passes quality-gate."
     },
     "thread-overflow-menu-CM-Eo7JH": {
       "restored": "threads/thread-overflow-menu.tsx",
@@ -17146,8 +17149,12 @@
         "z": "useReviewSearchHighlights"
       },
       "status": "done",
-      "note": "Current synced local-conversation-thread chunk in ref/webview/assets and the full-restore manifest. sourcemap-check found only a missing adjacent map, detect found no obfuscation, extract recorded 4852 symbols, and the public export aliases match the semantic split barrel and parts.",
-      "lastUpdated": "2026-06-29T00:00:00.000Z"
+      "aliasOf": "local-conversation-thread-BvhTyO40",
+      "note": "Historical local-conversation-thread hash retained for compatibility. The current synced ref tree contains local-conversation-thread-BvhTyO40, whose export alias table preserves this public surface.",
+      "lastUpdated": "2026-06-30T18:45:00.000Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T18:45:00.000Z",
+      "stage3Review": "Host self-review: current ref no longer contains BwqAGxoz; verified local-conversation-thread-BvhTyO40's 39 export aliases match this historical mapping and the semantic barrel passes quality-gate."
     },
     "app-DvOUyjQD": {
       "restored": "app-shell/empty-app-initializer.ts",
@@ -30996,12 +31003,11 @@
         "z": "useReviewSearchHighlights"
       },
       "status": "done",
-      "aliasOf": "local-conversation-thread-Bf38rCmF",
-      "note": "Current synced local-conversation-thread hash in ref/webview/assets. Its public export alias list exactly matches local-conversation-thread-Bf38rCmF; it is routed to the existing semantic split barrel and parts.",
-      "lastUpdated": "2026-06-29T21:10:00.000Z",
+      "note": "Current synced local-conversation-thread hash in ref/webview/assets. Its 39 public export aliases exactly match the existing semantic split barrel and parts.",
+      "lastUpdated": "2026-06-30T18:45:00.000Z",
       "stage3Accepted": true,
-      "stage3AcceptedAt": "2026-06-29T21:10:00.000Z",
-      "stage3Review": "Host self-review: sourcemap-check found only a missing adjacent map; exported alias surface matches the historical Bf38rCmF restore exactly."
+      "stage3AcceptedAt": "2026-06-30T18:45:00.000Z",
+      "stage3Review": "Host self-review: parsed the current BvhTyO40 export table from ref/webview/assets, verified all 39 aliases match the import map, and confirmed conversations/local-conversation-thread.tsx passes quality-gate."
     },
     "angular-html-DzvejccC": {
       "restored": "utils/angular-html.ts",
