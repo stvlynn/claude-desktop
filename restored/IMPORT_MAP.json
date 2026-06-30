@@ -42003,6 +42003,45 @@
       "stage3AcceptedAt": "2026-06-30T22:22:31.375Z",
       "stage3Review": "Host self-review: verified the current file exports HomeAmbientSuggestionsContent, rewrote dependency imports through restored/IMPORT_MAP.json, and passed quality gates on the backing bundle and runtime.",
       "stage3Note": "Accepted as a current-ref compatibility export over a restored-dependency backing bundle; full semantic split of HomeAmbientSuggestionsContent remains a later cleanup."
+    },
+    "appgen-publication-terms-route-CgK9B-Bt": {
+      "restored": "runtime/current-app-initial/appgen-publication-terms-route-current-runtime.ts",
+      "exports": {
+        "AppgenPublicationTermsRoute": "AppgenPublicationTermsRoute"
+      },
+      "status": "done",
+      "note": "Current AppgenPublicationTermsRoute hash maps to a dedicated current-ref runtime over vendor/appgen-publication-terms-route-current-bundle.tsx; the single semantic export is re-derived from the current file.",
+      "lastUpdated": "2026-06-30T22:45:00.000Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T22:45:00.000Z",
+      "stage3Review": "Host self-review: verified the current file exports AppgenPublicationTermsRoute, rewrote dependency imports through restored/IMPORT_MAP.json, and passed quality gates on the backing bundle and runtime.",
+      "stage3Note": "Accepted as a current-ref compatibility export over a restored-dependency backing bundle; full semantic split of AppgenPublicationTermsRoute remains a later cleanup."
+    },
+    "new-thread-panel-page-DkFQ6OWQ": {
+      "restored": "runtime/current-app-initial/new-thread-panel-page-current-runtime.ts",
+      "exports": {
+        "NewThreadPanelPage": "NewThreadPanelPage"
+      },
+      "status": "done",
+      "note": "Current NewThreadPanelPage hash maps to a dedicated current-ref runtime over vendor/new-thread-panel-page-current-bundle.tsx; the single semantic export is re-derived from the current file.",
+      "lastUpdated": "2026-06-30T22:45:00.000Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T22:45:00.000Z",
+      "stage3Review": "Host self-review: verified the current file exports NewThreadPanelPage, rewrote dependency imports through restored/IMPORT_MAP.json, and passed quality gates on the backing bundle and runtime.",
+      "stage3Note": "Accepted as a current-ref compatibility export over a restored-dependency backing bundle; full semantic split of NewThreadPanelPage remains a later cleanup."
+    },
+    "queued-message-list-B8Ie-nMz": {
+      "restored": "runtime/current-app-initial/queued-message-list-current-runtime.ts",
+      "exports": {
+        "QueuedMessageList": "QueuedMessageList"
+      },
+      "status": "done",
+      "note": "Current QueuedMessageList hash maps to a dedicated current-ref runtime over vendor/queued-message-list-current-bundle.tsx; the single semantic export is re-derived from the current file.",
+      "lastUpdated": "2026-06-30T22:45:00.000Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T22:45:00.000Z",
+      "stage3Review": "Host self-review: verified the current file exports QueuedMessageList, rewrote dependency imports through restored/IMPORT_MAP.json, and passed quality gates on the backing bundle and runtime.",
+      "stage3Note": "Accepted as a current-ref compatibility export over a restored-dependency backing bundle; full semantic split of QueuedMessageList remains a later cleanup."
     }
   }
 }
