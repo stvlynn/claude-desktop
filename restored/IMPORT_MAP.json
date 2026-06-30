@@ -33960,8 +33960,11 @@
         "t": "initMermaidColorUtils"
       },
       "status": "done",
-      "lastUpdated": "2026-06-30T08:30:05.291Z",
-      "note": "Mermaid color utility aliases re-derived from dist-Dcs2yc8m.js export tail."
+      "lastUpdated": "2026-06-30T14:30:43.009Z",
+      "note": "Mermaid color utility aliases re-derived from dist-Dcs2yc8m.js export tail.",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T14:30:43.009Z",
+      "stage3Note": "Accepted as a vendored Mermaid color utility module with typed color parsing and transform exports."
     },
     "chunk-336JU56O-DNhqwrXr": {
       "restored": "vendor/mermaid-layout-loader-k5.ts",

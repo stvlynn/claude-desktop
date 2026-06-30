@@ -1,5 +1,5 @@
 // Restored from ref/webview/assets/dist-Dcs2yc8m.js
-// Color parsing and transform helpers bundled for Mermaid diagrams.
+// Vendored Mermaid color parsing and transform helpers.
 
 type ColorChannel = "r" | "g" | "b" | "h" | "s" | "l" | "a";
 
@@ -474,8 +474,8 @@ function setChannels(
 export function rgba(
   colorOrRed: string | ColorData | number,
   greenOrAlpha: number,
-  blue = 0,
-  alpha = 1,
+  blue: number = 0,
+  alpha: number = 1,
 ): string {
   if (typeof colorOrRed !== "number") {
     return setChannels(colorOrRed, { a: greenOrAlpha });
@@ -578,7 +578,10 @@ function mixColor(
   );
 }
 
-export function invertColor(color: string | ColorData, weight = 100): string {
+export function invertColor(
+  color: string | ColorData,
+  weight: number = 100,
+): string {
   const parsed = parseColor(color);
   parsed.r = 255 - parsed.r;
   parsed.g = 255 - parsed.g;
