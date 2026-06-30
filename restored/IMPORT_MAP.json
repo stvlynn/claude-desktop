@@ -3087,7 +3087,7 @@
     "remote-middleware-PCES0C24": {
       "restored": "vendor/segment-remote-middleware.ts",
       "exports": {
-        "remoteMiddlewares": "remoteMiddleware"
+        "remoteMiddlewares": "remoteMiddlewares"
       },
       "status": "done",
       "aliasOf": "remote-middleware-DRFk97G2",
