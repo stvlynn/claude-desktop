@@ -19356,8 +19356,11 @@
       },
       "status": "done",
       "boundary": "boundaries/current-ref/hotkey-thread-diff-producer.ts",
-      "note": "Current app-main-facing aliases in this broad producer are routed through semantic modules: compact-window route context, initial-route snapshot, composer chrome, folded @pierre/diffs parseDiffFromFiles, pull-request markdown/card helpers, thread navigation, thread-overflow icons, document/plugin/package icons, RelativeTime formatting, projectless-output paths, and diff/highlight helpers.",
-      "lastUpdated": "2026-06-29T00:00:00.000Z"
+      "note": "Historical fzw0jvy4 app-main hotkey/pull-request producer retained as runtime/hotkey-thread-diff-runtime.ts. The current ref no longer contains this exact hash; its app-main-facing aliases are routed through semantic modules: compact-window route context, initial-route snapshot, composer chrome, folded @pierre/diffs parseDiffFromFiles, pull-request markdown/card helpers, thread navigation, thread-overflow icons, document/plugin/package icons, RelativeTime formatting, projectless-output paths, and diff/highlight helpers.",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T00:00:00.000Z",
+      "stage3Review": "Host self-review: current ref no longer contains this exact fzw0jvy4 app-main hotkey/pull-request producer; verified the legacy deps file exists, runtime/hotkey-thread-diff-runtime.ts passes quality-gate, and its 67 semantic exports exactly cover the 67 recorded aliases."
     },
     "app-initial~app-main~remote-conversation-page~projects-index-page~hotkey-window-thread-page~ki4n9fl3-zz_Wr7F0": {
       "restored": "projects/projects-hotkey-thread-runtime.ts",
@@ -24853,8 +24856,11 @@
       "status": "done",
       "boundary": "boundaries/current-ref/hotkey-thread-diff-producer.ts",
       "aliasOf": "app-initial~app-main~remote-conversation-page~pull-requests-page~onboarding-page~hotkey-win~fzw0jvy4-rg89odR_",
-      "note": "Worktree/new-thread route alias for the shared fzw0jvy4 producer. The confirmed comment/edit icon aliases are routed through the semantic hotkey-thread-diff producer.",
-      "lastUpdated": "2026-06-29T00:00:00.000Z"
+      "note": "Historical worktree/new-thread route alias for the shared fzw0jvy4 producer. The current ref no longer contains this exact alias hash; the confirmed comment/edit icon aliases are routed through the semantic hotkey-thread-diff producer.",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T00:00:00.000Z",
+      "stage3Review": "Host self-review: current ref no longer contains this worktree/new-thread fzw0jvy4 alias; verified it aliases the primary fzw0jvy4 producer and its 4 recorded icon aliases are exported by runtime/hotkey-thread-diff-runtime.ts, which passes quality-gate."
     },
     "app-main-Dldh3K_n": {
       "restored": "app-shell/app-main.tsx",
