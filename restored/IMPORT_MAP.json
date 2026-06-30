@@ -5718,7 +5718,10 @@
       "status": "done",
       "aliasOf": "chunk-5PVQY5BW-CsieDbRK",
       "note": "Current Rolldown chunk merges d3 curve factories with Mermaid SVG utilities; aliases were re-derived from chunk-5PVQY5BW-DEldFBPA.js.",
-      "lastUpdated": "2026-06-30T00:00:00.000Z"
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T22:25:14.000Z",
+      "stage3Review": "Host self-review: current ref chunk-5PVQY5BW-DEldFBPA.js exports the merged Mermaid curve/SVG utility aliases; restored/vendor/mermaid-curve-utils.ts re-exports the semantic curve and utility surface, has been read end-to-end, and passes vendored quality gate."
     },
     "chunk-5PVQY5BW-VrOwugqI": {
       "restored": "vendor/mermaid-curve-utils.ts",
@@ -5752,7 +5755,10 @@
       "status": "done",
       "aliasOf": "chunk-5PVQY5BW-DEldFBPA",
       "note": "Current Rolldown chunk has the same export surface as chunk-5PVQY5BW-DEldFBPA; aliases were re-derived from chunk-5PVQY5BW-VrOwugqI.js.",
-      "lastUpdated": "2026-06-30T00:00:00.000Z"
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T22:25:14.000Z",
+      "stage3Review": "Host self-review: current ref chunk-5PVQY5BW-VrOwugqI.js exports the same merged Mermaid curve/SVG utility aliases as chunk-5PVQY5BW-DEldFBPA; restored/vendor/mermaid-curve-utils.ts preserves that surface and passes vendored quality gate."
     },
     "chunk-5PVQY5BW-B-If-JI6": {
       "restored": "vendor/mermaid-curve-utils.ts",
@@ -5786,7 +5792,10 @@
       "status": "done",
       "aliasOf": "chunk-5PVQY5BW-DEldFBPA",
       "note": "Current Rolldown chunk has the same merged d3 curve and Mermaid SVG utility export surface as chunk-5PVQY5BW-DEldFBPA; aliases were re-derived from chunk-5PVQY5BW-B-If-JI6.js.",
-      "lastUpdated": "2026-06-30T00:00:00.000Z"
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T22:25:14.000Z",
+      "stage3Review": "Host self-review: current ref chunk-5PVQY5BW-B-If-JI6.js exports the same merged Mermaid curve/SVG utility aliases as chunk-5PVQY5BW-DEldFBPA; restored/vendor/mermaid-curve-utils.ts preserves that surface and passes vendored quality gate."
     },
     "chunk-X2U36JSP-DWvyIaf0": {
       "restored": "vendor/chunk-x2u36jsp.ts",
