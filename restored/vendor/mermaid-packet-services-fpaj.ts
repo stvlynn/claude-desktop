@@ -1,4 +1,4 @@
-// Restored from ref/webview/assets/chunk-76Q3JFCE-eYhmDldQ.js
+// Restored from ref/webview/assets/chunk-76Q3JFCE-CQZKJ6cQ.js
 // Chunk76Q3JFCE chunk restored from the Codex webview bundle.
 import {
   chunkFPAJGGOCC,
@@ -11,48 +11,56 @@ import {
   chunkFPAJGGOCS,
   chunkFPAJGGOCT,
 } from "./mermaid-parser-runtime-fpajggoc";
-var chunk76Q3JFCEValue1 = class extends chunkFPAJGGOCT {
-    static {
-      chunkFPAJGGOCF(this, "PacketTokenBuilder");
-    }
-    constructor() {
-      super(["packet"]);
-    }
-  },
-  chunk76Q3JFCET = {
-    parser: {
-      TokenBuilder: chunkFPAJGGOCF(
-        () => new chunk76Q3JFCEValue1(),
-        "TokenBuilder",
-      ),
-      ValueConverter: chunkFPAJGGOCF(
-        () => new chunkFPAJGGOCI(),
-        "ValueConverter",
-      ),
-    },
-  };
-function chunk76Q3JFCEN(chunk76Q3JFCEParam1 = chunkFPAJGGOCP) {
-  let chunk76Q3JFCEValue2 = chunkFPAJGGOCM(
-      chunkFPAJGGOCG(chunk76Q3JFCEParam1),
-      chunkFPAJGGOCS,
+
+class PacketTokenBuilder extends chunkFPAJGGOCT {
+  static {
+    chunkFPAJGGOCF(this, "PacketTokenBuilder");
+  }
+  constructor() {
+    super(["packet"]);
+  }
+}
+
+const packetServiceModule = {
+  parser: {
+    TokenBuilder: chunkFPAJGGOCF(
+      () => new PacketTokenBuilder(),
+      "TokenBuilder",
     ),
-    chunk76Q3JFCEValue3 = chunkFPAJGGOCM(
+    ValueConverter: chunkFPAJGGOCF(
+      () => new chunkFPAJGGOCI(),
+      "ValueConverter",
+    ),
+  },
+};
+
+function createPacketServices(parserConfig = chunkFPAJGGOCP) {
+  const sharedServices = chunkFPAJGGOCM(
+    chunkFPAJGGOCG(parserConfig),
+    chunkFPAJGGOCS,
+  );
+  const packetServices = chunkFPAJGGOCM(
       chunkFPAJGGOCH({
-        shared: chunk76Q3JFCEValue2,
+        shared: sharedServices,
       }),
       chunkFPAJGGOCC,
-      chunk76Q3JFCET,
+      packetServiceModule,
     );
-  return (
-    chunk76Q3JFCEValue2.ServiceRegistry.register(chunk76Q3JFCEValue3),
-    {
-      shared: chunk76Q3JFCEValue2,
-      Packet: chunk76Q3JFCEValue3,
-    }
-  );
+  sharedServices.ServiceRegistry.register(packetServices);
+
+  return {
+    shared: sharedServices,
+    Packet: packetServices,
+  };
 }
-function initChunk76Q3JFCE() {
+function initChunk76Q3JFCE(): void {
   // Restored ESM modules initialize eagerly; keep the current chunk init export compatible.
 }
-chunkFPAJGGOCF(chunk76Q3JFCEN, "createPacketServices");
-export { chunk76Q3JFCEN, initChunk76Q3JFCE, chunk76Q3JFCET };
+chunkFPAJGGOCF(createPacketServices, "createPacketServices");
+export {
+  createPacketServices,
+  createPacketServices as chunk76Q3JFCEN,
+  initChunk76Q3JFCE,
+  packetServiceModule,
+  packetServiceModule as chunk76Q3JFCET,
+};

@@ -1,4 +1,4 @@
-// Restored from ref/webview/assets/chunk-2KRD3SAO-Bdi3VHck.js
+// Restored from ref/webview/assets/chunk-2KRD3SAO-DgftbvIN.js
 // Chunk2KRD3SAO chunk restored from the Codex webview bundle.
 import {
   chunkK5T4RW27G,
@@ -11,48 +11,56 @@ import {
   chunkK5T4RW27Underscore,
   chunkK5T4RW27V,
 } from "./mermaid-parser-runtime-k5";
-var chunk2KRD3SAOValue1 = class extends chunkK5T4RW27T {
-    static {
-      chunkK5T4RW27M(this, "RadarTokenBuilder");
-    }
-    constructor() {
-      super(["radar-beta"]);
-    }
-  },
-  chunk2KRD3SAOT = {
-    parser: {
-      TokenBuilder: chunkK5T4RW27M(
-        () => new chunk2KRD3SAOValue1(),
-        "TokenBuilder",
-      ),
-      ValueConverter: chunkK5T4RW27M(
-        () => new chunkK5T4RW27I(),
-        "ValueConverter",
-      ),
-    },
-  };
-function chunk2KRD3SAON(chunk2KRD3SAOParam1 = chunkK5T4RW27H) {
-  let chunk2KRD3SAOValue2 = chunkK5T4RW27G(
-      chunkK5T4RW27V(chunk2KRD3SAOParam1),
-      chunkK5T4RW27S,
+
+class RadarTokenBuilder extends chunkK5T4RW27T {
+  static {
+    chunkK5T4RW27M(this, "RadarTokenBuilder");
+  }
+  constructor() {
+    super(["radar-beta"]);
+  }
+}
+
+const radarServiceModule = {
+  parser: {
+    TokenBuilder: chunkK5T4RW27M(
+      () => new RadarTokenBuilder(),
+      "TokenBuilder",
     ),
-    chunk2KRD3SAOValue3 = chunkK5T4RW27G(
+    ValueConverter: chunkK5T4RW27M(
+      () => new chunkK5T4RW27I(),
+      "ValueConverter",
+    ),
+  },
+};
+
+function createRadarServices(parserConfig = chunkK5T4RW27H) {
+  const sharedServices = chunkK5T4RW27G(
+    chunkK5T4RW27V(parserConfig),
+    chunkK5T4RW27S,
+  );
+  const radarServices = chunkK5T4RW27G(
       chunkK5T4RW27Underscore({
-        shared: chunk2KRD3SAOValue2,
+        shared: sharedServices,
       }),
       chunkK5T4RW27U,
-      chunk2KRD3SAOT,
+      radarServiceModule,
     );
-  return (
-    chunk2KRD3SAOValue2.ServiceRegistry.register(chunk2KRD3SAOValue3),
-    {
-      shared: chunk2KRD3SAOValue2,
-      Radar: chunk2KRD3SAOValue3,
-    }
-  );
+  sharedServices.ServiceRegistry.register(radarServices);
+
+  return {
+    shared: sharedServices,
+    Radar: radarServices,
+  };
 }
-function initChunk2KRD3SAO() {
+function initChunk2KRD3SAO(): void {
   // Restored ESM modules initialize eagerly; keep the current chunk init export compatible.
 }
-chunkK5T4RW27M(chunk2KRD3SAON, "createRadarServices");
-export { chunk2KRD3SAON, initChunk2KRD3SAO, chunk2KRD3SAOT };
+chunkK5T4RW27M(createRadarServices, "createRadarServices");
+export {
+  createRadarServices,
+  createRadarServices as chunk2KRD3SAON,
+  initChunk2KRD3SAO,
+  radarServiceModule,
+  radarServiceModule as chunk2KRD3SAOT,
+};

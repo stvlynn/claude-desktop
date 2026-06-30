@@ -1,4 +1,4 @@
-// Restored from ref/webview/assets/chunk-LHMN2FUI-B5ppzfo9.js
+// Restored from ref/webview/assets/chunk-LHMN2FUI-IYfQ4Xix.js
 // ChunkLHMN2FUI chunk restored from the Codex webview bundle.
 import {
   chunkFPAJGGOCF,
@@ -11,48 +11,56 @@ import {
   chunkFPAJGGOCT,
   chunkFPAJGGOCU,
 } from "./mermaid-parser-runtime-fpajggoc";
-var chunkLHMN2FUIValue1 = class extends chunkFPAJGGOCT {
-    static {
-      chunkFPAJGGOCF(this, "RadarTokenBuilder");
-    }
-    constructor() {
-      super(["radar-beta"]);
-    }
-  },
-  chunkLHMN2FUIT = {
-    parser: {
-      TokenBuilder: chunkFPAJGGOCF(
-        () => new chunkLHMN2FUIValue1(),
-        "TokenBuilder",
-      ),
-      ValueConverter: chunkFPAJGGOCF(
-        () => new chunkFPAJGGOCI(),
-        "ValueConverter",
-      ),
-    },
-  };
-function chunkLHMN2FUIN(chunkLHMN2FUIParam1 = chunkFPAJGGOCP) {
-  let chunkLHMN2FUIValue2 = chunkFPAJGGOCM(
-      chunkFPAJGGOCG(chunkLHMN2FUIParam1),
-      chunkFPAJGGOCS,
+
+class RadarTokenBuilder extends chunkFPAJGGOCT {
+  static {
+    chunkFPAJGGOCF(this, "RadarTokenBuilder");
+  }
+  constructor() {
+    super(["radar-beta"]);
+  }
+}
+
+const radarServiceModule = {
+  parser: {
+    TokenBuilder: chunkFPAJGGOCF(
+      () => new RadarTokenBuilder(),
+      "TokenBuilder",
     ),
-    chunkLHMN2FUIValue3 = chunkFPAJGGOCM(
+    ValueConverter: chunkFPAJGGOCF(
+      () => new chunkFPAJGGOCI(),
+      "ValueConverter",
+    ),
+  },
+};
+
+function createRadarServices(parserConfig = chunkFPAJGGOCP) {
+  const sharedServices = chunkFPAJGGOCM(
+    chunkFPAJGGOCG(parserConfig),
+    chunkFPAJGGOCS,
+  );
+  const radarServices = chunkFPAJGGOCM(
       chunkFPAJGGOCH({
-        shared: chunkLHMN2FUIValue2,
+        shared: sharedServices,
       }),
       chunkFPAJGGOCU,
-      chunkLHMN2FUIT,
+      radarServiceModule,
     );
-  return (
-    chunkLHMN2FUIValue2.ServiceRegistry.register(chunkLHMN2FUIValue3),
-    {
-      shared: chunkLHMN2FUIValue2,
-      Radar: chunkLHMN2FUIValue3,
-    }
-  );
+  sharedServices.ServiceRegistry.register(radarServices);
+
+  return {
+    shared: sharedServices,
+    Radar: radarServices,
+  };
 }
-function initChunkLHMN2FUI() {
+function initChunkLHMN2FUI(): void {
   // Restored ESM modules initialize eagerly; keep the current chunk init export compatible.
 }
-chunkFPAJGGOCF(chunkLHMN2FUIN, "createRadarServices");
-export { chunkLHMN2FUIN, initChunkLHMN2FUI, chunkLHMN2FUIT };
+chunkFPAJGGOCF(createRadarServices, "createRadarServices");
+export {
+  createRadarServices,
+  createRadarServices as chunkLHMN2FUIN,
+  initChunkLHMN2FUI,
+  radarServiceModule,
+  radarServiceModule as chunkLHMN2FUIT,
+};
