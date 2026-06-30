@@ -41847,6 +41847,71 @@
       "stage3Accepted": true,
       "stage3AcceptedAt": "2026-06-30T22:15:39.570Z",
       "stage3Review": "Host self-review: current ref kanban-definition-6JOO6SKY-BPmh8gj-.js exports only diagram; restored/vendor/mermaid-kanban-definition.ts preserves that surface through KanbanDefinition6JOO6SKY and passes quality-gate --vendored."
+    },
+    "appgen-page-Cnpqx68h": {
+      "restored": "runtime/current-app-initial/appgen-page-current-runtime.ts",
+      "exports": {
+        "AppgenPage": "AppgenPage"
+      },
+      "status": "done",
+      "note": "Current AppgenPage hash maps to a dedicated current-ref runtime over vendor/appgen-page-current-bundle.tsx; the single semantic export is re-derived from the current file.",
+      "lastUpdated": "2026-06-30T22:18:04.757Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T22:18:04.757Z",
+      "stage3Review": "Host self-review: verified the current file exports AppgenPage, rewrote dependency imports through restored/IMPORT_MAP.json, and passed quality gates on the backing bundle and runtime.",
+      "stage3Note": "Accepted as a current-ref compatibility export over a restored-dependency backing bundle; full semantic split of AppgenPage remains a later cleanup."
+    },
+    "editor-diff-page-DhkTy3wR": {
+      "restored": "runtime/current-app-initial/editor-diff-page-current-runtime.ts",
+      "exports": {
+        "EditorDiffPage": "EditorDiffPage"
+      },
+      "status": "done",
+      "note": "Current EditorDiffPage hash maps to a dedicated current-ref runtime over vendor/editor-diff-page-current-bundle.tsx; the single semantic export is re-derived from the current file.",
+      "lastUpdated": "2026-06-30T22:18:04.757Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T22:18:04.757Z",
+      "stage3Review": "Host self-review: verified the current file exports EditorDiffPage, rewrote dependency imports through restored/IMPORT_MAP.json, and passed quality gates on the backing bundle and runtime.",
+      "stage3Note": "Accepted as a current-ref compatibility export over a restored-dependency backing bundle; full semantic split of EditorDiffPage remains a later cleanup."
+    },
+    "page-DCDVYlOa": {
+      "restored": "runtime/current-app-initial/appgen-analytics-page-current-runtime.ts",
+      "exports": {
+        "AppgenAnalyticsPage": "AppgenAnalyticsPage"
+      },
+      "status": "done",
+      "note": "Current AppgenAnalyticsPage hash maps to a dedicated current-ref runtime over vendor/appgen-analytics-page-current-bundle.tsx; the single semantic export is re-derived from the current file.",
+      "lastUpdated": "2026-06-30T22:18:04.757Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T22:18:04.757Z",
+      "stage3Review": "Host self-review: verified the current file exports AppgenAnalyticsPage, rewrote dependency imports through restored/IMPORT_MAP.json, and passed quality gates on the backing bundle and runtime.",
+      "stage3Note": "Accepted as a current-ref compatibility export over a restored-dependency backing bundle; full semantic split of AppgenAnalyticsPage remains a later cleanup."
+    },
+    "pet-install-modal-host-D2_OQIXZ": {
+      "restored": "runtime/current-app-initial/pet-install-modal-host-current-runtime.ts",
+      "exports": {
+        "PetInstallModalHost": "PetInstallModalHost"
+      },
+      "status": "done",
+      "note": "Current PetInstallModalHost hash maps to a dedicated current-ref runtime over vendor/pet-install-modal-host-current-bundle.tsx; the single semantic export is re-derived from the current file.",
+      "lastUpdated": "2026-06-30T22:18:04.757Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T22:18:04.757Z",
+      "stage3Review": "Host self-review: verified the current file exports PetInstallModalHost, rewrote dependency imports through restored/IMPORT_MAP.json, and passed quality gates on the backing bundle and runtime.",
+      "stage3Note": "Accepted as a current-ref compatibility export over a restored-dependency backing bundle; full semantic split of PetInstallModalHost remains a later cleanup."
+    },
+    "pricing-plan-page-CdwnkT4j": {
+      "restored": "runtime/current-app-initial/pricing-plan-page-current-runtime.ts",
+      "exports": {
+        "PricingPlanPage": "PricingPlanPage"
+      },
+      "status": "done",
+      "note": "Current PricingPlanPage hash maps to a dedicated current-ref runtime over vendor/pricing-plan-page-current-bundle.tsx; the single semantic export is re-derived from the current file.",
+      "lastUpdated": "2026-06-30T22:18:04.757Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T22:18:04.757Z",
+      "stage3Review": "Host self-review: verified the current file exports PricingPlanPage, rewrote dependency imports through restored/IMPORT_MAP.json, and passed quality gates on the backing bundle and runtime.",
+      "stage3Note": "Accepted as a current-ref compatibility export over a restored-dependency backing bundle; full semantic split of PricingPlanPage remains a later cleanup."
     }
   }
 }
