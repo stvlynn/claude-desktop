@@ -1,5 +1,5 @@
-// Restored from ref/webview/assets/highlight-code-CpOO4cTB.js
-// highlight-code-BntQZ0HZ chunk restored from the Codex webview bundle.
+// Restored from ref/webview/assets/highlight-code-Bv8OoAm9.js
+// Highlight.js language registration and code highlighting helper.
 import highlightJs from "highlight.js/lib/core";
 import arduino from "highlight.js/lib/languages/arduino";
 import bash from "highlight.js/lib/languages/bash";

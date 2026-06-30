@@ -6,7 +6,7 @@ import { toEsModule } from "../runtime/commonjs-interop";
 import ReactDOM from "react-dom";
 import clsx from "clsx";
 import { a as popcornElectronWorkbookPanelImport5, c as popcornElectronWorkbookPanelImport6, l as popcornElectronWorkbookPanelImport7, n as popcornElectronWorkbookPanelImport8, o as popcornElectronWorkbookPanelImport9 } from "@floating-ui/react-dom";
-import { addressUtilsA, addressUtilsD, addressUtilsF, addressUtilsR, addressUtilsV } from "../vendor/xlsx-address-utils";
+import { parseCellRangeReference, decodeColumn, encodeColumn, encodeCellAddress, decodeRow } from "../vendor/xlsx-address-utils";
 import { _ as popcornElectronWorkbookPanelImport10, b as popcornElectronWorkbookPanelImport11, t as popcornElectronWorkbookPanelImport12, v as popcornElectronWorkbookPanelImport13, y as popcornElectronWorkbookPanelImport14 } from "../boundaries/workbook-runtime";
 import { tableau10N } from "../vendor/d3-tableau10";
 import { Ordinal } from "../utils/ordinal";
@@ -462,10 +462,10 @@ function popcornElectronWorkbookPanelHelper24(popcornElectronWorkbookPanelParam1
 function popcornElectronWorkbookPanelHelper25(popcornElectronWorkbookPanelParam141) {
   let popcornElectronWorkbookPanelValue1010 = new Map();
   for (let popcornElectronWorkbookPanelValue1062 of popcornElectronWorkbookPanelParam141?.mergedCells ?? []) {
-    let popcornElectronWorkbookPanelValue1078 = addressUtilsD(popcornElectronWorkbookPanelValue1062.startAddress),
-      popcornElectronWorkbookPanelValue1079 = addressUtilsV(popcornElectronWorkbookPanelValue1062.startAddress),
-      popcornElectronWorkbookPanelValue1080 = addressUtilsD(popcornElectronWorkbookPanelValue1062.endAddress),
-      popcornElectronWorkbookPanelValue1081 = addressUtilsV(popcornElectronWorkbookPanelValue1062.endAddress),
+    let popcornElectronWorkbookPanelValue1078 = decodeColumn(popcornElectronWorkbookPanelValue1062.startAddress),
+      popcornElectronWorkbookPanelValue1079 = decodeRow(popcornElectronWorkbookPanelValue1062.startAddress),
+      popcornElectronWorkbookPanelValue1080 = decodeColumn(popcornElectronWorkbookPanelValue1062.endAddress),
+      popcornElectronWorkbookPanelValue1081 = decodeRow(popcornElectronWorkbookPanelValue1062.endAddress),
       popcornElectronWorkbookPanelValue1082 = {
         r1: Math.min(popcornElectronWorkbookPanelValue1079, popcornElectronWorkbookPanelValue1081),
         c1: Math.min(popcornElectronWorkbookPanelValue1078, popcornElectronWorkbookPanelValue1080),
@@ -1285,12 +1285,12 @@ function popcornElectronWorkbookPanelHelper48(popcornElectronWorkbookPanelParam4
 }
 function on(popcornElectronWorkbookPanelParam554) {
   return {
-    row: addressUtilsV(popcornElectronWorkbookPanelParam554),
-    col: addressUtilsD(popcornElectronWorkbookPanelParam554)
+    row: decodeRow(popcornElectronWorkbookPanelParam554),
+    col: decodeColumn(popcornElectronWorkbookPanelParam554)
   };
 }
 function popcornElectronWorkbookPanelHelper49(popcornElectronWorkbookPanelParam560, popcornElectronWorkbookPanelParam561) {
-  return `${addressUtilsF(popcornElectronWorkbookPanelParam561)}${popcornElectronWorkbookPanelParam560 + 1}`;
+  return `${encodeColumn(popcornElectronWorkbookPanelParam561)}${popcornElectronWorkbookPanelParam560 + 1}`;
 }
 function popcornElectronWorkbookPanelHelper50(popcornElectronWorkbookPanelParam316) {
   return popcornElectronWorkbookPanelParam316.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;");
@@ -2678,10 +2678,10 @@ function popcornElectronWorkbookPanelHelper91(popcornElectronWorkbookPanelParam3
     popcornElectronWorkbookPanelValue1296 = popcornElectronWorkbookPanelValue1295[0] ?? "A1",
     popcornElectronWorkbookPanelValue1297 = popcornElectronWorkbookPanelValue1295[1] ?? popcornElectronWorkbookPanelValue1295[0] ?? "A1";
   return {
-    c1: addressUtilsD(popcornElectronWorkbookPanelValue1296),
-    r1: addressUtilsV(popcornElectronWorkbookPanelValue1296),
-    c2: addressUtilsD(popcornElectronWorkbookPanelValue1297),
-    r2: addressUtilsV(popcornElectronWorkbookPanelValue1297)
+    c1: decodeColumn(popcornElectronWorkbookPanelValue1296),
+    r1: decodeRow(popcornElectronWorkbookPanelValue1296),
+    c2: decodeColumn(popcornElectronWorkbookPanelValue1297),
+    r2: decodeRow(popcornElectronWorkbookPanelValue1297)
   };
 }
 function popcornElectronWorkbookPanelHelper92(popcornElectronWorkbookPanelParam44, popcornElectronWorkbookPanelParam45, popcornElectronWorkbookPanelParam46, popcornElectronWorkbookPanelParam47, popcornElectronWorkbookPanelParam48, popcornElectronWorkbookPanelParam49, popcornElectronWorkbookPanelParam50, popcornElectronWorkbookPanelParam51, popcornElectronWorkbookPanelParam52) {
@@ -3201,8 +3201,8 @@ function popcornElectronWorkbookPanelHelper110(popcornElectronWorkbookPanelParam
     },
     popcornElectronWorkbookPanelValue1056 = popcornElectronWorkbookPanelValue1055.r2 - popcornElectronWorkbookPanelValue1055.r1 + 1,
     popcornElectronWorkbookPanelValue1057 = popcornElectronWorkbookPanelValue1055.c2 - popcornElectronWorkbookPanelValue1055.c1 + 1,
-    popcornElectronWorkbookPanelValue1058 = `${addressUtilsF(popcornElectronWorkbookPanelValue1055.c1)}${popcornElectronWorkbookPanelValue1055.r1 + 1}`,
-    popcornElectronWorkbookPanelValue1059 = `${addressUtilsF(popcornElectronWorkbookPanelValue1055.c2)}${popcornElectronWorkbookPanelValue1055.r2 + 1}`;
+    popcornElectronWorkbookPanelValue1058 = `${encodeColumn(popcornElectronWorkbookPanelValue1055.c1)}${popcornElectronWorkbookPanelValue1055.r1 + 1}`,
+    popcornElectronWorkbookPanelValue1059 = `${encodeColumn(popcornElectronWorkbookPanelValue1055.c2)}${popcornElectronWorkbookPanelValue1055.r2 + 1}`;
   return {
     isDragging: popcornElectronWorkbookPanelParam156,
     rect: popcornElectronWorkbookPanelValue1055,
@@ -7666,14 +7666,14 @@ function to(popcornElectronWorkbookPanelParam184) {
     popcornElectronWorkbookPanelValue1113 = /\d/.test(popcornElectronWorkbookPanelValue1111);
   return popcornElectronWorkbookPanelValue1112 && popcornElectronWorkbookPanelValue1113 ? {
     kind: "cell",
-    row: addressUtilsV(popcornElectronWorkbookPanelValue1111),
-    col: addressUtilsD(popcornElectronWorkbookPanelValue1111)
+    row: decodeRow(popcornElectronWorkbookPanelValue1111),
+    col: decodeColumn(popcornElectronWorkbookPanelValue1111)
   } : popcornElectronWorkbookPanelValue1112 ? {
     kind: "column",
-    col: addressUtilsD(popcornElectronWorkbookPanelValue1111)
+    col: decodeColumn(popcornElectronWorkbookPanelValue1111)
   } : popcornElectronWorkbookPanelValue1113 ? {
     kind: "row",
-    row: addressUtilsV(popcornElectronWorkbookPanelValue1111)
+    row: decodeRow(popcornElectronWorkbookPanelValue1111)
   } : null;
 }
 function no(popcornElectronWorkbookPanelParam81) {
@@ -10308,8 +10308,8 @@ function popcornElectronWorkbookPanelHelper230({
   range,
   sheetName
 }) {
-  let popcornElectronWorkbookPanelValue1109 = addressUtilsA(range);
-  popcornElectronWorkbookPanelValue1109 && (controller.setActiveSheetName(sheetName), controller.setSelectedAddress(addressUtilsR(popcornElectronWorkbookPanelValue1109.bounds.startRow, popcornElectronWorkbookPanelValue1109.bounds.startCol)), controller.setSelectionRect({
+  let popcornElectronWorkbookPanelValue1109 = parseCellRangeReference(range);
+  popcornElectronWorkbookPanelValue1109 && (controller.setActiveSheetName(sheetName), controller.setSelectedAddress(encodeCellAddress(popcornElectronWorkbookPanelValue1109.bounds.startRow, popcornElectronWorkbookPanelValue1109.bounds.startCol)), controller.setSelectionRect({
     r1: popcornElectronWorkbookPanelValue1109.bounds.startRow,
     c1: popcornElectronWorkbookPanelValue1109.bounds.startCol,
     r2: popcornElectronWorkbookPanelValue1109.bounds.endRow,

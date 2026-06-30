@@ -2681,26 +2681,27 @@
     "address-utils-D9uhGifl": {
       "restored": "vendor/xlsx-address-utils.ts",
       "exports": {
-        "_": "addressUtilsUnderscore",
-        "a": "addressUtilsA",
-        "c": "addressUtilsC",
-        "d": "addressUtilsD",
-        "f": "addressUtilsF",
-        "g": "addressUtilsG",
-        "h": "addressUtilsH",
-        "i": "addressUtilsI",
-        "l": "addressUtilsL",
-        "m": "addressUtilsM",
-        "n": "addressUtilsN",
-        "o": "addressUtilsO",
-        "p": "addressUtilsP",
-        "r": "addressUtilsR",
-        "s": "addressUtilsS",
-        "t": "addressUtilsT",
-        "u": "addressUtilsU",
-        "v": "addressUtilsV"
+        "_": "getCellPadding",
+        "a": "parseCellRangeReference",
+        "c": "DEFAULT_XLSX_COLUMN_WIDTH",
+        "d": "decodeColumn",
+        "f": "encodeColumn",
+        "g": "pixelsToRowHeightPoints",
+        "h": "pixelsToColumnWidth",
+        "i": "normalizeCellReference",
+        "l": "normalizeXlsxColor",
+        "m": "rowHeightPointsToPixels",
+        "n": "encodeCellRange",
+        "o": "rangesOverlap",
+        "p": "getIndexedColor",
+        "r": "encodeCellAddress",
+        "s": "parseFormulaReference",
+        "t": "getRangeSize",
+        "u": "columnWidthToPixels",
+        "v": "decodeRow"
       },
-      "status": "done"
+      "status": "done",
+      "note": "XLSX address-utils compatibility hash mapped to the shared semantic address/range/color/sizing helper module."
     },
     "defaultLocale-gPb_B8uX": {
       "restored": "vendor/d3-format-default-locale.ts",
@@ -20440,30 +20441,30 @@
     "address-utils-CS84EMiz": {
       "restored": "vendor/xlsx-address-utils.ts",
       "exports": {
-        "_": "addressUtilsH",
-        "a": "addressUtilsI",
-        "b": "addressUtilsV",
-        "c": "addressUtilsS",
-        "d": "addressUtilsU",
-        "f": "addressUtilsD",
-        "g": "addressUtilsM",
+        "_": "pixelsToColumnWidth",
+        "a": "normalizeCellReference",
+        "b": "decodeRow",
+        "c": "parseFormulaReference",
+        "d": "columnWidthToPixels",
+        "f": "decodeColumn",
+        "g": "rowHeightPointsToPixels",
         "h": "initXlsxAddressUtilsConstantsChunk",
-        "i": "addressUtilsR",
-        "l": "addressUtilsC",
-        "m": "addressUtilsP",
-        "n": "addressUtilsN",
-        "o": "addressUtilsA",
-        "p": "addressUtilsF",
+        "i": "encodeCellAddress",
+        "l": "DEFAULT_XLSX_COLUMN_WIDTH",
+        "m": "getIndexedColor",
+        "n": "encodeCellRange",
+        "o": "parseCellRangeReference",
+        "p": "encodeColumn",
         "r": "initXlsxAddressUtilsChunk",
-        "s": "addressUtilsO",
-        "t": "addressUtilsT",
-        "u": "addressUtilsL",
-        "v": "addressUtilsG",
-        "y": "addressUtilsUnderscore"
+        "s": "rangesOverlap",
+        "t": "getRangeSize",
+        "u": "normalizeXlsxColor",
+        "v": "pixelsToRowHeightPoints",
+        "y": "getCellPadding"
       },
       "status": "done",
       "lastUpdated": "2026-06-30T08:05:41.179Z",
-      "note": "Rolldown-wrapped XLSX address utility exports re-derived from the current file; h/r are initializer thunks and b/y are real current exports."
+      "note": "XLSX address-utils compatibility hash mapped to the shared semantic address/range/color/sizing helper module."
     },
     "load-script-enBvQ5ff": {
       "restored": "vendor/segment-load-script.ts",
@@ -23103,8 +23104,10 @@
       },
       "status": "done",
       "aliasOf": "workbook-from-csv-Bw8OaanU",
-      "lastUpdated": "2026-06-30T08:09:03.302Z",
-      "note": "Current CSV workbook wrapper matches the restored public export surface; manifest promotion synchronized after dependency aliases were corrected."
+      "lastUpdated": "2026-06-30T00:00:00.000-05:00",
+      "note": "Current CSV workbook wrapper restored with planCsvImport and sanitizeSheetName exports; address helper imports now target semantic XLSX helpers.",
+      "stage3Accepted": true,
+      "stage3Note": "Accepted as typed CSV import planning helpers with semantic XLSX address-utils imports and current-bundle provenance."
     },
     "browser-sidebar-hidden-browser-use-webview-host-CkfqVXrj": {
       "restored": "browser/hidden-browser-use-webview-host.tsx",
@@ -23639,7 +23642,9 @@
       "aliasOf": "index.umd-CqGTwgME",
       "note": "Current Segment analytics video plugins UMD wrapper preserves the restored default export surface.",
       "status": "done",
-      "lastUpdated": "2026-06-30T08:19:23.819Z"
+      "lastUpdated": "2026-06-30T08:19:23.819Z",
+      "stage3Accepted": true,
+      "stage3Note": "Accepted as typed Segment Vimeo and YouTube analytics plugin wrappers with current-bundle provenance."
     },
     "chunk-QZHKN3VN-bO7GNZwy": {
       "restored": "vendor/mermaid-imperative-state.ts",
@@ -32222,31 +32227,33 @@
     "address-utils-CrPpzw-e": {
       "restored": "vendor/xlsx-address-utils.ts",
       "exports": {
-        "_": "addressUtilsH",
-        "a": "addressUtilsI",
-        "b": "addressUtilsV",
-        "c": "addressUtilsS",
-        "d": "addressUtilsU",
-        "f": "addressUtilsD",
-        "g": "addressUtilsM",
+        "_": "pixelsToColumnWidth",
+        "a": "normalizeCellReference",
+        "b": "decodeRow",
+        "c": "parseFormulaReference",
+        "d": "columnWidthToPixels",
+        "f": "decodeColumn",
+        "g": "rowHeightPointsToPixels",
         "h": "initXlsxAddressUtilsConstantsChunk",
-        "i": "addressUtilsR",
-        "l": "addressUtilsC",
-        "m": "addressUtilsP",
-        "n": "addressUtilsN",
-        "o": "addressUtilsA",
-        "p": "addressUtilsF",
+        "i": "encodeCellAddress",
+        "l": "DEFAULT_XLSX_COLUMN_WIDTH",
+        "m": "getIndexedColor",
+        "n": "encodeCellRange",
+        "o": "parseCellRangeReference",
+        "p": "encodeColumn",
         "r": "initXlsxAddressUtilsChunk",
-        "s": "addressUtilsO",
-        "t": "addressUtilsT",
-        "u": "addressUtilsL",
-        "v": "addressUtilsG",
-        "y": "addressUtilsUnderscore"
+        "s": "rangesOverlap",
+        "t": "getRangeSize",
+        "u": "normalizeXlsxColor",
+        "v": "pixelsToRowHeightPoints",
+        "y": "getCellPadding"
       },
       "aliasOf": "address-utils-CS84EMiz",
-      "note": "Current XLSX address-utils hash matches address-utils-CS84EMiz; export aliases were re-derived from address-utils-CrPpzw-e.js.",
+      "note": "Current XLSX address-utils hash restored with semantic address/range/color/sizing exports re-derived from address-utils-CrPpzw-e.js.",
       "status": "done",
-      "lastUpdated": "2026-06-30T08:05:41.179Z"
+      "lastUpdated": "2026-06-30T00:00:00.000-05:00",
+      "stage3Accepted": true,
+      "stage3Note": "Accepted as typed XLSX address, range, color, and worksheet sizing helpers with semantic exports."
     },
     "thread-virtualizer-tFKjdFLY": {
       "restored": "threads/thread-virtualizer.tsx",
@@ -33229,7 +33236,9 @@
       "aliasOf": "highlight-code-BntQZ0HZ",
       "note": "Current highlight-code hash preserves the semantic public export surface; aliases re-derived from highlight-code-Bv8OoAm9.js.",
       "status": "done",
-      "lastUpdated": "2026-06-30T08:26:22.483Z"
+      "lastUpdated": "2026-06-30T08:26:22.483Z",
+      "stage3Accepted": true,
+      "stage3Note": "Accepted as typed Highlight.js language registration and highlight helper for the current ref hash."
     },
     "keyboard-shortcuts-settings-CTlFYERg": {
       "restored": "settings/keyboard-shortcuts-settings/index.tsx",
@@ -33732,7 +33741,9 @@
       "aliasOf": "routing-middleware-BMBY4FI3",
       "note": "Current routing middleware wrapper preserves the restored tsubMiddleware export surface.",
       "status": "done",
-      "lastUpdated": "2026-06-30T08:19:23.819Z"
+      "lastUpdated": "2026-06-30T08:19:23.819Z",
+      "stage3Accepted": true,
+      "stage3Note": "Accepted as typed Segment routing middleware with matcher, FQL, transformer, and sampling helpers."
     },
     "chunk-4BX2VUAB-NwVKKZxX": {
       "restored": "utils/chunk-4-bx2-vuab.ts",
@@ -34510,7 +34521,8 @@
       },
       "note": "Current lodash aggregate chunk re-derived from lodash-osfEN9vD.js. Public facade reuses restored lodash helper modules and maps both init aliases to initLodashOsfChunk.",
       "stage3Accepted": true,
-      "lastUpdated": "2026-06-30T00:00:00.000-05:00"
+      "lastUpdated": "2026-06-30T00:00:00.000-05:00",
+      "stage3Note": "Accepted as a semantic lodash aggregate facade over restored lodash helper modules."
     },
     "graphlib-ichArG6F": {
       "restored": "vendor/graphlib-alt.ts",

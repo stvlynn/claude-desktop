@@ -1,5 +1,5 @@
-// Restored from ref/webview/assets/index.umd-0glM-ceB.js
-// index.umd-0glM-ceB chunk restored from the Codex webview bundle.
+// Restored from ref/webview/assets/index.umd-BU1Bn__H.js
+// Segment analytics video plugin wrappers for Vimeo and YouTube players.
 type AnalyticsWindow = Window & {
   analytics: {
     track(

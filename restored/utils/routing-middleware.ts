@@ -1,5 +1,5 @@
-// Restored from ref/webview/assets/routing-middleware-BMBY4FI3.js
-// routing-middleware-n84m0mKl chunk restored from the Codex webview bundle.
+// Restored from ref/webview/assets/routing-middleware-DNnHn-sA.js
+// Segment routing middleware for matcher and transformer rules.
 type JsonObject = Record<string, any>;
 type RoutingMatcher =
   | {

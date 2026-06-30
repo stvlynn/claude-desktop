@@ -1,8 +1,9 @@
-// Restored from ref/webview/assets/workbook-from-csv-Bw8OaanU.js
+// Restored from ref/webview/assets/workbook-from-csv-CuayXnBi.js
+// CSV import planning helpers for workbook surfaces.
 import {
-  addressUtilsA,
-  addressUtilsN,
-  addressUtilsS,
+  encodeCellRange,
+  parseCellRangeReference,
+  parseFormulaReference,
 } from "../vendor/xlsx-address-utils";
 type CsvImportOptions = {
   anchor?: string;
@@ -28,7 +29,7 @@ export function planCsvImport(
   options?: CsvImportOptions,
 ): CsvImportPlan {
   const separator = normalizeSeparator(options?.separator);
-  const parsedAnchor = addressUtilsS(options?.anchor ?? "A1");
+  const parsedAnchor = parseFormulaReference(options?.anchor ?? "A1");
   const anchorSheetName = parsedAnchor.sheetName?.trim();
   const optionSheetName = options?.sheetName?.trim();
   if (
@@ -41,7 +42,7 @@ export function planCsvImport(
     );
   }
   const sheetName = sanitizeSheetName(anchorSheetName ?? optionSheetName);
-  const parsedRange = addressUtilsA(parsedAnchor.ref);
+  const parsedRange = parseCellRangeReference(parsedAnchor.ref);
   if (!parsedRange) {
     throw Error(
       `CSV import anchor must be an A1 cell reference; received "${options?.anchor ?? "A1"}".`,
@@ -71,7 +72,7 @@ export function planCsvImport(
   return {
     sheetName,
     values,
-    rangeRef: addressUtilsN(boundsFromAnchor),
+    rangeRef: encodeCellRange(boundsFromAnchor),
     rect: {
       r1: boundsFromAnchor.startRow,
       c1: boundsFromAnchor.startCol,
