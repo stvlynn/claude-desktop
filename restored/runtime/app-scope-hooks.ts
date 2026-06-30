@@ -2,11 +2,11 @@
 // React hooks for reading values from the app-scope signal runtime.
 import type { ComponentType, ReactNode } from "react";
 import {
-  ScopeValueProviderRaw,
-  useScopeRaw,
-  useScopedValueRaw,
-  useSignalValueRaw,
-} from "../boundaries/current-ref/app-scope-producer";
+  Uo as ScopeValueProviderRaw,
+  Ko as useScopeRaw,
+  Go as useScopedValueRaw,
+  qo as useSignalValueRaw,
+} from "../vendor/current-app-initial-bnlvjk3w-shared-bundle";
 
 export type ScopeValueProviderProps = {
   children?: ReactNode;

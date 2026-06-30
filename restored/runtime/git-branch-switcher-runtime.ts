@@ -1,6 +1,6 @@
 // Restored from ref/webview/assets/git-branch-switcher-Cb06tz5G.js
 
-import { createQuerySignalFamilyRaw as createQuerySignalFamily } from "../boundaries/current-ref/app-scope-producer";
+import { Fs as createQuerySignalFamily } from "../vendor/current-app-initial-bnlvjk3w-shared-bundle";
 import { Button, initButtonComponentPrimitives } from "../ui/button";
 import {
   DialogBody,

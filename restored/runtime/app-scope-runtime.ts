@@ -2,12 +2,12 @@
 // AppScope root comes from the current shared-object host runtime.
 // App-scope signal primitives shared by restored conversation/runtime modules.
 import {
-  createScopedDerivedSignalFamilyRaw,
-  createScopedSignalFamilyRaw,
-  createScopedSignalRaw,
-  createDerivedSignalRaw,
-  initScopeRuntimeRaw,
-} from "../boundaries/current-ref/app-scope-producer";
+  js as createScopedDerivedSignalFamilyRaw,
+  zs as createScopedSignalFamilyRaw,
+  Rs as createScopedSignalRaw,
+  As as createDerivedSignalRaw,
+  Vo as initScopeRuntimeRaw,
+} from "../vendor/current-app-initial-bnlvjk3w-shared-bundle";
 import {
   appScopeRoot,
   initSharedObjectAppScopeRoot,
