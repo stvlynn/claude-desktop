@@ -1,136 +1,147 @@
-// Restored from ref/webview/assets/sentry-dark-BWh6_xoc.js
-// SentryDark theme data restored from the current Codex webview bundle.
-var sentryDarkBg = `#2d2935`,
+// Restored from ref/webview/assets/sentry-dark-C3keuH57.js
+// SentryDark chunk restored from the Codex webview bundle.
+import { once } from "../runtime/commonjs-interop";
+var sentryDarkBg,
+  sentryDarkColors,
+  sentryDarkChromeTheme,
+  sentryDarkFg,
+  sentryDarkName,
+  sentryDarkSettings,
+  sentryDarkType,
+  sentryDarkDefault;
+once(() => {
+  sentryDarkBg = "#2d2935";
   sentryDarkColors = {
-    "activityBar.activeBorder": `#7055f6`,
-    "activityBar.background": `#26222d`,
-    "activityBarBadge.background": `#7055f6`,
-    "button.background": `#7055f6`,
-    "editor.background": `#2d2935`,
-    "editor.foreground": `#e6dff9`,
-    "editorCursor.foreground": `#7055f6`,
-    "editorGroupHeader.tabsBackground": `#26222d`,
-    focusBorder: `#7055f6`,
-    foreground: `#e6dff9`,
-    "panel.background": `#26222d`,
-    "sideBar.background": `#26222d`,
-    "sideBar.foreground": `#d5cdee`,
-    "sideBarTitle.foreground": `#f4f1ff`,
-    "textLink.foreground": `#7055f6`,
-  },
+    "activityBar.activeBorder": "#7055f6",
+    "activityBar.background": "#26222d",
+    "activityBarBadge.background": "#7055f6",
+    "button.background": "#7055f6",
+    "editor.background": "#2d2935",
+    "editor.foreground": "#e6dff9",
+    "editorCursor.foreground": "#7055f6",
+    "editorGroupHeader.tabsBackground": "#26222d",
+    focusBorder: "#7055f6",
+    foreground: "#e6dff9",
+    "panel.background": "#26222d",
+    "sideBar.background": "#26222d",
+    "sideBar.foreground": "#d5cdee",
+    "sideBarTitle.foreground": "#f4f1ff",
+    "textLink.foreground": "#7055f6",
+  };
   sentryDarkChromeTheme = {
     fonts: {
       code: null,
       ui: null,
     },
-  },
-  sentryDarkFg = `#e6dff9`,
-  sentryDarkName = `Sentry Dark`,
+  };
+  sentryDarkFg = "#e6dff9";
+  sentryDarkName = "Sentry Dark";
   sentryDarkSettings = [
     {
-      scope: [`comment`, `punctuation.definition.comment`],
+      scope: ["comment", "punctuation.definition.comment"],
       settings: {
-        foreground: `#8d849f`,
+        foreground: "#8d849f",
       },
     },
     {
       scope: [
-        `string`,
-        `string.quoted`,
-        `constant.other.symbol`,
-        `entity.other.attribute-name`,
+        "string",
+        "string.quoted",
+        "constant.other.symbol",
+        "entity.other.attribute-name",
       ],
       settings: {
-        foreground: `#8ee6d7`,
+        foreground: "#8ee6d7",
       },
     },
     {
       scope: [
-        `constant.numeric`,
-        `constant.language`,
-        `constant.language.boolean`,
-        `constant.character.escape`,
-        `regexp`,
-        `string.regexp`,
+        "constant.numeric",
+        "constant.language",
+        "constant.language.boolean",
+        "constant.character.escape",
+        "regexp",
+        "string.regexp",
       ],
       settings: {
-        foreground: `#f4c46a`,
+        foreground: "#f4c46a",
       },
     },
     {
       scope: [
-        `keyword`,
-        `keyword.control`,
-        `storage`,
-        `storage.type`,
-        `storage.modifier`,
+        "keyword",
+        "keyword.control",
+        "storage",
+        "storage.type",
+        "storage.modifier",
       ],
       settings: {
-        foreground: `#7055f6`,
+        foreground: "#7055f6",
       },
     },
     {
       scope: [
-        `entity.name.type`,
-        `entity.other.inherited-class`,
-        `support.class`,
-        `support.type`,
+        "entity.name.type",
+        "entity.other.inherited-class",
+        "support.class",
+        "support.type",
       ],
       settings: {
-        foreground: `#c39bff`,
+        foreground: "#c39bff",
       },
     },
     {
       scope: [
-        `entity.name.function`,
-        `support.function`,
-        `variable.function`,
-        `meta.function-call`,
+        "entity.name.function",
+        "support.function",
+        "variable.function",
+        "meta.function-call",
       ],
       settings: {
-        foreground: `#a58cff`,
+        foreground: "#a58cff",
       },
     },
     {
       scope: [
-        `keyword.operator`,
-        `punctuation.accessor`,
-        `punctuation.definition.tag`,
-        `punctuation`,
-        `punctuation.bracket`,
-        `punctuation.separator`,
+        "keyword.operator",
+        "punctuation.accessor",
+        "punctuation.definition.tag",
+        "punctuation",
+        "punctuation.bracket",
+        "punctuation.separator",
       ],
       settings: {
-        foreground: `#c8bedf`,
+        foreground: "#c8bedf",
       },
     },
     {
       scope: [
-        `variable`,
-        `meta.object-literal.key`,
-        `meta.object.member`,
-        `meta.property-name`,
+        "variable",
+        "meta.object-literal.key",
+        "meta.object.member",
+        "meta.property-name",
       ],
       settings: {
-        foreground: `#e6dff9`,
+        foreground: "#e6dff9",
       },
     },
-  ],
-  sentryDarkType = `dark`;
-export const sentryDarkDefault = {
-  bg: sentryDarkBg,
-  colors: sentryDarkColors,
-  chromeTheme: sentryDarkChromeTheme,
-  fg: sentryDarkFg,
-  name: sentryDarkName,
-  settings: sentryDarkSettings,
-  type: sentryDarkType,
-};
-export const SentryDarkTheme = sentryDarkDefault;
+  ];
+  sentryDarkType = "dark";
+  sentryDarkDefault = {
+    bg: sentryDarkBg,
+    colors: sentryDarkColors,
+    chromeTheme: sentryDarkChromeTheme,
+    fg: sentryDarkFg,
+    name: sentryDarkName,
+    settings: sentryDarkSettings,
+    type: sentryDarkType,
+  };
+})();
 export {
   sentryDarkBg as bg,
   sentryDarkChromeTheme as chromeTheme,
   sentryDarkColors as colors,
+  sentryDarkDefault as default,
   sentryDarkFg,
   sentryDarkName as name,
   sentryDarkSettings as settings,

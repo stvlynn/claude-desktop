@@ -30045,6 +30045,695 @@
         "t": "permissionRequestModel"
       },
       "status": "done"
+    },
+    "am-DTkACIBV": {
+      "restored": "locales/am.ts",
+      "exports": {
+        "default": "default",
+        "greeting": "greeting"
+      },
+      "status": "done"
+    },
+    "ar-3TMbwP2L": {
+      "restored": "locales/ar.ts",
+      "exports": {
+        "default": "default",
+        "greeting": "greeting"
+      },
+      "status": "done"
+    },
+    "bg-BG-BquMUSiw": {
+      "restored": "locales/bg-bg.ts",
+      "exports": {
+        "default": "default",
+        "greeting": "greeting"
+      },
+      "status": "done"
+    },
+    "bn-BD-BGpIwcBb": {
+      "restored": "locales/bn-bd.ts",
+      "exports": {
+        "default": "default",
+        "greeting": "greeting"
+      },
+      "status": "done"
+    },
+    "bs-BA-4eGChBDy": {
+      "restored": "locales/bs-ba.ts",
+      "exports": {
+        "default": "default",
+        "greeting": "greeting"
+      },
+      "status": "done"
+    },
+    "ca-ES-CxYwQFXA": {
+      "restored": "locales/ca-es.ts",
+      "exports": {
+        "default": "default",
+        "greeting": "greeting"
+      },
+      "status": "done"
+    },
+    "cs-CZ-606F1Ced": {
+      "restored": "locales/cs-cz.ts",
+      "exports": {
+        "default": "default",
+        "greeting": "greeting"
+      },
+      "status": "done"
+    },
+    "da-DK-Bxr-nzCo": {
+      "restored": "locales/da-dk.ts",
+      "exports": {
+        "default": "default",
+        "greeting": "greeting"
+      },
+      "status": "done"
+    },
+    "de-DE-uIhYktck": {
+      "restored": "locales/de-de.ts",
+      "exports": {
+        "default": "default",
+        "greeting": "greeting"
+      },
+      "status": "done"
+    },
+    "el-GR-BCFVnc9T": {
+      "restored": "locales/el-gr.ts",
+      "exports": {
+        "default": "default",
+        "greeting": "greeting"
+      },
+      "status": "done"
+    },
+    "es-419-9pl7noPm": {
+      "restored": "locales/es-419.ts",
+      "exports": {
+        "default": "default",
+        "greeting": "greeting"
+      },
+      "status": "done"
+    },
+    "es-ES-BW-x6iqw": {
+      "restored": "locales/es-es.ts",
+      "exports": {
+        "default": "default",
+        "greeting": "greeting"
+      },
+      "status": "done"
+    },
+    "et-EE-DB6pI6NP": {
+      "restored": "locales/et-ee.ts",
+      "exports": {
+        "default": "default",
+        "greeting": "greeting"
+      },
+      "status": "done"
+    },
+    "fa-ulLUpR-L": {
+      "restored": "locales/fa.ts",
+      "exports": {
+        "default": "default",
+        "greeting": "greeting"
+      },
+      "status": "done"
+    },
+    "fi-FI-CfGWVO8y": {
+      "restored": "locales/fi-fi.ts",
+      "exports": {
+        "default": "default",
+        "greeting": "greeting"
+      },
+      "status": "done"
+    },
+    "fr-CA-C6xF-klO": {
+      "restored": "locales/fr-ca.ts",
+      "exports": {
+        "default": "default",
+        "greeting": "greeting"
+      },
+      "status": "done"
+    },
+    "fr-FR-3A1bHfJ7": {
+      "restored": "locales/fr-fr.ts",
+      "exports": {
+        "default": "default",
+        "greeting": "greeting"
+      },
+      "status": "done"
+    },
+    "gu-IN-2fionZeX": {
+      "restored": "locales/gu-in.ts",
+      "exports": {
+        "default": "default",
+        "greeting": "greeting"
+      },
+      "status": "done"
+    },
+    "hi-IN-g4g3Rqd9": {
+      "restored": "locales/hi-in.ts",
+      "exports": {
+        "default": "default",
+        "greeting": "greeting"
+      },
+      "status": "done"
+    },
+    "hr-HR-CgpzB8MW": {
+      "restored": "locales/hr-hr.ts",
+      "exports": {
+        "default": "default",
+        "greeting": "greeting"
+      },
+      "status": "done"
+    },
+    "hu-HU-srjtJElQ": {
+      "restored": "locales/hu-hu.ts",
+      "exports": {
+        "default": "default",
+        "greeting": "greeting"
+      },
+      "status": "done"
+    },
+    "hy-AM-DuMUOVdH": {
+      "restored": "locales/hy-am.ts",
+      "exports": {
+        "default": "default",
+        "greeting": "greeting"
+      },
+      "status": "done"
+    },
+    "id-ID-CjSZ1Zco": {
+      "restored": "locales/id-id.ts",
+      "exports": {
+        "default": "default",
+        "greeting": "greeting"
+      },
+      "status": "done"
+    },
+    "is-IS-jFnqHysR": {
+      "restored": "locales/is-is.ts",
+      "exports": {
+        "default": "default",
+        "greeting": "greeting"
+      },
+      "status": "done"
+    },
+    "it-IT-BGoOMX8W": {
+      "restored": "locales/it-it.ts",
+      "exports": {
+        "default": "default",
+        "greeting": "greeting"
+      },
+      "status": "done"
+    },
+    "ja-JP-6ZdlaPCc": {
+      "restored": "locales/ja-jp.ts",
+      "exports": {
+        "default": "default",
+        "greeting": "greeting"
+      },
+      "status": "done"
+    },
+    "ka-GE-BbCvPs5w": {
+      "restored": "locales/ka-ge.ts",
+      "exports": {
+        "default": "default",
+        "greeting": "greeting"
+      },
+      "status": "done"
+    },
+    "kk-CLm1ZRKA": {
+      "restored": "locales/kk.ts",
+      "exports": {
+        "default": "default",
+        "greeting": "greeting"
+      },
+      "status": "done"
+    },
+    "kn-IN-7xM42NXG": {
+      "restored": "locales/kn-in.ts",
+      "exports": {
+        "default": "default",
+        "greeting": "greeting"
+      },
+      "status": "done"
+    },
+    "ko-KR-DmoQ-HrH": {
+      "restored": "locales/ko-kr.ts",
+      "exports": {
+        "default": "default",
+        "greeting": "greeting"
+      },
+      "status": "done"
+    },
+    "lt-CYpm5TfO": {
+      "restored": "locales/lt.ts",
+      "exports": {
+        "default": "default",
+        "greeting": "greeting"
+      },
+      "status": "done"
+    },
+    "lv-LV-ZikztgNw": {
+      "restored": "locales/lv-lv.ts",
+      "exports": {
+        "default": "default",
+        "greeting": "greeting"
+      },
+      "status": "done"
+    },
+    "mk-MK-CIu2rV5W": {
+      "restored": "locales/mk-mk.ts",
+      "exports": {
+        "default": "default",
+        "greeting": "greeting"
+      },
+      "status": "done"
+    },
+    "ml-nKdaCiFi": {
+      "restored": "locales/ml.ts",
+      "exports": {
+        "default": "default",
+        "greeting": "greeting"
+      },
+      "status": "done"
+    },
+    "mn-Cva00Fq9": {
+      "restored": "locales/mn.ts",
+      "exports": {
+        "default": "default",
+        "greeting": "greeting"
+      },
+      "status": "done"
+    },
+    "mr-IN-Cx10RVTG": {
+      "restored": "locales/mr-in.ts",
+      "exports": {
+        "default": "default",
+        "greeting": "greeting"
+      },
+      "status": "done"
+    },
+    "ms-MY-9rOPkwvS": {
+      "restored": "locales/ms-my.ts",
+      "exports": {
+        "default": "default",
+        "greeting": "greeting"
+      },
+      "status": "done"
+    },
+    "my-MM-59VNdJjb": {
+      "restored": "locales/my-mm.ts",
+      "exports": {
+        "default": "default",
+        "greeting": "greeting"
+      },
+      "status": "done"
+    },
+    "nb-NO-B75J3BYf": {
+      "restored": "locales/nb-no.ts",
+      "exports": {
+        "default": "default",
+        "greeting": "greeting"
+      },
+      "status": "done"
+    },
+    "nl-NL-sLamI4YB": {
+      "restored": "locales/nl-nl.ts",
+      "exports": {
+        "default": "default",
+        "greeting": "greeting"
+      },
+      "status": "done"
+    },
+    "pa-DnOzYwLv": {
+      "restored": "locales/pa.ts",
+      "exports": {
+        "default": "default",
+        "greeting": "greeting"
+      },
+      "status": "done"
+    },
+    "pl-PL-CpAWNuSI": {
+      "restored": "locales/pl-pl.ts",
+      "exports": {
+        "default": "default",
+        "greeting": "greeting"
+      },
+      "status": "done"
+    },
+    "pt-BR-DqwXUAk1": {
+      "restored": "locales/pt-br.ts",
+      "exports": {
+        "default": "default",
+        "greeting": "greeting"
+      },
+      "status": "done"
+    },
+    "pt-PT-Cft0uxe2": {
+      "restored": "locales/pt-pt.ts",
+      "exports": {
+        "default": "default",
+        "greeting": "greeting"
+      },
+      "status": "done"
+    },
+    "ro-RO-BGSFt0Y4": {
+      "restored": "locales/ro-ro.ts",
+      "exports": {
+        "default": "default",
+        "greeting": "greeting"
+      },
+      "status": "done"
+    },
+    "ru-RU-Dhkg59qA": {
+      "restored": "locales/ru-ru.ts",
+      "exports": {
+        "default": "default",
+        "greeting": "greeting"
+      },
+      "status": "done"
+    },
+    "sk-SK-AwhLscj9": {
+      "restored": "locales/sk-sk.ts",
+      "exports": {
+        "default": "default",
+        "greeting": "greeting"
+      },
+      "status": "done"
+    },
+    "sl-SI-DODS99pc": {
+      "restored": "locales/sl-si.ts",
+      "exports": {
+        "default": "default",
+        "greeting": "greeting"
+      },
+      "status": "done"
+    },
+    "so-SO-Dz4wpxb7": {
+      "restored": "locales/so-so.ts",
+      "exports": {
+        "default": "default",
+        "greeting": "greeting"
+      },
+      "status": "done"
+    },
+    "sq-AL-BwXBTitD": {
+      "restored": "locales/sq-al.ts",
+      "exports": {
+        "default": "default",
+        "greeting": "greeting"
+      },
+      "status": "done"
+    },
+    "sr-RS-BY3_HeAK": {
+      "restored": "locales/sr-rs.ts",
+      "exports": {
+        "default": "default",
+        "greeting": "greeting"
+      },
+      "status": "done"
+    },
+    "sv-SE-DPKYKK7A": {
+      "restored": "locales/sv-se.ts",
+      "exports": {
+        "default": "default",
+        "greeting": "greeting"
+      },
+      "status": "done"
+    },
+    "sw-TZ-0WHruz3M": {
+      "restored": "locales/sw-tz.ts",
+      "exports": {
+        "default": "default",
+        "greeting": "greeting"
+      },
+      "status": "done"
+    },
+    "ta-IN-B_zyfJyB": {
+      "restored": "locales/ta-in.ts",
+      "exports": {
+        "default": "default",
+        "greeting": "greeting"
+      },
+      "status": "done"
+    },
+    "te-IN-Bm9KCVb7": {
+      "restored": "locales/te-in.ts",
+      "exports": {
+        "default": "default",
+        "greeting": "greeting"
+      },
+      "status": "done"
+    },
+    "th-TH-CLDvMBGU": {
+      "restored": "locales/th-th.ts",
+      "exports": {
+        "default": "default",
+        "greeting": "greeting"
+      },
+      "status": "done"
+    },
+    "tl-Cdn-8thi": {
+      "restored": "locales/tl.ts",
+      "exports": {
+        "default": "default",
+        "greeting": "greeting"
+      },
+      "status": "done"
+    },
+    "tr-TR-DALvECY_": {
+      "restored": "locales/tr-tr.ts",
+      "exports": {
+        "default": "default",
+        "greeting": "greeting"
+      },
+      "status": "done"
+    },
+    "uk-UA-y_b_N_Ww": {
+      "restored": "locales/uk-ua.ts",
+      "exports": {
+        "default": "default",
+        "greeting": "greeting"
+      },
+      "status": "done"
+    },
+    "ur-B-jnzAL1": {
+      "restored": "locales/ur.ts",
+      "exports": {
+        "default": "default",
+        "greeting": "greeting"
+      },
+      "status": "done"
+    },
+    "vi-VN-qpXziAgw": {
+      "restored": "locales/vi-vn.ts",
+      "exports": {
+        "default": "default",
+        "greeting": "greeting"
+      },
+      "status": "done"
+    },
+    "zh-CN-DBEktoel": {
+      "restored": "locales/zh-cn.ts",
+      "exports": {
+        "default": "default",
+        "greeting": "greeting"
+      },
+      "status": "done"
+    },
+    "zh-HK-D1Y2oZXp": {
+      "restored": "locales/zh-hk.ts",
+      "exports": {
+        "default": "default",
+        "greeting": "greeting"
+      },
+      "status": "done"
+    },
+    "zh-TW-0FCihP0v": {
+      "restored": "locales/zh-tw.ts",
+      "exports": {
+        "default": "default",
+        "greeting": "greeting"
+      },
+      "status": "done"
+    },
+    "absolutely-dark-Cq3gv8mI": {
+      "restored": "themes/absolutely-dark.ts",
+      "exports": {
+        "bg": "bg",
+        "colors": "colors",
+        "default": "default",
+        "fg": "absolutelyDarkFg",
+        "name": "name",
+        "settings": "settings",
+        "type": "type"
+      },
+      "status": "done"
+    },
+    "absolutely-light-CdDzhyHi": {
+      "restored": "themes/absolutely-light.ts",
+      "exports": {
+        "bg": "bg",
+        "colors": "colors",
+        "default": "default",
+        "fg": "absolutelyLightFg",
+        "name": "name",
+        "settings": "settings",
+        "type": "type"
+      },
+      "status": "done"
+    },
+    "linear-dark-I6n5O-ny": {
+      "restored": "themes/linear-dark.ts",
+      "exports": {
+        "bg": "bg",
+        "chromeTheme": "chromeTheme",
+        "colors": "colors",
+        "default": "default",
+        "fg": "linearDarkFg",
+        "name": "name",
+        "settings": "settings"
+      },
+      "status": "done"
+    },
+    "linear-light-Bv1AakzR": {
+      "restored": "themes/linear-light.ts",
+      "exports": {
+        "bg": "bg",
+        "chromeTheme": "chromeTheme",
+        "colors": "colors",
+        "default": "default",
+        "fg": "linearLightFg",
+        "name": "name",
+        "settings": "settings",
+        "type": "type"
+      },
+      "status": "done"
+    },
+    "lobster-dark-DIstc6DY": {
+      "restored": "themes/lobster-dark.ts",
+      "exports": {
+        "bg": "bg",
+        "chromeTheme": "chromeTheme",
+        "colors": "colors",
+        "default": "default",
+        "fg": "lobsterDarkFg",
+        "name": "name",
+        "settings": "settings",
+        "type": "type"
+      },
+      "status": "done"
+    },
+    "matrix-dark-Dj9y-KJg": {
+      "restored": "themes/matrix-dark.ts",
+      "exports": {
+        "bg": "bg",
+        "chromeTheme": "chromeTheme",
+        "colors": "colors",
+        "default": "default",
+        "fg": "matrixDarkFg",
+        "name": "name",
+        "settings": "settings",
+        "type": "type"
+      },
+      "status": "done"
+    },
+    "notion-dark-B-8kQG4D": {
+      "restored": "themes/notion-dark.ts",
+      "exports": {
+        "bg": "bg",
+        "chromeTheme": "chromeTheme",
+        "colors": "colors",
+        "default": "default",
+        "fg": "notionDarkFg",
+        "name": "name",
+        "settings": "settings",
+        "type": "type"
+      },
+      "status": "done"
+    },
+    "notion-light-Bp4sCMqR": {
+      "restored": "themes/notion-light.ts",
+      "exports": {
+        "bg": "bg",
+        "chromeTheme": "chromeTheme",
+        "colors": "colors",
+        "default": "default",
+        "fg": "notionLightFg",
+        "name": "name",
+        "settings": "settings",
+        "type": "type"
+      },
+      "status": "done"
+    },
+    "proof-light-BjtqAd4d": {
+      "restored": "themes/proof-light.ts",
+      "exports": {
+        "bg": "bg",
+        "chromeTheme": "chromeTheme",
+        "colors": "colors",
+        "default": "default",
+        "fg": "proofLightFg",
+        "name": "name",
+        "settings": "settings",
+        "type": "type"
+      },
+      "status": "done"
+    },
+    "sentry-dark-C3keuH57": {
+      "restored": "themes/sentry-dark.ts",
+      "exports": {
+        "bg": "bg",
+        "chromeTheme": "chromeTheme",
+        "colors": "colors",
+        "default": "default",
+        "fg": "sentryDarkFg",
+        "name": "name",
+        "settings": "settings",
+        "type": "type"
+      },
+      "status": "done"
+    },
+    "temple-dark-CoqeJMR0": {
+      "restored": "themes/temple-dark.ts",
+      "exports": {
+        "bg": "bg",
+        "colors": "colors",
+        "default": "default",
+        "fg": "templeDarkFg",
+        "name": "name",
+        "settings": "settings",
+        "type": "type"
+      },
+      "status": "done"
+    },
+    "vercel-dark-C7bSklK9": {
+      "restored": "themes/vercel-dark.ts",
+      "exports": {
+        "bg": "bg",
+        "chromeTheme": "chromeTheme",
+        "colors": "colors",
+        "default": "default",
+        "fg": "vercelDarkFg",
+        "name": "name",
+        "settings": "settings"
+      },
+      "status": "done"
+    },
+    "vercel-light-0e9RLoNq": {
+      "restored": "themes/vercel-light.ts",
+      "exports": {
+        "bg": "bg",
+        "chromeTheme": "chromeTheme",
+        "colors": "colors",
+        "default": "default",
+        "fg": "vercelLightFg",
+        "name": "name",
+        "settings": "settings",
+        "type": "type"
+      },
+      "status": "done"
     }
   }
 }

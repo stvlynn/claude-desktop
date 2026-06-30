@@ -1,174 +1,185 @@
-// Restored from ref/webview/assets/lobster-dark-DSFMX6FT.js
-// LobsterDark theme data restored from the current Codex webview bundle.
-var lobsterDarkBg = `#111827`,
+// Restored from ref/webview/assets/lobster-dark-DIstc6DY.js
+// LobsterDark chunk restored from the Codex webview bundle.
+import { once } from "../runtime/commonjs-interop";
+var lobsterDarkBg,
+  lobsterDarkColors,
+  lobsterDarkChromeTheme,
+  lobsterDarkFg,
+  lobsterDarkName,
+  lobsterDarkSettings,
+  lobsterDarkType,
+  lobsterDarkDefault;
+once(() => {
+  lobsterDarkBg = "#111827";
   lobsterDarkColors = {
-    "activityBar.activeBorder": `#ff5c5c`,
-    "activityBar.background": `#111827`,
-    "activityBarBadge.background": `#ff5c5c`,
-    "button.background": `#ff5c5c`,
-    "editor.background": `#111827`,
-    "editor.foreground": `#e4e4e7`,
-    "editorCursor.foreground": `#ff5c5c`,
-    "editorGroupHeader.tabsBackground": `#1a1d25`,
-    focusBorder: `#ff5c5c`,
-    foreground: `#e4e4e7`,
-    "panel.background": `#111827`,
-    "sideBar.background": `#111827`,
-    "sideBar.foreground": `#e4e4e7`,
-    "sideBarTitle.foreground": `#fafafa`,
-    "textLink.foreground": `#ff5c5c`,
-  },
+    "activityBar.activeBorder": "#ff5c5c",
+    "activityBar.background": "#111827",
+    "activityBarBadge.background": "#ff5c5c",
+    "button.background": "#ff5c5c",
+    "editor.background": "#111827",
+    "editor.foreground": "#e4e4e7",
+    "editorCursor.foreground": "#ff5c5c",
+    "editorGroupHeader.tabsBackground": "#1a1d25",
+    focusBorder: "#ff5c5c",
+    foreground: "#e4e4e7",
+    "panel.background": "#111827",
+    "sideBar.background": "#111827",
+    "sideBar.foreground": "#e4e4e7",
+    "sideBarTitle.foreground": "#fafafa",
+    "textLink.foreground": "#ff5c5c",
+  };
   lobsterDarkChromeTheme = {
     fonts: {
-      ui: `Satoshi`,
+      ui: "Satoshi",
     },
-  },
-  lobsterDarkFg = `#e4e4e7`,
-  lobsterDarkName = `Lobster Dark`,
+  };
+  lobsterDarkFg = "#e4e4e7";
+  lobsterDarkName = "Lobster Dark";
   lobsterDarkSettings = [
     {
-      scope: [`comment`, `punctuation.definition.comment`],
+      scope: ["comment", "punctuation.definition.comment"],
       settings: {
-        foreground: `#71717a`,
+        foreground: "#71717a",
       },
     },
     {
       scope: [
-        `string`,
-        `string.quoted`,
-        `constant.other.symbol`,
-        `entity.other.attribute-name`,
-        `support.constant`,
+        "string",
+        "string.quoted",
+        "constant.other.symbol",
+        "entity.other.attribute-name",
+        "support.constant",
       ],
       settings: {
-        foreground: `#14b8a6`,
+        foreground: "#14b8a6",
       },
     },
     {
       scope: [
-        `constant.numeric`,
-        `constant.language`,
-        `constant.language.boolean`,
-        `constant.character.escape`,
-        `regexp`,
-        `string.regexp`,
+        "constant.numeric",
+        "constant.language",
+        "constant.language.boolean",
+        "constant.character.escape",
+        "regexp",
+        "string.regexp",
       ],
       settings: {
-        foreground: `#f59e0b`,
+        foreground: "#f59e0b",
       },
     },
     {
       scope: [
-        `keyword`,
-        `keyword.control`,
-        `storage`,
-        `storage.type`,
-        `storage.modifier`,
-        `invalid`,
-        `invalid.deprecated`,
+        "keyword",
+        "keyword.control",
+        "storage",
+        "storage.type",
+        "storage.modifier",
+        "invalid",
+        "invalid.deprecated",
       ],
       settings: {
-        foreground: `#ff5c5c`,
+        foreground: "#ff5c5c",
       },
     },
     {
       scope: [
-        `entity.name.type`,
-        `entity.other.inherited-class`,
-        `support.class`,
-        `support.type`,
+        "entity.name.type",
+        "entity.other.inherited-class",
+        "support.class",
+        "support.type",
       ],
       settings: {
-        foreground: `#3b82f6`,
+        foreground: "#3b82f6",
       },
     },
     {
       scope: [
-        `entity.name.function`,
-        `support.function`,
-        `variable.function`,
-        `meta.function-call`,
-        `markup.heading`,
+        "entity.name.function",
+        "support.function",
+        "variable.function",
+        "meta.function-call",
+        "markup.heading",
       ],
       settings: {
-        foreground: `#22c55e`,
+        foreground: "#22c55e",
       },
     },
     {
       scope: [
-        `keyword.operator`,
-        `punctuation.accessor`,
-        `punctuation.definition.tag`,
+        "keyword.operator",
+        "punctuation.accessor",
+        "punctuation.definition.tag",
       ],
       settings: {
-        foreground: `#ff7070`,
+        foreground: "#ff7070",
       },
     },
     {
-      scope: [`punctuation.separator`],
+      scope: ["punctuation.separator"],
       settings: {
-        foreground: `#a1a1aa`,
-      },
-    },
-    {
-      scope: [
-        `punctuation`,
-        `punctuation.definition.list.begin`,
-        `meta.diff.header`,
-      ],
-      settings: {
-        foreground: `#71717a`,
+        foreground: "#a1a1aa",
       },
     },
     {
       scope: [
-        `punctuation.bracket`,
-        `punctuation.definition.string`,
-        `punctuation.definition.parameters`,
-        `punctuation.definition.typeparameters`,
-        `punctuation.section.embedded`,
+        "punctuation",
+        "punctuation.definition.list.begin",
+        "meta.diff.header",
       ],
       settings: {
-        foreground: `#a1a1aa`,
+        foreground: "#71717a",
       },
     },
     {
       scope: [
-        `variable`,
-        `variable.other.readwrite`,
-        `variable.parameter`,
-        `variable.other.object`,
-        `variable.language`,
-        `variable.language.this`,
-        `variable.language.self`,
-        `variable.other.property`,
-        `meta.object-literal.key`,
-        `entity.name.label`,
-        `meta.annotation`,
-        `markup.bold`,
-        `markup.italic`,
-        `markup.raw`,
+        "punctuation.bracket",
+        "punctuation.definition.string",
+        "punctuation.definition.parameters",
+        "punctuation.definition.typeparameters",
+        "punctuation.section.embedded",
       ],
       settings: {
-        foreground: `#e4e4e7`,
+        foreground: "#a1a1aa",
       },
     },
-  ],
-  lobsterDarkType = `dark`;
-export const lobsterDarkDefault = {
-  bg: lobsterDarkBg,
-  colors: lobsterDarkColors,
-  chromeTheme: lobsterDarkChromeTheme,
-  fg: lobsterDarkFg,
-  name: lobsterDarkName,
-  settings: lobsterDarkSettings,
-  type: lobsterDarkType,
-};
-export const LobsterDarkTheme = lobsterDarkDefault;
+    {
+      scope: [
+        "variable",
+        "variable.other.readwrite",
+        "variable.parameter",
+        "variable.other.object",
+        "variable.language",
+        "variable.language.this",
+        "variable.language.self",
+        "variable.other.property",
+        "meta.object-literal.key",
+        "entity.name.label",
+        "meta.annotation",
+        "markup.bold",
+        "markup.italic",
+        "markup.raw",
+      ],
+      settings: {
+        foreground: "#e4e4e7",
+      },
+    },
+  ];
+  lobsterDarkType = "dark";
+  lobsterDarkDefault = {
+    bg: lobsterDarkBg,
+    colors: lobsterDarkColors,
+    chromeTheme: lobsterDarkChromeTheme,
+    fg: lobsterDarkFg,
+    name: lobsterDarkName,
+    settings: lobsterDarkSettings,
+    type: lobsterDarkType,
+  };
+})();
 export {
   lobsterDarkBg as bg,
   lobsterDarkChromeTheme as chromeTheme,
   lobsterDarkColors as colors,
+  lobsterDarkDefault as default,
   lobsterDarkFg,
   lobsterDarkName as name,
   lobsterDarkSettings as settings,
