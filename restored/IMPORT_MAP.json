@@ -39395,6 +39395,30 @@
       "note": "Codex custom Shiki light theme data extracted from the current bundle; this is app-specific data, not a public npm leaf payload.",
       "stage3Accepted": true,
       "lastUpdated": "2026-06-30T00:00:00.000-05:00"
+    },
+    "home-onboarding-assistant-tutorial-card-CacqQsHt": {
+      "restored": "app-shell/home-ambient-suggestions/setup-codex/index.ts",
+      "exports": {
+        "a": "initAmbientSuggestionsStateChunk",
+        "c": "clearAmbientSuggestionDefaultStatus",
+        "d": "updateAmbientSuggestionStatusInCache",
+        "f": "setAmbientSuggestionDefaultStatus",
+        "i": "activeAmbientSuggestionIdSignal",
+        "l": "ambientSuggestionDefaultStatusIdsSignal",
+        "n": "ONBOARDING_ASSISTANT_SUGGESTION_ID",
+        "o": "ambientSuggestionsLoadedSignal",
+        "p": "pendingGeneratedAmbientSuggestionsSignal",
+        "r": "initHomeOnboardingAssistantTutorialCardChunk",
+        "s": "ambientSuggestionsRefreshQuery",
+        "t": "SetupCodexOnboardingSuggestionCard",
+        "u": "ambientSuggestionDefaultStatusesSignal"
+      },
+      "status": "done",
+      "note": "Restored the current Setup Codex onboarding assistant card as a split home ambient-suggestions module, including ambient suggestion query state, default-status helpers, skill installation, setup prompt launch, and the typed onboarding card component.",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T12:40:23.128Z",
+      "stage3Review": "Host self-review: split module read end-to-end against Stage 3 E1-E4; quality-gate and prettier passed for setup-codex state, conversation, card, types, and barrels.",
+      "lastUpdated": "2026-06-30T12:40:23.132Z"
     }
   }
 }
