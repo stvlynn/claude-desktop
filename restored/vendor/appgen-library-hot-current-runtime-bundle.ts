@@ -215,9 +215,9 @@ import {
   tc as vt,
 } from "./app-main-current-cgnc-bundle";
 import {
-  n as yt,
-  t as bt,
-} from "../boundaries/current-ref/cloud-terminal-icon-producer";
+  CloudTerminalIcon as bt,
+  initCloudTerminalIconChunk as yt,
+} from "../icons/cloud-terminal-icon";
 var xt,
   St = e(() => {
     xt = `/pricing-plan`;

@@ -80,23 +80,23 @@ import {
   wt as L,
 } from "./app-main-current-cgnc-bundle";
 import {
-  c as R,
-  l as Oe,
-} from "../boundaries/current-ref/current-projects-index-compose-refs-producer";
+  composeRefs as Oe,
+  initComposeRefsChunk as R,
+} from "../utils/compose-refs";
 import {
-  i as ke,
-  r as Ae,
-  t as z,
-} from "../boundaries/current-ref/current-artifact-analytics-producer";
+  initArtifactAnalyticsChunk as z,
+  trackArtifactAnnotationStarted as Ae,
+  trackArtifactAnnotationSubmitted as ke,
+} from "../features/artifact-analytics";
 import {
-  a as je,
-  n as B,
-  r as Me,
-} from "../boundaries/current-ref/current-artifact-annotation-comment-producer";
+  getArtifactAnnotationCommentsForPath as B,
+  getNextArtifactAnnotationLine as Me,
+  initArtifactAnnotationCommentChunk as je,
+} from "../ui/artifact-annotation-comment";
 import {
-  n as V,
-  t as Ne,
-} from "../boundaries/current-ref/current-artifact-preview-status-producer";
+  ArtifactPreviewStatus as V,
+  initArtifactPreviewStatusChunk as Ne,
+} from "../utils/artifact-preview-status";
 var H = e(() => {});
 function Pe({ anchor: e, editorScale: t, layer: n, pageSize: r }) {
   return e.kind === `region` && e.selectionKind != null
