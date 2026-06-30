@@ -11656,6 +11656,17 @@
       },
       "status": "done"
     },
+    "appgen-share-dialog-BQA5qyJU": {
+      "restored": "features/appgen-share-dialog/index.tsx",
+      "exports": {
+        "n": "initAppgenShareDialogChunk",
+        "t": "AppgenShareDialog"
+      },
+      "status": "done",
+      "aliasOf": "appgen-share-dialog-DXPJlTmi",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current ref producer keeps the restored appgen share dialog surface and adds the chunk initializer alias."
+    },
     "appgen-share-dialog-CQf-7R-I": {
       "restored": "features/appgen-share-dialog/re-export.ts",
       "status": "done"
@@ -11798,6 +11809,18 @@
         "t": "ThreadAppShellChrome"
       },
       "status": "done"
+    },
+    "thread-app-shell-chrome-CEI45G4c": {
+      "restored": "app-shell/thread-app-shell-chrome/index.tsx",
+      "exports": {
+        "n": "initThreadAppShellChromeChunk",
+        "r": "initThreadAppShellLocalConversationDependency",
+        "t": "ThreadAppShellChrome"
+      },
+      "status": "done",
+      "aliasOf": "thread-app-shell-chrome-D7ImdiWZ",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current ref producer keeps the restored thread app-shell chrome surface."
     },
     "thread-app-shell-chrome-DBT2t1lC": {
       "restored": "app-shell/thread-app-shell-chrome-entry.ts",
@@ -17949,6 +17972,16 @@
       "note": "Current wrapper calls the appgen share dialog producer init and re-exports the restored AppgenShareDialog.",
       "lastUpdated": "2026-06-29T00:00:00.000Z"
     },
+    "appgen-share-dialog-ColUbeKY": {
+      "restored": "features/appgen-share-dialog/index.tsx",
+      "exports": {
+        "AppgenShareDialog": "AppgenShareDialog"
+      },
+      "status": "done",
+      "aliasOf": "appgen-share-dialog-DXPJlTmi",
+      "note": "Current ref wrapper calls the appgen share dialog producer init and re-exports the restored AppgenShareDialog.",
+      "lastUpdated": "2026-06-30T00:00:00.000Z"
+    },
     "browser-use-settings-BNPmmCNL": {
       "restored": "browser/browser-use-settings/index.tsx",
       "exports": {
@@ -19908,6 +19941,16 @@
       "aliasOf": "thread-app-shell-chrome-DBT2t1lC",
       "lastUpdated": "2026-06-29T00:00:00.000Z",
       "note": "Current app chunk keeps the restored public export surface; alias added after current ref sync."
+    },
+    "thread-app-shell-chrome-BakkmpDO": {
+      "restored": "app-shell/thread-app-shell-chrome-entry.ts",
+      "exports": {
+        "ThreadAppShellChrome": "ThreadAppShellChrome"
+      },
+      "status": "done",
+      "aliasOf": "thread-app-shell-chrome-DBT2t1lC",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current ref wrapper keeps the restored ThreadAppShellChrome entry surface."
     },
     "thread-browser-panel-tabs-B0_gHvSH": {
       "restored": "app-shell/thread-browser-panel-tabs.ts",

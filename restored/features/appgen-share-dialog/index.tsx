@@ -422,3 +422,5 @@ export function AppgenShareDialog({
   );
 }
 function noop() {}
+
+export function initAppgenShareDialogChunk() {}
