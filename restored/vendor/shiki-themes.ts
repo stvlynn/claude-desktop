@@ -66,6 +66,20 @@ import vesperTheme from "@shikijs/themes/vesper";
 import vitesseBlackTheme from "@shikijs/themes/vitesse-black";
 import vitesseDarkTheme from "@shikijs/themes/vitesse-dark";
 import vitesseLightTheme from "@shikijs/themes/vitesse-light";
+export {
+  codexDarkColors,
+  codexDarkName,
+  codexDarkSemanticTokenColors,
+  codexDarkTheme,
+  codexDarkTokenColors,
+  codexDarkType,
+  codexLightColors,
+  codexLightName,
+  codexLightSemanticTokenColors,
+  codexLightTheme,
+  codexLightTokenColors,
+  codexLightType,
+} from "./codex-shiki-themes";
 
 export {
   andromeedaTheme,
