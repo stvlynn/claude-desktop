@@ -2833,6 +2833,26 @@
       },
       "status": "done"
     },
+    "channel-BlN9FjG1": {
+      "restored": "vendor/color-channel.ts",
+      "exports": {
+        "t": "channel"
+      },
+      "status": "done",
+      "aliasOf": "channel-ykMIcoPi",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current ref hash keeps the restored color channel helper surface."
+    },
+    "channel-inukl00r": {
+      "restored": "vendor/color-channel.ts",
+      "exports": {
+        "t": "channel"
+      },
+      "status": "done",
+      "aliasOf": "channel-ykMIcoPi",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current ref hash keeps the restored color channel helper surface."
+    },
     "line-DIsP-Yv_": {
       "restored": "vendor/d3-shape-line.ts",
       "exports": {
@@ -2933,6 +2953,16 @@
       "status": "done",
       "aliasOf": "query-string-FsVg0saL",
       "lastUpdated": "2026-06-29T00:00:00.000Z"
+    },
+    "query-string-rxmEnTXH": {
+      "restored": "vendor/segment-query-string.ts",
+      "exports": {
+        "queryString": "QueryString"
+      },
+      "status": "done",
+      "aliasOf": "query-string-FsVg0saL",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current ref hash keeps the restored Segment query-string middleware surface."
     },
     "remote-middleware-DRFk97G2": {
       "restored": "vendor/segment-remote-middleware.ts",
@@ -3472,6 +3502,16 @@
       "note": "Current ref full KaTeX bundle exposes the katex object as the default export.",
       "stage3Accepted": true,
       "lastUpdated": "2026-06-29T22:20:00.000Z"
+    },
+    "katex-BvHNzFYT": {
+      "restored": "vendor/katex.ts",
+      "exports": {
+        "default": "katexC"
+      },
+      "status": "done",
+      "aliasOf": "katex--WVKgE7E",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current ref hash keeps the restored KaTeX default object surface."
     },
     "katex-DZmv-8PO": {
       "restored": "utils/katex.ts",
@@ -18494,6 +18534,17 @@
       "aliasOf": "middleware-Az7vHdEh",
       "lastUpdated": "2026-06-29T00:00:00.000Z",
       "note": "Current Segment middleware entry chunk keeps the restored public API."
+    },
+    "middleware-CVKpk5Wn": {
+      "restored": "vendor/segment-middleware-entry.ts",
+      "exports": {
+        "applyDestinationMiddleware": "applyDestinationMiddleware",
+        "sourceMiddlewarePlugin": "sourceMiddlewarePlugin"
+      },
+      "status": "done",
+      "aliasOf": "middleware-Az7vHdEh",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current ref hash keeps the restored Segment middleware entry surface."
     },
     "merge-Baqijoc_": {
       "restored": "vendor/lodash-merge.ts",
