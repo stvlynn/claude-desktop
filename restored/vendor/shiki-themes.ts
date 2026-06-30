@@ -41,7 +41,17 @@ import materialThemeDarkerTheme from "@shikijs/themes/material-theme-darker";
 import materialThemeLighterTheme from "@shikijs/themes/material-theme-lighter";
 import materialThemeOceanTheme from "@shikijs/themes/material-theme-ocean";
 import materialThemePalenightTheme from "@shikijs/themes/material-theme-palenight";
+import minDarkTheme from "@shikijs/themes/min-dark";
+import minLightTheme from "@shikijs/themes/min-light";
 import monokaiTheme from "@shikijs/themes/monokai";
+import nightOwlTheme from "@shikijs/themes/night-owl";
+import nightOwlLightTheme from "@shikijs/themes/night-owl-light";
+import nordTheme from "@shikijs/themes/nord";
+import oneDarkProTheme from "@shikijs/themes/one-dark-pro";
+import oneLightTheme from "@shikijs/themes/one-light";
+import plasticTheme from "@shikijs/themes/plastic";
+import poimandresTheme from "@shikijs/themes/poimandres";
+import redTheme from "@shikijs/themes/red";
 
 export {
   andromeedaTheme,
@@ -84,5 +94,15 @@ export {
   materialThemeLighterTheme,
   materialThemeOceanTheme,
   materialThemePalenightTheme,
+  minDarkTheme,
+  minLightTheme,
   monokaiTheme,
+  nightOwlTheme,
+  nightOwlLightTheme,
+  nordTheme,
+  oneDarkProTheme,
+  oneLightTheme,
+  plasticTheme,
+  poimandresTheme,
+  redTheme,
 };
