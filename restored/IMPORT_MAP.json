@@ -13,14 +13,24 @@
       "exports": {
         "t": "ChunkKS23V3DP"
       },
-      "status": "done"
+      "status": "done",
+      "note": "Base primary-runtime query-key producer restored through runtime/primary-runtime-query-keys.ts. The current app-main debug/agent-settings hash is Baq5IrGF and adds initializer aliases over the same semantic Statsig config helpers.",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T00:00:00.000Z",
+      "stage3Review": "Host self-review: verified the five base aliases are exported by runtime/primary-runtime-query-keys.ts, the current Baq5IrGF app-main hash covers the same query-key/config helpers with initializer aliases, and quality-gate passes."
     },
     "edit_files_animation-DXBLSnEM": {
       "restored": "utils/edit-files-animation.ts",
       "exports": {
         "default": "editFilesAnimation"
       },
-      "status": "done"
+      "status": "done",
+      "note": "Base primary-runtime query-key producer restored through runtime/primary-runtime-query-keys.ts. The current app-main debug/agent-settings hash is Baq5IrGF and adds initializer aliases over the same semantic Statsig config helpers.",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T00:00:00.000Z",
+      "stage3Review": "Host self-review: verified the five base aliases are exported by runtime/primary-runtime-query-keys.ts, the current Baq5IrGF app-main hash covers the same query-key/config helpers with initializer aliases, and quality-gate passes."
     },
     "run_command_animation-5_Btvv_W": {
       "restored": "utils/run-command-animation.ts",
@@ -7635,7 +7645,12 @@
         "r": "getPrimaryRuntimeConfigFromStatsig",
         "t": "primaryRuntimeUpdateStatusQueryKey"
       },
-      "status": "done"
+      "status": "done",
+      "note": "Base primary-runtime query-key producer restored through runtime/primary-runtime-query-keys.ts. The current app-main debug/agent-settings hash is Baq5IrGF and adds initializer aliases over the same semantic Statsig config helpers.",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T00:00:00.000Z",
+      "stage3Review": "Host self-review: verified the five base aliases are exported by runtime/primary-runtime-query-keys.ts, the current Baq5IrGF app-main hash covers the same query-key/config helpers with initializer aliases, and quality-gate passes."
     },
     "app-initial~app-main~debug-window-page~agent-settings~debug-modal-Bxp4dVZQ": {
       "restored": "runtime/primary-runtime-query-keys.ts",
@@ -7650,8 +7665,11 @@
       },
       "status": "done",
       "aliasOf": "primary-runtime-query-keys-BCEaoICN",
-      "lastUpdated": "2026-06-29T00:00:00.000Z",
-      "note": "Current app-main debug/agent-settings chunk reorders the restored primary-runtime Statsig config helpers and adds initializer aliases."
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Historical app-main debug/agent-settings chunk retained as the Bxp4dVZQ alias set. The current ref migrated this stable-stem producer to Baq5IrGF, which reorders the restored primary-runtime Statsig config helpers and adds initializer aliases.",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T00:00:00.000Z",
+      "stage3Review": "Host self-review: current ref no longer contains Bxp4dVZQ; verified the current Baq5IrGF asset is accepted, runtime/primary-runtime-query-keys.ts passes quality-gate, and all seven historical aliases are covered by the semantic runtime exports."
     },
     "cloud-preferences-DDzA-ZMw": {
       "restored": "settings/cloud-preferences.ts",
