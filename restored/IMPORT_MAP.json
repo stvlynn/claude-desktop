@@ -41765,6 +41765,20 @@
       "stage3AcceptedAt": "2026-06-30T22:05:41.902Z",
       "stage3Review": "Host self-review: re-derived the current export table from auto-renamed.js, verified backing bundle import rewrites against IMPORT_MAP dependencies, and passed quality-gate --vendored on the backing bundle plus quality-gate --check-format on the compatibility runtime.",
       "stage3Note": "Accepted as a current-ref compatibility export surface over a restored-dependency backing bundle; full semantic splitting of the large Popcorn electron surface implementation remains a later cleanup."
+    },
+    "PopcornElectronDocumentPanel-BJYIlWEb": {
+      "restored": "runtime/current-app-initial/popcorn-electron-document-panel-current-runtime.ts",
+      "exports": {
+        "PopcornElectronDocumentPanel": "PopcornElectronDocumentPanel"
+      },
+      "status": "done",
+      "note": "Current PopcornElectronDocumentPanel hash maps to a dedicated current-ref runtime over vendor/popcorn-electron-document-panel-current-bundle.tsx; the single semantic export is re-derived from the current file.",
+      "lastUpdated": "2026-06-30T22:10:15.915Z",
+      "migratedFrom": "PopcornElectronDocumentPanel-LEVj37uj",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T22:10:15.915Z",
+      "stage3Review": "Host self-review: verified the current file still exports PopcornElectronDocumentPanel, rewrote all current dependency imports through restored/IMPORT_MAP.json, and passed quality gates on the backing bundle and runtime.",
+      "stage3Note": "Accepted as a current-ref compatibility export over a restored-dependency backing bundle; full semantic split of the large document panel remains a later cleanup."
     }
   }
 }
