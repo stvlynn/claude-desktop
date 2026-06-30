@@ -1,4 +1,5 @@
 // Restored from ref/webview/assets/worktree-environment-dropdown-CLHJ2WYr.js
+// Updated with exports from ref/webview/assets/worktree-environment-dropdown-BwnkHMlh.js.
 // Worktree local-environment selector dropdown for the composer footer.
 
 import React, { type ReactNode } from "react";

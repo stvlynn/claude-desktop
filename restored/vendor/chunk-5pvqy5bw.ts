@@ -1,4 +1,5 @@
 // Restored from ref/webview/assets/chunk-5PVQY5BW-CsieDbRK.js
+// Updated with exports from ref/webview/assets/chunk-5PVQY5BW-MckrTAit.js.
 // Chunk5PVQY5BW chunk restored from the Codex webview bundle.
 import { baseForR } from "./lodash-base-for";
 import { Src } from "./roughjs-geometry";

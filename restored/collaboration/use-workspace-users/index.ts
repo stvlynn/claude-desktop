@@ -1,5 +1,6 @@
 // Restored from ref/webview/assets/use-workspace-users-D5OfJQX1.js
 // Also matches ref/webview/assets/use-workspace-users-BuMotENr.js.
+// Updated with exports from ref/webview/assets/use-workspace-users-CmiCK9G8.js.
 import { once } from "../../runtime/commonjs-interop";
 import {
   WorkspaceAccessDropdown,

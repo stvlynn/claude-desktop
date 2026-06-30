@@ -34314,6 +34314,30 @@
       "note": "Current onboarding-plugin-suggestions aliases were re-derived from onboarding-plugin-suggestions-CPl54WAy.js; init thunks are no-ops because the split semantic modules initialize data at import time.",
       "status": "done",
       "lastUpdated": "2026-06-30T00:00:00.000Z"
+    },
+    "use-workspace-users-CmiCK9G8": {
+      "restored": "collaboration/use-workspace-users/index.ts",
+      "exports": {
+        "a": "initShareTargetRowChunk",
+        "c": "filterAvailableWorkspaceUsers",
+        "d": "initWorkspaceUserQueryHelpersChunk",
+        "f": "ShareDialogPrimaryActions",
+        "h": "initWorkspaceAccessSelectChunk",
+        "i": "ShareTargetRow",
+        "l": "workspaceUserToShareTargetOption",
+        "m": "WorkspaceAccessSelect",
+        "n": "useWorkspaceGroupsQuery",
+        "o": "WorkspaceAccessDropdown",
+        "p": "initShareDialogPrimaryActionsChunk",
+        "r": "useWorkspaceUsersQuery",
+        "s": "initWorkspaceAccessDropdownChunk",
+        "t": "initWorkspaceUserQueriesChunk",
+        "u": "getWorkspaceUserDisplayName"
+      },
+      "aliasOf": "use-workspace-users-D5OfJQX1",
+      "note": "Current use-workspace-users aliases were re-derived from use-workspace-users-CmiCK9G8.js and preserve the split workspace sharing helper surface.",
+      "status": "done",
+      "lastUpdated": "2026-06-30T00:00:00.000Z"
     }
   }
 }

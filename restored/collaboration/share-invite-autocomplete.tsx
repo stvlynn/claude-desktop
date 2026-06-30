@@ -1,4 +1,5 @@
 // Restored from ref/webview/assets/share-invite-autocomplete-C1_VemDe.js
+// Updated with exports from ref/webview/assets/share-invite-autocomplete-Bqz_EmsG.js.
 // Shared multi-select autocomplete used by invite and reviewer search flows.
 import type {
   ComponentType,

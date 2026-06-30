@@ -1,5 +1,6 @@
 // Restored from ref/webview/assets/custom-avatars-query-Bodwj3U-.js
 // Also matches ref/webview/assets/custom-avatars-query-tr8cLFBL.js.
+// Updated with exports from ref/webview/assets/app-initial~app-main~pet-install-modal-host~avatar-overlay-page~avatar-overlay-native-page~~s9e72i2g-DsW4BsRC.js.
 import {
   _appScopeM as createQuerySignal,
   _appScopeO as useAppScope,

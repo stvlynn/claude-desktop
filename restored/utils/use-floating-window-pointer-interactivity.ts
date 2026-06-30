@@ -1,4 +1,5 @@
 // Restored from ref/webview/assets/use-floating-window-pointer-interactivity-E5PfEveH.js
+// Updated with exports from ref/webview/assets/use-floating-window-pointer-interactivity-JdCkcjJn.js.
 import React from "react";
 import type { RefObject } from "react";
 type Point = {
