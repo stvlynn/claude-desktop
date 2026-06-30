@@ -1,5 +1,6 @@
-// Restored from ref/webview/assets/chunk-55IACEB6-W9i3ByIr.js
-// Chunk55IACEB6 chunk restored from the Codex webview bundle.
+// Restored from ref/webview/assets/chunk-55IACEB6-C7TKde_g.js
+// Also covers current ref asset ref/webview/assets/chunk-55IACEB6-W9i3ByIr.js.
+// Vendored Mermaid diagram element lookup helper restored from the Codex webview bundle.
 import { Src } from "./roughjs-geometry";
 import { chunkAGHRB4JFN } from "./dayjs-core-alt";
 

@@ -1,5 +1,5 @@
 // Restored from ref/webview/assets/document-Cpom6Lb8.js
-// Document protobuf runtime restored from the Codex webview bundle.
+// Vendored document protobuf runtime restored from the Codex webview bundle.
 import { once as rolldownRuntimeN } from "../runtime/commonjs-interop";
 import {
   presentationDollar,

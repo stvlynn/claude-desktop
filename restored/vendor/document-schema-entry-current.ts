@@ -1,5 +1,5 @@
 // Restored from ref/webview/assets/document-BYhvo62S.js
-// Document schema barrel restored from the Codex webview bundle.
+// Vendored document schema barrel restored from the Codex webview bundle.
 import {
   documentC as documentSectionBreakType,
   _documentS as documentPlayground,

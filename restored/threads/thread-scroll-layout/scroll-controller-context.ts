@@ -1,5 +1,5 @@
 // Restored from ref/webview/assets/thread-scroll-controller-context-value-C-Inw11x.js
-// thread-scroll-controller-context-value-7UJOrKol chunk restored from the Codex webview bundle.
+// Thread scroll controller context restored from the current Codex webview bundle.
 import React from "react";
 export type ScrollDistanceListener = (distanceFromBottomPx: number) => void;
 export type UserScrollListener = (

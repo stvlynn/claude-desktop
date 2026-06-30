@@ -1,5 +1,5 @@
 // Restored from ref/webview/assets/chunk-LHMN2FUI-IYfQ4Xix.js
-// ChunkLHMN2FUI chunk restored from the Codex webview bundle.
+// Vendored Mermaid radar diagram service module restored from the Codex webview bundle.
 import {
   chunkFPAJGGOCF,
   chunkFPAJGGOCG,
@@ -23,10 +23,7 @@ class RadarTokenBuilder extends chunkFPAJGGOCT {
 
 const radarServiceModule = {
   parser: {
-    TokenBuilder: chunkFPAJGGOCF(
-      () => new RadarTokenBuilder(),
-      "TokenBuilder",
-    ),
+    TokenBuilder: chunkFPAJGGOCF(() => new RadarTokenBuilder(), "TokenBuilder"),
     ValueConverter: chunkFPAJGGOCF(
       () => new chunkFPAJGGOCI(),
       "ValueConverter",
@@ -40,12 +37,12 @@ function createRadarServices(parserConfig = chunkFPAJGGOCP) {
     chunkFPAJGGOCS,
   );
   const radarServices = chunkFPAJGGOCM(
-      chunkFPAJGGOCH({
-        shared: sharedServices,
-      }),
-      chunkFPAJGGOCU,
-      radarServiceModule,
-    );
+    chunkFPAJGGOCH({
+      shared: sharedServices,
+    }),
+    chunkFPAJGGOCU,
+    radarServiceModule,
+  );
   sharedServices.ServiceRegistry.register(radarServices);
 
   return {

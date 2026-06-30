@@ -24,8 +24,7 @@ var ArchitectureTokenBuilder = class extends chunkFPAJGGOCT {
       chunkFPAJGGOCF(this, "ArchitectureValueConverter");
     }
     runCustomConverter(token, text, context) {
-      if (token.name === "ARCH_ICON")
-        return text.replace(/[()]/g, "").trim();
+      if (token.name === "ARCH_ICON") return text.replace(/[()]/g, "").trim();
       if (token.name === "ARCH_TEXT_ICON") return text.replace(/["()]/g, "");
       if (token.name === "ARCH_TITLE") return text.replace(/[[\]]/g, "").trim();
     }

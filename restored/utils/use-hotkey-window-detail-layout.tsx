@@ -1,4 +1,5 @@
 // Restored from ref/webview/assets/use-hotkey-window-detail-layout-D-pNZzEr.js
+// Hotkey window detail layout context restored from the current Codex webview bundle.
 
 import { createContext, useContext, useLayoutEffect } from "react";
 export function initHotkeyWindowDetailLayoutChunk(): void {}

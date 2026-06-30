@@ -1,4 +1,5 @@
 // Restored from ref/webview/assets/use-avatar-options-CMZnWjwp.js
+// Avatar option hook restored from the current Codex webview bundle.
 import { _appScopeS as useSignalValue } from "../boundaries/app-scope";
 import { once } from "../runtime/commonjs-interop";
 import {

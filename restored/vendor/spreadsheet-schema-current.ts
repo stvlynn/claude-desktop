@@ -1,5 +1,5 @@
 // Restored from ref/webview/assets/spreadsheet-BCjxhEJV.js
-// Spreadsheet protobuf runtime restored from the Codex webview bundle.
+// Vendored spreadsheet protobuf runtime restored from the Codex webview bundle.
 import { once as rolldownRuntimeN } from "../runtime/commonjs-interop";
 import {
   presentationN,

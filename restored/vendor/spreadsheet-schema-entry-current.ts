@@ -1,5 +1,5 @@
 // Restored from ref/webview/assets/spreadsheet-ucaqLXNB.js
-// Spreadsheet schema barrel restored from the Codex webview bundle.
+// Vendored spreadsheet schema barrel restored from the Codex webview bundle.
 import {
   spreadsheetDollar as spreadsheetFieldSort,
   _spreadsheetT as spreadsheetSparklineGroup,

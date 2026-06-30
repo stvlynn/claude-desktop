@@ -1,5 +1,5 @@
 // Restored from ref/webview/assets/chunk-S6J4BHB3-Dk5nTTZ4.js
-// ChunkS6J4BHB3 chunk restored from the Codex webview bundle.
+// Vendored Mermaid git graph service module restored from the Codex webview bundle.
 import {
   chunkFPAJGGOCA,
   chunkFPAJGGOCF,
@@ -40,12 +40,12 @@ function createGitGraphServices(parserConfig = chunkFPAJGGOCP) {
     chunkFPAJGGOCS,
   );
   const gitGraphServices = chunkFPAJGGOCM(
-      chunkFPAJGGOCH({
-        shared: sharedServices,
-      }),
-      chunkFPAJGGOCA,
-      gitGraphServiceModule,
-    );
+    chunkFPAJGGOCH({
+      shared: sharedServices,
+    }),
+    chunkFPAJGGOCA,
+    gitGraphServiceModule,
+  );
   sharedServices.ServiceRegistry.register(gitGraphServices);
 
   return {

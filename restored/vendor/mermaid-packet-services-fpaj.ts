@@ -1,5 +1,5 @@
 // Restored from ref/webview/assets/chunk-76Q3JFCE-CQZKJ6cQ.js
-// Chunk76Q3JFCE chunk restored from the Codex webview bundle.
+// Vendored Mermaid packet diagram service module restored from the Codex webview bundle.
 import {
   chunkFPAJGGOCC,
   chunkFPAJGGOCF,
@@ -40,12 +40,12 @@ function createPacketServices(parserConfig = chunkFPAJGGOCP) {
     chunkFPAJGGOCS,
   );
   const packetServices = chunkFPAJGGOCM(
-      chunkFPAJGGOCH({
-        shared: sharedServices,
-      }),
-      chunkFPAJGGOCC,
-      packetServiceModule,
-    );
+    chunkFPAJGGOCH({
+      shared: sharedServices,
+    }),
+    chunkFPAJGGOCC,
+    packetServiceModule,
+  );
   sharedServices.ServiceRegistry.register(packetServices);
 
   return {

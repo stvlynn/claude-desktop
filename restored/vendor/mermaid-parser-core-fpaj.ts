@@ -1,5 +1,5 @@
 // Restored from ref/webview/assets/mermaid-parser.core-C7uxoPQv.js
-// MermaidParserCore chunk restored from the Codex webview bundle.
+// Vendored Mermaid parser core restored from the Codex webview bundle.
 const __vite__mapDeps = (
   _MermaidParserCore,
   mermaidParserCoreParam1 = __vite__mapDeps,

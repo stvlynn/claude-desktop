@@ -19,8 +19,7 @@ var TreemapTokenBuilder = class extends chunkFPAJGGOCT {
       super(["treemap"]);
     }
   },
-  classDefStatementPattern =
-    /classDef\s+([A-Z_a-z]\w+)(?:\s+([^\n\r;]*))?;?/,
+  classDefStatementPattern = /classDef\s+([A-Z_a-z]\w+)(?:\s+([^\n\r;]*))?;?/,
   TreemapValueConverter = class extends chunkFPAJGGOCN {
     static {
       chunkFPAJGGOCF(this, "TreemapValueConverter");

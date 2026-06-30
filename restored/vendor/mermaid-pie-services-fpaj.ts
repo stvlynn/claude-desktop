@@ -30,10 +30,7 @@ var PieTokenBuilder = class extends chunkFPAJGGOCT {
   },
   pieServiceModule = {
     parser: {
-      TokenBuilder: chunkFPAJGGOCF(
-        () => new PieTokenBuilder(),
-        "TokenBuilder",
-      ),
+      TokenBuilder: chunkFPAJGGOCF(() => new PieTokenBuilder(), "TokenBuilder"),
       ValueConverter: chunkFPAJGGOCF(
         () => new PieValueConverter(),
         "ValueConverter",

@@ -1,5 +1,5 @@
 // Restored from ref/webview/assets/chunk-LBM3YZW2-C3vrLyXI.js
-// ChunkLBM3YZW2 chunk restored from the Codex webview bundle.
+// Vendored Mermaid info diagram service module restored from the Codex webview bundle.
 import {
   chunkFPAJGGOCF,
   chunkFPAJGGOCG,
@@ -23,10 +23,7 @@ class InfoTokenBuilder extends chunkFPAJGGOCT {
 
 const infoServiceModule = {
   parser: {
-    TokenBuilder: chunkFPAJGGOCF(
-      () => new InfoTokenBuilder(),
-      "TokenBuilder",
-    ),
+    TokenBuilder: chunkFPAJGGOCF(() => new InfoTokenBuilder(), "TokenBuilder"),
     ValueConverter: chunkFPAJGGOCF(
       () => new chunkFPAJGGOCI(),
       "ValueConverter",
@@ -40,12 +37,12 @@ function createInfoServices(parserConfig = chunkFPAJGGOCP) {
     chunkFPAJGGOCS,
   );
   const infoServices = chunkFPAJGGOCM(
-      chunkFPAJGGOCH({
-        shared: sharedServices,
-      }),
-      chunkFPAJGGOCO,
-      infoServiceModule,
-    );
+    chunkFPAJGGOCH({
+      shared: sharedServices,
+    }),
+    chunkFPAJGGOCO,
+    infoServiceModule,
+  );
   sharedServices.ServiceRegistry.register(infoServices);
 
   return {

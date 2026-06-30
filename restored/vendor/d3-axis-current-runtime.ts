@@ -1,5 +1,5 @@
 // Restored from ref/webview/assets/src-CTe_6Jg1.js
-// Current D3 axis/selection runtime restored from the Codex webview bundle.
+// Vendored current D3 axis/selection runtime restored from the Codex webview bundle.
 import { once as rolldownRuntimeN } from "../runtime/commonjs-interop";
 import {
   initD3ScaleSequentialRuntime as appInitialAppMainOnboardingPageMermaidDiagramXychartDiagramPRI3JC2RTimelineDefinDcen2xtyB,

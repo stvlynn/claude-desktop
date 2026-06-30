@@ -1,5 +1,5 @@
 // Restored from ref/webview/assets/use-ascii-engine-BJ-AIEdX.js
-// use-ascii-engine-BJ-AIEdX chunk restored from the Codex webview bundle.
+// Current-ref ASCII engine compatibility exports restored from the Codex webview bundle.
 import { AsciiCanvas } from "./canvas";
 import { useAsciiEngine } from "./engine";
 

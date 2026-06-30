@@ -6153,9 +6153,11 @@
       },
       "status": "done",
       "aliasOf": "dagre-DgCFaaOE",
-      "lastUpdated": "2026-06-30T00:00:00.000-05:00",
+      "lastUpdated": "2026-06-30T14:46:14.202Z",
       "note": "Current dagre layout hash re-derived from dagre-5oTtyBe6.js; alias t is the Rolldown lazy init thunk.",
-      "stage3Accepted": true
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T14:46:14.202Z",
+      "stage3Note": "Accepted as a current Dagre vendored runtime alias sharing the validated dagre module."
     },
     "dagre-BqhzN4_p": {
       "restored": "vendor/dagre.ts",
@@ -7410,7 +7412,10 @@
       "status": "done",
       "aliasOf": "use-hotkey-window-detail-layout-QBnCCIVd",
       "note": "Current ref hash keeps the restored hotkey window detail layout context surface.",
-      "lastUpdated": "2026-06-30T00:00:00.000Z"
+      "lastUpdated": "2026-06-30T14:46:14.202Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T14:46:14.202Z",
+      "stage3Note": "Accepted as a typed hotkey window detail layout context module with current chunk provenance."
     },
     "format-currency-CMEP8JPI": {
       "restored": "utils/format-currency.ts",
@@ -9522,9 +9527,11 @@
       },
       "status": "done",
       "aliasOf": "chunk-76Q3JFCE-Bhgg5xKY",
-      "lastUpdated": "2026-06-30T00:00:00.000-05:00",
+      "lastUpdated": "2026-06-30T14:46:14.202Z",
       "note": "Current Rolldown lazy-init variant maps the init alias to the restored eager ESM initializer compatibility export.",
-      "stage3Accepted": true
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T14:46:14.202Z",
+      "stage3Note": "Accepted as a vendored Mermaid packet diagram service module with current chunk provenance."
     },
     "chunk-FWNWRKHM-BHhZ1scK": {
       "restored": "vendor/mermaid-treemap-services-fpaj.ts",
@@ -9535,9 +9542,11 @@
       },
       "status": "done",
       "aliasOf": "chunk-FWNWRKHM-DRtw95ir",
-      "lastUpdated": "2026-06-30T00:00:00.000-05:00",
+      "lastUpdated": "2026-06-30T14:46:14.202Z",
       "note": "Current Rolldown lazy-init variant maps the init alias to the restored eager ESM initializer compatibility export.",
-      "stage3Accepted": true
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T14:46:14.202Z",
+      "stage3Note": "Accepted as a vendored Mermaid treemap diagram service module with current chunk provenance."
     },
     "chunk-LBM3YZW2-C3vrLyXI": {
       "restored": "vendor/mermaid-info-services-fpaj.ts",
@@ -9548,9 +9557,11 @@
       },
       "status": "done",
       "aliasOf": "chunk-LBM3YZW2-C9W8CgCb",
-      "lastUpdated": "2026-06-30T00:00:00.000-05:00",
+      "lastUpdated": "2026-06-30T14:46:14.202Z",
       "note": "Current Rolldown lazy-init variant maps the init alias to the restored eager ESM initializer compatibility export.",
-      "stage3Accepted": true
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T14:46:14.202Z",
+      "stage3Note": "Accepted as a vendored Mermaid info diagram service module with current chunk provenance."
     },
     "chunk-LHMN2FUI-IYfQ4Xix": {
       "restored": "vendor/mermaid-radar-services-fpaj.ts",
@@ -9561,9 +9572,11 @@
       },
       "status": "done",
       "aliasOf": "chunk-LHMN2FUI-BO1BbTL6",
-      "lastUpdated": "2026-06-30T00:00:00.000-05:00",
+      "lastUpdated": "2026-06-30T14:46:14.202Z",
       "note": "Current Rolldown lazy-init variant maps the init alias to the restored eager ESM initializer compatibility export.",
-      "stage3Accepted": true
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T14:46:14.202Z",
+      "stage3Note": "Accepted as a vendored Mermaid radar diagram service module with current chunk provenance."
     },
     "chunk-O7ZBX7Z2-YEixComM": {
       "restored": "vendor/mermaid-architecture-services-fpaj.ts",
@@ -9574,9 +9587,11 @@
       },
       "status": "done",
       "aliasOf": "chunk-O7ZBX7Z2-B9AHjHvq",
-      "lastUpdated": "2026-06-30T00:00:00.000-05:00",
+      "lastUpdated": "2026-06-30T14:46:14.202Z",
       "note": "Current Rolldown lazy-init variant maps the init alias to the restored eager ESM initializer compatibility export.",
-      "stage3Accepted": true
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T14:46:14.202Z",
+      "stage3Note": "Accepted as a vendored Mermaid architecture diagram service module with current chunk provenance."
     },
     "chunk-S6J4BHB3-Dk5nTTZ4": {
       "restored": "vendor/mermaid-git-graph-services-fpaj.ts",
@@ -9587,9 +9602,11 @@
       },
       "status": "done",
       "aliasOf": "chunk-S6J4BHB3-BiRR_8vz",
-      "lastUpdated": "2026-06-30T00:00:00.000-05:00",
+      "lastUpdated": "2026-06-30T14:46:14.202Z",
       "note": "Current Rolldown lazy-init variant maps the init alias to the restored eager ESM initializer compatibility export.",
-      "stage3Accepted": true
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T14:46:14.202Z",
+      "stage3Note": "Accepted as a vendored Mermaid git graph service module with current chunk provenance."
     },
     "chunk-T53DSG4Q-m0Nw3lHx": {
       "restored": "vendor/mermaid-pie-services-fpaj.ts",
@@ -9600,9 +9617,11 @@
       },
       "status": "done",
       "aliasOf": "chunk-T53DSG4Q-DwpHe3Zz",
-      "lastUpdated": "2026-06-30T00:00:00.000-05:00",
+      "lastUpdated": "2026-06-30T14:46:14.202Z",
       "note": "Current Rolldown lazy-init variant maps the init alias to the restored eager ESM initializer compatibility export.",
-      "stage3Accepted": true
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T14:46:14.202Z",
+      "stage3Note": "Accepted as a vendored Mermaid pie diagram service module with current chunk provenance."
     },
     "architecture-YZFGNWBL-hfWpxWZF": {
       "restored": "vendor/mermaid-architecture-definition-k5.ts",
@@ -9856,7 +9875,10 @@
       "aliasOf": "mermaid-parser.core-Cloq2txW",
       "note": "Current Mermaid parser core aliases were re-derived from mermaid-parser.core-C7uxoPQv.js: n=parse, t=lazy init thunk. This FPaj parser set omits Wardley and keeps the older compact parse error messages.",
       "status": "done",
-      "lastUpdated": "2026-06-30T00:00:00.000Z"
+      "lastUpdated": "2026-06-30T14:49:24.481Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T14:49:24.481Z",
+      "stage3Note": "Accepted as a vendored Mermaid parser core module with current chunk provenance and validated parse/init aliases."
     },
     "architectureDiagram-Q4EWVU46-C9aYmC2s": {
       "restored": "vendor/mermaid-architecture-diagram-k5.ts",
@@ -16306,8 +16328,11 @@
       },
       "status": "done",
       "aliasOf": "play-outline-DCaifa0x",
-      "lastUpdated": "2026-06-30T00:00:00.000Z",
-      "note": "Current ref hash keeps the restored play-outline icon and initializer surface."
+      "lastUpdated": "2026-06-30T14:46:14.202Z",
+      "note": "Current ref hash keeps the restored play-outline icon and initializer surface.",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T14:46:14.202Z",
+      "stage3Note": "Accepted as a typed play-outline icon module with current chunk provenance."
     },
     "filter-BUOx0Gs-": {
       "restored": "icons/filter-icon.tsx",
@@ -16456,8 +16481,11 @@
       },
       "status": "done",
       "aliasOf": "plus-sm-CZTYJkzM",
-      "lastUpdated": "2026-06-30T00:00:00.000Z",
-      "note": "Current ref hash keeps the restored plus-sm icon and initializer surface."
+      "lastUpdated": "2026-06-30T14:46:14.202Z",
+      "note": "Current ref hash keeps the restored plus-sm icon and initializer surface.",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T14:46:14.202Z",
+      "stage3Note": "Accepted as a typed plus-small icon module with current chunk provenance."
     },
     "custom-avatars-query-Bodwj3U-": {
       "restored": "features/custom-avatars-query.ts",
@@ -16526,8 +16554,11 @@
       },
       "status": "done",
       "aliasOf": "use-avatar-options-B31DUULL",
-      "lastUpdated": "2026-06-30T00:00:00.000Z",
-      "note": "Current ref hash keeps the restored avatar options hook and initializer surface."
+      "lastUpdated": "2026-06-30T14:46:14.202Z",
+      "note": "Current ref hash keeps the restored avatar options hook and initializer surface.",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T14:46:14.202Z",
+      "stage3Note": "Accepted as a typed avatar option hook with current chunk provenance."
     },
     "plan-pricing-BL-ew2t5": {
       "restored": "utils/plan-pricing.ts",
@@ -20807,8 +20838,10 @@
       "status": "done",
       "aliasOf": "presentation-cLF4o2PZ",
       "note": "Current presentation schema barrel re-derived from presentation-bl5PeYuJ.js and adds embedded font schema exports.",
-      "lastUpdated": "2026-06-30T00:00:00.000-05:00",
-      "stage3Accepted": true
+      "lastUpdated": "2026-06-30T14:46:14.202Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T14:46:14.202Z",
+      "stage3Note": "Accepted as a vendored presentation schema barrel with current chunk provenance and validated exports."
     },
     "middleware-CcPovR3s": {
       "restored": "vendor/segment-middleware.ts",
@@ -22062,8 +22095,11 @@
       },
       "status": "done",
       "aliasOf": "open-in-targets-query-B1vT8sW1",
-      "lastUpdated": "2026-06-30T00:00:00.000Z",
-      "note": "Current ref hash keeps the restored open-in-targets query and initializer surface."
+      "lastUpdated": "2026-06-30T14:46:14.202Z",
+      "note": "Current ref hash keeps the restored open-in-targets query and initializer surface.",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T14:46:14.202Z",
+      "stage3Note": "Accepted as a typed open-in-targets query helper with current chunk provenance."
     },
     "ordinal-BBV4AAIZ": {
       "restored": "utils/ordinal.ts",
@@ -23372,9 +23408,11 @@
       },
       "status": "done",
       "aliasOf": "pie-7BOR55EZ-Cel_tNJ1",
-      "lastUpdated": "2026-06-30T00:00:00.000-05:00",
+      "lastUpdated": "2026-06-30T14:48:15.733Z",
       "note": "Current Mermaid vendor wrapper preserves the restored public export surface.",
-      "stage3Accepted": true
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T14:48:15.733Z",
+      "stage3Note": "Accepted as a vendored Mermaid pie definition wrapper with current chunk provenance."
     },
     "pie-ZZUOXDRM-D2Nd63AV": {
       "restored": "vendor/mermaid-pie-definition-k5.ts",
@@ -23393,9 +23431,11 @@
       },
       "status": "done",
       "aliasOf": "info-NVLQJR56-CJGElsQG",
-      "lastUpdated": "2026-06-30T00:00:00.000-05:00",
+      "lastUpdated": "2026-06-30T14:48:15.733Z",
       "note": "Current Mermaid vendor wrapper preserves the restored public export surface.",
-      "stage3Accepted": true
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T14:48:15.733Z",
+      "stage3Note": "Accepted as a vendored Mermaid info definition wrapper with current chunk provenance."
     },
     "info-OMHHGYJF-BlIPdxLi": {
       "restored": "vendor/mermaid-info-definition-k5.ts",
@@ -23424,9 +23464,11 @@
       },
       "status": "done",
       "aliasOf": "radar-NHE76QYJ-8GggBqpZ",
-      "lastUpdated": "2026-06-30T00:00:00.000-05:00",
+      "lastUpdated": "2026-06-30T14:48:15.733Z",
       "note": "Current Mermaid vendor wrapper preserves the restored public export surface.",
-      "stage3Accepted": true
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T14:48:15.733Z",
+      "stage3Note": "Accepted as a vendored Mermaid radar definition wrapper with current chunk provenance."
     },
     "radar-PYXPWWZC-DPmomhRG": {
       "restored": "vendor/mermaid-radar-definition-k5.ts",
@@ -23455,9 +23497,11 @@
       },
       "status": "done",
       "aliasOf": "treemap-KMMF4GRG-ByNQtOJN",
-      "lastUpdated": "2026-06-30T00:00:00.000-05:00",
+      "lastUpdated": "2026-06-30T14:48:15.733Z",
       "note": "Current Mermaid vendor wrapper preserves the restored public export surface.",
-      "stage3Accepted": true
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T14:48:15.733Z",
+      "stage3Note": "Accepted as a vendored Mermaid treemap definition wrapper with current chunk provenance."
     },
     "treemap-W4RFUUIX-Bv5PPBMl": {
       "restored": "vendor/mermaid-treemap-definition-k5.ts",
@@ -23506,9 +23550,11 @@
       },
       "status": "done",
       "aliasOf": "gitGraph-F6HP7TQM-8BKmskHr",
-      "lastUpdated": "2026-06-30T00:00:00.000-05:00",
+      "lastUpdated": "2026-06-30T14:48:15.733Z",
       "note": "Current Mermaid vendor wrapper preserves the restored public export surface.",
-      "stage3Accepted": true
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T14:48:15.733Z",
+      "stage3Note": "Accepted as a vendored Mermaid git graph definition wrapper with current chunk provenance."
     },
     "architecture-U656AL7Q-B0FT05yt": {
       "restored": "vendor/mermaid-architecture-definition-fpaj.ts",
@@ -23517,9 +23563,11 @@
       },
       "status": "done",
       "aliasOf": "architecture-U656AL7Q-Ccsrjk_f",
-      "lastUpdated": "2026-06-30T00:00:00.000-05:00",
+      "lastUpdated": "2026-06-30T14:48:15.733Z",
       "note": "Current Mermaid vendor wrapper preserves the restored public export surface.",
-      "stage3Accepted": true
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T14:48:15.733Z",
+      "stage3Note": "Accepted as a vendored Mermaid architecture definition wrapper with current chunk provenance."
     },
     "architecture-YZFGNWBL-CxyAFunf": {
       "restored": "vendor/mermaid-architecture-definition-k5.ts",
@@ -23571,9 +23619,11 @@
       },
       "status": "done",
       "aliasOf": "document-D7i1z3mE",
-      "lastUpdated": "2026-06-30T00:00:00.000-05:00",
+      "lastUpdated": "2026-06-30T14:49:24.481Z",
       "note": "Current document schema entry re-derived from document-BYhvo62S.js and points at the current document runtime export table.",
-      "stage3Accepted": true
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T14:49:24.481Z",
+      "stage3Note": "Accepted as a vendored document schema entry barrel with current chunk provenance and validated exports."
     },
     "pdf-CEc0zmuq": {
       "restored": "vendor/pdfjs-entry.ts",
@@ -23989,7 +24039,10 @@
       },
       "status": "done",
       "aliasOf": "thread-scroll-controller-context-value-Cl6S6mDJ",
-      "lastUpdated": "2026-06-30T00:00:00.000Z"
+      "lastUpdated": "2026-06-30T14:46:14.202Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T14:46:14.202Z",
+      "stage3Note": "Accepted as a typed thread scroll controller context module with current chunk provenance."
     },
     "thread-user-message-navigation-rail-DIEtpbgb": {
       "restored": "threads/thread-user-message-navigation-rail/index.tsx",
@@ -26955,8 +27008,9 @@
       "note": "Current ref icon chunk manually restored from JSX runtime output.",
       "stage3Accepted": true,
       "stage3AcceptedAt": "2026-06-29T20:20:00.000Z",
-      "lastUpdated": "2026-06-29T20:20:00.000Z",
-      "stage3Review": "Host self-review: quality-gate and prettier passed on the mapped public file; file read end-to-end against Stage 3 E1-E4."
+      "lastUpdated": "2026-06-30T14:46:14.202Z",
+      "stage3Review": "Host self-review: quality-gate and prettier passed on the mapped public file; file read end-to-end against Stage 3 E1-E4.",
+      "stage3Note": "Accepted as a typed current-ref appgen plug icon module."
     },
     "app-initial~app-main~worktree-init-v2-page~appgen-publication-terms-route~remote-conversati~miz7p5nt-CsT6xjQV": {
       "restored": "icons/cloud-terminal-icon.tsx",
@@ -26968,8 +27022,9 @@
       "note": "Current ref icon chunk manually restored from JSX runtime output.",
       "stage3Accepted": true,
       "stage3AcceptedAt": "2026-06-29T20:20:00.000Z",
-      "lastUpdated": "2026-06-29T20:20:00.000Z",
-      "stage3Review": "Host self-review: quality-gate and prettier passed on the mapped public file; file read end-to-end against Stage 3 E1-E4."
+      "lastUpdated": "2026-06-30T14:46:14.202Z",
+      "stage3Review": "Host self-review: quality-gate and prettier passed on the mapped public file; file read end-to-end against Stage 3 E1-E4.",
+      "stage3Note": "Accepted as a typed current-ref cloud terminal icon module."
     },
     "app-initial~app-main~worktree-init-v2-page~appgen-page~remote-conversation-page~pull-reques~nkffpfmw-D-g_ABJu": {
       "restored": "icons/edit-pencil-icon.tsx",
@@ -26981,8 +27036,9 @@
       "note": "Current ref icon chunk manually restored from JSX runtime output.",
       "stage3Accepted": true,
       "stage3AcceptedAt": "2026-06-29T20:20:00.000Z",
-      "lastUpdated": "2026-06-29T20:20:00.000Z",
-      "stage3Review": "Host self-review: quality-gate and prettier passed on the mapped public file; file read end-to-end against Stage 3 E1-E4."
+      "lastUpdated": "2026-06-30T14:46:14.202Z",
+      "stage3Review": "Host self-review: quality-gate and prettier passed on the mapped public file; file read end-to-end against Stage 3 E1-E4.",
+      "stage3Note": "Accepted as a typed current-ref edit-pencil icon module."
     },
     "app-initial~app-main~remote-conversation-page~projects-index-page~hotkey-window-thread-page~n4ikpxgm-MU61VBEm": {
       "restored": "icons/edit-square-icon.tsx",
@@ -26994,8 +27050,9 @@
       "note": "Current ref icon chunk manually restored from JSX runtime output.",
       "stage3Accepted": true,
       "stage3AcceptedAt": "2026-06-29T20:20:00.000Z",
-      "lastUpdated": "2026-06-29T20:20:00.000Z",
-      "stage3Review": "Host self-review: quality-gate and prettier passed on the mapped public file; file read end-to-end against Stage 3 E1-E4."
+      "lastUpdated": "2026-06-30T14:46:14.202Z",
+      "stage3Review": "Host self-review: quality-gate and prettier passed on the mapped public file; file read end-to-end against Stage 3 E1-E4.",
+      "stage3Note": "Accepted as a typed current-ref edit-square icon module."
     },
     "app-initial~app-main~remote-conversation-page~onboarding-page~hotkey-window-thread-page~bro~cpd0gmdw-wUhQKbLV": {
       "restored": "icons/browser-cursor-icon.tsx",
@@ -27007,8 +27064,9 @@
       "note": "Current ref icon chunk manually restored from JSX runtime output.",
       "stage3Accepted": true,
       "stage3AcceptedAt": "2026-06-29T20:20:00.000Z",
-      "lastUpdated": "2026-06-29T20:20:00.000Z",
-      "stage3Review": "Host self-review: quality-gate and prettier passed on the mapped public file; file read end-to-end against Stage 3 E1-E4."
+      "lastUpdated": "2026-06-30T14:46:14.202Z",
+      "stage3Review": "Host self-review: quality-gate and prettier passed on the mapped public file; file read end-to-end against Stage 3 E1-E4.",
+      "stage3Note": "Accepted as a typed current-ref browser cursor icon module."
     },
     "app-initial~app-main~remote-conversation-page~onboarding-page~settings-page~hotkey-window-t~hw2afr7f-DWOAvpOn": {
       "restored": "icons/browser-window-icon.tsx",
@@ -27020,8 +27078,9 @@
       "note": "Current ref icon chunk manually restored from JSX runtime output.",
       "stage3Accepted": true,
       "stage3AcceptedAt": "2026-06-29T20:20:00.000Z",
-      "lastUpdated": "2026-06-29T20:20:00.000Z",
-      "stage3Review": "Host self-review: quality-gate and prettier passed on the mapped public file; file read end-to-end against Stage 3 E1-E4."
+      "lastUpdated": "2026-06-30T14:46:14.202Z",
+      "stage3Review": "Host self-review: quality-gate and prettier passed on the mapped public file; file read end-to-end against Stage 3 E1-E4.",
+      "stage3Note": "Accepted as a typed current-ref browser window icon module."
     },
     "app-initial~app-main~remote-conversation-page~new-thread-panel-page~appgen-library-page~hot~mubih9a1-DOO64ycY": {
       "restored": "icons/shield-alert-icon.tsx",
@@ -27033,8 +27092,9 @@
       "note": "Current ref icon chunk manually restored from JSX runtime output.",
       "stage3Accepted": true,
       "stage3AcceptedAt": "2026-06-29T20:20:00.000Z",
-      "lastUpdated": "2026-06-29T20:20:00.000Z",
-      "stage3Review": "Host self-review: quality-gate and prettier passed on the mapped public file; file read end-to-end against Stage 3 E1-E4."
+      "lastUpdated": "2026-06-30T14:46:14.202Z",
+      "stage3Review": "Host self-review: quality-gate and prettier passed on the mapped public file; file read end-to-end against Stage 3 E1-E4.",
+      "stage3Note": "Accepted as a typed current-ref shield-alert icon module."
     },
     "app-initial~app-main~remote-conversation-page~new-thread-panel-page~settings-page~appgen-li~h99fup20-DznNRiiU": {
       "restored": "icons/usage-gauge-icon.tsx",
@@ -27046,8 +27106,9 @@
       "note": "Current ref icon chunk manually restored from JSX runtime output.",
       "stage3Accepted": true,
       "stage3AcceptedAt": "2026-06-29T20:20:00.000Z",
-      "lastUpdated": "2026-06-29T20:20:00.000Z",
-      "stage3Review": "Host self-review: quality-gate and prettier passed on the mapped public file; file read end-to-end against Stage 3 E1-E4."
+      "lastUpdated": "2026-06-30T14:46:14.202Z",
+      "stage3Review": "Host self-review: quality-gate and prettier passed on the mapped public file; file read end-to-end against Stage 3 E1-E4.",
+      "stage3Note": "Accepted as a typed current-ref usage-gauge icon module."
     },
     "app-initial~app-main~worktree-init-v2-page~remote-conversation-page~new-thread-panel-page~o~kg2pu5rs-N3llppXI": {
       "restored": "runtime/current-app-initial/worktree-new-thread-orchestrator-runtime.ts",
@@ -30687,7 +30748,8 @@
       "stage3Review": "Verified against the minified chunk: exports a/i/r are the settings, library, and analytics route constants; exports o/s build encoded analytics/settings project routes; export t is the 16px SitesIcon SVG; exports c/n initialize route constants and icon runtime respectively.",
       "stage3Accepted": true,
       "stage3AcceptedAt": "2026-06-29T21:04:00.000Z",
-      "lastUpdated": "2026-06-29T21:04:00.000Z"
+      "lastUpdated": "2026-06-30T14:46:14.202Z",
+      "stage3Note": "Accepted as a typed current-ref appgen site route/icon runtime module."
     },
     "app-initial~app-main~worktree-init-v2-page~remote-conversation-page~pull-requests-page~new-~o4ivuipr-BWGR4LZw": {
       "restored": "runtime/current-app-initial/appgen-access-query-runtime.ts",
@@ -32324,7 +32386,10 @@
       "aliasOf": "browser-BUZask3G",
       "note": "Current browser hash preserves the restored public export surface; aliases re-derived from browser-4rTfxlUZ.js.",
       "status": "done",
-      "lastUpdated": "2026-06-30T00:00:00.000Z"
+      "lastUpdated": "2026-06-30T14:46:14.202Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T14:46:14.202Z",
+      "stage3Note": "Accepted as a vendored dotLottie React runtime boundary with the current export surface validated."
     },
     "chunk-336JU56O-20NhwBl7": {
       "restored": "vendor/mermaid-layout-loader-k5.ts",
@@ -32921,7 +32986,10 @@
       "aliasOf": "cose-bilkent-S5V4N54A-BlVTOsyx",
       "note": "Current cose-bilkent-S5V4N54A hash preserves the restored public export surface; aliases re-derived from cose-bilkent-S5V4N54A-o3JY66ky.js.",
       "status": "done",
-      "lastUpdated": "2026-06-30T00:00:00.000Z"
+      "lastUpdated": "2026-06-30T14:48:15.733Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T14:48:15.733Z",
+      "stage3Note": "Accepted as a vendored Cytoscape cose-bilkent layout wrapper with current chunk provenance."
     },
     "cose-bilkent-S5V4N54A-yFxFJPDP": {
       "restored": "vendor/cose-bilkent-s5-v4-n54-a-bl-vt-osyx.ts",
@@ -34085,7 +34153,10 @@
       "aliasOf": "chunk-55IACEB6-DBIditYu",
       "note": "Current Mermaid getDiagramElement wrapper aliases were re-derived from chunk-55IACEB6-C7TKde_g.js: n=lazy init thunk, t=getDiagramElement.",
       "status": "done",
-      "lastUpdated": "2026-06-30T00:00:00.000Z"
+      "lastUpdated": "2026-06-30T14:48:15.733Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T14:48:15.733Z",
+      "stage3Note": "Accepted as a vendored Mermaid diagram element lookup helper with current chunk provenance."
     },
     "chunk-55IACEB6-W9i3ByIr": {
       "restored": "vendor/chunk-55-iaceb6.ts",
@@ -34096,7 +34167,10 @@
       "aliasOf": "chunk-55IACEB6-DBIditYu",
       "note": "Current Mermaid getDiagramElement wrapper aliases were re-derived from chunk-55IACEB6-W9i3ByIr.js: n=lazy init thunk, t=getDiagramElement.",
       "status": "done",
-      "lastUpdated": "2026-06-30T00:00:00.000Z"
+      "lastUpdated": "2026-06-30T14:48:15.733Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T14:48:15.733Z",
+      "stage3Note": "Accepted as a current alias of the vendored Mermaid diagram element lookup helper."
     },
     "chunk-QN33PNHL-nPLgaaqy": {
       "restored": "vendor/chunk-qn33-pnhl-dv-z-pb-bs-u.ts",
@@ -34118,7 +34192,10 @@
       "aliasOf": "mermaid-parser.core-CbP7P1Ck",
       "note": "Current Mermaid parser core aliases were re-derived from mermaid-parser.core-DurnYtle.js: n=parse, t=lazy init thunk. This hash includes Wardley parser support and detailed lexer/parser error messages.",
       "status": "done",
-      "lastUpdated": "2026-06-30T00:00:00.000Z"
+      "lastUpdated": "2026-06-30T14:46:14.202Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T14:46:14.202Z",
+      "stage3Note": "Accepted as a vendored Mermaid parser core module with current chunk provenance and validated parse/init aliases."
     },
     "_baseFor-B4uXGLdC": {
       "restored": "vendor/lodash-base-for.ts",
@@ -35220,9 +35297,11 @@
       },
       "status": "done",
       "aliasOf": "packet-BFZMPI3H-C976HVjn",
-      "lastUpdated": "2026-06-30T00:00:00.000-05:00",
+      "lastUpdated": "2026-06-30T14:48:15.733Z",
       "note": "Current Mermaid vendor wrapper preserves the restored public export surface.",
-      "stage3Accepted": true
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T14:48:15.733Z",
+      "stage3Note": "Accepted as a vendored Mermaid packet definition wrapper with current chunk provenance."
     },
     "presentation-7ERfmyO7": {
       "restored": "vendor/presentation-runtime-current.ts",
@@ -35553,7 +35632,9 @@
       "aliasOf": "spreadsheet-ByOidEXS",
       "note": "Current spreadsheet protobuf runtime re-derived from spreadsheet-BCjxhEJV.js. Alias map is rebuilt from the current export table because stable-stem aliases repacked from spreadsheet-ByOidEXS.",
       "stage3Accepted": true,
-      "lastUpdated": "2026-06-30T00:00:00.000-05:00"
+      "lastUpdated": "2026-06-30T14:46:14.202Z",
+      "stage3AcceptedAt": "2026-06-30T14:46:14.202Z",
+      "stage3Note": "Accepted as a vendored spreadsheet protobuf runtime with current chunk provenance and validated export aliases."
     },
     "document-Cpom6Lb8": {
       "restored": "vendor/document-schema-current.ts",
@@ -35588,7 +35669,9 @@
       "aliasOf": "document-BvkTVHtx",
       "note": "Current document protobuf runtime re-derived from document-Cpom6Lb8.js. Alias map is rebuilt from the current export table because stable-stem aliases repacked from document-BvkTVHtx.",
       "stage3Accepted": true,
-      "lastUpdated": "2026-06-30T00:00:00.000-05:00"
+      "lastUpdated": "2026-06-30T14:48:15.733Z",
+      "stage3AcceptedAt": "2026-06-30T14:48:15.733Z",
+      "stage3Note": "Accepted as a vendored document protobuf runtime with current chunk provenance and validated exports."
     },
     "spreadsheet-ucaqLXNB": {
       "restored": "vendor/spreadsheet-schema-entry-current.ts",
@@ -35722,7 +35805,9 @@
       "aliasOf": "spreadsheet-C5mWVSPz",
       "note": "Current spreadsheet schema entry re-derived from spreadsheet-ucaqLXNB.js and points at the current spreadsheet runtime export table.",
       "stage3Accepted": true,
-      "lastUpdated": "2026-06-30T00:00:00.000-05:00"
+      "lastUpdated": "2026-06-30T14:48:15.733Z",
+      "stage3AcceptedAt": "2026-06-30T14:48:15.733Z",
+      "stage3Note": "Accepted as a vendored spreadsheet schema entry barrel with current chunk provenance and validated exports."
     },
     "ayu-dark-C-RFidiT": {
       "restored": "vendor/shiki-themes.ts",
@@ -35912,7 +35997,9 @@
       "vendor": "d3-axis/d3-selection/d3-transition/d3-zoom",
       "note": "Current src chunk identified as a D3 axis, selection, transition, and zoom runtime; aliases were re-derived from src-CTe_6Jg1.js.",
       "stage3Accepted": true,
-      "lastUpdated": "2026-06-30T00:00:00.000-05:00"
+      "lastUpdated": "2026-06-30T14:46:14.202Z",
+      "stage3AcceptedAt": "2026-06-30T14:46:14.202Z",
+      "stage3Note": "Accepted as a vendored current D3 axis/selection runtime with current chunk provenance and validated exports."
     },
     "everforest-light-CUt11vS2": {
       "restored": "vendor/shiki-themes.ts",
@@ -36099,7 +36186,9 @@
       "aliasOf": "cose-bilkent-S5V4N54A-o3JY66ky",
       "note": "Current cose-bilkent-S5V4N54A hash preserves the restored public export surface; aliases were re-derived from cose-bilkent-S5V4N54A-DOa-Zu-d.js and current deps point at semantic D3/Cytoscape runtimes.",
       "stage3Accepted": true,
-      "lastUpdated": "2026-06-30T00:00:00.000-05:00"
+      "lastUpdated": "2026-06-30T14:48:15.733Z",
+      "stage3AcceptedAt": "2026-06-30T14:48:15.733Z",
+      "stage3Note": "Accepted as a current alias of the vendored Cytoscape cose-bilkent layout wrapper."
     },
     "andromeeda-Cj_0g_0i": {
       "restored": "vendor/shiki-themes.ts",
@@ -36406,9 +36495,11 @@
       },
       "status": "done",
       "aliasOf": "use-ascii-engine-rUFCM5yi",
-      "lastUpdated": "2026-06-30T00:00:00.000-05:00",
+      "lastUpdated": "2026-06-30T14:46:14.202Z",
       "note": "Current-ref alias table re-derived from use-ascii-engine-BJ-AIEdX.js; current build adds explicit init thunk aliases around the restored AsciiCanvas/useAsciiEngine API.",
-      "stage3Accepted": true
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T14:46:14.202Z",
+      "stage3Note": "Accepted as a current-ref ASCII engine compatibility export surface with typed public exports."
     },
     "horizon-bright-CBpEcfY3": {
       "restored": "vendor/shiki-themes.ts",
