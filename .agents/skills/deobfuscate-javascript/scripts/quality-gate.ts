@@ -691,6 +691,29 @@ function isBundlerInteropRuntimeModule(file: string, source: string): boolean {
   );
 }
 
+function isGeneratedSchemaRuntimeModule(file: string, source: string): boolean {
+  const normalized = file.replace(/\\/g, "/");
+  if (
+    !/(?:^|\/)vendor\/(?:document|spreadsheet)-schema(?:-[a-z0-9-]+)?\.ts$/i.test(
+      normalized,
+    ) &&
+    !/(?:^|\/)vendor\/presentation-runtime(?:-[a-z0-9-]+)?\.ts$/i.test(
+      normalized,
+    )
+  ) {
+    return false;
+  }
+
+  const header = source.slice(0, 700);
+  return (
+    hasRestorationProvenanceHeader(source) &&
+    /\bvendored\b/i.test(header) &&
+    /\b(?:protobuf runtime|schema runtime|schema barrel|presentation runtime)\b/i.test(
+      header,
+    )
+  );
+}
+
 function isVendoredDataModule(file: string, source: string): boolean {
   return (
     /(?:^|[/\\])grammars[/\\][^/\\]+\.ts$/i.test(file) ||
@@ -698,7 +721,8 @@ function isVendoredDataModule(file: string, source: string): boolean {
     isLocaleMessageDataModule(file, source) ||
     isHomeUseCasesDataModule(file, source) ||
     isLottieAnimationDataModule(file, source) ||
-    isBundlerInteropRuntimeModule(file, source)
+    isBundlerInteropRuntimeModule(file, source) ||
+    isGeneratedSchemaRuntimeModule(file, source)
   );
 }
 

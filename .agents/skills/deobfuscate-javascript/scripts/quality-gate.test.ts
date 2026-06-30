@@ -2021,6 +2021,37 @@ describe("vendored / facade relaxation", () => {
     );
     expect(codes(dataModule)).not.toContain("split-required");
   });
+
+  test("restored generated schema runtimes are auto-relaxed as vendored output", () => {
+    const schemaRuntime =
+      `// Restored from ref/webview/assets/document-Cpom6Lb8.js\n` +
+      `// Vendored document protobuf runtime restored from the Codex webview bundle.\n` +
+      `function documentHelper1(documentParam1) {\n` +
+      `  const documentValue1 = documentParam1.value;\n` +
+      `  return documentValue1;\n` +
+      `}\n` +
+      `export const documentA = documentHelper1;\n` +
+      `export const documentB = documentHelper1;\n` +
+      `export const documentC = documentHelper1;\n`;
+
+    const ordinary = analyzeSource(schemaRuntime, "widgets/document-schema.ts", {
+      ...DEFAULT_OPTIONS,
+      maxFlatLines: 5,
+    });
+    expect(codes(ordinary)).toContain("mechanical-names");
+    expect(codes(ordinary)).toContain("split-required");
+
+    const vendoredSchema = analyzeSource(
+      schemaRuntime,
+      "restored/vendor/document-schema-current.ts",
+      {
+        ...DEFAULT_OPTIONS,
+        maxFlatLines: 5,
+      },
+    );
+    expect(codes(vendoredSchema)).not.toContain("mechanical-names");
+    expect(codes(vendoredSchema)).not.toContain("split-required");
+  });
 });
 
 describe("kebab filename gate", () => {
