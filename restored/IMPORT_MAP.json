@@ -4142,7 +4142,11 @@
       "exports": {
         "t": "chunkQN33PNHL"
       },
-      "status": "done"
+      "status": "done",
+      "lastUpdated": "2026-06-30T21:58:00.000Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T21:58:00.000Z",
+      "stage3Review": "Host self-review: vendor/chunk-qn33-pnhl-dv-z-pb-bs-u.ts preserves the Mermaid setupViewPortForSVG helper, exports the recorded chunkQN33PNHL alias, and passes quality-gate --vendored."
     },
     "cose-bilkent-S5V4N54A-C42L7Iw8": {
       "restored": "vendor/cose-bilkent-s5-v4-n54-a.ts",
@@ -21965,8 +21969,11 @@
       },
       "status": "done",
       "aliasOf": "chunk-QN33PNHL-DvZPbBsU",
-      "lastUpdated": "2026-06-29T00:00:00.000Z",
-      "note": "Current vendor chunk keeps the restored public API and adds n internal export."
+      "lastUpdated": "2026-06-30T21:58:00.000Z",
+      "note": "Current vendor chunk keeps the restored public API and adds n internal export.",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T21:58:00.000Z",
+      "stage3Review": "Host self-review: current ref no longer contains chunk-QN33PNHL-AbzhC4my, but the current nPLgaaqy alias preserves its public viewport helper surface; vendor/chunk-qn33-pnhl-dv-z-pb-bs-u.ts exports chunkQN33PNHL and passes quality-gate --vendored."
     },
     "chunk-TZMSLE5B-DErk67ZI": {
       "restored": "vendor/chunk-tzmsle5b.ts",
