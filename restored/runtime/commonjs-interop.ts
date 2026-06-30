@@ -1,4 +1,4 @@
-// Restored from ref/webview/assets/chunk-Cq_f4orQ.js
+// Restored from ref/webview/assets/rolldown-runtime-Czos8NxU.js
 // Also matches ref/webview/assets/rolldown-runtime-Czos8NxU.js.
 // Rolldown CommonJS/ESM interop helpers restored from the Codex webview bundle.
 type AnyModule = Record<PropertyKey, any>;

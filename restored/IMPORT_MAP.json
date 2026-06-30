@@ -2947,6 +2947,17 @@
       },
       "status": "done"
     },
+    "chunk-CVBHYZKI-CCA47Th3": {
+      "restored": "vendor/mermaid-subgraph-title-margins.ts",
+      "exports": {
+        "n": "chunkCVBHYZKI",
+        "t": "initChunkCVBHYZKI"
+      },
+      "status": "done",
+      "aliasOf": "chunk-CVBHYZKI-D5c0MJ_k",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Rolldown lazy-init variant maps the init alias to the restored eager ESM initializer compatibility export."
+    },
     "middleware-BDgBoOJW": {
       "restored": "vendor/segment-middleware.ts",
       "exports": {
@@ -3820,6 +3831,17 @@
         "t": "chunkEXTU4WIE"
       },
       "status": "done"
+    },
+    "chunk-EXTU4WIE-_aHv87Z4": {
+      "restored": "vendor/chunk-extu4-wie.ts",
+      "exports": {
+        "n": "chunkEXTU4WIE",
+        "t": "initChunkEXTU4WIE"
+      },
+      "status": "done",
+      "aliasOf": "chunk-EXTU4WIE-DyDLNYc8",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Rolldown lazy-init variant maps the init alias to the restored eager ESM initializer compatibility export."
     },
     "quadrantDiagram-AYHSOK5B-WVcJzsPP": {
       "restored": "vendor/quadrant-diagram-ayhsok5-b-w-vc-jzs-pp.ts",
@@ -4962,6 +4984,47 @@
         "t": "chunkEDXVE4YY"
       },
       "status": "done"
+    },
+    "chunk-EDXVE4YY-C5jaZxVP": {
+      "restored": "vendor/chunk-edxve4yy.ts",
+      "exports": {
+        "t": "chunkEDXVE4YY"
+      },
+      "status": "done",
+      "aliasOf": "chunk-EDXVE4YY-Cs5mTzNz",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Mermaid viewport helper preserves the restored public export surface."
+    },
+    "chunk-EDXVE4YY-CqVtr0uy": {
+      "restored": "vendor/chunk-edxve4yy.ts",
+      "exports": {
+        "t": "chunkEDXVE4YY"
+      },
+      "status": "done",
+      "aliasOf": "chunk-EDXVE4YY-Cs5mTzNz",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Mermaid viewport helper preserves the restored public export surface."
+    },
+    "chunk-EDXVE4YY-mzmFTiuP": {
+      "restored": "vendor/chunk-edxve4yy.ts",
+      "exports": {
+        "t": "chunkEDXVE4YY"
+      },
+      "status": "done",
+      "aliasOf": "chunk-EDXVE4YY-Cs5mTzNz",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Mermaid viewport helper preserves the restored public export surface."
+    },
+    "chunk-EDXVE4YY-BWFoBgdE": {
+      "restored": "vendor/chunk-edxve4yy.ts",
+      "exports": {
+        "n": "chunkEDXVE4YY",
+        "t": "initChunkEDXVE4YY"
+      },
+      "status": "done",
+      "aliasOf": "chunk-EDXVE4YY-Cs5mTzNz",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Rolldown lazy-init variant maps the init alias to the restored eager ESM initializer compatibility export."
     },
     "chunk-YZCP3GAM-CkcPUeYE": {
       "restored": "vendor/chunk-yzcp3gam.ts",
@@ -28367,15 +28430,15 @@
     "app-BwRVouQs": {
       "restored": "app-shell/empty-app-initializer.ts",
       "exports": {
-        "t": "initEmptyAppChunk"
+        "t": "app"
       },
       "status": "done",
       "aliasOf": "app-K22tSs_z",
-      "note": "Current synced app bootstrap chunk is the same empty Rolldown initializer used by app-main-Dq9Zdi1c.",
+      "note": "Current app bootstrap chunk exports the Rolldown once(() => {}) initializer as app.",
       "lastUpdated": "2026-06-29T21:10:00.000Z",
       "stage3Accepted": true,
       "stage3AcceptedAt": "2026-06-29T21:10:00.000Z",
-      "stage3Review": "Host self-review: source is an empty Rolldown initializer and the semantic file is a typed no-op initializer."
+      "stage3Review": "Host self-review: source imports the current Rolldown once helper and exports a typed no-op app initializer matching alias t."
     },
     "app-main-Dq9Zdi1c": {
       "restored": "app-shell/app-main.tsx",

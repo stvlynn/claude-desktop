@@ -1,4 +1,4 @@
 // Restored from ref/webview/assets/app-BwRVouQs.js
-// Empty app bootstrap chunk retained for current app-main import-map consumers.
-
-export function initEmptyAppChunk(): void {}
+// App chunk restored from the Codex webview bundle.
+import { once } from "../runtime/commonjs-interop";
+export const app = once(() => {});
