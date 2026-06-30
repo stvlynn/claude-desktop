@@ -1,4 +1,5 @@
 // Restored from ref/webview/assets/use-debug-panel-Bp7WBTu3.js
+// Updated with exports from ref/webview/assets/use-debug-panel-CdyuStw9.js.
 // Debug panel source registry and local-conversation file summary helpers.
 import React from "react";
 import {

@@ -1,4 +1,5 @@
 // Restored from ref/webview/assets/cloud-preferences-DDzA-ZMw.js
+// Updated with exports from ref/webview/assets/cloud-preferences-B7VkZ8HI.js.
 
 import {
   _vscodeApiS as useVscodeMutation,
@@ -105,10 +106,12 @@ function replaceCloudPathPatternVariables(
   }
   return resolvedPattern;
 }
+function initCloudPreferencesChunk(): void {}
 export {
   useUpdateCloudUserPreferences,
   useCloudUserPreferences,
   validateCloudPathPattern,
   useCloudPreferencesConfig,
   renderCloudPathPatternExample,
+  initCloudPreferencesChunk,
 };

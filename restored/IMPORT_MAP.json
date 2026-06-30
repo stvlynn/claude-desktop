@@ -34161,6 +34161,62 @@
       "note": "Restored current searchable page layout with typed layout/search props and controls wrapper.",
       "stage3Accepted": true,
       "lastUpdated": "2026-06-30T00:00:00.000-05:00"
+    },
+    "plugin-detail-page-utils-DeDVCX5Q": {
+      "restored": "plugins/plugin-detail-page-utils/index.ts",
+      "exports": {
+        "a": "initPluginDetailPageUtilsChunk",
+        "i": "getLocalPluginInstallPath",
+        "n": "mergePluginAppsWithDirectoryMetadata",
+        "o": "isPluginMarketplaceManifestPath",
+        "r": "matchInstalledPluginSkills",
+        "t": "enrichAppTemplatesWithDirectoryApps"
+      },
+      "note": "Current plugin-detail-page-utils hash was restored from source and rewrites plugin metadata enrichment, local marketplace path detection, and skill matching helpers.",
+      "status": "done",
+      "lastUpdated": "2026-06-30T00:00:00.000Z"
+    },
+    "cloud-preferences-B7VkZ8HI": {
+      "restored": "settings/cloud-preferences.ts",
+      "exports": {
+        "a": "useCloudUserPreferences",
+        "i": "useCloudPreferencesConfig",
+        "n": "validateCloudPathPattern",
+        "o": "useUpdateCloudUserPreferences",
+        "r": "initCloudPreferencesChunk",
+        "t": "renderCloudPathPatternExample"
+      },
+      "aliasOf": "cloud-preferences-DDzA-ZMw",
+      "note": "Current cloud-preferences aliases were re-derived from cloud-preferences-B7VkZ8HI.js; the init thunk is a no-op in the semantic module.",
+      "status": "done",
+      "lastUpdated": "2026-06-30T00:00:00.000Z"
+    },
+    "selectable-list-row-Djcu-1mL": {
+      "restored": "ui/selectable-list-row.tsx",
+      "exports": {
+        "i": "getSelectableListRowButtonProps",
+        "n": "initSelectableListRowChunk",
+        "r": "initSelectableListRowButtonPropsChunk",
+        "t": "SelectableListRow"
+      },
+      "aliasOf": "selectable-list-row-CackmjJs",
+      "note": "Current selectable-list-row aliases were re-derived from selectable-list-row-Djcu-1mL.js and preserve the restored component surface.",
+      "status": "done",
+      "lastUpdated": "2026-06-30T00:00:00.000Z"
+    },
+    "onboarding-plugin-suggestions-CPl54WAy": {
+      "restored": "onboarding/onboarding-plugin-suggestions/index.ts",
+      "exports": {
+        "a": "initOnboardingWelcomePromptsChunk",
+        "i": "getOnboardingRolePromptSuggestions",
+        "n": "initOnboardingPluginSuggestionCardsChunk",
+        "r": "CONNECT_APPS_ROW_MESSAGE",
+        "t": "buildOnboardingPluginSuggestionCards"
+      },
+      "aliasOf": "onboarding-plugin-suggestions-DbMYi-zc",
+      "note": "Current onboarding-plugin-suggestions aliases were re-derived from onboarding-plugin-suggestions-CPl54WAy.js; init thunks are no-ops because the split semantic modules initialize data at import time.",
+      "status": "done",
+      "lastUpdated": "2026-06-30T00:00:00.000Z"
     }
   }
 }

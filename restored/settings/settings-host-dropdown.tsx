@@ -1,4 +1,5 @@
 // Restored from ref/webview/assets/settings-host-dropdown-BH50x2Qx.js
+// Updated with exports from ref/webview/assets/settings-host-dropdown-D9ctLTpF.js.
 // Host selector dropdown used by settings pages.
 import type { ComponentProps, ComponentType, ReactNode } from "react";
 import { FormattedMessage, useIntl } from "../vendor/react-intl";

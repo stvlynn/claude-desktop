@@ -1,5 +1,6 @@
 // Restored from ref/webview/assets/selectable-list-row-CackmjJs.js
 // Updated with exports from ref/webview/assets/selectable-list-row-Bm082MDr.js.
+// Updated with exports from ref/webview/assets/selectable-list-row-Djcu-1mL.js.
 import clsx from "clsx";
 import type {
   KeyboardEvent,
