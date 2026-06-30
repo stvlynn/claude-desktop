@@ -42559,6 +42559,21 @@
       "stage3AcceptedAt": "2026-06-30T23:08:42.578Z",
       "stage3Review": "Host self-review: parsed codex-mobile-page-CB-Xg-VQ.js exports, rebuilt the CodexMobilePage compatibility export from auto-renames.json, and rewrote dependency imports through restored/IMPORT_MAP.json with consumer rename aliases.",
       "stage3Note": "Accepted as a current-ref compatibility export over a restored-dependency backing bundle; full semantic split of the page remains future cleanup."
+    },
+    "debug-modal-B1KfgYMB": {
+      "restored": "runtime/current-app-initial/debug-modal-current-runtime.ts",
+      "exports": {
+        "n": "DebugPanel",
+        "r": "initDebugModalChunk",
+        "t": "DebugModal"
+      },
+      "status": "done",
+      "note": "Current debug modal hash maps to a dedicated current-ref runtime over vendor/debug-modal-current-bundle.tsx; aliases are re-derived from the current file and exposed as DebugPanel, initDebugModalChunk, and DebugModal.",
+      "lastUpdated": "2026-06-30T23:59:59.900Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T23:59:59.900Z",
+      "stage3Review": "Host self-review: parsed debug-modal-B1KfgYMB.js exports, identified r as the initializer, t as the modal/dialog component, and n as the debug panel surface; rewrote dependency imports through restored/IMPORT_MAP.json and passed quality gates on the backing bundle and runtime.",
+      "stage3Note": "Accepted as a current-ref compatibility export over a restored-dependency backing bundle; full semantic split of DebugModal remains future cleanup."
     }
   }
 }
