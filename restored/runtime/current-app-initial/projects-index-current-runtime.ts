@@ -1,0 +1,36 @@
+// Restored from ref/webview/assets/app-initial~app-main~remote-conversation-page~projects-index-page-px21igmO.js
+// Complete current-ref compatibility export surface for projectsIndexCurrent.
+// prettier-ignore
+export {
+  $ as projectsIndexCurrentCompatSlotDollar, $t as projectsIndexCurrentCompatSlotDollarLowerT, A as projectsIndexCurrentCompatSlotUpperA, At as projectsIndexCurrentCompatSlotUpperALowerT,
+  B as projectsIndexCurrentCompatSlotUpperB, Bt as projectsIndexCurrentCompatSlotUpperBLowerT, C as projectsIndexCurrentCompatSlotUpperC, Ct as projectsIndexCurrentCompatSlotUpperCLowerT,
+  D as projectsIndexCurrentCompatSlotUpperD, Dt as projectsIndexCurrentCompatSlotUpperDLowerT, E as projectsIndexCurrentCompatSlotUpperE, Et as projectsIndexCurrentCompatSlotUpperELowerT,
+  F as projectsIndexCurrentCompatSlotUpperF, Ft as projectsIndexCurrentCompatSlotUpperFLowerT, G as projectsIndexCurrentCompatSlotUpperG, Gt as projectsIndexCurrentCompatSlotUpperGLowerT,
+  H as projectsIndexCurrentCompatSlotUpperH, Ht as projectsIndexCurrentCompatSlotUpperHLowerT, I as projectsIndexCurrentCompatSlotUpperI, It as projectsIndexCurrentCompatSlotUpperILowerT,
+  J as projectsIndexCurrentCompatSlotUpperJ, Jt as projectsIndexCurrentCompatSlotUpperJLowerT, K as projectsIndexCurrentCompatSlotUpperK, Kt as projectsIndexCurrentCompatSlotUpperKLowerT,
+  L as projectsIndexCurrentCompatSlotUpperL, Lt as projectsIndexCurrentCompatSlotUpperLLowerT, M as projectsIndexCurrentCompatSlotUpperM, Mt as projectsIndexCurrentCompatSlotUpperMLowerT,
+  N as projectsIndexCurrentCompatSlotUpperN, Nt as projectsIndexCurrentCompatSlotUpperNLowerT, O as projectsIndexCurrentCompatSlotUpperO, Ot as projectsIndexCurrentCompatSlotUpperOLowerT,
+  P as projectsIndexCurrentCompatSlotUpperP, Pt as projectsIndexCurrentCompatSlotUpperPLowerT, Q as projectsIndexCurrentCompatSlotUpperQ, Qt as projectsIndexCurrentCompatSlotUpperQLowerT,
+  R as projectsIndexCurrentCompatSlotUpperR, Rt as projectsIndexCurrentCompatSlotUpperRLowerT, S as projectsIndexCurrentCompatSlotUpperS, St as projectsIndexCurrentCompatSlotUpperSLowerT,
+  T as projectsIndexCurrentCompatSlotUpperT, Tt as projectsIndexCurrentCompatSlotUpperTLowerT, U as projectsIndexCurrentCompatSlotUpperU, Ut as projectsIndexCurrentCompatSlotUpperULowerT,
+  V as projectsIndexCurrentCompatSlotUpperV, Vt as projectsIndexCurrentCompatSlotUpperVLowerT, W as projectsIndexCurrentCompatSlotUpperW, Wt as projectsIndexCurrentCompatSlotUpperWLowerT,
+  X as projectsIndexCurrentCompatSlotUpperX, Xt as projectsIndexCurrentCompatSlotUpperXLowerT, Y as projectsIndexCurrentCompatSlotUpperY, Yt as projectsIndexCurrentCompatSlotUpperYLowerT,
+  Z as projectsIndexCurrentCompatSlotUpperZ, Zt as projectsIndexCurrentCompatSlotUpperZLowerT, _ as projectsIndexCurrentCompatSlotUnderscore, _t as projectsIndexCurrentCompatSlotUnderscoreLowerT,
+  a as projectsIndexCurrentCompatSlotLowerA, an as projectsIndexCurrentCompatSlotLowerALowerN, at as projectsIndexCurrentCompatSlotLowerALowerT, b as projectsIndexCurrentCompatSlotLowerB,
+  bt as projectsIndexCurrentCompatSlotLowerBLowerT, c as projectsIndexCurrentCompatSlotLowerC, cn as projectsIndexCurrentCompatSlotLowerCLowerN, ct as projectsIndexCurrentCompatSlotLowerCLowerT,
+  d as projectsIndexCurrentCompatSlotLowerD, dn as projectsIndexCurrentCompatSlotLowerDLowerN, dt as projectsIndexCurrentCompatSlotLowerDLowerT, en as projectsIndexCurrentCompatSlotLowerELowerN,
+  et as projectsIndexCurrentCompatSlotLowerELowerT, f as projectsIndexCurrentCompatSlotLowerF, fn as projectsIndexCurrentCompatSlotLowerFLowerN, ft as projectsIndexCurrentCompatSlotLowerFLowerT,
+  g as projectsIndexCurrentCompatSlotLowerG, gt as projectsIndexCurrentCompatSlotLowerGLowerT, h as projectsIndexCurrentCompatSlotLowerH, ht as projectsIndexCurrentCompatSlotLowerHLowerT,
+  i as projectsIndexCurrentCompatSlotLowerI, in as projectsIndexCurrentCompatSlotLowerILowerN, it as projectsIndexCurrentCompatSlotLowerILowerT, j as projectsIndexCurrentCompatSlotLowerJ,
+  jt as projectsIndexCurrentCompatSlotLowerJLowerT, k as projectsIndexCurrentCompatSlotLowerK, kt as projectsIndexCurrentCompatSlotLowerKLowerT, l as projectsIndexCurrentCompatSlotLowerL,
+  ln as projectsIndexCurrentCompatSlotLowerLLowerN, lt as projectsIndexCurrentCompatSlotLowerLLowerT, m as projectsIndexCurrentCompatSlotLowerM, mt as projectsIndexCurrentCompatSlotLowerMLowerT,
+  n as projectsIndexCurrentCompatSlotLowerN, nn as projectsIndexCurrentCompatSlotLowerNLowerN, nt as projectsIndexCurrentCompatSlotLowerNLowerT, o as projectsIndexCurrentCompatSlotLowerO,
+  on as projectsIndexCurrentCompatSlotLowerOLowerN, ot as projectsIndexCurrentCompatSlotLowerOLowerT, p as projectsIndexCurrentCompatSlotLowerP, pn as projectsIndexCurrentCompatSlotLowerPLowerN,
+  pt as projectsIndexCurrentCompatSlotLowerPLowerT, q as projectsIndexCurrentCompatSlotLowerQ, qt as projectsIndexCurrentCompatSlotLowerQLowerT, r as projectsIndexCurrentCompatSlotLowerR,
+  rn as projectsIndexCurrentCompatSlotLowerRLowerN, rt as projectsIndexCurrentCompatSlotLowerRLowerT, s as projectsIndexCurrentCompatSlotLowerS, sn as projectsIndexCurrentCompatSlotLowerSLowerN,
+  st as projectsIndexCurrentCompatSlotLowerSLowerT, t as projectsIndexCurrentCompatSlotLowerT, tn as projectsIndexCurrentCompatSlotLowerTLowerN, tt as projectsIndexCurrentCompatSlotLowerTLowerT,
+  u as projectsIndexCurrentCompatSlotLowerU, un as projectsIndexCurrentCompatSlotLowerULowerN, ut as projectsIndexCurrentCompatSlotLowerULowerT, v as projectsIndexCurrentCompatSlotLowerV,
+  vt as projectsIndexCurrentCompatSlotLowerVLowerT, w as projectsIndexCurrentCompatSlotLowerW, wt as projectsIndexCurrentCompatSlotLowerWLowerT, x as projectsIndexCurrentCompatSlotLowerX,
+  xt as projectsIndexCurrentCompatSlotLowerXLowerT, y as projectsIndexCurrentCompatSlotLowerY, yt as projectsIndexCurrentCompatSlotLowerYLowerT, z as projectsIndexCurrentCompatSlotLowerZ,
+  zt as projectsIndexCurrentCompatSlotLowerZLowerT
+} from "../../vendor/projects-index-current-bundle";
