@@ -21471,6 +21471,127 @@
       "lastUpdated": "2026-06-30T00:00:00.000Z",
       "note": "Current Mermaid diagram definition wrapper preserves the restored public export surface."
     },
+    "chunk-FOC6F5B3-BluoYoGB": {
+      "restored": "vendor/mermaid-packet-services-k5.ts",
+      "exports": {
+        "n": "chunkFOC6F5B3N",
+        "t": "chunkFOC6F5B3T"
+      },
+      "status": "done",
+      "aliasOf": "chunk-FOC6F5B3-BgcFtwB_",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Mermaid K5 service wrapper preserves the restored parser service export surface."
+    },
+    "chunk-FOC6F5B3-BQkdNRoT": {
+      "restored": "vendor/mermaid-packet-services-k5.ts",
+      "exports": {
+        "n": "chunkFOC6F5B3N",
+        "t": "chunkFOC6F5B3T"
+      },
+      "status": "done",
+      "aliasOf": "chunk-FOC6F5B3-BgcFtwB_",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Mermaid K5 service wrapper preserves the restored parser service export surface."
+    },
+    "chunk-FOC6F5B3-DIovYYQv": {
+      "restored": "vendor/mermaid-packet-services-k5.ts",
+      "exports": {
+        "n": "chunkFOC6F5B3N",
+        "t": "chunkFOC6F5B3T"
+      },
+      "status": "done",
+      "aliasOf": "chunk-FOC6F5B3-BgcFtwB_",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Mermaid K5 service wrapper preserves the restored parser service export surface."
+    },
+    "chunk-2KRD3SAO-DBdBb0Dn": {
+      "restored": "vendor/mermaid-radar-services-k5.ts",
+      "exports": {
+        "n": "chunk2KRD3SAON",
+        "t": "chunk2KRD3SAOT"
+      },
+      "status": "done",
+      "aliasOf": "chunk-2KRD3SAO-Bdi3VHck",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Mermaid K5 service wrapper preserves the restored parser service export surface."
+    },
+    "chunk-2KRD3SAO-DHdxDmna": {
+      "restored": "vendor/mermaid-radar-services-k5.ts",
+      "exports": {
+        "n": "chunk2KRD3SAON",
+        "t": "chunk2KRD3SAOT"
+      },
+      "status": "done",
+      "aliasOf": "chunk-2KRD3SAO-Bdi3VHck",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Mermaid K5 service wrapper preserves the restored parser service export surface."
+    },
+    "chunk-2KRD3SAO-jbuQ6JrO": {
+      "restored": "vendor/mermaid-radar-services-k5.ts",
+      "exports": {
+        "n": "chunk2KRD3SAON",
+        "t": "chunk2KRD3SAOT"
+      },
+      "status": "done",
+      "aliasOf": "chunk-2KRD3SAO-Bdi3VHck",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Mermaid K5 service wrapper preserves the restored parser service export surface."
+    },
+    "chunk-67CJDMHE-DnBZbXY2": {
+      "restored": "vendor/mermaid-git-graph-services-k5.ts",
+      "exports": {
+        "n": "chunk67CJDMHEN",
+        "t": "chunk67CJDMHET"
+      },
+      "status": "done",
+      "aliasOf": "chunk-67CJDMHE-B3_SAS71",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Mermaid K5 service wrapper preserves the restored parser service export surface."
+    },
+    "chunk-67CJDMHE-dS3j2yNb": {
+      "restored": "vendor/mermaid-git-graph-services-k5.ts",
+      "exports": {
+        "n": "chunk67CJDMHEN",
+        "t": "chunk67CJDMHET"
+      },
+      "status": "done",
+      "aliasOf": "chunk-67CJDMHE-B3_SAS71",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Mermaid K5 service wrapper preserves the restored parser service export surface."
+    },
+    "chunk-CIAEETIT-CX7Ko5zn": {
+      "restored": "vendor/mermaid-wardley-services-k5.ts",
+      "exports": {
+        "n": "chunkCIAEETITN",
+        "t": "chunkCIAEETITT"
+      },
+      "status": "done",
+      "aliasOf": "chunk-CIAEETIT-DnOj_Z7m",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Mermaid K5 service wrapper preserves the restored parser service export surface."
+    },
+    "chunk-CIAEETIT-DwqjRsI7": {
+      "restored": "vendor/mermaid-wardley-services-k5.ts",
+      "exports": {
+        "n": "chunkCIAEETITN",
+        "t": "chunkCIAEETITT"
+      },
+      "status": "done",
+      "aliasOf": "chunk-CIAEETIT-DnOj_Z7m",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Mermaid K5 service wrapper preserves the restored parser service export surface."
+    },
+    "chunk-CIAEETIT-FzMe_bm6": {
+      "restored": "vendor/mermaid-wardley-services-k5.ts",
+      "exports": {
+        "n": "chunkCIAEETITN",
+        "t": "chunkCIAEETITT"
+      },
+      "status": "done",
+      "aliasOf": "chunk-CIAEETIT-DnOj_Z7m",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Mermaid K5 service wrapper preserves the restored parser service export surface."
+    },
     "app-initial~app-main~worktree-init-v2-page~remote-conversation-page~new-thread-panel-page~a~hqj10sd5-C_H_yI8D": {
       "restored": "threads/thread-layout.tsx",
       "note": "Current app chunk keeps the restored public export surface; alias added after current ref sync.",
