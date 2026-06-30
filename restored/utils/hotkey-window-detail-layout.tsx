@@ -1,4 +1,5 @@
-// Restored from ref/webview/assets/hotkey-window-detail-layout-BKPOZ5YH.js
+// Restored from ref/webview/assets/hotkey-window-detail-layout-CbLgJ30Y.js
+// Hotkey detail window shell: header actions, dismiss behavior, and nested outlet.
 
 import React, { type ReactNode } from "react";
 import { vscodeApiF } from "../boundaries/vscode-api";
@@ -18,6 +19,7 @@ import { Tooltip } from "../ui/tooltip-b";
 import { useCommandHotkey } from "./use-command-hotkey";
 import { HotkeyWindowDetailLayoutContext } from "./use-hotkey-window-detail-layout";
 import { useHotkeyWindowDismissOnEscape } from "./use-hotkey-window-dismiss-on-escape";
+
 type HotkeyWindowHeaderProps = {
   title: ReactNode;
   onDismiss: () => void;
@@ -25,11 +27,13 @@ type HotkeyWindowHeaderProps = {
   reserveWindowControlsSafeArea?: boolean;
   rightActions?: ReactNode;
 };
+
 type HotkeyWindowDetailConfig = {
   title: ReactNode;
   mainWindowPath: string;
   canCollapseToHome?: boolean;
 };
+
 const hotkeyWindowDetailLayoutMessages = defineMessages({
   dismiss: {
     id: "hotkeyWindow.dismiss",
@@ -49,6 +53,7 @@ const hotkeyWindowDetailLayoutMessages = defineMessages({
       "Tooltip label for the hotkey window header button that opens the current page in the main app window",
   },
 });
+
 function HotkeyWindowHeader({
   title,
   onDismiss,
@@ -70,6 +75,7 @@ function HotkeyWindowHeader({
     left: leftPadding + (showDismissButton ? 52 : 0),
     right: rightPadding + 84,
   };
+
   return (
     <div className="draggable relative flex h-toolbar-sm items-center justify-center px-3">
       <div
@@ -115,12 +121,15 @@ function HotkeyWindowHeader({
     </div>
   );
 }
+
 function collapseHotkeyWindowToHome() {
   appServices.hotkeyWindowHotkeys?.collapseToHome();
 }
+
 function dismissHotkeyWindow() {
   appServices.hotkeyWindowHotkeys?.dismiss();
 }
+
 function HotkeyWindowThreadHeader({
   title,
   mainWindowPath,
@@ -146,6 +155,7 @@ function HotkeyWindowThreadHeader({
       </Button>
     </Tooltip>
   ) : null;
+
   const openInMainWindowLabel = intl.formatMessage(
     hotkeyWindowDetailLayoutMessages.openInMainWindow,
   );
@@ -154,6 +164,7 @@ function HotkeyWindowThreadHeader({
       path: mainWindowPath,
     });
   };
+
   return (
     <HotkeyWindowHeader
       title={title}
@@ -183,11 +194,13 @@ function HotkeyWindowThreadHeader({
     />
   );
 }
+
 function handleNewThreadHotkey(event: KeyboardEvent) {
   event.preventDefault();
   event.stopPropagation();
   collapseHotkeyWindowToHome();
 }
+
 export function HotkeyWindowDetailLayout() {
   useHotkeyWindowDismissOnEscape();
   const [detailLayoutConfig, setDetailLayoutConfig] =
@@ -195,11 +208,13 @@ export function HotkeyWindowDetailLayout() {
   const canCollapseToHome =
     detailLayoutConfig != null &&
     detailLayoutConfig.canCollapseToHome !== false;
+
   useCommandHotkey({
     commandId: "newThread",
     enabled: canCollapseToHome,
     onKeyDown: handleNewThreadHotkey,
   });
+
   const setDetailLayoutRegistration = React.useCallback(
     (registration: unknown | null) => {
       setDetailLayoutConfig(registration as HotkeyWindowDetailConfig | null);
@@ -207,6 +222,7 @@ export function HotkeyWindowDetailLayout() {
     [],
   );
   const outlet = useOutlet();
+
   return (
     <HotkeyWindowDetailLayoutContext.Provider
       value={setDetailLayoutRegistration}
