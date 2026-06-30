@@ -23811,8 +23811,12 @@
       },
       "status": "done",
       "aliasOf": "thread-app-shell-chrome-DBT2t1lC",
-      "lastUpdated": "2026-06-30T00:00:00.000Z",
-      "note": "Current ref wrapper keeps the restored ThreadAppShellChrome entry surface."
+      "lastUpdated": "2026-06-30T23:18:51.428Z",
+      "note": "Current ref wrapper keeps the restored ThreadAppShellChrome entry surface; source imports CEI45G4c, invokes its initializer, and re-exports ThreadAppShellChrome.",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T23:18:51.428Z",
+      "stage3Review": "Host self-review: compared original wrapper with restored app-shell/thread-app-shell-chrome-entry.ts and verified the same init-then-export behavior; quality-gate passes.",
+      "stage3Note": "Accepted as an alias to the semantic thread app-shell chrome entry rather than duplicating the wrapper."
     },
     "thread-browser-panel-tabs-B0_gHvSH": {
       "restored": "app-shell/thread-browser-panel-tabs.ts",
