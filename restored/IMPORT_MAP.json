@@ -5335,6 +5335,22 @@
       },
       "status": "done"
     },
+    "chunk-JA3XYJ7Z-DXPUiutJ": {
+      "restored": "vendor/chunk-ja3xyj7z.ts",
+      "exports": {
+        "a": "chunkJA3XYJ7ZI",
+        "i": "initChunkJA3XYJ7Z",
+        "n": "chunkJA3XYJ7ZN",
+        "o": "chunkJA3XYJ7ZA",
+        "r": "chunkJA3XYJ7ZR",
+        "s": "chunkJA3XYJ7ZO",
+        "t": "chunkJA3XYJ7ZT"
+      },
+      "status": "done",
+      "aliasOf": "chunk-JA3XYJ7Z-CjR9BG5n",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Mermaid label/icon helper aliases re-derived from chunk-JA3XYJ7Z-DXPUiutJ."
+    },
     "ganttDiagram-LVOFAZNH-yOkQF_JE": {
       "restored": "vendor/gantt-diagram-lvofaznh.ts",
       "exports": {

@@ -645,4 +645,5 @@ export const chunkJA3XYJ7ZN = chunkAGHRB4JFN(
   },
   "createText",
 );
+export function initChunkJA3XYJ7Z(): void {}
 export { chunkJA3XYJ7ZA, chunkJA3XYJ7ZO, chunkJA3XYJ7ZR, chunkJA3XYJ7ZT };
