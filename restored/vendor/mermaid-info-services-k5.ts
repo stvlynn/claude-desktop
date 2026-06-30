@@ -52,4 +52,5 @@ function chunkKGLVRYICN(chunkKGLVRYICParam1 = chunkK5T4RW27H) {
   );
 }
 chunkK5T4RW27M(chunkKGLVRYICN, "createInfoServices");
+export function initChunkKGLVRYIC(): void {}
 export { chunkKGLVRYICN, chunkKGLVRYICT };

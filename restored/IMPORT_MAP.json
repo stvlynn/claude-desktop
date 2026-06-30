@@ -8949,6 +8949,51 @@
       },
       "status": "done"
     },
+    "chunk-KGLVRYIC-2_pU1Uui": {
+      "restored": "vendor/mermaid-info-services-k5.ts",
+      "exports": {
+        "n": "chunkKGLVRYICN",
+        "t": "chunkKGLVRYICT"
+      },
+      "status": "done",
+      "aliasOf": "chunk-KGLVRYIC-DZY-IxHR",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Mermaid info services aliases re-derived from chunk-KGLVRYIC-2_pU1Uui."
+    },
+    "chunk-KGLVRYIC-Byb2YNef": {
+      "restored": "vendor/mermaid-info-services-k5.ts",
+      "exports": {
+        "n": "chunkKGLVRYICN",
+        "r": "initChunkKGLVRYIC",
+        "t": "chunkKGLVRYICT"
+      },
+      "status": "done",
+      "aliasOf": "chunk-KGLVRYIC-DZY-IxHR",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Mermaid info services aliases re-derived from chunk-KGLVRYIC-Byb2YNef; alias r is the Rolldown lazy init thunk."
+    },
+    "chunk-KGLVRYIC-DB19tH4Q": {
+      "restored": "vendor/mermaid-info-services-k5.ts",
+      "exports": {
+        "n": "chunkKGLVRYICN",
+        "t": "chunkKGLVRYICT"
+      },
+      "status": "done",
+      "aliasOf": "chunk-KGLVRYIC-DZY-IxHR",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Mermaid info services aliases re-derived from chunk-KGLVRYIC-DB19tH4Q."
+    },
+    "chunk-KGLVRYIC-UTEj4U9X": {
+      "restored": "vendor/mermaid-info-services-k5.ts",
+      "exports": {
+        "n": "chunkKGLVRYICN",
+        "t": "chunkKGLVRYICT"
+      },
+      "status": "done",
+      "aliasOf": "chunk-KGLVRYIC-DZY-IxHR",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Mermaid info services aliases re-derived from chunk-KGLVRYIC-UTEj4U9X."
+    },
     "chunk-LIHQZDEY-B0GBEU3_": {
       "restored": "vendor/mermaid-treemap-services-k5.ts",
       "exports": {
