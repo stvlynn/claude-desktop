@@ -183,7 +183,12 @@
       "exports": {
         "t": "hooksSettingsNavigation"
       },
-      "status": "done"
+      "status": "done",
+      "note": "Base hooks-settings navigation helper restored in utils/hooks-settings-navigation.ts. The helper selects a hook host and navigates to its settings section.",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T00:00:00.000Z",
+      "stage3Review": "Host self-review: verified hooks-settings-navigation-BjQMYS8c is absent from the current ref, utils/hooks-settings-navigation.ts passes quality-gate, and the recorded helper alias is exported."
     },
     "app-initial~app-main~worktree-init-v2-page~remote-conversation-page~plugin-detail-page~new-~sfopfmmp-B_kSkG_X": {
       "restored": "utils/hooks-settings-navigation.ts",
@@ -193,7 +198,11 @@
       },
       "status": "done",
       "aliasOf": "hooks-settings-navigation-BjQMYS8c",
-      "note": "Current-ref shared route chunk adds a rolldown init export around the settings host navigation helper."
+      "note": "Historical sfopfmmp shared route chunk alias retained for the settings host navigation helper. The current ref no longer contains this exact B_kSkG_X file; the restored helper includes the rolldown-style init export.",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T00:00:00.000Z",
+      "stage3Review": "Host self-review: verified sfopfmmp-B_kSkG_X is absent from the current ref, utils/hooks-settings-navigation.ts passes quality-gate, and both recorded aliases are exported."
     },
     "analyze_image_animation-C79AlwO6": {
       "restored": "animations/analyze-image-animation.ts",
@@ -17244,8 +17253,11 @@
         "y": "initHooksSettingsGroupingRuntime"
       },
       "status": "done",
-      "note": "Deep-restored the app-main React/runtime loader, Electron host-message bridge, app/plugin matching helpers, and hooks-settings route/grouping helpers.",
-      "lastUpdated": "2026-06-29"
+      "note": "Historical sfopfmmp app-main host producer retained as runtime/app-main-host-runtime.ts. The current ref no longer contains this exact 9J50_--p file; the React/runtime loader, Electron host-message bridge, app/plugin matching helpers, and hooks-settings route/grouping helpers are deep-restored through semantic runtime modules.",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T00:00:00.000Z",
+      "stage3Review": "Host self-review: verified sfopfmmp-9J50_--p is absent from the current ref, runtime/app-main-host-runtime.ts passes quality-gate, its hooks-settings submodules cover the export-star surface, and all 38 recorded aliases are exported."
     },
     "app-initial~app-main~worktree-init-v2-page~remote-conversation-page~new-thread-panel-page~o~dv5z3ftk-BhBbJNnt": {
       "restored": "runtime/query-scope-runtime.ts",
