@@ -1,12 +1,10 @@
 // Restored from ref/webview/assets/local-conversation-thread-BwqAGxoz.js
 // Toast signal and controller initialization helpers.
-import {
-  Gx as initToastRuntimeRaw,
-  qx as toastSignal,
-} from "../vendor/projects-app-shared-runtime";
+import { toastApiSignal } from "../ui/toast-signal";
+import { initAppScopeSignalRuntime } from "./app-scope-runtime";
 
-export { toastSignal };
+export const toastSignal = toastApiSignal;
 
 export function initToastRuntime(): void {
-  initToastRuntimeRaw();
+  initAppScopeSignalRuntime();
 }

@@ -6,9 +6,7 @@ export * from "../../vendor/remote-projects-app-shared-current-bundle";
 export {
   Bx,
   CS,
-  Gx,
   Ob,
   TS,
-  qx,
   rx,
 } from "../../vendor/app-main-legacy-buw-compat-bundle";
