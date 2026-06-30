@@ -39329,6 +39329,17 @@
       },
       "status": "done",
       "vendor": "@shikijs/langs/angular-ts"
+    },
+    "3Dmol-BR8fUS3S": {
+      "restored": "vendor/3dmol.ts",
+      "exports": {
+        "default": "threeDMol"
+      },
+      "status": "done",
+      "vendor": "3dmol",
+      "note": "3Dmol bundled CommonJS browser viewer mapped to npm leaf 3dmol; large vendor payload is intentionally not copied into restored/.",
+      "stage3Accepted": true,
+      "lastUpdated": "2026-06-30T00:00:00.000-05:00"
     }
   }
 }
