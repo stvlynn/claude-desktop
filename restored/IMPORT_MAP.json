@@ -40272,6 +40272,16 @@
       "stage3Review": "Host self-review: pointer sampling, notification aggregation, selected-avatar refresh gating, and all minified export aliases were checked against the original chunk.",
       "note": "Restores avatar overlay pointer release helpers, notification tray aggregation/search-key helpers, first-awake notification factory, and selected avatar hook.",
       "lastUpdated": "2026-06-30T00:00:00.000-05:00"
+    },
+    "avatar-overlay-native-frame-DrVLY9Bt": {
+      "restored": "features/avatar-overlay-native-frame/index.tsx",
+      "exports": {
+        "i": "initAvatarOverlayNativeFrameCopyChunk",
+        "n": "initAvatarOverlayNativeFrameChunk",
+        "r": "buildAvatarOverlayNativeNotificationCopy",
+        "t": "AvatarOverlayNativeFrame"
+      },
+      "status": "done"
     }
   }
 }
