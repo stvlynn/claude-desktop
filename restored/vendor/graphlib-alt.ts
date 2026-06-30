@@ -1,4 +1,5 @@
 // Restored from ref/webview/assets/graphlib-ichArG6F.js
+// Also matches current ref asset ref/webview/assets/graphlib-CU4GKOO2.js.
 // Graphlib chunk restored from the Codex webview bundle.
 import {
   reduceT as reduceC,

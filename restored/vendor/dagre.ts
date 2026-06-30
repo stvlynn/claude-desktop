@@ -1,4 +1,5 @@
 // Restored from ref/webview/assets/dagre-BqhzN4_p.js
+// Also matches current ref asset ref/webview/assets/dagre-5oTtyBe6.js.
 // Dagre chunk restored from the Codex webview bundle.
 import {
   isArrayLikeObjectN as _isArrayLikeObjectN,
