@@ -35358,7 +35358,10 @@
       "aliasOf": "chunk-QN33PNHL-AbzhC4my",
       "note": "Current Mermaid viewport setup wrapper aliases were re-derived from chunk-QN33PNHL-nPLgaaqy.js: n=setupViewPortForSVG, t=lazy init thunk.",
       "status": "done",
-      "lastUpdated": "2026-06-30T00:00:00.000Z"
+      "lastUpdated": "2026-06-30T21:58:00.000Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T21:58:00.000Z",
+      "stage3Review": "Host self-review: exact current chunk-QN33PNHL-nPLgaaqy ref asset exports setupViewPortForSVG as n and its Rolldown init thunk as t; vendor/chunk-qn33-pnhl-dv-z-pb-bs-u.ts preserves both aliases and passes quality-gate --vendored."
     },
     "mermaid-parser.core-DurnYtle": {
       "restored": "vendor/mermaid-parser-core-k5.ts",
