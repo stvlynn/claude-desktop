@@ -2625,7 +2625,13 @@
       "exports": {
         "t": "loadReactDomClient"
       },
-      "status": "done"
+      "status": "done",
+      "vendor": "react-dom/client",
+      "note": "Historical React DOM client namespace helper retained in vendor/react-dom-client.ts; the current synced ref no longer has this standalone client-C1mrATqU hash.",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T00:00:00.000Z",
+      "stage3Review": "Host self-review: vendor/react-dom-client.ts is a typed namespace loader for the stock react-dom/client package, preserves the recorded t alias as loadReactDomClient, and passes quality-gate."
     },
     "legacy-video-plugins-BKJsmZCC": {
       "restored": "utils/legacy-video-plugins.ts",
