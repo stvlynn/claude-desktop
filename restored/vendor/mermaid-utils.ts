@@ -1,5 +1,5 @@
-// Restored from ref/webview/assets/chunk-MI3HLSF2-Cyapgrol.js
-// ChunkMI3HLSF2 chunk restored from the Codex webview bundle.
+// Restored from ref/webview/assets/chunk-MI3HLSF2-lTgkCAOX.js
+// Vendored Mermaid js-yaml wrapper restored from the Codex webview bundle.
 import { chunkAGHRB4JFN } from "./dompurify";
 function chunkMI3HLSF2Helper1(chunkMI3HLSF2Param227) {
   return chunkMI3HLSF2Param227 == null;

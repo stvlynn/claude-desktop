@@ -1,5 +1,5 @@
 // Restored from ref/webview/assets/presentation-7ERfmyO7.js
-// Presentation protobuf runtime restored from the Codex webview bundle.
+// Vendored presentation protobuf runtime restored from the Codex webview bundle.
 import { once as rolldownRuntimeN } from "../runtime/commonjs-interop";
 function presentationHelper1() {
   let presentationValue877 = 0,

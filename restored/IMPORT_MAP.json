@@ -3016,7 +3016,10 @@
       "aliasOf": "chunk-CVBHYZKI-D5c0MJ_k",
       "note": "Current Rolldown lazy-init variant maps the init alias to the restored eager ESM initializer compatibility export.",
       "status": "done",
-      "lastUpdated": "2026-06-30T08:22:15.325Z"
+      "lastUpdated": "2026-06-30T14:36:13.205Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T14:36:13.205Z",
+      "stage3Note": "Accepted as a vendored Mermaid subgraph title margin helper with current chunk provenance."
     },
     "middleware-BDgBoOJW": {
       "restored": "vendor/segment-middleware.ts",
@@ -6162,8 +6165,11 @@
       },
       "status": "done",
       "aliasOf": "dagre-DgCFaaOE",
-      "lastUpdated": "2026-06-30T00:00:00.000Z",
-      "note": "Current dagre layout hash re-derived from dagre-BqhzN4_p.js; alias t is the Rolldown lazy init thunk."
+      "lastUpdated": "2026-06-30T14:37:35.799Z",
+      "note": "Current dagre layout hash re-derived from dagre-BqhzN4_p.js; alias t is the Rolldown lazy init thunk.",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T14:37:35.799Z",
+      "stage3Note": "Accepted as a vendored Dagre layout runtime with current chunk provenance and validated export aliases."
     },
     "main-BDm-p1LA": {
       "restored": "vendor/mermaid-main.ts",
@@ -25101,11 +25107,12 @@
       },
       "status": "done",
       "note": "Current exact-hash chunk restored through runtime/current-app-initial/current-app-initial-shared-runtime.ts; backing bundle is vendor/vendor/current-app-initial-bnlvjk3w-shared-bundle and all current export aliases are covered by compatibility slot names.",
-      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "lastUpdated": "2026-06-30T14:38:55.554Z",
       "migratedFrom": "app-initial~app-main~remote-conversation-page~hotkey-window-thread-page~automations-page~th~bnlvjk3w-CKQxrGhJ",
       "stage3Accepted": true,
-      "stage3AcceptedAt": "2026-06-29T20:20:00.000Z",
-      "stage3Review": "Host self-review: quality-gate and prettier passed on the mapped public file; file read end-to-end against Stage 3 E1-E4."
+      "stage3AcceptedAt": "2026-06-30T14:38:55.554Z",
+      "stage3Review": "Host self-review: quality-gate and prettier passed on the mapped public file; file read end-to-end against Stage 3 E1-E4.",
+      "stage3Note": "Accepted as a current-ref semantic compatibility export surface over the restored shared runtime bundle."
     },
     "app-initial~app-main~automations-page-Bc0ZtIBr": {
       "restored": "vendor/automations-page-current-runtime.ts",
@@ -30079,7 +30086,9 @@
       "status": "done",
       "note": "Current ref diagram definition runtime restored as a semantic alias layer over boundaries/current-ref/current-app-initial-diagram-definition-runtime-producer.ts, with the producer re-exporting the local vendored Mermaid bundle at vendor/diagram-definition-current-runtime.ts instead of direct ref asset passthrough.",
       "stage3Accepted": true,
-      "lastUpdated": "2026-06-30T00:00:00.000Z"
+      "lastUpdated": "2026-06-30T14:38:55.554Z",
+      "stage3AcceptedAt": "2026-06-30T14:38:55.554Z",
+      "stage3Note": "Accepted as a current-ref semantic alias layer over the restored diagram definition runtime export surface."
     },
     "app-initial~app-main~worktree-init-v2-page~remote-conversation-page~pull-requests-page~new-~ozr5a6hk-DZC70s11": {
       "restored": "runtime/current-app-initial/pull-request-new-thread-runtime.ts",
@@ -32287,7 +32296,10 @@
       "aliasOf": "esm-EAsy4EQA",
       "note": "Current Iconify core hash matches esm-EAsy4EQA; export aliases were re-derived from esm-CuAuNray.js.",
       "status": "done",
-      "lastUpdated": "2026-06-30T08:05:41.179Z"
+      "lastUpdated": "2026-06-30T14:34:18.332Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T14:34:18.332Z",
+      "stage3Note": "Accepted as a vendored Iconify core runtime module with current chunk provenance and validated aliases."
     },
     "wasm-Cgooknyf": {
       "restored": "vendor/oniguruma-wasm.ts",
@@ -33716,7 +33728,10 @@
       "aliasOf": "chunk-AGHRB4JF-Bxy73eEy",
       "note": "Current Day.js/logger wrapper aliases were re-derived from this ref: a=setLogLevel, i=logger, n=defineName, o=dayjs module, r=init thunk, t=define getters.",
       "status": "done",
-      "lastUpdated": "2026-06-30T08:19:23.819Z"
+      "lastUpdated": "2026-06-30T14:34:18.332Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T14:34:18.332Z",
+      "stage3Note": "Accepted as a vendored Day.js core/logger wrapper with current chunk provenance and validated aliases."
     },
     "chunk-AGHRB4JF-DJZonIPK": {
       "restored": "vendor/dayjs-core-alt.ts",
@@ -33731,7 +33746,10 @@
       "aliasOf": "chunk-AGHRB4JF-Bxy73eEy",
       "note": "Current Day.js/logger wrapper aliases were re-derived from this ref: a=setLogLevel, i=logger, n=defineName, o=dayjs module, r=init thunk, t=define getters.",
       "status": "done",
-      "lastUpdated": "2026-06-30T08:19:23.819Z"
+      "lastUpdated": "2026-06-30T14:34:18.332Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T14:34:18.332Z",
+      "stage3Note": "Accepted as a vendored Day.js core/logger wrapper alias sharing the typed current public module."
     },
     "routing-middleware-DNnHn-sA": {
       "restored": "utils/routing-middleware.ts",
@@ -33754,7 +33772,10 @@
       "aliasOf": "chunk-4BX2VUAB-Dutn5tdG",
       "note": "Current Rolldown lazy-init helper hash preserves the restored helper body; n maps to the body export and t maps to the no-op init export.",
       "status": "done",
-      "lastUpdated": "2026-06-30T08:22:15.325Z"
+      "lastUpdated": "2026-06-30T14:36:13.205Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T14:36:13.205Z",
+      "stage3Note": "Accepted as a typed common Mermaid diagram metadata helper with current chunk provenance."
     },
     "chunk-4BX2VUAB-fqlOQUw2": {
       "restored": "utils/chunk-4-bx2-vuab.ts",
@@ -33765,7 +33786,10 @@
       "aliasOf": "chunk-4BX2VUAB-Dutn5tdG",
       "note": "Current Rolldown lazy-init helper hash preserves the restored helper body; n maps to the body export and t maps to the no-op init export.",
       "status": "done",
-      "lastUpdated": "2026-06-30T08:22:15.325Z"
+      "lastUpdated": "2026-06-30T14:36:13.205Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T14:36:13.205Z",
+      "stage3Note": "Accepted as a current alias of the typed common Mermaid diagram metadata helper."
     },
     "chunk-FMBD7UC4-DCr6uaVv": {
       "restored": "utils/chunk-fmbd7-uc4.ts",
@@ -33776,7 +33800,10 @@
       "aliasOf": "chunk-FMBD7UC4-CT2OagM_",
       "note": "Current Rolldown lazy-init helper hash preserves the restored helper body; n maps to the body export and t maps to the no-op init export.",
       "status": "done",
-      "lastUpdated": "2026-06-30T08:22:15.325Z"
+      "lastUpdated": "2026-06-30T14:36:13.205Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T14:36:13.205Z",
+      "stage3Note": "Accepted as a typed Mermaid icon CSS helper with current chunk provenance."
     },
     "chunk-FMBD7UC4-Cl8oprFb": {
       "restored": "utils/chunk-fmbd7-uc4.ts",
@@ -33787,7 +33814,10 @@
       "aliasOf": "chunk-FMBD7UC4-CT2OagM_",
       "note": "Current Rolldown lazy-init helper hash preserves the restored helper body; n maps to the body export and t maps to the no-op init export.",
       "status": "done",
-      "lastUpdated": "2026-06-30T08:22:15.325Z"
+      "lastUpdated": "2026-06-30T14:36:13.205Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T14:36:13.205Z",
+      "stage3Note": "Accepted as a current alias of the typed Mermaid icon CSS helper."
     },
     "chunk-QZHKN3VN-Djc2hI-1": {
       "restored": "utils/chunk-qzhkn3-vn.ts",
@@ -33798,7 +33828,10 @@
       "aliasOf": "chunk-QZHKN3VN-D8sZjzJc",
       "note": "Current Rolldown lazy-init helper hash preserves the restored helper body; n maps to the body export and t maps to the no-op init export.",
       "status": "done",
-      "lastUpdated": "2026-06-30T08:22:15.325Z"
+      "lastUpdated": "2026-06-30T14:36:13.205Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T14:36:13.205Z",
+      "stage3Note": "Accepted as a typed imperative state helper with current chunk provenance."
     },
     "chunk-QZHKN3VN-CjmxHyf9": {
       "restored": "utils/chunk-qzhkn3-vn.ts",
@@ -33809,7 +33842,10 @@
       "aliasOf": "chunk-QZHKN3VN-D8sZjzJc",
       "note": "Current Rolldown lazy-init helper hash preserves the restored helper body; n maps to the body export and t maps to the no-op init export.",
       "status": "done",
-      "lastUpdated": "2026-06-30T08:22:15.325Z"
+      "lastUpdated": "2026-06-30T14:36:13.205Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T14:36:13.205Z",
+      "stage3Note": "Accepted as a current alias of the typed imperative state helper."
     },
     "chunk-BSJP7CBP-CrJpo2xF": {
       "restored": "vendor/chunk-bsjp7cbp.ts",
@@ -33823,7 +33859,10 @@
       "aliasOf": "chunk-BSJP7CBP-kgPEHQNd",
       "note": "Current chunk-BSJP7CBP hash preserves the restored public helpers; aliases re-derived from the lazy-init export tail.",
       "status": "done",
-      "lastUpdated": "2026-06-30T08:22:15.325Z"
+      "lastUpdated": "2026-06-30T14:36:13.205Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T14:36:13.205Z",
+      "stage3Note": "Accepted as a vendored Mermaid marker geometry helper with current chunk provenance."
     },
     "chunk-HN2XXSSU-BJwKN-er": {
       "restored": "vendor/mermaid-relation-markers.ts",
@@ -33836,7 +33875,10 @@
       "aliasOf": "chunk-HN2XXSSU-dadJeUL1",
       "note": "Current chunk-HN2XXSSU hash preserves the restored relation marker helpers; aliases re-derived from the lazy-init export tail.",
       "status": "done",
-      "lastUpdated": "2026-06-30T08:22:15.325Z"
+      "lastUpdated": "2026-06-30T14:36:13.205Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T14:36:13.205Z",
+      "stage3Note": "Accepted as a vendored Mermaid relation marker helper with current chunk provenance."
     },
     "chunk-XPW4576I-C68fwtjN": {
       "restored": "vendor/chunk-xpw4576i.ts",
@@ -33848,7 +33890,10 @@
       "aliasOf": "chunk-XPW4576I-Bqa38NHl",
       "note": "Current js-yaml wrapper aliases were re-derived from this ref: n=lazy init thunk, r=load, t=schema.",
       "status": "done",
-      "lastUpdated": "2026-06-30T08:26:22.483Z"
+      "lastUpdated": "2026-06-30T14:37:35.799Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T14:37:35.799Z",
+      "stage3Note": "Accepted as a vendored js-yaml wrapper with current chunk provenance and validated load/schema aliases."
     },
     "chunk-MI3HLSF2-lTgkCAOX": {
       "restored": "vendor/mermaid-utils.ts",
@@ -33860,7 +33905,10 @@
       "aliasOf": "chunk-MI3HLSF2-DUVSUh0R",
       "note": "Current Mermaid js-yaml wrapper aliases were re-derived from this ref: n=lazy init thunk, r=load, t=schema.",
       "status": "done",
-      "lastUpdated": "2026-06-30T08:26:22.483Z"
+      "lastUpdated": "2026-06-30T14:37:35.799Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T14:37:35.799Z",
+      "stage3Note": "Accepted as a vendored Mermaid js-yaml wrapper with current chunk provenance and validated load/schema aliases."
     },
     "local-environments-utils-Y1qAyZiR": {
       "restored": "environments/local-environments-utils/index.ts",
@@ -34538,7 +34586,9 @@
       "aliasOf": "graphlib-Dk1ocXNC",
       "note": "Current graphlib hash preserves the graphlib-alt implementation and adds r/t lazy init thunk aliases.",
       "stage3Accepted": true,
-      "lastUpdated": "2026-06-30T00:00:00.000-05:00"
+      "lastUpdated": "2026-06-30T14:34:18.332Z",
+      "stage3AcceptedAt": "2026-06-30T14:34:18.332Z",
+      "stage3Note": "Accepted as a vendored Graphlib runtime module with current hash provenance and validated alias exports."
     },
     "graphlib-CU4GKOO2": {
       "restored": "vendor/graphlib-alt.ts",
@@ -34551,7 +34601,9 @@
       "aliasOf": "graphlib-Dk1ocXNC",
       "note": "Current graphlib hash re-derived from graphlib-CU4GKOO2.js. Alias n is the Graphlib class; r/t are Rolldown lazy init thunks.",
       "stage3Accepted": true,
-      "lastUpdated": "2026-06-30T00:00:00.000-05:00"
+      "lastUpdated": "2026-06-30T14:38:55.554Z",
+      "stage3AcceptedAt": "2026-06-30T14:38:55.554Z",
+      "stage3Note": "Accepted as the current Graphlib vendored runtime alias sharing the validated graphlib-alt module."
     },
     "merge-jSBXKSH5": {
       "restored": "vendor/lodash-merge-runtime.ts",
@@ -34652,7 +34704,9 @@
       "status": "done",
       "note": "Current lodash merge runtime alias map re-derived from merge-jSBXKSH5.js export table after polish normalized public export names.",
       "stage3Accepted": true,
-      "lastUpdated": "2026-06-30T00:00:00.000-05:00"
+      "lastUpdated": "2026-06-30T14:34:18.332Z",
+      "stage3AcceptedAt": "2026-06-30T14:34:18.332Z",
+      "stage3Note": "Accepted as a vendored Lodash merge runtime module with the current export table preserved."
     },
     "star-DXYFsF9O": {
       "restored": "icons/star-icon.tsx",
@@ -35078,7 +35132,9 @@
       "status": "done",
       "note": "Current lodash aggregate alias map re-derived from lodash-BhBwOd7I.js. Public vendor runtime keeps the current export surface while importing restored lodash dependency chunks.",
       "stage3Accepted": true,
-      "lastUpdated": "2026-06-30T00:00:00.000-05:00"
+      "lastUpdated": "2026-06-30T14:37:35.799Z",
+      "stage3AcceptedAt": "2026-06-30T14:37:35.799Z",
+      "stage3Note": "Accepted as a vendored Lodash aggregate runtime with current chunk provenance and validated export aliases."
     },
     "esm-BrsRQYxN": {
       "restored": "vendor/tanstack-react-form.ts",
@@ -35132,7 +35188,9 @@
       "aliasOf": "chunk-FPAJGGOC-Cy-1bcKF",
       "note": "Current Mermaid/Langium parser runtime hash re-derived from chunk-FPAJGGOC-Yd_bXKmT.js. Alias reshuffle maps core/shared/inject/empty-file-system exports onto the existing restored runtime; m/p are flattened Rolldown init thunks.",
       "stage3Accepted": true,
-      "lastUpdated": "2026-06-30T00:00:00.000-05:00"
+      "lastUpdated": "2026-06-30T14:38:55.554Z",
+      "stage3AcceptedAt": "2026-06-30T14:38:55.554Z",
+      "stage3Note": "Accepted as a vendored Mermaid/Langium parser runtime with current chunk provenance and validated export aliases."
     },
     "cytoscape.esm-gCnb3XbU": {
       "restored": "vendor/cytoscape-runtime.ts",
@@ -35358,7 +35416,9 @@
       "note": "Current presentation protobuf runtime re-derived from presentation-7ERfmyO7.js. Alias map is rebuilt from the current export table because stable-stem aliases repacked from presentation-iV9gDfl9.",
       "aliasOf": "presentation-iV9gDfl9",
       "stage3Accepted": true,
-      "lastUpdated": "2026-06-30T00:00:00.000-05:00"
+      "lastUpdated": "2026-06-30T14:38:55.554Z",
+      "stage3AcceptedAt": "2026-06-30T14:38:55.554Z",
+      "stage3Note": "Accepted as a vendored presentation protobuf runtime with current chunk provenance and validated export aliases."
     },
     "spreadsheet-BCjxhEJV": {
       "restored": "vendor/spreadsheet-schema-current.ts",

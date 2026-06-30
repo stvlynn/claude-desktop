@@ -1,5 +1,5 @@
-// Restored from ref/webview/assets/chunk-CVBHYZKI-D5c0MJ_k.js
-// ChunkCVBHYZKI chunk restored from the Codex webview bundle.
+// Restored from ref/webview/assets/chunk-CVBHYZKI-CCA47Th3.js
+// Vendored Mermaid subgraph title margin helper restored from the Codex webview bundle.
 import { chunkAGHRB4JFN } from "./dompurify";
 
 type MermaidFlowchartConfig = {

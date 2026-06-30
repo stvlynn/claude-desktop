@@ -1,5 +1,5 @@
-// Restored from ref/webview/assets/chunk-XPW4576I-Bqa38NHl.js
-// ChunkXPW4576I chunk restored from the Codex webview bundle.
+// Restored from ref/webview/assets/chunk-XPW4576I-C68fwtjN.js
+// Vendored js-yaml wrapper restored from the Codex webview bundle.
 import { chunkAGHRB4JFN } from "./dayjs-core-alt";
 function chunkXPW4576IHelper1(chunkXPW4576IParam230) {
   return chunkXPW4576IParam230 == null;

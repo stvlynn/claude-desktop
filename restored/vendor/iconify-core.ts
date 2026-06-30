@@ -1,5 +1,5 @@
-// Restored from ref/webview/assets/esm-EAsy4EQA.js
-// Esm chunk restored from the Codex webview bundle.
+// Restored from ref/webview/assets/esm-CuAuNray.js
+// Vendored Iconify core runtime restored from the Codex webview bundle.
 export function initIconifyCoreRuntimeChunk() {}
 export function initIconifyCoreChunk() {
   initIconifyCoreRuntimeChunk();

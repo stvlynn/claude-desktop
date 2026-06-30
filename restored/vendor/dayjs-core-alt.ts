@@ -1,5 +1,6 @@
-// Restored from ref/webview/assets/chunk-AGHRB4JF-Bxy73eEy.js
-// ChunkAGHRB4JF chunk restored from the Codex webview bundle.
+// Restored from ref/webview/assets/chunk-AGHRB4JF-DVNPU_Qo.js
+// Also covers current ref asset ref/webview/assets/chunk-AGHRB4JF-DJZonIPK.js.
+// Vendored Day.js core/logger wrapper restored from the Codex webview bundle.
 import { toEsModule, createCommonJsModule } from "../runtime/commonjs-interop";
 var chunkAGHRB4JFA = createCommonJsModule(
     (chunkAGHRB4JFParam1, chunkAGHRB4JFParam2) => {

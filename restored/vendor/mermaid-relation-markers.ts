@@ -1,5 +1,5 @@
-// Restored from ref/webview/assets/chunk-HN2XXSSU-BPyoUjyB.js
-// ChunkHN2XXSSU chunk restored from the Codex webview bundle.
+// Restored from ref/webview/assets/chunk-HN2XXSSU-BJwKN-er.js
+// Vendored Mermaid relation marker helpers restored from the Codex webview bundle.
 import { chunkAGHRB4JFN } from "./dompurify";
 var chunkHN2XXSSUN = {
   aggregation: 17.25,

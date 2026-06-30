@@ -1,5 +1,6 @@
-// Restored from ref/webview/assets/chunk-4BX2VUAB-Dutn5tdG.js
-// chunk-4BX2VUAB-Dutn5tdG chunk restored from the Codex webview bundle.
+// Restored from ref/webview/assets/chunk-4BX2VUAB-NwVKKZxX.js
+// Also covers current ref asset ref/webview/assets/chunk-4BX2VUAB-fqlOQUw2.js.
+// Common Mermaid diagram metadata helper restored from the Codex webview bundle.
 export type CommonDiagramMetadata = {
   accDescr?: string;
   accTitle?: string;

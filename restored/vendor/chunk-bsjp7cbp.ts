@@ -1,5 +1,5 @@
-// Restored from ref/webview/assets/chunk-BSJP7CBP-kgPEHQNd.js
-// ChunkBSJP7CBP chunk restored from the Codex webview bundle.
+// Restored from ref/webview/assets/chunk-BSJP7CBP-CrJpo2xF.js
+// Vendored Mermaid marker geometry helper restored from the Codex webview bundle.
 import { chunkAGHRB4JFN } from "./dayjs-core-alt";
 var chunkBSJP7CBPR = {
   aggregation: 17.25,

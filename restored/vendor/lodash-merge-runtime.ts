@@ -1,5 +1,5 @@
 // Restored from ref/webview/assets/merge-jSBXKSH5.js
-// Merge chunk restored from the Codex webview bundle.
+// Vendored Lodash merge runtime restored from the Codex webview bundle.
 import { once } from "../runtime/commonjs-interop";
 var mergeValue1,
   mergeValue2 = once(() => {

@@ -1,5 +1,6 @@
-// Restored from ref/webview/assets/chunk-FMBD7UC4-CT2OagM_.js
-// ChunkFMBD7UC4 chunk restored from the Codex webview bundle.
+// Restored from ref/webview/assets/chunk-FMBD7UC4-DCr6uaVv.js
+// Also covers current ref asset ref/webview/assets/chunk-FMBD7UC4-Cl8oprFb.js.
+// Mermaid icon CSS helper restored from the Codex webview bundle.
 import { chunkAGHRB4JFA } from "../vendor/dayjs-core-alt";
 export const chunkFMBD7UC4 = chunkAGHRB4JFA(
   () =>

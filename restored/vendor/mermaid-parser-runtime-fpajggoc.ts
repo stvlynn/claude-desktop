@@ -1,6 +1,6 @@
 // Restored from ref/webview/assets/chunk-FPAJGGOC-Cy-1bcKF.js
 // Also matches current ref asset ref/webview/assets/chunk-FPAJGGOC-Yd_bXKmT.js.
-// ChunkFPAJGGOC chunk restored from the Codex webview bundle.
+// Vendored Mermaid/Langium parser runtime restored from the Codex webview bundle.
 import {
   copyCommonJsProperties as chunkI,
   exportGetters as chunkR,

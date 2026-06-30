@@ -1,5 +1,5 @@
 // Restored from ref/webview/assets/lodash-BhBwOd7I.js
-// Current lodash aggregate runtime restored from the Codex webview bundle.
+// Vendored Lodash aggregate runtime restored from the Codex webview bundle.
 import { once as rolldownRuntimeN } from "../runtime/commonjs-interop";
 import {
   $ as mergeDollar,
