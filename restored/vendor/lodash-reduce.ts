@@ -609,6 +609,40 @@ function reduceY(reduceParam112) {
     (baseForH(reduceParam112) && baseForT(reduceParam112) == "[object Symbol]")
   );
 }
+export function reduceLessThan(reduceParam161, reduceParam162) {
+  return reduceParam161 < reduceParam162;
+}
+export function reduceBaseExtremum(
+  reduceParam163,
+  reduceParam164,
+  reduceParam165,
+) {
+  var reduceValue161;
+  var reduceValue162;
+  for (
+    var reduceValue163 = -1, reduceValue164 = reduceParam163.length;
+    ++reduceValue163 < reduceValue164;
+
+  ) {
+    var reduceValue165 = reduceParam163[reduceValue163],
+      reduceValue166 = reduceParam164(reduceValue165);
+    if (
+      reduceValue166 != null &&
+      (reduceValue162 === undefined
+        ? reduceValue166 === reduceValue166 && !reduceY(reduceValue166)
+        : reduceParam165(reduceValue166, reduceValue162))
+    ) {
+      reduceValue162 = reduceValue166;
+      reduceValue161 = reduceValue165;
+    }
+  }
+  return reduceValue161;
+}
+export function reduceMin(reduceParam166) {
+  return reduceParam166 && reduceParam166.length
+    ? reduceBaseExtremum(reduceParam166, baseForN, reduceLessThan)
+    : undefined;
+}
 var reduceValue29 = /\.|\[(?:[^[\]]*|(["'])(?:(?!\1)[^\\]|\\.)*?\1)\]/,
   reduceValue30 = /^\w*$/;
 function reduceHelper19(reduceParam38, reduceParam39) {
@@ -805,6 +839,31 @@ function reduceHelper26(reduceParam36, reduceParam37) {
   };
 }
 var reduceL = reduceHelper26(reduceU);
+export function reduceCollectionMap(reduceParam167, reduceParam168) {
+  var reduceValue167 = -1,
+    reduceValue168 = baseForI(reduceParam167)
+      ? Array(reduceParam167.length)
+      : [];
+  return (
+    reduceL(
+      reduceParam167,
+      function (reduceParam169, reduceParam170, reduceParam171) {
+        reduceValue168[++reduceValue167] = reduceParam168(
+          reduceParam169,
+          reduceParam170,
+          reduceParam171,
+        );
+      },
+    ),
+    reduceValue168
+  );
+}
+export function reduceMap(reduceParam172, reduceParam173) {
+  return (baseForG(reduceParam172) ? reduceE : reduceCollectionMap)(
+    reduceParam172,
+    reduceD(reduceParam173, 3),
+  );
+}
 function reduceHelper27(reduceParam101, reduceParam102) {
   var reduceValue157 = [];
   return (
@@ -860,6 +919,14 @@ function _reduceS(
       : reduceParam43 || (reduceParam44[reduceParam44.length] = reduceValue110);
   }
   return reduceParam44;
+}
+export function reduceFlattenOne(reduceParam174) {
+  return reduceParam174 != null && reduceParam174.length
+    ? _reduceS(reduceParam174, 1)
+    : [];
+}
+export function reduceFlatMap(reduceParam175, reduceParam176) {
+  return _reduceS(reduceMap(reduceParam175, reduceParam176), 1);
 }
 function reduceO(reduceParam61, reduceParam62, reduceParam63, reduceParam64) {
   for (
@@ -958,6 +1025,11 @@ export function reduceA(reduceParam26, reduceParam27, reduceParam28) {
   }
   return reduceValue88;
 }
+export function reduceUniqBy(reduceParam177, reduceParam178) {
+  return reduceParam177 && reduceParam177.length
+    ? reduceA(reduceParam177, reduceD(reduceParam178, 2))
+    : [];
+}
 function reduceI(reduceParam84, reduceParam85) {
   for (
     var reduceValue146 = -1,
@@ -1041,6 +1113,7 @@ export function _reduceT(reduceParam87, reduceParam88, reduceParam89) {
     reduceL,
   );
 }
+export function initLodashReduceChunk(): void {}
 export {
   reduceC,
   reduceE,
