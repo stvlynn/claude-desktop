@@ -1,6 +1,6 @@
-// Restored from ref/webview/assets/hotkey-window-state-5mYLM9i4.js
-// hotkey-window-state-5mYLM9i4 chunk restored from the Codex webview bundle.
-// Also covers ref/webview/assets/app-initial~app-main~remote-conversation-page~hotkey-window-worktree-init-page~hotkey-windo~kjl2gxhu-Dg7uZJVh.js.
+// Restored from ref/webview/assets/app-initial~app-main~remote-conversation-page~hotkey-window-worktree-init-page~hotkey-windo~kjl2gxhu-DXs0ueRP.js
+// Launcher hotkey state query shared by keyboard shortcut settings and hotkey-window routes.
+
 import {
   _appScopeM as createQuerySignal,
   appScopeRoot,
@@ -30,5 +30,4 @@ export const launcherHotkeyStateQuery = createQuerySignal(appScopeRoot, () => ({
     DEFAULT_LAUNCHER_HOTKEY_STATE,
 }));
 export function initLauncherHotkeyStateChunk(): void {}
-
 export { launcherHotkeyStateQueryKey };
