@@ -2,49 +2,34 @@
 // Current PluginsSettings backing bundle with restored dependency imports.
 
 import { once as rolldownRuntimeN } from "../runtime/commonjs-interop";
+import { currentAppInitialSharedCompatSlotLowerGLowerC as initReactCompilerRuntime } from "../runtime/current-app-initial/current-app-initial-shared-runtime";
 import {
-  currentAppInitialSharedCompatSlotLowerGLowerC as appInitialAppMainRemoteConversationPageHotkeyWindowThreadPageAutomationsPageThBnlvjk3wGc,
-  currentAppInitialSharedCompatSlotLowerLLowerC as appInitialAppMainRemoteConversationPageHotkeyWindowThreadPageAutomationsPageThBnlvjk3wLc,
-} from "../runtime/current-app-initial/current-app-initial-shared-runtime";
-import {
-  remoteControlRefreshSourceEnum as appInitialAppMainRemoteConversationPageNewThreadPanelPageProjectsIndexPageAppIy8s9c2dKp,
-  currentAppInitialSharedMember0505 as appInitialAppMainRemoteConversationPageNewThreadPanelPageProjectsIndexPageAppIy8s9c2dCf,
+  currentAppInitialSharedMember0505 as pluginDirectoryEntrypoints,
+  remoteControlRefreshSourceEnum as initRemoteControlRefreshSourceEnum,
 } from "../runtime/current-app-initial/remote-projects-app-shared-runtime";
 import {
-  initSettingsContentLayoutChunk as appInitialAppMainSettingsPageOpenSourceLicensesPageSkillsSettingsPluginsSettinCxbtmbfcR,
-  SettingsContentLayout as appInitialAppMainSettingsPageOpenSourceLicensesPageSkillsSettingsPluginsSettinCxbtmbfcT,
+  initSettingsContentLayoutChunk,
+  SettingsContentLayout,
 } from "../runtime/current-app-initial/settings-section-layout-runtime";
 import {
-  initPluginsPageChunk as pluginsPageN,
-  PluginsPage as pluginsPageT,
+  initPluginsPageChunk,
+  PluginsPage,
 } from "../runtime/current-app-initial/plugins-page-current-runtime";
 function PluginsSettings() {
-  let pluginsSettingsValue3 = (0, pluginsSettingsValue1.c)(1),
-    pluginsSettingsValue4;
   return (
-    pluginsSettingsValue3[0] === Symbol.for(`react.memo_cache_sentinel`)
-      ? ((pluginsSettingsValue4 = (0, pluginsSettingsValue2.jsx)(
-          appInitialAppMainSettingsPageOpenSourceLicensesPageSkillsSettingsPluginsSettinCxbtmbfcT,
-          {
-            children: (0, pluginsSettingsValue2.jsx)(pluginsPageT, {
-              directoryEntrypoint:
-                appInitialAppMainRemoteConversationPageNewThreadPanelPageProjectsIndexPageAppIy8s9c2dCf.CODEX_PLUGIN_DIRECTORY_ENTRYPOINT_SETTINGS,
-            }),
-          },
-        )),
-        (pluginsSettingsValue3[0] = pluginsSettingsValue4))
-      : (pluginsSettingsValue4 = pluginsSettingsValue3[0]),
-    pluginsSettingsValue4
+    <SettingsContentLayout>
+      <PluginsPage
+        directoryEntrypoint={
+          pluginDirectoryEntrypoints.CODEX_PLUGIN_DIRECTORY_ENTRYPOINT_SETTINGS
+        }
+      />
+    </SettingsContentLayout>
   );
 }
-var pluginsSettingsValue1, pluginsSettingsValue2;
 rolldownRuntimeN(() => {
-  ((pluginsSettingsValue1 =
-    appInitialAppMainRemoteConversationPageHotkeyWindowThreadPageAutomationsPageThBnlvjk3wGc()),
-    appInitialAppMainRemoteConversationPageNewThreadPanelPageProjectsIndexPageAppIy8s9c2dKp(),
-    pluginsPageN(),
-    appInitialAppMainSettingsPageOpenSourceLicensesPageSkillsSettingsPluginsSettinCxbtmbfcR(),
-    (pluginsSettingsValue2 =
-      appInitialAppMainRemoteConversationPageHotkeyWindowThreadPageAutomationsPageThBnlvjk3wLc()));
+  initReactCompilerRuntime();
+  initRemoteControlRefreshSourceEnum();
+  initPluginsPageChunk();
+  initSettingsContentLayoutChunk();
 })();
 export { PluginsSettings };
