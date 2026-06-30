@@ -32148,6 +32148,159 @@
       "note": "Current worktrees-settings-page hash preserves the semantic public export surface; aliases re-derived from worktrees-settings-page-DXtwfjjn.js.",
       "status": "done",
       "lastUpdated": "2026-06-30T00:00:00.000Z"
+    },
+    "chunk-FMBD7UC4-BvMbe0V6": {
+      "restored": "utils/chunk-fmbd7-uc4-dbbz-vn-va.ts",
+      "exports": {
+        "t": "chunkFMBD7UC4"
+      },
+      "aliasOf": "chunk-FMBD7UC4-DBBZVnVA",
+      "note": "Current chunk-FMBD7UC4 hash was fingerprinted against the restored source body and preserves this public export surface.",
+      "status": "done",
+      "lastUpdated": "2026-06-30T00:00:00.000Z"
+    },
+    "chunk-FMBD7UC4-D9frSjxD": {
+      "restored": "utils/chunk-fmbd7-uc4-dbbz-vn-va.ts",
+      "exports": {
+        "t": "chunkFMBD7UC4"
+      },
+      "aliasOf": "chunk-FMBD7UC4-DBBZVnVA",
+      "note": "Current chunk-FMBD7UC4 hash was fingerprinted against the restored source body and preserves this public export surface.",
+      "status": "done",
+      "lastUpdated": "2026-06-30T00:00:00.000Z"
+    },
+    "chunk-FMBD7UC4-DDEv4UMo": {
+      "restored": "utils/chunk-fmbd7-uc4-dbbz-vn-va.ts",
+      "exports": {
+        "t": "chunkFMBD7UC4"
+      },
+      "aliasOf": "chunk-FMBD7UC4-DBBZVnVA",
+      "note": "Current chunk-FMBD7UC4 hash was fingerprinted against the restored source body and preserves this public export surface.",
+      "status": "done",
+      "lastUpdated": "2026-06-30T00:00:00.000Z"
+    },
+    "control-group-B8InwDgE": {
+      "restored": "utils/control-group.tsx",
+      "exports": {
+        "n": "initControlGroupChunk",
+        "t": "ControlGroup"
+      },
+      "aliasOf": "control-group-D_h8av5f",
+      "note": "Current control-group hash was fingerprinted against the restored source body and preserves this public export surface.",
+      "status": "done",
+      "lastUpdated": "2026-06-30T00:00:00.000Z"
+    },
+    "use-git-recent-branches-BVnl1r0u": {
+      "restored": "utils/use-git-recent-branches.ts",
+      "exports": {
+        "t": "useGitRecentBranches",
+        "n": "initUseGitRecentBranchesChunk"
+      },
+      "aliasOf": "use-git-recent-branches-Bf3U6kni",
+      "note": "Current use-git-recent-branches hash was fingerprinted against the restored source body and preserves this public export surface.",
+      "status": "done",
+      "lastUpdated": "2026-06-30T00:00:00.000Z"
+    },
+    "use-git-config-value-Bbxa9eSu": {
+      "restored": "utils/use-git-config-value.ts",
+      "exports": {
+        "n": "useGitConfigValue",
+        "t": "initUseGitConfigValueChunk"
+      },
+      "aliasOf": "use-git-config-value-DPgOVHFb",
+      "note": "Current use-git-config-value hash was fingerprinted against the restored source body and preserves this public export surface.",
+      "status": "done",
+      "lastUpdated": "2026-06-30T00:00:00.000Z"
+    },
+    "use-media-query-BNTymZCj": {
+      "restored": "utils/use-media-query.ts",
+      "exports": {
+        "n": "useMediaQuery",
+        "t": "initUseMediaQueryChunk"
+      },
+      "aliasOf": "use-media-query-CUpGkpzI",
+      "note": "Current use-media-query hash was fingerprinted against the restored source body and preserves this public export surface.",
+      "status": "done",
+      "lastUpdated": "2026-06-30T00:00:00.000Z"
+    },
+    "infinite-scroll-pagination-spinner-DKk_zYlO": {
+      "restored": "ui/infinite-scroll-pagination-spinner.tsx",
+      "exports": {
+        "n": "initInfiniteScrollPaginationSpinnerChunk",
+        "t": "InfiniteScrollPaginationSpinner"
+      },
+      "aliasOf": "infinite-scroll-pagination-spinner-CqKOYMC4",
+      "note": "Current infinite-scroll-pagination-spinner hash was fingerprinted against the restored source body and preserves this public export surface.",
+      "status": "done",
+      "lastUpdated": "2026-06-30T00:00:00.000Z"
+    },
+    "toolbar-breadcrumb-Z_0PUIuH": {
+      "restored": "ui/toolbar-breadcrumb.tsx",
+      "exports": {
+        "n": "initToolbarBreadcrumbChunk",
+        "t": "ToolbarBreadcrumb"
+      },
+      "aliasOf": "toolbar-breadcrumb-BZpOAzWC",
+      "note": "Current toolbar-breadcrumb hash was fingerprinted against the restored source body and preserves this public export surface.",
+      "status": "done",
+      "lastUpdated": "2026-06-30T00:00:00.000Z"
+    },
+    "local-conversation-stream-role-product-event-Dx3HoaAZ": {
+      "restored": "conversations/local-conversation-stream-role-product-event.tsx",
+      "exports": {
+        "i": "initLocalConversationHeartbeatAutomationThreadStateReporter",
+        "n": "initLocalConversationStreamRoleProductEventReporter",
+        "r": "LocalConversationHeartbeatAutomationThreadStateReporter",
+        "t": "LocalConversationStreamRoleProductEventReporter"
+      },
+      "aliasOf": "local-conversation-stream-role-product-event-DHQpO55W",
+      "note": "Current local-conversation-stream-role-product-event hash was fingerprinted against the restored source body and preserves this public export surface.",
+      "status": "done",
+      "lastUpdated": "2026-06-30T00:00:00.000Z"
+    },
+    "segmented-toggle-DYZLeHEX": {
+      "restored": "utils/segmented-toggle.tsx",
+      "exports": {
+        "n": "initSegmentedToggleChunk",
+        "t": "SegmentedToggle"
+      },
+      "aliasOf": "segmented-toggle-CQnHwI3W",
+      "note": "Current segmented-toggle hash was fingerprinted against the restored source body and preserves this public export surface.",
+      "status": "done",
+      "lastUpdated": "2026-06-30T00:00:00.000Z"
+    },
+    "page-search-input-rbsdCe5M": {
+      "restored": "ui/page-search-input.tsx",
+      "exports": {
+        "n": "initPageSearchInputChunk",
+        "t": "PageSearchInput"
+      },
+      "aliasOf": "page-search-input-DLGrsDpo",
+      "note": "Current page-search-input hash was fingerprinted against the restored source body and preserves this public export surface.",
+      "status": "done",
+      "lastUpdated": "2026-06-30T00:00:00.000Z"
+    },
+    "apps-availability-DJmuUmI_": {
+      "restored": "utils/apps-availability.ts",
+      "exports": {
+        "n": "useAppsAvailability",
+        "t": "initAppsAvailabilityChunk"
+      },
+      "aliasOf": "apps-availability-DNfyqHL8",
+      "note": "Current apps-availability hash was fingerprinted against the restored source body and preserves this public export surface.",
+      "status": "done",
+      "lastUpdated": "2026-06-30T00:00:00.000Z"
+    },
+    "use-floating-window-pointer-interactivity-JdCkcjJn": {
+      "restored": "utils/use-floating-window-pointer-interactivity.ts",
+      "exports": {
+        "n": "useFloatingWindowPointerInteractivity",
+        "t": "initFloatingWindowPointerInteractivityChunk"
+      },
+      "aliasOf": "use-floating-window-pointer-interactivity-BrP_YEtb",
+      "note": "Current use-floating-window-pointer-interactivity hash was fingerprinted against the restored source body and preserves this public export surface.",
+      "status": "done",
+      "lastUpdated": "2026-06-30T00:00:00.000Z"
     }
   }
 }
