@@ -216,7 +216,7 @@ import {
   qs as gt,
   sc as _t,
   tc as vt,
-} from "../../ref/webview/assets/app-initial~app-main~onboarding-page-CgNc-Bk2.js";
+} from "../boundaries/current-ref/app-main-current-producer";
 import {
   n as yt,
   t as bt,

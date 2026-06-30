@@ -1150,7 +1150,7 @@ import {
   zi as pv,
   zl as mv,
   zs as hv,
-} from "../../ref/webview/assets/app-initial~app-main~onboarding-page-CgNc-Bk2.js";
+} from "../boundaries/current-ref/app-main-current-producer";
 import {
   T as gv,
   _ as _v,
@@ -1160,14 +1160,14 @@ import {
 import {
   a as bv,
   i as xv,
-} from "../../ref/webview/assets/app-initial~app-main~worktree-init-v2-page~appgen-page~remote-conversation-page~pull-reques~l0drf339-C-9b569O.js";
+} from "../boundaries/current-ref/current-app-initial-preferred-agent-mode-runtime-producer";
 import {
   C as Sv,
   j as Cv,
   m as wv,
   p as Tv,
   w as Ev,
-} from "../../ref/webview/assets/app-initial~app-main~onboarding-page~select-workspace-page-BQtGPtqt.js";
+} from "../boundaries/current-ref/current-app-initial-onboarding-select-workspace-current-runtime-producer";
 import {
   n as Dv,
   t as Ov,
@@ -1227,7 +1227,7 @@ import {
   h as by,
   v as xy,
   y as Sy,
-} from "../../ref/webview/assets/app-initial~app-main~worktree-init-v2-page~appgen-settings-page~appgen-publication-terms-ro~g0k1g2bt-B6jrUW_u.js";
+} from "../boundaries/current-ref/current-app-initial-appgen-settings-publication-runtime-producer";
 import {
   nt as Cy,
   tt as wy,
@@ -1244,7 +1244,7 @@ import {
   l as jy,
   s as My,
   u as Ny,
-} from "../../ref/webview/assets/app-initial~app-main~local-conversation-page-D-F_r9ay.js";
+} from "../boundaries/current-ref/current-app-initial-local-conversation-current-runtime-producer";
 import {
   a as Py,
   n as Fy,
