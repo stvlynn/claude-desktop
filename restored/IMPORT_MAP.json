@@ -16968,7 +16968,7 @@
       "lastUpdated": "2026-06-29T00:00:00.000Z"
     },
     "app-initial~app-main~automations-page-BfqUlSo6": {
-      "restored": "boundaries/current-ref/automations-page-producer.ts",
+      "restored": "vendor/automations-page-runtime.ts",
       "exports": {
         "_": "ChronicleSetupDialog",
         "_n": "useRegisterToggleSidebarCommand",
@@ -21358,7 +21358,7 @@
       "stage3Review": "Host self-review: quality-gate and prettier passed on the mapped public file; file read end-to-end against Stage 3 E1-E4."
     },
     "app-initial~app-main~automations-page-Bc0ZtIBr": {
-      "restored": "boundaries/current-ref/automations-page-producer.ts",
+      "restored": "vendor/automations-page-current-runtime.ts",
       "exports": {
         "$": "KeyboardShortcutsSearchInput",
         "A": "removePendingBackgroundProcessRow",
