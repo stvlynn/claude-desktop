@@ -1,5 +1,6 @@
 // Restored from ref/webview/assets/chunk-AA7GKIK3-Bic0nqP_.js
 // ChunkAA7GKIK3 chunk restored from the Codex webview bundle.
+// Updated with aliases from ref/webview/assets/chunk-AA7GKIK3-DYzvk-tv.js.
 import {
   chunkK5T4RW27G,
   chunkK5T4RW27H,
@@ -64,5 +65,8 @@ function chunkAA7GKIK3N(chunkAA7GKIK3Param1 = chunkK5T4RW27H) {
     }
   );
 }
+function initChunkAA7GKIK3() {
+  // Restored ESM modules initialize eagerly; keep the current chunk init export compatible.
+}
 chunkK5T4RW27M(chunkAA7GKIK3N, "createPieServices");
-export { chunkAA7GKIK3N, chunkAA7GKIK3T };
+export { chunkAA7GKIK3N, initChunkAA7GKIK3, chunkAA7GKIK3T };

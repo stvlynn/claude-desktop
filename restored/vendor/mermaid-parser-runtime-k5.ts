@@ -1,5 +1,6 @@
 // Restored from ref/webview/assets/chunk-K5T4RW27-1QwNQQi0.js
 // ChunkK5T4RW27 chunk restored from the Codex webview bundle.
+// Updated with aliases from ref/webview/assets/chunk-K5T4RW27-B7ZoXjZA.js.
 import {
   copyCommonJsProperties as chunkI,
   toCommonJs as chunkO,
@@ -30646,6 +30647,8 @@ export const chunkK5T4RW27A = {
   parser: {},
 };
 (class extends chunkK5T4RW27T {});
+export function initChunkK5T4RW27RuntimeChunk() {}
+export function initChunkK5T4RW27GrammarChunk() {}
 export {
   chunkK5T4RW27Underscore,
   chunkK5T4RW27G,

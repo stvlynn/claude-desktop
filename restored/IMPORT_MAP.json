@@ -34480,6 +34480,47 @@
       "note": "Current onboarding-login-content aliases were re-derived from onboarding-login-content-BFxktxIt.js; init thunks are no-ops because the semantic module initializes request helpers and component dependencies at import time.",
       "status": "done",
       "lastUpdated": "2026-06-30T00:00:00.000Z"
+    },
+    "chunk-K5T4RW27-B7ZoXjZA": {
+      "restored": "vendor/mermaid-parser-runtime-k5.ts",
+      "exports": {
+        "_": "chunkK5T4RW27H",
+        "a": "chunkK5T4RW27A",
+        "b": "chunkK5T4RW27V",
+        "c": "chunkK5T4RW27C",
+        "d": "chunkK5T4RW27D",
+        "f": "chunkK5T4RW27F",
+        "g": "initChunkK5T4RW27RuntimeChunk",
+        "h": "initChunkK5T4RW27GrammarChunk",
+        "i": "chunkK5T4RW27I",
+        "l": "chunkK5T4RW27L",
+        "m": "chunkK5T4RW27M",
+        "n": "chunkK5T4RW27N",
+        "o": "chunkK5T4RW27O",
+        "p": "chunkK5T4RW27P",
+        "r": "chunkK5T4RW27R",
+        "s": "chunkK5T4RW27S",
+        "t": "chunkK5T4RW27T",
+        "u": "chunkK5T4RW27U",
+        "v": "chunkK5T4RW27G",
+        "y": "chunkK5T4RW27Underscore"
+      },
+      "aliasOf": "chunk-K5T4RW27-1QwNQQi0",
+      "note": "Current chunk-K5T4RW27 hash re-derived from chunk-K5T4RW27-B7ZoXjZA.js: aliases repacked, with g/h represented by no-op init exports because the restored runtime is eager.",
+      "status": "done",
+      "lastUpdated": "2026-06-30T00:00:00.000Z"
+    },
+    "chunk-AA7GKIK3-DYzvk-tv": {
+      "restored": "vendor/mermaid-pie-services-k5.ts",
+      "exports": {
+        "n": "chunkAA7GKIK3N",
+        "r": "initChunkAA7GKIK3",
+        "t": "chunkAA7GKIK3T"
+      },
+      "status": "done",
+      "aliasOf": "chunk-AA7GKIK3-Bic0nqP_",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Rolldown lazy-init variant maps the init alias to the restored eager ESM initializer compatibility export."
     }
   }
 }
