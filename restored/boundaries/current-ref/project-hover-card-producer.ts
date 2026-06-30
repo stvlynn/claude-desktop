@@ -1,19 +1,19 @@
-// Restored from ref/webview/assets/app-initial~app-main~worktree-init-v2-page~remote-conversation-page~pull-requests-page~plug~kmtatxxf-DEE2TwPG.js
+// Restored from ref/webview/assets/app-initial~app-main~worktree-init-v2-page~remote-conversation-page~new-thread-panel-page~o~ko8xg8gw-DEdbMp8p.js
 // Current-ref boundary for project hover card internals still owned by the
-// pull-request/projects shared chunk.
+// worktree/new-thread query shared chunk.
 import type { ComponentPropsWithoutRef, ComponentType, ReactNode } from "react";
 import {
-  Pt as initLocalProjectActionsRuntimeRaw,
-  Qn as initProjectAvatarRuntimeRaw,
-  Rt as openLocalProjectEditModalRaw,
-  Zn as ProjectAvatarRaw,
-  cr as updateWorkspaceRootLabelRaw,
-  lr as LocalProjectFallbackIconRaw,
-  sr as initWorkspaceRootLabelRuntimeRaw,
-  ur as initLocalProjectFallbackIconRuntimeRaw,
-  xn as threadAttentionCountsSignalRaw,
-  yn as initThreadAttentionCountsRuntimeRaw,
-} from "../../vendor/app-main-legacy-deps/app-initial~app-main~worktree-init-v2-page~remote-conversation-page~pull-requests-page~plug~kmtatxxf-DEE2TwPG";
+  Lr as initLocalProjectActionsRuntimeRaw,
+  ta as initProjectAvatarRuntimeRaw,
+  Vr as openLocalProjectEditModalRaw,
+  ea as ProjectAvatarRaw,
+  da as updateWorkspaceRootLabelRaw,
+  fa as LocalProjectFallbackIconRaw,
+  ua as initWorkspaceRootLabelRuntimeRaw,
+  pa as initLocalProjectFallbackIconRuntimeRaw,
+  wi as threadAttentionCountsSignalRaw,
+  Si as initThreadAttentionCountsRuntimeRaw,
+} from "../../vendor/worktree-new-thread-query-current-bundle";
 
 export type ProjectAvatarProps = {
   appearance?: unknown;
