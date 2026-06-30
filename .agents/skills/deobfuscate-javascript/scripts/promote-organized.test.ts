@@ -431,6 +431,40 @@ describe("promoteOrganized", () => {
     expect(results.some((r) => r.basename === "download-Gh1jKl34")).toBe(true);
   });
 
+  test("dry-run restores a pre-existing public file at the same path", () => {
+    const target = setupTarget();
+    const existingPath = path.join(target, "utils", "format-thing.ts");
+    const existingSource =
+      "// Restored from ref/webview/assets/old-format-thing.js\nexport function previousFormatThing(value: string): string {\n  return value;\n}\n";
+    fs.mkdirSync(path.dirname(existingPath), { recursive: true });
+    fs.writeFileSync(existingPath, existingSource);
+
+    promoteOrganized({
+      target,
+      dryRun: true,
+      only: new Set(["format-thing-AbCdEf12"]),
+    });
+
+    expect(fs.readFileSync(existingPath, "utf-8")).toBe(existingSource);
+  });
+
+  test("gate failure restores a pre-existing public file at the same path", () => {
+    const target = setupTarget();
+    const existingPath = path.join(target, "utils", "junk.ts");
+    const existingSource =
+      "// Restored from ref/webview/assets/old-junk.js\nexport function existingJunk(value: string): string {\n  return value;\n}\n";
+    fs.mkdirSync(path.dirname(existingPath), { recursive: true });
+    fs.writeFileSync(existingPath, existingSource);
+
+    const results = promoteOrganized({
+      target,
+      only: new Set(["junk-Rs9tUv01"]),
+    });
+
+    expect(results[0]!.promoted).toBe(false);
+    expect(fs.readFileSync(existingPath, "utf-8")).toBe(existingSource);
+  });
+
   test("promotes recipes + manual candidate, updates IMPORT_MAP, rewrites imports", () => {
     const target = setupTarget();
     const results = promoteOrganized({ target });

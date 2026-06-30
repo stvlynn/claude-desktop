@@ -218,6 +218,12 @@ type Built = {
   exportMap: Record<string, string>;
 };
 
+type RollbackSnapshot = {
+  promotionRoot: string;
+  targetPath: string;
+  backupPath: string | null;
+};
+
 function toPosixPath(input: string): string {
   return input.split(path.sep).join("/");
 }
@@ -570,7 +576,29 @@ export function promoteOrganized(
   // In dry-run we still write deliverables to disk (so a consumer's relative
   // imports to already-promoted siblings resolve during gating), then remove
   // them all at the end.
-  const dryWritten: string[] = [];
+  const dryWritten: RollbackSnapshot[] = [];
+  let rollbackCounter = 0;
+
+  const snapshotBeforeWrite = (promotionRoot: string): RollbackSnapshot => {
+    const targetPath = path.join(opts.target, promotionRoot);
+    if (!fs.existsSync(targetPath)) {
+      return { promotionRoot, targetPath, backupPath: null };
+    }
+    const snapshotRoot = path.join(paths.fullDir, "rollback-snapshots");
+    fs.mkdirSync(snapshotRoot, { recursive: true });
+    const backupPath = path.join(
+      snapshotRoot,
+      `${process.pid}-${Date.now()}-${rollbackCounter++}`,
+    );
+    fs.cpSync(targetPath, backupPath, { recursive: true });
+    return { promotionRoot, targetPath, backupPath };
+  };
+
+  const discardSnapshot = (snapshot: RollbackSnapshot): void => {
+    if (snapshot.backupPath) {
+      fs.rmSync(snapshot.backupPath, { recursive: true, force: true });
+    }
+  };
 
   const writeBuilt = (built: Built): void => {
     for (const f of built.files) {
@@ -589,10 +617,13 @@ export function promoteOrganized(
       }
     }
   };
-  const rollback = (promotionRoot: string): void => {
-    const abs = path.join(opts.target, promotionRoot);
-    fs.rmSync(abs, { recursive: true, force: true });
-    const domain = path.dirname(abs);
+  const rollback = (snapshot: RollbackSnapshot): void => {
+    fs.rmSync(snapshot.targetPath, { recursive: true, force: true });
+    if (snapshot.backupPath) {
+      fs.cpSync(snapshot.backupPath, snapshot.targetPath, { recursive: true });
+      discardSnapshot(snapshot);
+    }
+    const domain = path.dirname(snapshot.targetPath);
     try {
       if (domain !== opts.target && fs.readdirSync(domain).length === 0) {
         fs.rmSync(domain, { recursive: true, force: true });
@@ -636,6 +667,7 @@ export function promoteOrganized(
     prog?.tick(1, `${promotedCount} promoted · ${attempted.size} blocked`);
 
     let lockHeld = false;
+    let rollbackSnapshot: RollbackSnapshot | null = null;
     try {
       if (!opts.dryRun) {
         acquireLock(paths.fullDir, basename, "promote", owner);
@@ -652,6 +684,7 @@ export function promoteOrganized(
       });
       // Write at the FINAL location so relative imports to promoted siblings
       // resolve, gate in place, then keep or roll back.
+      rollbackSnapshot = snapshotBeforeWrite(built.promotionRoot);
       writeBuilt(built);
       const qopts = qualityOptionsFor(org.classification, opts.tier ?? "deep");
       const issues = [
@@ -667,7 +700,8 @@ export function promoteOrganized(
       ];
 
       if (issues.length > 0) {
-        rollback(built.promotionRoot);
+        rollback(rollbackSnapshot);
+        rollbackSnapshot = null;
         log(`promote: FAIL ${basename} (${issues.join(", ")})`);
         results.push({
           basename,
@@ -694,7 +728,8 @@ export function promoteOrganized(
       manifest.updatedAt = new Date().toISOString();
 
       if (opts.dryRun) {
-        dryWritten.push(built.promotionRoot);
+        dryWritten.push(rollbackSnapshot);
+        rollbackSnapshot = null;
         log(`[dry] ${basename} → ${built.restoredPath}  PASS`);
         results.push({
           basename,
@@ -713,8 +748,16 @@ export function promoteOrganized(
           semanticPath: built.restoredPath,
           reason: "promoted",
         });
+        if (rollbackSnapshot) {
+          discardSnapshot(rollbackSnapshot);
+          rollbackSnapshot = null;
+        }
       }
     } catch (err) {
+      if (rollbackSnapshot) {
+        rollback(rollbackSnapshot);
+        rollbackSnapshot = null;
+      }
       if (err instanceof LockHeldError) {
         log(`promote: ${basename} locked by ${err.info.owner}; skipping`);
         attempted.add(basename); // another agent owns it this run
@@ -748,7 +791,7 @@ export function promoteOrganized(
   prog?.done(`${promotedCount} promoted · ${attempted.size} blocked`);
   // A dry run leaves no public files behind (deepest paths first).
   if (opts.dryRun) {
-    for (const root of [...dryWritten].reverse()) rollback(root);
+    for (const snapshot of [...dryWritten].reverse()) rollback(snapshot);
   }
   return results;
 }
