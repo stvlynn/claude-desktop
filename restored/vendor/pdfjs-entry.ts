@@ -1,5 +1,5 @@
-// Restored from ref/webview/assets/pdf-BMUvP2KZ.js
-// Pdf chunk restored from the Codex webview bundle.
+// Restored from ref/webview/assets/pdf-CEc0zmuq.js
+// PDF.js entry chunk re-exporting the current bundled PDF runtime surface.
 import {
   _pdfT as pdfAbortException,
   _pdfN as pdfAnnotationEditorLayer,

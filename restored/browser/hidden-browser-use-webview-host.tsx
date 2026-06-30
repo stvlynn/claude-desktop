@@ -1,4 +1,4 @@
-// Restored from ref/webview/assets/browser-sidebar-hidden-browser-use-webview-host-y6an5M4y.js
+// Restored from ref/webview/assets/browser-sidebar-hidden-browser-use-webview-host-CkfqVXrj.js
 // Keeps hidden browser-use webviews mounted for tabs that are not visible in a panel.
 import React, { useMemo, useRef, useSyncExternalStore } from "react";
 import {
@@ -33,10 +33,12 @@ import { BrowserSidebarWebview } from "./sidebar-webview";
 type HiddenBrowserUseWebviewHostProps = {
   browserUseTabIdsKey: string;
   conversationId: string;
+  persistedTabsEnabled?: boolean;
 };
 type HiddenBrowserUseWebviewProps = {
   browserTabId: string;
   conversationId: string;
+  persistedTabsEnabled?: boolean;
 };
 type MotionValueLike = {
   get: () => number;
@@ -45,6 +47,7 @@ type MotionValueLike = {
 export function HiddenBrowserUseWebviewHost({
   browserUseTabIdsKey,
   conversationId,
+  persistedTabsEnabled,
 }: HiddenBrowserUseWebviewHostProps): React.JSX.Element | null {
   const isBrowserUseEnabledForConversation = useAppScopeFamilyValue(
     browserUseEnabledForConversationSignal,
@@ -109,6 +112,7 @@ export function HiddenBrowserUseWebviewHost({
           key={browserTabId}
           browserTabId={browserTabId}
           conversationId={conversationId}
+          persistedTabsEnabled={persistedTabsEnabled}
         />
       ))}
     </>
@@ -117,6 +121,7 @@ export function HiddenBrowserUseWebviewHost({
 function HiddenBrowserUseWebview({
   browserTabId,
   conversationId,
+  persistedTabsEnabled,
 }: HiddenBrowserUseWebviewProps): React.JSX.Element | null {
   const windowZoom = useWindowZoom();
   const webviewRef = useRef<BrowserSidebarWebviewElement | null>(
@@ -145,6 +150,7 @@ function HiddenBrowserUseWebview({
       hostKind="hidden-browser-use"
       initialUrl={initialUrl}
       isVisible={false}
+      persistedTabsEnabled={persistedTabsEnabled}
       scale={1}
       shouldBootstrapWhenHidden={true}
       shouldPaint={false}

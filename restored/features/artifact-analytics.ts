@@ -1,6 +1,4 @@
-// Restored from ref/webview/assets/artifact-analytics-DeyIRgFu.js
-// Supersedes historical restore from ref/webview/assets/artifact-analytics-FNBRBLp1.js.
-// Also matches ref/webview/assets/artifact-analytics-DlC6JvjK.js.
+// Restored from ref/webview/assets/artifact-analytics-DlC6JvjK.js
 // Product analytics helpers for artifact annotation flows.
 import {
   ArtifactAnnotationStartSource,
@@ -44,7 +42,7 @@ type AnnotationSubmitOptions = {
   submitMode?: AnnotationSubmitMode | null;
   submitSource?: AnnotationSubmitSource | null;
 };
-export function trackArtifactAnnotationStarted(
+function trackArtifactAnnotationStarted(
   scope: ProductLoggerScope,
   context: ArtifactAnalyticsContext,
   { annotationModeEnabled, startSource }: AnnotationStartOptions,
@@ -55,7 +53,7 @@ export function trackArtifactAnnotationStarted(
     startSource: mapAnnotationStartSource(startSource),
   });
 }
-export function trackArtifactAnnotationCanceled(
+function trackArtifactAnnotationCanceled(
   scope: ProductLoggerScope,
   context: ArtifactAnalyticsContext,
 ): void {
@@ -63,7 +61,7 @@ export function trackArtifactAnnotationCanceled(
     ...buildArtifactPayload(context),
   });
 }
-export function trackArtifactAnnotationSaved(
+function trackArtifactAnnotationSaved(
   scope: ProductLoggerScope,
   context: ArtifactAnalyticsContext,
 ): void {
@@ -71,7 +69,7 @@ export function trackArtifactAnnotationSaved(
     ...buildArtifactPayload(context),
   });
 }
-export function trackArtifactAnnotationSubmitted(
+function trackArtifactAnnotationSubmitted(
   scope: ProductLoggerScope,
   context: ArtifactAnalyticsContext,
   {
@@ -102,8 +100,7 @@ function buildArtifactPayload({
     threadId: threadId ?? undefined,
   };
 }
-
-export const initArtifactAnalyticsChunk = once(() => {
+const initArtifactAnalyticsChunk = once(() => {
   initProductLoggerRuntime();
   initArtifactAnalyticsEventDescriptors();
 });
@@ -153,3 +150,10 @@ function mapAnnotationSubmitSource(
       return ArtifactAnnotationSubmitSource.CODEX_ARTIFACT_ANNOTATION_SUBMIT_SOURCE_KEYBOARD;
   }
 }
+export {
+  trackArtifactAnnotationCanceled,
+  trackArtifactAnnotationSubmitted,
+  trackArtifactAnnotationSaved,
+  trackArtifactAnnotationStarted,
+  initArtifactAnalyticsChunk,
+};
