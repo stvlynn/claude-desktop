@@ -19697,9 +19697,12 @@
         "Pt": "ProfileDropdown"
       },
       "status": "done",
-      "note": "Current app-main automations/root producer fully restored as a semantic producer barrel. All 141 public export aliases are mapped to restored modules; no raw ref passthrough is required for this chunk.",
-      "lastUpdated": "2026-06-29T00:00:00.000Z",
-      "notes": "Deep restore delta: 141/141 exports are routed to semantic restored modules and the automations runtime no longer re-exports from the raw ref bundle."
+      "note": "Historical BfqUlSo6 app-main automations/root producer retained as vendor/automations-page-runtime.ts. The current ref migrated this stable-stem chunk to Bc0ZtIBr with a re-derived 105-export map; the old 141-alias compatibility surface remains distinct and must not inherit current-ref alias bindings.",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "notes": "Deep restore delta: 141 legacy aliases are routed to semantic restored modules and the automations runtime no longer re-exports from the raw ref bundle.",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T00:00:00.000Z",
+      "stage3Review": "Host self-review: current ref no longer contains BfqUlSo6; verified Bc0ZtIBr exists as the separate current entry with migratedFrom=BfqUlSo6, vendor/automations-page-runtime.ts passes quality-gate, and its semantic exports cover the recorded legacy mapping with a small compatibility superset."
     },
     "app-initial~app-main~remote-conversation-page~new-thread-panel-page~appgen-library-page~hot~djo67r4n-CFm41aDU": {
       "restored": "vendor/appgen-library-hot-runtime.ts",
@@ -27146,8 +27149,8 @@
     "app-initial~app-main~first-run~new-thread-panel-page-BZcGQjmi": {
       "restored": "app-shell/nux-state.ts",
       "exports": {
-        "n": "useNux",
-        "t": "initUseNuxChunk"
+        "n": "initUseNuxChunk",
+        "t": "useNux"
       },
       "status": "done",
       "aliasOf": "use-nux-ChpUn11I",
