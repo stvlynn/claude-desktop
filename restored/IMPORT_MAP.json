@@ -21331,6 +21331,146 @@
       "lastUpdated": "2026-06-30T00:00:00.000Z",
       "note": "Current Segment analytics video plugins UMD wrapper preserves the restored default export surface."
     },
+    "chunk-QZHKN3VN-bO7GNZwy": {
+      "restored": "vendor/mermaid-imperative-state.ts",
+      "exports": {
+        "t": "ChunkQZHKN3VN"
+      },
+      "status": "done",
+      "aliasOf": "chunk-QZHKN3VN-C6aDqNWX",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Mermaid helper wrapper preserves the runtime helper-backed vendor export surface."
+    },
+    "chunk-QZHKN3VN-CPaFS3kj": {
+      "restored": "vendor/mermaid-imperative-state.ts",
+      "exports": {
+        "t": "ChunkQZHKN3VN"
+      },
+      "status": "done",
+      "aliasOf": "chunk-QZHKN3VN-C6aDqNWX",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Mermaid helper wrapper preserves the runtime helper-backed vendor export surface."
+    },
+    "chunk-QZHKN3VN-CWujSndb": {
+      "restored": "vendor/mermaid-imperative-state.ts",
+      "exports": {
+        "t": "ChunkQZHKN3VN"
+      },
+      "status": "done",
+      "aliasOf": "chunk-QZHKN3VN-C6aDqNWX",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Mermaid helper wrapper preserves the runtime helper-backed vendor export surface."
+    },
+    "chunk-4BX2VUAB-Bbd4mm_a": {
+      "restored": "vendor/mermaid-accessibility.ts",
+      "exports": {
+        "t": "chunk4BX2VUAB"
+      },
+      "status": "done",
+      "aliasOf": "chunk-4BX2VUAB-CQ4cpB2N",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Mermaid helper wrapper preserves the runtime helper-backed vendor export surface."
+    },
+    "chunk-4BX2VUAB-CjbaQjC5": {
+      "restored": "vendor/mermaid-accessibility.ts",
+      "exports": {
+        "t": "chunk4BX2VUAB"
+      },
+      "status": "done",
+      "aliasOf": "chunk-4BX2VUAB-CQ4cpB2N",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Mermaid helper wrapper preserves the runtime helper-backed vendor export surface."
+    },
+    "chunk-4BX2VUAB-ConBjPgp": {
+      "restored": "vendor/mermaid-accessibility.ts",
+      "exports": {
+        "t": "chunk4BX2VUAB"
+      },
+      "status": "done",
+      "aliasOf": "chunk-4BX2VUAB-CQ4cpB2N",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Mermaid helper wrapper preserves the runtime helper-backed vendor export surface."
+    },
+    "stateDiagram-v2-QKLJ7IA2-Bge6W8at": {
+      "restored": "vendor/mermaid-state-diagram-v2-definition-k5.ts",
+      "exports": {
+        "diagram": "stateDiagramV2QKLJ7IA2"
+      },
+      "status": "done",
+      "aliasOf": "stateDiagram-v2-QKLJ7IA2-CfGDQd0C",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Mermaid diagram definition wrapper preserves the restored public export surface."
+    },
+    "stateDiagram-v2-QKLJ7IA2-DOZoTWEO": {
+      "restored": "vendor/mermaid-state-diagram-v2-definition-k5.ts",
+      "exports": {
+        "diagram": "stateDiagramV2QKLJ7IA2"
+      },
+      "status": "done",
+      "aliasOf": "stateDiagram-v2-QKLJ7IA2-CfGDQd0C",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Mermaid diagram definition wrapper preserves the restored public export surface."
+    },
+    "stateDiagram-v2-QKLJ7IA2-NVujTopY": {
+      "restored": "vendor/mermaid-state-diagram-v2-definition-k5.ts",
+      "exports": {
+        "diagram": "stateDiagramV2QKLJ7IA2"
+      },
+      "status": "done",
+      "aliasOf": "stateDiagram-v2-QKLJ7IA2-CfGDQd0C",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Mermaid diagram definition wrapper preserves the restored public export surface."
+    },
+    "classDiagram-6PBFFD2Q-BMID2kH6": {
+      "restored": "vendor/mermaid-class-diagram-definition-k5.ts",
+      "exports": {
+        "diagram": "ClassDiagram6PBFFD2Q"
+      },
+      "status": "done",
+      "aliasOf": "classDiagram-6PBFFD2Q-Cvxpk6bJ",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Mermaid diagram definition wrapper preserves the restored public export surface."
+    },
+    "classDiagram-6PBFFD2Q-CvyjdvuM": {
+      "restored": "vendor/mermaid-class-diagram-definition-k5.ts",
+      "exports": {
+        "diagram": "ClassDiagram6PBFFD2Q"
+      },
+      "status": "done",
+      "aliasOf": "classDiagram-6PBFFD2Q-Cvxpk6bJ",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Mermaid diagram definition wrapper preserves the restored public export surface."
+    },
+    "classDiagram-v2-HSJHXN6E-2MKiCbOK": {
+      "restored": "vendor/mermaid-class-diagram-v2-definition-k5.ts",
+      "exports": {
+        "diagram": "ClassDiagramV2HSJHXN6E"
+      },
+      "status": "done",
+      "aliasOf": "classDiagram-v2-HSJHXN6E-Dhbhv0LY",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Mermaid diagram definition wrapper preserves the restored public export surface."
+    },
+    "classDiagram-v2-HSJHXN6E-C72usBT2": {
+      "restored": "vendor/mermaid-class-diagram-v2-definition-k5.ts",
+      "exports": {
+        "diagram": "ClassDiagramV2HSJHXN6E"
+      },
+      "status": "done",
+      "aliasOf": "classDiagram-v2-HSJHXN6E-Dhbhv0LY",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Mermaid diagram definition wrapper preserves the restored public export surface."
+    },
+    "classDiagram-v2-HSJHXN6E-CbfcHaoM": {
+      "restored": "vendor/mermaid-class-diagram-v2-definition-k5.ts",
+      "exports": {
+        "diagram": "ClassDiagramV2HSJHXN6E"
+      },
+      "status": "done",
+      "aliasOf": "classDiagram-v2-HSJHXN6E-Dhbhv0LY",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Mermaid diagram definition wrapper preserves the restored public export surface."
+    },
     "app-initial~app-main~worktree-init-v2-page~remote-conversation-page~new-thread-panel-page~a~hqj10sd5-C_H_yI8D": {
       "restored": "threads/thread-layout.tsx",
       "note": "Current app chunk keeps the restored public export surface; alias added after current ref sync.",
