@@ -22,6 +22,11 @@ type Snapshot<T = unknown> = {
   queryKey: readonly unknown[];
   setData(data: T | undefined): void;
 };
+type AppScopeProviderProps = {
+  children: React.ReactNode;
+  scope: unknown;
+  value?: unknown;
+};
 
 let nextSignalId = 0;
 
@@ -219,6 +224,12 @@ export function _appScopeI<T>(value: T): T {
 
 export function _appScopeY<T>(value: T): T {
   return value;
+}
+
+export function appScopeR({
+  children,
+}: AppScopeProviderProps): React.ReactElement {
+  return <>{children}</>;
 }
 
 export const appScopeX = React.createContext;
