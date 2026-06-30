@@ -12285,7 +12285,7 @@
       "lastUpdated": "2026-06-29T00:00:00.000Z"
     },
     "app-initial~app-main~settings-page~projects-index-page~notebook-preview-panel~docx-preview-panel-BHOEvyvO": {
-      "restored": "boundaries/current-ref/settings-navigation-primitives-producer.ts",
+      "restored": "settings/settings-navigation/primitives.ts",
       "exports": {
         "a": "SettingsNavRow",
         "i": "initSettingsNavigationDisclosureIconChunk",
@@ -12604,7 +12604,7 @@
       "note": "Current app-initial chunk combines settings section metadata with restored profile visibility hooks; constants are preserved locally because the current build adds the import settings section."
     },
     "app-initial~app-main~remote-conversation-page~new-thread-panel-page~onboarding-page~appgen-~d4gukj65-CzTWbFLy": {
-      "restored": "boundaries/current-ref/permission-mode-visibility-producer.ts",
+      "restored": "utils/use-permissions-mode/visibility-chunk.ts",
       "exports": {
         "a": "filterVisiblePermissionModes",
         "c": "PermissionsModeVisibilityIcon",
@@ -12655,7 +12655,7 @@
       "note": "Current app mixed producer combines embedded tslib helpers, React Intl/FormatJS exports, and automatic approval review copy."
     },
     "app-initial~app-main~projects-index-page~appearance-settings~general-settings-BpwP5uUa": {
-      "restored": "boundaries/current-ref/react-colorful-hex-picker-producer.ts",
+      "restored": "vendor/react-colorful-hex-picker.ts",
       "exports": {
         "n": "initReactColorfulHexPickerChunk",
         "t": "HexColorPicker"
@@ -12666,7 +12666,7 @@
       "note": "Current app-initial chunk is the bundled react-colorful HexColorPicker with the same component body as the existing vendor/react-colorful restore plus a chunk init export."
     },
     "app-initial~app-main~worktree-init-v2-page~appgen-page~remote-conversation-page~new-thread-~cudo26ta-w-TJZ3uo": {
-      "restored": "boundaries/current-ref/worktree-macbook-icons-producer.ts",
+      "restored": "icons/worktree-macbook-icons.ts",
       "exports": {
         "i": "initWorktreeIconChunk",
         "n": "initMacbookIconChunk",
@@ -16948,7 +16948,7 @@
       "lastUpdated": "2026-06-29T00:00:00.000Z"
     },
     "app-initial~app-main~appgen-settings-page~plugin-detail-page~open-source-licenses-page~skil~dv11zlwm-D8AV5XAy": {
-      "restored": "boundaries/current-ref/settings-group-producer.ts",
+      "restored": "utils/settings-group-chunk.ts",
       "exports": {
         "n": "initSettingsGroupChunk",
         "t": "SettingsGroup"
@@ -16958,7 +16958,7 @@
       "lastUpdated": "2026-06-29T00:00:00.000Z"
     },
     "app-initial~app-main~remote-conversation-page~hotkey-window-thread-page~automations-page~th~bnlvjk3w-CKQxrGhJ": {
-      "restored": "boundaries/current-ref/automation-history-items-producer.ts",
+      "restored": "utils/use-automation-history-items.ts",
       "exports": {
         "n": "useAutomationHistoryItems",
         "t": "initAutomationHistoryItemsChunk"
