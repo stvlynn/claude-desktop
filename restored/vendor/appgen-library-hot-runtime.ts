@@ -1,10 +1,10 @@
-// Restored from ref/webview/assets/app-initial~app-main~remote-conversation-page~new-thread-panel-page~appgen-library-page~hot~djo67r4n-CFm41aDU.js
+// Restored from ref/webview/assets/app-initial~app-main~remote-conversation-page~new-thread-panel-page~appgen-library-page~hot~djo67r4n-CrVrqCBe.js
 // Current app-main appgen-library hot-path runtime exports.
 import { createContext, type ComponentType, type ReactNode } from "react";
 import {
   n as initRawThreadComposerFooterChunk,
   t as RawThreadComposerFooter,
-} from "../boundaries/current-ref/appgen-library-hot-current-ref-producer";
+} from "./appgen-library-hot-current-bundle";
 import { AppShellElementContext } from "../app-shell/app-shell-element-context";
 
 type ThreadComposerFooterComponent = ComponentType<{
@@ -169,4 +169,4 @@ export {
   pt as initBrowserExtensionInstallMessagesRuntime,
   yn as sidebarProjectVisibilitySelector,
   Rt as initComputerUseAllowedAppsAtom,
-} from "../boundaries/current-ref/appgen-library-hot-current-ref-producer";
+} from "./appgen-library-hot-current-bundle";
