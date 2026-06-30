@@ -36399,6 +36399,35 @@
       "stage3AcceptedAt": "2026-06-30T14:37:35.799Z",
       "stage3Note": "Accepted as a vendored Lodash aggregate runtime with current chunk provenance and validated export aliases."
     },
+    "esm-Bs7-NtHW": {
+      "restored": "vendor/segment-analytics.ts",
+      "exports": {
+        "_": "segmentIsNumber",
+        "a": "ContextCancelation",
+        "c": "initSegmentAnalyticsUuidChunk",
+        "d": "initSegmentAnalyticsEventEmitterChunk",
+        "f": "segmentEventEmitter",
+        "g": "segmentIsFunction",
+        "h": "segmentEventNormalizer",
+        "i": "applySegmentPlugin",
+        "l": "createSegmentMessageId",
+        "m": "segmentPromiseWithTimeout",
+        "n": "dispatchSegmentContext",
+        "o": "Context",
+        "p": "createSegmentDeferred",
+        "r": "segmentDispatchQueue",
+        "s": "segmentMetricsBuffer",
+        "t": "initSegmentAnalyticsCoreChunk",
+        "u": "segmentRetryQueue",
+        "v": "segmentIsPlainObject",
+        "y": "segmentIsString"
+      },
+      "status": "done",
+      "lastUpdated": "2026-06-30T00:00:00.000-05:00",
+      "note": "Current Segment analytics ESM core chunk re-derived from esm-Bs7-NtHW.js; public exports are mapped onto the existing restored Segment analytics module plus compatibility aliases for core initializers, dispatch queue, event normalizer, timeout helper, metrics buffer, and helper predicates.",
+      "stage3Accepted": true,
+      "stage3Review": "Host self-review: parsed current ref esm-Bs7-NtHW.js export table and verified ee/G/z/j/A/te/E/X/F/D/De/K/k/Q/H/Ae/N/y/_ aliases map to public vendor/segment-analytics.ts exports; the target preserves the Segment core Context, queue, dispatch, plugin, metrics, timeout, UUID, deferred, and predicate surfaces."
+    },
     "esm-BrsRQYxN": {
       "restored": "vendor/tanstack-react-form.ts",
       "exports": {

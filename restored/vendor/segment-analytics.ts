@@ -56,7 +56,10 @@ import {
   helpersR,
   helpersT,
 } from "./segment-helpers";
-import { runDelayedCallback } from "../utils/callback";
+import {
+  runDelayedCallback,
+  withTimeout as segmentPromiseWithTimeout,
+} from "../utils/callback";
 import {
   metricHelpersA,
   metricHelpersC,
@@ -4696,6 +4699,60 @@ export const pkgAnalyticsBrowser = (function (pkgParam67) {
     pkgHelper69
   );
 })(pkgValue42);
+const initSegmentAnalyticsUuidChunk = () => {};
+const initSegmentAnalyticsEventEmitterChunk = () => {};
+const initSegmentAnalyticsCoreChunk = () => {};
+const segmentEventNormalizer = pkgValue7;
+const dispatchSegmentContext = pkgHelper7;
+const segmentDispatchQueue = pkgValue10;
+class SegmentMetricsBuffer {
+  constructor() {
+    this.metrics = [];
+  }
+  increment(metric, value, tags) {
+    value === undefined && (value = 1);
+    this.metrics.push({
+      metric,
+      value,
+      tags: tags ?? [],
+      type: "counter",
+      timestamp: Date.now(),
+    });
+  }
+  gauge(metric, value, tags) {
+    this.metrics.push({
+      metric,
+      value,
+      tags: tags ?? [],
+      type: "gauge",
+      timestamp: Date.now(),
+    });
+  }
+  flush() {
+    const rows = this.metrics.map(function (item) {
+      return pkgImport6(pkgImport6({}, item), {
+        tags: item.tags.join(","),
+      });
+    });
+    console.table ? console.table(rows) : console.log(rows);
+    this.metrics = [];
+  }
+  serialize() {
+    return this.metrics.map(function (item) {
+      return {
+        m: item.metric,
+        v: item.value,
+        t: item.tags,
+        k: {
+          gauge: "g",
+          counter: "c",
+        }[item.type],
+        e: item.timestamp,
+      };
+    });
+  }
+}
+const segmentMetricsBuffer = SegmentMetricsBuffer;
 export {
   pkgAnalytics as Analytics,
   pkgContext as Context,
@@ -4711,4 +4768,21 @@ export {
   pkgResolvePageArguments as resolvePageArguments,
   pkgResolveUserArguments as resolveUserArguments,
   pkgSegmentio as segmentio,
+  metricHelpersS as applySegmentPlugin,
+  metricHelpersF as createSegmentDeferred,
+  middlewareM as createSegmentMessageId,
+  dispatchSegmentContext,
+  initSegmentAnalyticsCoreChunk,
+  initSegmentAnalyticsEventEmitterChunk,
+  initSegmentAnalyticsUuidChunk,
+  helpersN as segmentIsFunction,
+  helpersR as segmentIsNumber,
+  helpersI as segmentIsPlainObject,
+  helpersA as segmentIsString,
+  segmentDispatchQueue,
+  metricHelpersD as segmentEventEmitter,
+  segmentEventNormalizer,
+  segmentMetricsBuffer,
+  segmentPromiseWithTimeout,
+  metricHelpersU as segmentRetryQueue,
 };
