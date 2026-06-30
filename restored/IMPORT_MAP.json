@@ -35399,6 +35399,15 @@
       "note": "Shiki bundled theme data chunk mapped to npm leaf @shikijs/themes/gruvbox-light-soft; JSON payload is intentionally not copied into restored/",
       "stage3Accepted": true,
       "lastUpdated": "2026-06-30T00:00:00.000-05:00"
+    },
+    "worker-QcUPnwRG": {
+      "restored": "vendor/pierre-diffs/worker.ts",
+      "exports": {},
+      "status": "done",
+      "vendor": "@pierre/diffs/worker",
+      "note": "Current @pierre/diffs highlight worker leaf. The worker has no ESM exports; consumers construct it with new URL(worker-QcUPnwRG.js, import.meta.url).",
+      "stage3Accepted": true,
+      "lastUpdated": "2026-06-30T00:00:00.000-05:00"
     }
   }
 }
