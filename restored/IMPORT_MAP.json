@@ -6067,6 +6067,18 @@
       "aliasOf": "journeyDiagram-XKPGCS4Q-qmAqcnof",
       "lastUpdated": "2026-06-29T00:00:00.000Z"
     },
+    "journeyDiagram-XKPGCS4Q-BaA-6jmx": {
+      "restored": "vendor/journey-diagram-xkpgcs4q.ts",
+      "exports": {
+        "diagram": "journeyDiagramXKPGCS4Q"
+      },
+      "status": "done",
+      "aliasOf": "journeyDiagram-XKPGCS4Q-qmAqcnof",
+      "lastUpdated": "2026-06-30T00:00:00.000-05:00",
+      "note": "Current Journey diagram hash re-derived from journeyDiagram-XKPGCS4Q-BaA-6jmx.js; source exports ce as diagram and preserves the existing journeyDiagramXKPGCS4Q public surface.",
+      "stage3Accepted": true,
+      "stage3Review": "Host self-review: verified the current source export table, checked all current dependency imports resolve through IMPORT_MAP, and quality-gate --vendored passes on vendor/journey-diagram-xkpgcs4q.ts."
+    },
     "sequenceDiagram-WL72ISMW-BR6BjBF1": {
       "restored": "vendor/sequence-diagram-wl72ismw.ts",
       "exports": {
