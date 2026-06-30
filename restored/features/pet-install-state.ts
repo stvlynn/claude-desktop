@@ -1,6 +1,6 @@
 // Restored from ref/webview/assets/pet-install-state-DNnY2nH8.js
 // Also matches ref/webview/assets/pet-install-state-DxmDfR1m.js.
-// Pet install preview/install session state for the current Codex webview.
+// Current DxmDfR1m source verified as the same preview/install state machine.
 import { once } from "../runtime/commonjs-interop";
 import {
   appScopeRoot,

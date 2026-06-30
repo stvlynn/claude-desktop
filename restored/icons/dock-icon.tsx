@@ -1,5 +1,5 @@
 // Restored from ref/webview/assets/dock-DAmmeMut.js; synced with ref/webview/assets/dock-NoZMzdzo.js and ref/webview/assets/dock-BXG1fB9e.js.
-// Semantic icon module: named React component with JSX return value.
+// Current BXG1fB9e source verified as the same dock SVG plus init thunk.
 
 import type { SVGProps } from "react";
 export type IconProps = SVGProps<SVGSVGElement>;

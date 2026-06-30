@@ -1,6 +1,6 @@
 // Restored from ref/webview/assets/trending-topics-DPEGt8uA.js
 // Also matches ref/webview/assets/trending-topics-DmBxGZ7Z.js.
-// Semantic icon module: named React component with JSX return value.
+// Current DmBxGZ7Z source verified as the same trending topics SVG plus init thunk.
 
 import type { SVGProps } from "react";
 export type IconProps = SVGProps<SVGSVGElement>;

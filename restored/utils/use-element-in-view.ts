@@ -1,6 +1,6 @@
 // Restored from ref/webview/assets/use-element-in-view-lTZiz79I.js
 // Also matches ref/webview/assets/use-element-in-view-BYpNnWHn.js.
-// Tracks whether a target element intersects a scroll container.
+// Current BYpNnWHn source verified as the same scroll/resize external-store hook.
 
 import React from "react";
 import { once } from "../runtime/commonjs-interop";

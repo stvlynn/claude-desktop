@@ -1,6 +1,6 @@
 // Restored from ref/webview/assets/star-B47SYvH7.js
 // Also matches ref/webview/assets/star-DXYFsF9O.js.
-// Semantic icon module: named React component with JSX return value.
+// Current DXYFsF9O source verified as the same star SVG plus init thunk.
 
 import type { SVGProps } from "react";
 export type IconProps = SVGProps<SVGSVGElement>;

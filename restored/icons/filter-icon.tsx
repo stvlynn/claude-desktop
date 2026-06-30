@@ -1,6 +1,6 @@
 // Restored from ref/webview/assets/filter-BUOx0Gs-.js
 // Also matches ref/webview/assets/filter-ls_JHxsp.js.
-// Semantic icon module: named React component with JSX return value.
+// Current ls_JHxsp source verified as the same filter SVG plus init thunk.
 
 import type { SVGProps } from "react";
 export type IconProps = SVGProps<SVGSVGElement>;
