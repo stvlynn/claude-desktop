@@ -1,5 +1,6 @@
 // Restored from ref/webview/assets/thread-overflow-menu-yh1Ldo2y.js
 // Runtime bindings for thread overflow actions, side chat, and heartbeat automation tabs.
+import { once } from "../runtime/commonjs-interop";
 import {
   initAppgFeatureGateAndSideConversationRuntime as initSideConversationProducer,
   initAppgThreadActionAndMessageRuntime as initThreadActionMenuRuntime,
@@ -17,24 +18,18 @@ import { sendHostRequest } from "../runtime/host-request-runtime";
 
 import { initReactRuntime } from "../runtime/shared-utility-runtime";
 
-import { initVscodeBridgeRuntime as initDeveloperInstructionsProducer } from "../runtime/platform-content-runtime";
+import {
+  initPlatformContentRuntime,
+  initVscodeBridgeRuntime as initDeveloperInstructionsProducer,
+  PlatformContentGate,
+} from "../runtime/platform-content-runtime";
 import {
   appLogger as logger,
   initAppLoggerRuntime as initConversationActionAndLoggerRuntime,
 } from "../runtime/app-logger";
 
 import {
-  closeSideChatThreadAssociation,
-  initElectronPlatformContent,
-  initKeyboardModifierState,
-  initThreadOverflowQueryRuntime,
-  initToastProducer,
-  PlatformContentGate,
-  registerSideChatThreadAssociation,
-  RenameThreadDialog,
-  useCommandRegistration,
-} from "../boundaries/current-ref/thread-overflow-menu-primitives-producer";
-import {
+  Si as initThreadSourceSignal,
   _c as getPanelController,
   a as forkConversationFromLatest,
   b as initForkThreadMessages,
@@ -74,6 +69,15 @@ import {
   Wp as conversationModelOverrideSignal,
 } from "../vendor/projects-app-shared-runtime";
 import {
+  Zi as closeSideChatThreadAssociationRaw,
+  jr as initCommandRegistrationStateRaw,
+  Er as initKeyboardModifierStateRaw,
+  Xi as initSideChatThreadAssociationStateRaw,
+  ma as RenameThreadDialog,
+  Ji as registerSideChatThreadAssociationRaw,
+  Mr as useCommandRegistrationRaw,
+} from "../vendor/worktree-new-thread-query-current-bundle";
+import {
   Ar as initAutomationPanelRuntime,
   Du as initProfileRouteProducer,
   Eu as LoadingPanel,
@@ -93,6 +97,74 @@ import { initScopeRuntime } from "../runtime/app-scope-runtime";
 const initConversationActionProducer = initConversationActionAndLoggerRuntime;
 const initLoggerRuntime = initConversationActionAndLoggerRuntime;
 const useSignalSnapshot = useScopedValue;
+const initElectronPlatformContent = initPlatformContentRuntime;
+const initToastProducer = initToastRuntime;
+
+export type CommandRegistrationOptions = {
+  contextHandler?: (context: unknown) => void;
+  enabled?: boolean;
+  isActive?: (context: unknown) => boolean;
+  keyboardHandler?: (event: KeyboardEvent, context: unknown) => boolean | void;
+  menuItem?: unknown;
+};
+
+type AppScopeStore = {
+  get?: (...args: unknown[]) => unknown;
+  set?: (...args: unknown[]) => unknown;
+};
+
+const initCommandRegistrationState = once(() => {
+  initCommandRegistrationStateRaw();
+});
+
+const initSideChatThreadAssociationState = once(() => {
+  initSideChatThreadAssociationStateRaw();
+});
+
+const initKeyboardModifierState = once(() => {
+  initKeyboardModifierStateRaw();
+  initCommandRegistrationState();
+});
+
+const initThreadOverflowQueryRuntime = once(() => {
+  initThreadSourceSignal();
+  initSideChatThreadAssociationState();
+});
+
+function useCommandRegistration(
+  commandId: string,
+  handler: () => void,
+  options?: CommandRegistrationOptions,
+): void {
+  initCommandRegistrationState();
+  useCommandRegistrationRaw(commandId, handler, options);
+}
+
+function registerSideChatThreadAssociation(
+  scope: AppScopeStore,
+  sourceConversationId: string,
+  sideConversationId: string,
+): void {
+  initSideChatThreadAssociationState();
+  registerSideChatThreadAssociationRaw(
+    scope,
+    sourceConversationId,
+    sideConversationId,
+  );
+}
+
+function closeSideChatThreadAssociation(
+  scope: AppScopeStore,
+  sourceConversationId: string,
+  sideConversationId: string,
+): void {
+  initSideChatThreadAssociationState();
+  closeSideChatThreadAssociationRaw(
+    scope,
+    sourceConversationId,
+    sideConversationId,
+  );
+}
 
 export {
   bottomPanelActivationSignal,
