@@ -40295,6 +40295,13 @@
         "PlanSummaryPage": "PlanSummaryPage"
       },
       "status": "done"
+    },
+    "mcp-capability-view-page-BKUiDE70": {
+      "restored": "routes/mcp-capability-view-page.tsx",
+      "exports": {
+        "McpCapabilityViewPage": "McpCapabilityViewPage"
+      },
+      "status": "done"
     }
   }
 }
