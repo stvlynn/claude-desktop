@@ -20362,7 +20362,7 @@
       "note": "Current app chunk export surface restored including bundler init export."
     },
     "app-initial~app-main~projects-index-page~hotkey-window-new-thread-page~hotkey-window-home-p~hswrsggc-CI5sWBpw": {
-      "restored": "boundaries/current-ref/home-project-selector-producer.ts",
+      "restored": "projects/home-project-selector-runtime.ts",
       "exports": {
         "$": "initUseIsRemoteHostChunk",
         "A": "projectIdByThreadKeySignal",
