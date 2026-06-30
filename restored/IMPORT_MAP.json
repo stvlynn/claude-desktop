@@ -20592,6 +20592,35 @@
       "lastUpdated": "2026-06-30T00:00:00.000Z",
       "note": "Current ref hash keeps the restored Segment middleware entry surface."
     },
+    "middleware-m1mRm6yO": {
+      "restored": "vendor/segment-middleware-current.ts",
+      "exports": {
+        "_": "segmentFetch",
+        "a": "createSegmentFacade",
+        "b": "initGlobalScopeResolver",
+        "c": "initAnalyticsEventClass",
+        "d": "analyticsApiHost",
+        "f": "initAnalyticsApiHost",
+        "g": "analyticsVersion",
+        "h": "initAnalyticsVersion",
+        "i": "initFacadeClasses",
+        "l": "RemoteMetricsStore",
+        "m": "initAnalyticsPackageType",
+        "n": "initSegmentMiddlewareChunk",
+        "o": "segmentFacadeClasses",
+        "p": "getAnalyticsPackageType",
+        "r": "sourceMiddlewarePlugin",
+        "s": "AnalyticsEvent",
+        "t": "applyDestinationMiddleware",
+        "u": "initRemoteMetricsClass",
+        "v": "initFetchWrapper",
+        "y": "getGlobalScope"
+      },
+      "status": "done",
+      "aliasOf": "middleware-CVKpk5Wn",
+      "note": "Current Segment middleware chunk merges entry/base exports plus Rolldown lazy init thunks; aliases were re-derived from middleware-m1mRm6yO.js.",
+      "lastUpdated": "2026-06-30T00:00:00.000Z"
+    },
     "merge-Baqijoc_": {
       "restored": "vendor/lodash-merge.ts",
       "exports": {
