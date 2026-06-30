@@ -67,9 +67,9 @@ import {
   zt as PullRequestNumberBadgeRaw,
 } from "../vendor/profile-page-runtime";
 import {
-  initComposerPrefillChunk as initComposerPrefillChunkRaw,
-  useComposerPrefill as useComposerPrefillRaw,
-} from "../boundaries/current-ref/composer-prefill-producer";
+  initOpenHomeRouteChunk as initComposerPrefillChunkRaw,
+  useOpenHomeRoute as useComposerPrefillRaw,
+} from "../routes/open-home-route";
 
 type AppScopeLike = {
   get<TValue = unknown>(signal: unknown, key?: unknown): TValue;

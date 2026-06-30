@@ -13,7 +13,7 @@ import {
   openThreadTimelineSidePanel,
   primeBrowserTabTransfers,
   toggleThreadSidePanel,
-} from "../boundaries/current-ref/thread-side-panel-tabs-producer";
+} from "../vendor/app-main-current-runtime";
 import {
   closeMcpAppTab as closeThreadMcpAppSidePanelTab,
   mcpAppTabId as getThreadMcpAppSidePanelTabId,
