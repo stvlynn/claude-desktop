@@ -40302,6 +40302,13 @@
         "McpCapabilityViewPage": "McpCapabilityViewPage"
       },
       "status": "done"
+    },
+    "app-connect-oauth-callback-page-DoWgOqbw": {
+      "restored": "routes/app-connect-oauth-callback-page.tsx",
+      "exports": {
+        "AppConnectOAuthCallbackPage": "AppConnectOAuthCallbackPage"
+      },
+      "status": "done"
     }
   }
 }

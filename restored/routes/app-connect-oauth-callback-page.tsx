@@ -1,4 +1,4 @@
-// Restored from ref/webview/assets/app-connect-oauth-callback-page-Nd-xrVUk.js
+// Restored from ref/webview/assets/app-connect-oauth-callback-page-DoWgOqbw.js
 import React from "react";
 import {
   _appScopeO as useAppScope,
@@ -11,6 +11,7 @@ import {
   useHandleAppConnectOAuthCallback,
   type PendingAppConnectOAuth,
 } from "../connectors/app-connect-oauth";
+import { usePluginInstallSession } from "../runtime/current-app-initial/worktree-new-thread-query-runtime";
 import { Spinner } from "../ui/spinner";
 import { toastApiSignal } from "../ui/toast-signal";
 import { FormattedMessage, useIntl } from "../vendor/react-intl";
@@ -34,6 +35,33 @@ type CallbackToastInput = {
   shouldShowPendingToast: boolean;
   shouldShowSuccessToast: boolean;
 };
+type RequiredAppStatusInput = {
+  appId?: string;
+  status: "connected" | "pending";
+};
+type ConnectAppBeforeInstallSession = {
+  kind: "connectAppBeforeInstall";
+  app: {
+    id: string;
+  };
+};
+type PluginInstallSessionForOAuthCallback =
+  | ConnectAppBeforeInstallSession
+  | {
+      kind: string;
+      app?: {
+        id: string;
+      };
+    };
+type PluginInstallSessionApi = {
+  markRequiredAppStatus(input: { appId: string; status: string }): void;
+  session: PluginInstallSessionForOAuthCallback;
+};
+function isConnectAppBeforeInstallSession(
+  session: PluginInstallSessionForOAuthCallback,
+): session is ConnectAppBeforeInstallSession {
+  return session.kind === "connectAppBeforeInstall" && session.app != null;
+}
 export function AppConnectOAuthCallbackPage() {
   const appScope = useAppScope(appScopeRoot) as AppScopeWithToast;
   const intl = useIntl();
@@ -41,9 +69,21 @@ export function AppConnectOAuthCallbackPage() {
   const location = useLocation();
   const handleOAuthCallback = useHandleAppConnectOAuthCallback();
   const { getPendingAppConnectForCallbackUrl } = useAppConnectOAuthState();
+  const { markRequiredAppStatus, session } =
+    usePluginInstallSession() as PluginInstallSessionApi;
   const handledLocationKeyRef = React.useRef<string | null>(null);
+  const markRequiredAppForCallback = React.useEffectEvent(
+    ({ appId, status }: RequiredAppStatusInput) => {
+      if (!isConnectAppBeforeInstallSession(session)) return;
+      if (appId != null && session.app.id !== appId) return;
+      markRequiredAppStatus({
+        appId: session.app.id,
+        status,
+      });
+    },
+  );
   const handleCallbackToasts = React.useEffectEvent(
-    ({
+    async ({
       appId,
       appName,
       fullRedirectUrl,
@@ -81,53 +121,53 @@ export function AppConnectOAuthCallbackPage() {
           },
         );
       }
-      handleOAuthCallback({
+      const result = await handleOAuthCallback({
         fullRedirectUrl: fullRedirectUrl ?? "",
-      }).then((result) => {
-        switch (result.kind) {
-          case "missing-callback-data":
-            toastApi.danger(
-              <FormattedMessage
-                id="apps.appConnectOAuthCallbackPage.missingData"
-                defaultMessage="Missing OAuth callback data."
-                description="Toast shown when an app connection OAuth callback is missing the redirect URL"
-              />,
-              {
-                id: toastId,
-              },
-            );
-            return;
-          case "request-failed":
-            toastApi.danger(
-              result.message ??
-                intl.formatMessage({
-                  id: "apps.appConnectOAuthCallbackPage.requestFailed",
-                  defaultMessage: "Failed to finish connecting app.",
-                  description:
-                    "Toast shown when finishing an app connection OAuth callback fails",
-                }),
-              {
-                id: toastId,
-              },
-            );
-            return;
-          case "success":
-            if (!shouldShowSuccessToast) return;
-            toastApi.success(
-              <FormattedMessage
-                id="apps.appConnectOAuthCallbackPage.success"
-                defaultMessage="{appName} is now connected."
-                description="Toast shown when an app connection OAuth callback succeeds"
-                values={{
-                  appName: result.appName,
-                }}
-              />,
-              {
-                id: toastId,
-              },
-            );
-        }
       });
+      switch (result.kind) {
+        case "missing-callback-data":
+          toastApi.danger(
+            <FormattedMessage
+              id="apps.appConnectOAuthCallbackPage.missingData"
+              defaultMessage="Missing OAuth callback data."
+              description="Toast shown when an app connection OAuth callback is missing the redirect URL"
+            />,
+            {
+              id: toastId,
+            },
+          );
+          break;
+        case "request-failed":
+          toastApi.danger(
+            result.message ??
+              intl.formatMessage({
+                id: "apps.appConnectOAuthCallbackPage.requestFailed",
+                defaultMessage: "Failed to finish connecting app.",
+                description:
+                  "Toast shown when finishing an app connection OAuth callback fails",
+              }),
+            {
+              id: toastId,
+            },
+          );
+          break;
+        case "success":
+          if (!shouldShowSuccessToast) break;
+          toastApi.success(
+            <FormattedMessage
+              id="apps.appConnectOAuthCallbackPage.success"
+              defaultMessage="{appName} is now connected."
+              description="Toast shown when an app connection OAuth callback succeeds"
+              values={{
+                appName: result.appName,
+              }}
+            />,
+            {
+              id: toastId,
+            },
+          );
+      }
+      return result;
     },
   );
   React.useEffect(() => {
@@ -153,23 +193,36 @@ export function AppConnectOAuthCallbackPage() {
       fullRedirectUrl: fullRedirectUrl ?? null,
       shouldShowPendingToast: false,
       shouldShowSuccessToast: !isPluginInstallResume && !isConnectorAuthResume,
-    });
-    if (matchPath(localConversationRoutePattern, returnTo) != null) {
-      navigate(returnTo, {
-        replace: true,
+    }).then((result) => {
+      if (result.kind === "success") {
+        markRequiredAppForCallback({
+          appId: result.appId,
+          status: "connected",
+        });
+      } else if (isPluginInstallResume || pendingCallback == null) {
+        markRequiredAppForCallback({
+          appId: pendingCallback?.appId,
+          status: "pending",
+        });
+      }
+      if (matchPath(localConversationRoutePattern, returnTo) != null) {
+        navigate(returnTo, {
+          replace: true,
+        });
+        return;
+      }
+      navigateAfterCallback({
+        navigate,
+        pendingCallback,
+        returnTo,
       });
-      return;
-    }
-    navigateAfterCallback({
-      navigate,
-      pendingCallback,
-      returnTo,
     });
   }, [
     getPendingAppConnectForCallbackUrl,
     handleCallbackToasts,
     location.key,
     location.state,
+    markRequiredAppForCallback,
     navigate,
   ]);
   return (

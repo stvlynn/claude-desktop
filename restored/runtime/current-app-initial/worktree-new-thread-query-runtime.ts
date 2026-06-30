@@ -210,3 +210,5 @@ export {
   zs as worktreeNewThreadQueryCompatSlotLowerZLowerS, Zs as worktreeNewThreadQueryCompatSlotUpperZLowerS, zt as worktreeNewThreadQueryCompatSlotLowerZLowerT, Zt as worktreeNewThreadQueryCompatSlotUpperZLowerT,
   zu as worktreeNewThreadQueryCompatSlotLowerZLowerU, Zu as worktreeNewThreadQueryCompatSlotUpperZLowerU
 } from "../../vendor/worktree-new-thread-query-current-bundle";
+
+export { gl as usePluginInstallSession } from "../../vendor/worktree-new-thread-query-current-bundle";
