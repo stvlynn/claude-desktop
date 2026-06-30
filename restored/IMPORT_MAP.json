@@ -18013,6 +18013,17 @@
       "note": "Current worktree-init producer keeps the pending worktree UI and initializer surface; wrapper chunks may export the same component under WorktreeInitPage.",
       "lastUpdated": "2026-06-29T00:00:00.000Z"
     },
+    "worktree-init-v2-page-DUo6BdJ9": {
+      "restored": "worktree/pending-worktree-conversation-ui.tsx",
+      "exports": {
+        "n": "initPendingWorktreeChunk",
+        "t": "PendingWorktreeConversation"
+      },
+      "status": "done",
+      "aliasOf": "worktree-init-v2-page-BAfwy1p_",
+      "note": "Current ref producer keeps the pending worktree UI and initializer surface.",
+      "lastUpdated": "2026-06-30T00:00:00.000Z"
+    },
     "worktree-init-v2-page-CaR6TWrH": {
       "restored": "worktree/worktree-init-page.tsx",
       "exports": {
@@ -18022,6 +18033,16 @@
       "aliasOf": "worktree-init-v2-page-CAOv319r",
       "note": "Current wrapper calls initPendingWorktreeChunk and re-exports PendingWorktreeConversation as WorktreeInitPage.",
       "lastUpdated": "2026-06-29T00:00:00.000Z"
+    },
+    "worktree-init-v2-page-DFpz3DoC": {
+      "restored": "worktree/worktree-init-page.tsx",
+      "exports": {
+        "WorktreeInitPage": "WorktreeInitPage"
+      },
+      "status": "done",
+      "aliasOf": "worktree-init-v2-page-CAOv319r",
+      "note": "Current ref wrapper calls initPendingWorktreeChunk and re-exports PendingWorktreeConversation as WorktreeInitPage.",
+      "lastUpdated": "2026-06-30T00:00:00.000Z"
     },
     "avatar-overlay-debug-state-CYRwsB2Y": {
       "restored": "utils/avatar-overlay-debug-state.ts",
