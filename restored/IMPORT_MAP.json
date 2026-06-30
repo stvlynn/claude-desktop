@@ -5120,50 +5120,52 @@
     "chunk-EDXVE4YY-Cs5mTzNz": {
       "restored": "vendor/chunk-edxve4yy.ts",
       "exports": {
-        "t": "chunkEDXVE4YY"
+        "t": "setupViewPortForSVG"
       },
-      "status": "done"
+      "status": "done",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Legacy Mermaid viewport helper export maps to the semantic setupViewPortForSVG name; chunkEDXVE4YY remains as a restored compatibility alias."
     },
     "chunk-EDXVE4YY-C5jaZxVP": {
       "restored": "vendor/chunk-edxve4yy.ts",
       "exports": {
-        "t": "chunkEDXVE4YY"
+        "t": "setupViewPortForSVG"
       },
       "status": "done",
       "aliasOf": "chunk-EDXVE4YY-Cs5mTzNz",
       "lastUpdated": "2026-06-30T00:00:00.000Z",
-      "note": "Current Mermaid viewport helper preserves the restored public export surface."
+      "note": "Current Mermaid viewport helper export re-derived from ref hash C5jaZxVP."
     },
     "chunk-EDXVE4YY-CqVtr0uy": {
       "restored": "vendor/chunk-edxve4yy.ts",
       "exports": {
-        "t": "chunkEDXVE4YY"
+        "t": "setupViewPortForSVG"
       },
       "status": "done",
       "aliasOf": "chunk-EDXVE4YY-Cs5mTzNz",
       "lastUpdated": "2026-06-30T00:00:00.000Z",
-      "note": "Current Mermaid viewport helper preserves the restored public export surface."
+      "note": "Current Mermaid viewport helper export re-derived from ref hash CqVtr0uy."
     },
     "chunk-EDXVE4YY-mzmFTiuP": {
       "restored": "vendor/chunk-edxve4yy.ts",
       "exports": {
-        "t": "chunkEDXVE4YY"
+        "t": "setupViewPortForSVG"
       },
       "status": "done",
       "aliasOf": "chunk-EDXVE4YY-Cs5mTzNz",
       "lastUpdated": "2026-06-30T00:00:00.000Z",
-      "note": "Current Mermaid viewport helper preserves the restored public export surface."
+      "note": "Current Mermaid viewport helper export re-derived from ref hash mzmFTiuP."
     },
     "chunk-EDXVE4YY-BWFoBgdE": {
       "restored": "vendor/chunk-edxve4yy.ts",
       "exports": {
-        "n": "chunkEDXVE4YY",
+        "n": "setupViewPortForSVG",
         "t": "initChunkEDXVE4YY"
       },
       "status": "done",
       "aliasOf": "chunk-EDXVE4YY-Cs5mTzNz",
       "lastUpdated": "2026-06-30T00:00:00.000Z",
-      "note": "Current Rolldown lazy-init variant maps the init alias to the restored eager ESM initializer compatibility export."
+      "note": "Current Rolldown lazy-init variant maps n to setupViewPortForSVG and t to the restored eager ESM initializer compatibility export."
     },
     "chunk-YZCP3GAM-CkcPUeYE": {
       "restored": "vendor/chunk-yzcp3gam.ts",

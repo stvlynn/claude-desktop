@@ -1,7 +1,7 @@
-// Restored from ref/webview/assets/chunk-EDXVE4YY-Cs5mTzNz.js
+// Restored from ref/webview/assets/chunk-EDXVE4YY-BWFoBgdE.js
 // Mermaid SVG viewport helper restored from the Codex webview bundle.
 import { chunkAGHRB4JFN, chunkAGHRB4JFR } from "./dayjs-core-alt";
-import { _chunkICPOFSXXR } from "./chunk-icpofsxx";
+import { chunkICPOFSXXC as configureSvgSize } from "./chunk-icpofsxx";
 
 interface SvgBounds {
   width: number;
@@ -49,7 +49,7 @@ const calculateDimensionsWithPadding = chunkAGHRB4JFN(
     ): string => `${x - padding} ${y - padding} ${width} ${height}`,
     "createViewBox",
   );
-export const chunkEDXVE4YY = chunkAGHRB4JFN(
+export const setupViewPortForSVG = chunkAGHRB4JFN(
   (
     svgSelection: MermaidSvgSelection,
     padding: number,
@@ -61,7 +61,7 @@ export const chunkEDXVE4YY = chunkAGHRB4JFN(
       svgSelection,
       padding,
     );
-    (_chunkICPOFSXXR as SvgContentRenderer)(
+    (configureSvgSize as SvgContentRenderer)(
       svgSelection,
       height,
       width,
@@ -75,6 +75,8 @@ export const chunkEDXVE4YY = chunkAGHRB4JFN(
   },
   "setupViewPortForSVG",
 );
+
+export const chunkEDXVE4YY = setupViewPortForSVG;
 
 export function initChunkEDXVE4YY() {
   // Restored ESM modules initialize eagerly; keep the current chunk init export compatible.
