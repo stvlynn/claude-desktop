@@ -2722,7 +2722,11 @@
         "t": "mathT",
         "u": "mathU"
       },
-      "status": "done"
+      "status": "done",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T00:00:00.000Z",
+      "stage3Review": "Host self-review: vendor/d3-geo-math.ts passes quality-gate --vendored and all 13 recorded math aliases are exported."
     },
     "math-B6qc64Y3": {
       "restored": "vendor/d3-geo-math.ts",
@@ -2743,7 +2747,10 @@
       },
       "status": "done",
       "aliasOf": "math-BO6C2O78",
-      "lastUpdated": "2026-06-29T00:00:00.000Z"
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T00:00:00.000Z",
+      "stage3Review": "Host self-review: exact current math-B6qc64Y3 ref asset exists; vendor/d3-geo-math.ts passes quality-gate --vendored and all 13 recorded aliases are exported."
     },
     "path-BiIEs4Yy": {
       "restored": "vendor/d3-path.ts",
@@ -3354,7 +3361,11 @@
       "exports": {
         "t": "ChunkQZHKN3VN"
       },
-      "status": "done"
+      "status": "done",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T00:00:00.000Z",
+      "stage3Review": "Host self-review: vendor/mermaid-imperative-state.ts passes quality-gate --vendored and exports the recorded ChunkQZHKN3VN alias."
     },
     "linear-C3CxBvdt": {
       "restored": "vendor/d3-scale-linear.ts",
@@ -3883,7 +3894,11 @@
         "t": "mergeT",
         "u": "mergeU"
       },
-      "status": "done"
+      "status": "done",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T00:00:00.000Z",
+      "stage3Review": "Host self-review: vendor/lodash-merge.ts and its helper tree pass quality-gate --vendored through the barrel, and all 17 recorded aliases are exported."
     },
     "isEmpty-CTfqpukK": {
       "restored": "vendor/lodash-is-empty-alt.ts",
@@ -4098,7 +4113,11 @@
       "exports": {
         "t": "chunk55IACEB6"
       },
-      "status": "done"
+      "status": "done",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T00:00:00.000Z",
+      "stage3Review": "Host self-review: vendor/chunk-55-iaceb6.ts passes quality-gate --vendored and exports the recorded Mermaid diagram lookup alias."
     },
     "cose-bilkent-S5V4N54A-BlVTOsyx": {
       "restored": "vendor/cose-bilkent-s5-v4-n54-a-bl-vt-osyx.ts",
@@ -4112,7 +4131,11 @@
       "exports": {
         "t": "chunk55IACEB6"
       },
-      "status": "done"
+      "status": "done",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T00:00:00.000Z",
+      "stage3Review": "Host self-review: vendor/chunk-55-iaceb6-cslsub-lb.ts passes quality-gate --vendored and exports the recorded Mermaid diagram lookup alias."
     },
     "chunk-QN33PNHL-DvZPbBsU": {
       "restored": "vendor/chunk-qn33-pnhl-dv-z-pb-bs-u.ts",
@@ -4133,7 +4156,11 @@
       "exports": {
         "t": "chunkEXTU4WIE"
       },
-      "status": "done"
+      "status": "done",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T00:00:00.000Z",
+      "stage3Review": "Host self-review: vendor/chunk-extu4-wie.ts passes quality-gate --vendored and exports the recorded Mermaid SVG selector alias."
     },
     "chunk-EXTU4WIE-_aHv87Z4": {
       "restored": "vendor/chunk-extu4-wie.ts",
@@ -4144,7 +4171,10 @@
       "status": "done",
       "aliasOf": "chunk-EXTU4WIE-DyDLNYc8",
       "lastUpdated": "2026-06-30T00:00:00.000Z",
-      "note": "Current Rolldown lazy-init variant maps the init alias to the restored eager ESM initializer compatibility export."
+      "note": "Current Rolldown lazy-init variant maps the init alias to the restored eager ESM initializer compatibility export.",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T00:00:00.000Z",
+      "stage3Review": "Host self-review: exact current chunk-EXTU4WIE-_aHv87Z4 ref asset exists; vendor/chunk-extu4-wie.ts passes quality-gate --vendored and exports both recorded aliases."
     },
     "quadrantDiagram-AYHSOK5B-WVcJzsPP": {
       "restored": "vendor/quadrant-diagram-ayhsok5-b-w-vc-jzs-pp.ts",
@@ -5505,7 +5535,11 @@
       "exports": {
         "t": "chunk426QAEUC"
       },
-      "status": "done"
+      "status": "done",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T00:00:00.000Z",
+      "stage3Review": "Host self-review: vendor/chunk-426qaeuc.ts passes quality-gate --vendored and exports the recorded Mermaid SVG selector alias."
     },
     "chunk-426QAEUC-Bhi0f2d7": {
       "restored": "vendor/chunk-426qaeuc.ts",
@@ -5515,7 +5549,10 @@
       "status": "done",
       "aliasOf": "chunk-426QAEUC-SBg7XJ-1",
       "lastUpdated": "2026-06-30T00:00:00.000Z",
-      "note": "Current Mermaid SVG selector alias re-derived from chunk-426QAEUC-Bhi0f2d7."
+      "note": "Current Mermaid SVG selector alias re-derived from chunk-426QAEUC-Bhi0f2d7.",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T00:00:00.000Z",
+      "stage3Review": "Host self-review: exact current chunk-426QAEUC-Bhi0f2d7 ref asset exists; vendor/chunk-426qaeuc.ts passes quality-gate --vendored and exports the recorded alias."
     },
     "chunk-426QAEUC-CPad0Vrm": {
       "restored": "vendor/chunk-426qaeuc.ts",
@@ -5525,7 +5562,10 @@
       "status": "done",
       "aliasOf": "chunk-426QAEUC-SBg7XJ-1",
       "lastUpdated": "2026-06-30T00:00:00.000Z",
-      "note": "Current Mermaid SVG selector alias re-derived from chunk-426QAEUC-CPad0Vrm."
+      "note": "Current Mermaid SVG selector alias re-derived from chunk-426QAEUC-CPad0Vrm.",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T00:00:00.000Z",
+      "stage3Review": "Host self-review: exact current chunk-426QAEUC-CPad0Vrm ref asset exists; vendor/chunk-426qaeuc.ts passes quality-gate --vendored and exports the recorded alias."
     },
     "chunk-426QAEUC-DkGEnnOP": {
       "restored": "vendor/chunk-426qaeuc.ts",
@@ -5536,7 +5576,10 @@
       "status": "done",
       "aliasOf": "chunk-426QAEUC-SBg7XJ-1",
       "lastUpdated": "2026-06-30T00:00:00.000Z",
-      "note": "Current Mermaid SVG selector aliases re-derived from chunk-426QAEUC-DkGEnnOP."
+      "note": "Current Mermaid SVG selector aliases re-derived from chunk-426QAEUC-DkGEnnOP.",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T00:00:00.000Z",
+      "stage3Review": "Host self-review: exact current chunk-426QAEUC-DkGEnnOP ref asset exists; vendor/chunk-426qaeuc.ts passes quality-gate --vendored and exports both recorded aliases."
     },
     "chunk-426QAEUC-DSM9qwar": {
       "restored": "vendor/chunk-426qaeuc.ts",
@@ -5546,7 +5589,10 @@
       "status": "done",
       "aliasOf": "chunk-426QAEUC-SBg7XJ-1",
       "lastUpdated": "2026-06-30T00:00:00.000Z",
-      "note": "Current Mermaid SVG selector alias re-derived from chunk-426QAEUC-DSM9qwar."
+      "note": "Current Mermaid SVG selector alias re-derived from chunk-426QAEUC-DSM9qwar.",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T00:00:00.000Z",
+      "stage3Review": "Host self-review: exact current chunk-426QAEUC-DSM9qwar ref asset exists; vendor/chunk-426qaeuc.ts passes quality-gate --vendored and exports the recorded alias."
     },
     "chunk-5PVQY5BW-CsieDbRK": {
       "restored": "vendor/chunk-5pvqy5bw.ts",
@@ -21785,7 +21831,10 @@
       "status": "done",
       "aliasOf": "merge-Ch0yXQoh",
       "lastUpdated": "2026-06-29T00:00:00.000Z",
-      "note": "Current lodash merge chunk keeps the restored public API and adds b/v/y internal exports."
+      "note": "Current lodash merge chunk keeps the restored public API and adds b/v/y internal exports.",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T00:00:00.000Z",
+      "stage3Review": "Host self-review: exact current merge-Baqijoc_ ref asset exists; vendor/lodash-merge.ts passes quality-gate --vendored and all 17 recorded aliases are exported."
     },
     "_baseFor-DhUeMyzd": {
       "restored": "vendor/lodash-base-for.ts",
@@ -21865,7 +21914,10 @@
       "status": "done",
       "aliasOf": "chunk-EXTU4WIE-DyDLNYc8",
       "lastUpdated": "2026-06-29T00:00:00.000Z",
-      "note": "Current vendor chunk keeps the restored public API and adds n internal export."
+      "note": "Current vendor chunk keeps the restored public API and adds n internal export.",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T00:00:00.000Z",
+      "stage3Review": "Host self-review: exact current chunk-EXTU4WIE-fqByunxs ref asset exists; vendor/chunk-extu4-wie.ts passes quality-gate --vendored and exports the recorded alias."
     },
     "chunk-JZLCHNYA-Dn_DumwI": {
       "restored": "vendor/chunk-jzlchnya.ts",
@@ -24733,7 +24785,10 @@
       "status": "done",
       "aliasOf": "chunk-QZHKN3VN-C6aDqNWX",
       "lastUpdated": "2026-06-30T00:00:00.000Z",
-      "note": "Current Mermaid helper wrapper preserves the runtime helper-backed vendor export surface."
+      "note": "Current Mermaid helper wrapper preserves the runtime helper-backed vendor export surface.",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T00:00:00.000Z",
+      "stage3Review": "Host self-review: exact current chunk-QZHKN3VN-bO7GNZwy ref asset exists; vendor/mermaid-imperative-state.ts passes quality-gate --vendored and exports the recorded alias."
     },
     "chunk-QZHKN3VN-CPaFS3kj": {
       "restored": "vendor/mermaid-imperative-state.ts",
@@ -24743,7 +24798,10 @@
       "status": "done",
       "aliasOf": "chunk-QZHKN3VN-C6aDqNWX",
       "lastUpdated": "2026-06-30T00:00:00.000Z",
-      "note": "Current Mermaid helper wrapper preserves the runtime helper-backed vendor export surface."
+      "note": "Current Mermaid helper wrapper preserves the runtime helper-backed vendor export surface.",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T00:00:00.000Z",
+      "stage3Review": "Host self-review: exact current chunk-QZHKN3VN-CPaFS3kj ref asset exists; vendor/mermaid-imperative-state.ts passes quality-gate --vendored and exports the recorded alias."
     },
     "chunk-QZHKN3VN-CWujSndb": {
       "restored": "vendor/mermaid-imperative-state.ts",
@@ -24753,7 +24811,10 @@
       "status": "done",
       "aliasOf": "chunk-QZHKN3VN-C6aDqNWX",
       "lastUpdated": "2026-06-30T00:00:00.000Z",
-      "note": "Current Mermaid helper wrapper preserves the runtime helper-backed vendor export surface."
+      "note": "Current Mermaid helper wrapper preserves the runtime helper-backed vendor export surface.",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T00:00:00.000Z",
+      "stage3Review": "Host self-review: exact current chunk-QZHKN3VN-CWujSndb ref asset exists; vendor/mermaid-imperative-state.ts passes quality-gate --vendored and exports the recorded alias."
     },
     "chunk-4BX2VUAB-Bbd4mm_a": {
       "restored": "vendor/mermaid-accessibility.ts",
@@ -33532,7 +33593,10 @@
       "aliasOf": "chunk-55IACEB6-Qk_p6M41",
       "note": "Current chunk-55IACEB6 hash preserves the restored public export surface; aliases re-derived from chunk-55IACEB6-BtTu6L60.js.",
       "status": "done",
-      "lastUpdated": "2026-06-30T00:00:00.000Z"
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T00:00:00.000Z",
+      "stage3Review": "Host self-review: exact current chunk-55IACEB6-BtTu6L60 ref asset exists; vendor/chunk-55-iaceb6.ts passes quality-gate --vendored and exports the recorded alias."
     },
     "chunk-55IACEB6-CRiGv_m2": {
       "restored": "vendor/chunk-55-iaceb6.ts",
@@ -33542,7 +33606,10 @@
       "aliasOf": "chunk-55IACEB6-Qk_p6M41",
       "note": "Current chunk-55IACEB6 hash preserves the restored public export surface; aliases re-derived from chunk-55IACEB6-CRiGv_m2.js.",
       "status": "done",
-      "lastUpdated": "2026-06-30T00:00:00.000Z"
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T00:00:00.000Z",
+      "stage3Review": "Host self-review: exact current chunk-55IACEB6-CRiGv_m2 ref asset exists; vendor/chunk-55-iaceb6.ts passes quality-gate --vendored and exports the recorded alias."
     },
     "chunk-55IACEB6-DBIditYu": {
       "restored": "vendor/chunk-55-iaceb6.ts",
@@ -33552,7 +33619,10 @@
       "aliasOf": "chunk-55IACEB6-Qk_p6M41",
       "note": "Current chunk-55IACEB6 hash preserves the restored public export surface; aliases re-derived from chunk-55IACEB6-DBIditYu.js.",
       "status": "done",
-      "lastUpdated": "2026-06-30T00:00:00.000Z"
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T00:00:00.000Z",
+      "stage3Review": "Host self-review: exact current chunk-55IACEB6-DBIditYu ref asset exists; vendor/chunk-55-iaceb6.ts passes quality-gate --vendored and exports the recorded alias."
     },
     "chunk-5FUZZQ4R-B4FijIig": {
       "restored": "vendor/mermaid-shape-renderer.ts",
