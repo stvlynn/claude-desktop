@@ -128,6 +128,100 @@ import witGrammar from "@shikijs/langs/wit";
 import wolframGrammar from "@shikijs/langs/wolfram";
 import zenscriptGrammar from "@shikijs/langs/zenscript";
 import zigGrammar from "@shikijs/langs/zig";
+import cGrammar from "@shikijs/langs/c";
+import cmakeGrammar from "@shikijs/langs/cmake";
+import csharpGrammar from "@shikijs/langs/csharp";
+import cssGrammar from "@shikijs/langs/css";
+import csvGrammar from "@shikijs/langs/csv";
+import diffGrammar from "@shikijs/langs/diff";
+import fortranFreeFormGrammar from "@shikijs/langs/fortran-free-form";
+import gdscriptGrammar from "@shikijs/langs/gdscript";
+import gdshaderGrammar from "@shikijs/langs/gdshader";
+import goGrammar from "@shikijs/langs/go";
+import haxeGrammar from "@shikijs/langs/haxe";
+import hlslGrammar from "@shikijs/langs/hlsl";
+import javaGrammar from "@shikijs/langs/java";
+import javascriptGrammar from "@shikijs/langs/javascript";
+import jsonGrammar from "@shikijs/langs/json";
+import jsxGrammar from "@shikijs/langs/jsx";
+import lessGrammar from "@shikijs/langs/less";
+import markdownGrammar from "@shikijs/langs/markdown";
+import postcssGrammar from "@shikijs/langs/postcss";
+import pythonGrammar from "@shikijs/langs/python";
+import rGrammar from "@shikijs/langs/r";
+import regexpGrammar from "@shikijs/langs/regexp";
+import sdblGrammar from "@shikijs/langs/sdbl";
+import shellscriptGrammar from "@shikijs/langs/shellscript";
+import sqlGrammar from "@shikijs/langs/sql";
+import stylusGrammar from "@shikijs/langs/stylus";
+import tsxGrammar from "@shikijs/langs/tsx";
+import turtleGrammar from "@shikijs/langs/turtle";
+import typescriptGrammar from "@shikijs/langs/typescript";
+
+type ShikiGrammarChunkInitializer = () => void;
+
+// Bundled producer chunks exposed an init thunk plus a grammar array. Static npm
+// imports are already initialized, so the restored init aliases are no-ops.
+const initShikiGrammarChunk: ShikiGrammarChunkInitializer = () => {};
+
+const cLanguageGrammars = cGrammar;
+const initCGrammarChunk = initShikiGrammarChunk;
+const cmakeLanguageGrammars = cmakeGrammar;
+const initCmakeGrammarChunk = initShikiGrammarChunk;
+const csharpLanguageGrammars = csharpGrammar;
+const initCsharpGrammarChunk = initShikiGrammarChunk;
+const cssLanguageGrammars = cssGrammar;
+const initCssGrammarChunk = initShikiGrammarChunk;
+const csvLanguageGrammars = csvGrammar;
+const initCsvGrammarChunk = initShikiGrammarChunk;
+const diffLanguageGrammars = diffGrammar;
+const initDiffGrammarChunk = initShikiGrammarChunk;
+const fortranFreeFormLanguageGrammars = fortranFreeFormGrammar;
+const initFortranFreeFormGrammarChunk = initShikiGrammarChunk;
+const gdscriptLanguageGrammars = gdscriptGrammar;
+const initGdscriptGrammarChunk = initShikiGrammarChunk;
+const gdshaderLanguageGrammars = gdshaderGrammar;
+const initGdshaderGrammarChunk = initShikiGrammarChunk;
+const goLanguageGrammars = goGrammar;
+const initGoGrammarChunk = initShikiGrammarChunk;
+const haxeLanguageGrammars = haxeGrammar;
+const initHaxeGrammarChunk = initShikiGrammarChunk;
+const hlslLanguageGrammars = hlslGrammar;
+const initHlslGrammarChunk = initShikiGrammarChunk;
+const javaLanguageGrammars = javaGrammar;
+const initJavaGrammarChunk = initShikiGrammarChunk;
+const javascriptLanguageGrammars = javascriptGrammar;
+const initJavascriptGrammarChunk = initShikiGrammarChunk;
+const jsonLanguageGrammars = jsonGrammar;
+const initJsonGrammarChunk = initShikiGrammarChunk;
+const jsxLanguageGrammars = jsxGrammar;
+const initJsxGrammarChunk = initShikiGrammarChunk;
+const lessLanguageGrammars = lessGrammar;
+const initLessGrammarChunk = initShikiGrammarChunk;
+const markdownLanguageGrammars = markdownGrammar;
+const initMarkdownGrammarChunk = initShikiGrammarChunk;
+const postcssLanguageGrammars = postcssGrammar;
+const initPostcssGrammarChunk = initShikiGrammarChunk;
+const pythonLanguageGrammars = pythonGrammar;
+const initPythonGrammarChunk = initShikiGrammarChunk;
+const rLanguageGrammars = rGrammar;
+const initRGrammarChunk = initShikiGrammarChunk;
+const regexpLanguageGrammars = regexpGrammar;
+const initRegexpGrammarChunk = initShikiGrammarChunk;
+const sdblLanguageGrammars = sdblGrammar;
+const initSdblGrammarChunk = initShikiGrammarChunk;
+const shellscriptLanguageGrammars = shellscriptGrammar;
+const initShellscriptGrammarChunk = initShikiGrammarChunk;
+const sqlLanguageGrammars = sqlGrammar;
+const initSqlGrammarChunk = initShikiGrammarChunk;
+const stylusLanguageGrammars = stylusGrammar;
+const initStylusGrammarChunk = initShikiGrammarChunk;
+const tsxLanguageGrammars = tsxGrammar;
+const initTsxGrammarChunk = initShikiGrammarChunk;
+const turtleLanguageGrammars = turtleGrammar;
+const initTurtleGrammarChunk = initShikiGrammarChunk;
+const typescriptLanguageGrammars = typescriptGrammar;
+const initTypescriptGrammarChunk = initShikiGrammarChunk;
 
 export {
   abapGrammar,
@@ -257,4 +351,62 @@ export {
   wolframGrammar,
   zenscriptGrammar,
   zigGrammar,
+  cLanguageGrammars,
+  initCGrammarChunk,
+  cmakeLanguageGrammars,
+  initCmakeGrammarChunk,
+  csharpLanguageGrammars,
+  initCsharpGrammarChunk,
+  cssLanguageGrammars,
+  initCssGrammarChunk,
+  csvLanguageGrammars,
+  initCsvGrammarChunk,
+  diffLanguageGrammars,
+  initDiffGrammarChunk,
+  fortranFreeFormLanguageGrammars,
+  initFortranFreeFormGrammarChunk,
+  gdscriptLanguageGrammars,
+  initGdscriptGrammarChunk,
+  gdshaderLanguageGrammars,
+  initGdshaderGrammarChunk,
+  goLanguageGrammars,
+  initGoGrammarChunk,
+  haxeLanguageGrammars,
+  initHaxeGrammarChunk,
+  hlslLanguageGrammars,
+  initHlslGrammarChunk,
+  javaLanguageGrammars,
+  initJavaGrammarChunk,
+  javascriptLanguageGrammars,
+  initJavascriptGrammarChunk,
+  jsonLanguageGrammars,
+  initJsonGrammarChunk,
+  jsxLanguageGrammars,
+  initJsxGrammarChunk,
+  lessLanguageGrammars,
+  initLessGrammarChunk,
+  markdownLanguageGrammars,
+  initMarkdownGrammarChunk,
+  postcssLanguageGrammars,
+  initPostcssGrammarChunk,
+  pythonLanguageGrammars,
+  initPythonGrammarChunk,
+  rLanguageGrammars,
+  initRGrammarChunk,
+  regexpLanguageGrammars,
+  initRegexpGrammarChunk,
+  sdblLanguageGrammars,
+  initSdblGrammarChunk,
+  shellscriptLanguageGrammars,
+  initShellscriptGrammarChunk,
+  sqlLanguageGrammars,
+  initSqlGrammarChunk,
+  stylusLanguageGrammars,
+  initStylusGrammarChunk,
+  tsxLanguageGrammars,
+  initTsxGrammarChunk,
+  turtleLanguageGrammars,
+  initTurtleGrammarChunk,
+  typescriptLanguageGrammars,
+  initTypescriptGrammarChunk,
 };
