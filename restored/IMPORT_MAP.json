@@ -20738,14 +20738,13 @@
       "note": "Current app chunk keeps the restored public export surface; alias added after current ref sync."
     },
     "json-Bw5D3Ev3": {
-      "restored": "icons/json-icon.tsx",
+      "restored": "utils/json.ts",
       "exports": {
         "default": "default"
       },
       "status": "done",
-      "aliasOf": "json-Dg8pTDDb",
       "lastUpdated": "2026-06-30T00:00:00.000Z",
-      "note": "Current semantic wrapper preserves the restored default export surface."
+      "note": "Current chunk is the Shiki JSON grammar wrapper; do not alias it to the historical JSON SVG icon."
     },
     "header-Bee2R5p8": {
       "restored": "browser/chrome-extension-header.tsx",
@@ -28439,6 +28438,307 @@
       "stage3Accepted": true,
       "stage3AcceptedAt": "2026-06-29T21:10:00.000Z",
       "stage3Review": "Host self-review: sourcemap-check found only a missing adjacent map; exported alias surface matches the historical Bf38rCmF restore exactly."
+    },
+    "angular-html-DzvejccC": {
+      "restored": "utils/angular-html-dzvejcc-c.ts",
+      "exports": {
+        "default": "default"
+      },
+      "status": "done"
+    },
+    "c-B7an39ey": {
+      "restored": "utils/c.ts",
+      "exports": {
+        "default": "default"
+      },
+      "status": "done"
+    },
+    "cmake-B2S09CzH": {
+      "restored": "utils/cmake.ts",
+      "exports": {
+        "default": "default"
+      },
+      "status": "done"
+    },
+    "cpp-DuPW310J": {
+      "restored": "utils/cpp.ts",
+      "exports": {
+        "default": "default"
+      },
+      "status": "done"
+    },
+    "csharp-DcUaRtiR": {
+      "restored": "utils/csharp-dc-ua-rti-r.ts",
+      "exports": {
+        "default": "default"
+      },
+      "status": "done"
+    },
+    "css-CbzfSxcr": {
+      "restored": "utils/css-cbzf-sxcr.ts",
+      "exports": {
+        "default": "default"
+      },
+      "status": "done"
+    },
+    "csv-CKEKFO6S": {
+      "restored": "utils/csv.ts",
+      "exports": {
+        "default": "default"
+      },
+      "status": "done"
+    },
+    "diff-CpoeL3j5": {
+      "restored": "utils/diff.ts",
+      "exports": {
+        "default": "default"
+      },
+      "status": "done"
+    },
+    "fortran-free-form-CnO4YhPM": {
+      "restored": "utils/fortran-free-form.ts",
+      "exports": {
+        "default": "default"
+      },
+      "status": "done"
+    },
+    "gdscript-c1h4s2O9": {
+      "restored": "utils/gdscript.ts",
+      "exports": {
+        "default": "default"
+      },
+      "status": "done"
+    },
+    "gdshader-BStHgrRi": {
+      "restored": "utils/gdshader-b-st-hgr-ri.ts",
+      "exports": {
+        "default": "default"
+      },
+      "status": "done"
+    },
+    "glsl-DWqQpJ3q": {
+      "restored": "utils/glsl.ts",
+      "exports": {
+        "default": "default"
+      },
+      "status": "done"
+    },
+    "go-CrKZq8-Z": {
+      "restored": "utils/go.ts",
+      "exports": {
+        "default": "default"
+      },
+      "status": "done"
+    },
+    "graphql-CNjPHhA5": {
+      "restored": "utils/graphql.ts",
+      "exports": {
+        "default": "default"
+      },
+      "status": "done"
+    },
+    "haml-DJO80XNZ": {
+      "restored": "utils/haml.ts",
+      "exports": {
+        "default": "default"
+      },
+      "status": "done"
+    },
+    "haxe-DkGT2131": {
+      "restored": "utils/haxe.ts",
+      "exports": {
+        "default": "default"
+      },
+      "status": "done"
+    },
+    "hlsl-D65VXSNl": {
+      "restored": "utils/hlsl.ts",
+      "exports": {
+        "default": "default"
+      },
+      "status": "done"
+    },
+    "html-DrkgpsXB": {
+      "restored": "utils/html-drkgps-xb.ts",
+      "exports": {
+        "default": "default"
+      },
+      "status": "done"
+    },
+    "html-derivative-YqcYPLj-": {
+      "restored": "utils/html-derivative-yqc-yp-lj.ts",
+      "exports": {
+        "default": "default"
+      },
+      "status": "done"
+    },
+    "java-C52td-q2": {
+      "restored": "utils/java.ts",
+      "exports": {
+        "default": "default"
+      },
+      "status": "done"
+    },
+    "javascript-Bv2O-vnZ": {
+      "restored": "utils/javascript.ts",
+      "exports": {
+        "default": "default"
+      },
+      "status": "done"
+    },
+    "jsx-C9RXlD5D": {
+      "restored": "utils/jsx.ts",
+      "exports": {
+        "default": "default"
+      },
+      "status": "done"
+    },
+    "less-tbWM5EJf": {
+      "restored": "utils/less.ts",
+      "exports": {
+        "default": "default"
+      },
+      "status": "done"
+    },
+    "lua-BXhKk7Gw": {
+      "restored": "utils/lua.ts",
+      "exports": {
+        "default": "default"
+      },
+      "status": "done"
+    },
+    "markdown-CAzYfzjG": {
+      "restored": "utils/markdown-c-az-yfzj-g.ts",
+      "exports": {
+        "default": "default"
+      },
+      "status": "done"
+    },
+    "php-GJpY09xI": {
+      "restored": "utils/php.ts",
+      "exports": {
+        "default": "default"
+      },
+      "status": "done"
+    },
+    "postcss-DnToBIkd": {
+      "restored": "utils/postcss-dn-to-b-ikd.ts",
+      "exports": {
+        "default": "default"
+      },
+      "status": "done"
+    },
+    "python-rl4wbRV1": {
+      "restored": "utils/python.ts",
+      "exports": {
+        "default": "default"
+      },
+      "status": "done"
+    },
+    "r-C4rRLyrZ": {
+      "restored": "utils/r.ts",
+      "exports": {
+        "default": "default"
+      },
+      "status": "done"
+    },
+    "regexp-BsdSO74N": {
+      "restored": "utils/regexp.ts",
+      "exports": {
+        "default": "default"
+      },
+      "status": "done"
+    },
+    "ruby-_cJoqc5C": {
+      "restored": "utils/ruby.ts",
+      "exports": {
+        "default": "default"
+      },
+      "status": "done"
+    },
+    "scss-RNltJBYU": {
+      "restored": "utils/scss-r-nlt-jbyu.ts",
+      "exports": {
+        "default": "default"
+      },
+      "status": "done"
+    },
+    "sdbl-CfFWJKTM": {
+      "restored": "utils/sdbl-cf-fwjktm.ts",
+      "exports": {
+        "default": "default"
+      },
+      "status": "done"
+    },
+    "shellscript-D7DQ1f51": {
+      "restored": "utils/shellscript.ts",
+      "exports": {
+        "default": "default"
+      },
+      "status": "done"
+    },
+    "sql-BMJUGw5T": {
+      "restored": "utils/sql.ts",
+      "exports": {
+        "default": "default"
+      },
+      "status": "done"
+    },
+    "stylus-B_xD-zez": {
+      "restored": "utils/stylus.ts",
+      "exports": {
+        "default": "default"
+      },
+      "status": "done"
+    },
+    "tex-JWWrb0aY": {
+      "restored": "utils/tex.ts",
+      "exports": {
+        "default": "default"
+      },
+      "status": "done"
+    },
+    "tsx-BOUdnHOj": {
+      "restored": "utils/tsx-bo-udn-h-oj.ts",
+      "exports": {
+        "default": "default"
+      },
+      "status": "done"
+    },
+    "turtle-BkBNzqPX": {
+      "restored": "utils/turtle-bk-b-nzq-px.ts",
+      "exports": {
+        "default": "default"
+      },
+      "status": "done"
+    },
+    "typescript-Dntn5ztg": {
+      "restored": "utils/typescript.ts",
+      "exports": {
+        "default": "default"
+      },
+      "status": "done"
+    },
+    "vue-B973M-RD": {
+      "restored": "utils/vue.ts",
+      "exports": {
+        "default": "default"
+      },
+      "status": "done"
+    },
+    "xml-C6dZinL7": {
+      "restored": "utils/xml.ts",
+      "exports": {
+        "default": "default"
+      },
+      "status": "done"
+    },
+    "yaml-COuIrSCu": {
+      "restored": "utils/yaml-c-ou-ir-s-cu.ts",
+      "exports": {
+        "default": "default"
+      },
+      "status": "done"
     }
   }
 }
