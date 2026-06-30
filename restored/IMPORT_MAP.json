@@ -31927,7 +31927,10 @@
         "settings": "settings",
         "type": "type"
       },
-      "status": "done"
+      "status": "done",
+      "stage3Accepted": true,
+      "stage3Note": "Theme data module finalized as direct named exports plus a default theme object.",
+      "lastUpdated": "2026-06-30T00:00:00.000Z"
     },
     "absolutely-light-CdDzhyHi": {
       "restored": "themes/absolutely-light.ts",
@@ -31940,7 +31943,10 @@
         "settings": "settings",
         "type": "type"
       },
-      "status": "done"
+      "status": "done",
+      "stage3Accepted": true,
+      "stage3Note": "Theme data module finalized as direct named exports plus a default theme object.",
+      "lastUpdated": "2026-06-30T00:00:00.000Z"
     },
     "linear-dark-I6n5O-ny": {
       "restored": "themes/linear-dark.ts",
@@ -31953,7 +31959,10 @@
         "name": "name",
         "settings": "settings"
       },
-      "status": "done"
+      "status": "done",
+      "stage3Accepted": true,
+      "stage3Note": "Theme data module finalized as direct named exports plus a default theme object.",
+      "lastUpdated": "2026-06-30T00:00:00.000Z"
     },
     "linear-light-Bv1AakzR": {
       "restored": "themes/linear-light.ts",
@@ -31967,7 +31976,10 @@
         "settings": "settings",
         "type": "type"
       },
-      "status": "done"
+      "status": "done",
+      "stage3Accepted": true,
+      "stage3Note": "Theme data module finalized as direct named exports plus a default theme object.",
+      "lastUpdated": "2026-06-30T00:00:00.000Z"
     },
     "lobster-dark-DIstc6DY": {
       "restored": "themes/lobster-dark.ts",
@@ -31981,7 +31993,10 @@
         "settings": "settings",
         "type": "type"
       },
-      "status": "done"
+      "status": "done",
+      "stage3Accepted": true,
+      "stage3Note": "Theme data module finalized as direct named exports plus a default theme object.",
+      "lastUpdated": "2026-06-30T00:00:00.000Z"
     },
     "matrix-dark-Dj9y-KJg": {
       "restored": "themes/matrix-dark.ts",
@@ -31995,7 +32010,10 @@
         "settings": "settings",
         "type": "type"
       },
-      "status": "done"
+      "status": "done",
+      "stage3Accepted": true,
+      "stage3Note": "Theme data module finalized as direct named exports plus a default theme object.",
+      "lastUpdated": "2026-06-30T00:00:00.000Z"
     },
     "notion-dark-B-8kQG4D": {
       "restored": "themes/notion-dark.ts",
@@ -32009,7 +32027,10 @@
         "settings": "settings",
         "type": "type"
       },
-      "status": "done"
+      "status": "done",
+      "stage3Accepted": true,
+      "stage3Note": "Theme data module finalized as direct named exports plus a default theme object.",
+      "lastUpdated": "2026-06-30T00:00:00.000Z"
     },
     "notion-light-Bp4sCMqR": {
       "restored": "themes/notion-light.ts",
@@ -32023,7 +32044,10 @@
         "settings": "settings",
         "type": "type"
       },
-      "status": "done"
+      "status": "done",
+      "stage3Accepted": true,
+      "stage3Note": "Theme data module finalized as direct named exports plus a default theme object.",
+      "lastUpdated": "2026-06-30T00:00:00.000Z"
     },
     "proof-light-BjtqAd4d": {
       "restored": "themes/proof-light.ts",
@@ -32037,7 +32061,10 @@
         "settings": "settings",
         "type": "type"
       },
-      "status": "done"
+      "status": "done",
+      "stage3Accepted": true,
+      "stage3Note": "Theme data module finalized as direct named exports plus a default theme object.",
+      "lastUpdated": "2026-06-30T00:00:00.000Z"
     },
     "sentry-dark-C3keuH57": {
       "restored": "themes/sentry-dark.ts",
@@ -32051,7 +32078,10 @@
         "settings": "settings",
         "type": "type"
       },
-      "status": "done"
+      "status": "done",
+      "stage3Accepted": true,
+      "stage3Note": "Theme data module finalized as direct named exports plus a default theme object.",
+      "lastUpdated": "2026-06-30T00:00:00.000Z"
     },
     "temple-dark-CoqeJMR0": {
       "restored": "themes/temple-dark.ts",
@@ -32064,7 +32094,10 @@
         "settings": "settings",
         "type": "type"
       },
-      "status": "done"
+      "status": "done",
+      "stage3Accepted": true,
+      "stage3Note": "Theme data module finalized as direct named exports plus a default theme object.",
+      "lastUpdated": "2026-06-30T00:00:00.000Z"
     },
     "vercel-dark-C7bSklK9": {
       "restored": "themes/vercel-dark.ts",
@@ -32077,7 +32110,10 @@
         "name": "name",
         "settings": "settings"
       },
-      "status": "done"
+      "status": "done",
+      "stage3Accepted": true,
+      "stage3Note": "Theme data module finalized as direct named exports plus a default theme object.",
+      "lastUpdated": "2026-06-30T00:00:00.000Z"
     },
     "vercel-light-0e9RLoNq": {
       "restored": "themes/vercel-light.ts",
@@ -32091,7 +32127,10 @@
         "settings": "settings",
         "type": "type"
       },
-      "status": "done"
+      "status": "done",
+      "stage3Accepted": true,
+      "stage3Note": "Theme data module finalized as direct named exports plus a default theme object.",
+      "lastUpdated": "2026-06-30T00:00:00.000Z"
     },
     "chunk-KS23V3DP-CoFgPtnd": {
       "restored": "utils/chunk-ks23-v3-dp.ts",
