@@ -20873,6 +20873,356 @@
       "lastUpdated": "2026-06-30T00:00:00.000Z",
       "note": "Current semantic wrapper preserves the restored public export surface."
     },
+    "pie-ZZUOXDRM-BhKikLzB": {
+      "restored": "vendor/mermaid-pie-definition-k5.ts",
+      "exports": {
+        "createPieServices": "createPieServices"
+      },
+      "status": "done",
+      "aliasOf": "pie-ZZUOXDRM-CTCvZluc",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Mermaid vendor wrapper preserves the restored public export surface."
+    },
+    "pie-ZZUOXDRM-D38H6U8O": {
+      "restored": "vendor/mermaid-pie-definition-k5.ts",
+      "exports": {
+        "createPieServices": "createPieServices"
+      },
+      "status": "done",
+      "aliasOf": "pie-ZZUOXDRM-CTCvZluc",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Mermaid vendor wrapper preserves the restored public export surface."
+    },
+    "pie-ZZUOXDRM-OHayUxDu": {
+      "restored": "vendor/mermaid-pie-definition-k5.ts",
+      "exports": {
+        "createPieServices": "createPieServices"
+      },
+      "status": "done",
+      "aliasOf": "pie-ZZUOXDRM-CTCvZluc",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Mermaid vendor wrapper preserves the restored public export surface."
+    },
+    "info-OMHHGYJF-DfUzhqEq": {
+      "restored": "vendor/mermaid-info-definition-k5.ts",
+      "exports": {
+        "createInfoServices": "createInfoServices"
+      },
+      "status": "done",
+      "aliasOf": "info-OMHHGYJF-VpsoNmpd",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Mermaid vendor wrapper preserves the restored public export surface."
+    },
+    "info-OMHHGYJF-vtRIGpt2": {
+      "restored": "vendor/mermaid-info-definition-k5.ts",
+      "exports": {
+        "createInfoServices": "createInfoServices"
+      },
+      "status": "done",
+      "aliasOf": "info-OMHHGYJF-VpsoNmpd",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Mermaid vendor wrapper preserves the restored public export surface."
+    },
+    "radar-PYXPWWZC-CkKrZkO_": {
+      "restored": "vendor/mermaid-radar-definition-k5.ts",
+      "exports": {
+        "createRadarServices": "createRadarServices"
+      },
+      "status": "done",
+      "aliasOf": "radar-PYXPWWZC-DenUZrCa",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Mermaid vendor wrapper preserves the restored public export surface."
+    },
+    "radar-PYXPWWZC-Cvhporan": {
+      "restored": "vendor/mermaid-radar-definition-k5.ts",
+      "exports": {
+        "createRadarServices": "createRadarServices"
+      },
+      "status": "done",
+      "aliasOf": "radar-PYXPWWZC-DenUZrCa",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Mermaid vendor wrapper preserves the restored public export surface."
+    },
+    "radar-PYXPWWZC-RPpS6zbt": {
+      "restored": "vendor/mermaid-radar-definition-k5.ts",
+      "exports": {
+        "createRadarServices": "createRadarServices"
+      },
+      "status": "done",
+      "aliasOf": "radar-PYXPWWZC-DenUZrCa",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Mermaid vendor wrapper preserves the restored public export surface."
+    },
+    "packet-4T2RLAQJ-C65R2M48": {
+      "restored": "vendor/mermaid-packet-definition-k5.ts",
+      "exports": {
+        "createPacketServices": "createPacketServices"
+      },
+      "status": "done",
+      "aliasOf": "packet-4T2RLAQJ-Cps_a8kh",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Mermaid vendor wrapper preserves the restored public export surface."
+    },
+    "packet-4T2RLAQJ-CXT6yCX4": {
+      "restored": "vendor/mermaid-packet-definition-k5.ts",
+      "exports": {
+        "createPacketServices": "createPacketServices"
+      },
+      "status": "done",
+      "aliasOf": "packet-4T2RLAQJ-Cps_a8kh",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Mermaid vendor wrapper preserves the restored public export surface."
+    },
+    "packet-4T2RLAQJ-W4xr__oY": {
+      "restored": "vendor/mermaid-packet-definition-k5.ts",
+      "exports": {
+        "createPacketServices": "createPacketServices"
+      },
+      "status": "done",
+      "aliasOf": "packet-4T2RLAQJ-Cps_a8kh",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Mermaid vendor wrapper preserves the restored public export surface."
+    },
+    "treemap-W4RFUUIX-C8UN2kue": {
+      "restored": "vendor/mermaid-treemap-definition-k5.ts",
+      "exports": {
+        "createTreemapServices": "createTreemapServices"
+      },
+      "status": "done",
+      "aliasOf": "treemap-W4RFUUIX-LvOJWvcJ",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Mermaid vendor wrapper preserves the restored public export surface."
+    },
+    "treemap-W4RFUUIX-CNJ7eEJ5": {
+      "restored": "vendor/mermaid-treemap-definition-k5.ts",
+      "exports": {
+        "createTreemapServices": "createTreemapServices"
+      },
+      "status": "done",
+      "aliasOf": "treemap-W4RFUUIX-LvOJWvcJ",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Mermaid vendor wrapper preserves the restored public export surface."
+    },
+    "treemap-W4RFUUIX-CW1SkhIG": {
+      "restored": "vendor/mermaid-treemap-definition-k5.ts",
+      "exports": {
+        "createTreemapServices": "createTreemapServices"
+      },
+      "status": "done",
+      "aliasOf": "treemap-W4RFUUIX-LvOJWvcJ",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Mermaid vendor wrapper preserves the restored public export surface."
+    },
+    "wardley-RL74JXVD-DYn8r5o9": {
+      "restored": "vendor/mermaid-wardley-definition-k5.ts",
+      "exports": {
+        "createWardleyServices": "createWardleyServices"
+      },
+      "status": "done",
+      "aliasOf": "wardley-RL74JXVD-DX26H2Am",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Mermaid vendor wrapper preserves the restored public export surface."
+    },
+    "wardley-RL74JXVD-pIeHHMCS": {
+      "restored": "vendor/mermaid-wardley-definition-k5.ts",
+      "exports": {
+        "createWardleyServices": "createWardleyServices"
+      },
+      "status": "done",
+      "aliasOf": "wardley-RL74JXVD-DX26H2Am",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Mermaid vendor wrapper preserves the restored public export surface."
+    },
+    "gitGraph-7Q5UKJZL-BH263Z7o": {
+      "restored": "vendor/mermaid-git-graph-definition-k5.ts",
+      "exports": {
+        "createGitGraphServices": "createGitGraphServices"
+      },
+      "status": "done",
+      "aliasOf": "gitGraph-7Q5UKJZL-RtuWf9d8",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Mermaid vendor wrapper preserves the restored public export surface."
+    },
+    "gitGraph-7Q5UKJZL-BNwjXrZM": {
+      "restored": "vendor/mermaid-git-graph-definition-k5.ts",
+      "exports": {
+        "createGitGraphServices": "createGitGraphServices"
+      },
+      "status": "done",
+      "aliasOf": "gitGraph-7Q5UKJZL-RtuWf9d8",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Mermaid vendor wrapper preserves the restored public export surface."
+    },
+    "gitGraph-7Q5UKJZL-c0r9_3hl": {
+      "restored": "vendor/mermaid-git-graph-definition-k5.ts",
+      "exports": {
+        "createGitGraphServices": "createGitGraphServices"
+      },
+      "status": "done",
+      "aliasOf": "gitGraph-7Q5UKJZL-RtuWf9d8",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Mermaid vendor wrapper preserves the restored public export surface."
+    },
+    "architecture-YZFGNWBL-BpEn3l_6": {
+      "restored": "vendor/mermaid-architecture-definition-k5.ts",
+      "exports": {
+        "createArchitectureServices": "createArchitectureServices"
+      },
+      "status": "done",
+      "aliasOf": "architecture-YZFGNWBL-hfWpxWZF",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Mermaid vendor wrapper preserves the restored public export surface."
+    },
+    "architecture-YZFGNWBL-C8vux8W8": {
+      "restored": "vendor/mermaid-architecture-definition-k5.ts",
+      "exports": {
+        "createArchitectureServices": "createArchitectureServices"
+      },
+      "status": "done",
+      "aliasOf": "architecture-YZFGNWBL-hfWpxWZF",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Mermaid vendor wrapper preserves the restored public export surface."
+    },
+    "pie-7BOR55EZ-38iymO54": {
+      "restored": "vendor/mermaid-pie-definition-fpaj.ts",
+      "exports": {
+        "createPieServices": "createPieServices"
+      },
+      "status": "done",
+      "aliasOf": "pie-7BOR55EZ-Cel_tNJ1",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Mermaid vendor wrapper preserves the restored public export surface."
+    },
+    "pie-ZZUOXDRM-D2Nd63AV": {
+      "restored": "vendor/mermaid-pie-definition-k5.ts",
+      "exports": {
+        "createPieServices": "createPieServices"
+      },
+      "status": "done",
+      "aliasOf": "pie-ZZUOXDRM-CTCvZluc",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Mermaid vendor wrapper preserves the restored public export surface."
+    },
+    "info-NVLQJR56-DtE2TVet": {
+      "restored": "vendor/mermaid-info-definition-fpaj.ts",
+      "exports": {
+        "createInfoServices": "createInfoServices"
+      },
+      "status": "done",
+      "aliasOf": "info-NVLQJR56-CJGElsQG",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Mermaid vendor wrapper preserves the restored public export surface."
+    },
+    "info-OMHHGYJF-BlIPdxLi": {
+      "restored": "vendor/mermaid-info-definition-k5.ts",
+      "exports": {
+        "createInfoServices": "createInfoServices"
+      },
+      "status": "done",
+      "aliasOf": "info-OMHHGYJF-VpsoNmpd",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Mermaid vendor wrapper preserves the restored public export surface."
+    },
+    "radar-NHE76QYJ-mTArgrmn": {
+      "restored": "vendor/mermaid-radar-definition-fpaj.ts",
+      "exports": {
+        "createRadarServices": "createRadarServices"
+      },
+      "status": "done",
+      "aliasOf": "radar-NHE76QYJ-8GggBqpZ",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Mermaid vendor wrapper preserves the restored public export surface."
+    },
+    "radar-PYXPWWZC-DPmomhRG": {
+      "restored": "vendor/mermaid-radar-definition-k5.ts",
+      "exports": {
+        "createRadarServices": "createRadarServices"
+      },
+      "status": "done",
+      "aliasOf": "radar-PYXPWWZC-DenUZrCa",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Mermaid vendor wrapper preserves the restored public export surface."
+    },
+    "packet-4T2RLAQJ-XF5cmKUy": {
+      "restored": "vendor/mermaid-packet-definition-k5.ts",
+      "exports": {
+        "createPacketServices": "createPacketServices"
+      },
+      "status": "done",
+      "aliasOf": "packet-4T2RLAQJ-Cps_a8kh",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Mermaid vendor wrapper preserves the restored public export surface."
+    },
+    "treemap-KMMF4GRG-B4BU_8KA": {
+      "restored": "vendor/mermaid-treemap-definition-fpaj.ts",
+      "exports": {
+        "createTreemapServices": "createTreemapServices"
+      },
+      "status": "done",
+      "aliasOf": "treemap-KMMF4GRG-ByNQtOJN",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Mermaid vendor wrapper preserves the restored public export surface."
+    },
+    "treemap-W4RFUUIX-Bv5PPBMl": {
+      "restored": "vendor/mermaid-treemap-definition-k5.ts",
+      "exports": {
+        "createTreemapServices": "createTreemapServices"
+      },
+      "status": "done",
+      "aliasOf": "treemap-W4RFUUIX-LvOJWvcJ",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Mermaid vendor wrapper preserves the restored public export surface."
+    },
+    "wardley-RL74JXVD-BpkKUtaW": {
+      "restored": "vendor/mermaid-wardley-definition-k5.ts",
+      "exports": {
+        "createWardleyServices": "createWardleyServices"
+      },
+      "status": "done",
+      "aliasOf": "wardley-RL74JXVD-DX26H2Am",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Mermaid vendor wrapper preserves the restored public export surface."
+    },
+    "gitGraph-7Q5UKJZL-TSRyDsE1": {
+      "restored": "vendor/mermaid-git-graph-definition-k5.ts",
+      "exports": {
+        "createGitGraphServices": "createGitGraphServices"
+      },
+      "status": "done",
+      "aliasOf": "gitGraph-7Q5UKJZL-RtuWf9d8",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Mermaid vendor wrapper preserves the restored public export surface."
+    },
+    "gitGraph-F6HP7TQM-B1yJI3OO": {
+      "restored": "vendor/mermaid-git-graph-definition-fpaj.ts",
+      "exports": {
+        "createGitGraphServices": "createGitGraphServices"
+      },
+      "status": "done",
+      "aliasOf": "gitGraph-F6HP7TQM-8BKmskHr",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Mermaid vendor wrapper preserves the restored public export surface."
+    },
+    "architecture-U656AL7Q-B0FT05yt": {
+      "restored": "vendor/mermaid-architecture-definition-fpaj.ts",
+      "exports": {
+        "createArchitectureServices": "createArchitectureServices"
+      },
+      "status": "done",
+      "aliasOf": "architecture-U656AL7Q-Ccsrjk_f",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Mermaid vendor wrapper preserves the restored public export surface."
+    },
+    "architecture-YZFGNWBL-CxyAFunf": {
+      "restored": "vendor/mermaid-architecture-definition-k5.ts",
+      "exports": {
+        "createArchitectureServices": "createArchitectureServices"
+      },
+      "status": "done",
+      "aliasOf": "architecture-YZFGNWBL-hfWpxWZF",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current Mermaid vendor wrapper preserves the restored public export surface."
+    },
     "app-initial~app-main~worktree-init-v2-page~remote-conversation-page~new-thread-panel-page~a~hqj10sd5-C_H_yI8D": {
       "restored": "threads/thread-layout.tsx",
       "note": "Current app chunk keeps the restored public export surface; alias added after current ref sync.",
