@@ -1,10 +1,9 @@
-// Restored from ref/webview/assets/middleware-ClySjhR5.js
-// Middleware chunk restored from the Codex webview bundle.
+// Restored from ref/webview/assets/middleware-CVKpk5Wn.js
+// Current Segment middleware entry wrapper for destination and source middleware helpers.
 import {
-  middlewareT as middlewareApplyDestinationMiddleware,
-  middlewareN as middlewareSourceMiddlewarePlugin,
-} from "./segment-middleware";
-export {
-  middlewareApplyDestinationMiddleware as applyDestinationMiddleware,
-  middlewareSourceMiddlewarePlugin as sourceMiddlewarePlugin,
-};
+  applyDestinationMiddleware,
+  initSegmentMiddlewareChunk,
+  sourceMiddlewarePlugin,
+} from "./segment-middleware-current";
+initSegmentMiddlewareChunk();
+export { applyDestinationMiddleware, sourceMiddlewarePlugin };

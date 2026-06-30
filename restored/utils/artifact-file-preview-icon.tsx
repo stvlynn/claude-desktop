@@ -1,23 +1,19 @@
-// Restored from ref/webview/assets/artifact-file-preview-icon-CMIbYvOS.js
-// Also matches ref/webview/assets/artifact-file-preview-icon-DejMdUR4.js.
+// Restored from ref/webview/assets/artifact-file-preview-icon-tUwFASV6.js
 // Artifact file preview icon restored from the Codex webview bundle.
 import type { ComponentType, SVGProps } from "react";
 import clsx from "clsx";
 import { getFileIcon } from "../utils/get-file-icon";
-
 type ArtifactFilePreviewIconProps = {
   path: string;
   iconClassName?: string;
   imageClassName?: string;
   getImagePreviewSrc?: (path: string) => string | null | undefined;
 };
-
-export function initArtifactFilePreviewIconChunk(): void {
+function initArtifactFilePreviewIconChunk(): void {
   // The bundled chunk used this export to initialize lazy runtime bindings.
   // The semantic module imports dependencies eagerly, so no runtime work remains.
 }
-
-export function ArtifactFilePreviewIcon({
+function ArtifactFilePreviewIcon({
   getImagePreviewSrc,
   iconClassName,
   imageClassName,
@@ -36,3 +32,4 @@ export function ArtifactFilePreviewIcon({
   const Icon = getFileIcon(path) as ComponentType<SVGProps<SVGSVGElement>>;
   return <Icon className={clsx("shrink-0", iconClassName)} />;
 }
+export { initArtifactFilePreviewIconChunk, ArtifactFilePreviewIcon };

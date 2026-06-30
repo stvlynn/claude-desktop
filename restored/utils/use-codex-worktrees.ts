@@ -1,5 +1,5 @@
-// Restored from ref/webview/assets/use-codex-worktrees-CPZNHmi3.js
-// Also matches ref/webview/assets/use-codex-worktrees-Zr-sRUtW.js.
+// Restored from ref/webview/assets/use-codex-worktrees-DzKC3qS4.js
+// Codex worktrees query hook for git host configs.
 import {
   normalizeHostConfigForWorktreeKey,
   serviceClientForHost,
@@ -13,13 +13,8 @@ import { codexWorktreesQueryKey } from "./worktree-query-keys";
 type QueryFunctionContext = {
   signal?: AbortSignal;
 };
-
-export const initUseCodexWorktreesChunk = once(() => {});
-
-export function useCodexWorktrees(
-  hostConfig: unknown,
-  operationSource?: string,
-) {
+const initUseCodexWorktreesChunk = once(() => {});
+function useCodexWorktrees(hostConfig: unknown, operationSource?: string) {
   const normalizedHostKey = normalizeHostConfigForWorktreeKey(hostConfig);
   return useQuery({
     queryKey: codexWorktreesQueryKey(normalizedHostKey),
@@ -36,3 +31,4 @@ export function useCodexWorktrees(
     gcTime: 1_800_000,
   });
 }
+export { useCodexWorktrees, initUseCodexWorktreesChunk };
