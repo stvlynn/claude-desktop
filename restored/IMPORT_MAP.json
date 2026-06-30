@@ -22293,8 +22293,8 @@
       },
       "status": "done",
       "aliasOf": "workbook-from-csv-Bw8OaanU",
-      "lastUpdated": "2026-06-30T00:00:00.000Z",
-      "note": "Current semantic wrapper preserves the restored public export surface."
+      "lastUpdated": "2026-06-30T08:09:03.302Z",
+      "note": "Current CSV workbook wrapper matches the restored public export surface; manifest promotion synchronized after dependency aliases were corrected."
     },
     "browser-sidebar-hidden-browser-use-webview-host-CkfqVXrj": {
       "restored": "browser/hidden-browser-use-webview-host.tsx",
@@ -31132,6 +31132,17 @@
       "status": "done",
       "lastUpdated": "2026-06-30T08:05:41.179Z"
     },
+    "wasm-Cgooknyf": {
+      "restored": "vendor/oniguruma-wasm.ts",
+      "exports": {
+        "default": "default",
+        "getWasmInstance": "getWasmInstance",
+        "wasmBinary": "wasmBinary"
+      },
+      "status": "done",
+      "lastUpdated": "2026-06-30T08:08:22.353Z",
+      "note": "Oniguruma WASM payload restored as a typed data module with getWasmInstance and wasmBinary exports."
+    },
     "browser-4rTfxlUZ": {
       "restored": "vendor/dotlottie-react.tsx",
       "exports": {
@@ -31847,6 +31858,52 @@
       "note": "Current pkg hash preserves the restored public export surface; aliases re-derived from pkg-DjWRq9pR.js.",
       "status": "done",
       "lastUpdated": "2026-06-30T00:00:00.000Z"
+    },
+    "src-6yFswxVy": {
+      "restored": "vendor/d3-sankey.ts",
+      "exports": {
+        "a": "sankeyJustify",
+        "i": "sankeyCenter",
+        "n": "sankeyLinkHorizontal",
+        "o": "sankeyLeft",
+        "r": "sankey",
+        "s": "sankeyRight",
+        "t": "initD3SankeyChunk"
+      },
+      "status": "done",
+      "lastUpdated": "2026-06-30T08:11:10.597Z",
+      "vendor": "d3-sankey",
+      "note": "Current src chunk identified as d3-sankey; aliases re-derived from src-6yFswxVy.js."
+    },
+    "src-BhkLFyc4": {
+      "restored": "vendor/d3-hierarchy.ts",
+      "exports": {
+        "a": "hierarchy",
+        "c": "schemeSet2",
+        "i": "partition",
+        "n": "treemap",
+        "o": "initD3ColorSchemesChunk",
+        "r": "treemapSquarify",
+        "s": "schemeTableau10",
+        "t": "initD3HierarchyChunk"
+      },
+      "status": "done",
+      "lastUpdated": "2026-06-30T08:11:10.597Z",
+      "vendor": "d3-hierarchy/d3-scale-chromatic",
+      "note": "Current src chunk identified as d3-hierarchy plus d3-scale-chromatic; aliases re-derived from src-BhkLFyc4.js."
+    },
+    "stylis-CNWqMcUo": {
+      "restored": "vendor/stylis.ts",
+      "exports": {
+        "i": "compile",
+        "n": "serialize",
+        "r": "stringify",
+        "t": "initStylisChunk"
+      },
+      "status": "done",
+      "vendor": "stylis",
+      "lastUpdated": "2026-06-30T08:12:20.343Z",
+      "note": "Current Stylis bundle matched stock compile/serialize/stringify exports; initializer is represented as a no-op."
     }
   }
 }

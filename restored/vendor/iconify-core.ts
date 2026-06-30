@@ -1,5 +1,9 @@
 // Restored from ref/webview/assets/esm-EAsy4EQA.js
 // Esm chunk restored from the Codex webview bundle.
+export function initIconifyCoreRuntimeChunk() {}
+export function initIconifyCoreChunk() {
+  initIconifyCoreRuntimeChunk();
+}
 var esmValue1 = Object.freeze({
     left: 0,
     top: 0,

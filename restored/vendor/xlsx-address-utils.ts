@@ -6,6 +6,10 @@ var addressUtilsValue1 = 7,
   addressUtilsValue4 = 2,
   addressUtilsValue5 = 4 / 3;
 export const addressUtilsC = 8.43;
+export function initXlsxAddressUtilsConstantsChunk() {}
+export function initXlsxAddressUtilsChunk() {
+  initXlsxAddressUtilsConstantsChunk();
+}
 function addressUtilsHelper1(_addressUtilsC) {
   return _addressUtilsC && _addressUtilsC > 0
     ? _addressUtilsC
