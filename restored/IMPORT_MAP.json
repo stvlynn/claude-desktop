@@ -42366,6 +42366,19 @@
       "stage3AcceptedAt": "2026-06-30T23:55:00.000Z",
       "stage3Review": "Host self-review: parsed the current export table, rebuilt alias-to-compatibility-name exports, rewrote dependency imports through restored/IMPORT_MAP.json, and passed quality gates on the backing bundle and runtime.",
       "stage3Note": "Accepted as a current-ref compatibility export over a restored-dependency backing bundle; full semantic split of plugin detail, skills, and plugins page modules remains future cleanup."
+    },
+    "plugin-detail-page-B276d6cf": {
+      "restored": "runtime/current-app-initial/plugin-detail-page-route-current-runtime.ts",
+      "exports": {
+        "PluginDetailPage": "PluginDetailPage"
+      },
+      "status": "done",
+      "note": "Current PluginDetailPage wrapper maps to the plugin detail producer runtime; the wrapper initializes the producer chunk and re-exports the current route component as PluginDetailPage.",
+      "lastUpdated": "2026-06-30T23:58:00.000Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T23:58:00.000Z",
+      "stage3Review": "Host self-review: verified plugin-detail-page-B276d6cf.js imports n/t from the current plugin detail producer, invokes n(), and exports t as PluginDetailPage; runtime wrapper preserves that surface and passes quality-gate.",
+      "stage3Note": "Accepted as a current-ref route wrapper over runtime/current-app-initial/plugin-detail-page-current-runtime.ts; the producer body remains a compatibility backing bundle pending future semantic split."
     }
   }
 }
