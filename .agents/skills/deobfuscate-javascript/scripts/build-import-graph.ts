@@ -945,14 +945,15 @@ async function main(): Promise<void> {
   fs.mkdirSync(path.join(fullDir, "files"), { recursive: true });
   fs.mkdirSync(path.join(fullDir, "locks"), { recursive: true });
 
-  // Stage local-file workspaces (copy original.js once if absent).
+  // Stage local-file workspaces. Incremental runs keep the original archive for
+  // traceability, but --rebuild must refresh it from the current source tree.
   // Oversized-local files do NOT get a workspace — we won't restore them.
   for (const file of Object.values(manifest.files)) {
     if (file.kind !== "local" || !file.path) continue;
     const ws = path.join(fullDir, "files", file.basename);
     fs.mkdirSync(ws, { recursive: true });
     const archive = path.join(ws, "original.js");
-    if (!fs.existsSync(archive)) {
+    if (values.rebuild || !fs.existsSync(archive)) {
       try {
         fs.copyFileSync(file.path, archive);
       } catch (err) {

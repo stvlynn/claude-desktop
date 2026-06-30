@@ -691,6 +691,36 @@ describe("CLI auto-discovery", () => {
     expect(manifest.entry).toBe("entry-AaAaAaAa");
   });
 
+  test("--rebuild refreshes staged original.js from the current source", () => {
+    const { rootDir, targetDir, entry } = makeFixture();
+    const first = spawnSync(
+      "bun",
+      [SCRIPT, entry, "--target", targetDir, "--root", rootDir],
+      { encoding: "utf-8" },
+    );
+    expect(first.status).toBe(0);
+
+    const stagedOriginal = path.join(
+      targetDir,
+      ".deobfuscate-javascript",
+      "_full",
+      "files",
+      "child-BbBbBbBb",
+      "original.js",
+    );
+    fs.writeFileSync(stagedOriginal, "\0".repeat(64));
+
+    const rebuilt = spawnSync(
+      "bun",
+      [SCRIPT, entry, "--target", targetDir, "--root", rootDir, "--rebuild"],
+      { encoding: "utf-8" },
+    );
+    expect(rebuilt.status).toBe(0);
+    expect(fs.readFileSync(stagedOriginal, "utf-8")).toBe(
+      fs.readFileSync(path.join(rootDir, "child-BbBbBbBb.js"), "utf-8"),
+    );
+  });
+
   test("exits 64 when neither an entry nor --root is given", () => {
     const { targetDir } = makeFixture();
     const res = spawnSync("bun", [SCRIPT, "--target", targetDir], {
