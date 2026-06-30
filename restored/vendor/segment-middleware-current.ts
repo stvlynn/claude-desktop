@@ -14,26 +14,35 @@ import {
   middlewareU as segmentFetch,
 } from "./segment-middleware";
 
-export function initGlobalScopeResolver(): void {}
-export function initAnalyticsEventClass(): void {}
-export function initAnalyticsApiHost(): void {}
-export function initAnalyticsVersion(): void {}
-export function initFacadeClasses(): void {}
-export function initAnalyticsPackageType(): void {}
-export function initSegmentMiddlewareChunk(): void {}
-export function initRemoteMetricsClass(): void {}
-export function initFetchWrapper(): void {}
+function initGlobalScopeResolver(): void {}
+function initAnalyticsEventClass(): void {}
+function initAnalyticsApiHost(): void {}
+function initAnalyticsVersion(): void {}
+function initFacadeClasses(): void {}
+function initAnalyticsPackageType(): void {}
+function initSegmentMiddlewareChunk(): void {}
+function initRemoteMetricsClass(): void {}
+function initFetchWrapper(): void {}
 
 export {
-  AnalyticsEvent,
-  RemoteMetricsStore,
-  analyticsApiHost,
-  analyticsVersion,
-  applyDestinationMiddleware,
-  createSegmentFacade,
-  getAnalyticsPackageType,
-  getGlobalScope,
-  segmentFacadeClasses,
   segmentFetch,
+  createSegmentFacade,
+  initGlobalScopeResolver,
+  initAnalyticsEventClass,
+  analyticsApiHost,
+  initAnalyticsApiHost,
+  analyticsVersion,
+  initAnalyticsVersion,
+  initFacadeClasses,
+  RemoteMetricsStore,
+  initAnalyticsPackageType,
+  initSegmentMiddlewareChunk,
+  segmentFacadeClasses,
+  getAnalyticsPackageType,
   sourceMiddlewarePlugin,
+  AnalyticsEvent,
+  applyDestinationMiddleware,
+  initRemoteMetricsClass,
+  initFetchWrapper,
+  getGlobalScope,
 };

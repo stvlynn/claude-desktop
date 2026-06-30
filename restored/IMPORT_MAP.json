@@ -21336,7 +21336,10 @@
       "status": "done",
       "aliasOf": "middleware-CVKpk5Wn",
       "note": "Current Segment middleware chunk merges entry/base exports plus Rolldown lazy init thunks; aliases were re-derived from middleware-m1mRm6yO.js.",
-      "lastUpdated": "2026-06-30T00:00:00.000Z"
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T00:00:00.000Z",
+      "stage3Review": "Host self-review: current ref export table maps h->_, Z->a, m->b, M->c, S->d, C->f, _->g, v->h, $->i, k->l, x->m, ie->n, X->o, y->p, re->r, j->s, ne->t, A->u, g->v, p->y; vendor/segment-middleware-current.ts exposes those semantic exports and passes quality-gate."
     },
     "merge-Baqijoc_": {
       "restored": "vendor/lodash-merge.ts",
