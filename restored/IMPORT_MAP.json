@@ -11452,6 +11452,34 @@
       },
       "status": "done"
     },
+    "browser-use-settings-D70mfZpl": {
+      "restored": "browser/browser-use-settings/index.tsx",
+      "exports": {
+        "_": "initializePluginControlList",
+        "a": "PasswordManagerSettingsRow",
+        "c": "BrowserUsePermissionSections",
+        "d": "BrowserUseSettings",
+        "f": "BrowserUseSettingsSections",
+        "g": "PluginControlList",
+        "h": "findPreferredBrowserUsePlugin",
+        "i": "BrowsingHistorySettingsRow",
+        "l": "BrowserDomainListSection",
+        "m": "initializePreferredBrowserUsePluginHelpers",
+        "n": "ContactInfoSettingsRow",
+        "o": "SiteSettingsRow",
+        "p": "initializeBrowserUseSettingsChunk",
+        "r": "ExtensionsSettingsRow",
+        "s": "BrowserUseApprovalModeRow",
+        "t": "ClearBrowsingDataRow",
+        "u": "BrowserUseHistoryApprovalModeRow",
+        "v": "FullCdpDeveloperModeSection",
+        "y": "initializeFullCdpDeveloperModeSection"
+      },
+      "status": "done",
+      "aliasOf": "browser-use-settings-Ct3jD7gG",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current ref producer keeps the restored browser-use settings page, row, and initializer export surface."
+    },
     "use-workspace-users-BuMotENr": {
       "restored": "collaboration/use-workspace-users/index.ts",
       "exports": {
