@@ -17666,8 +17666,11 @@
         "zt": "sharedAppMainRuntimeZt"
       },
       "status": "done",
-      "note": "Current app-main shared runtime producer: confirmed React Query, Jotai, scope/signal, zod, VS Code, host-query, path, settings, and Codex utility aliases are mapped with semantic names. Remaining raw exports are retained as stable sharedAppMainRuntime* coverage aliases because this chunk is a combined vendor/runtime bucket with no sourcemap.",
-      "lastUpdated": "2026-06-29"
+      "note": "Historical dv5z3ftk app-main query/scope shared runtime retained as runtime/query-scope-runtime.ts. The current ref no longer contains this 435-alias combined producer; current worktree/new-thread query and orchestrator runtimes are covered separately by ko8xg8gw-DEdbMp8p and kg2pu5rs-N3llppXI, so this legacy surface remains distinct.",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T00:00:00.000Z",
+      "stage3Review": "Host self-review: current ref no longer contains dv5z3ftk-BhBbJNnt; verified the legacy raw export table covers the same 435 aliases recorded in this entry, runtime/query-scope-runtime passes quality-gate, and the alias layer intentionally collapses those aliases to 307 unique public names."
     },
     "app-initial~app-main~worktree-init-v2-page~remote-conversation-page~new-thread-panel-page~o~bj5tp28r-Dcs9S3fj": {
       "restored": "runtime/app-main-new-thread-runtime.ts",
