@@ -12551,10 +12551,9 @@
     },
     "app-initial~app-main~worktree-init-v2-page~remote-conversation-page~pull-requests-page~new-~kvpgbdy1-mhRp2VYQ": {
       "restored": "vendor/pull-request-thread-actions-runtime.ts",
-      "status": "partial",
-      "note": "Compatibility facade moved out of stale ref passthrough. Narrow restored runtimes consume the needed PR description, comment-card, and review-panel helpers, while remaining mixed pull-request thread action UI/runtime exports are routed through vendor/pull-request-thread-actions-runtime.ts synced to current kmtatxxf-DEE2TwPG until deep-restored.",
-      "lastUpdated": "2026-06-28T21:35:00.000Z",
-      "boundary": "boundaries/current-ref/pull-request-thread-actions-producer.ts",
+      "status": "done",
+      "note": "Legacy pull-request thread action producer is absent from the current ref. The entry is now an alias of the done current kmtatxxf-DEE2TwPG runtime; current pull-request new-thread code is covered by ozr5a6hk-DZC70s11 and vendor/pull-request-new-thread-current-bundle.ts, both verified by quality-gate.",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
       "aliasOf": "app-initial~app-main~worktree-init-v2-page~remote-conversation-page~pull-requests-page~plug~kmtatxxf-DEE2TwPG"
     },
     "app-initial~app-main~onboarding-page~profile-QLPeiknY": {
