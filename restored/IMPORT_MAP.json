@@ -9516,7 +9516,10 @@
         "n": "chunk2KRD3SAON",
         "t": "chunk2KRD3SAOT"
       },
-      "status": "done"
+      "status": "done",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T20:35:54.000Z",
+      "stage3Review": "Host self-review: vendor/mermaid-radar-services-k5.ts semantically restores the Mermaid K5 Radar Langium service module, including RadarTokenBuilder, createRadarServices, parser service registration, and current lazy-init compatibility; it preserves the recorded n/t export aliases and passes quality-gate."
     },
     "chunk-67CJDMHE-B3_SAS71": {
       "restored": "vendor/mermaid-git-graph-services-k5.ts",
@@ -9728,7 +9731,10 @@
       "status": "done",
       "aliasOf": "chunk-2KRD3SAO-Bdi3VHck",
       "lastUpdated": "2026-06-30T00:00:00.000Z",
-      "note": "Current Rolldown lazy-init variant maps the init alias to the restored eager ESM initializer compatibility export."
+      "note": "Current Rolldown lazy-init variant maps the init alias to the restored eager ESM initializer compatibility export.",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T20:35:54.000Z",
+      "stage3Review": "Host self-review: vendor/mermaid-radar-services-k5.ts semantically restores the Mermaid K5 Radar Langium service module, including RadarTokenBuilder, createRadarServices, parser service registration, and current lazy-init compatibility; it preserves the recorded n/r/t export aliases and passes quality-gate."
     },
     "chunk-67CJDMHE-x2DGRTFj": {
       "restored": "vendor/mermaid-git-graph-services-k5.ts",
@@ -10106,9 +10112,12 @@
     "radar-PYXPWWZC-DenUZrCa": {
       "restored": "vendor/mermaid-radar-definition-k5.ts",
       "exports": {
-        "createRadarServices": "radarPYXPWWZC"
+        "createRadarServices": "createRadarServices"
       },
-      "status": "done"
+      "status": "done",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T20:35:54.000Z",
+      "stage3Review": "Host self-review: vendor/mermaid-radar-definition-k5.ts is now a semantic wrapper over createRadarServices from the restored K5 radar services module; it covers historical and current radar-PYXPWWZC hashes and passes quality-gate."
     },
     "treeView-SZITEDCU-CQ3h0-LJ": {
       "restored": "vendor/mermaid-tree-view-definition-k5.ts",
@@ -23847,7 +23856,10 @@
       "status": "done",
       "aliasOf": "radar-PYXPWWZC-DenUZrCa",
       "lastUpdated": "2026-06-30T00:00:00.000Z",
-      "note": "Current Mermaid vendor wrapper preserves the restored public export surface."
+      "note": "Current Mermaid vendor wrapper preserves the restored public export surface.",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T20:35:54.000Z",
+      "stage3Review": "Host self-review: vendor/mermaid-radar-definition-k5.ts is now a semantic wrapper over createRadarServices from the restored K5 radar services module; it covers historical and current radar-PYXPWWZC hashes and passes quality-gate."
     },
     "radar-PYXPWWZC-Cvhporan": {
       "restored": "vendor/mermaid-radar-definition-k5.ts",
@@ -23857,7 +23869,10 @@
       "status": "done",
       "aliasOf": "radar-PYXPWWZC-DenUZrCa",
       "lastUpdated": "2026-06-30T00:00:00.000Z",
-      "note": "Current Mermaid vendor wrapper preserves the restored public export surface."
+      "note": "Current Mermaid vendor wrapper preserves the restored public export surface.",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T20:35:54.000Z",
+      "stage3Review": "Host self-review: vendor/mermaid-radar-definition-k5.ts is now a semantic wrapper over createRadarServices from the restored K5 radar services module; it covers historical and current radar-PYXPWWZC hashes and passes quality-gate."
     },
     "radar-PYXPWWZC-RPpS6zbt": {
       "restored": "vendor/mermaid-radar-definition-k5.ts",
@@ -23867,7 +23882,10 @@
       "status": "done",
       "aliasOf": "radar-PYXPWWZC-DenUZrCa",
       "lastUpdated": "2026-06-30T00:00:00.000Z",
-      "note": "Current Mermaid vendor wrapper preserves the restored public export surface."
+      "note": "Current Mermaid vendor wrapper preserves the restored public export surface.",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T20:35:54.000Z",
+      "stage3Review": "Host self-review: vendor/mermaid-radar-definition-k5.ts is now a semantic wrapper over createRadarServices from the restored K5 radar services module; it covers historical and current radar-PYXPWWZC hashes and passes quality-gate."
     },
     "packet-4T2RLAQJ-C65R2M48": {
       "restored": "vendor/mermaid-packet-definition-k5.ts",
@@ -24097,7 +24115,10 @@
       "status": "done",
       "aliasOf": "radar-PYXPWWZC-DenUZrCa",
       "lastUpdated": "2026-06-30T00:00:00.000Z",
-      "note": "Current Mermaid vendor wrapper preserves the restored public export surface."
+      "note": "Current Mermaid vendor wrapper preserves the restored public export surface.",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T20:35:54.000Z",
+      "stage3Review": "Host self-review: vendor/mermaid-radar-definition-k5.ts is now a semantic wrapper over createRadarServices from the restored K5 radar services module; it covers historical and current radar-PYXPWWZC hashes and passes quality-gate."
     },
     "packet-4T2RLAQJ-XF5cmKUy": {
       "restored": "vendor/mermaid-packet-definition-k5.ts",
@@ -24542,7 +24563,10 @@
       "status": "done",
       "aliasOf": "chunk-2KRD3SAO-Bdi3VHck",
       "lastUpdated": "2026-06-30T00:00:00.000Z",
-      "note": "Current Mermaid K5 service wrapper preserves the restored parser service export surface."
+      "note": "Current Mermaid K5 service wrapper preserves the restored parser service export surface.",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T20:35:54.000Z",
+      "stage3Review": "Host self-review: vendor/mermaid-radar-services-k5.ts semantically restores the Mermaid K5 Radar Langium service module, including RadarTokenBuilder, createRadarServices, parser service registration, and current lazy-init compatibility; it preserves the recorded n/t export aliases and passes quality-gate."
     },
     "chunk-2KRD3SAO-DHdxDmna": {
       "restored": "vendor/mermaid-radar-services-k5.ts",
@@ -24553,7 +24577,10 @@
       "status": "done",
       "aliasOf": "chunk-2KRD3SAO-Bdi3VHck",
       "lastUpdated": "2026-06-30T00:00:00.000Z",
-      "note": "Current Mermaid K5 service wrapper preserves the restored parser service export surface."
+      "note": "Current Mermaid K5 service wrapper preserves the restored parser service export surface.",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T20:35:54.000Z",
+      "stage3Review": "Host self-review: vendor/mermaid-radar-services-k5.ts semantically restores the Mermaid K5 Radar Langium service module, including RadarTokenBuilder, createRadarServices, parser service registration, and current lazy-init compatibility; it preserves the recorded n/t export aliases and passes quality-gate."
     },
     "chunk-2KRD3SAO-jbuQ6JrO": {
       "restored": "vendor/mermaid-radar-services-k5.ts",
@@ -24564,7 +24591,10 @@
       "status": "done",
       "aliasOf": "chunk-2KRD3SAO-Bdi3VHck",
       "lastUpdated": "2026-06-30T00:00:00.000Z",
-      "note": "Current Mermaid K5 service wrapper preserves the restored parser service export surface."
+      "note": "Current Mermaid K5 service wrapper preserves the restored parser service export surface.",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T20:35:54.000Z",
+      "stage3Review": "Host self-review: vendor/mermaid-radar-services-k5.ts semantically restores the Mermaid K5 Radar Langium service module, including RadarTokenBuilder, createRadarServices, parser service registration, and current lazy-init compatibility; it preserves the recorded n/t export aliases and passes quality-gate."
     },
     "chunk-67CJDMHE-DnBZbXY2": {
       "restored": "vendor/mermaid-git-graph-services-k5.ts",
