@@ -2,7 +2,10 @@
 // Builds a reader that loads workspace file contents for a host/path through the
 // host bridge, normalising read failures into a single user-facing error.
 
-import { appHostServices } from "../runtime/app-host-services-runtime";
+import {
+  appHostServices,
+  type AppHostServicesBridge,
+} from "../runtime/app-host-services-runtime";
 
 export interface WorkspaceFileReaderParams {
   hostId: string;
@@ -11,17 +14,10 @@ export interface WorkspaceFileReaderParams {
 
 export type WorkspaceFileReader = (representation: unknown) => Promise<unknown>;
 
-type WorkspaceFileHostServices = {
-  workspaceFiles: {
-    read(params: {
-      hostId: string;
-      path: string;
-      representation: unknown;
-    }): Promise<unknown>;
-  };
-};
-
-const hostServices = appHostServices as WorkspaceFileHostServices;
+const hostServices = appHostServices as Pick<
+  AppHostServicesBridge,
+  "workspaceFiles"
+>;
 
 export function createWorkspaceFileReader({
   hostId,

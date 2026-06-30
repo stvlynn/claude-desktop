@@ -35,9 +35,16 @@ type CachedConversation<TTurn> = {
   };
   turns?: readonly TTurn[];
 };
-type AppHostServicesBridge = {
+export type AppHostServicesBridge = {
   appInfo: {
     get: () => unknown;
+  };
+  workspaceFiles: {
+    read(params: {
+      hostId: string;
+      path: string;
+      representation: unknown;
+    }): Promise<unknown>;
   };
   [serviceName: string]: unknown;
 };
