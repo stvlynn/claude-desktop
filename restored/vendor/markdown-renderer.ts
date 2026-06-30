@@ -12,6 +12,24 @@ type TextOptions = {
   includeImageAlt?: boolean;
 };
 
+type CharacterClass = 1 | 2 | undefined;
+
+const punctuationOrSymbolPattern = /\p{P}|\p{S}/u;
+const whitespacePattern = /\s/;
+
+function matchesCharacterClass(code: number | null | undefined, pattern: RegExp) {
+  return (
+    code !== null &&
+    typeof code === "number" &&
+    code > -1 &&
+    pattern.test(String.fromCharCode(code))
+  );
+}
+
+function isMicromarkWhitespace(code: number | null | undefined) {
+  return code !== null && typeof code === "number" && (code < 0 || code === 32);
+}
+
 function stripInlineMarkdown(markdown: string) {
   return markdown
     .replace(/!\[([^\]]*)\]\([^)]+\)/g, "$1")
@@ -77,6 +95,17 @@ export function libT(markdown: string): MarkdownNode {
     type: "root",
     children,
   };
+}
+
+export function libO(code: number | null | undefined): CharacterClass {
+  if (
+    code === null ||
+    isMicromarkWhitespace(code) ||
+    matchesCharacterClass(code, whitespacePattern)
+  )
+    return 1;
+  if (matchesCharacterClass(code, punctuationOrSymbolPattern)) return 2;
+  return undefined;
 }
 
 export function libY(node: MarkdownNode | MarkdownNode[], options?: TextOptions): string {
