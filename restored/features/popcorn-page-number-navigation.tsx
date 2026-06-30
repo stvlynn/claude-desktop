@@ -1,5 +1,6 @@
 // Restored from ref/webview/assets/PopcornPageNumberNavigation-2i17P54k.js
 // Also matches ref/webview/assets/PopcornPageNumberNavigation-VRpKM1l8.js.
+// Also matches ref/webview/assets/PopcornPageNumberNavigation-Cr5rDVih.js.
 import React from "react";
 import {
   remoteTextEditSessionC as ChevronLeftIcon,

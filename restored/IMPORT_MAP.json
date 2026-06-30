@@ -14374,6 +14374,22 @@
       "note": "Synced current Popcorn page number navigation chunk with semantic component and initializer export.",
       "lastUpdated": "2026-06-27T21:51:45.787Z"
     },
+    "PopcornPageNumberNavigation-Cr5rDVih": {
+      "restored": "features/popcorn-page-number-navigation.tsx",
+      "exports": {
+        "n": "initPopcornPageNumberNavigationChunk",
+        "t": "PopcornPageNumberNavigation",
+        "initPopcornPageNumberNavigationChunk": "initPopcornPageNumberNavigationChunk",
+        "PopcornPageNumberNavigation": "PopcornPageNumberNavigation"
+      },
+      "status": "done",
+      "aliasOf": "PopcornPageNumberNavigation-CdETRqdh",
+      "note": "Current synced Popcorn page navigation helper used by the current Popcorn artifact panels; export surface matches the existing semantic component.",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T00:00:00.000Z",
+      "stage3Review": "Host self-review: compared ref/webview/assets/PopcornPageNumberNavigation-Cr5rDVih.js to restored/features/popcorn-page-number-navigation.tsx; props, button labels, disabled state rules, test ids, indicator text, icon sizing, class names, and n/t export surface match."
+    },
     "artifact-analytics-D0odHltv": {
       "restored": "features/artifact-analytics.ts",
       "exports": {
