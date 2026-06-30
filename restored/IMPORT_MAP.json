@@ -3118,7 +3118,12 @@
       "exports": {
         "queryString": "QueryString"
       },
-      "status": "done"
+      "status": "done",
+      "note": "Historical Segment query-string middleware wrapper retained as an alias of the current rxmEnTXH chunk; QueryString parses ajs_* URL params into analytics calls.",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T00:00:00.000Z",
+      "stage3Review": "Host self-review: current ref no longer contains query-string-FsVg0saL, current rxmEnTXH exists, vendor/segment-query-string.ts passes quality-gate, and the recorded QueryString alias is exported."
     },
     "query-string-CoYNflPh": {
       "restored": "vendor/segment-query-string.ts",
@@ -3127,7 +3132,11 @@
       },
       "status": "done",
       "aliasOf": "query-string-FsVg0saL",
-      "lastUpdated": "2026-06-29T00:00:00.000Z"
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Historical Segment query-string middleware wrapper retained as an alias of the current rxmEnTXH chunk; QueryString parses ajs_* URL params into analytics calls.",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T00:00:00.000Z",
+      "stage3Review": "Host self-review: current ref no longer contains query-string-CoYNflPh, current rxmEnTXH exists, vendor/segment-query-string.ts passes quality-gate, and the recorded QueryString alias is exported."
     },
     "query-string-rxmEnTXH": {
       "restored": "vendor/segment-query-string.ts",
@@ -3137,14 +3146,22 @@
       "status": "done",
       "aliasOf": "query-string-FsVg0saL",
       "lastUpdated": "2026-06-30T00:00:00.000Z",
-      "note": "Current ref hash keeps the restored Segment query-string middleware surface."
+      "note": "Current ref hash keeps the restored Segment query-string middleware surface.",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T00:00:00.000Z",
+      "stage3Review": "Host self-review: exact current query-string-rxmEnTXH ref asset exists, vendor/segment-query-string.ts passes quality-gate, and the recorded QueryString alias is exported."
     },
     "remote-middleware-DRFk97G2": {
       "restored": "vendor/segment-remote-middleware.ts",
       "exports": {
         "remoteMiddlewares": "remoteMiddleware"
       },
-      "status": "done"
+      "status": "done",
+      "note": "Historical Segment remote middleware wrapper retained as an alias of the current PCES0C24 chunk; the restored file exports both legacy remoteMiddleware and current remoteMiddlewares names.",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T00:00:00.000Z",
+      "stage3Review": "Host self-review: current ref no longer contains remote-middleware-DRFk97G2, current PCES0C24 exists, vendor/segment-remote-middleware.ts passes quality-gate, and the recorded remoteMiddleware alias is exported."
     },
     "remote-middleware-K7WTYjbM": {
       "restored": "vendor/segment-remote-middleware.ts",
@@ -3153,7 +3170,11 @@
       },
       "status": "done",
       "aliasOf": "remote-middleware-DRFk97G2",
-      "lastUpdated": "2026-06-29T00:00:00.000Z"
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Historical Segment remote middleware wrapper retained as an alias of the current PCES0C24 chunk; the restored file exports both legacy remoteMiddleware and current remoteMiddlewares names.",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T00:00:00.000Z",
+      "stage3Review": "Host self-review: current ref no longer contains remote-middleware-K7WTYjbM, current PCES0C24 exists, vendor/segment-remote-middleware.ts passes quality-gate, and the recorded remoteMiddleware alias is exported."
     },
     "remote-middleware-PCES0C24": {
       "restored": "vendor/segment-remote-middleware.ts",
@@ -3163,7 +3184,10 @@
       "status": "done",
       "aliasOf": "remote-middleware-DRFk97G2",
       "lastUpdated": "2026-06-30T00:00:00.000Z",
-      "note": "Current ref hash keeps the restored Segment remote middleware resolver surface."
+      "note": "Current ref hash keeps the restored Segment remote middleware resolver surface.",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T00:00:00.000Z",
+      "stage3Review": "Host self-review: exact current remote-middleware-PCES0C24 ref asset exists, vendor/segment-remote-middleware.ts passes quality-gate, and the recorded remoteMiddlewares alias is exported."
     },
     "chunk-AGHRB4JF-Bxy73eEy": {
       "restored": "vendor/dayjs-core-alt.ts",
