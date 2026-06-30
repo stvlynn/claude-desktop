@@ -26,16 +26,16 @@ import {
   useSignalValue,
 } from "../runtime/app-scope-hooks";
 import {
-  CS as initThreadStateSignalRuntime,
+  Bl as setProductEventProperties,
+  Hi as initThreadStateSignalRuntime,
   I_ as initRouteScope,
   Jp as conversationPermissionConfigSignal,
-  M_ as localConversationRouteScope,
+  Np as streamRoleProductEvent,
   Op as initConversationStateSelectors,
-  TS as setProductEventProperties,
+  Ri as localConversationRouteScope,
+  St as conversationStreamRoleSignal,
   Up as conversationCollaborationModeSignal,
   Xp as latestConversationTurnSignal,
-  _m as conversationStreamRoleSignal,
-  xg as streamRoleProductEvent,
 } from "../vendor/projects-app-shared-runtime";
 
 export {

@@ -3,10 +3,4 @@
 // Most live in the current remote/projects shared bundle; the listed aliases are legacy-only fallbacks
 // still consumed by restored projects/profile runtime facades.
 export * from "../../vendor/remote-projects-app-shared-current-bundle";
-export {
-  Bx,
-  CS,
-  Ob,
-  TS,
-  rx,
-} from "../../vendor/app-main-legacy-buw-compat-bundle";
+export { Bx, Ob, rx } from "../../vendor/app-main-legacy-buw-compat-bundle";

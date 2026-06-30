@@ -28,12 +28,12 @@ import {
   vc as getPanelTabPlacement,
   Yt as openWorkspaceFilePanelTab,
   a_ as initFileTypeDetectionHelpers,
-  CS as initOpenFileOutcomeEventRuntime,
+  Rl as initOpenFileOutcomeEventRuntime,
   i_ as getPathExtension,
   o_ as isMarkdownPreviewPath,
   r_ as getImagePreviewDisplayMode,
   s_ as isPdfPreviewPath,
-  TS as logScopedProductEvent,
+  Bl as logScopedProductEvent,
 } from "../vendor/projects-app-shared-runtime";
 
 const readFileContentSampleByteLimit = 4096;

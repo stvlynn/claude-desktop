@@ -26,8 +26,8 @@ import {
 import { classNames, initClassNameRuntime } from "../utils/class-names";
 import { initIntlRuntime, useIntl } from "../vendor/react-intl";
 import {
-  CS as initPullRequestViewedEventRuntime,
-  TS as logScopedProductEvent,
+  Bl as logScopedProductEvent,
+  Rl as initPullRequestViewedEventRuntime,
 } from "../vendor/projects-app-shared-runtime";
 import { useScope } from "./app-scope-hooks";
 import { initScopeRuntime } from "./app-scope-runtime";
