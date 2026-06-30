@@ -12029,7 +12029,10 @@
       "exports": {
         "diagram": "ClassDiagram6PBFFD2Q"
       },
-      "status": "done"
+      "status": "done",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T22:09:39.000Z",
+      "stage3Review": "Host self-review: current ref classDiagram-6PBFFD2Q wrappers export only diagram; restored/vendor/mermaid-class-diagram-definition-k5.ts preserves that surface through ClassDiagram6PBFFD2Q/diagram and passes vendored quality gate."
     },
     "classDiagram-v2-HSJHXN6E-Dhbhv0LY": {
       "restored": "vendor/mermaid-class-diagram-v2-definition-k5.ts",
@@ -25003,7 +25006,10 @@
       "status": "done",
       "aliasOf": "classDiagram-6PBFFD2Q-Cvxpk6bJ",
       "lastUpdated": "2026-06-30T00:00:00.000Z",
-      "note": "Current Mermaid diagram definition wrapper preserves the restored public export surface."
+      "note": "Current Mermaid diagram definition wrapper preserves the restored public export surface.",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T22:09:39.000Z",
+      "stage3Review": "Host self-review: current ref classDiagram-6PBFFD2Q-BMID2kH6.js exports only diagram; restored/vendor/mermaid-class-diagram-definition-k5.ts preserves that surface through ClassDiagram6PBFFD2Q/diagram and passes vendored quality gate."
     },
     "classDiagram-6PBFFD2Q-CvyjdvuM": {
       "restored": "vendor/mermaid-class-diagram-definition-k5.ts",
@@ -25013,7 +25019,10 @@
       "status": "done",
       "aliasOf": "classDiagram-6PBFFD2Q-Cvxpk6bJ",
       "lastUpdated": "2026-06-30T00:00:00.000Z",
-      "note": "Current Mermaid diagram definition wrapper preserves the restored public export surface."
+      "note": "Current Mermaid diagram definition wrapper preserves the restored public export surface.",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T22:09:39.000Z",
+      "stage3Review": "Host self-review: current ref classDiagram-6PBFFD2Q-CvyjdvuM.js exports only diagram; restored/vendor/mermaid-class-diagram-definition-k5.ts preserves that surface through ClassDiagram6PBFFD2Q/diagram and passes vendored quality gate."
     },
     "classDiagram-v2-HSJHXN6E-2MKiCbOK": {
       "restored": "vendor/mermaid-class-diagram-v2-definition-k5.ts",
@@ -25075,7 +25084,10 @@
       "status": "done",
       "aliasOf": "classDiagram-6PBFFD2Q-Cvxpk6bJ",
       "lastUpdated": "2026-06-30T00:00:00.000Z",
-      "note": "Current Mermaid diagram definition wrapper preserves the restored public export surface."
+      "note": "Current Mermaid diagram definition wrapper preserves the restored public export surface.",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T22:09:39.000Z",
+      "stage3Review": "Host self-review: current ref classDiagram-6PBFFD2Q-BezZnw5U.js exports only diagram; restored/vendor/mermaid-class-diagram-definition-k5.ts preserves that surface through ClassDiagram6PBFFD2Q/diagram and passes vendored quality gate."
     },
     "classDiagram-v2-HSJHXN6E-AM1LZZtP": {
       "restored": "vendor/mermaid-class-diagram-v2-definition-k5.ts",
