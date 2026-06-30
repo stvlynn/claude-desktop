@@ -4,7 +4,6 @@
 import * as React from "react";
 import { motion } from "framer-motion";
 import clsx from "clsx";
-import { FormattedMessage } from "../../vendor/react-intl";
 import {
   ActivityDisclosureLayout,
   ActivityDisclosureHeaderRow,
@@ -13,12 +12,24 @@ import {
   ConversationMarkdown,
   useDisclosureContentHeight,
   activityDisclosureTransition,
-  useInterval,
-  parseMarkdown,
-  mdastToText,
-  stringifyMarkdown,
-  formatElapsedDuration,
 } from "../../boundaries/onboarding-commons-externals.facade";
+import {
+  OrderedListGroup,
+  groupOrderedListItems,
+  stripBoldPrefix,
+  stripReasoningHeadingPrefix,
+} from "./reasoning-markdown-helpers";
+import { renderThinkingLabel, useThinkingDuration } from "./reasoning-timing";
+
+export {
+  OrderedListGroup,
+  extractReasoningHeading,
+  groupOrderedListItems,
+  orderedListPadding,
+  stripBoldPrefix,
+  stripReasoningHeadingPrefix,
+} from "./reasoning-markdown-helpers";
+export { renderThinkingLabel, useThinkingDuration } from "./reasoning-timing";
 
 export interface ReasoningItemData {
   content: string;
@@ -30,189 +41,6 @@ export interface ReasoningItemProps {
   conversationId: string;
   cwd: string | null;
   hideCodeBlocks?: boolean;
-}
-
-interface OrderedListGroupData {
-  start: number;
-  digits: number;
-  items: React.ReactNode[];
-}
-
-export function orderedListPadding(count: number): string {
-  return count <= 1 || count === 2
-    ? "pl-8"
-    : count === 3
-      ? "pl-10"
-      : count === 4
-        ? "pl-12"
-        : "pl-14";
-}
-
-export function groupOrderedListItems(
-  children: React.ReactNode[],
-  start = 1,
-): OrderedListGroupData[] {
-  const elements = children.filter((item) => React.isValidElement(item));
-  const groups: OrderedListGroupData[] = [];
-  elements.forEach((item, index) => {
-    const position = start + index;
-    const digits = String(position).length;
-    const lastGroup = groups[groups.length - 1];
-    if (!lastGroup || lastGroup.digits !== digits) {
-      groups.push({ start: position, digits, items: [item] });
-    } else {
-      lastGroup.items.push(item);
-    }
-  });
-  return groups;
-}
-
-export function stripReasoningHeadingPrefix(content: string): string {
-  const trimmed = content.trimStart();
-  const boldMatch = trimmed.match(/^\*\*[^\n]*?\*\*\s*/);
-  if (boldMatch) return trimmed.slice(boldMatch[0].length).trim();
-
-  const headingMatch = content.match(
-    /^#{1,3}[ \t]+([^#\\*_[\]`<>&\r\n]+)(?:\r?\n|$)/,
-  );
-  if (headingMatch?.[1]?.trim()) {
-    return content.slice(headingMatch[0].length).trim();
-  }
-
-  try {
-    const [first, ...rest] = parseMarkdown(content).children ?? [];
-    if (
-      first?.type === "heading" ||
-      (first?.type === "paragraph" &&
-        Array.isArray(first.children) &&
-        first.children.length === 1 &&
-        first.children[0]?.type === "strong")
-    ) {
-      return stringifyMarkdown({ type: "root", children: rest }).trim();
-    }
-  } catch {
-    return content;
-  }
-  return content;
-}
-
-export function extractReasoningHeading(content: string): string | null {
-  try {
-    const [first] = parseMarkdown(content).children;
-    if (first?.type === "heading") return mdastToText(first).trim() || null;
-    if (
-      first?.type === "paragraph" &&
-      first.children.length === 1 &&
-      first.children[0]?.type === "strong"
-    ) {
-      const inner = mdastToText(first.children[0]).trim();
-      return extractReasoningHeading(inner) ?? (inner || null);
-    }
-  } catch {
-    return null;
-  }
-  return null;
-}
-
-export function stripBoldPrefix(content: string): string {
-  const trimmed = content.trimStart();
-  const boldMatch = trimmed.match(/^\*\*([^\n]*?)\*\*/);
-  if (boldMatch) return trimmed.slice(boldMatch[0].length);
-  return trimmed.startsWith("**") ? "" : trimmed;
-}
-
-export function renderThinkingLabel(
-  isStreaming: boolean,
-  elapsed: string | null,
-) {
-  if (isStreaming) {
-    return (
-      <FormattedMessage
-        id="reasoningItem.thinking"
-        defaultMessage="Thinking"
-        description="Message shown when AI is currently thinking"
-      />
-    );
-  }
-  if (elapsed) {
-    return (
-      <FormattedMessage
-        id="reasoningItem.thoughtWithElapsed"
-        defaultMessage="Thought for {elapsed}"
-        description="Message shown when AI has finished thinking, including elapsed time"
-        values={{ elapsed }}
-      />
-    );
-  }
-  return (
-    <FormattedMessage
-      id="reasoningItem.thought"
-      defaultMessage="Thought"
-      description="Message shown when AI has finished thinking"
-    />
-  );
-}
-
-export function OrderedListGroup(props: OrderedListGroupData) {
-  return (
-    <ol
-      key={`ol-${props.start}`}
-      className={clsx("my-0 list-decimal", orderedListPadding(props.digits))}
-      start={props.start}
-    >
-      {props.items}
-    </ol>
-  );
-}
-
-export function useThinkingDuration(isStreaming: boolean): string | null {
-  const [now, setNow] = React.useState(() => Date.now());
-  const [startTime, setStartTime] = React.useState<number | null>(() =>
-    isStreaming ? Date.now() : null,
-  );
-  const [finalElapsedMs, setFinalElapsedMs] = React.useState<number | null>(
-    null,
-  );
-  const wasStreamingRef = React.useRef(isStreaming);
-
-  const onStart = React.useEffectEvent((timestamp: number) => {
-    setStartTime(timestamp);
-    setFinalElapsedMs(null);
-    setNow(timestamp);
-  });
-  const onStop = React.useEffectEvent((start: number) => {
-    const stopTime = Date.now();
-    setFinalElapsedMs(stopTime - start);
-    setNow(stopTime);
-    setStartTime(null);
-  });
-
-  React.useEffect(() => {
-    const wasStreaming = wasStreamingRef.current;
-    if (!wasStreaming && isStreaming) onStart(Date.now());
-    if (
-      wasStreaming &&
-      !isStreaming &&
-      startTime != null &&
-      finalElapsedMs == null
-    ) {
-      onStop(startTime);
-    }
-    wasStreamingRef.current = isStreaming;
-  }, [finalElapsedMs, isStreaming, startTime]);
-
-  useInterval(
-    () => {
-      if (isStreaming) setNow(Date.now());
-    },
-    isStreaming ? 1000 : null,
-  );
-
-  const elapsedMs =
-    finalElapsedMs ??
-    (startTime != null && now >= startTime ? now - startTime : 0);
-  if (elapsedMs <= 0) return null;
-  return formatElapsedDuration(elapsedMs);
 }
 
 export function ReasoningItem(props: ReasoningItemProps) {
