@@ -14983,8 +14983,11 @@
         "tn": "initWorkspaceRootDisplayNameRuntime"
       },
       "status": "done",
-      "note": "Legacy appgen-library hot-path producer is complete as a runtime composite: composer/footer, app-shell context, lazy navigation rail, git-root query, remote connection, command menu item, and workspace-root display-name exports are semantic modules, while remaining current hot-path runtime aliases are forwarded through vendor/appgen-library-hot-runtime.ts.",
-      "lastUpdated": "2026-06-30T00:00:00.000Z"
+      "note": "Legacy appgen-library hot-path producer is complete as a runtime composite: composer/footer, app-shell context, lazy navigation rail, git-root query, remote connection, command menu item, and workspace-root display-name exports are semantic modules, while remaining current hot-path runtime aliases are forwarded through vendor/appgen-library-hot-runtime.ts. The current ref migrated this stable-stem producer to djo67r4n-CrVrqCBe.",
+      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T00:00:00.000Z",
+      "stage3Review": "Host self-review: current ref no longer contains CIs8dplf; verified djo67r4n-CrVrqCBe is the accepted current exact hash, runtime/appgen-library-hot-producer-runtime.ts passes quality-gate, vendor/appgen-library-hot-runtime.ts passes quality-gate, and all 20 recorded aliases are covered by the composite public runtime surface."
     },
     "app-initial~app-main~remote-conversation-page~onboarding-page~hotkey-window-thread-page~thr~jv7rs281-DxRnxRkd": {
       "restored": "utils/unified-diff-file-summaries.ts",
