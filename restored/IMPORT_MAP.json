@@ -6922,7 +6922,7 @@
       "status": "done"
     },
     "app-initial~app-main~page~remote-conversation-page~new-thread-panel-page~settings-page~appg~ibjpfz58-Cm2ohVFa": {
-      "restored": "boundaries/current-ref/settings-shared-current-producer.ts",
+      "restored": "settings/settings-shared/current-runtime.ts",
       "exports": {
         "a": "initSettingsSharedCurrentChunk",
         "i": "SettingsSectionTitle",
@@ -12263,7 +12263,7 @@
       "status": "done"
     },
     "app-initial~app-main~worktree-init-v2-page~remote-conversation-page~new-thread-panel-page~o~cf3a13zj-DZ7tupb9": {
-      "restored": "boundaries/current-ref/thread-resource-card-producer.ts",
+      "restored": "ui/thread-resource-card-runtime.ts",
       "exports": {
         "a": "initThreadResourceCardChunk",
         "c": "getManagedWorktreeStateQueryKey",
@@ -12588,7 +12588,7 @@
       "note": "Current thread shell chunk isolates the MCP capability side-panel tab opener and icon renderer already restored under appgen/publication-terms/side-panel-tabs.ts."
     },
     "app-initial~app-main~remote-conversation-page~settings-page~hotkey-window-thread-page~mcp-s~lv2pzabw-1eiSxJl3": {
-      "restored": "boundaries/current-ref/settings-profile-visibility-producer.ts",
+      "restored": "settings/settings-profile-visibility.ts",
       "exports": {
         "a": "settingsNavigationSections",
         "c": "settingsSectionIds",
@@ -12621,7 +12621,7 @@
       "note": "Current app-initial producer combines the restored permissions-mode visibility SVG with composer permission-mode visibility filtering and persistent settings helpers."
     },
     "app-initial~app-main~remote-conversation-page~new-thread-panel-page~onboarding-page~appgen-~1je6c975-DGpPRr1D": {
-      "restored": "boundaries/current-ref/react-intl-approval-review-producer.ts",
+      "restored": "vendor/react-intl-approval-review-runtime.ts",
       "exports": {
         "C": "excludeObjectKeys",
         "S": "createGeneratorRuntime",
