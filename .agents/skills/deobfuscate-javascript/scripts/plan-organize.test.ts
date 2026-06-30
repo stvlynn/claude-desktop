@@ -74,6 +74,18 @@ export { frFRGreeting as greeting };
 export default frFRDefault;
 `;
 
+const RUNTIME_WRAPPED_LOCALE_SOURCE = `// Restored from ref/webview/assets/fr-FR-_l8AQa2a.js
+var frFRGreeting, frFRDefault;
+rolldownRuntimeN(() => {
+  frFRGreeting = "Retour";
+  frFRDefault = {
+    "CopyButton.copyTooltip": "Copier",
+    "app.sidebar.hide": "Masquer la barre laterale",
+  };
+})();
+export { frFRDefault as default, frFRGreeting as greeting };
+`;
+
 const THEME_SOURCE = `// Restored from ref/webview/assets/absolutely-dark-Bxu0QJJD.js
 const absolutelyDarkColors = {
   "editor.background": "#2d2d2b",
@@ -89,6 +101,25 @@ export const absolutelyDarkDefault = {
 };
 export { absolutelyDarkColors as colors };
 export default absolutelyDarkDefault;
+`;
+
+const RUNTIME_WRAPPED_THEME_SOURCE = `// Restored from ref/webview/assets/absolutely-dark-Bxu0QJJD.js
+var absolutelyDarkColors, absolutelyDarkDefault;
+rolldownRuntimeN(() => {
+  absolutelyDarkColors = {
+    "editor.background": "#2d2d2b",
+    "activityBar.background": "#373735",
+  };
+  absolutelyDarkDefault = {
+    bg: "#2d2d2b",
+    colors: absolutelyDarkColors,
+    fg: "#f9f9f7",
+    name: "Absolutely Dark",
+    settings: [{ scope: ["comment"], settings: { foreground: "#b2b2b0" } }],
+    type: "dark",
+  };
+})();
+export { absolutelyDarkColors as colors, absolutelyDarkDefault as default };
 `;
 
 describe("planOrganize (shape heuristics)", () => {
@@ -193,6 +224,28 @@ describe("planOrganize (shape heuristics)", () => {
     expect(withHyphenatedHash.status).toBe("approved");
   });
 
+  test("a runtime-wrapped localized message catalog chunk → locales/<locale>.ts", () => {
+    const m = makeManifest([
+      file({
+        basename: "fr-FR-_l8AQa2a",
+        exports: [
+          { exported: "default", local: "frFRDefault", kind: "named" },
+          { exported: "greeting", local: "frFRGreeting", kind: "named" },
+        ],
+      }),
+    ]);
+    const p = planOrganize({
+      manifest: m,
+      target: "restored",
+      readCheckpoint: () => RUNTIME_WRAPPED_LOCALE_SOURCE,
+    });
+    const e = p.entries["fr-FR-_l8AQa2a"]!;
+    expect(e.domain).toBe("locales");
+    expect(e.classification).toBe("data-asset");
+    expect(e.semanticPath).toBe("locales/fr-fr.ts");
+    expect(e.status).toBe("approved");
+  });
+
   test("an editor theme data chunk → themes/<theme>.ts", () => {
     const m = makeManifest([
       file({
@@ -207,6 +260,28 @@ describe("planOrganize (shape heuristics)", () => {
       manifest: m,
       target: "restored",
       readCheckpoint: () => THEME_SOURCE,
+    });
+    const e = p.entries["absolutely-dark-Bxu0QJJD"]!;
+    expect(e.domain).toBe("themes");
+    expect(e.classification).toBe("data-asset");
+    expect(e.semanticPath).toBe("themes/absolutely-dark.ts");
+    expect(e.status).toBe("approved");
+  });
+
+  test("a runtime-wrapped editor theme data chunk → themes/<theme>.ts", () => {
+    const m = makeManifest([
+      file({
+        basename: "absolutely-dark-Bxu0QJJD",
+        exports: [
+          { exported: "default", local: "absolutelyDarkDefault", kind: "named" },
+          { exported: "colors", local: "absolutelyDarkColors", kind: "named" },
+        ],
+      }),
+    ]);
+    const p = planOrganize({
+      manifest: m,
+      target: "restored",
+      readCheckpoint: () => RUNTIME_WRAPPED_THEME_SOURCE,
     });
     const e = p.entries["absolutely-dark-Bxu0QJJD"]!;
     expect(e.domain).toBe("themes");

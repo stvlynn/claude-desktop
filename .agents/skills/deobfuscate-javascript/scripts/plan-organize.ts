@@ -162,15 +162,15 @@ function localeStemFromBasename(basename: string, stem: string): string | null {
 
 function isLocaleMessagesData(source: string): boolean {
   return (
-    /\b(?:var|const)\s+[A-Za-z0-9_$]*Greeting\s*=/.test(source) &&
-    /\bexport\s+const\s+[A-Za-z0-9_$]*Default\s*=\s*\{/.test(source) &&
+    /\b(?:var|let|const)\s+[A-Za-z0-9_$]*Greeting\b/.test(source) &&
+    /\b[A-Za-z0-9_$]*Default\s*=\s*\{/.test(source) &&
     /["'`]CopyButton\.copyTooltip["'`]/.test(source)
   );
 }
 
 function isThemeData(source: string): boolean {
   return (
-    /\bexport\s+const\s+[A-Za-z0-9_$]*Default\s*=\s*\{/.test(source) &&
+    /\b[A-Za-z0-9_$]*Default\s*=\s*\{/.test(source) &&
     /\bbg\s*:/.test(source) &&
     /\bcolors\s*:/.test(source) &&
     /\bname\s*:/.test(source) &&
