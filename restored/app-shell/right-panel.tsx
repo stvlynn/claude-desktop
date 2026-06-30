@@ -10,12 +10,17 @@ import { usePanelAnimation } from "./panel-animation";
 import { RightPanelTabBar } from "./right-panel-tab-bar";
 import { rightAppShellTabController } from "./app-shell-tab-controller";
 import { setRightPanelOpen, rightPanelOpenSignal } from "./app-shell-state";
+import { useMotionValueEvent } from "../utils/use-motion-value-event";
+import {
+  createMotionValue,
+  useTransform as useMotionTransform,
+  type MotionValue,
+} from "../utils/use-transform";
 import {
   appStoreScope,
   computeRightPanelWidth,
   computeRightPanelWidthRatio,
   computeStoredRightPanelWidthRatio,
-  createMotionValue,
   motion as Motion,
   motionTemplate,
   panelSpringTransition,
@@ -29,10 +34,7 @@ import {
   setRightPanelOpenPreservingMaximized,
   useAppScope,
   useAppShellLayout,
-  useMotionTransform,
-  useMotionValueEvent,
   useSignalValue,
-  type MotionValue,
 } from "../boundaries/onboarding-commons-externals.facade";
 import type { AppShellStore } from "./app-shell-tab-controller/types";
 

@@ -5,6 +5,7 @@
 import type { ReactNode } from "react";
 import clsx from "clsx";
 import { useResizeObserverRef } from "../utils/use-resize-observer";
+import { createMotionValue, type MotionValue } from "../utils/use-transform";
 import {
   appShellHeaderActionEntriesSignal,
   appShellHeaderContextMenuItemsSignal,
@@ -12,14 +13,12 @@ import {
   appShellHeaderEndEntriesSignal,
   appShellHeaderStartEntriesSignal,
   ContextMenu,
-  createMotionValue,
   measureElementSize,
   motion as Motion,
   motionTemplate,
   rightPanelMaximizedSignal,
   useAppShellLayout,
   useSignalValue,
-  type MotionValue,
 } from "../boundaries/onboarding-commons-externals.facade";
 
 const HEADER_INTERACTIVE_CHILDREN_CLASS =

@@ -103,4 +103,9 @@ function useTransform<T>(
     : useListTransform([value], ([latest]) => transformer(latest));
 }
 export type { MotionValue };
-export { useCombineMotionValues, useMotionValue, useTransform };
+export {
+  createMotionValue,
+  useCombineMotionValues,
+  useMotionValue,
+  useTransform,
+};
