@@ -33143,6 +33143,24 @@
       "status": "done",
       "stage3Accepted": true,
       "lastUpdated": "2026-06-30T00:00:00.000-05:00"
+    },
+    "isEmpty-BJ4mdsaY": {
+      "restored": "vendor/lodash-is-empty.ts",
+      "exports": {
+        "a": "isEmptyR",
+        "c": "initLodashIsEmptyChunk",
+        "i": "initLodashIsEmptyChunk",
+        "n": "isEmptyT",
+        "o": "initLodashIsEmptyChunk",
+        "r": "isEmptyN",
+        "s": "isEmptyI",
+        "t": "initLodashIsEmptyChunk"
+      },
+      "status": "done",
+      "aliasOf": "isEmpty-CKN2Jii3",
+      "note": "Current ref lodash isEmpty chunk re-derived from isEmpty-BJ4mdsaY.js. Rolldown lazy init exports map to initLodashIsEmptyChunk because the restored module has those side effects flattened.",
+      "stage3Accepted": true,
+      "lastUpdated": "2026-06-30T00:00:00.000-05:00"
     }
   }
 }
