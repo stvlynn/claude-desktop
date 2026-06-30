@@ -31948,6 +31948,24 @@
       "status": "done",
       "lastUpdated": "2026-06-30T00:00:00.000Z"
     },
+    "chunk-YZCP3GAM-B39030I6": {
+      "restored": "vendor/chunk-yzcp3gam.ts",
+      "exports": {
+        "a": "chunkYZCP3GAMA",
+        "c": "chunkYZCP3GAMC",
+        "i": "chunkYZCP3GAMI",
+        "l": "initChunkYZCP3GAM",
+        "n": "chunkYZCP3GAMN",
+        "o": "chunkYZCP3GAMO",
+        "r": "chunkYZCP3GAMR",
+        "s": "chunkYZCP3GAMS",
+        "t": "chunkYZCP3GAMT"
+      },
+      "aliasOf": "chunk-YZCP3GAM-CkcPUeYE",
+      "note": "Current chunk-YZCP3GAM hash re-derived from chunk-YZCP3GAM-B39030I6.js; alias l is the Rolldown lazy init thunk and the drawing helper aliases match their wrapped function names.",
+      "status": "done",
+      "lastUpdated": "2026-06-30T00:00:00.000Z"
+    },
     "chunk-ZZ45TVLE-BM69Gnq3": {
       "restored": "vendor/chunk-zz45tvle.ts",
       "exports": {

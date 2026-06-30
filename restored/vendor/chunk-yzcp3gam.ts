@@ -155,4 +155,5 @@ export const chunkYZCP3GAMC = chunkAGHRB4JFN(
   }),
   "getTextObj",
 );
+export function initChunkYZCP3GAM(): void {}
 export { chunkYZCP3GAMA };
