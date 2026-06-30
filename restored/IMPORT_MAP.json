@@ -9548,7 +9548,10 @@
         "n": "chunkKGLVRYICN",
         "t": "chunkKGLVRYICT"
       },
-      "status": "done"
+      "status": "done",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T00:00:00.000Z",
+      "stage3Review": "Host self-review: vendor/mermaid-info-services-k5.ts restores the Mermaid Info parser service with a semantic token builder for info/showInfo, preserves n/t aliases, and passes quality-gate."
     },
     "chunk-KGLVRYIC-2_pU1Uui": {
       "restored": "vendor/mermaid-info-services-k5.ts",
@@ -9559,7 +9562,10 @@
       "status": "done",
       "aliasOf": "chunk-KGLVRYIC-DZY-IxHR",
       "lastUpdated": "2026-06-30T00:00:00.000Z",
-      "note": "Current Mermaid info services aliases re-derived from chunk-KGLVRYIC-2_pU1Uui."
+      "note": "Current Mermaid info services aliases re-derived from chunk-KGLVRYIC-2_pU1Uui.",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T00:00:00.000Z",
+      "stage3Review": "Host self-review: current ref chunk-KGLVRYIC-2_pU1Uui.js exports d as n and u as t for the Info parser service; vendor/mermaid-info-services-k5.ts preserves those aliases and passes quality-gate."
     },
     "chunk-KGLVRYIC-Byb2YNef": {
       "restored": "vendor/mermaid-info-services-k5.ts",
@@ -9571,7 +9577,10 @@
       "status": "done",
       "aliasOf": "chunk-KGLVRYIC-DZY-IxHR",
       "lastUpdated": "2026-06-30T00:00:00.000Z",
-      "note": "Current Mermaid info services aliases re-derived from chunk-KGLVRYIC-Byb2YNef; alias r is the Rolldown lazy init thunk."
+      "note": "Current Mermaid info services aliases re-derived from chunk-KGLVRYIC-Byb2YNef; alias r is the Rolldown lazy init thunk.",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T00:00:00.000Z",
+      "stage3Review": "Host self-review: current Rolldown variant exports f as n, lazy init h as r, and service module m as t; vendor/mermaid-info-services-k5.ts preserves n/t plus initChunkKGLVRYIC and passes quality-gate."
     },
     "chunk-KGLVRYIC-DB19tH4Q": {
       "restored": "vendor/mermaid-info-services-k5.ts",
@@ -9582,7 +9591,10 @@
       "status": "done",
       "aliasOf": "chunk-KGLVRYIC-DZY-IxHR",
       "lastUpdated": "2026-06-30T00:00:00.000Z",
-      "note": "Current Mermaid info services aliases re-derived from chunk-KGLVRYIC-DB19tH4Q."
+      "note": "Current Mermaid info services aliases re-derived from chunk-KGLVRYIC-DB19tH4Q.",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T00:00:00.000Z",
+      "stage3Review": "Host self-review: current ref chunk-KGLVRYIC-DB19tH4Q.js exports d as n and u as t for the Info parser service; vendor/mermaid-info-services-k5.ts preserves those aliases and passes quality-gate."
     },
     "chunk-KGLVRYIC-UTEj4U9X": {
       "restored": "vendor/mermaid-info-services-k5.ts",
@@ -9593,7 +9605,10 @@
       "status": "done",
       "aliasOf": "chunk-KGLVRYIC-DZY-IxHR",
       "lastUpdated": "2026-06-30T00:00:00.000Z",
-      "note": "Current Mermaid info services aliases re-derived from chunk-KGLVRYIC-UTEj4U9X."
+      "note": "Current Mermaid info services aliases re-derived from chunk-KGLVRYIC-UTEj4U9X.",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T00:00:00.000Z",
+      "stage3Review": "Host self-review: current ref chunk-KGLVRYIC-UTEj4U9X.js exports d as n and u as t for the Info parser service; vendor/mermaid-info-services-k5.ts preserves those aliases and passes quality-gate."
     },
     "chunk-LIHQZDEY-B0GBEU3_": {
       "restored": "vendor/mermaid-treemap-services-k5.ts",
@@ -10033,7 +10048,10 @@
       "exports": {
         "createInfoServices": "infoOMHHGYJF"
       },
-      "status": "done"
+      "status": "done",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T00:00:00.000Z",
+      "stage3Review": "Host self-review: vendor/mermaid-info-definition-k5.ts is a thin Mermaid Info definition wrapper, preserves createInfoServices, imports the restored service module, and passes quality-gate."
     },
     "packet-4T2RLAQJ-Cps_a8kh": {
       "restored": "vendor/mermaid-packet-definition-k5.ts",
@@ -23678,7 +23696,10 @@
       "status": "done",
       "aliasOf": "info-OMHHGYJF-VpsoNmpd",
       "lastUpdated": "2026-06-30T00:00:00.000Z",
-      "note": "Current Mermaid vendor wrapper preserves the restored public export surface."
+      "note": "Current Mermaid vendor wrapper preserves the restored public export surface.",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T00:00:00.000Z",
+      "stage3Review": "Host self-review: current ref wrapper info-OMHHGYJF-DfUzhqEq.js exports e as createInfoServices from chunk-KGLVRYIC-2_pU1Uui; vendor/mermaid-info-definition-k5.ts preserves the surface and passes quality-gate."
     },
     "info-OMHHGYJF-vtRIGpt2": {
       "restored": "vendor/mermaid-info-definition-k5.ts",
@@ -23688,7 +23709,10 @@
       "status": "done",
       "aliasOf": "info-OMHHGYJF-VpsoNmpd",
       "lastUpdated": "2026-06-30T00:00:00.000Z",
-      "note": "Current Mermaid vendor wrapper preserves the restored public export surface."
+      "note": "Current Mermaid vendor wrapper preserves the restored public export surface.",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T00:00:00.000Z",
+      "stage3Review": "Host self-review: current ref wrapper info-OMHHGYJF-vtRIGpt2.js exports e as createInfoServices from chunk-KGLVRYIC-DB19tH4Q; vendor/mermaid-info-definition-k5.ts preserves the surface and passes quality-gate."
     },
     "radar-PYXPWWZC-CkKrZkO_": {
       "restored": "vendor/mermaid-radar-definition-k5.ts",
@@ -23909,7 +23933,10 @@
       "status": "done",
       "aliasOf": "info-OMHHGYJF-VpsoNmpd",
       "lastUpdated": "2026-06-30T00:00:00.000Z",
-      "note": "Current Mermaid vendor wrapper preserves the restored public export surface."
+      "note": "Current Mermaid vendor wrapper preserves the restored public export surface.",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T00:00:00.000Z",
+      "stage3Review": "Host self-review: current Rolldown wrapper info-OMHHGYJF-BlIPdxLi.js initializes parser runtime, exports n as createInfoServices, and maps to vendor/mermaid-info-definition-k5.ts, which preserves the surface and passes quality-gate."
     },
     "info-OMHHGYJF-pC1W-Mm-": {
       "restored": "vendor/mermaid-info-definition-k5.ts",
@@ -23919,7 +23946,10 @@
       "status": "done",
       "aliasOf": "info-OMHHGYJF-VpsoNmpd",
       "lastUpdated": "2026-06-30T00:00:00.000Z",
-      "note": "Current Mermaid info vendor wrapper preserves the restored public export surface."
+      "note": "Current Mermaid info vendor wrapper preserves the restored public export surface.",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-06-30T00:00:00.000Z",
+      "stage3Review": "Host self-review: current ref wrapper info-OMHHGYJF-pC1W-Mm-.js exports e as createInfoServices from chunk-KGLVRYIC-UTEj4U9X; vendor/mermaid-info-definition-k5.ts preserves the surface and passes quality-gate."
     },
     "radar-NHE76QYJ-mTArgrmn": {
       "restored": "vendor/mermaid-radar-definition-fpaj.ts",
