@@ -1,168 +1,22 @@
 // Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
-// Actions for opening a linked conversation end-resource: platform-aware open wrapper, hover subtitle, and the "Open in" dropdown.
+// "Open in" dropdown for linked conversation end-resources.
 
 import React from "react";
-import { FormattedMessage } from "../../vendor/react-intl";
-import { copyToClipboard } from "../../utils/copy-to-clipboard";
-import { AppWindowIcon } from "../../icons/app-window-icon";
-import { Button } from "../../ui/button";
+import { FormattedMessage } from "../../../vendor/react-intl";
+import { copyToClipboard } from "../../../utils/copy-to-clipboard";
+import { AppWindowIcon } from "../../../icons/app-window-icon";
+import { Button } from "../../../ui/button";
 import {
-  PlatformGate,
-  ExternalLinkIcon,
   ChevronDownIcon,
   useOpenTargets,
   OpenTargetsPrefetch,
-  ExternalOpenLink,
   buildOpenTargetMenuItems,
   isVisibleOpenTargetMenuItem,
   OpenTargetDropdownMenu,
   OpenTargetMenu,
   CopyLinkIcon,
-} from "../../boundaries/onboarding-commons-externals.facade";
-
-type OpenTargetKind = "native" | string;
-
-interface OpenTarget {
-  default?: boolean;
-  kind?: OpenTargetKind;
-  appPath?: string | null;
-  label?: string | null;
-}
-
-interface OpenTargetMenuItem {
-  id: string;
-  target: OpenTarget;
-  appPath?: string | null;
-  icon?: string;
-  label: React.ReactNode;
-}
-
-export function isDefaultNativeOpenTarget(target: OpenTarget): boolean {
-  return (
-    target.default === true &&
-    target.kind === "native" &&
-    target.appPath != null
-  );
-}
-
-export interface EndResourceOpenActionProps {
-  cwd: string;
-  hostId: string;
-  href: string;
-  openTarget: string;
-  shouldLoadTargets: boolean;
-}
-
-export function EndResourceOpenAction({
-  cwd,
-  hostId,
-  href,
-  openTarget,
-  shouldLoadTargets,
-}: EndResourceOpenActionProps) {
-  const { canLoadTargets, targets } = useOpenTargets({
-    cwd,
-    hostId,
-    openPath: href,
-  });
-  const defaultBrowserName: string | null =
-    targets.find(isDefaultNativeOpenTarget)?.label ?? null;
-
-  const prefetch =
-    canLoadTargets && shouldLoadTargets && openTarget !== "in-app-browser" ? (
-      <OpenTargetsPrefetch cwd={cwd} hostId={hostId} openPath={href} />
-    ) : null;
-
-  return (
-    <>
-      {prefetch}
-      <PlatformGate electron>
-        {openTarget === "in-app-browser" ? (
-          <FormattedMessage
-            id="localConversation.endResource.openLinkInCodexBrowserSubtitle"
-            defaultMessage="Open"
-            description="Hover subtitle for opening a linked conversation resource in the Codex browser"
-          />
-        ) : (
-          <EndResourceOpenSubtitle
-            browserName={defaultBrowserName}
-            fallbackToDefaultBrowser
-            href={href}
-            openTarget={openTarget}
-          />
-        )}
-      </PlatformGate>
-      <PlatformGate browser chromeExtension extension>
-        <EndResourceOpenSubtitle
-          browserName={defaultBrowserName}
-          fallbackToDefaultBrowser={false}
-          href={href}
-          openTarget={openTarget}
-        />
-      </PlatformGate>
-    </>
-  );
-}
-
-export interface EndResourceOpenSubtitleProps {
-  browserName: string | null;
-  fallbackToDefaultBrowser: boolean;
-  href: string;
-  openTarget: string;
-}
-
-export function EndResourceOpenSubtitle({
-  browserName,
-  fallbackToDefaultBrowser,
-  href,
-  openTarget,
-}: EndResourceOpenSubtitleProps) {
-  const subtitle =
-    browserName == null ? (
-      fallbackToDefaultBrowser ? (
-        <FormattedMessage
-          id="localConversation.endResource.openInDefaultBrowserSubtitle"
-          defaultMessage="Open in default browser"
-          description="Fallback hover subtitle for opening a linked conversation resource when the system browser name is unavailable"
-        />
-      ) : (
-        <FormattedMessage
-          id="localConversation.endResource.openInBrowserSubtitle"
-          defaultMessage="Open in browser"
-          description="Fallback hover subtitle for opening a linked conversation resource when the browser name is unavailable"
-        />
-      )
-    ) : (
-      <FormattedMessage
-        id="localConversation.endResource.openInNamedBrowserSubtitle"
-        defaultMessage="Open in {browser}"
-        description="Hover subtitle for opening a linked conversation resource in the user's default browser"
-        values={{ browser: browserName }}
-      />
-    );
-
-  return (
-    <>
-      {subtitle}
-      <ExternalOpenLink
-        className="icon-2xs"
-        ExternalIcon={ExternalLinkIcon}
-        href={href}
-        openTarget={openTarget}
-      />
-    </>
-  );
-}
-
-export interface EndResourceOpenInMenuProps {
-  cwd: string;
-  copyLink: string | null;
-  hostId: string;
-  isOpen: boolean;
-  onOpenChange: (open: boolean) => void;
-  onOpenInCodexBrowser: () => void;
-  openPath: string;
-}
+} from "../../../boundaries/onboarding-commons-externals.facade";
+import type { EndResourceOpenInMenuProps, OpenTargetMenuItem } from "./types";
 
 export function EndResourceOpenInMenu({
   cwd,
