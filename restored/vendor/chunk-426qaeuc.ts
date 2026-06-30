@@ -15,3 +15,4 @@ export const chunk426QAEUC = chunkAGHRB4JFN((chunk426QAEUCParam1) => {
     chunk426QAEUCValue1.select(`#${chunk426QAEUCParam1}`)
   );
 }, "selectSvgElement");
+export function initChunk426QAEUC(): void {}
