@@ -201,4 +201,4 @@ export {
   zi as appMainCurrentExportLowerZLowerIAlias, zl as appMainCurrentExportLowerZLowerLAlias, zn as SidebarRowRuntime, zo as appMainCurrentExportLowerZLowerOAlias,
   zp as appMainCurrentExportLowerZLowerPAlias, zr as appMainCurrentExportLowerZLowerRAlias, zs as appMainCurrentExportLowerZLowerSAlias, zt as appMainCurrentExportLowerZLowerTAlias,
   zu as appMainCurrentExportLowerZLowerUAlias,
-} from "../boundaries/current-ref/app-main-current-producer";
+} from "./app-main-current-cgnc-bundle";
