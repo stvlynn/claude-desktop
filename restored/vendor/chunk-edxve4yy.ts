@@ -1,58 +1,76 @@
 // Restored from ref/webview/assets/chunk-EDXVE4YY-Cs5mTzNz.js
-// ChunkEDXVE4YY chunk restored from the Codex webview bundle.
+// Mermaid SVG viewport helper restored from the Codex webview bundle.
 import { chunkAGHRB4JFN, chunkAGHRB4JFR } from "./dayjs-core-alt";
 import { _chunkICPOFSXXR } from "./chunk-icpofsxx";
-var chunkEDXVE4YYValue1 = chunkAGHRB4JFN(
-    (chunkEDXVE4YYParam4, chunkEDXVE4YYParam5) => {
-      let chunkEDXVE4YYValue4 = chunkEDXVE4YYParam4.node()?.getBBox() || {
+
+interface SvgBounds {
+  width: number;
+  height: number;
+  x: number;
+  y: number;
+}
+
+interface MermaidSvgSelection {
+  attr(name: string, value: string): void;
+  node(): { getBBox(): SvgBounds } | null | undefined;
+}
+
+type SvgContentRenderer = (
+  selection: MermaidSvgSelection,
+  height: number,
+  width: number,
+  useMaxWidth: boolean,
+) => unknown;
+
+const calculateDimensionsWithPadding = chunkAGHRB4JFN(
+    (svgSelection: MermaidSvgSelection, padding: number): SvgBounds => {
+      let bounds = svgSelection.node()?.getBBox() || {
         width: 0,
         height: 0,
         x: 0,
         y: 0,
       };
       return {
-        width: chunkEDXVE4YYValue4.width + chunkEDXVE4YYParam5 * 2,
-        height: chunkEDXVE4YYValue4.height + chunkEDXVE4YYParam5 * 2,
-        x: chunkEDXVE4YYValue4.x,
-        y: chunkEDXVE4YYValue4.y,
+        width: bounds.width + padding * 2,
+        height: bounds.height + padding * 2,
+        x: bounds.x,
+        y: bounds.y,
       };
     },
     "calculateDimensionsWithPadding",
   ),
-  chunkEDXVE4YYValue2 = chunkAGHRB4JFN(
+  createPaddedViewBox = chunkAGHRB4JFN(
     (
-      chunkEDXVE4YYParam6,
-      chunkEDXVE4YYParam7,
-      chunkEDXVE4YYParam8,
-      _chunkEDXVE4YY,
-      chunkEDXVE4YYParam9,
-    ) =>
-      `${chunkEDXVE4YYParam6 - chunkEDXVE4YYParam9} ${chunkEDXVE4YYParam7 - chunkEDXVE4YYParam9} ${chunkEDXVE4YYParam8} ${_chunkEDXVE4YY}`,
+      x: number,
+      y: number,
+      width: number,
+      height: number,
+      padding: number,
+    ): string => `${x - padding} ${y - padding} ${width} ${height}`,
     "createViewBox",
   );
 export const chunkEDXVE4YY = chunkAGHRB4JFN(
   (
-    chunkEDXVE4YYParam1,
-    _chunkEDXVE4YY,
-    chunkEDXVE4YYParam2,
-    chunkEDXVE4YYParam3,
+    svgSelection: MermaidSvgSelection,
+    padding: number,
+    className: string,
+    useMaxWidth: boolean,
   ) => {
-    chunkEDXVE4YYParam1.attr("class", chunkEDXVE4YYParam2);
-    let { width, height, x, y } = chunkEDXVE4YYValue1(
-      chunkEDXVE4YYParam1,
-      _chunkEDXVE4YY,
+    svgSelection.attr("class", className);
+    let { width, height, x, y } = calculateDimensionsWithPadding(
+      svgSelection,
+      padding,
     );
-    _chunkICPOFSXXR(chunkEDXVE4YYParam1, height, width, chunkEDXVE4YYParam3);
-    let chunkEDXVE4YYValue3 = chunkEDXVE4YYValue2(
-      x,
-      y,
-      width,
+    (_chunkICPOFSXXR as SvgContentRenderer)(
+      svgSelection,
       height,
-      _chunkEDXVE4YY,
+      width,
+      useMaxWidth,
     );
-    chunkEDXVE4YYParam1.attr("viewBox", chunkEDXVE4YYValue3);
+    let viewBox = createPaddedViewBox(x, y, width, height, padding);
+    svgSelection.attr("viewBox", viewBox);
     chunkAGHRB4JFR.debug(
-      `viewBox configured: ${chunkEDXVE4YYValue3} with padding: ${_chunkEDXVE4YY}`,
+      `viewBox configured: ${viewBox} with padding: ${padding}`,
     );
   },
   "setupViewPortForSVG",
