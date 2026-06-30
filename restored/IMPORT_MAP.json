@@ -12636,6 +12636,28 @@
       "note": "Current app-main Fast mode home banner split reuses the personalized estimate hook/messages and adds the banner lightning icon plus rolldown initializer aliases.",
       "lastUpdated": "2026-06-29T00:00:00.000Z"
     },
+    "home-announcements-Dizo-1Ny": {
+      "restored": "app-shell/home-announcements/index.tsx",
+      "exports": {
+        "n": "initHomeAnnouncementsChunk",
+        "t": "HomeAnnouncements",
+        "HomeAnnouncements": "HomeAnnouncements",
+        "initHomeAnnouncementsChunk": "initHomeAnnouncementsChunk"
+      },
+      "status": "done",
+      "note": "Home announcements orchestration restored with semantic banner components and Electron/extension announcement selection.",
+      "lastUpdated": "2026-06-30T00:00:00.000Z"
+    },
+    "home-announcements-lsp9qFUg": {
+      "restored": "app-shell/home-announcements/index.tsx",
+      "exports": {
+        "HomeAnnouncements": "HomeAnnouncements"
+      },
+      "status": "done",
+      "aliasOf": "home-announcements-Dizo-1Ny",
+      "note": "Wrapper chunk initializes home-announcements-Dizo-1Ny and re-exports HomeAnnouncements.",
+      "lastUpdated": "2026-06-30T00:00:00.000Z"
+    },
     "app-server-connection-state-DiMba98f": {
       "restored": "features/app-server-connection-state/index.tsx",
       "status": "done"
