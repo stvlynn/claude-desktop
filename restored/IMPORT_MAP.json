@@ -16918,7 +16918,7 @@
       "lastUpdated": "2026-06-29T00:00:00.000Z"
     },
     "app-initial~app-main~remote-conversation-page~hotkey-window-thread-page~remote-connections-~j2v767qq-BH56Sk4D": {
-      "restored": "boundaries/current-ref/remote-connections-log-out-icon-producer.ts",
+      "restored": "icons/remote-connections-log-out-icon.ts",
       "exports": {
         "n": "initRemoteConnectionsLogOutIconChunk",
         "t": "LogOutIcon"
@@ -16938,7 +16938,7 @@
       "lastUpdated": "2026-06-29T00:00:00.000Z"
     },
     "app-initial~app-main~worktree-init-v2-page~appgen-publication-terms-route~remote-conversati~dg864qec-ISZMeMHq": {
-      "restored": "boundaries/current-ref/json-icon-producer.ts",
+      "restored": "icons/json-icon-chunk.ts",
       "exports": {
         "n": "initJsonIconChunk",
         "t": "JsonIcon"
