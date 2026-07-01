@@ -42023,12 +42023,12 @@
         "PetInstallModalHost": "PetInstallModalHost"
       },
       "status": "done",
-      "note": "Current PetInstallModalHost hash maps to a dedicated current-ref runtime over vendor/pet-install-modal-host-current-bundle.tsx; the single semantic export is re-derived from the current file.",
+      "note": "Current PetInstallModalHost hash maps to a dedicated current-ref runtime over features/pet-install-modal-host.tsx; vendor/pet-install-modal-host-current-bundle.tsx remains only as a compatibility shim.",
       "lastUpdated": "2026-06-30T22:18:04.757Z",
       "stage3Accepted": true,
       "stage3AcceptedAt": "2026-06-30T22:18:04.757Z",
-      "stage3Review": "Host self-review: verified the current file exports PetInstallModalHost, rewrote dependency imports through restored/IMPORT_MAP.json, and passed quality gates on the backing bundle and runtime.",
-      "stage3Note": "Accepted as a current-ref compatibility export over a restored-dependency backing bundle; full semantic split of PetInstallModalHost remains a later cleanup."
+      "stage3Review": "Host self-review: verified the current file exports PetInstallModalHost, moved the modal host body into features/pet-install-modal-host.tsx, preserved the runtime public surface, and passed quality gates on the semantic host, shim, and runtime.",
+      "stage3Note": "Accepted as a current-ref compatibility export over the semantic pet install modal host body."
     },
     "pricing-plan-page-CdwnkT4j": {
       "restored": "runtime/current-app-initial/pricing-plan-page-current-runtime.ts",
