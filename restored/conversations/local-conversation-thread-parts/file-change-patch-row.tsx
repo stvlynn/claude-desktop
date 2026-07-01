@@ -471,6 +471,8 @@ function renderExpandedFileLabel(
   );
 }
 
+export function initFileChangePatchRowChunk(): void {}
+
 export function FileChangePatchRow(props: FileChangePatchRowProps) {
   const {
     path,

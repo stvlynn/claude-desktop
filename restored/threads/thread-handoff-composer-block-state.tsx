@@ -44,7 +44,10 @@ function getThreadHandoffComposerBlockReason({
           : null;
 }
 
+function initThreadHandoffComposerBlockStateChunk(): void {}
+
 export {
+  initThreadHandoffComposerBlockStateChunk,
   getThreadHandoffComposerBlockReason,
   threadHandoffComposerBlockCountState,
   adjustThreadHandoffComposerBlockCount,

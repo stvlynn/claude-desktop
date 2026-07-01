@@ -126,6 +126,7 @@ export {
 export { serializeError } from "../../runtime/app-logger";
 export {
   initRequestUserInputAutoResolutionRuntime,
+  applyRequestUserInputAutoResolutionChange,
   requestUserInputAutoResolutionState,
 } from "../../runtime/request-user-input-auto-resolution";
 export {
@@ -478,7 +479,16 @@ export {
   openPlanSummarySidePanelTab,
   PlanSummaryCard,
 } from "../../conversations/local-conversation-thread-parts/plan-summary-card";
-export { getThreadHandoffComposerBlockReason } from "../../threads/thread-handoff-composer-block-state";
+export {
+  adjustThreadHandoffComposerBlockCount,
+  getThreadHandoffComposerBlockReason,
+  initThreadHandoffComposerBlockStateChunk,
+  threadHandoffComposerBlockCountState,
+} from "../../threads/thread-handoff-composer-block-state";
+export {
+  FileChangePatchRow,
+  initFileChangePatchRowChunk,
+} from "../../conversations/local-conversation-thread-parts/file-change-patch-row";
 export { hasWorkspaceDependenciesFeature } from "../../features/workspace-dependencies";
 export {
   AnnotationModeButton,
