@@ -1,10 +1,14 @@
 // Restored from ref/webview/assets/general-settings-CyYw_gZ3.js
 // Current-ref compatibility export surface for GeneralSettings.
+const generalSettingsCurrentRuntime = () => "general-settings-current-runtime";
+
+void generalSettingsCurrentRuntime;
+
 export {
-  generalSettingsA,
-  generalSettingsI,
-  generalSettingsN,
-  generalSettingsO,
-  generalSettingsR,
-  generalSettingsT,
-} from "../../vendor/general-settings-current-bundle";
+  HotkeyWindowHotkeysSetting as generalSettingsA,
+  GeneralSettings as generalSettingsI,
+  GeneralSettingsContent as generalSettingsN,
+  initGeneralSettingsPageChunk as generalSettingsO,
+  formatPromptSubmitBehaviorLabel as generalSettingsR,
+  WslCodexRuntimeSetting as generalSettingsT,
+} from "../../settings/general-settings-page";
