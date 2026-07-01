@@ -117,11 +117,13 @@ function AutomationTooltipContent({
   return null;
 }
 
-export const AutomationTooltipSurface = {
-  Root: AutomationTooltipRoot,
-  Trigger: AutomationTooltipTrigger,
-  Content: AutomationTooltipContent,
-};
+export class AutomationTooltipSurface {
+  static Root = AutomationTooltipRoot;
+  static Trigger = AutomationTooltipTrigger;
+  static Content = AutomationTooltipContent;
+
+  private constructor() {}
+}
 
 export const initAutomationSurface = once(() => {
   initTooltipPrimitives();

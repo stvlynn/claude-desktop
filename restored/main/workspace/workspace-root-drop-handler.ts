@@ -1,5 +1,5 @@
 // Restored from ref/.vite/build/workspace-root-drop-handler-DeLi4ACJ.js
-// Typed open boundary for the mixed workspace-root, updater, protocol, and Sentry chunk.
+// Flat boundary. Vendored runtime aggregate for workspace-root, updater, protocol, and Sentry wiring.
 import { createHash, randomUUID } from "node:crypto";
 import {
   createReadStream,
