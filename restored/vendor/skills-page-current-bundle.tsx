@@ -59,7 +59,7 @@ import {
   appMainCurrentCompatSlotUpperFLowerU as AppInitialAppMainOnboardingPageFu,
   appMainCurrentCompatSlotUpperPLowerM as appInitialAppMainOnboardingPagePm,
   appMainCurrentCompatSlotUpperPLowerU as AppInitialAppMainOnboardingPagePu,
-  appMainCurrentCompatSlotUpperSLowerC as appInitialAppMainOnboardingPageSc,
+  initCodexLinksChunk as appInitialAppMainOnboardingPageSc,
   appMainCurrentCompatSlotLowerBLowerC as appInitialAppMainOnboardingPageBc,
   appMainCurrentCompatSlotLowerBLowerU as appInitialAppMainOnboardingPageBu,
   appMainCurrentCompatSlotLowerXLowerU as appInitialAppMainOnboardingPageXu,

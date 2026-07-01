@@ -174,7 +174,7 @@ import {
   appMainCurrentCompatSlotLowerOLowerP,
   appMainCurrentCompatSlotLowerQLowerF,
   appMainCurrentCompatSlotUpperQLowerN,
-  appMainCurrentCompatSlotUpperSLowerC,
+  initCodexLinksChunk,
   appMainCurrentCompatSlotUpperTLowerF,
   appMainCurrentCompatSlotLowerTLowerP,
   appMainCurrentCompatSlotUpperTLowerP,
@@ -1621,7 +1621,7 @@ function generalSettingsHelper20(generalSettingsParam97) {
 }
 var generalSettingsValue23,
   generalSettingsValue24 = once(() => {
-    appMainCurrentCompatSlotUpperSLowerC();
+    initCodexLinksChunk();
     initSharedHighlightThemeRegistryChunk();
     generalSettingsValue23 = "71832722";
   });

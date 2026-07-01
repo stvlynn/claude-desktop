@@ -105,7 +105,7 @@ import {
   SidebarRowOverflowMenu,
   appMainCurrentCompatSlotUpperOLowerS,
   appMainCurrentCompatSlotUpperPLowerM,
-  appMainCurrentCompatSlotUpperSLowerC,
+  initCodexLinksChunk,
 } from "./app-main-current-runtime";
 import {
   appgenLibraryHotDjo67r4nCompatSlotUpperXLowerT as _appInitialAppMainRemoteConversationPageNewThreadPanelPageAppgenLibraryPageHotDjo67r4nXt,
@@ -1197,7 +1197,7 @@ var codexMobileSetupDialogValue41,
     intlFormatDateTimeRuntime();
     worktreeNewThreadQueryCompatSlotUpperELowerM();
     worktreeNewThreadQueryCompatSlotUpperALowerN();
-    appMainCurrentCompatSlotUpperSLowerC();
+    initCodexLinksChunk();
     pullRequestNewThreadCompatSlotLowerF();
     appMainCurrentCompatSlotUpperOLowerS();
     initAppgenSettingsChromeIconChunk();

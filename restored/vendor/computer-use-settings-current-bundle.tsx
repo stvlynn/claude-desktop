@@ -91,7 +91,7 @@ import {
   appMainCurrentCompatSlotUpperKLowerU as appInitialAppMainOnboardingPageKu,
   appMainCurrentCompatSlotUpperMLowerU as appInitialAppMainOnboardingPageMu,
   appMainCurrentCompatSlotUpperRLowerU as AppInitialAppMainOnboardingPageRu,
-  appMainCurrentCompatSlotUpperSLowerC as appInitialAppMainOnboardingPageSc,
+  initCodexLinksChunk as appInitialAppMainOnboardingPageSc,
   appMainCurrentCompatSlotLowerALowerD as appInitialAppMainOnboardingPageAd,
   appMainCurrentCompatSlotLowerGLowerC as appInitialAppMainOnboardingPageGc,
   appMainCurrentCompatSlotLowerILowerD as appInitialAppMainOnboardingPageId,

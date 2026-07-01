@@ -213,7 +213,7 @@ import {
   appMainCurrentCompatSlotUpperQLowerD,
   appMainCurrentCompatSlotUnderscoreLowerR,
   appMainCurrentCompatSlotUpperRLowerN,
-  appMainCurrentCompatSlotUpperSLowerC,
+  initCodexLinksChunk,
   appMainCurrentCompatSlotUpperSLowerR,
   appMainCurrentCompatSlotLowerTLowerF,
   appMainCurrentCompatSlotUpperTLowerN,
@@ -5309,7 +5309,7 @@ once(() => {
   worktreeNewThreadQueryCompatSlotLowerMLowerP();
   worktreeNewThreadQueryCompatSlotLowerXLowerP();
   initWorktreeEnvironmentDropdownChunk();
-  appMainCurrentCompatSlotUpperSLowerC();
+  initCodexLinksChunk();
   initSelectableListRowButtonPropsChunk();
   appMainCurrentCompatSlotUpperDLowerP();
   appgenLibraryHotDjo67r4nCompatSlotLowerNLowerR();

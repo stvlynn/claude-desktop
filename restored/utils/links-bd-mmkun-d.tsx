@@ -31,6 +31,9 @@ const CHATGPT_ADMIN_USAGE_LIMITS_URL =
   "https://chatgpt.com/admin/usage-limits/workspace";
 const CHATGPT_ADMIN_BILLING_ADD_CREDITS_URL = `${CHATGPT_ADMIN_BILLING_URL}?codex_credit_action=add_credits`;
 const OPENAI_APPS_SDK_DOCS_URL = "https://developers.openai.com/apps-sdk";
+
+function initCodexLinksChunk(): void {}
+
 export {
   OPENAI_PLUGINS_GITHUB_URL,
   CHATGPT_ADMIN_URL,
@@ -50,6 +53,7 @@ export {
   CODEX_USAGE_CREDITS_MODAL_URL,
   CHATGPT_ADMIN_BILLING_ADD_CREDITS_URL,
   CHATGPT_ADMIN_BILLING_URL,
+  initCodexLinksChunk,
   CODEX_CONFIG_DOCS_URL,
   CODEX_RULES_DOCS_URL,
   CODEX_USAGE_URL,

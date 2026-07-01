@@ -27,7 +27,6 @@ export {
   browserTabIdForConversation,
   deriveBrowserConversationId,
   getBrowserTabIdForPanelTab,
-  getConversationPanelLayoutSnapshot,
   isUncPath,
   isWindowsStyleAbsolutePath,
   terminalSessionSnapshotStore,
@@ -43,6 +42,7 @@ export {
   CHATGPT_ADMIN_USAGE_LIMITS_URL,
   CHATGPT_PRICING_HASH_URL,
   CHATGPT_PRICING_URL,
+  initCodexLinksChunk,
   OPENAI_APPS_SDK_DOCS_URL,
 } from "../../utils/links-bd-mmkun-d";
 export { resolveSidePanelBrowserTabId } from "../../browser/side-panel-browser-tab-commands";

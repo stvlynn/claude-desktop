@@ -86,7 +86,7 @@ import {
   appMainCurrentCompatSlotUpperKLowerT as AppInitialAppMainOnboardingPageKt,
   appMainCurrentCompatSlotUpperMLowerU as appInitialAppMainOnboardingPageMu,
   appMainCurrentCompatSlotUpperPLowerM as appInitialAppMainOnboardingPagePm,
-  appMainCurrentCompatSlotUpperSLowerC as appInitialAppMainOnboardingPageSc,
+  initCodexLinksChunk as appInitialAppMainOnboardingPageSc,
   appMainCurrentCompatSlotUpperSLowerI as appInitialAppMainOnboardingPageSi,
   isWindowsStyleAbsolutePath as appInitialAppMainOnboardingPageI,
   appMainCurrentCompatSlotLowerBLowerI as appInitialAppMainOnboardingPageBi,

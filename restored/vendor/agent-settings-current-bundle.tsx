@@ -127,7 +127,7 @@ import {
   appMainCurrentCompatSlotUpperPLowerP as appInitialAppMainOnboardingPagePp,
   appMainCurrentCompatSlotUpperRLowerO as appInitialAppMainOnboardingPageRo,
   appMainCurrentCompatSlotUpperRLowerP as appInitialAppMainOnboardingPageRp,
-  appMainCurrentCompatSlotUpperSLowerC as appInitialAppMainOnboardingPageSc,
+  initCodexLinksChunk as appInitialAppMainOnboardingPageSc,
   registerForkedConversation as appInitialAppMainOnboardingPageTo,
   appMainCurrentCompatSlotUpperVLowerP as appInitialAppMainOnboardingPageVp,
   appMainCurrentCompatSlotUpperWLowerT as appInitialAppMainOnboardingPageWt,

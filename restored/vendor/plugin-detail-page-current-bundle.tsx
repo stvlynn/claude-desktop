@@ -245,7 +245,7 @@ import {
   appMainCurrentCompatSlotUpperLLowerO as appInitialAppMainOnboardingPageLo,
   appMainCurrentCompatSlotUpperMLowerU as appInitialAppMainOnboardingPageMu,
   appMainCurrentCompatSlotUpperRLowerO as appInitialAppMainOnboardingPageRo,
-  appMainCurrentCompatSlotUpperSLowerC as appInitialAppMainOnboardingPageSc,
+  initCodexLinksChunk as appInitialAppMainOnboardingPageSc,
   appMainCurrentCompatSlotUpperXLowerU as appInitialAppMainOnboardingPageXu,
   AppShellOverlayOutlet as appInitialAppMainOnboardingPageZu,
   appMainCurrentCompatSlotUnderscoreLowerN as appInitialAppMainOnboardingPageN,

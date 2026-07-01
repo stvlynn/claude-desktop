@@ -109,7 +109,7 @@ import {
   appMainCurrentCompatSlotUpperNLowerU,
   appMainCurrentCompatSlotLowerPLowerC,
   appMainCurrentCompatSlotUpperPLowerU,
-  appMainCurrentCompatSlotUpperSLowerC,
+  initCodexLinksChunk,
 } from "./app-main-current-runtime";
 import {
   appgenLibraryHotDjo67r4nCompatSlotUpperQLowerN as _appInitialAppMainRemoteConversationPageNewThreadPanelPageAppgenLibraryPageHotDjo67r4nQn,
@@ -3556,7 +3556,7 @@ once(() => {
   );
   intlFormatDateTimeRuntime();
   openAiNativeAppDefinition();
-  appMainCurrentCompatSlotUpperSLowerC();
+  initCodexLinksChunk();
   worktreeNewThreadQueryCompatSlotUpperLLowerR();
   pullRequestNewThreadCompatSlotLowerDLowerN();
   initSettingsContentLayoutChunk();

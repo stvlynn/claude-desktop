@@ -123,7 +123,7 @@ import {
   appMainCurrentCompatSlotUpperILowerN,
   ThreadRowMeta,
   appMainCurrentCompatSlotUpperMLowerU,
-  appMainCurrentCompatSlotUpperSLowerC,
+  initCodexLinksChunk,
   ThreadRowUnreadState,
 } from "./app-main-current-runtime";
 import {
@@ -2606,7 +2606,7 @@ once(() => {
   worktreeNewThreadQueryCompatSlotLowerMLowerP();
   worktreeNewThreadQueryCompatSlotLowerULowerS();
   appgenLibraryHotDjo67r4nCompatSlotUpperT();
-  appMainCurrentCompatSlotUpperSLowerC();
+  initCodexLinksChunk();
   worktreeNewThreadQueryCompatSlotLowerKLowerP();
   ThreadRowUnreadState();
   currentAppInitialSharedCompatSlotUpperD();
