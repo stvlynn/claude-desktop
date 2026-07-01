@@ -1,4 +1,5 @@
 // Restored from ref/webview/assets/remote-text-edit-session-DjCWscO4.js
+// Flat boundary. Vendored Popcorn Electron runtime backing module preserved for legacy alias compatibility.
 // RemoteTextEditSession chunk restored from the Codex webview bundle.
 import React from "react";
 import clsx from "clsx";
@@ -9,10 +10,10 @@ import {
   z as workbookZ,
 } from "../boundaries/workbook-runtime";
 import {
-  PopoverTrigger as distA,
-  Popover as distI,
-  PopoverContent as distN,
-  PopoverPortal as distR,
+  Popover,
+  PopoverContent,
+  PopoverPortal,
+  PopoverTrigger,
 } from "../vendor/radix-popover";
 declare const __POPCORN_DEV__: boolean | undefined;
 function remoteTextEditSessionD({ className: className, ...rest }) {
@@ -447,10 +448,10 @@ function _e({
   testId = `popcorn-file-menu-trigger`,
 }) {
   return React.createElement(
-    distI,
+    Popover,
     null,
     React.createElement(
-      distA,
+      PopoverTrigger,
       {
         asChild: !0,
       },
@@ -464,10 +465,10 @@ function _e({
       </button>,
     ),
     React.createElement(
-      distR,
+      PopoverPortal,
       null,
       React.createElement(
-        distN,
+        PopoverContent,
         {
           side: `bottom`,
           align: `start`,
@@ -731,7 +732,7 @@ export function remoteTextEditSessionH({
     _remoteTextEditSessionY = (0, React.useRef)(null),
     __remoteTextEditSessionM = `${Math.round(zoom * 100)}%`;
   return React.createElement(
-    distI,
+    Popover,
     {
       open: remoteTextEditSessionValue23,
       onOpenChange: (remoteTextEditSessionParam139) => {
@@ -744,7 +745,7 @@ export function remoteTextEditSessionH({
       },
     },
     React.createElement(
-      distA,
+      PopoverTrigger,
       {
         asChild: !0,
       },
@@ -771,10 +772,10 @@ export function remoteTextEditSessionH({
       </button>,
     ),
     React.createElement(
-      distR,
+      PopoverPortal,
       null,
       React.createElement(
-        distN,
+        PopoverContent,
         {
           side: `bottom`,
           align: `end`,

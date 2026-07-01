@@ -1,4 +1,5 @@
 // Restored from ref/webview/assets/popcorn-electron-surface-style-jyyIi7EC.js
+// Flat boundary. Vendored Popcorn Electron runtime backing module preserved for legacy alias compatibility.
 // PopcornElectronSurfaceStyle chunk restored from the Codex webview bundle.
 import React from "react";
 import { toEsModule } from "../runtime/commonjs-interop";
@@ -32,10 +33,10 @@ import {
   remoteTextEditSessionV,
 } from "./remote-text-edit-session";
 import {
-  PopoverTrigger as _distA,
-  Popover as _distI,
-  PopoverContent as _distN,
-  PopoverPortal as _distR,
+  Popover,
+  PopoverContent,
+  PopoverPortal,
+  PopoverTrigger,
 } from "../vendor/radix-popover";
 import {
   _ as popcornElectronSurfaceStyleImport11,
@@ -767,7 +768,6 @@ function popcornElectronSurfaceStyleQ(
     popcornElectronSurfaceStyleValue311.has(
       popcornElectronSurfaceStyleValue312,
     );
-
   )
     popcornElectronSurfaceStyleValue312 += 1;
   return popcornElectronSurfaceStyleValue312;
@@ -3073,24 +3073,24 @@ function popcornElectronSurfaceStyleHelper32({
   children: children,
 }) {
   return React.createElement(
-    _distI,
+    Popover,
     {
       open: open,
       onOpenChange: onOpenChange,
     },
     [
       React.createElement(
-        _distA,
+        PopoverTrigger,
         {
           asChild: !0,
         },
         trigger,
       ),
       React.createElement(
-        _distR,
+        PopoverPortal,
         null,
         React.createElement(
-          _distN,
+          PopoverContent,
           {
             side: `bottom`,
             align: `end`,
@@ -3639,24 +3639,24 @@ export function _popcornElectronSurfaceStyleH({
   content: content,
 }) {
   return React.createElement(
-    _distI,
+    Popover,
     {
       open: open,
       onOpenChange: onOpenChange,
     },
     [
       React.createElement(
-        _distA,
+        PopoverTrigger,
         {
           asChild: !0,
         },
         trigger,
       ),
       React.createElement(
-        _distR,
+        PopoverPortal,
         null,
         React.createElement(
-          _distN,
+          PopoverContent,
           {
             side: `right`,
             align: `start`,
