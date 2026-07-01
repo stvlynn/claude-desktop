@@ -7,6 +7,7 @@ export { ClockIcon } from "../../icons/clock-icon";
 export { CloudIcon, initCloudIconChunk } from "../../icons/cloud-icon";
 export { DragIcon } from "../../icons/drag-icon";
 export { LaptopIcon } from "../../icons/laptop-icon";
+export { PinIcon, initPinIconChunk } from "../../icons/pin-icon";
 export { WarningIcon } from "../../icons/warning-icon";
 export { FileSourceTab } from "../../review/file-source-tab";
 export {
