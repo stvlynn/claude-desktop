@@ -82,8 +82,11 @@ export {
   useReferralInviteMutation,
 } from "../../runtime/codex-api";
 export { LocalConversationGitActions } from "../../conversations/local-conversation-git-actions";
+export { CollapsedTurnSummaryLabel } from "../../conversations/collapsed-turn-summary-label";
 export { SentCommentAttachmentList } from "../../conversations/sent-comment-attachments";
+export { UserMessage } from "../../conversations/user-message";
 export { DiffStats, initDiffStatsChunk } from "../../git/git-review-primitives";
+export { ImageAttachment } from "../../image-side-panel/image-attachment";
 export { ReviewOptionsToolbar } from "../../review/review-options-toolbar";
 export {
   CANCEL_GIT_ACTION_ICON_BUTTON_CLASS_NAME,
