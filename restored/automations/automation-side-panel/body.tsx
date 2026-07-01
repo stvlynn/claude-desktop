@@ -17,6 +17,8 @@ import {
 } from "./status-components";
 import type { AutomationSidePanelController } from "./use-automation-side-panel-controller";
 
+export function initAutomationEditorControlsChunk(): void {}
+
 export function AutomationSidePanelBody({
   controller,
 }: {

@@ -778,6 +778,7 @@ export {
 export { AutomationExecutionEnvironmentDropdown } from "../../automations/automation-execution-environment-dropdown";
 export { AutomationHeartbeatThreadDropdown } from "../../automations/automation-heartbeat-thread-dropdown";
 export { AutomationModelReasoningDropdown } from "../../automations/automation-model-reasoning-dropdown";
+export { initAutomationEditorControlsChunk } from "../../automations/automation-side-panel/body";
 export {
   initHeartbeatThreadOptionsChunk,
   useHeartbeatThreadOptions,

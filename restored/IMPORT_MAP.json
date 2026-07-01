@@ -27280,7 +27280,7 @@
         "Wf": "getDetailLevelDefaultAgentMode",
         "Wi": "initLocalHostRuntimeChunk",
         "Wl": "SidebarListSection",
-        "Wn": "appMainCurrentCompatSlotUpperWLowerN",
+        "Wn": "initAutomationEditorControlsChunk",
         "Wo": "buildAppgenAccessPolicyWithoutGroup",
         "Wp": "isReasoningEffort",
         "Wr": "automationsQuerySignal",
