@@ -2,7 +2,6 @@
 // Uppercase N compatibility aliases for the current app-main producer.
 export {
   Na as appMainCurrentCompatSlotUpperNLowerA,
-  Nc as appMainCurrentCompatSlotUpperNLowerC,
   Nd as appMainCurrentCompatSlotUpperNLowerD,
   Nf as appMainCurrentCompatSlotUpperNLowerF,
   Ni as appMainCurrentCompatSlotUpperNLowerI,

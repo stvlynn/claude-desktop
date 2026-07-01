@@ -3,7 +3,6 @@
 export {
   T as appMainCurrentCompatSlotUpperT,
   Ta as appMainCurrentCompatSlotUpperTLowerA,
-  Tc as appMainCurrentCompatSlotUpperTLowerC,
   Td as appMainCurrentCompatSlotUpperTLowerD,
   Tf as appMainCurrentCompatSlotUpperTLowerF,
   Ti as appMainCurrentCompatSlotUpperTLowerI,
