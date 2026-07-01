@@ -42010,12 +42010,12 @@
         "AppgenAnalyticsPage": "AppgenAnalyticsPage"
       },
       "status": "done",
-      "note": "Current AppgenAnalyticsPage hash maps to a dedicated current-ref runtime over vendor/appgen-analytics-page-current-bundle.tsx; the single semantic export is re-derived from the current file.",
+      "note": "Current AppgenAnalyticsPage hash maps to explicit compatibility aliases backed by the semantic appgen/analytics-page.tsx entry.",
       "lastUpdated": "2026-06-30T22:18:04.757Z",
       "stage3Accepted": true,
       "stage3AcceptedAt": "2026-06-30T22:18:04.757Z",
-      "stage3Review": "Host self-review: verified the current file exports AppgenAnalyticsPage, rewrote dependency imports through restored/IMPORT_MAP.json, and passed quality gates on the backing bundle and runtime.",
-      "stage3Note": "Accepted as a current-ref compatibility export over a restored-dependency backing bundle; full semantic split of AppgenAnalyticsPage remains a later cleanup."
+      "stage3Review": "Host self-review: verified the current file exports AppgenAnalyticsPage, preserved the current restored-dependency backing bundle, and mapped the page export through appgen/analytics-page.tsx.",
+      "stage3Note": "Accepted as a current-ref compatibility export backed by the semantic AppgenAnalyticsPage entry; deeper internal helper splitting remains future cleanup."
     },
     "pet-install-modal-host-D2_OQIXZ": {
       "restored": "runtime/current-app-initial/pet-install-modal-host-current-runtime.ts",
@@ -42301,12 +42301,12 @@
         "PendingRequestItemPanel": "PendingRequestItemPanel"
       },
       "status": "done",
-      "note": "Current PendingRequestItemPanel hash maps to a dedicated current-ref runtime over vendor/pending-request-item-panel-current-bundle.tsx; the single semantic export is re-derived from the current file.",
+      "note": "Current PendingRequestItemPanel hash maps to explicit compatibility aliases backed by the semantic requests/pending-request-item-panel.tsx entry.",
       "lastUpdated": "2026-06-30T23:45:00.000Z",
       "stage3Accepted": true,
       "stage3AcceptedAt": "2026-06-30T23:45:00.000Z",
-      "stage3Review": "Host self-review: verified the current file exports PendingRequestItemPanel, rewrote dependency imports through restored/IMPORT_MAP.json, and passed quality gates on the backing bundle and runtime.",
-      "stage3Note": "Accepted as a current-ref compatibility export over a restored-dependency backing bundle; full semantic split of PendingRequestItemPanel remains a later cleanup."
+      "stage3Review": "Host self-review: verified the current file exports PendingRequestItemPanel, preserved the current restored-dependency backing bundle, and mapped the panel export through requests/pending-request-item-panel.tsx.",
+      "stage3Note": "Accepted as a current-ref compatibility export backed by the semantic PendingRequestItemPanel entry; deeper internal helper splitting remains future cleanup."
     },
     "profile-BCAO7QLd": {
       "restored": "runtime/current-app-initial/profile-current-runtime.ts",
@@ -42724,12 +42724,12 @@
         "RemoteConnectionsSettings": "RemoteConnectionsSettingsIcon"
       },
       "status": "done",
-      "note": "Current remote connections settings hash maps to a dedicated current-ref runtime over vendor/remote-connections-settings-current-bundle.tsx; dependencies are rewritten through restored current bundles.",
+      "note": "Current remote connections settings hash maps to explicit compatibility aliases backed by the semantic settings/remote-connections-page.tsx entry.",
       "lastUpdated": "2026-06-30T23:21:25.587Z",
       "stage3Accepted": true,
       "stage3AcceptedAt": "2026-06-30T23:21:25.587Z",
-      "stage3Review": "Host self-review: parsed remote-connections-settings-DnApG523.js exports, rebuilt compatibility exports from auto-renames.json, and rewrote dependency imports through restored/IMPORT_MAP.json.",
-      "stage3Note": "Accepted as a current-ref compatibility export over a restored-dependency backing bundle; full semantic split remains future cleanup."
+      "stage3Review": "Host self-review: parsed remote-connections-settings-DnApG523.js exports, preserved the current restored-dependency backing bundle, and mapped RemoteConnectionsSettings through settings/remote-connections-page.tsx.",
+      "stage3Note": "Accepted as a current-ref compatibility export backed by the semantic RemoteConnectionsSettings entry; deeper internal helper splitting remains future cleanup."
     },
     "automations-page-CXHLOmAw": {
       "restored": "runtime/current-app-initial/automations-page-current-runtime.ts",
@@ -42802,12 +42802,12 @@
         "SettingsPage": "SettingsPageIcon"
       },
       "status": "done",
-      "note": "Current settings page hash maps to a dedicated current-ref runtime over vendor/settings-page-current-bundle.tsx; dependencies are rewritten through restored current bundles.",
+      "note": "Current settings page hash maps to explicit compatibility aliases backed by the semantic settings/page.tsx entry.",
       "lastUpdated": "2026-06-30T23:21:25.587Z",
       "stage3Accepted": true,
       "stage3AcceptedAt": "2026-06-30T23:21:25.587Z",
-      "stage3Review": "Host self-review: parsed settings-page-Czsl4aZl.js exports, rebuilt compatibility exports from auto-renames.json, and rewrote dependency imports through restored/IMPORT_MAP.json.",
-      "stage3Note": "Accepted as a current-ref compatibility export over a restored-dependency backing bundle; full semantic split remains future cleanup."
+      "stage3Review": "Host self-review: parsed settings-page-Czsl4aZl.js exports, preserved the current restored-dependency backing bundle, and mapped SettingsPage through settings/page.tsx.",
+      "stage3Note": "Accepted as a current-ref compatibility export backed by the semantic SettingsPage entry; deeper internal helper splitting remains future cleanup."
     },
     "onboarding-page-DtzKDTbH": {
       "restored": "runtime/current-app-initial/onboarding-page-current-runtime.ts",
@@ -42815,12 +42815,12 @@
         "OnboardingPage": "OnboardingPageIcon"
       },
       "status": "done",
-      "note": "Current onboarding page hash maps to a dedicated current-ref runtime over vendor/onboarding-page-current-bundle.tsx; dependencies are rewritten through restored current bundles.",
+      "note": "Current onboarding page hash maps to explicit compatibility aliases backed by the semantic onboarding/page.tsx entry.",
       "lastUpdated": "2026-06-30T23:21:25.587Z",
       "stage3Accepted": true,
       "stage3AcceptedAt": "2026-06-30T23:21:25.587Z",
-      "stage3Review": "Host self-review: parsed onboarding-page-DtzKDTbH.js exports, rebuilt compatibility exports from auto-renames.json, and rewrote dependency imports through restored/IMPORT_MAP.json.",
-      "stage3Note": "Accepted as a current-ref compatibility export over a restored-dependency backing bundle; full semantic split remains future cleanup."
+      "stage3Review": "Host self-review: parsed onboarding-page-DtzKDTbH.js exports, preserved the current restored-dependency backing bundle, and mapped OnboardingPage through onboarding/page.tsx.",
+      "stage3Note": "Accepted as a current-ref compatibility export backed by the semantic OnboardingPage entry; deeper internal helper splitting remains future cleanup."
     },
     "pull-requests-page-CqwsTUV0": {
       "restored": "runtime/current-app-initial/pull-requests-page-current-runtime.ts",
@@ -42841,12 +42841,12 @@
         "RemoteConversationPage": "RemoteConversationPageIcon"
       },
       "status": "done",
-      "note": "Current remote conversation page hash maps to a dedicated current-ref runtime over vendor/remote-conversation-page-current-bundle.tsx; dependencies are rewritten through restored current bundles.",
+      "note": "Current remote conversation page hash maps to explicit compatibility aliases backed by the semantic conversations/remote-conversation-page.tsx entry.",
       "lastUpdated": "2026-06-30T23:21:25.587Z",
       "stage3Accepted": true,
       "stage3AcceptedAt": "2026-06-30T23:21:25.587Z",
-      "stage3Review": "Host self-review: parsed remote-conversation-page-CSJXivxd.js exports, rebuilt compatibility exports from auto-renames.json, and rewrote dependency imports through restored/IMPORT_MAP.json.",
-      "stage3Note": "Accepted as a current-ref compatibility export over a restored-dependency backing bundle; full semantic split remains future cleanup."
+      "stage3Review": "Host self-review: parsed remote-conversation-page-CSJXivxd.js exports, preserved the current restored-dependency backing bundle, and mapped RemoteConversationPage through conversations/remote-conversation-page.tsx.",
+      "stage3Note": "Accepted as a current-ref compatibility export backed by the semantic RemoteConversationPage entry; deeper internal helper splitting remains future cleanup."
     },
     "avatar-overlay-native-page-CAxsNCX7": {
       "restored": "runtime/current-app-initial/avatar-overlay-native-page-current-runtime.ts",
