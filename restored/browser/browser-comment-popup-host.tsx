@@ -4,10 +4,8 @@
 import { useEffect, useRef, useState } from "react";
 import { createPortal, flushSync } from "react-dom";
 import { useIntl } from "../vendor/react-intl";
-import {
-  BrowserSidebarCommentOverlay,
-  type BrowserCommentSession,
-} from "./browser-sidebar-comment-overlay";
+import { BrowserSidebarCommentOverlay } from "./browser-sidebar-comment-overlay";
+import type { BrowserCommentSession } from "./browser-comment-overlay-types";
 import {
   applyBrowserCommentPopupShake,
   resolveLightDismissBehavior,
