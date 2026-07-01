@@ -4229,7 +4229,7 @@
       },
       "status": "done",
       "aliasOf": "quadrantDiagram-AYHSOK5B-WVcJzsPP",
-      "lastUpdated": "2026-06-29T00:00:00.000Z"
+      "lastUpdated": "2026-07-01T02:20:43.000Z"
     },
     "quadrantDiagram-AYHSOK5B-BzeqrmeH": {
       "restored": "vendor/quadrant-diagram-ayhsok5-b-w-vc-jzs-pp.ts",
@@ -4532,7 +4532,7 @@
       "status": "done",
       "aliasOf": "_baseUniq-C2aVs9t8",
       "note": "Current _baseUniq hash re-derived from _baseUniq-_a1ah3Dc.js; current ref exports a narrower lodash helper surface, including arrayPush/getSymbols helpers that were internal in the prior restore.",
-      "lastUpdated": "2026-06-30T00:00:00.000Z"
+      "lastUpdated": "2026-07-01T02:20:43.000Z"
     },
     "reduce-C4fu3kBc": {
       "restored": "vendor/lodash-reduce.ts",
@@ -15448,7 +15448,7 @@
       },
       "status": "done",
       "aliasOf": "artifact-tab-content.electron-xyz2yen7",
-      "note": "Current synced Electron artifact tab chunk keeps the same public ArtifactTabContent surface; vendored implementation lives in vendor/artifact-tab-content-electron.tsx.",
+      "note": "Current synced Electron artifact tab chunk keeps the same public ArtifactTabContent surface; vendored implementation lives in vendor/artifact-tab-content-electron.tsx, with artifact tab route state restored in ui/artifact-tab-runtime.ts.",
       "lastUpdated": "2026-06-29T00:00:00.000Z"
     },
     "app-initial~app-main~remote-conversation-page~hotkey-window-thread-page~thread-app-shell-ch~oc6ebzsr-DX7Jokr-": {
@@ -34654,7 +34654,7 @@
         "ArtifactTabContent": "ArtifactTabContent"
       },
       "aliasOf": "artifact-tab-content.electron-xyz2yen7",
-      "note": "Current artifact-tab-content.electron hash preserves the semantic public export surface; aliases re-derived from artifact-tab-content.electron-CoTXiI_o.js.",
+      "note": "Current artifact-tab-content.electron hash preserves the semantic public export surface; aliases re-derived from artifact-tab-content.electron-CoTXiI_o.js, with artifact tab route state restored in ui/artifact-tab-runtime.ts.",
       "status": "done",
       "lastUpdated": "2026-06-30T00:00:00.000Z"
     },
