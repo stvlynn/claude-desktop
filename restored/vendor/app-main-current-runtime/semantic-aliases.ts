@@ -414,7 +414,10 @@ export {
   createThread,
   initCreateThreadChunk,
 } from "../../threads/create-thread";
-export { LargeEmptyState } from "../../utils/large-empty-state";
+export {
+  initLargeEmptyStateChunk,
+  LargeEmptyState,
+} from "../../utils/large-empty-state";
 export {
   CHATGPT_ADMIN_BILLING_ADD_CREDITS_URL,
   CHATGPT_ADMIN_URL,

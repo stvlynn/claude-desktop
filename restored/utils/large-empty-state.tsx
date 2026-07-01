@@ -14,6 +14,9 @@ type LargeEmptyStateProps = {
   titleSize?: "default" | "lg";
   tone?: "default" | "faded";
 };
+
+export function initLargeEmptyStateChunk(): void {}
+
 export function LargeEmptyState({
   className,
   contentClassName,

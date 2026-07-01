@@ -27701,7 +27701,7 @@
         "xr": "createAutomationDraftFromAutomation",
         "xs": "initUnselectedCircleIconChunk",
         "xt": "openImagePreviewTab",
-        "xu": "appMainCurrentCompatSlotLowerXLowerU",
+        "xu": "initLargeEmptyStateChunk",
         "y": "conversationalOnboardingTaskScope",
         "ya": "initMoveThreadToWorktreeChunk",
         "yc": "CODEX_SANDBOXING_DOCS_URL",
