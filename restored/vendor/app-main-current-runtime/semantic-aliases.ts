@@ -2,6 +2,7 @@
 // Named app-main current runtime aliases recovered from the current producer.
 export { GlobeIcon } from "../../icons/globe-icon";
 export { FolderIcon } from "../../icons/folder-icon";
+export { FileSourceTab } from "../../review/file-source-tab";
 export { composeRefs } from "../../utils/compose-refs";
 export { SettingsControlRow } from "../../ui/settings-row";
 export { composeEventHandlers } from "../radix-event-helpers";
@@ -19,7 +20,6 @@ export {
   Gl as projectGroupRepositoryDataSignal,
   Hd as initThreadRowRuntimeChunk,
   Hr as FastServiceTierIcon,
-  Iu as FileSourceTab,
   Jd as ThreadRowHoverCard,
   Jl as ThreadRowTitle,
   Kd as ThreadRowMeta,
