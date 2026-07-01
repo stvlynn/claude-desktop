@@ -625,7 +625,10 @@ export {
   ActiveConversationPresence,
   initInterruptedTurnStateChunk,
 } from "../../threads/interrupted-turn-state";
-export { hasWorkspaceDependenciesFeature } from "../../features/workspace-dependencies";
+export {
+  hasWorkspaceDependenciesFeature,
+  initWorkspaceDependenciesFeatureChunk,
+} from "../../features/workspace-dependencies";
 export {
   AnnotationModeButton,
   initAnnotationModeButtonChunk,
