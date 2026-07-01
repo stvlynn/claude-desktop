@@ -1969,3 +1969,21 @@ export const useSelectedAvatar: any = undefined as any;
 export const useTelemetryEligibilityQuery: any = undefined as any;
 export const useThreadNavigationContext: any = undefined as any;
 export const useWorkspaceOnboardingExperiment: any = undefined as any;
+
+// --- automations-page Bc0ZtIBr features/loaders/icons cluster (open boundary) ---
+export const ToastNotification: any = undefined as any;
+export const activeToastIdsAtom: any = undefined as any;
+export const automationDeletedExternallyMessage: any = undefined as any;
+export const buildPrimaryRuntimeStatusQueryKey: any = undefined as any;
+export const buildToolErrorResult: any = undefined as any;
+export const closeAppModal: any = undefined as any;
+export const isAppModalOpen: any = undefined as any;
+export const loadWorkspaceDependenciesToolName: any = undefined as any;
+export const navigateToImplementTodo: any = undefined as any;
+export const openAppModal: any = undefined as any;
+export const primaryRuntimeInstallProgressStorageKey: any = undefined as any;
+export const primaryRuntimeInstalledAtom: any = undefined as any;
+export const primaryRuntimeReadyInvalidationQueryKeyPrefixes: any = undefined as any;
+export const readPersistedStorageValue: any = undefined as any;
+export const setHeartbeatAutomationsEnabled: any = undefined as any;
+export const useSetAtom: any = undefined as any;
