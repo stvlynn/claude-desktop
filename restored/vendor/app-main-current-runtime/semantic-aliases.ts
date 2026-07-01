@@ -324,9 +324,31 @@ export {
   browserSidebarCommentModeCoachmarkDismissedAtom,
   initBrowserSidebarCommentModeCoachmarkStateChunk,
 } from "../../browser/browser-sidebar-comment-mode-coachmark-state";
+export {
+  openBrowserTab,
+  openOrCreateBrowserTab,
+} from "../../browser/side-panel-browser-tab-commands";
+export { openReviewTabForConversation } from "../../review/review-side-panel-tab-commands";
 export { isCurrentLocationCodexPage } from "../../utils/is-codex-page-route";
 export { remapDiffCommentsForHandoff } from "../../conversations/remap-diff-comments-for-handoff";
+export {
+  buildHookSourceGroups,
+  countHooksNeedingReview,
+  findHookSourceEntry,
+  getHooksForEvent,
+  getPluginHooksNeedingReview,
+  parseHookSourceSelection,
+  summarizeHookConfigEntryIssues,
+  summarizeHooksByEvent,
+} from "../../settings/hooks-settings-model";
 export { handleForkThread } from "../../conversations/thread-management-tool-handlers";
+export {
+  handleGetHandoffStatus,
+  handleHandoffThread,
+} from "../../conversations/handoff-thread-tool-handlers";
+export { moveThreadToHostWorktree } from "../../conversations/move-thread-to-host-worktree";
+export { moveThreadToLocal } from "../../conversations/move-thread-to-local";
+export { moveThreadToWorktree } from "../../conversations/move-thread-to-worktree";
 export {
   buildCodexAppToolNamespace,
   CODEX_APP_TOOL_NAMESPACE,
@@ -585,6 +607,13 @@ export {
   initModelsAndReasoningEffortsChunk,
   isReasoningEffort,
 } from "../../utils/models-and-reasoning-efforts";
+export { ReasoningEffortLabel } from "../../composer/reasoning-effort-label";
+export {
+  cycleReasoningEffortOption,
+  getModelReasoningEffortOptions,
+  resolveReasoningEffortOption,
+  stepReasoningEffortOption,
+} from "../../composer/reasoning-effort-options";
 export {
   enabledReasoningEffortsSetSignal,
   initEnabledReasoningEffortsChunk,

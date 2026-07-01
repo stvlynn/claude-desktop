@@ -37,3 +37,31 @@ export function resolveReasoningEffortOption(
         options.map((option) => option.reasoningEffort),
       );
 }
+
+export function stepReasoningEffortOption(
+  reasoningEffort: string,
+  options: ReasoningEffortOption[],
+  direction: "increase" | "decrease",
+): string {
+  const currentIndex = options.findIndex(
+    (option) => option.reasoningEffort === reasoningEffort,
+  );
+  const nextIndex =
+    direction === "increase"
+      ? Math.min(currentIndex + 1, options.length - 1)
+      : Math.max(currentIndex - 1, 0);
+  return options[nextIndex]?.reasoningEffort ?? reasoningEffort;
+}
+
+export function cycleReasoningEffortOption(
+  reasoningEffort: string,
+  options: ReasoningEffortOption[],
+): string {
+  const currentIndex = options.findIndex(
+    (option) => option.reasoningEffort === reasoningEffort,
+  );
+  return (
+    options[currentIndex === options.length - 1 ? 0 : currentIndex + 1]
+      ?.reasoningEffort ?? reasoningEffort
+  );
+}
