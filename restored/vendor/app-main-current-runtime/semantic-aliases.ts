@@ -767,6 +767,11 @@ export {
   setConversationalOnboardingPermissionStatus,
 } from "../../onboarding/conversational-onboarding-workflow-state";
 export {
+  conversationalOnboardingTaskCompletionMissingSignal,
+  conversationalOnboardingTaskCompletionSignal,
+  initConversationalOnboardingTaskCompletionStateChunk,
+} from "../../onboarding/conversational-onboarding-task-completion-state";
+export {
   conversationalOnboardingTaskActiveConversationSignal,
   conversationalOnboardingTaskIntroCompleteSignal,
   conversationalOnboardingTaskRequestVisibleSignal,

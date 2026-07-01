@@ -2,7 +2,7 @@
 import { posix as posixPath } from "node:path";
 import { appServices, normalizeFilesystemPath } from "../boundaries/rpc.facade";
 import * as zodRuntime from "../boundaries/src-l0hb-mz-p";
-type ConversationalOnboardingTaskOutput = {
+export type ConversationalOnboardingTaskOutput = {
   outputType: "file" | "text";
   output: string;
 };

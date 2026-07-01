@@ -7,6 +7,7 @@ import {
   clearConversationalOnboardingConversationIds,
   readConversationalOnboardingConversationIds,
 } from "./conversational-onboarding-conversation-state";
+import { initConversationalOnboardingTaskCompletionStateChunk } from "./conversational-onboarding-task-completion-state";
 
 export const conversationalOnboardingHostStartGenerations = new Map<
   string,
@@ -14,6 +15,7 @@ export const conversationalOnboardingHostStartGenerations = new Map<
 >();
 
 export function initConversationalOnboardingControllerChunk(): void {
+  initConversationalOnboardingTaskCompletionStateChunk();
   void conversationalOnboardingHostStartGenerations;
 }
 
