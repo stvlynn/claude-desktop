@@ -29,6 +29,11 @@ export function appConnectionLinkQueryOptions(connectorId: string) {
   };
 }
 
+export function initConversationalOnboardingAppConnectionQueryChunk(): void {
+  void findConnectorAppByIdentifier;
+  void appConnectionLinkQueryOptions;
+}
+
 async function isConnectorLinked(connectorId: string): Promise<boolean> {
   const response = await codexRequest.safeGet(
     "/aip/connectors/{connector_id}/link",

@@ -8,6 +8,7 @@ export { CloudIcon, initCloudIconChunk } from "../../icons/cloud-icon";
 export { DragIcon, initDragIconChunk } from "../../icons/drag-icon";
 export { LaptopIcon, initLaptopIconChunk } from "../../icons/laptop-icon";
 export { PinIcon, initPinIconChunk } from "../../icons/pin-icon";
+export { UploadIcon } from "../../icons/upload-icon";
 export { WarningIcon, initWarningIconChunk } from "../../icons/warning-icon";
 export { FileSourceTab } from "../../review/file-source-tab";
 export {
@@ -53,6 +54,16 @@ export {
   requestUserInputAutoResolutionState,
 } from "../../runtime/request-user-input-auto-resolution";
 export {
+  COMPLETE_CONVERSATIONAL_ONBOARDING_TASK_NAME,
+  initConversationalOnboardingTaskOutputRuntime,
+  initNavigateToCodexPageToolRuntime,
+  initOpenInCodexToolRuntime,
+  initRunAppActionInPrimaryWindowRuntime,
+  NAVIGATE_TO_CODEX_PAGE_TOOL_NAME,
+  OPEN_IN_CODEX_TOOL_NAME,
+  runAppActionInPrimaryWindow,
+} from "../../runtime/run-app-action-in-primary-window";
+export {
   initConversationDetailModeRuntime,
   isConversationDetailModeProse,
 } from "../../runtime/conversation-detail-runtime";
@@ -65,10 +76,24 @@ export {
   CHATGPT_ADMIN_BILLING_ADD_CREDITS_URL,
   CHATGPT_ADMIN_URL,
   CHATGPT_ADMIN_USAGE_LIMITS_URL,
+  CODEX_AUTOMATIONS_DOCS_URL,
+  CODEX_CHROME_EXTENSION_DOCS_URL,
+  CODEX_CONFIG_DOCS_URL,
+  CODEX_GLOBAL_AGENTS_GUIDANCE_DOCS_URL,
+  CODEX_HOOKS_DOCS_URL,
+  CODEX_IDE_DOCS_URL,
+  CODEX_LOCAL_ENVIRONMENTS_DOCS_URL,
+  CODEX_LOCKED_COMPUTER_USE_DOCS_URL,
+  CODEX_MCP_DOCS_URL,
+  CODEX_SANDBOXING_DOCS_URL,
+  CODEX_SKILLS_DOCS_URL,
+  CODEX_USAGE_CREDITS_MODAL_URL,
+  CODEX_USAGE_URL,
   CHATGPT_PRICING_HASH_URL,
   CHATGPT_PRICING_URL,
   initCodexLinksChunk,
   OPENAI_APPS_SDK_DOCS_URL,
+  OPENAI_PLUGINS_GITHUB_URL,
 } from "../../utils/links-bd-mmkun-d";
 export { resolveSidePanelBrowserTabId } from "../../browser/browser-tab-id-resolution";
 export { normalizeWorkspacePath } from "../../boundaries/src-l0hb/paths";
@@ -82,8 +107,14 @@ export {
 } from "../../utils/pinned-threads-query";
 export {
   initSetPinnedThreadRuntimeChunk,
+  setPinnedThread,
   setPinnedThreadsOrder,
 } from "../../utils/set-pinned-thread";
+export { usePinnedThreadState } from "../../threads/thread-actions/pinning";
+export {
+  copyAppLink,
+  copySessionId,
+} from "../../threads/thread-actions/actions";
 export {
   conversationalOnboardingWorkflowSignal,
   declineConversationalOnboardingTask,
@@ -102,6 +133,38 @@ export {
   initConversationalOnboardingTaskScopeChunk,
   resetConversationalOnboardingTaskScope,
 } from "../../onboarding/conversational-onboarding-task-scope";
+export { conversationalOnboardingTaskDefinitions } from "../../onboarding/conversational-onboarding-task-definitions";
+export {
+  getConversationalOnboardingTaskOption,
+  getConversationalOnboardingTaskPluginName,
+  initConversationalOnboardingTaskRegistryChunk,
+  isConversationalOnboardingMessagingTask,
+} from "../../onboarding/conversational-onboarding-task-registry";
+export {
+  getAvailableConversationalOnboardingTasks,
+  getConversationalOnboardingMessagingPluginNames,
+  mapConversationalOnboardingTasksToAppPlugins,
+} from "../../onboarding/conversational-onboarding-task-selection";
+export {
+  trackConversationalOnboardingExecutionCancelled,
+  trackConversationalOnboardingExecutionCompletionMissing,
+  trackConversationalOnboardingLifecycleCompleted,
+  trackConversationalOnboardingLifecycleSkipped,
+  trackConversationalOnboardingLifecycleStarted,
+  trackConversationalOnboardingRoleSelected,
+  trackConversationalOnboardingTaskSelected,
+} from "../../onboarding/conversational-onboarding-analytics";
+export { trackConversationalOnboardingAccessDenied } from "../../onboarding/conversational-onboarding-access-analytics";
+export {
+  appConnectionLinkQueryOptions,
+  findConnectorAppByIdentifier,
+  initConversationalOnboardingAppConnectionQueryChunk,
+} from "../../connectors/apps-queries/onboarding-app-connection";
+export { cancelActiveConversationalOnboardingForHost } from "../../onboarding/conversational-onboarding-cancel-for-host";
+export {
+  archiveConversationalOnboardingConversationsForHost,
+  initConversationalOnboardingControllerChunk,
+} from "../../onboarding/conversational-onboarding-controller";
 export { AutomationSchedulePicker } from "../../automations/automation-schedule-picker";
 export {
   initMeasuredTextCollapseRuntimeChunk,
@@ -122,6 +185,8 @@ export {
   initComposeEventHandlersRuntime,
 } from "../radix-event-helpers";
 export { isComposerDictationTarget } from "../../composer/composer-dictation-focus";
+export { buildCreateConversationParams } from "../../composer/build-create-conversation-params";
+export { openConfigInEditor } from "../../composer/open-config-in-editor";
 export { initPrimaryRuntimeInstallStatusMessageChunk } from "../../runtime/primary-runtime-install-status-message";
 
 export {

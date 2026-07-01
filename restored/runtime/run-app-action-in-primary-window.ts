@@ -39,6 +39,8 @@ const {
 } = zodRuntime;
 export const COMPLETE_CONVERSATIONAL_ONBOARDING_TASK_NAME =
   "complete_conversational_onboarding_task";
+export const NAVIGATE_TO_CODEX_PAGE_TOOL_NAME = "navigate_to_codex_page";
+export const OPEN_IN_CODEX_TOOL_NAME = "open_in_codex";
 const conversationalOnboardingTaskOutputSchema = zStrictObject({
   outputType: zEnum(["file", "text"]).describe(
     "Whether the result is a local file or a text answer.",
@@ -75,6 +77,14 @@ export const completeConversationalOnboardingTaskTool = {
     zodToJsonSchema(conversationalOnboardingTaskOutputSchema),
   ),
 };
+export function initRunAppActionInPrimaryWindowRuntime(): void {}
+
+export function initNavigateToCodexPageToolRuntime(): void {}
+
+export function initConversationalOnboardingTaskOutputRuntime(): void {}
+
+export function initOpenInCodexToolRuntime(): void {}
+
 export function registerConversationalOnboardingTaskOutput(
   conversationId: string,
   expectedOutput: ExpectedConversationalOnboardingOutput,

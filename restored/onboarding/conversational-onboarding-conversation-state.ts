@@ -4,6 +4,7 @@
 export type ActiveConversationalOnboardingConversation = {
   abort?: () => void;
   abortController?: AbortController;
+  conversationId?: string;
   hostId?: string;
   signal?: AbortSignal;
 };
@@ -12,6 +13,7 @@ const activeConversationsByHost = new Map<
   string,
   ActiveConversationalOnboardingConversation
 >();
+const conversationalOnboardingConversationIds = new Set<string>();
 
 export function readActiveConversationalOnboardingConversation(
   hostId: string,
@@ -24,11 +26,30 @@ export function writeActiveConversationalOnboardingConversation(
   conversation: ActiveConversationalOnboardingConversation | null,
 ): void {
   if (conversation == null) activeConversationsByHost.delete(hostId);
-  else activeConversationsByHost.set(hostId, { ...conversation, hostId });
+  else {
+    activeConversationsByHost.set(hostId, { ...conversation, hostId });
+    if (conversation.conversationId != null) {
+      recordConversationalOnboardingConversationId(conversation.conversationId);
+    }
+  }
 }
 
 export function clearActiveConversationalOnboardingConversation(
   hostId: string,
 ): void {
   activeConversationsByHost.delete(hostId);
+}
+
+export function recordConversationalOnboardingConversationId(
+  conversationId: string,
+): void {
+  conversationalOnboardingConversationIds.add(conversationId);
+}
+
+export function readConversationalOnboardingConversationIds(): string[] {
+  return [...conversationalOnboardingConversationIds];
+}
+
+export function clearConversationalOnboardingConversationIds(): void {
+  conversationalOnboardingConversationIds.clear();
 }

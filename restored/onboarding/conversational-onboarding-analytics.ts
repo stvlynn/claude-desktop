@@ -15,8 +15,6 @@ import {
   ConversationalOnboardingExecutionAction,
   ConversationalOnboardingRoleAction,
   ConversationalOnboardingTaskAction,
-  ConversationalOnboardingAccessType,
-  ConversationalOnboardingTaskType,
   ConversationalOnboardingFailureKind,
   conversationalOnboardingLifecycleEvent,
   conversationalOnboardingAccessEvent,
@@ -24,13 +22,17 @@ import {
   conversationalOnboardingRoleEvent,
   conversationalOnboardingTaskEvent,
 } from "../generated/conversational-onboarding-product-events";
+import {
+  mapConversationalOnboardingAccessType,
+  mapConversationalOnboardingTaskType,
+} from "./conversational-onboarding-analytics-mappers";
 import type { ConversationalOnboardingTaskId } from "./conversational-onboarding-task-registry";
 
 type ConversationalOnboardingRoleType = string;
 
 // --- Lifecycle ---------------------------------------------------------------
 
-function trackConversationalOnboardingLifecycleStarted(
+export function trackConversationalOnboardingLifecycleStarted(
   scope: ProductLoggerScope,
 ): void {
   emitLifecycleEvent({
@@ -39,7 +41,7 @@ function trackConversationalOnboardingLifecycleStarted(
   });
 }
 
-function trackConversationalOnboardingLifecycleCompleted(
+export function trackConversationalOnboardingLifecycleCompleted(
   scope: ProductLoggerScope,
   selectedTask?: ConversationalOnboardingTaskId | null,
 ): void {
@@ -50,7 +52,7 @@ function trackConversationalOnboardingLifecycleCompleted(
   });
 }
 
-function trackConversationalOnboardingLifecycleSkipped(
+export function trackConversationalOnboardingLifecycleSkipped(
   scope: ProductLoggerScope,
   selectedTask?: ConversationalOnboardingTaskId | null,
 ): void {
@@ -87,7 +89,10 @@ function emitLifecycleEvent({
   logProductEvent(scope, conversationalOnboardingLifecycleEvent, {
     action,
     failureKind,
-    taskType: selectedTask == null ? undefined : mapTaskType(selectedTask),
+    taskType:
+      selectedTask == null
+        ? undefined
+        : mapConversationalOnboardingTaskType(selectedTask),
   });
 }
 
@@ -98,7 +103,7 @@ function trackConversationalOnboardingAccessStarted(
   task: ConversationalOnboardingTaskId,
 ): void {
   emitAccessEvent({
-    accessType: mapAccessType(task),
+    accessType: mapConversationalOnboardingAccessType(task),
     action: ConversationalOnboardingAccessAction.STARTED,
     scope,
     task,
@@ -110,7 +115,7 @@ function trackConversationalOnboardingAccessRequested(
   task: ConversationalOnboardingTaskId,
 ): void {
   emitAccessEvent({
-    accessType: mapAccessType(task),
+    accessType: mapConversationalOnboardingAccessType(task),
     action: ConversationalOnboardingAccessAction.REQUESTED,
     scope,
     task,
@@ -122,7 +127,7 @@ function trackConversationalOnboardingAccessCompleted(
   task: ConversationalOnboardingTaskId,
 ): void {
   emitAccessEvent({
-    accessType: mapAccessType(task),
+    accessType: mapConversationalOnboardingAccessType(task),
     action: ConversationalOnboardingAccessAction.COMPLETED,
     scope,
     task,
@@ -157,7 +162,7 @@ function emitAccessFailure(
   failureKind: unknown,
 ): void {
   emitAccessEvent({
-    accessType: mapAccessType(task),
+    accessType: mapConversationalOnboardingAccessType(task),
     action: ConversationalOnboardingAccessAction.FAILED,
     failureKind,
     scope,
@@ -182,7 +187,7 @@ function emitAccessEvent({
     accessType,
     action,
     failureKind,
-    taskType: mapTaskType(task),
+    taskType: mapConversationalOnboardingTaskType(task),
   });
 }
 
@@ -222,7 +227,7 @@ function trackConversationalOnboardingExecutionStartFailed(
   });
 }
 
-function trackConversationalOnboardingExecutionCompletionMissing(
+export function trackConversationalOnboardingExecutionCompletionMissing(
   scope: ProductLoggerScope,
   task: ConversationalOnboardingTaskId,
 ): void {
@@ -234,7 +239,7 @@ function trackConversationalOnboardingExecutionCompletionMissing(
   });
 }
 
-function trackConversationalOnboardingExecutionCancelled(
+export function trackConversationalOnboardingExecutionCancelled(
   scope: ProductLoggerScope,
   task: ConversationalOnboardingTaskId,
 ): void {
@@ -259,13 +264,13 @@ function emitExecutionEvent({
   logProductEvent(scope, conversationalOnboardingExecutionEvent, {
     action,
     failureKind,
-    taskType: mapTaskType(task),
+    taskType: mapConversationalOnboardingTaskType(task),
   });
 }
 
 // --- Role / task selection ---------------------------------------------------
 
-function trackConversationalOnboardingRoleSelected(
+export function trackConversationalOnboardingRoleSelected(
   scope: ProductLoggerScope,
   roleType: ConversationalOnboardingRoleType,
 ): void {
@@ -275,40 +280,12 @@ function trackConversationalOnboardingRoleSelected(
   });
 }
 
-function trackConversationalOnboardingTaskSelected(
+export function trackConversationalOnboardingTaskSelected(
   scope: ProductLoggerScope,
   task: ConversationalOnboardingTaskId,
 ): void {
   logProductEvent(scope, conversationalOnboardingTaskEvent, {
     action: ConversationalOnboardingTaskAction.SELECTED,
-    taskType: mapTaskType(task),
+    taskType: mapConversationalOnboardingTaskType(task),
   });
-}
-
-// --- Enum mapping helpers ----------------------------------------------------
-
-function mapAccessType(task: ConversationalOnboardingTaskId): unknown {
-  switch (task) {
-    case "desktop_note":
-      return ConversationalOnboardingAccessType.DESKTOP;
-    case "csv_chart":
-      return ConversationalOnboardingAccessType.CSV_PICKER;
-    case "hold_next_free_hour":
-      return ConversationalOnboardingAccessType.CALENDAR_APP;
-    case "send_message_to_self":
-      return ConversationalOnboardingAccessType.MESSAGING_APP;
-  }
-}
-
-function mapTaskType(task: ConversationalOnboardingTaskId): unknown {
-  switch (task) {
-    case "desktop_note":
-      return ConversationalOnboardingTaskType.DESKTOP_NOTE;
-    case "csv_chart":
-      return ConversationalOnboardingTaskType.CSV_CHART;
-    case "hold_next_free_hour":
-      return ConversationalOnboardingTaskType.HOLD_NEXT_FREE_HOUR;
-    case "send_message_to_self":
-      return ConversationalOnboardingTaskType.SEND_MESSAGE_TO_SELF;
-  }
 }

@@ -9,45 +9,21 @@ import type { ProductLoggerScope } from "../generated/product-logger";
 // imported here by role.
 import {
   ConversationalOnboardingAccessAction,
-  ConversationalOnboardingAccessType,
-  ConversationalOnboardingTaskType,
   conversationalOnboardingAccessEvent,
 } from "../generated/conversational-onboarding-product-events";
 import type { ConversationalOnboardingTaskId } from "./conversational-onboarding-task-registry";
+import {
+  mapConversationalOnboardingAccessType,
+  mapConversationalOnboardingTaskType,
+} from "./conversational-onboarding-analytics-mappers";
 
 export function trackConversationalOnboardingAccessDenied(
   scope: ProductLoggerScope,
   task: ConversationalOnboardingTaskId,
 ): void {
   logProductEvent(scope, conversationalOnboardingAccessEvent, {
-    accessType: mapAccessType(task),
+    accessType: mapConversationalOnboardingAccessType(task),
     action: ConversationalOnboardingAccessAction.DENIED,
-    taskType: mapTaskType(task),
+    taskType: mapConversationalOnboardingTaskType(task),
   });
-}
-
-function mapAccessType(task: ConversationalOnboardingTaskId): unknown {
-  switch (task) {
-    case "desktop_note":
-      return ConversationalOnboardingAccessType.DESKTOP;
-    case "csv_chart":
-      return ConversationalOnboardingAccessType.CSV_PICKER;
-    case "hold_next_free_hour":
-      return ConversationalOnboardingAccessType.CALENDAR_APP;
-    case "send_message_to_self":
-      return ConversationalOnboardingAccessType.MESSAGING_APP;
-  }
-}
-
-function mapTaskType(task: ConversationalOnboardingTaskId): unknown {
-  switch (task) {
-    case "desktop_note":
-      return ConversationalOnboardingTaskType.DESKTOP_NOTE;
-    case "csv_chart":
-      return ConversationalOnboardingTaskType.CSV_CHART;
-    case "hold_next_free_hour":
-      return ConversationalOnboardingTaskType.HOLD_NEXT_FREE_HOUR;
-    case "send_message_to_self":
-      return ConversationalOnboardingTaskType.SEND_MESSAGE_TO_SELF;
-  }
 }
