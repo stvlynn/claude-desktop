@@ -20,3 +20,5 @@ export function ConversationalOnboardingTaskIcon({
   const Icon = getConversationalOnboardingTaskOption(task).Icon;
   return <Icon appPlugin={appPlugin} className={className} />;
 }
+
+export function initConversationalOnboardingTaskIconChunk(): void {}

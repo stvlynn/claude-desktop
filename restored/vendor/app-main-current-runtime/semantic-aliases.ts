@@ -876,6 +876,10 @@ export {
   isConversationalOnboardingMessagingTask,
 } from "../../onboarding/conversational-onboarding-task-registry";
 export {
+  ConversationalOnboardingTaskIcon,
+  initConversationalOnboardingTaskIconChunk,
+} from "../../onboarding/conversational-onboarding-task-icon";
+export {
   getAvailableConversationalOnboardingTasks,
   getConversationalOnboardingMessagingPluginNames,
   mapConversationalOnboardingTasksToAppPlugins,

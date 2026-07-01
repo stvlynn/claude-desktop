@@ -27538,7 +27538,7 @@
         "ms": "initRequestUserInputAutoResolutionRuntime",
         "mt": "WorktreeInitActivityList",
         "mu": "initReviewPersistentSettingsChunk",
-        "n": "appMainCurrentCompatSlotLowerN",
+        "n": "initConversationalOnboardingTaskIconChunk",
         "na": "handleReadThread",
         "nc": "CHATGPT_ADMIN_BILLING_ADD_CREDITS_URL",
         "nd": "BrowserSidebarCommentOverlay",
