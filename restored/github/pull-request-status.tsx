@@ -1,8 +1,8 @@
 // Restored from ref/webview/assets/pull-request-status-vGvycRDN.js
 // pull-request-status-vGvycRDN chunk restored from the Codex webview bundle.
 import type { ComponentType, SVGProps } from "react";
-import { FormattedMessage } from "react-intl";
 import clsx from "clsx";
+import { PullRequestButtonLabel } from "./pull-request-button-label";
 import { PullRequestOpenIcon } from "../icons/pull-request-open-icon";
 type PullRequestStatus = "draft" | "open" | "merged" | "closed";
 type PullRequestCheckState =
@@ -187,24 +187,6 @@ function PullRequestCheckStatusIcon({
     tone,
   });
   return <Icon className={clsx(className, iconClassName)} />;
-}
-function PullRequestButtonLabel({ number }: { number?: number | null }) {
-  return number == null ? (
-    <FormattedMessage
-      id="localConversationPage.pullRequestButtonLabel"
-      defaultMessage="PR"
-      description="Label for the pull request button when the PR number is unavailable"
-    />
-  ) : (
-    <FormattedMessage
-      id="localConversationPage.pullRequestButtonLabel.withNumber"
-      defaultMessage="PR {number}"
-      description="Label for the pull request button when the PR number is known"
-      values={{
-        number,
-      }}
-    />
-  );
 }
 var PULL_REQUEST_STATUS_ICONS: Record<
     PullRequestStatus,
