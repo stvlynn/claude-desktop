@@ -551,12 +551,23 @@ export {
   buildHookSourceGroups,
   countHooksNeedingReview,
   findHookSourceEntry,
+  getDefaultPluginHookEventSelection,
   getHooksForEvent,
   getPluginHooksNeedingReview,
+  mergeHookEventOrder,
   parseHookSourceSelection,
   summarizeHookConfigEntryIssues,
   summarizeHooksByEvent,
 } from "../../settings/hooks-settings-model";
+export {
+  initConversationItemProgressRuntimeChunk,
+  isConversationItemInProgress,
+} from "../../conversations/local-conversation-thread-parts/conversation-item-in-progress";
+export {
+  ClientThreadScopeProvider,
+  initClientThreadScopeProviderChunk,
+} from "../../onboarding/client-thread-scope-provider";
+export { initUseIntervalChunk, useInterval } from "../../utils/use-interval";
 export { handleForkThread } from "../../conversations/thread-management-tool-handlers";
 export {
   handleGetHandoffStatus,

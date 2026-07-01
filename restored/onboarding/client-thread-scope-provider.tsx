@@ -89,3 +89,5 @@ function ClientThreadRouteScope({
     </ScopeProvider>
   );
 }
+
+export function initClientThreadScopeProviderChunk(): void {}

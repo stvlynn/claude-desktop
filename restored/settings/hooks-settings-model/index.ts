@@ -3,9 +3,11 @@
 import { buildHookSourceGroups } from "./groups";
 import {
   countHooksNeedingReview,
+  getDefaultPluginHookEventSelection,
   getCommonHookSourceGroup,
   getHooksForEvent,
   getPluginHooksNeedingReview,
+  mergeHookEventOrder,
   summarizeHookConfigEntryIssues,
   summarizeHooksByEvent,
 } from "./summaries";
@@ -26,7 +28,9 @@ export {
   parseHookSourceSelection,
   summarizeHookConfigEntryIssues,
   countHooksNeedingReview,
+  getDefaultPluginHookEventSelection,
   summarizeHooksByEvent,
+  mergeHookEventOrder,
   getPreferredHookSourceSelection,
   UNKNOWN_PLUGIN_ID,
   findHookSourceEntry,

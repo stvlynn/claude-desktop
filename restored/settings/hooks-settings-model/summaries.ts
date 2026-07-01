@@ -51,6 +51,49 @@ function getPluginHooksNeedingReview(
   );
 }
 
+function getDefaultPluginHookEventSelection<T extends string>(
+  pluginEntry: HookConfigEntry | null | undefined,
+  availableEventNames: readonly T[],
+  preferredEventOrder: readonly T[],
+) {
+  if (
+    pluginEntry == null ||
+    !pluginEntry.summary?.installed ||
+    pluginEntry.hooks.length === 0
+  ) {
+    return undefined;
+  }
+
+  const eventNames = mergeHookEventOrder(
+    availableEventNames,
+    preferredEventOrder,
+    null,
+  );
+  return eventNames.length === 0 ? undefined : eventNames;
+}
+
+function mergeHookEventOrder<T extends string>(
+  sourceEventNames: readonly T[],
+  preferredEventOrder: readonly T[],
+  selectedEventName: T | null,
+): T[] {
+  const preferredEvents = new Set(preferredEventOrder);
+  const eventNames = [
+    ...preferredEvents,
+    ...Array.from(new Set(sourceEventNames))
+      .filter((eventName) => !preferredEvents.has(eventName))
+      .sort((leftEventName, rightEventName) =>
+        leftEventName.localeCompare(rightEventName),
+      ),
+  ];
+
+  if (selectedEventName != null && !eventNames.includes(selectedEventName)) {
+    eventNames.push(selectedEventName);
+  }
+
+  return eventNames;
+}
+
 function summarizeHookConfigEntryIssues(entry: HookConfigEntry) {
   return {
     issueCount: entry.warnings.length + entry.errors.length,
@@ -78,9 +121,11 @@ function getCommonHookSourceGroup(sources: string[]) {
 
 export {
   countHooksNeedingReview,
+  getDefaultPluginHookEventSelection,
   getCommonHookSourceGroup,
   getHooksForEvent,
   getPluginHooksNeedingReview,
+  mergeHookEventOrder,
   summarizeHookConfigEntryIssues,
   summarizeHooksByEvent,
 };
