@@ -9,10 +9,21 @@ export {
   initUltraFastServiceTierIcon,
   UltraFastServiceTierIcon,
 } from "../../composer/service-tier-speed-icon";
+export {
+  hasSeenAppgenPublicationTermsDisclosureSignal,
+  initAppgenPublicationTermsDisclosureRuntime,
+} from "../../appgen/appgen-publication-terms-disclosure";
 export { composeRefs } from "../../utils/compose-refs";
 export { QueryClientProvider } from "../../runtime/query-client/react-query-context";
 export { useQueries } from "../../runtime/query-client/react-query-hooks";
+export { createToolErrorResult } from "../../runtime/tool-result-runtime";
+export { OpenAiMcpCapabilityView } from "../../review/openai-mcp-capability-view";
 export { SettingsControlRow } from "../../ui/settings-row";
+export {
+  initResolvedHighlightThemesChunk,
+  initSharedHighlightThemeRegistryChunk,
+  sharedHighlightThemeRegistry,
+} from "../../utils/shared-highlight-themes";
 export { composeEventHandlers } from "../radix-event-helpers";
 
 export {
@@ -35,7 +46,6 @@ export {
   Nr as SidebarRowContextMenu,
   Oi as SidebarRowOverflowMenu,
   Pc as CHATGPT_PRICING_URL,
-  Pd as createToolErrorResult,
   Pf as initSidebarTaskRowRuntimeChunk,
   Pn as SidebarTaskRow,
   Ql as SidebarTaskRowActions,
@@ -48,14 +58,10 @@ export {
   Wa as pathsMatch,
   Wd as ThreadRowUnreadState,
   Wl as SidebarListSection,
-  Xl as initAppgenPublicationTermsDisclosureRuntime,
   Yd as ThreadRowHoverActions,
-  Yl as hasSeenAppgenPublicationTermsDisclosureSignal,
-  Yu as OpenAiMcpCapabilityView,
   Zu as AppShellOverlayOutlet,
   _i as isWindowsStyleAbsolutePath,
   _l as openThreadBrowserSidePanelTabWithPendingState,
-  _o as initSharedHighlightThemeRegistryChunk,
   al as SidebarRowMenuSeparator,
   bl as openThreadReviewSidePanelTab,
   cf as openThreadMcpAppSidePanelTab,
@@ -103,12 +109,10 @@ export {
   ut as initCommandExecutionTextRuntime,
   vi as isUncPath,
   vl as openThreadBrowserSidePanelTabWithoutAnimation,
-  vo as sharedHighlightThemeRegistry,
   ws as browserTabIdForConversation,
   xl as openThreadTimelineSidePanel,
   xo as initForkConversationToastRuntime,
   xr as initSettingsControlRowChunk,
   yl as openThreadLastTurnReviewSidePanelTab,
-  yo as initResolvedHighlightThemesChunk,
   zn as SidebarRowRuntime,
 } from "../app-main-current-cgnc-bundle";
