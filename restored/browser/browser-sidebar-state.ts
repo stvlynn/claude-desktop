@@ -77,5 +77,10 @@ export const browserSidebarMode = {
   BROWSE: "browse",
   COMMENT: "comment",
 } as const;
+
+export function initBrowserSidebarStateChunk(): void {
+  void browserSidebarMode;
+}
+
 export type BrowserSidebarMode =
   (typeof browserSidebarMode)[keyof typeof browserSidebarMode];

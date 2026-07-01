@@ -14,7 +14,7 @@ import {
   getBrowserSitePermissionsOrigin,
 } from "../boundaries/onboarding-commons-externals.facade";
 
-const NotSecureIcon = (props: SVGProps<SVGSVGElement>) => (
+export const BrowserNotSecureIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
     width={20}
     height={20}
@@ -43,6 +43,10 @@ const NotSecureIcon = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 );
+
+export function initBrowserNotSecureIconChunk(): void {
+  void BrowserNotSecureIcon;
+}
 
 function preventDefaultPointerHandler(
   event: SyntheticEvent<HTMLButtonElement>,
@@ -152,7 +156,7 @@ export function BrowserAddressSecurityIndicator({
 
   const buttonContent = showNotSecure ? (
     <>
-      <NotSecureIcon className="icon-xs shrink-0" />
+      <BrowserNotSecureIcon className="icon-xs shrink-0" />
       <span className="min-w-0 truncate">
         <FormattedMessage
           id="thread.browser.notSecure"

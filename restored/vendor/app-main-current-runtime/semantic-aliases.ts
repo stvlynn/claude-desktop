@@ -181,9 +181,18 @@ export {
   useBrowserUseSettingsVisibility,
 } from "../../browser/browser-use-settings-visibility";
 export {
+  BrowserNotSecureIcon,
+  initBrowserNotSecureIconChunk,
+} from "../../browser/browser-address-security-indicator";
+export {
+  clearBrowserSidebarComments,
+  initBrowserSidebarStateChunk,
+} from "../../browser/browser-sidebar-state";
+export {
   getBrowserSidebarTweaksState,
   initBrowserSidebarTweaksStateChunk,
   initBrowserSidebarTweaksSubmitRequestChunk,
+  subscribeBrowserSidebarTweaksSubmit,
 } from "../../app-shell/thread-side-panel-active-signals";
 export {
   initPullRequestFooterClassesChunk,
