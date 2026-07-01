@@ -267,6 +267,8 @@ interface DiffModeToggleButtonProps {
   diffControls: ToolbarDiffControls;
 }
 
+export function initReviewOptionsToolbarChunk(): void {}
+
 function DiffModeToggleButton({ diffControls }: DiffModeToggleButtonProps) {
   const intl = useIntl();
   const isUnified = diffControls.diffMode === "unified";
