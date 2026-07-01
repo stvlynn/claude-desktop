@@ -1,24 +1,3 @@
 // Restored from ref/webview/assets/skills-settings-77Mu8VFb.js
-// Current SkillsSettings backing bundle with restored dependency imports.
-
-import { once as runOnce } from "../runtime/commonjs-interop";
-import {
-  initSettingsContentLayoutChunk,
-  SettingsContentLayout,
-} from "../runtime/current-app-initial/settings-section-layout-runtime";
-import {
-  initSkillsPageChunk,
-  SkillsPage,
-} from "../runtime/current-app-initial/skills-page-current-runtime";
-function SkillsSettings() {
-  return (
-    <SettingsContentLayout>
-      <SkillsPage />
-    </SettingsContentLayout>
-  );
-}
-runOnce(() => {
-  initSkillsPageChunk();
-  initSettingsContentLayoutChunk();
-})();
-export { SkillsSettings };
+// Current-ref compatibility shim for the semantic skills settings wrapper.
+export { SkillsSettings } from "../settings/skills-settings";

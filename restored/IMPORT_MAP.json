@@ -42101,12 +42101,12 @@
         "AppgenPublicationTermsRoute": "AppgenPublicationTermsRoute"
       },
       "status": "done",
-      "note": "Current AppgenPublicationTermsRoute hash maps to a dedicated current-ref runtime over vendor/appgen-publication-terms-route-current-bundle.tsx; the single semantic export is re-derived from the current file.",
-      "lastUpdated": "2026-06-30T22:45:00.000Z",
+      "note": "Current AppgenPublicationTermsRoute hash maps to a dedicated current-ref runtime over appgen/publication-terms/route.tsx; vendor/appgen-publication-terms-route-current-bundle.tsx remains only as a compatibility shim.",
+      "lastUpdated": "2026-07-01T02:01:05.642Z",
       "stage3Accepted": true,
-      "stage3AcceptedAt": "2026-06-30T22:45:00.000Z",
-      "stage3Review": "Host self-review: verified the current file exports AppgenPublicationTermsRoute, rewrote dependency imports through restored/IMPORT_MAP.json, and passed quality gates on the backing bundle and runtime.",
-      "stage3Note": "Accepted as a current-ref compatibility export over a restored-dependency backing bundle; full semantic split of AppgenPublicationTermsRoute remains a later cleanup."
+      "stage3AcceptedAt": "2026-07-01T02:01:05.642Z",
+      "stage3Review": "Host self-review: moved the readable AppgenPublicationTermsRoute body into appgen/publication-terms/route.tsx, preserved the current runtime public export, and kept vendor/appgen-publication-terms-route-current-bundle.tsx as a compatibility shim.",
+      "stage3Note": "Accepted as a semantic Appgen publication terms route wrapper with current-ref runtime and vendor shim exports."
     },
     "new-thread-panel-page-DkFQ6OWQ": {
       "restored": "runtime/current-app-initial/new-thread-panel-page-current-runtime.ts",
@@ -42114,12 +42114,12 @@
         "NewThreadPanelPage": "NewThreadPanelPage"
       },
       "status": "done",
-      "note": "Current NewThreadPanelPage hash maps to a dedicated current-ref runtime over vendor/new-thread-panel-page-current-bundle.tsx; the single semantic export is re-derived from the current file.",
-      "lastUpdated": "2026-06-30T22:45:00.000Z",
+      "note": "Current NewThreadPanelPage hash maps to a dedicated current-ref runtime over routes/new-thread-panel-page.tsx; vendor/new-thread-panel-page-current-bundle.tsx remains only as a compatibility shim.",
+      "lastUpdated": "2026-07-01T02:01:05.642Z",
       "stage3Accepted": true,
-      "stage3AcceptedAt": "2026-06-30T22:45:00.000Z",
-      "stage3Review": "Host self-review: verified the current file exports NewThreadPanelPage, rewrote dependency imports through restored/IMPORT_MAP.json, and passed quality gates on the backing bundle and runtime.",
-      "stage3Note": "Accepted as a current-ref compatibility export over a restored-dependency backing bundle; full semantic split of NewThreadPanelPage remains a later cleanup."
+      "stage3AcceptedAt": "2026-07-01T02:01:05.642Z",
+      "stage3Review": "Host self-review: moved the readable NewThreadPanelPage body into routes/new-thread-panel-page.tsx, preserved the current runtime public export, and kept vendor/new-thread-panel-page-current-bundle.tsx as a compatibility shim.",
+      "stage3Note": "Accepted as a semantic new thread panel page wrapper with current-ref runtime and vendor shim exports."
     },
     "queued-message-list-B8Ie-nMz": {
       "restored": "runtime/current-app-initial/queued-message-list-current-runtime.ts",
@@ -42460,12 +42460,12 @@
         "PluginsSettings": "PluginsSettings"
       },
       "status": "done",
-      "note": "Current PluginsSettings hash maps to a dedicated current-ref runtime over vendor/plugins-settings-current-bundle.tsx; the single semantic export is re-derived from the current file.",
-      "lastUpdated": "2026-06-30T23:59:30.000Z",
+      "note": "Current PluginsSettings hash maps to a dedicated current-ref runtime over settings/plugins-settings.tsx; vendor/plugins-settings-current-bundle.tsx remains only as a compatibility shim.",
+      "lastUpdated": "2026-07-01T02:01:05.642Z",
       "stage3Accepted": true,
-      "stage3AcceptedAt": "2026-06-30T23:59:30.000Z",
-      "stage3Review": "Host self-review: verified the current file exports PluginsSettings, rewrote dependency imports through restored/IMPORT_MAP.json, and passed quality gates on the backing bundle and runtime.",
-      "stage3Note": "Accepted as a current-ref compatibility export over a restored-dependency backing bundle; full semantic split of PluginsSettings remains a later cleanup."
+      "stage3AcceptedAt": "2026-07-01T02:01:05.642Z",
+      "stage3Review": "Host self-review: moved the readable PluginsSettings body into settings/plugins-settings.tsx, preserved the current runtime public export, and kept vendor/plugins-settings-current-bundle.tsx as a compatibility shim.",
+      "stage3Note": "Accepted as a semantic plugins settings wrapper with current-ref runtime and vendor shim exports."
     },
     "skills-page-zCIrhInI": {
       "restored": "runtime/current-app-initial/skills-page-current-runtime.ts",
@@ -42500,12 +42500,12 @@
         "SkillsSettings": "SkillsSettings"
       },
       "status": "done",
-      "note": "Current SkillsSettings hash maps to a dedicated current-ref runtime over vendor/skills-settings-current-bundle.tsx; the single semantic export is re-derived from the current file.",
-      "lastUpdated": "2026-06-30T23:59:55.000Z",
+      "note": "Current SkillsSettings hash maps to a dedicated current-ref runtime over settings/skills-settings.tsx; vendor/skills-settings-current-bundle.tsx remains only as a compatibility shim.",
+      "lastUpdated": "2026-07-01T02:01:05.642Z",
       "stage3Accepted": true,
-      "stage3AcceptedAt": "2026-06-30T23:59:55.000Z",
-      "stage3Review": "Host self-review: verified the current file exports SkillsSettings, rewrote dependency imports through restored/IMPORT_MAP.json, and passed quality gates on the backing bundle and runtime.",
-      "stage3Note": "Accepted as a current-ref compatibility export over a restored-dependency backing bundle; full semantic split of SkillsSettings remains a later cleanup."
+      "stage3AcceptedAt": "2026-07-01T02:01:05.642Z",
+      "stage3Review": "Host self-review: moved the readable SkillsSettings body into settings/skills-settings.tsx, preserved the current runtime public export, and kept vendor/skills-settings-current-bundle.tsx as a compatibility shim.",
+      "stage3Note": "Accepted as a semantic skills settings wrapper with current-ref runtime and vendor shim exports."
     },
     "general-settings-CyYw_gZ3": {
       "restored": "runtime/current-app-initial/general-settings-current-runtime.ts",
@@ -42567,12 +42567,12 @@
         "AppearanceSettings": "AppearanceSettings"
       },
       "status": "done",
-      "note": "Current AppearanceSettings hash maps to a dedicated current-ref runtime over vendor/appearance-settings-current-bundle.tsx; the single semantic export is re-derived from the current file.",
-      "lastUpdated": "2026-06-30T23:59:59.000Z",
+      "note": "Current AppearanceSettings hash maps to a dedicated current-ref runtime over settings/appearance-settings.tsx; vendor/appearance-settings-current-bundle.tsx remains only as a compatibility shim.",
+      "lastUpdated": "2026-07-01T02:01:05.642Z",
       "stage3Accepted": true,
-      "stage3AcceptedAt": "2026-06-30T23:59:59.000Z",
-      "stage3Review": "Host self-review: verified the current file exports AppearanceSettings, rewrote dependency imports through restored/IMPORT_MAP.json, and passed quality gates on the backing bundle and runtime.",
-      "stage3Note": "Accepted as a current-ref compatibility export over a restored-dependency backing bundle; full semantic split of AppearanceSettings remains a later cleanup."
+      "stage3AcceptedAt": "2026-07-01T02:01:05.642Z",
+      "stage3Review": "Host self-review: moved the readable AppearanceSettings body into settings/appearance-settings.tsx, preserved the current runtime public export, and kept vendor/appearance-settings-current-bundle.tsx as a compatibility shim.",
+      "stage3Note": "Accepted as a semantic appearance settings wrapper with current-ref runtime and vendor shim exports."
     },
     "codex-mobile-setup-flow-XFbY7C-Z": {
       "restored": "runtime/current-app-initial/codex-mobile-setup-flow-current-runtime.ts",
