@@ -123,7 +123,8 @@ export const ConversationStatusRow: any = undefined as any;
 export const ConversationSummaryRow: any = undefined as any;
 export const ConversationalOnboardingAccessGate: any = undefined as any;
 export const ConversationalOnboardingArtifactCard: any = undefined as any;
-export const ConversationalOnboardingPermissionRequestCard: any = undefined as any;
+export const ConversationalOnboardingPermissionRequestCard: any =
+  undefined as any;
 export const CopyButton: any = undefined as any;
 export const CopyIcon: any = undefined as any;
 export const CopyLinkIcon: any = undefined as any;
@@ -605,9 +606,11 @@ export const conversationTurnDiffCwdAtom: any = undefined as any;
 export const conversationTurnUnifiedDiffAtom: any = undefined as any;
 export const conversationTurnsAtom: any = undefined as any;
 export const conversationWorkspaceStateAtom: any = undefined as any;
-export const conversationalOnboardingActiveTaskStateSignal: any = undefined as any;
+export const conversationalOnboardingActiveTaskStateSignal: any =
+  undefined as any;
 export const conversationalOnboardingAllSetSignal: any = undefined as any;
-export const conversationalOnboardingExecutionFailedSignal: any = undefined as any;
+export const conversationalOnboardingExecutionFailedSignal: any =
+  undefined as any;
 export const conversationalOnboardingIntlAtom: any = undefined as any;
 export const conversationalOnboardingTaskStartedSignal: any = undefined as any;
 export const conversationalOnboardingTool: any = undefined as any;
@@ -1155,14 +1158,22 @@ export const readSharedObjectValue: any = undefined as any;
 export const readSharedValue: any = undefined as any;
 export const readStoredNumber: any = undefined as any;
 export const recordBranchPushed: any = undefined as any;
-export const recordConversationalOnboardingAccessCompleted: any = undefined as any;
-export const recordConversationalOnboardingAccessHostUnavailable: any = undefined as any;
-export const recordConversationalOnboardingAccessRequestFailed: any = undefined as any;
-export const recordConversationalOnboardingAccessRequested: any = undefined as any;
-export const recordConversationalOnboardingAccessStarted: any = undefined as any;
-export const recordConversationalOnboardingExecutionStartFailed: any = undefined as any;
-export const recordConversationalOnboardingExecutionStarted: any = undefined as any;
-export const recordConversationalOnboardingLifecycleStartFailed: any = undefined as any;
+export const recordConversationalOnboardingAccessCompleted: any =
+  undefined as any;
+export const recordConversationalOnboardingAccessHostUnavailable: any =
+  undefined as any;
+export const recordConversationalOnboardingAccessRequestFailed: any =
+  undefined as any;
+export const recordConversationalOnboardingAccessRequested: any =
+  undefined as any;
+export const recordConversationalOnboardingAccessStarted: any =
+  undefined as any;
+export const recordConversationalOnboardingExecutionStartFailed: any =
+  undefined as any;
+export const recordConversationalOnboardingExecutionStarted: any =
+  undefined as any;
+export const recordConversationalOnboardingLifecycleStartFailed: any =
+  undefined as any;
 export const recordMcpResourceRead: any = undefined as any;
 export const recordProductEvent: any = undefined as any;
 export const rectSortingStrategy: any = undefined as any;
@@ -1290,7 +1301,8 @@ export const reviewPatchActionEvent: any = undefined as any;
 export const reviewPatchActionInFlightAtom: any = undefined as any;
 export const reviewRepositorySourceAtom: any = undefined as any;
 export const reviewReserveBottomPaddingAtom: any = undefined as any;
-export const reviewReserveBottomPaddingWidthThresholdAtom: any = undefined as any;
+export const reviewReserveBottomPaddingWidthThresholdAtom: any =
+  undefined as any;
 export const reviewRevertActionInFlightAtom: any = undefined as any;
 export const reviewRichPreviewEnabledAtom: any = undefined as any;
 export const reviewSearchControllerAtom: any = undefined as any;
@@ -1740,3 +1752,22 @@ export const buildThreadFeedbackTags: any = undefined as any;
 export const useActiveHost: any = undefined as any;
 export const useAppServerHostSetup: any = undefined as any;
 export const useRegisterComposerSlashCommand: any = undefined as any;
+
+// --- automations-page Bc0ZtIBr plugins / eval-control cluster cross-chunk symbols (open boundary) ---
+export const AppBuildChannel: any = undefined as any;
+export const INTERNAL_PLUGINS_CONFIG_KEY: any = undefined as any;
+export const PLUGIN_MARKETPLACES_REFRESHED_MARKER: any = undefined as any;
+export const buildMcpElicitationDecision: any = undefined as any;
+export const conversationIdForThreadId: any = undefined as any;
+export const debugEvalControlBridge: any = undefined as any;
+export const getAppBuildChannel: any = undefined as any;
+export const internalPluginsConfigSchema: any = undefined as any;
+export const invokeMainProcessCommand: any = undefined as any;
+export const loadPetInstallModalHost: any = undefined as any;
+export const loadPetInstallState: any = undefined as any;
+export const parseHostConfigDocument: any = undefined as any;
+export const pendingMcpElicitationByConversationSignal: any = undefined as any;
+export const renderOverlayInScope: any = undefined as any;
+export const useCurrentAccountEmail: any = undefined as any;
+export const usePluginMarketplacesRefresher: any = undefined as any;
+export const waitForPluginInstalled: any = undefined as any;
