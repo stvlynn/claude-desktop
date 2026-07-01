@@ -254,6 +254,12 @@ note in the README that the runtime behind the facade is unrestored. `quality-ga
 auto-relaxes its naming/typing/split checks on facade files (and on any file run
 with `--vendored`), since a wall of `any` boundary stubs is intentional.
 
+This step emits only the type-check-only `any`-facade (kind 2 interim). The full set of
+boundary exits — a bare third-party **re-export shim** (`make-facade.ts --reexport`) when
+the chunk _is_ a known npm package, a runnable **`--passthrough`** interim, and **restoring
+out of `boundaries/`** as the only completion for a runtime facade — is the canonical
+[SKILL.md → Boundary lifecycle](../SKILL.md#boundary-lifecycle--three-terminal-states-never-a-permanent-any-facade). A facade is never a finished deliverable.
+
 ## Step 2 — initialize the symbol ledger
 
 ```bash
