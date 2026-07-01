@@ -55,7 +55,7 @@ type CollapseToolActivityOptions = {
 // Hit: fold consecutive web-search items into a single web-search-group and
 // consecutive multi-agent actions sharing an action into a multi-agent-group;
 // everything else passes through as a plain entry.
-function groupConversationActivityEntries(
+export function groupConversationActivityEntries(
   entries: RenderEntry[],
 ): ActivityGroup[] {
   const groups: ActivityGroup[] = [];
@@ -99,7 +99,7 @@ function groupConversationActivityEntries(
 
 // Uit: while the activity slice is open, merge runs of adjacent MCP tool calls
 // that share a group key into a single pending-mcp-tool-calls unit.
-function groupPendingMcpToolCalls({
+export function groupPendingMcpToolCalls({
   units,
   isActivitySliceClosed,
   mcpServerStatuses,
@@ -157,7 +157,7 @@ function groupPendingMcpToolCalls({
 
 // Wit: fold runs of dynamic-tool-call items into a dynamic-tool-call-group,
 // honoring descriptors that must stand alone in the conversation.
-function groupDynamicToolCalls({
+export function groupDynamicToolCalls({
   units,
   keepLatestLiveActivityInGroup = false,
 }: GroupDynamicToolCallsOptions): ActivityUnit[] {
@@ -236,7 +236,7 @@ export function shouldRenderActivityGroup(
 
 // Xit: collapse contiguous tool-activity into collapsed-tool-activity units with
 // rolled-up summaries, keeping the current (open) activity expanded.
-function collapseToolActivityUnits({
+export function collapseToolActivityUnits({
   units,
   isActivitySliceClosed,
   conversationDetailLevel,

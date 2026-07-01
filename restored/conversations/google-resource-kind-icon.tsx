@@ -20,6 +20,8 @@ export interface GoogleResourceKindIconProps {
   resourceKind: GoogleResourceKind;
 }
 
+export function initGoogleResourceKindIconChunk(): void {}
+
 export function GoogleResourceKindIcon({
   className,
   resourceKind,

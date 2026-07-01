@@ -34,6 +34,8 @@ import {
 const COLLAPSED_BODY_HEIGHT_PX = 320;
 const PLAN_DOWNLOAD_FILENAME = "PLAN.md";
 
+export function initPlanSummaryCardChunk(): void {}
+
 const planSidePanelTabKeyAtom = createScopedAtom<string | null>(
   appAtomScope,
   null,

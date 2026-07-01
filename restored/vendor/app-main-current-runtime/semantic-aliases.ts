@@ -302,6 +302,7 @@ export {
 export { useImageAssetDownload } from "../../image-side-panel/use-image-asset-download";
 export { openImagePreviewTab } from "../../image-side-panel/open-image-preview-tab";
 export {
+  ANNOTATION_CROSSHAIR_CURSOR,
   ANNOTATION_EDITOR_ENTER_CLASS,
   AnnotationHighlightRect,
   AnnotationSelectionRect,
@@ -341,6 +342,24 @@ export {
   initInterruptSourceThreadChunk,
   interruptSourceThreadIfRunning,
 } from "../../conversations/interrupt-source-thread";
+export {
+  collapseToolActivityUnits,
+  groupConversationActivityEntries,
+  groupDynamicToolCalls,
+  groupPendingMcpToolCalls,
+  shouldRenderActivityGroup,
+} from "../../conversations/conversation-activity-grouping";
+export { sliceTurnItemsAfterIntro } from "../../conversations/partition-turn-items";
+export { updateCollapsedTurnState } from "../../conversations/turn-collapse-state";
+export {
+  GoogleResourceKindIcon,
+  initGoogleResourceKindIconChunk,
+} from "../../conversations/google-resource-kind-icon";
+export {
+  initPlanSummaryCardChunk,
+  openPlanSummarySidePanelTab,
+  PlanSummaryCard,
+} from "../../conversations/local-conversation-thread-parts/plan-summary-card";
 export { getThreadHandoffComposerBlockReason } from "../../threads/thread-handoff-composer-block-state";
 export { hasWorkspaceDependenciesFeature } from "../../features/workspace-dependencies";
 export {
