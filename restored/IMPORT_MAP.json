@@ -42789,12 +42789,12 @@
         "HotkeyWindowWorktreeInitPage": "HotkeyWindowWorktreeInitPage"
       },
       "status": "done",
-      "note": "Current hotkey window worktree init page hash maps to a dedicated current-ref runtime over vendor/hotkey-window-worktree-init-page-current-bundle.tsx; dependencies are rewritten through restored current bundles.",
-      "lastUpdated": "2026-06-30T23:21:25.587Z",
+      "note": "Current hotkey window worktree init page hash maps to a dedicated current-ref runtime over worktree/hotkey-window-worktree-init-page.tsx; vendor/hotkey-window-worktree-init-page-current-bundle.tsx remains only as a compatibility shim.",
+      "lastUpdated": "2026-07-01T01:57:28.183Z",
       "stage3Accepted": true,
-      "stage3AcceptedAt": "2026-06-30T23:21:25.587Z",
-      "stage3Review": "Host self-review: parsed hotkey-window-worktree-init-page-CDrG7Phs.js exports, rebuilt compatibility exports from auto-renames.json, and rewrote dependency imports through restored/IMPORT_MAP.json.",
-      "stage3Note": "Accepted as a current-ref compatibility export over a restored-dependency backing bundle; full semantic split remains future cleanup."
+      "stage3AcceptedAt": "2026-07-01T01:57:28.183Z",
+      "stage3Review": "Host self-review: moved the readable hotkey window worktree init page body into worktree/hotkey-window-worktree-init-page.tsx, preserved the current runtime public export, and kept vendor/hotkey-window-worktree-init-page-current-bundle.tsx as a compatibility shim.",
+      "stage3Note": "Accepted as a semantic hotkey window worktree init surface with current-ref runtime and vendor shim exports."
     },
     "settings-page-Czsl4aZl": {
       "restored": "runtime/current-app-initial/settings-page-current-runtime.ts",
