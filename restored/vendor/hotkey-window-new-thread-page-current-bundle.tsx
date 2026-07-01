@@ -2,9 +2,8 @@
 // Current hotkey window new thread page backing bundle with restored dependency imports.
 
 import type { ReactElement } from "react";
-import { once } from "../runtime/commonjs-interop";
+import { once as runOnce } from "../runtime/commonjs-interop";
 import {
-  currentAppInitialSharedCompatSlotLowerGLowerC as initReactCompilerRuntime,
   currentAppInitialSharedCompatSlotUpperKLowerT as buildHotkeyWindowConversationPath,
   currentAppInitialSharedCompatSlotUpperO as initReactRuntime,
 } from "../runtime/current-app-initial/current-app-initial-shared-runtime";
@@ -95,8 +94,7 @@ function openConversationInHotkeyWindow(conversationId: string) {
   });
 }
 
-once(() => {
-  initReactCompilerRuntime();
+runOnce(() => {
   initReactRuntime();
   initIntlFormattingRuntime();
   initNewThreadComposerFooterRuntime();

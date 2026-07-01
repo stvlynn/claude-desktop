@@ -2,11 +2,8 @@
 // Current avatar overlay feature gate page backing bundle with restored dependency imports.
 
 import { lazy, type ReactElement } from "react";
-import { once } from "../runtime/commonjs-interop";
-import {
-  currentAppInitialSharedCompatSlotLowerALowerR as initLazyPreloadRuntime,
-  currentAppInitialSharedCompatSlotLowerGLowerC as initReactCompilerRuntime,
-} from "../runtime/current-app-initial/current-app-initial-shared-runtime";
+import { once as runOnce } from "../runtime/commonjs-interop";
+import { currentAppInitialSharedCompatSlotLowerALowerR as initLazyPreloadRuntime } from "../runtime/current-app-initial/current-app-initial-shared-runtime";
 import {
   currentAppInitialSharedMember0781 as useAvatarOverlayNativeRendererGate,
   currentAppInitialSharedRuntime0816 as initStatsigGateRuntime,
@@ -42,8 +39,7 @@ export function AvatarOverlayFeatureGatePage(): ReactElement {
 
 export { AvatarOverlayFeatureGatePage as AvatarOverlayFeaturegatePage };
 
-once(() => {
-  initReactCompilerRuntime();
+runOnce(() => {
   initStatsigGateRuntime();
   initLazyPreloadRuntime();
 })();

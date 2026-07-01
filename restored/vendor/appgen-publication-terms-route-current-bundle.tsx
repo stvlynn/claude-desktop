@@ -2,8 +2,7 @@
 // Current AppgenPublicationTermsRoute backing bundle with restored dependency imports.
 
 import type { ReactElement, ReactNode } from "react";
-import { once as rolldownRuntimeN } from "../runtime/commonjs-interop";
-import { currentAppInitialSharedCompatSlotLowerGLowerC as initReactCompilerRuntime } from "../runtime/current-app-initial/current-app-initial-shared-runtime";
+import { once as runOnce } from "../runtime/commonjs-interop";
 import {
   worktreeNewThreadQueryCompatSlotLowerELowerF as useSelectedAccountQuery,
   worktreeNewThreadQueryCompatSlotUpperJLowerD as initSelectedAccountQueryRuntime,
@@ -40,8 +39,7 @@ function AppgenPublicationTermsRoute({
   );
 }
 
-rolldownRuntimeN(() => {
-  initReactCompilerRuntime();
+runOnce(() => {
   initSelectedAccountQueryRuntime();
   initAppgenAnnouncementModalRuntime();
   initAppgenPublicationTermsDisclosureRuntime();

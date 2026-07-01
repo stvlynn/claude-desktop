@@ -2,9 +2,8 @@
 // Current hotkey window thread page backing bundle with restored dependency imports.
 
 import type { ReactElement } from "react";
-import { once } from "../runtime/commonjs-interop";
+import { once as runOnce } from "../runtime/commonjs-interop";
 import {
-  currentAppInitialSharedCompatSlotLowerGLowerC as initReactCompilerRuntime,
   currentAppInitialSharedCompatSlotUpperGLowerO as useScopedSignalValue,
   currentAppInitialSharedCompatSlotUpperJLowerT as buildHotkeyWindowConversationPath,
   currentAppInitialSharedCompatSlotUpperKLowerO as useRouteScopeContext,
@@ -124,8 +123,7 @@ export function HotkeyWindowThreadPage(): ReactElement {
   );
 }
 
-once(() => {
-  initReactCompilerRuntime();
+runOnce(() => {
   initHotkeyWindowRoutingRuntime();
   initReactRuntime();
   initIntlFormattingRuntime();

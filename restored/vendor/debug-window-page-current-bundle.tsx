@@ -2,9 +2,8 @@
 // Current DebugWindowPage backing bundle with restored dependency imports.
 
 import { useState, type ReactElement } from "react";
-import { once as rolldownRuntimeN } from "../runtime/commonjs-interop";
+import { once as runOnce } from "../runtime/commonjs-interop";
 import {
-  currentAppInitialSharedCompatSlotLowerGLowerC as initReactCompilerRuntime,
   currentAppInitialSharedCompatSlotLowerY as useViewMessageSubscription,
   currentAppInitialSharedCompatSlotUnderscore as initViewMessageBridgeRuntime,
   currentAppInitialSharedCompatSlotUpperLLowerI as BuildFlavor,
@@ -63,8 +62,7 @@ function closeDebugWindow(): void {
   window.close();
 }
 
-rolldownRuntimeN(() => {
-  initReactCompilerRuntime();
+runOnce(() => {
   initReactRuntime();
   initOpenAiNativeAppDefinition();
   initElectronOnlyShellRuntime();

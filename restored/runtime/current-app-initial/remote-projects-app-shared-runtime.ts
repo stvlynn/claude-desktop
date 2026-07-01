@@ -39,6 +39,8 @@ export { Au as remoteConnectionMember0032, Bp as getConnectionSourceAnalyticsMet
 export { Qu as remoteConnectionMember0289, Rl as remoteConnectionRuntime0298, Ud as remoteConnectionMember0348, Yn as workspaceCwdHostConfigFunction, _l as threadRuntimeNeedsResumeHostFunction, _p as remoteConnectionMember0456, am as remoteConnectionRuntime0472, cm as localRemoteConnectionDescriptorSchema, fn as currentAppInitialSharedControlConnectConnectionRuntime, ic as serializeRemoteHostConfigLayers, im as waitForRemoteConnectionsConfiguration, nc as requestRemoteHostConfigRead, pg as removePastedTextAttachmentForHost, sm as localRemoteConnectionKind } from "../../vendor/remote-projects-app-shared-current-bundle";
 // prettier-ignore
 export { yc as ipcBridgeRuntime0893, zh as currentAppInitialSharedImageHostUrlFunction } from "../../vendor/remote-projects-app-shared-current-bundle";
+// prettier-ignore
+export { S as appServerRegistryAtom } from "../../vendor/remote-projects-app-shared-current-bundle";
 
 // Conversation And Threads
 // prettier-ignore

@@ -2,9 +2,8 @@
 // Current hotkey window worktree init page backing bundle with restored dependency imports.
 
 import type { ReactElement } from "react";
-import { once } from "../runtime/commonjs-interop";
+import { once as runOnce } from "../runtime/commonjs-interop";
 import {
-  currentAppInitialSharedCompatSlotLowerGLowerC as initReactCompilerRuntime,
   currentAppInitialSharedCompatSlotLowerQLowerO as useQuery,
   currentAppInitialSharedCompatSlotUpperKLowerT as buildHotkeyWindowConversationPath,
   currentAppInitialSharedCompatSlotUpperO as initReactRuntime,
@@ -77,8 +76,7 @@ function openConversationInHotkeyWindow(conversationId: string): void {
   });
 }
 
-once(() => {
-  initReactCompilerRuntime();
+runOnce(() => {
   initHotkeyWindowRoutingRuntime();
   initReactRuntime();
   initIntlFormattingRuntime();
