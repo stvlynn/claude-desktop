@@ -4,7 +4,7 @@
 
 import { createContext, useContext, useState } from "react";
 import type { ReactNode } from "react";
-import { usePersistedToggleSetter } from "../boundaries/onboarding-commons-externals.facade";
+import { useToggleAllDiffsEvent } from "./toggle-all-diffs-event";
 
 export interface ReviewExpandedDiffsContextValue {
   expandedDiffs: boolean;
@@ -25,7 +25,7 @@ export function ReviewExpandedDiffsProvider({
   children,
 }: ReviewExpandedDiffsProviderProps) {
   const [expandedDiffs, setExpandedDiffs] = useState(true);
-  const persistExpandedDiffs = usePersistedToggleSetter(
+  const persistExpandedDiffs = useToggleAllDiffsEvent(
     setExpandedDiffs,
     "review",
   );

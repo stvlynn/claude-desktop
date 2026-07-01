@@ -142,6 +142,10 @@ export {
   ReviewOptionsToolbar,
 } from "../../review/review-options-toolbar";
 export {
+  initToggleAllDiffsEventChunk,
+  useToggleAllDiffsEvent,
+} from "../../review/toggle-all-diffs-event";
+export {
   CANCEL_GIT_ACTION_ICON_BUTTON_CLASS_NAME,
   CancelGitActionButton,
   initCancelGitActionButtonChunk,
