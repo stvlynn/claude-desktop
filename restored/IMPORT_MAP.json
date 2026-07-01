@@ -27177,7 +27177,7 @@
         "Pc": "resolveSidePanelBrowserTabId",
         "Pd": "atlasBrowserIconUrl",
         "Pf": "initSidebarTaskRowRuntimeChunk",
-        "Pi": "appMainCurrentCompatSlotUpperPLowerI",
+        "Pi": "initConversationActivityGroupingChunk",
         "Pl": "CancelGitActionButton",
         "Pm": "RegenerateIcon",
         "Pn": "AutomationDetailRow",

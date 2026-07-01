@@ -593,6 +593,7 @@ export {
   groupPendingMcpToolCalls,
   shouldRenderActivityGroup,
 } from "../../conversations/conversation-activity-grouping";
+export { initConversationActivityGroupingChunk } from "../../conversations/conversation-activity-grouping-runtime";
 export {
   getTurnAgentItemGroups,
   initSliceTurnItemsAfterIntroChunk,
