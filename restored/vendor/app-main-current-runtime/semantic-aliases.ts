@@ -32,6 +32,10 @@ export {
   ProgressionDonutIcon,
 } from "../../icons/progression-donut-icon";
 export {
+  initPullRequestOpenIconChunk,
+  PullRequestOpenIcon,
+} from "../../icons/pull-request-open-icon";
+export {
   ArrowUpRightLgIcon,
   initArrowUpRightLgIconChunk,
 } from "../../icons/arrow-up-right-lg-icon";

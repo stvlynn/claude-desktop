@@ -30,4 +30,9 @@ export function PullRequestOpenIcon(props: IconProps) {
     </svg>
   );
 }
+
+export function initPullRequestOpenIconChunk(): void {
+  void PullRequestOpenIcon;
+}
+
 export default PullRequestOpenIcon;
