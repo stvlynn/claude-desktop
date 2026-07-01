@@ -27235,7 +27235,7 @@
         "Tc": "sortThreadTasksByPinnedOrder",
         "Td": "initPullRequestStatusTooltipChunk",
         "Tf": "appMainCurrentCompatSlotUpperTLowerF",
-        "Ti": "appMainCurrentCompatSlotUpperTLowerI",
+        "Ti": "ActivityScrollContainer",
         "Tl": "PullRequestCheckStatusIcon",
         "Tm": "PullRequestFooterRoot",
         "Tn": "initHeartbeatThreadOptionsChunk",
