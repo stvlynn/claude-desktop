@@ -78,4 +78,3 @@ export type RateLimitCtaState = {
   coreRateLimitBlocked: boolean;
   selectedModelRateLimitReached: boolean;
 };
-

@@ -24,7 +24,8 @@ export type BackgroundTerminalStatus =
   | "stopped"
   | "stopping";
 
-export interface BackgroundTerminalSnapshot extends ComparableBackgroundTerminal {
+export interface BackgroundTerminalSnapshot
+  extends ComparableBackgroundTerminal {
   processId: string;
   startedAtMs: number;
 }

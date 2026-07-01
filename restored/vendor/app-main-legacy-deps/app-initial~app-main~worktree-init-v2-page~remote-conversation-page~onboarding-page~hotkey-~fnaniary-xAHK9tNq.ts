@@ -1,9 +1,6 @@
 // Restored from ref/webview/assets/app-initial~app-main~worktree-init-v2-page~remote-conversation-page~onboarding-page~hotkey-~fnaniary-xAHK9tNq.js
 // Vendored legacy app-main compatibility dependency.
-import {
-  once as e,
-  toEsModule as t,
-} from "../../runtime/commonjs-interop";
+import { once as e, toEsModule as t } from "../../runtime/commonjs-interop";
 import {
   I as n,
   L as r,

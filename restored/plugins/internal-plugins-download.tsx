@@ -75,7 +75,10 @@ export function InternalPluginsDownloader(): null {
   const internalPluginsConfig = useDynamicConfig(
     INTERNAL_PLUGINS_DYNAMIC_CONFIG_ID,
   );
-  const rawConfig = internalPluginsConfig.get(INTERNAL_PLUGINS_CONFIG_KEY, null);
+  const rawConfig = internalPluginsConfig.get(
+    INTERNAL_PLUGINS_CONFIG_KEY,
+    null,
+  );
   const rawLargeConfig = internalPluginsConfig.get(
     LARGE_INTERNAL_PLUGINS_CONFIG_KEY,
     null,
@@ -87,7 +90,9 @@ export function InternalPluginsDownloader(): null {
       ? null
       : internalPluginsConfigSchema.safeParse(rawLargeConfig);
   const config = parsedConfig?.success ? parsedConfig.data : null;
-  const largeConfig = parsedLargeConfig?.success ? parsedLargeConfig.data : null;
+  const largeConfig = parsedLargeConfig?.success
+    ? parsedLargeConfig.data
+    : null;
 
   const { client, isLoading } = useStatsigClient();
   const readStatsigEmail = () => client.getContext().user?.email ?? null;

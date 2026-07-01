@@ -84,7 +84,10 @@ interface StatsigClientInstance {
     event: "values_updated",
     listener: (event?: { status?: string; values?: unknown }) => void,
   ): void;
-  getFeatureGate(name: string): { value: boolean; details: { reason?: string } };
+  getFeatureGate(name: string): {
+    value: boolean;
+    details: { reason?: string };
+  };
   getDynamicConfig(name: string): { value: unknown };
 }
 
@@ -129,12 +132,14 @@ export function CodexStatsigProvider({
   children,
 }: CodexStatsigProviderProps): React.ReactElement {
   const auth = useAuth() as unknown as CodexAuthState;
-  const { data: hostInfo, isLoading: isHostInfoLoading } =
-    useHostInfoQuery(hostAppInfoQueryOptions);
+  const { data: hostInfo, isLoading: isHostInfoLoading } = useHostInfoQuery(
+    hostAppInfoQueryOptions,
+  );
   const { data: platformInfo, isLoading: isPlatformInfoLoading } =
     useHostInfoQuery(hostPlatformInfoQueryOptions);
   const appVersion: string | undefined = hostInfo?.version;
-  const hostBuildFlavor: string | undefined = hostInfo?.buildFlavor ?? undefined;
+  const hostBuildFlavor: string | undefined =
+    hostInfo?.buildFlavor ?? undefined;
   const systemName =
     platformInfo?.platform === "darwin"
       ? "macOS"
@@ -316,8 +321,7 @@ function ChatGptIdentityStatsigProvider({
     { queryConfig: { enabled: true } },
   );
   const resolvedAccount: CurrentAccount | null = currentAccount ?? data;
-  const resolvedPlan =
-    plan ?? resolvedAccount?.plan_type ?? auth.planAtLogin;
+  const resolvedPlan = plan ?? resolvedAccount?.plan_type ?? auth.planAtLogin;
 
   if (isAccountInfoLoading || (isLoading && !hasEverErrored)) {
     return <LoadingPage debugName="CodexStatsigProvider.async.identity" />;
@@ -379,8 +383,14 @@ function AsyncCodexStatsigProvider({
     systemVersion,
   });
   const statsigUser = finalizeStatsigUser(builtUser);
-  const { client, isLoading }: { client: StatsigClientInstance; isLoading: boolean } =
-    useClientAsyncInit(statsigClientKey, statsigUser, statsigOptions);
+  const {
+    client,
+    isLoading,
+  }: { client: StatsigClientInstance; isLoading: boolean } = useClientAsyncInit(
+    statsigClientKey,
+    statsigUser,
+    statsigOptions,
+  );
   const [appliedUser, setAppliedUser] = React.useState(
     () => client.getContext().user,
   );
@@ -635,7 +645,9 @@ function StatsigReadyProvider({
   );
 }
 
-function normalizeStatsigUser(user: StatsigBootstrapUser): StatsigBootstrapUser {
+function normalizeStatsigUser(
+  user: StatsigBootstrapUser,
+): StatsigBootstrapUser {
   return {
     ...omitUndefined(user),
     customIDs: omitUndefined(user.customIDs ?? {}),
@@ -643,7 +655,9 @@ function normalizeStatsigUser(user: StatsigBootstrapUser): StatsigBootstrapUser 
   } as StatsigBootstrapUser;
 }
 
-function omitUndefined<T extends Record<string, unknown>>(value: T): Partial<T> {
+function omitUndefined<T extends Record<string, unknown>>(
+  value: T,
+): Partial<T> {
   const result: Partial<T> = {};
   for (const key of Object.keys(value) as Array<keyof T>) {
     if (value[key] !== undefined) result[key] = value[key];

@@ -26,7 +26,8 @@ export function getChatSearchPlan(
       return trimmed.length < ROOT_MIN_QUERY_LENGTH
         ? null
         : {
-            includeContentResults: trimmed.length >= ROOT_CONTENT_MIN_QUERY_LENGTH,
+            includeContentResults:
+              trimmed.length >= ROOT_CONTENT_MIN_QUERY_LENGTH,
             maxResults: ROOT_MAX_RESULTS,
           };
     case "chats":

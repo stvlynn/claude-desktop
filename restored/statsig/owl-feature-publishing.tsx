@@ -39,8 +39,14 @@ interface OwlPublisherStatsigClient {
   loadingStatus?: string;
   getFeatureGate(name: string): FeatureGateEvaluation;
   getDynamicConfig(name: string): { value: unknown };
-  on(event: "values_updated", listener: (event?: { status?: string }) => void): void;
-  off(event: "values_updated", listener: (event?: { status?: string }) => void): void;
+  on(
+    event: "values_updated",
+    listener: (event?: { status?: string }) => void,
+  ): void;
+  off(
+    event: "values_updated",
+    listener: (event?: { status?: string }) => void,
+  ): void;
 }
 
 interface OwlFeaturesQueryClient {

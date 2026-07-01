@@ -25,10 +25,7 @@ import type {
   ShortcutUpdate,
 } from "./types";
 
-export function keyboardShortcutCellClassName(
-  rowCount: number,
-  index: number,
-) {
+export function keyboardShortcutCellClassName(rowCount: number, index: number) {
   if (rowCount === 1) return "px-4 py-2";
   if (index === 0) return "px-4 pt-2 pb-0.5";
   return index === rowCount - 1 ? "px-4 pt-0.5 pb-2" : "px-4 py-0.5";

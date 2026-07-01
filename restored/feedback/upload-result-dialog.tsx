@@ -83,7 +83,11 @@ export function getUploadResultMessage(
 function handleIssueLinkClick(event: MouseEvent<HTMLAnchorElement>): void {
   const href = event.currentTarget.href;
   if (href.length !== 0) {
-    openExternalLinkFromEvent({ event, href, initiator: "open_in_browser_bridge" });
+    openExternalLinkFromEvent({
+      event,
+      href,
+      initiator: "open_in_browser_bridge",
+    });
     event.stopPropagation();
   }
 }
@@ -180,7 +184,9 @@ export function UploadResultDialog({
           />
         </DialogSection>
         <DialogSection className="gap-3 text-token-foreground">
-          <p>{getUploadResultMessage(kind, openIssueLink, existingIssueLink)}</p>
+          <p>
+            {getUploadResultMessage(kind, openIssueLink, existingIssueLink)}
+          </p>
           <div className="flex flex-col gap-2">
             <UploadedAssetRow
               label={

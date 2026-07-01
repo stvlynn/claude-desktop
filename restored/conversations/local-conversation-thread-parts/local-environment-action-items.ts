@@ -21,7 +21,8 @@ export interface LocalEnvironmentActionPathOptions {
   joinPath: (repoRoot: string, relativePath: string) => string;
 }
 
-export interface LocalEnvironmentActionKeyOptions extends LocalEnvironmentActionPathOptions {
+export interface LocalEnvironmentActionKeyOptions
+  extends LocalEnvironmentActionPathOptions {
   configPath: string | null | undefined;
 }
 

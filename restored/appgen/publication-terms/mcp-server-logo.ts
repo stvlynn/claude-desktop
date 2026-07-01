@@ -41,7 +41,9 @@ export function getMcpServerLogo(
     : { logoDarkUrl, logoUrl };
 }
 
-function pickLargestIconSource(icons: readonly (McpServerIcon & { src: string })[]) {
+function pickLargestIconSource(
+  icons: readonly (McpServerIcon & { src: string })[],
+) {
   let bestSource: string | null = null;
   let bestArea = 0;
 
@@ -62,7 +64,10 @@ function getIconArea(icon: McpServerIcon) {
     : typeof icon.sizes === "string"
       ? icon.sizes.split(/\s+/u)
       : null;
-  if (sizes == null || sizes.some((size) => size.trim().toLowerCase() === "any"))
+  if (
+    sizes == null ||
+    sizes.some((size) => size.trim().toLowerCase() === "any")
+  )
     return Infinity;
 
   return sizes.reduce((area, size) => {

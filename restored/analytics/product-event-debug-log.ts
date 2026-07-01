@@ -177,8 +177,9 @@ function trackPendingProductEventDebugLogEntry(
   ) {
     return;
   }
-  const oldestPendingKey = pendingProductEventDebugLogEntries.keys().next()
-    .value;
+  const oldestPendingKey = pendingProductEventDebugLogEntries
+    .keys()
+    .next().value;
   if (oldestPendingKey != null) {
     pendingProductEventDebugLogEntries.delete(oldestPendingKey);
   }

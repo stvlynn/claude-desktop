@@ -1,8 +1,6 @@
 // Restored from ref/webview/assets/app-initial~app-main~worktree-init-v2-page~appgen-settings-page~page~appgen-page~remote-con~hih2jc2y-CWqOTUw4.js
 // Vendored legacy app-main compatibility dependency.
-import {
-  once as e,
-} from "../../runtime/commonjs-interop";
+import { once as e } from "../../runtime/commonjs-interop";
 var t,
   n = e(() => {
     t = [

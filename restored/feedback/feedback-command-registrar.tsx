@@ -4,7 +4,10 @@
 // the upload-result dialog (or an error toast on failure). Renders nothing.
 import { useIntl } from "../vendor/react-intl";
 import { submitFeedback } from "./submit-feedback";
-import { FeedbackDialog, type FeedbackDialogSubmission } from "./feedback-dialog";
+import {
+  FeedbackDialog,
+  type FeedbackDialogSubmission,
+} from "./feedback-dialog";
 import { UploadResultDialog } from "./upload-result-dialog";
 import {
   appServerHostSetupConfig,

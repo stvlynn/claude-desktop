@@ -11,10 +11,7 @@ import {
 } from "../../ui/dialog-layout";
 import { FormattedMessage } from "../../vendor/react-intl";
 import { HeaderArtwork, ReferralModalBackdrop } from "./artwork";
-import {
-  ReferralInviteDescription,
-  ReferralInviteTitle,
-} from "./copy";
+import { ReferralInviteDescription, ReferralInviteTitle } from "./copy";
 import { EmailInputBox } from "./email-field";
 import { OptionalRows, ReferralLimitCard } from "./referral-details";
 import { referralModalClasses } from "./styles";

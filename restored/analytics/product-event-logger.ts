@@ -14,7 +14,10 @@ import {
   type ReactNode,
 } from "react";
 import { appLogger as logger } from "../runtime/app-logger";
-import { _appScopeO as useAppScope, appScopeRoot } from "../boundaries/app-scope";
+import {
+  _appScopeO as useAppScope,
+  appScopeRoot,
+} from "../boundaries/app-scope";
 import { __productLoggerR as globalProductLoggerSignal } from "../generated/product-logger";
 import {
   codexMetadataEventProtoNamespaces,
@@ -175,7 +178,10 @@ export type UseProductEventLoggerOptions = {
 };
 
 export type ProductEventLoggerHandle = {
-  logProductEvent: (messageType: CodexEventDescriptor, payload: unknown) => void;
+  logProductEvent: (
+    messageType: CodexEventDescriptor,
+    payload: unknown,
+  ) => void;
 };
 
 export function useProductEventLogger({

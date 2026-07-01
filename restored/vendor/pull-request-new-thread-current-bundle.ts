@@ -1945,6 +1945,7 @@ var $i,
         for (
           var a = r.length, o = t ? a : -1, s = Object(r);
           (t ? o-- : ++o < a) && i(s[o], o, s) !== !1;
+
         );
         return r;
       };
@@ -2017,6 +2018,7 @@ var $i,
       for (
         var i = -1, a = e.criteria, o = t.criteria, s = a.length, c = r.length;
         ++i < s;
+
       ) {
         var l = n(a[i], o[i]);
         if (l) return i >= c ? l : l * (r[i] == `desc` ? -1 : 1);
@@ -2689,6 +2691,7 @@ var Ra,
           for (
             var a = arguments, o = -1, s = r(a.length - t, 0), c = Array(s);
             ++o < s;
+
           )
             c[o] = a[t + o];
           o = -1;

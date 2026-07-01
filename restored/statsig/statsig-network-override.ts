@@ -92,8 +92,7 @@ async function encodeStatsigRequestBody(
     return { body: arrayBufferToBase64(body), isBase64: true };
   }
   return {
-    body:
-      typeof body === "string" ? body : (JSON.stringify(body) ?? ""),
+    body: typeof body === "string" ? body : (JSON.stringify(body) ?? ""),
     isBase64: false,
   };
 }

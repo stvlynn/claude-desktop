@@ -44,8 +44,8 @@ interface ThemePresetRowsProps {
 
 function ThemePresetRows({ close, variant }: ThemePresetRowsProps) {
   const intl = useIntl();
-  const search = useCommandMenuState(
-    (state: { search: string }) => state.search.trim(),
+  const search = useCommandMenuState((state: { search: string }) =>
+    state.search.trim(),
   ) as string;
   const searchTerms = search
     .toLowerCase()
@@ -82,7 +82,8 @@ export function SwitchThemeCommand() {
   const appScopeStore = useStore(currentRouteSignal);
   const intl = useIntl();
   const currentVariant = toThemeVariant(useThemePreference()) as ThemeVariant;
-  const targetVariant: ThemeVariant = currentVariant === "dark" ? "light" : "dark";
+  const targetVariant: ThemeVariant =
+    currentVariant === "dark" ? "light" : "dark";
   const switchLabel =
     targetVariant === "dark"
       ? intl.formatMessage({

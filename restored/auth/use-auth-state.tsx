@@ -43,7 +43,10 @@ type UseAuthStateOptions = {
   onLogout?: () => void;
 };
 
-const accountRequestCache = new WeakMap<AuthManager, Promise<AccountResponse>>();
+const accountRequestCache = new WeakMap<
+  AuthManager,
+  Promise<AccountResponse>
+>();
 
 export function useAuthStateFromManager(
   manager: AuthManager | null | undefined,

@@ -252,7 +252,9 @@ export function KeyboardShortcutTable({
                         <div className="flex items-center gap-1">
                           <ShortcutLabel shortcutLabel={entry?.label ?? null} />
                           <StartCaptureButton
-                            canAppend={!allowsBareModifierGlobalShortcut(command)}
+                            canAppend={
+                              !allowsBareModifierGlobalShortcut(command)
+                            }
                             commandTitle={title}
                             hasShortcut={entry != null}
                             isPending={setKeybindingMutation.isPending}

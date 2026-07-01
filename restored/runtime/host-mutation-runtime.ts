@@ -1,8 +1,6 @@
 // Restored from ref/webview/assets/app-initial~app-main~remote-conversation-page~plugin-detail-page~new-thread-panel-page~appg~ijdupmx5-CdYgxe-b.js
 // Host-scoped mutation hook facade.
-import {
-  Bh as useHostMutationRaw,
-} from "../vendor/projects-app-shared-runtime";
+import { Bh as useHostMutationRaw } from "../vendor/projects-app-shared-runtime";
 
 export type HostMutationOptions<TData, TVariables> = {
   onError?: (error: unknown, variables: TVariables, context: unknown) => void;

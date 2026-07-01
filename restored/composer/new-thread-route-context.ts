@@ -1,9 +1,6 @@
 // Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
 // New-thread route scratch state and transient composer-mode prefill helpers.
-import {
-  appScopeRoot,
-  createScopedSignal,
-} from "../runtime/app-scope-runtime";
+import { appScopeRoot, createScopedSignal } from "../runtime/app-scope-runtime";
 import { createAtom } from "../vendor/jotai-runtime";
 import type { ComposerMode } from "./composer-view-state";
 

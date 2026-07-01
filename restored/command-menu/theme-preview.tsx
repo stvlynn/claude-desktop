@@ -34,14 +34,13 @@ export function ThemePresetPreviewRows({
   themePresetDescription,
   variant,
 }: ThemePresetPreviewRowsProps) {
-  const { codeThemes, selectedCodeTheme, setCodeThemeId, theme } = useCodeThemes(
-    variant,
-  ) as {
-    codeThemes: CodeThemeOption[];
-    selectedCodeTheme: { id: string };
-    setCodeThemeId: (id: string) => void;
-    theme: ThemeColorPreview;
-  };
+  const { codeThemes, selectedCodeTheme, setCodeThemeId, theme } =
+    useCodeThemes(variant) as {
+      codeThemes: CodeThemeOption[];
+      selectedCodeTheme: { id: string };
+      setCodeThemeId: (id: string) => void;
+      theme: ThemeColorPreview;
+    };
   const previewResults = useQueries({
     queries: codeThemes.map((codeTheme) => ({
       queryKey: [THEME_PREVIEW_SEED_QUERY_KEY, variant, codeTheme.id],

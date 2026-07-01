@@ -16,41 +16,23 @@ export {
   KeyboardShortcutKeycap,
   initKeyboardShortcutKeycap,
 } from "../../ui/keyboard-shortcut-keycap";
-export {
-  ChevronIcon,
-  initChevronDownIcon,
-} from "../../icons/chevron-icon";
+export { ChevronIcon, initChevronDownIcon } from "../../icons/chevron-icon";
 export { ChevronRightIcon } from "../../icons/chevron-right-icon";
 export {
   CheckCircleFilledIcon,
   initCheckCircleFilledIcon,
 } from "../../icons/check-circle-filled-icon";
-export {
-  GitBranchIcon,
-  initGitBranchIcon,
-} from "../../icons/git-branch-icon";
-export {
-  GithubMarkIcon,
-  initGitHubIcon,
-} from "../../icons/github-mark-icon";
+export { GitBranchIcon, initGitBranchIcon } from "../../icons/git-branch-icon";
+export { GithubMarkIcon, initGitHubIcon } from "../../icons/github-mark-icon";
 export { GlobeIcon, initGlobeIcon } from "../../icons/globe-icon";
-export {
-  CheckMdIcon,
-  initCheckmarkIcon,
-} from "../../icons/check-md-icon";
+export { CheckMdIcon, initCheckmarkIcon } from "../../icons/check-md-icon";
 export { initPlusIcon, PlusIcon } from "../../icons/plus-icon";
-export {
-  RefreshIcon,
-  initRefreshIcon,
-} from "../../icons/refresh-icon";
+export { RefreshIcon, initRefreshIcon } from "../../icons/refresh-icon";
 export {
   SettingsGearIcon,
   initSettingsGearIcon,
 } from "../../icons/settings-gear-icon";
-export {
-  DropdownSearchIcon,
-  initSearchIcon,
-} from "../../ui/dropdown/search";
+export { DropdownSearchIcon, initSearchIcon } from "../../ui/dropdown/search";
 export {
   Dropdown,
   DropdownMenu,
@@ -85,18 +67,12 @@ export {
   initIntlRuntime,
   useIntl,
 } from "../../vendor/react-intl";
-export {
-  classNames,
-  initClassNameRuntime,
-} from "../../utils/class-names";
+export { classNames, initClassNameRuntime } from "../../utils/class-names";
 export {
   getErrorMessage,
   parseConfigLoadError,
 } from "../../utils/config-load-error";
-export {
-  Button,
-  initButtonComponentPrimitives,
-} from "../../ui/button";
+export { Button, initButtonComponentPrimitives } from "../../ui/button";
 export { initSpinnerComponent, Spinner } from "../../ui/spinner";
 export {
   initUseStableCallback,

@@ -47,8 +47,8 @@ function NewThreadProjectList({
   groups,
   onSelectProject,
 }: NewThreadProjectListProps) {
-  const search = useCommandMenuState(
-    (state: { search: string }) => state.search.trim(),
+  const search = useCommandMenuState((state: { search: string }) =>
+    state.search.trim(),
   ) as string;
   if (search.length === 0) return null;
   return (

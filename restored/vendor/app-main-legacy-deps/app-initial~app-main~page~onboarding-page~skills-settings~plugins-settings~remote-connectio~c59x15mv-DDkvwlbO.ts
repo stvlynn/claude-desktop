@@ -1,8 +1,6 @@
 // Restored from ref/webview/assets/app-initial~app-main~page~onboarding-page~skills-settings~plugins-settings~remote-connectio~c59x15mv-DDkvwlbO.js
 // Vendored legacy app-main compatibility dependency.
-import {
-  createCommonJsModule as e,
-} from "../../runtime/commonjs-interop";
+import { createCommonJsModule as e } from "../../runtime/commonjs-interop";
 import { R as t } from "./app-initial~app-main~worktree-init-v2-page~remote-conversation-page~plugin-detail-page~new-~sfopfmmp-9J50_--p";
 var n = e((e) => {
     var n = t();

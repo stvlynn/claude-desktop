@@ -373,10 +373,9 @@ function startDesktopNotificationService(
                     : null;
             if (decision) {
               const request = scope
-                .get<ApprovalRequestRecord[] | undefined>(
-                  pendingApprovalsAtom,
-                  event.conversationId,
-                )
+                .get<
+                  ApprovalRequestRecord[] | undefined
+                >(pendingApprovalsAtom, event.conversationId)
                 ?.find((item) => item.id === event.requestId);
               if (!request) {
                 logger.error("Request not found", {
@@ -504,8 +503,8 @@ function startDesktopNotificationService(
     navigateToNotification: () => void;
   } {
     const sideParentNavigationPath =
-      host.getConversation(conversationId)?.sideConversationParentNavigationPath ??
-      null;
+      host.getConversation(conversationId)
+        ?.sideConversationParentNavigationPath ?? null;
     const navigationPath =
       sideParentNavigationPath ?? getConversationNavigationPath(conversationId);
     const activateTabId =
@@ -593,14 +592,12 @@ export function DesktopNotificationsService(): null {
     };
     const teardowns = [
       startDesktopNotificationService(localHost, serviceOptions),
-      ...allHostServices
-        .filter(isRemoteHostService)
-        .map((hostService) =>
-          startDesktopNotificationService(hostService, {
-            ...serviceOptions,
-            includeTurnNotifications: false,
-          }),
-        ),
+      ...allHostServices.filter(isRemoteHostService).map((hostService) =>
+        startDesktopNotificationService(hostService, {
+          ...serviceOptions,
+          includeTurnNotifications: false,
+        }),
+      ),
     ];
     return () => {
       for (const teardown of teardowns) teardown();

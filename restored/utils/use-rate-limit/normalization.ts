@@ -118,7 +118,10 @@ function normalizeLimitName(limitName: string | null | undefined) {
     return null;
   }
 
-  const normalizedName = limitName.trim().toLowerCase().replace(/[_\s.]+/g, "-");
+  const normalizedName = limitName
+    .trim()
+    .toLowerCase()
+    .replace(/[_\s.]+/g, "-");
   return normalizedName.length > 0 ? normalizedName : null;
 }
 
@@ -134,4 +137,3 @@ export {
   isCoreLimitName,
   normalizeLimitName,
 };
-

@@ -7,7 +7,12 @@ type AgentMode =
   | "guardian-approvals"
   | "custom";
 
-const baseAgentModes: AgentMode[] = ["read-only", "auto", "granular", "full-access"];
+const baseAgentModes: AgentMode[] = [
+  "read-only",
+  "auto",
+  "granular",
+  "full-access",
+];
 
 export function getAllowedBaseAgentModes(): AgentMode[] {
   return [...baseAgentModes];
@@ -17,11 +22,15 @@ export function getAllowedAgentModes(
   requirements?: unknown,
   resolvedConfig?: unknown,
 ): AgentMode[] {
-  const configModes = (resolvedConfig as { allowedAgentModes?: AgentMode[] } | null)
-    ?.allowedAgentModes;
-  const requirementModes = (requirements as { allowedAgentModes?: AgentMode[] } | null)
-    ?.allowedAgentModes;
-  return [...(configModes ?? requirementModes ?? [...baseAgentModes, "custom"])];
+  const configModes = (
+    resolvedConfig as { allowedAgentModes?: AgentMode[] } | null
+  )?.allowedAgentModes;
+  const requirementModes = (
+    requirements as { allowedAgentModes?: AgentMode[] } | null
+  )?.allowedAgentModes;
+  return [
+    ...(configModes ?? requirementModes ?? [...baseAgentModes, "custom"]),
+  ];
 }
 
 export function getFirstNonCustomAgentMode(modes: AgentMode[]): AgentMode {
@@ -43,16 +52,18 @@ export function resolveConfigDefaultAgentMode(
 ): AgentMode | null {
   const rootDefault = (config as { defaultAgentMode?: AgentMode } | null)
     ?.defaultAgentMode;
-  const modelDefault = (config as { model?: { defaultAgentMode?: AgentMode } } | null)
-    ?.model?.defaultAgentMode;
+  const modelDefault = (
+    config as { model?: { defaultAgentMode?: AgentMode } } | null
+  )?.model?.defaultAgentMode;
   return rootDefault ?? modelDefault ?? fallback;
 }
 
 export function getConfigApprovalsReviewer(config?: unknown): unknown {
   const rootReviewer = (config as { approvalsReviewer?: unknown } | null)
     ?.approvalsReviewer;
-  const approvalsReviewer = (config as { approvals?: { reviewer?: unknown } } | null)
-    ?.approvals?.reviewer;
+  const approvalsReviewer = (
+    config as { approvals?: { reviewer?: unknown } } | null
+  )?.approvals?.reviewer;
   return rootReviewer ?? approvalsReviewer;
 }
 
@@ -65,8 +76,9 @@ export function isGuardianApprovalFeatureEnabled(
 ): boolean | undefined {
   const rootFlag = (config as { guardianApprovalEnabled?: boolean } | null)
     ?.guardianApprovalEnabled;
-  const featureFlag = (config as { features?: { guardianApproval?: boolean } } | null)
-    ?.features?.guardianApproval;
+  const featureFlag = (
+    config as { features?: { guardianApproval?: boolean } } | null
+  )?.features?.guardianApproval;
   return rootFlag ?? featureFlag;
 }
 

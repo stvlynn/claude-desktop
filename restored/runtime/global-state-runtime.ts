@@ -257,8 +257,5 @@ export function useGlobalStateQuery<TData = unknown>(
     };
   }, [enabled, queryKeyDependency, source, queryParams]);
 
-  return normalizeGlobalStateQueryResult<TData>(
-    key,
-    queryResult,
-  );
+  return normalizeGlobalStateQueryResult<TData>(key, queryResult);
 }

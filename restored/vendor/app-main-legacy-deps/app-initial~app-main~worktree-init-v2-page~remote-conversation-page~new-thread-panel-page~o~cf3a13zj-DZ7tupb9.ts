@@ -1,9 +1,6 @@
 // Restored from ref/webview/assets/app-initial~app-main~worktree-init-v2-page~remote-conversation-page~new-thread-panel-page~o~cf3a13zj-DZ7tupb9.js
 // Vendored legacy app-main compatibility dependency.
-import {
-  once as e,
-  toEsModule as t,
-} from "../../runtime/commonjs-interop";
+import { once as e, toEsModule as t } from "../../runtime/commonjs-interop";
 import {
   I as n,
   L as r,

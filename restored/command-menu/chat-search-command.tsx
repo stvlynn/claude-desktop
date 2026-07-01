@@ -18,7 +18,9 @@ export function dispatchChatSearchCommandMenu(): void {
 
 function SearchChatsShortcutHint() {
   const shortcutLabel = useCommandShortcut("searchChats");
-  return shortcutLabel ? <KeyboardShortcutHint keysLabel={shortcutLabel} /> : null;
+  return shortcutLabel ? (
+    <KeyboardShortcutHint keysLabel={shortcutLabel} />
+  ) : null;
 }
 
 export interface SearchChatsCommandItemProps {

@@ -52,7 +52,10 @@ export const globalSettingKeys = keysProxy({
 });
 
 export const generalSettingDefinitions = settingsProxy({
-  annotationScreenshotsMode: setting("browser-annotation-screenshots-mode", "always"),
+  annotationScreenshotsMode: setting(
+    "browser-annotation-screenshots-mode",
+    "always",
+  ),
   dictationDictionary: setting("dictationDictionary", [] as string[]),
   downloadDirectory: setting("browser-download-directory", null),
   followUpQueueMode: setting("followUpQueueMode", "queue"),

@@ -7,20 +7,14 @@ type CommandMenuItemFrame = {
 type CommandMenuStackByScope = Record<string, CommandMenuItemFrame[]>;
 const emptyCommandMenuStacks: CommandMenuStackByScope = {};
 const commandMenuOpenSignal = _appScopeG(_appScopeT, false);
-const commandMenuStacksSignal = _appScopeG(
-  _appScopeT,
-  emptyCommandMenuStacks,
-);
+const commandMenuStacksSignal = _appScopeG(_appScopeT, emptyCommandMenuStacks);
 function getCommandMenuStackSize(
   stacks: CommandMenuStackByScope,
   scope: string,
 ) {
   return stacks[scope]?.length ?? 0;
 }
-function getTopCommandMenuItem(
-  stacks: CommandMenuStackByScope,
-  scope: string,
-) {
+function getTopCommandMenuItem(stacks: CommandMenuStackByScope, scope: string) {
   const stack = stacks[scope];
   for (let index = (stack?.length ?? 0) - 1; index >= 0; index--) {
     const menuItem = stack?.[index]?.menuItem;

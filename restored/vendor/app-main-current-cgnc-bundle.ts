@@ -3993,6 +3993,7 @@ function Tm(e, t, n, r) {
           for (
             d = (r ? t.children.length : -1) + o, f = c.concat(t);
             d > -1 && d < t.children.length;
+
           ) {
             let e = t.children[d];
             if (((u = s(e, d, f)()), u[0] === !1)) return u;
@@ -4474,6 +4475,7 @@ function Ym(e, t, n) {
     ((/^[ \r\n]/.test(r) && /[ \r\n]$/.test(r)) || /^`|`$/.test(r)) &&
     (r = ` ` + r + ` `);
     ++a < n.unsafe.length;
+
   ) {
     let e = n.unsafe[a],
       t = n.compilePattern(e),
@@ -11496,6 +11498,7 @@ function x_(e, t) {
       e.scriptTime - e.simulationTime > Ive &&
         (e.simulationTime = e.scriptTime - k_);
     e.simulationTime < e.scriptTime;
+
   )
     (mve(e, i, a), (e.simulationTime += M_));
   hve(e) && (e.value = e.target);
@@ -42350,6 +42353,7 @@ function TAe(e) {
         e.kinds[l] === `text` &&
         e.isWordLike[l] &&
         ND.test(e.texts[l]);
+
       ) {
         let t = e.texts[l];
         (s.push(t), (c = PD.test(t)), l++);
@@ -64745,6 +64749,7 @@ var EH,
               (this.minute +=
                 Math.floor((1439 - (this.hour * 60 + this.minute)) / e) * e);
               ;
+
             ) {
               this.minute += e;
               var i = BV(this.minute, 60),
@@ -64767,6 +64772,7 @@ var EH,
                     e,
                 ) * e);
               ;
+
             ) {
               this.second += e;
               var a = BV(this.second, 60),
@@ -66282,6 +66288,7 @@ function tze(e, t) {
 `),
       r = 0;
     r < n.length;
+
   ) {
     var i = (n[r] = n[r].replace(/\s+$/g, ``));
     i
@@ -118676,6 +118683,7 @@ var vet = e(() => {
                 n = d.precision,
                 o = l = n + 3;
               ;
+
             )
               if (
                 ((s = r),
@@ -118718,14 +118726,15 @@ var vet = e(() => {
                 s = l + u,
                 r = s;
               r--;
+
             )
               o.push(0);
             for (r = u; --r >= 0; ) {
               for (t = 0, a = l + r; a > r; )
                 ((c = o[a] + h[r] * m[a - r - 1] + t),
-                  (o[a--] = (c % f) | 0),
+                  (o[a--] = c % f | 0),
                   (t = (c / f) | 0));
-              o[a] = ((o[a] + t) % f) | 0;
+              o[a] = (o[a] + t) % f | 0;
             }
             for (; !o[--s]; ) o.pop();
             return (
@@ -118811,6 +118820,7 @@ var vet = e(() => {
               for (
                 o = new f(d), t = Math.ceil(r / p + 4), i = !1;
                 n % 2 && ((o = o.times(u)), A(o.d, t)), (n = c(n / 2)), n !== 0;
+
               )
                 ((u = u.times(u)), A(u.d, t));
               return ((i = !0), e.s < 0 ? new f(d).div(o) : D(o, r));
@@ -118893,6 +118903,7 @@ var vet = e(() => {
               o > c && ((o = c), (r.length = 1)),
               r.reverse();
             o--;
+
           )
             r.push(0);
           r.reverse();
@@ -118903,6 +118914,7 @@ var vet = e(() => {
             c - o < 0 && ((o = c), (r = u), (u = l), (l = r)),
             n = 0;
           o;
+
         )
           ((n = ((l[--o] = l[o] + u[o] + n) / f) | 0), (l[o] %= f));
         for (n && (l.unshift(n), ++a), c = l.length; l[--c] == 0; ) l.pop();
@@ -118932,7 +118944,7 @@ var vet = e(() => {
             r = 0,
             i = e.length;
           for (e = e.slice(); i--; )
-            ((n = e[i] * t + r), (e[i] = (n % f) | 0), (r = (n / f) | 0));
+            ((n = e[i] * t + r), (e[i] = n % f | 0), (r = (n / f) | 0));
           return (r && e.unshift(r), e);
         }
         function t(e, t, n, r) {
@@ -118986,6 +118998,7 @@ var vet = e(() => {
               _ = g.d = [],
               u = 0;
             N[u] == (M[u] || 0);
+
           )
             ++u;
           if (
@@ -118998,7 +119011,7 @@ var vet = e(() => {
             for (d = 0, N = N[0], x++; (u < T || d) && x--; u++)
               ((C = d * f + (M[u] || 0)),
                 (_[u] = (C / N) | 0),
-                (d = (C % N) | 0));
+                (d = C % N | 0));
           else {
             for (
               d = (f / (N[0] + 1)) | 0,
@@ -119011,6 +119024,7 @@ var vet = e(() => {
                 v = M.slice(0, O),
                 y = v.length;
               y < O;
+
             )
               v[y++] = 0;
             ((k = N.slice()), k.unshift(0), (E = N[0]), N[1] >= f / 2 && ++E);
@@ -119061,6 +119075,7 @@ var vet = e(() => {
         for (
           t == null ? ((i = !1), (u = h)) : (u = t), c = new m(0.03125);
           e.abs().gte(0.1);
+
         )
           ((e = e.times(c)), (p += 5));
         for (
@@ -119069,6 +119084,7 @@ var vet = e(() => {
             n = a = o = new m(d),
             m.precision = u;
           ;
+
         ) {
           if (
             ((a = D(a.times(e), u)),
@@ -119143,6 +119159,7 @@ var vet = e(() => {
         for (
           l = c = g = b(g.minus(d), g.plus(d), f), p = D(g.times(g), f), o = 3;
           ;
+
         ) {
           if (
             ((c = D(c.times(p), f)),
@@ -119170,6 +119187,7 @@ var vet = e(() => {
               : n < 0 && (n = t.length),
             r = 0;
           t.charCodeAt(r) === 48;
+
         )
           ++r;
         for (a = t.length; t.charCodeAt(a - 1) === 48; ) --a;
@@ -119212,7 +119230,7 @@ var vet = e(() => {
         if (
           (n !== void 0 &&
             ((o = l(10, u - a - 1)),
-            (d = ((g / o) % 10) | 0),
+            (d = (g / o) % 10 | 0),
             (m = t < 0 || v[_ + 1] !== void 0 || g % o),
             (m =
               n < 4
@@ -119222,8 +119240,8 @@ var vet = e(() => {
                     (n == 4 ||
                       m ||
                       (n == 6 &&
-                        ((r > 0 ? (a > 0 ? g / l(10, u - a) : 0) : v[_ - 1]) %
-                          10) &
+                        (r > 0 ? (a > 0 ? g / l(10, u - a) : 0) : v[_ - 1]) %
+                          10 &
                           1) ||
                       n == (e.s < 0 ? 8 : 7))))),
           t < 1 || !v[0])
@@ -119243,7 +119261,7 @@ var vet = e(() => {
             ? ((v.length = _), (o = 1), _--)
             : ((v.length = _ + 1),
               (o = l(10, p - r)),
-              (v[_] = a > 0 ? (((g / l(10, u - a)) % l(10, a)) | 0) * o : 0)),
+              (v[_] = a > 0 ? ((g / l(10, u - a)) % l(10, a) | 0) * o : 0)),
           m)
         )
           for (;;)
@@ -119292,6 +119310,7 @@ var vet = e(() => {
               n.reverse(),
               a = s;
             a--;
+
           )
             n.push(0);
           n.reverse();
@@ -119405,6 +119424,7 @@ var vet = e(() => {
             r = [`precision`, `rounding`, `toExpNeg`, `toExpPos`, `LN10`],
               t = 0;
             t < r.length;
+
           )
             e.hasOwnProperty((n = r[t++])) || (e[n] = this[n]);
         return (i.config(e), i);
@@ -122385,6 +122405,7 @@ var g5,
             v = 0,
             y;
           g <= _ && v <= u.length - 1;
+
         ) {
           var b = Math.floor((g + _) / 2),
             [x, S] = h(b - 1),
@@ -125368,6 +125389,7 @@ function nct(e, t, n, r, i) {
       },
       f;
     l <= a.length;
+
   )
     if (((f = d()), f)) return f.v;
   return [];

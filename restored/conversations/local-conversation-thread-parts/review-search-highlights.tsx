@@ -256,8 +256,9 @@ export const initThreadFindNavigationRail = once(() => {
       (
         await preloadDynamicImport(
           async () => {
-            let { ThreadUserMessageNavigationRail } =
-              await import("../../threads/thread-user-message-navigation-rail");
+            let { ThreadUserMessageNavigationRail } = await import(
+              "../../threads/thread-user-message-navigation-rail"
+            );
             return {
               ThreadUserMessageNavigationRail,
             };

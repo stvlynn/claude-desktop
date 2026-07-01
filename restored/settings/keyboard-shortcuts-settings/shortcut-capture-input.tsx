@@ -106,12 +106,7 @@ export function ShortcutCaptureInput({
       pressedModifierRef.current = null;
       clearPendingSequence();
     };
-  }, [
-    allowsBareModifiers,
-    clearPendingSequence,
-    completeCapture,
-    platform,
-  ]);
+  }, [allowsBareModifiers, clearPendingSequence, completeCapture, platform]);
   React.useEffect(
     () => () => {
       if (sequenceTimeoutRef.current != null) {

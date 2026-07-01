@@ -163,7 +163,8 @@ const clearPullRequestMergeHelperPendingWorktree =
   useIsPullRequestMergeHelperEnabledI;
 const attachPullRequestMergeHelperConversation =
   useIsPullRequestMergeHelperEnabledN;
-const recordPullRequestMergeHelperProgress = useIsPullRequestMergeHelperEnabledR;
+const recordPullRequestMergeHelperProgress =
+  useIsPullRequestMergeHelperEnabledR;
 const useIsPullRequestMergeHelperEnabled = useIsPullRequestMergeHelperEnabledT;
 
 export {

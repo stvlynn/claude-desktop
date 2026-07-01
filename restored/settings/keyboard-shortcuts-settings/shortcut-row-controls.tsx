@@ -8,7 +8,11 @@ import { TrashIcon } from "../../icons/trash-icon";
 import { UndoIcon } from "../../icons/undo-icon";
 import type { CaptureMode } from "./types";
 
-export function ShortcutLabel({ shortcutLabel }: { shortcutLabel: string | null }) {
+export function ShortcutLabel({
+  shortcutLabel,
+}: {
+  shortcutLabel: string | null;
+}) {
   return (
     <span className="flex min-h-8 items-center gap-1 text-token-text-secondary">
       {shortcutLabel == null ? (

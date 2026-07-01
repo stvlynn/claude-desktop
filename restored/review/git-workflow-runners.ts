@@ -151,7 +151,11 @@ export async function setupWorkflowBranch({
     const result = await scope
       .get<{
         mutateAsync(variables: unknown): Promise<MutationResult>;
-      }>(createAndCheckoutBranchMutationAtom, { cwd, hostConfig, operationSource })
+      }>(createAndCheckoutBranchMutationAtom, {
+        cwd,
+        hostConfig,
+        operationSource,
+      })
       .mutateAsync({ branch, failIfExists: true, mode, signal });
     switch (result.status) {
       case "success":
@@ -387,7 +391,11 @@ export async function createPullRequestRequest({
     const result = await scope
       .get<{
         mutateAsync(variables: unknown): Promise<MutationResult>;
-      }>(createPullRequestMutationAtom, { cwd, hostId: hostConfig.id, operationSource })
+      }>(createPullRequestMutationAtom, {
+        cwd,
+        hostId: hostConfig.id,
+        operationSource,
+      })
       .mutateAsync({
         cwd,
         headBranch: pushStatus.branch,
