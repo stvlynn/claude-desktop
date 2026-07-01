@@ -199,7 +199,9 @@ export { navigateToCodexPage } from "../../runtime/navigate-to-codex-page-tool";
 export {
   finishPrimaryRuntimeInstallBeforeFirstTurn,
   initPrimaryRuntimeInstallStateChunk,
+  isPrimaryRuntimeInstallProgressPhase,
   primaryRuntimeInstallReleaseSignal,
+  primaryRuntimeInstallStatusSignal,
 } from "../../runtime/primary-runtime-install-state";
 export {
   CONVERSATION_DETAIL_STEPS_COMMANDS,
@@ -998,7 +1000,10 @@ export {
   normalizeLocale,
   resolveLocale,
 } from "../../i18n/locale-resolver";
-export { initPrimaryRuntimeInstallStatusMessageChunk } from "../../runtime/primary-runtime-install-status-message";
+export {
+  initPrimaryRuntimeInstallStatusMessageChunk,
+  primaryRuntimeInstallProgress,
+} from "../../runtime/primary-runtime-install-status-message";
 export {
   aboveComposerSuggestionDismissalsAtom,
   composerPromptHistorySignal,
