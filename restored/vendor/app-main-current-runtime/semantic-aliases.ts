@@ -561,6 +561,10 @@ export {
   initBrowserCommentPopupShakeChunk,
 } from "../../browser/browser-comment-popup-shake";
 export {
+  BrowserSidebarCommentOverlay,
+  initBrowserSidebarCommentOverlayChunk,
+} from "../../browser/browser-sidebar-comment-overlay";
+export {
   browserSidebarCommentModeCoachmarkDismissedAtom,
   initBrowserSidebarCommentModeCoachmarkStateChunk,
 } from "../../browser/browser-sidebar-comment-mode-coachmark-state";

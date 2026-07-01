@@ -112,6 +112,9 @@ import { buildBrowserCommentEditorInteractionHandlers } from "./browser-comment-
 import { useBrowserCommentEditorSubmitHandlers } from "./use-browser-comment-editor-submit-handlers";
 import { BrowserCommentEditorView } from "./browser-comment-editor-view";
 import { BrowserCommentPreview } from "./browser-comment-preview";
+
+export function initBrowserSidebarCommentOverlayChunk(): void {}
+
 export function BrowserSidebarCommentOverlay({
   allowImageAttachments = true,
   allowDirectSubmit = true,
