@@ -2,7 +2,6 @@
 // Uppercase B compatibility aliases for the current app-main producer.
 export {
   B as appMainCurrentCompatSlotUpperB,
-  Ba as appMainCurrentCompatSlotUpperBLowerA,
   Bc as appMainCurrentCompatSlotUpperBLowerC,
   Bd as appMainCurrentCompatSlotUpperBLowerD,
   Bf as appMainCurrentCompatSlotUpperBLowerF,
