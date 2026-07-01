@@ -10,6 +10,8 @@ export {
   UltraFastServiceTierIcon,
 } from "../../composer/service-tier-speed-icon";
 export { composeRefs } from "../../utils/compose-refs";
+export { QueryClientProvider } from "../../runtime/query-client/react-query-context";
+export { useQueries } from "../../runtime/query-client/react-query-hooks";
 export { SettingsControlRow } from "../../ui/settings-row";
 export { composeEventHandlers } from "../radix-event-helpers";
 
@@ -47,10 +49,8 @@ export {
   Wd as ThreadRowUnreadState,
   Wl as SidebarListSection,
   Xl as initAppgenPublicationTermsDisclosureRuntime,
-  Xs as QueryClientProvider,
   Yd as ThreadRowHoverActions,
   Yl as hasSeenAppgenPublicationTermsDisclosureSignal,
-  Ys as useQueries,
   Yu as OpenAiMcpCapabilityView,
   Zu as AppShellOverlayOutlet,
   _i as isWindowsStyleAbsolutePath,
