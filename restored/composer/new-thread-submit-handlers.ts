@@ -122,7 +122,11 @@ async function reserveWorkspaceForFirstTurn({
   projectlessPrewarmReservation,
   workspaceRoots,
 }: ReserveWorkspaceOptions) {
-  if (hostId === "local" && workspaceRoots.length === 1 && workspaceRoots[0] === "~") {
+  if (
+    hostId === "local" &&
+    workspaceRoots.length === 1 &&
+    workspaceRoots[0] === "~"
+  ) {
     try {
       return await projectlessPrewarmReservation.reserve(prompt).selection;
     } catch (error) {
@@ -163,7 +167,9 @@ export function useStartConversationWithPrimaryRuntimeForFirstTurn() {
     experimentalFeaturesQuery,
     LOCAL_HOST_ID,
   ) as { data: unknown };
-  const firstRunStarted = useAppScopeValue(newThreadFirstRunStartedSignal) as boolean;
+  const firstRunStarted = useAppScopeValue(
+    newThreadFirstRunStartedSignal,
+  ) as boolean;
   const firstRunCompleted = useAppScopeValue(
     newThreadFirstRunCompletedSignal,
   ) as boolean;
@@ -213,9 +219,7 @@ export interface UseNewThreadSubmitHandlersOptions {
   isMounted: () => boolean;
   mcpManager: unknown;
   navigate: (path: string) => void;
-  onLocalConversationCreated?: (
-    conversationId: string,
-  ) => void | Promise<void>;
+  onLocalConversationCreated?: (conversationId: string) => void | Promise<void>;
   onLocalSubmitError?: () => void;
   onLocalSubmitStart?: () => void;
   projectlessPrewarmReservation: ReserveWorkspaceOptions["projectlessPrewarmReservation"];
@@ -326,7 +330,9 @@ export function useNewThreadSubmitHandlers({
     const { context, goal } = await materializeThreadGoal(inputContext, hostId);
     const threadTargets = deriveThreadCreationTargets(context, hostId);
     let created = false;
-    const imageInputItems = buildComposerImageInputItems(context.imageAttachments);
+    const imageInputItems = buildComposerImageInputItems(
+      context.imageAttachments,
+    );
     const memoryPreferences = scope.get(memoryPreferencesDraftAtom);
     const promptText = promptTextFromContext(context);
     try {
@@ -361,23 +367,25 @@ export function useNewThreadSubmitHandlers({
       });
       const startParams = buildStartConversationParams({
         ...conversationParams,
-        shouldSendPermissionOverrides: permissions.shouldSendPermissionOverrides,
+        shouldSendPermissionOverrides:
+          permissions.shouldSendPermissionOverrides,
       });
       if (threadTargets.threadStartKind != null) {
         startParams.threadStartKind = threadTargets.threadStartKind;
       }
-      const conversationId = await startConversationWithPrimaryRuntimeForFirstTurn({
-        attachments: normalizeConversationAttachments([
-          ...(startParams.attachments ?? []),
-          ...imageInputItems,
-        ]),
-        baseParams: startParams,
-        hostId: threadTargets.threadCreationHostId,
-      });
+      const conversationId =
+        await startConversationWithPrimaryRuntimeForFirstTurn({
+          attachments: normalizeConversationAttachments([
+            ...(startParams.attachments ?? []),
+            ...imageInputItems,
+          ]),
+          baseParams: startParams,
+          hostId: threadTargets.threadCreationHostId,
+        });
       created = true;
       const turnId =
-        scope.get(localConversationTurnsSignal, conversationId)?.at(-1)?.turnId ??
-        null;
+        scope.get(localConversationTurnsSignal, conversationId)?.at(-1)
+          ?.turnId ?? null;
       afterLocalConversationCreated(
         scope,
         conversationId,
@@ -400,7 +408,10 @@ export function useNewThreadSubmitHandlers({
         goal?.materialized.objective,
       );
       if (goal != null) {
-        await commitThreadGoalDraft({ draft: goal.draft, fallbackHostId: hostId });
+        await commitThreadGoalDraft({
+          draft: goal.draft,
+          fallbackHostId: hostId,
+        });
       }
       return { threadId: conversationId, turnId };
     } catch (error) {
@@ -456,10 +467,8 @@ export function useNewThreadSubmitHandlers({
       browserConversationId != null &&
       scope.get(browserSidebarAvailabilitySignal)
     ) {
-      browserTransferSourceBrowserTabIds = getConversationBrowserTabIdsForTransfer(
-        scope,
-        browserConversationId,
-      );
+      browserTransferSourceBrowserTabIds =
+        getConversationBrowserTabIdsForTransfer(scope, browserConversationId);
       if (browserTransferSourceBrowserTabIds.length > 0) {
         lastFocusedBrowserTabId = getLastFocusedBrowserTabId(
           scope,
@@ -475,7 +484,8 @@ export function useNewThreadSubmitHandlers({
     const pendingWorktreeId = createPendingWorktree({
       hostId,
       label: buildWorktreeLabelFromInput(conversationParams.input),
-      ...(browserConversationId != null && browserTransferSourceBrowserTabId != null
+      ...(browserConversationId != null &&
+      browserTransferSourceBrowserTabId != null
         ? {
             browserTransferSourceBrowserTabId,
             browserTransferSourceBrowserTabIds,
@@ -545,8 +555,10 @@ export function useNewThreadSubmitHandlers({
       scope.value.kind === "local" &&
       scope.value.placement === "side" &&
       scope.value.conversationId === localFollowUp.localConversationId &&
-      (scope.get(localConversationTurnsSignal, localFollowUp.localConversationId)
-        ?.length ?? 0) === 0;
+      (scope.get(
+        localConversationTurnsSignal,
+        localFollowUp.localConversationId,
+      )?.length ?? 0) === 0;
     if (isResponseInProgress) {
       const turnId = await steerLocalConversation({
         scope,
@@ -611,9 +623,14 @@ export function useNewThreadSubmitHandlers({
             }
           : cloudFollowUp.taskDetails,
       );
-      const imageInputItems = buildComposerImageInputItems(context.imageAttachments);
+      const imageInputItems = buildComposerImageInputItems(
+        context.imageAttachments,
+      );
       const memoryPreferences = scope.get(memoryPreferencesDraftAtom);
-      const promptText = promptTextFromContext({ ...context, priorConversation });
+      const promptText = promptTextFromContext({
+        ...context,
+        priorConversation,
+      });
       const reservation = await reserveWorkspaceForFirstTurn({
         hostId,
         prompt: promptText,
@@ -671,7 +688,10 @@ export function useNewThreadSubmitHandlers({
         goal?.materialized.objective,
       );
       if (goal != null) {
-        await commitThreadGoalDraft({ draft: goal.draft, fallbackHostId: hostId });
+        await commitThreadGoalDraft({
+          draft: goal.draft,
+          fallbackHostId: hostId,
+        });
       }
       return { threadId: conversationId, turnId: null };
     } catch (error) {
