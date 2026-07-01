@@ -27602,7 +27602,7 @@
         "rc": "CHATGPT_ADMIN_USAGE_LIMITS_URL",
         "rd": "initBrowserSidebarCommentOverlayChunk",
         "rf": "initFolderOpenIconChunk",
-        "ri": "appMainCurrentCompatSlotLowerRLowerI",
+        "ri": "initUserMessageRuntimeChunk",
         "rl": "SidebarRowKeyboardScope",
         "rm": "WarningIcon",
         "rn": "initFileChangePatchRowChunk",

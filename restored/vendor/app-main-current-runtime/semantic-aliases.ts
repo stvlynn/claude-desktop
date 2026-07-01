@@ -125,7 +125,10 @@ export {
   SentCommentAttachmentList,
 } from "../../conversations/sent-comment-attachments";
 export { initSentUserMessageAttachmentWidgetsChunk } from "../../conversations/sent-user-message-attachment-widgets-runtime";
-export { UserMessage } from "../../conversations/user-message";
+export {
+  initUserMessageRuntimeChunk,
+  UserMessage,
+} from "../../conversations/user-message";
 export { AnsiOutput, initAnsiOutputChunk } from "../../terminal/ansi-output";
 export {
   initDisclosureContentHeightChunk,

@@ -55,6 +55,10 @@ const editDraftByTurnId = createScopedAtom<string | null>(
   () => null,
 );
 
+export function initUserMessageRuntimeChunk(): void {
+  void editDraftByTurnId;
+}
+
 export interface UserMessageProps {
   message: UserMessageModel;
   sentAtMs?: number | null;

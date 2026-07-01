@@ -5,7 +5,6 @@ export {
   ra as appMainCurrentCompatSlotLowerRLowerA,
   rd as appMainCurrentCompatSlotLowerRLowerD,
   rf as appMainCurrentCompatSlotLowerRLowerF,
-  ri as appMainCurrentCompatSlotLowerRLowerI,
   rn as appMainCurrentCompatSlotLowerRLowerN,
   ro as appMainCurrentCompatSlotLowerRLowerO,
   rp as appMainCurrentCompatSlotLowerRLowerP,
@@ -14,3 +13,4 @@ export {
   rt as appMainCurrentCompatSlotLowerRLowerT,
   ru as appMainCurrentCompatSlotLowerRLowerU,
 } from "../app-main-current-cgnc-bundle";
+export { initUserMessageRuntimeChunk as appMainCurrentCompatSlotLowerRLowerI } from "../../conversations/user-message";
