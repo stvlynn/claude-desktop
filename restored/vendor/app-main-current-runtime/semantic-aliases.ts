@@ -123,6 +123,10 @@ export {
   computeGeneratedImageOutputs,
   initGeneratedImageOutputsChunk,
 } from "../../conversations/generated-image-outputs";
+export {
+  FaviconImage,
+  initFaviconImageChunk,
+} from "../../conversations/favicon-image";
 export { ComputerUseGlyphIcon } from "../../conversations/tool-activity-source-icon";
 export {
   initSubagentAvatarChunk,

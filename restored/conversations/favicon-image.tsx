@@ -50,3 +50,5 @@ export function FaviconImage({
     </span>
   );
 }
+
+export function initFaviconImageChunk(): void {}
