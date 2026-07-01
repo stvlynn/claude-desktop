@@ -42646,12 +42646,12 @@
         "DebugWindowPage": "DebugWindowPage"
       },
       "status": "done",
-      "note": "Current DebugWindowPage hash maps to a dedicated current-ref runtime over vendor/debug-window-page-current-bundle.tsx; the single semantic export is re-derived from the current file.",
-      "lastUpdated": "2026-06-30T23:59:59.950Z",
+      "note": "Current DebugWindowPage hash maps to a dedicated current-ref runtime over debug/debug-window-page.tsx; vendor/debug-window-page-current-bundle.tsx remains only as a compatibility shim.",
+      "lastUpdated": "2026-07-01T01:52:49.349Z",
       "stage3Accepted": true,
-      "stage3AcceptedAt": "2026-06-30T23:59:59.950Z",
-      "stage3Review": "Host self-review: verified the current file exports DebugWindowPage, rewrote dependency imports through restored/IMPORT_MAP.json, and passed quality gates on the backing bundle and runtime.",
-      "stage3Note": "Accepted as a current-ref compatibility export over a restored-dependency backing bundle; full semantic split of DebugWindowPage remains a later cleanup."
+      "stage3AcceptedAt": "2026-07-01T01:52:49.349Z",
+      "stage3Review": "Host self-review: moved the readable DebugWindowPage body into debug/debug-window-page.tsx, preserved the current runtime public export, and kept vendor/debug-window-page-current-bundle.tsx as a compatibility shim.",
+      "stage3Note": "Accepted as a semantic debug window page surface with current-ref runtime and vendor shim exports."
     },
     "hotkey-window-thread-page-DGErqu4u": {
       "restored": "runtime/current-app-initial/hotkey-window-thread-page-current-runtime.ts",
