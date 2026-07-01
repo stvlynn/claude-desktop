@@ -1,7 +1,7 @@
 // Restored from ref/webview/assets/git-settings-DOXloXQ3.js
 // Git settings page restored from the Codex webview bundle.
 import React, { type ChangeEvent } from "react";
-import { useGateValue } from "@statsig/react-bindings";
+import { useGateValue } from "../../vendor/statsig-current-runtime";
 import { gitSettingDefinitions } from "../../boundaries/src-l0hb-mz-p";
 import { SettingsNavLabel } from "../settings-shared";
 import { useSettingValue } from "../setting-storage";

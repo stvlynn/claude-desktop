@@ -5,7 +5,10 @@
 // dynamic config once the Statsig user matches the signed-in account.
 
 import React from "react";
-import { useDynamicConfig, useStatsigClient } from "@statsig/react-bindings";
+import {
+  useDynamicConfig,
+  useStatsigClient,
+} from "../vendor/statsig-current-runtime";
 import { o as readStatsigGateValue } from "@statsig/js-client";
 import { LOCAL_APP_SERVER_HOST_ID } from "../boundaries/thread-context-inputs.facade";
 import {

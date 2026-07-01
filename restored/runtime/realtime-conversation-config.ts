@@ -1,6 +1,6 @@
 // Restored from ref/webview/assets/realtime-conversation-config-ldDeUVCM.js
 // realtime-conversation-config-ldDeUVCM chunk restored from the Codex webview bundle.
-import { useDynamicConfig } from "@statsig/react-bindings";
+import { useDynamicConfig } from "../vendor/statsig-current-runtime";
 import { useAppScopeValue } from "../boundaries/app-scope";
 import { createPersistedSignal } from "../runtime/persisted-signal";
 import { getPersistedAtomValue } from "../utils/persisted-atom-store";

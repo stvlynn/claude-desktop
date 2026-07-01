@@ -2,7 +2,7 @@
 // Shared content layout for pull request composer footer controls.
 import { useCallback, useState } from "react";
 import type { ReactNode } from "react";
-import { useGateValue } from "@statsig/react-bindings";
+import { useGateValue } from "../../vendor/statsig-current-runtime";
 import clsx from "clsx";
 
 import { pullRequestFooterClasses } from "./classes";

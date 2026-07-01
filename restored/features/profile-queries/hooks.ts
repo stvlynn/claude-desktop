@@ -1,6 +1,6 @@
 // Restored from ref/webview/assets/profile-queries-BWvaDOFi.js
 // profile-queries-BWvaDOFi chunk restored from the Codex webview bundle.
-import { useDynamicConfig } from "@statsig/react-bindings";
+import { useDynamicConfig } from "../../vendor/statsig-current-runtime";
 import {
   _vscodeApiC as VscodeApiError,
   vscodeApiA as useQueryClient,

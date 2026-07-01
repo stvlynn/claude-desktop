@@ -1,6 +1,6 @@
 // Restored from ref/webview/assets/appgen-gating-C3NQrPIO.js
 // Resolves the Sites/Appgen access gate and exposes the route guard status.
-import { useGateValue } from "@statsig/react-bindings";
+import { useGateValue } from "../vendor/statsig-current-runtime";
 import {
   _appScopeC,
   _appScopeL,

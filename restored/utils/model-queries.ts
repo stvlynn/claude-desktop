@@ -1,6 +1,6 @@
 // Restored from ref/webview/assets/model-queries-CbKX4hvn.js
 // Model list query configuration and Statsig-driven model filtering.
-import { useDynamicConfig } from "@statsig/react-bindings";
+import { useDynamicConfig } from "../vendor/statsig-current-runtime";
 import {
   _appScopeA as useAppScopeQueryValue,
   _appScopeP as createAppScopeQueryFamily,

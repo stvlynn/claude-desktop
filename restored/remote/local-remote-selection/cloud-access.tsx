@@ -2,7 +2,7 @@
 // local-remote-selection-DRnEOc8g chunk restored from the Codex webview bundle.
 // Also covers ref/webview/assets/app-initial~app-main~remote-conversation-page~new-thread-panel-page~appgen-library-page~hot~kj79zy13-7BmnrRC1.js
 import React from "react";
-import { useGateValue } from "@statsig/react-bindings";
+import { useGateValue } from "../../vendor/statsig-current-runtime";
 import { useAtomValue, useSetAtom } from "jotai";
 import {
   appScopeG as createScopedState,

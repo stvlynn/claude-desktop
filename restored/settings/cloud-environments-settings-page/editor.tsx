@@ -1,7 +1,7 @@
 // Restored from ref/webview/assets/cloud-environments-settings-page-Cx0Mfko0.js
 
 import React from "react";
-import { useGateValue } from "@statsig/react-bindings";
+import { useGateValue } from "../../vendor/statsig-current-runtime";
 import { FormattedMessage, useIntl } from "../../vendor/react-intl";
 import { useAuth } from "../../auth/use-auth";
 import { isEnterpriseLikeSku, isSelfServeBusinessSku } from "../../utils/skus";

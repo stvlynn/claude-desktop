@@ -3,7 +3,7 @@
 import React from "react";
 import type { RefObject, SVGProps } from "react";
 import { useSetAtom } from "jotai";
-import { useLayer, useStatsigClient } from "@statsig/react-bindings";
+import { useLayer, useStatsigClient } from "../vendor/statsig-current-runtime";
 import {
   _appScopeO as useAppScope,
   appScopeRoot,

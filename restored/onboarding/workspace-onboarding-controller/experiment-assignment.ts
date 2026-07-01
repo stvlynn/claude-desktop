@@ -3,7 +3,7 @@
 
 import React from "react";
 import { useAtom, useAtomValue } from "jotai";
-import { useStatsigClient } from "@statsig/react-bindings";
+import { useStatsigClient } from "../../vendor/statsig-current-runtime";
 import { workspaceExperimentAssignmentAtom } from "../onboarding-state";
 import {
   getWorkspaceOnboardingExperimentArm,

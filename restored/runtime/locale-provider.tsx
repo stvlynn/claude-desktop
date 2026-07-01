@@ -3,7 +3,7 @@
 // loads the matching react-intl message bundle behind the `enable_i18n` gate,
 // and keeps the document + app-scope store in sync with the resolved locale.
 import { useEffect, useLayoutEffect, useState, type ReactNode } from "react";
-import { useDynamicConfig } from "@statsig/react-bindings";
+import { useDynamicConfig } from "../vendor/statsig-current-runtime";
 import { IntlProvider } from "../vendor/react-intl";
 import { appScope } from "./app-scope-runtime";
 import { appScopeO as useAppScopeStore } from "../boundaries/app-scope";

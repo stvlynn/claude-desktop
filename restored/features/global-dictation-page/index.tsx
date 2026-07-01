@@ -1,7 +1,7 @@
 // Restored from ref/webview/assets/global-dictation-page-BV05fEU5.js
 // Floating and native-pet global dictation page renderer.
 import React, { type ReactElement, type ReactNode } from "react";
-import { useGateValue } from "@statsig/react-bindings";
+import { useGateValue } from "../../vendor/statsig-current-runtime";
 import clsx from "clsx";
 import {
   vscodeApiF as vscodeMessageBus,

@@ -1,7 +1,7 @@
 // Restored from ref/webview/assets/workspace-onboarding-controller-FdX3OkH-.js
 // Teen onboarding eligibility query wrapper.
 
-import { useStatsigClient } from "@statsig/react-bindings";
+import { useStatsigClient } from "../../vendor/statsig-current-runtime";
 import { useOnboardingContextQuery } from "../../runtime/codex-api";
 import {
   WORKSPACE_ONBOARDING_ENABLE_TEEN_CHECK_GATE_ID,

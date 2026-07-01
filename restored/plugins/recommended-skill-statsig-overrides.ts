@@ -3,7 +3,7 @@
 // Also matches ref/webview/assets/recommended-skill-statsig-overrides-CaQK62gR.js.
 // Current CaQK62gR source rechecked against dynamic config parsing and lookup helpers.
 import * as React from "react";
-import { useDynamicConfig } from "@statsig/react-bindings";
+import { useDynamicConfig } from "../vendor/statsig-current-runtime";
 import * as zodRuntime from "../boundaries/src-l0hb-mz-p";
 import { once } from "../runtime/commonjs-interop";
 type RecommendedSkillStatsigOverrides = Record<string, string>;

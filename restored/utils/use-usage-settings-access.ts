@@ -6,7 +6,7 @@ import {
   useGateValue,
   useLayer,
   useStatsigClient,
-} from "@statsig/react-bindings";
+} from "../vendor/statsig-current-runtime";
 import { useAuth } from "../auth/use-auth";
 import { useSelectedAccountQuery } from "../runtime/codex-api";
 import {

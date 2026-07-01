@@ -1,6 +1,6 @@
 // Restored from ref/webview/assets/use-app-connect-flow-B7CQFxUf.js
 import { useCallback, useContext, useMemo, useState } from "react";
-import { useGateValue } from "@statsig/react-bindings";
+import { useGateValue } from "../vendor/statsig-current-runtime";
 import { vscodeApiF as vscodeApiBridge } from "../boundaries/vscode-api";
 import {
   useAppConnectOAuthState,

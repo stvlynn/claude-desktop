@@ -1,7 +1,7 @@
 // Restored from ref/webview/assets/use-is-plugins-enabled-Dn_J-WZf.js
 // use-is-plugins-enabled-Dn_J-WZf chunk restored from the Codex webview bundle.
 import React from "react";
-import { useGateValue } from "@statsig/react-bindings";
+import { useGateValue } from "../../vendor/statsig-current-runtime";
 import {
   _vscodeApiO as useVscodeQuery,
   vscodeApiU as queryTimes,

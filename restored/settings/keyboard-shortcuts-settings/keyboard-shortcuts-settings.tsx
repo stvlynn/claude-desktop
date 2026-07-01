@@ -1,7 +1,7 @@
 // Restored from ref/webview/assets/keyboard-shortcuts-settings-BuLGCo4B.js
 // keyboard-shortcuts-settings-BuLGCo4B chunk restored from the Codex webview bundle.
 import React from "react";
-import { useGateValue } from "@statsig/react-bindings";
+import { useGateValue } from "../../vendor/statsig-current-runtime";
 import { FormattedMessage, useIntl } from "../../vendor/react-intl";
 import { useAppScopeValue } from "../../boundaries/app-scope";
 import {

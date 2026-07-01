@@ -1,6 +1,6 @@
 // Restored from ref/webview/assets/thinking-shimmer-D6c2nHwp.js
 import * as React from "react";
-import { useStatsigClient } from "@statsig/react-bindings";
+import { useStatsigClient } from "../vendor/statsig-current-runtime";
 import clsx from "clsx";
 import { FormattedMessage } from "react-intl";
 const styles = {

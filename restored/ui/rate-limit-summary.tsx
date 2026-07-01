@@ -1,7 +1,7 @@
 // Restored from ref/webview/assets/rate-limit-summary-BUSuPbw3.js
 // Rate limit summary dropdown content.
 import clsx from "clsx";
-import { useGateValue } from "@statsig/react-bindings";
+import { useGateValue } from "../vendor/statsig-current-runtime";
 import { ChevronRightIcon } from "../icons/chevron-right-icon";
 import { LinkExternalIcon } from "../icons/link-external-icon";
 import { SpeedometerIcon } from "../icons/speedometer-icon";

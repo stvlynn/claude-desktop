@@ -3,7 +3,7 @@
 // gate is enabled, lazily loads the pet (plugin/extension) install modal host +
 // session runtime, mounts the modal into the app scope, and starts the session.
 
-import { useGateValue } from "@statsig/react-bindings";
+import { useGateValue } from "../vendor/statsig-current-runtime";
 import {
   appRootScope,
   loadPetInstallModalHost,

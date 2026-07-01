@@ -1,6 +1,6 @@
 // Restored from ref/webview/assets/use-is-pull-request-merge-helper-enabled-CrfHuIjo.js
 // use-is-pull-request-merge-helper-enabled-CrfHuIjo chunk restored from the Codex webview bundle.
-import { useGateValue } from "@statsig/react-bindings";
+import { useGateValue } from "../vendor/statsig-current-runtime";
 import {
   appScopeT,
   appScopeU,

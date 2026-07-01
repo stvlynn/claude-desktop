@@ -1,6 +1,6 @@
 // Restored from ref/webview/assets/use-is-plugins-enabled-Dn_J-WZf.js
 // use-is-plugins-enabled-Dn_J-WZf chunk restored from the Codex webview bundle.
-import { useGateValue } from "@statsig/react-bindings";
+import { useGateValue } from "../../vendor/statsig-current-runtime";
 import { useAppScopeValue } from "../../boundaries/app-scope";
 import { generalSettingDefinitions } from "../../boundaries/src-l0hb-mz-p";
 import { browserSidebarAvailability } from "../../browser/browser-sidebar-availability";

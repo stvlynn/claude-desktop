@@ -4,7 +4,7 @@
 // whenever the host registry changes. Re-syncs are skipped when a host already
 // has the identical enablement, and query state is invalidated after a push.
 import { useEffect } from "react";
-import { useGateValue } from "@statsig/react-bindings";
+import { useGateValue } from "../vendor/statsig-current-runtime";
 import { appMainLogger } from "../runtime/app-main-host-runtime";
 import {
   appRootScope,

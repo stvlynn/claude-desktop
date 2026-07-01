@@ -1,6 +1,6 @@
 // Restored from ref/webview/assets/use-codex-pricing-url-En1bzzbT.js
 import * as React from "react";
-import { useStatsigClient } from "@statsig/react-bindings";
+import { useStatsigClient } from "../vendor/statsig-current-runtime";
 import {
   CHATGPT_PRICING_HASH_URL,
   CHATGPT_PRICING_URL,

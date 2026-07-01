@@ -1,7 +1,7 @@
 // Restored from ref/webview/assets/start-appgen-conversation-DsuZNIH_.js
 // Sites row and Library card action buttons.
 
-import { useGateValue } from "@statsig/react-bindings";
+import { useGateValue } from "../../vendor/statsig-current-runtime";
 import { useNavigate } from "../../vendor/react-router";
 import { FormattedMessage, useIntl } from "../../vendor/react-intl";
 import {

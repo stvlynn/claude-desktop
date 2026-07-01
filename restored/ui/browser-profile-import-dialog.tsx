@@ -3,7 +3,7 @@
 
 import React, { type FormEvent, type ReactNode, type SVGProps } from "react";
 import clsx from "clsx";
-import { useGateValue } from "@statsig/react-bindings";
+import { useGateValue } from "../vendor/statsig-current-runtime";
 import {
   vscodeApiUnderscore as useMutationRaw,
   vscodeApiV as useQueryRaw,
