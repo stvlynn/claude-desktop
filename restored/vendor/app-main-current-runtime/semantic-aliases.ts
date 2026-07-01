@@ -2,6 +2,7 @@
 // Named app-main current runtime aliases recovered from the current producer.
 export { GlobeIcon } from "../../icons/globe-icon";
 export { composeRefs } from "../../utils/compose-refs";
+export { SettingsControlRow } from "../../ui/settings-row";
 export { composeEventHandlers } from "../radix-event-helpers";
 
 export {
@@ -54,7 +55,6 @@ export {
   _o as initSharedHighlightThemeRegistryChunk,
   al as SidebarRowMenuSeparator,
   bl as openThreadReviewSidePanelTab,
-  br as SettingsControlRow,
   cf as openThreadMcpAppSidePanelTab,
   cl as areArraysEqual,
   cm as ThreadRowEnvironmentMeta,
