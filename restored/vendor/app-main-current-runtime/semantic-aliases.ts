@@ -109,6 +109,7 @@ export {
   initCreatePullRequestIconChunk,
 } from "../../conversations/git-action-icons";
 export { PullRequestMergeTaskPill } from "../../conversations/pull-request-merge-task-pill";
+export { AnnotationReferenceLink } from "../../conversations/sent-comment-annotation-reference-link";
 export {
   initSentCommentAttachmentsChunk,
   SentCommentAttachmentList,

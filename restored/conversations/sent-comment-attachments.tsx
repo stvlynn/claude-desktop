@@ -11,10 +11,10 @@ import {
   parseCommentMarkdown,
   relativizePath,
   normalizePath,
-  getFileIconComponent,
   FileReferenceLink,
   ConversationMarkdown,
 } from "../boundaries/onboarding-commons-externals.facade";
+import { AnnotationReferenceLink } from "./sent-comment-annotation-reference-link";
 
 const DESIGN_TWEAK_ARROW = "→";
 
@@ -286,39 +286,6 @@ export function SentCommentAttachmentList({
 
   return (
     <div className="flex flex-col divide-y divide-token-border">{rows}</div>
-  );
-}
-
-interface AnnotationReferenceLinkProps {
-  cwd?: string | null;
-  hostId?: string | null;
-  label: string;
-  reference: FileReference;
-  tooltipText?: string;
-}
-
-function AnnotationReferenceLink({
-  cwd,
-  hostId,
-  label,
-  reference,
-  tooltipText,
-}: AnnotationReferenceLinkProps) {
-  const FileIcon = getFileIconComponent(reference.path);
-  return (
-    <FileReferenceLink
-      className="inline-flex max-w-full min-w-0 overflow-hidden text-xs leading-4"
-      reference={reference}
-      tooltipText={tooltipText}
-      cwd={cwd}
-      hostId={hostId}
-      openInSidePanel={true}
-    >
-      <span className="inline-flex max-w-full min-w-0 items-center gap-1 overflow-hidden font-medium text-token-text-link-foreground">
-        <FileIcon className="icon-xs shrink-0" />
-        <span className="min-w-0 truncate">{label}</span>
-      </span>
-    </FileReferenceLink>
   );
 }
 
