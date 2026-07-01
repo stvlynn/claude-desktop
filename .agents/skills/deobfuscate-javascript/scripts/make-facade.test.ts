@@ -5,6 +5,7 @@ import * as path from "node:path";
 import { spawnSync } from "node:child_process";
 import {
   FACADE_MARKER,
+  checkNameMapDrift,
   collectExportTokens,
   makeFacade,
 } from "./make-facade.ts";
@@ -206,6 +207,90 @@ describe("CLI — reexport / passthrough", () => {
     const written = fs.readFileSync(out, "utf-8");
     expect(written.startsWith("// @ts-nocheck")).toBe(true);
     expect(written).toContain("TODO: deep-restore");
+  });
+});
+
+describe("checkNameMapDrift", () => {
+  test("clean when map keys exactly match real exports", () => {
+    const d = checkNameMapDrift(`export const a = 1; export const b = 2;`, {
+      a: "alpha",
+      b: "beta",
+    });
+    expect(d.ok).toBe(true);
+    expect(d.unknownKeys).toEqual([]);
+    expect(d.uncovered).toEqual([]);
+    expect(d.exportCount).toBe(2);
+    expect(d.mapKeyCount).toBe(2);
+  });
+
+  test("flags stale keys the chunk no longer exports", () => {
+    const d = checkNameMapDrift(`export const a = 1; export const b = 2;`, {
+      a: "alpha",
+      gone: "ghost",
+    });
+    expect(d.ok).toBe(false);
+    expect(d.unknownKeys).toEqual(["gone"]);
+    expect(d.uncovered).toEqual(["b"]);
+  });
+
+  test("flags real exports missing from the map (count drift)", () => {
+    const d = checkNameMapDrift(
+      `export const a = 1; export const b = 2; export const c = 3;`,
+      { a: "alpha" },
+    );
+    expect(d.ok).toBe(false);
+    expect(d.unknownKeys).toEqual([]);
+    expect(d.uncovered).toEqual(["b", "c"]);
+  });
+});
+
+describe("CLI — name-map drift guard", () => {
+  test("fails with exit 65 and lists stale + uncovered aliases", () => {
+    const chunk = tmp(`export const a = 1; export const b = 2;`);
+    const map = tmp(JSON.stringify({ a: "alpha", stale: "ghost" }), ".json");
+    const res = runCLI([chunk, "--name-map", map]);
+    expect(res.code).toBe(65);
+    expect(res.stderr).toContain("name-map drift");
+    expect(res.stderr).toContain("stale");
+    expect(res.stderr).toContain("b"); // uncovered real export
+  });
+
+  test("--allow-name-map-drift downgrades to a warning and writes the facade", () => {
+    const chunk = tmp(`export const a = 1; export const b = 2;`);
+    const map = tmp(JSON.stringify({ a: "alpha", stale: "ghost" }), ".json");
+    const out = chunk.replace(/\.js$/, ".facade.ts");
+    const res = runCLI([
+      chunk,
+      "--name-map",
+      map,
+      "--allow-name-map-drift",
+      "--out",
+      out,
+    ]);
+    expect(res.code).toBe(0);
+    expect(res.stderr).toContain("warning: name-map drift");
+    const written = fs.readFileSync(out, "utf-8");
+    expect(written).toContain("export declare const alpha: any;");
+  });
+
+  test("a matching name-map passes the guard", () => {
+    const chunk = tmp(`export const a = 1; export const b = 2;`);
+    const map = tmp(JSON.stringify({ a: "alpha", b: "beta" }), ".json");
+    const out = chunk.replace(/\.js$/, ".facade.ts");
+    const res = runCLI([chunk, "--name-map", map, "--out", out]);
+    expect(res.code).toBe(0);
+    expect(res.stderr).not.toContain("drift");
+    const written = fs.readFileSync(out, "utf-8");
+    expect(written).toContain("export declare const alpha: any;");
+    expect(written).toContain("export declare const beta: any;");
+  });
+
+  test("--print-exports prints the real export tokens as JSON and exits 0", () => {
+    const chunk = tmp(`export const zeta = 1; export { a as beta }; const a = 2;`);
+    const res = runCLI([chunk, "--print-exports"]);
+    expect(res.code).toBe(0);
+    const parsed = JSON.parse(res.stdout);
+    expect(parsed).toEqual(["beta", "zeta"]);
   });
 });
 

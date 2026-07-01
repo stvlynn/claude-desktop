@@ -2,6 +2,7 @@ import { afterEach, describe, expect, test } from "bun:test";
 import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
+import { spawnSync } from "node:child_process";
 import {
   buildImportMappings,
   ensureProvenanceHeader,
@@ -714,6 +715,114 @@ describe("promoteOrganized", () => {
     );
     return target;
   }
+
+  // Build a target with `count` independent, clean, typed util chunks — no
+  // imports between them, so all land in a single promote frontier wave.
+  function setupIndependentUtils(count: number): string {
+    const target = makeTmpRoot();
+    const fullDir = path.join(target, ".deobfuscate-javascript", "_full");
+    fs.mkdirSync(path.join(fullDir, "checkpoints"), { recursive: true });
+    fs.mkdirSync(path.join(fullDir, "locks"), { recursive: true });
+    const files: Record<string, ManifestFile> = {};
+    for (let i = 0; i < count; i += 1) {
+      const basename = `util-${i}-AbCdEf${i}`;
+      fs.writeFileSync(
+        path.join(fullDir, "checkpoints", `${basename}.tsx`),
+        `// Restored from ref/webview/assets/${basename}.js\nexport function util${i}(value: string): string {\n  return value.trim();\n}\n`,
+      );
+      files[basename] = {
+        path: `ref/webview/assets/${basename}.js`,
+        basename,
+        kind: "local",
+        depth: 0,
+        stages: { organized: true },
+        organization: org("utils", `utils/util-${i}.ts`, "manual", "single-util"),
+        exports: [{ exported: "t", local: `util${i}`, kind: "named" }],
+        owner: null,
+        claimedAt: null,
+        lastUpdated: null,
+      };
+    }
+    const manifest = {
+      version: 1 as const,
+      entry: Object.keys(files)[0]!,
+      rootDir: "ref/webview/assets",
+      targetDir: target,
+      createdAt: "2026-06-24T00:00:00.000Z",
+      updatedAt: "2026-06-24T00:00:00.000Z",
+      files,
+      edges: [],
+      unresolved: [],
+    };
+    fs.writeFileSync(
+      path.join(fullDir, "manifest.json"),
+      JSON.stringify(manifest, null, 2),
+    );
+    return target;
+  }
+
+  // Run the promote CLI with a fake `prettier` first on PATH that records each
+  // spawn to a count file (Bun's spawnSync snapshots env, so the fake must be on
+  // PATH of a fresh subprocess, not mutated in-process). Proves a multi-chunk
+  // wave triggers exactly ONE prettier process — the batching win.
+  function runPromoteCLIWithSpy(target: string): {
+    spawns: number;
+    code: number;
+    stderr: string;
+  } {
+    const binDir = makeTmpRoot();
+    const countFile = path.join(binDir, "spawns.log");
+    const shim = path.join(binDir, "prettier");
+    fs.writeFileSync(
+      shim,
+      `const fs = require("node:fs");\n` +
+        `const f = process.env.PRETTIER_COUNT_FILE;\n` +
+        `if (f) fs.appendFileSync(f, "spawn\\n");\n` +
+        `process.exit(0);\n`,
+    );
+    fs.chmodSync(shim, 0o755);
+    const script = path.join(import.meta.dir, "promote-organized.ts");
+    const res = spawnSync("bun", [script, "--target", target], {
+      encoding: "utf-8",
+      env: {
+        ...process.env,
+        PATH: `${binDir}${path.delimiter}${process.env.PATH ?? ""}`,
+        PRETTIER_COUNT_FILE: countFile,
+      },
+    });
+    const spawns = fs.existsSync(countFile)
+      ? fs.readFileSync(countFile, "utf-8").split("\n").filter(Boolean).length
+      : 0;
+    return { spawns, code: res.status ?? 0, stderr: res.stderr ?? "" };
+  }
+
+  test("formats a whole wave in a single prettier spawn", () => {
+    const target = setupIndependentUtils(3);
+    const { spawns, code } = runPromoteCLIWithSpy(target);
+    expect(code).toBe(0);
+    // 3 files promoted in one wave → exactly one prettier process (not 3).
+    expect(spawns).toBe(1);
+    // The wave actually promoted (IMPORT_MAP written with 3 done entries).
+    const importMap = JSON.parse(
+      fs.readFileSync(path.join(target, "IMPORT_MAP.json"), "utf-8"),
+    );
+    expect(
+      Object.values(importMap.chunks).filter(
+        (c: any) => c.status === "done",
+      ),
+    ).toHaveLength(3);
+  });
+
+  test("all wave deliverables land formatted / gate passes after batch format", () => {
+    const target = setupIndependentUtils(4);
+    const results = promoteOrganized({ target });
+    expect(results.filter((r) => r.promoted)).toHaveLength(4);
+    for (let i = 0; i < 4; i += 1) {
+      expect(fs.existsSync(path.join(target, "utils", `util-${i}.ts`))).toBe(
+        true,
+      );
+    }
+  });
 
   test("deep tier rejects an untyped util; readable tier promotes it", () => {
     const deepTarget = setupUntypedUtil();

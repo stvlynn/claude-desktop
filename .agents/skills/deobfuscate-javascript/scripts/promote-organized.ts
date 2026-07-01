@@ -26,7 +26,7 @@ import {
   DEFAULT_OPTIONS,
   type QualityGateOptions,
 } from "./quality-gate.ts";
-import { formatPath } from "./format.ts";
+import { formatPaths } from "./format.ts";
 import { Progress } from "./progress.ts";
 
 const traverse = ((
@@ -600,21 +600,28 @@ export function promoteOrganized(
     }
   };
 
+  const FORMAT_EXT = /\.(tsx?|jsx?|mjs|cjs)$/;
   const writeBuilt = (built: Built): void => {
     for (const f of built.files) {
       const dest = path.join(opts.target, f.relPath);
       fs.mkdirSync(path.dirname(dest), { recursive: true });
       fs.writeFileSync(dest, f.code);
-      // Format every deliverable with prettier BEFORE it is gated and copied,
-      // so promoted files in restored/ are never raw @babel/generator output
-      // (no blank lines, 400-char lines, multi-line JSX returns without parens).
-      // Degrades gracefully when prettier is unavailable (format.ts probes it).
-      if (/\.(tsx?|jsx?|mjs|cjs)$/.test(dest)) {
-        const fmt = formatPath(dest);
-        if (!fmt.ok && fmt.stderr) {
-          log(`  prettier skipped for ${f.relPath}: ${fmt.stderr.trim()}`);
-        }
-      }
+    }
+  };
+  // Format a whole wave's written deliverables in ONE prettier spawn (instead of
+  // one cold-start per file). Runs BEFORE the wave is gated and copied, so
+  // promoted files in restored/ are never raw @babel/generator output (no blank
+  // lines, 400-char lines, multi-line JSX returns without parens), and the gate
+  // reads the formatted output. Degrades gracefully when prettier is unavailable
+  // (format.ts probes it) — the files stay as-written and gating proceeds on them.
+  const formatWave = (builts: Built[]): void => {
+    const targets = builts
+      .flatMap((built) => built.files.map((f) => path.join(opts.target, f.relPath)))
+      .filter((dest) => FORMAT_EXT.test(dest));
+    if (targets.length === 0) return;
+    const fmt = formatPaths(targets);
+    if (!fmt.ok && fmt.stderr) {
+      log(`  prettier skipped for wave (${targets.length} file(s)): ${fmt.stderr.trim()}`);
     }
   };
   const rollback = (snapshot: RollbackSnapshot): void => {
@@ -644,145 +651,199 @@ export function promoteOrganized(
   // Chunks we tried this run but couldn't promote (gate fail / lock / error) —
   // skip them so the loop drains instead of re-picking the same stuck chunk.
   const attempted = new Set<string>();
-  // Drain the promote frontier: producers promote before consumers, so each
-  // consumer's import rewrites point at already-promoted producer files.
+  // Drain the promote frontier one WAVE at a time. Producers promote before
+  // consumers, so every chunk in a frontier snapshot already has its producer
+  // deps promoted by earlier waves — the chunks in a wave are independent of
+  // each other. That lets us build+write the whole wave, run prettier ONCE over
+  // all of it (one spawn instead of one cold-start per file — the batching win),
+  // then gate+commit each chunk. Consumers of a chunk promoted this wave surface
+  // in the next wave's frontier (in-memory manifest mutation advances it).
+  type StagedChunk = {
+    basename: string;
+    file: (typeof manifest.files)[string];
+    built: Built;
+    rollbackSnapshot: RollbackSnapshot;
+    lockHeld: boolean;
+  };
   for (;;) {
     if (opts.limit !== undefined && processed >= opts.limit) break;
     const frontier = computeFrontier(manifest, ledger as never, paths.fullDir, {
       stage: "promote",
     });
-    const next = frontier.find((item) => {
+    let wave = frontier.filter((item) => {
       const file = manifest.files[item.basename];
       if (!file?.organization?.semanticPath) return false;
       if (opts.only && !opts.only.has(item.basename)) return false;
       if (attempted.has(item.basename)) return false;
       return true;
     });
-    if (!next) break;
+    if (opts.limit !== undefined) {
+      wave = wave.slice(0, Math.max(0, opts.limit - processed));
+    }
+    if (wave.length === 0) break;
 
-    const basename = next.basename;
-    const file = manifest.files[basename]!;
-    const org = file.organization!;
-    processed++;
-    prog?.tick(1, `${promotedCount} promoted · ${attempted.size} blocked`);
+    // ---- Phase A: build + write every candidate in the wave (unformatted).
+    const staged: StagedChunk[] = [];
+    for (const item of wave) {
+      const basename = item.basename;
+      const file = manifest.files[basename]!;
+      const org = file.organization!;
+      processed++;
+      prog?.tick(1, `${promotedCount} promoted · ${attempted.size} blocked`);
 
-    let lockHeld = false;
-    let rollbackSnapshot: RollbackSnapshot | null = null;
-    try {
-      if (!opts.dryRun) {
-        acquireLock(paths.fullDir, basename, "promote", owner);
-        lockHeld = true;
-      }
-      const built = buildCandidate(file, {
-        basename,
-        semanticPath: org.semanticPath,
-        recipe: org.recipe ?? "manual",
-        fullDir: paths.fullDir,
-        importMap,
-        rootDir: manifest.rootDir,
-        manifest,
-      });
-      // Write at the FINAL location so relative imports to promoted siblings
-      // resolve, gate in place, then keep or roll back.
-      rollbackSnapshot = snapshotBeforeWrite(built.promotionRoot);
-      writeBuilt(built);
-      const qopts = qualityOptionsFor(org.classification, opts.tier ?? "deep");
-      const issues = [
-        ...new Set(
-          built.files.flatMap((f) =>
-            analyzeSource(
-              f.code,
-              path.join(opts.target, f.relPath),
-              qopts,
-            ).issues.map((i) => i.code),
-          ),
-        ),
-      ];
-
-      if (issues.length > 0) {
-        rollback(rollbackSnapshot);
-        rollbackSnapshot = null;
-        log(`promote: FAIL ${basename} (${issues.join(", ")})`);
+      let lockHeld = false;
+      let rollbackSnapshot: RollbackSnapshot | null = null;
+      try {
+        if (!opts.dryRun) {
+          acquireLock(paths.fullDir, basename, "promote", owner);
+          lockHeld = true;
+        }
+        const built = buildCandidate(file, {
+          basename,
+          semanticPath: org.semanticPath,
+          recipe: org.recipe ?? "manual",
+          fullDir: paths.fullDir,
+          importMap,
+          rootDir: manifest.rootDir,
+          manifest,
+        });
+        // Write at the FINAL location so relative imports to promoted siblings
+        // resolve, gate in place, then keep or roll back.
+        rollbackSnapshot = snapshotBeforeWrite(built.promotionRoot);
+        writeBuilt(built);
+        staged.push({ basename, file, built, rollbackSnapshot, lockHeld });
+      } catch (err) {
+        if (rollbackSnapshot) rollback(rollbackSnapshot);
+        if (lockHeld) {
+          try {
+            releaseLock(paths.fullDir, basename, "promote", { force: true });
+          } catch {
+            // best-effort
+          }
+        }
+        if (err instanceof LockHeldError) {
+          log(`promote: ${basename} locked by ${err.info.owner}; skipping`);
+          attempted.add(basename); // another agent owns it this run
+          results.push({
+            basename,
+            promoted: false,
+            semanticPath: org.semanticPath,
+            reason: "locked by another agent",
+          });
+          continue;
+        }
+        log(`promote: ERROR ${basename} ${(err as Error).message}`);
         results.push({
           basename,
           promoted: false,
           semanticPath: org.semanticPath,
-          reason: "gate rejected candidate",
-          issues,
+          reason: (err as Error).message,
         });
-        attempted.add(basename);
-        continue; // resumable: leave unpromoted, drain the rest
+        attempted.add(basename); // avoid re-picking a hard-failing chunk
       }
+    }
 
-      // Gate passed — record success in-memory (so downstream consumers see it).
-      importMap.chunks![basename] = {
-        ...(importMap.chunks![basename] ?? {}),
-        restored: built.restoredPath,
-        ...(Object.keys(built.exportMap).length > 0
-          ? { exports: built.exportMap }
-          : {}),
-        status: "done",
-      };
-      file.stages.promoted = true;
-      file.lastUpdated = new Date().toISOString();
-      manifest.updatedAt = new Date().toISOString();
+    // ---- Phase B: format the whole wave in one prettier spawn (before gating).
+    formatWave(staged.map((s) => s.built));
 
-      if (opts.dryRun) {
-        dryWritten.push(rollbackSnapshot);
-        rollbackSnapshot = null;
-        log(`[dry] ${basename} → ${built.restoredPath}  PASS`);
-        results.push({
-          basename,
-          promoted: false,
-          semanticPath: built.restoredPath,
-          reason: "would promote",
-        });
-      } else {
-        writeJsonAtomic(importMapPath, importMap);
-        writeJsonAtomic(paths.manifestPath, manifest);
-        promotedCount++;
-        log(`promote: ${basename} → ${built.restoredPath}`);
-        results.push({
-          basename,
-          promoted: true,
-          semanticPath: built.restoredPath,
-          reason: "promoted",
-        });
+    // ---- Phase C: gate the FORMATTED output, then commit or roll back per chunk.
+    for (const s of staged) {
+      const { basename, file, built } = s;
+      const org = file.organization!;
+      let rollbackSnapshot: RollbackSnapshot | null = s.rollbackSnapshot;
+      try {
+        const qopts = qualityOptionsFor(org.classification, opts.tier ?? "deep");
+        const issues = [
+          ...new Set(
+            built.files.flatMap((f) => {
+              const dest = path.join(opts.target, f.relPath);
+              // Gate the on-disk (formatted) output; fall back to the built code
+              // if the file vanished (never expected — snapshot still rolls back).
+              let code = f.code;
+              try {
+                code = fs.readFileSync(dest, "utf-8");
+              } catch {
+                // keep built code
+              }
+              return analyzeSource(code, dest, qopts).issues.map((i) => i.code);
+            }),
+          ),
+        ];
+
+        if (issues.length > 0) {
+          rollback(rollbackSnapshot);
+          rollbackSnapshot = null;
+          log(`promote: FAIL ${basename} (${issues.join(", ")})`);
+          results.push({
+            basename,
+            promoted: false,
+            semanticPath: org.semanticPath,
+            reason: "gate rejected candidate",
+            issues,
+          });
+          attempted.add(basename);
+          continue; // resumable: leave unpromoted, drain the rest
+        }
+
+        // Gate passed — record success in-memory (so downstream consumers see it).
+        importMap.chunks![basename] = {
+          ...(importMap.chunks![basename] ?? {}),
+          restored: built.restoredPath,
+          ...(Object.keys(built.exportMap).length > 0
+            ? { exports: built.exportMap }
+            : {}),
+          status: "done",
+        };
+        file.stages.promoted = true;
+        file.lastUpdated = new Date().toISOString();
+        manifest.updatedAt = new Date().toISOString();
+
+        if (opts.dryRun) {
+          dryWritten.push(rollbackSnapshot!);
+          rollbackSnapshot = null;
+          log(`[dry] ${basename} → ${built.restoredPath}  PASS`);
+          results.push({
+            basename,
+            promoted: false,
+            semanticPath: built.restoredPath,
+            reason: "would promote",
+          });
+        } else {
+          writeJsonAtomic(importMapPath, importMap);
+          writeJsonAtomic(paths.manifestPath, manifest);
+          promotedCount++;
+          log(`promote: ${basename} → ${built.restoredPath}`);
+          results.push({
+            basename,
+            promoted: true,
+            semanticPath: built.restoredPath,
+            reason: "promoted",
+          });
+          if (rollbackSnapshot) {
+            discardSnapshot(rollbackSnapshot);
+            rollbackSnapshot = null;
+          }
+        }
+      } catch (err) {
         if (rollbackSnapshot) {
-          discardSnapshot(rollbackSnapshot);
+          rollback(rollbackSnapshot);
           rollbackSnapshot = null;
         }
-      }
-    } catch (err) {
-      if (rollbackSnapshot) {
-        rollback(rollbackSnapshot);
-        rollbackSnapshot = null;
-      }
-      if (err instanceof LockHeldError) {
-        log(`promote: ${basename} locked by ${err.info.owner}; skipping`);
-        attempted.add(basename); // another agent owns it this run
+        log(`promote: ERROR ${basename} ${(err as Error).message}`);
         results.push({
           basename,
           promoted: false,
           semanticPath: org.semanticPath,
-          reason: "locked by another agent",
+          reason: (err as Error).message,
         });
-        continue;
-      }
-      log(`promote: ERROR ${basename} ${(err as Error).message}`);
-      results.push({
-        basename,
-        promoted: false,
-        semanticPath: org.semanticPath,
-        reason: (err as Error).message,
-      });
-      attempted.add(basename); // avoid re-picking a hard-failing chunk
-    } finally {
-      if (lockHeld) {
-        try {
-          releaseLock(paths.fullDir, basename, "promote", { force: true });
-        } catch {
-          // best-effort
+        attempted.add(basename); // avoid re-picking a hard-failing chunk
+      } finally {
+        if (s.lockHeld) {
+          try {
+            releaseLock(paths.fullDir, basename, "promote", { force: true });
+          } catch {
+            // best-effort
+          }
         }
       }
     }

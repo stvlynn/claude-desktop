@@ -474,6 +474,48 @@ export function makeFacade(
   };
 }
 
+/**
+ * Compare a supplied name-map against the chunk's REAL exports (facade mode:
+ * map keys are source export tokens). Catches the classic incident where a
+ * producer copies a stale alias→name map from an OLDER build — the keys then
+ * reference tokens the current chunk no longer exports, and/or leave new exports
+ * uncovered (e.g. automations-page BC0ZtIBr: 105 map keys ≠ 141 real exports).
+ *
+ * `unknownKeys` — map keys the chunk does NOT export (stale/dangling aliases).
+ * `uncovered`   — chunk exports absent from the map (map likely out of date).
+ */
+export type NameMapDrift = {
+  unknownKeys: string[];
+  uncovered: string[];
+  exportCount: number;
+  mapKeyCount: number;
+  ok: boolean;
+};
+
+export function checkNameMapDrift(
+  source: string,
+  nameMap: Record<string, string>,
+): NameMapDrift {
+  const { tokens } = collectExportTokens(source);
+  const real = new Set(tokens);
+  const keys = Object.keys(nameMap);
+  const keySet = new Set(keys);
+  const unknownKeys = keys.filter((k) => !real.has(k)).sort();
+  const uncovered = tokens.filter((t) => !keySet.has(t)).sort();
+  return {
+    unknownKeys,
+    uncovered,
+    exportCount: tokens.length,
+    mapKeyCount: keys.length,
+    ok: unknownKeys.length === 0 && uncovered.length === 0,
+  };
+}
+
+function previewList(names: string[], limit = 12): string {
+  if (names.length <= limit) return names.join(", ");
+  return `${names.slice(0, limit).join(", ")}, … (+${names.length - limit} more)`;
+}
+
 const USAGE =
   "Usage: bun scripts/make-facade.ts <chunk.js> [--name-map map.json] " +
   "[--out facade.ts] [--provenance <relpath>]\n" +
@@ -484,7 +526,10 @@ const USAGE =
   "      Runtime interim: re-export the original ref chunk with @ts-nocheck + // TODO.\n" +
   "  --name-map maps a public name (what consumers import) → the real export name\n" +
   "  in the target module, for reexport/passthrough; → emitted facade name otherwise.\n" +
-  "Exit: 0 ok · 2 no exports found · 1 I/O · 64 usage.";
+  "  --print-exports  Print the chunk's real export tokens as a JSON array and exit\n" +
+  "      (derive a fresh name-map from this instead of copying a stale one).\n" +
+  "  --allow-name-map-drift  Downgrade a name-map/chunk-export mismatch to a warning.\n" +
+  "Exit: 0 ok · 2 no exports found · 1 I/O · 64 usage · 65 name-map drift.";
 
 function main(): void {
   let parsed;
@@ -499,6 +544,8 @@ function main(): void {
         "export-star": { type: "boolean", default: false },
         "reexport-named": { type: "string" },
         passthrough: { type: "string" },
+        "print-exports": { type: "boolean", default: false },
+        "allow-name-map-drift": { type: "boolean", default: false },
       },
       allowPositionals: true,
     });
@@ -520,6 +567,23 @@ function main(): void {
   } catch (err) {
     console.error(`failed to read input: ${(err as Error).message}`);
     process.exit(1);
+  }
+
+  // Standalone: dump the chunk's real export tokens so an agent can derive a
+  // fresh name-map instead of copying a stale one from another build.
+  if (values["print-exports"]) {
+    const { tokens, hasExportStar, usedRegexFallback } =
+      collectExportTokens(source);
+    process.stdout.write(JSON.stringify(tokens, null, 2) + "\n");
+    if (hasExportStar) {
+      console.error(
+        "note: source has `export * from …` — re-exported names are not enumerable here.",
+      );
+    }
+    if (usedRegexFallback) {
+      console.error("note: used regex fallback (chunk not fully parseable).");
+    }
+    process.exit(0);
   }
 
   let nameMap: Record<string, string> | undefined;
@@ -548,6 +612,43 @@ function main(): void {
         .map((s) => s.trim())
         .filter(Boolean)
     : undefined;
+
+  // Drift guard (facade mode only — that's where name-map keys are the chunk's
+  // real export tokens). reexport/passthrough keys are consumer-facing public
+  // names, not source tokens, so the set comparison would misfire there.
+  if (mode === "facade" && nameMap) {
+    const drift = checkNameMapDrift(source, nameMap);
+    if (!drift.ok) {
+      const header =
+        `name-map drift: ${drift.mapKeyCount} map key(s) vs ` +
+        `${drift.exportCount} chunk export token(s)`;
+      const details: string[] = [];
+      if (drift.unknownKeys.length > 0) {
+        details.push(
+          `  ${drift.unknownKeys.length} map key(s) not exported by the chunk ` +
+            `(stale alias?): ${previewList(drift.unknownKeys)}`,
+        );
+      }
+      if (drift.uncovered.length > 0) {
+        details.push(
+          `  ${drift.uncovered.length} chunk export(s) missing from the ` +
+            `name-map: ${previewList(drift.uncovered)}`,
+        );
+      }
+      if (values["allow-name-map-drift"]) {
+        console.error(`warning: ${header}`);
+        for (const line of details) console.error(line);
+      } else {
+        console.error(`error: ${header}`);
+        for (const line of details) console.error(line);
+        console.error(
+          "  Re-derive the map from `--print-exports`, or pass " +
+            "--allow-name-map-drift to proceed anyway.",
+        );
+        process.exit(65);
+      }
+    }
+  }
 
   const result = makeFacade(source, {
     nameMap,
