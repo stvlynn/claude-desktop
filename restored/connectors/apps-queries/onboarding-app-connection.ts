@@ -9,7 +9,7 @@ import {
   findAmbientSuggestionApps,
   type AmbientSuggestionAppIndex,
 } from "../ambient-suggestion-apps";
-import type { AppConnectApp } from "./apps-queries";
+import type { AppConnectApp } from "./types";
 
 export function findConnectorAppByIdentifier(
   apps: readonly AppConnectApp[],

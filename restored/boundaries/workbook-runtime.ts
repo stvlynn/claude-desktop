@@ -29,6 +29,7 @@ export declare const N: any;
 export declare const O: any;
 export declare const P: any;
 export declare const Q: any;
+export declare const workbookQ: any;
 export declare const R: any;
 export declare const S: any;
 export declare const St: any;

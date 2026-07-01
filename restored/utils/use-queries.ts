@@ -12,13 +12,13 @@ import {
   vscodeApiA,
   vscodeApiB,
   vscodeApiC,
-  vscodeApiD,
   vscodeApiE,
   vscodeApiO,
   vscodeApiS,
-  vscodeApiT,
   vscodeApiW,
   vscodeApiX,
+  vscodeQueryErrorResetBoundary,
+  vscodeShouldThrowError,
 } from "../boundaries/vscode-api";
 type QueryOptions = Record<string, any>;
 type QueryResult = Record<string, any>;
@@ -251,7 +251,7 @@ export function UseQueries(
 ) {
   const client = vscodeApiA(queryClient);
   const isRestoring = vscodeApiO();
-  const errorResetBoundary = vscodeApiD();
+  const errorResetBoundary = vscodeQueryErrorResetBoundary();
   const defaultedQueries = React.useMemo(
     () =>
       queries.map((queryOptions) => {
@@ -320,7 +320,7 @@ export function UseQueries(
     const defaultedQuery = defaultedQueries[index];
     return (
       defaultedQuery &&
-      vscodeApiT({
+      vscodeShouldThrowError({
         result,
         errorResetBoundary,
         throwOnError: defaultedQuery.throwOnError,

@@ -1,5 +1,5 @@
 // Restored from ref/webview/assets/vscode-api-Cp_DWew0.js
-// VS Code bridge, query helpers, and logging facade for restored chunks.
+// TYPED BOUNDARY FACADE: VS Code bridge, query helpers, and logging facade.
 import * as React from "react";
 
 type QueryKey = readonly unknown[];
@@ -315,3 +315,79 @@ export function vscodeApiO<T = unknown>(
 
 export const _vscodeApiO = vscodeApiO;
 export const vscodeApiR = (...parts: unknown[]): QueryKey => parts;
+
+export function vscodeApiB(_queryOptions: QueryOptions): void {}
+
+export function vscodeApiW(
+  _queryOptions: QueryOptions,
+  _errorResetBoundary: unknown,
+): void {}
+
+export function vscodeApiE(errorResetBoundary: {
+  clearReset?: () => void;
+}): void {
+  React.useEffect(() => {
+    errorResetBoundary.clearReset?.();
+  }, [errorResetBoundary]);
+}
+
+export function vscodeApiC(
+  result: { isPending?: boolean; isFetching?: boolean },
+  isRestoring: boolean,
+): boolean {
+  return !isRestoring && Boolean(result.isPending && result.isFetching);
+}
+
+export function vscodeApiX(
+  defaultedQueryOptions: QueryOptions,
+  queryObserver: {
+    fetchOptimistic?: (options: QueryOptions) => Promise<unknown>;
+  },
+  errorResetBoundary: { clearReset?: () => void },
+): Promise<unknown> {
+  const fetchPromise =
+    queryObserver.fetchOptimistic?.(defaultedQueryOptions) ??
+    Promise.resolve(undefined);
+  return fetchPromise.catch((error) => {
+    errorResetBoundary.clearReset?.();
+    throw error;
+  });
+}
+
+export function vscodeQueryErrorResetBoundary(): {
+  clearReset(): void;
+  isReset(): boolean;
+  reset(): void;
+} {
+  const isResetRef = React.useRef(false);
+  return React.useMemo(
+    () => ({
+      clearReset(): void {
+        isResetRef.current = false;
+      },
+      isReset(): boolean {
+        return isResetRef.current;
+      },
+      reset(): void {
+        isResetRef.current = true;
+      },
+    }),
+    [],
+  );
+}
+
+export function vscodeShouldThrowError({
+  result,
+  throwOnError,
+}: {
+  errorResetBoundary?: { isReset?: () => boolean };
+  query?: unknown;
+  result: { error?: unknown; isError?: boolean };
+  suspense?: boolean;
+  throwOnError?: boolean | ((error: unknown, query: unknown) => boolean);
+}): boolean {
+  if (!result.isError || result.error == null) return false;
+  return typeof throwOnError === "function"
+    ? throwOnError(result.error, undefined)
+    : throwOnError === true;
+}

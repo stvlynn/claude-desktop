@@ -11,6 +11,8 @@ import {
   loadImageFileDataUrl,
 } from "../boundaries/onboarding-commons-externals.facade";
 
+export type { ImageComment } from "./image-comment-surface";
+
 interface ComposerScope {
   get(atom: unknown): any;
 }

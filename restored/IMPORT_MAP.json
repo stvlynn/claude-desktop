@@ -42592,12 +42592,12 @@
         "u": "codexMobileSetupFlowU"
       },
       "status": "done",
-      "note": "Current Codex mobile setup flow hash maps to a dedicated current-ref runtime over vendor/codex-mobile-setup-flow-current-bundle.tsx; aliases are derived from the current file and exposed as codexMobileSetupFlow* compatibility names.",
+      "note": "Current Codex mobile setup flow hash maps to a dedicated current-ref runtime. The vendor bundle is now a thin compatibility surface over codex-mobile/setup-flow.tsx, whose semantic body replaces the restored-dependency backing bundle.",
       "lastUpdated": "2026-06-30T23:06:02.558Z",
       "stage3Accepted": true,
       "stage3AcceptedAt": "2026-06-30T23:06:02.558Z",
       "stage3Review": "Host self-review: parsed current export table, rebuilt alias-to-compatibility-name exports from auto-renames.json, rewrote dependency imports through restored/IMPORT_MAP.json with consumer rename aliases, and prepared focused quality gates on the backing bundle and runtime.",
-      "stage3Note": "Accepted as a current-ref compatibility export over a restored-dependency backing bundle; full semantic split of CodexMobileSetupFlow remains future cleanup."
+      "stage3Note": "Accepted as a current-ref compatibility export over the semantic Codex Mobile setup flow split."
     },
     "codex-mobile-page-CB-Xg-VQ": {
       "restored": "runtime/current-app-initial/codex-mobile-page-current-runtime.ts",

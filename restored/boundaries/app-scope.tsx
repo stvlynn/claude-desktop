@@ -160,6 +160,7 @@ export function _appScopeM<T>(
 export const appScopeM = _appScopeM;
 export const appScopeP = _appScopeM;
 export const _appScopeP = _appScopeM;
+export const _appScopeD = _appScopeM;
 
 export function useAppScopeValue<T>(signal: unknown, key?: unknown): T {
   return rootStore.get<T>(signal, key);
@@ -212,6 +213,36 @@ export const _appScopeH = appScopeH;
 
 export function appScopeU<T>(resolver: T): T {
   return resolver;
+}
+
+export const _appScopeU = appScopeU;
+
+export function createSignalFamily<Args extends unknown[], Value>(
+  factory: (...args: Args) => Value,
+): (...args: Args) => Value {
+  const cache = new Map<string, Value>();
+  return (...args: Args) => {
+    const key = JSON.stringify(args);
+    if (!cache.has(key)) cache.set(key, factory(...args));
+    return cache.get(key) as Value;
+  };
+}
+
+export const appScopeV = createSignalFamily;
+
+export const _appScopeJ = {
+  batch<T>(callback: () => T): T {
+    return callback();
+  },
+  batchCalls<Args extends unknown[], Result>(
+    callback: (...args: Args) => Result,
+  ): (...args: Args) => Result {
+    return (...args: Args) => callback(...args);
+  },
+};
+
+export function appScopeQ(left: unknown, right: unknown): boolean {
+  return Object.is(left, right);
 }
 
 export function appScopeB<T>(value: T): T {
