@@ -1,7 +1,7 @@
 // Restored from ref/webview/assets/app-initial~app-main~onboarding-page-CgNc-Bk2.js
 // Uppercase P compatibility aliases for the current app-main producer.
+export { declineConversationalOnboardingTask as appMainCurrentCompatSlotUpperP } from "../../onboarding/conversational-onboarding-workflow-state";
 export {
-  P as appMainCurrentCompatSlotUpperP,
   Pa as appMainCurrentCompatSlotUpperPLowerA,
   Pi as appMainCurrentCompatSlotUpperPLowerI,
   Pl as appMainCurrentCompatSlotUpperPLowerL,

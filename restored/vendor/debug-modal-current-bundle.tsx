@@ -173,8 +173,8 @@ import {
   appMainCurrentCompatSlotLowerK,
   appMainCurrentCompatSlotLowerKLowerD,
   appMainCurrentCompatSlotLowerLLowerO,
-  appMainCurrentCompatSlotUpperM,
-  logger,
+  initConversationalOnboardingWorkflowStateChunk,
+  resetConversationalOnboardingWorkflowState,
   liveMcpAppFrameSignal,
   appMainCurrentCompatSlotUpperO,
   appMainCurrentCompatSlotUpperOLowerD,
@@ -10830,7 +10830,9 @@ function debugModalHelper207() {
                   appMainCurrentCompatSlotLowerK(
                     currentAppInitialSharedMember0542,
                   );
-                  logger(debugModalValue207);
+                  resetConversationalOnboardingWorkflowState(
+                    debugModalValue207,
+                  );
                   debugModalValue213(item.value);
                   debugModalValue211("/", {
                     replace: true,
@@ -11170,7 +11172,7 @@ var debugModalValue158,
     collectPendingCoreUpdateState();
     initOnboardingStateChunk();
     appMainCurrentCompatSlotUpperO();
-    appMainCurrentCompatSlotUpperM();
+    initConversationalOnboardingWorkflowStateChunk();
     initWorkspaceOnboardingExperimentChunk();
     projectsIndexCurrentCompatSlotUpperYLowerT();
     currentAppInitialSharedCompatSlotUpperD();

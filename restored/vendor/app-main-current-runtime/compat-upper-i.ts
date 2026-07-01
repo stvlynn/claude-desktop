@@ -1,7 +1,7 @@
 // Restored from ref/webview/assets/app-initial~app-main~onboarding-page-CgNc-Bk2.js
 // Uppercase I compatibility aliases for the current app-main producer.
+export { selectConversationalOnboardingTask as appMainCurrentCompatSlotUpperI } from "../../onboarding/conversational-onboarding-workflow-state";
 export {
-  I as appMainCurrentCompatSlotUpperI,
   Ia as appMainCurrentCompatSlotUpperILowerA,
   Ic as appMainCurrentCompatSlotUpperILowerC,
   Id as appMainCurrentCompatSlotUpperILowerD,

@@ -1,7 +1,7 @@
 // Restored from ref/webview/assets/app-initial~app-main~onboarding-page-CgNc-Bk2.js
 // Uppercase L compatibility aliases for the current app-main producer.
+export { setConversationalOnboardingPermissionStatus as appMainCurrentCompatSlotUpperL } from "../../onboarding/conversational-onboarding-workflow-state";
 export {
-  L as appMainCurrentCompatSlotUpperL,
   La as appMainCurrentCompatSlotUpperLLowerA,
   Lc as appMainCurrentCompatSlotUpperLLowerC,
   Ld as appMainCurrentCompatSlotUpperLLowerD,

@@ -15,7 +15,7 @@ export type ConversationalOnboardingWorkflowPhase =
 export type ConversationalOnboardingPermissionStatus =
   | "not-requested"
   | "pending"
-  | "granted"
+  | "allowed"
   | "denied";
 
 export interface ConversationalOnboardingWorkflowState {
@@ -49,6 +49,8 @@ export const conversationalOnboardingWorkflowSignal =
     defaultConversationalOnboardingWorkflowState,
   );
 
+export function initConversationalOnboardingWorkflowStateChunk(): void {}
+
 export function getConversationalOnboardingWorkflowState(
   store: ConversationalOnboardingWorkflowStore,
 ): ConversationalOnboardingWorkflowState {
@@ -70,6 +72,33 @@ export function setConversationalOnboardingPermissionStatus(
   store.set(conversationalOnboardingWorkflowSignal, {
     ...getConversationalOnboardingWorkflowState(store),
     permissionStatus,
+  });
+}
+
+export function selectConversationalOnboardingTask(
+  store: ConversationalOnboardingWorkflowStore,
+  selectedTask: ConversationalOnboardingTaskId,
+): void {
+  store.set(conversationalOnboardingWorkflowSignal, {
+    ...getConversationalOnboardingWorkflowState(store),
+    phase: selectedTask === "csv_chart" ? "execution" : "permission",
+    selectedTask,
+    permissionStatus:
+      selectedTask === "csv_chart" ? "not-requested" : "pending",
+  });
+}
+
+export function declineConversationalOnboardingTask(
+  store: ConversationalOnboardingWorkflowStore,
+  declinedTask: ConversationalOnboardingTaskId,
+): void {
+  const workflowState = getConversationalOnboardingWorkflowState(store);
+  store.set(conversationalOnboardingWorkflowSignal, {
+    ...workflowState,
+    declinedTasks: [...(workflowState.declinedTasks ?? []), declinedTask],
+    phase: "task",
+    selectedTask: null,
+    permissionStatus: "not-requested",
   });
 }
 

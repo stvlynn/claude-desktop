@@ -40,7 +40,14 @@ export {
 export { CHATGPT_PRICING_URL } from "../../utils/links-bd-mmkun-d";
 export { normalizeWorkspacePath } from "../../boundaries/src-l0hb/paths";
 export { setPinnedThreadsOrder } from "../../utils/set-pinned-thread";
-export { resetConversationalOnboardingWorkflowState } from "../../onboarding/conversational-onboarding-workflow-state";
+export {
+  declineConversationalOnboardingTask,
+  getConversationalOnboardingWorkflowState,
+  initConversationalOnboardingWorkflowStateChunk,
+  resetConversationalOnboardingWorkflowState,
+  selectConversationalOnboardingTask,
+  setConversationalOnboardingPermissionStatus,
+} from "../../onboarding/conversational-onboarding-workflow-state";
 export { AutomationSchedulePicker } from "../../automations/automation-schedule-picker";
 export {
   initMeasuredTextCollapseRuntimeChunk,

@@ -1,7 +1,7 @@
 // Restored from ref/webview/assets/app-initial~app-main~onboarding-page-CgNc-Bk2.js
 // Lowercase j compatibility aliases for the current app-main producer.
+export { getConversationalOnboardingWorkflowState as appMainCurrentCompatSlotLowerJ } from "../../onboarding/conversational-onboarding-workflow-state";
 export {
-  j as appMainCurrentCompatSlotLowerJ,
   ja as appMainCurrentCompatSlotLowerJLowerA,
   jc as appMainCurrentCompatSlotLowerJLowerC,
   jd as appMainCurrentCompatSlotLowerJLowerD,

@@ -127,7 +127,6 @@ import {
   windowVisibleSignal,
 } from "./automations-page-current-runtime";
 import {
-  appMainCurrentCompatSlotUpperL as _appInitialAppMainOnboardingPageL,
   appMainCurrentCompatSlotDollarLowerO as _appInitialAppMainOnboardingPageO,
   appMainCurrentCompatSlotUpperS as _appInitialAppMainOnboardingPageS,
   appMainCurrentCompatSlotUpperZLowerO as _appInitialAppMainOnboardingPageZo,
@@ -147,14 +146,13 @@ import {
   appMainCurrentCompatSlotUpperFLowerI,
   appMainCurrentCompatSlotUpperGLowerF,
   appMainCurrentCompatSlotLowerGLowerS,
-  appMainCurrentCompatSlotUpperI,
   appMainCurrentCompatSlotUpperILowerI,
   appMainCurrentCompatSlotLowerILowerS,
-  appMainCurrentCompatSlotLowerJ,
   appMainCurrentCompatSlotLowerK,
-  appMainCurrentCompatSlotUpperL,
   appMainCurrentCompatSlotLowerLLowerP,
-  appMainCurrentCompatSlotUpperM,
+  declineConversationalOnboardingTask,
+  getConversationalOnboardingWorkflowState,
+  initConversationalOnboardingWorkflowStateChunk,
   resetConversationalOnboardingWorkflowState,
   appMainCurrentCompatSlotUpperNLowerP,
   appMainCurrentCompatSlotLowerNLowerS,
@@ -162,7 +160,8 @@ import {
   appMainCurrentCompatSlotLowerO,
   appMainCurrentCompatSlotLowerOLowerP,
   appMainCurrentCompatSlotLowerOLowerS,
-  appMainCurrentCompatSlotUpperP,
+  selectConversationalOnboardingTask,
+  setConversationalOnboardingPermissionStatus,
   appMainCurrentCompatSlotUpperPLowerP,
   appMainCurrentCompatSlotLowerQLowerF,
   appMainCurrentCompatSlotUpperQLowerO,
@@ -1651,8 +1650,7 @@ var onboardingPageValue50,
   onboardingPageValue52 = once(() => {
     onboardingPageValue50 = currentAppInitialSharedCompatSlotLowerGLowerC();
     intlFormatDateTimeRuntime();
-    appMainCurrentCompatSlotUpperM();
-    _appInitialAppMainOnboardingPageL();
+    initConversationalOnboardingWorkflowStateChunk();
     onboardingPageValue51 = currentAppInitialSharedCompatSlotLowerLLowerC();
   });
 function onboardingPageHelper26(onboardingPageParam1) {
@@ -2506,7 +2504,6 @@ var onboardingPageValue53,
     worktreeNewThreadOrchestratorCompatSlotLowerALowerA();
     worktreeNewThreadQueryCompatSlotLowerCLowerO();
     onboardingPageValue42();
-    _appInitialAppMainOnboardingPageL();
     _appInitialAppMainOnboardingPageS();
     onboardingPageValue45();
     onboardingPageValue49();
@@ -2591,7 +2588,7 @@ function onboardingPageHelper33(onboardingPageParam2) {
     onboardingPageValue203 =
       currentAppInitialSharedCompatSlotLowerQLowerO(
         appMainCurrentCompatSlotUpperA,
-      ) ?? appMainCurrentCompatSlotLowerJ(onboardingPageValue193),
+      ) ?? getConversationalOnboardingWorkflowState(onboardingPageValue193),
     onboardingPageValue204 =
       currentAppInitialSharedCompatSlotLowerQLowerO(windowVisibleSignal) ===
       true,
@@ -2877,7 +2874,7 @@ function onboardingPageHelper33(onboardingPageParam2) {
           onboardingPageValue193,
         );
       appMainCurrentCompatSlotLowerW(onboardingPageValue193);
-      appMainCurrentCompatSlotUpperI(
+      selectConversationalOnboardingTask(
         onboardingPageValue193,
         onboardingPageParam58,
       );
@@ -2905,7 +2902,7 @@ function onboardingPageHelper33(onboardingPageParam2) {
       );
       appMainCurrentCompatSlotLowerW(onboardingPageValue193);
       onboardingPageValue234(false);
-      appMainCurrentCompatSlotUpperP(
+      declineConversationalOnboardingTask(
         onboardingPageValue193,
         onboardingPageParam73,
       );
@@ -2925,7 +2922,7 @@ function onboardingPageHelper33(onboardingPageParam2) {
   let onboardingPageValue262 = onboardingPageValue261,
     onboardingPageValue263 = () => {
       onboardingPageValue234(false);
-      let onboardingPageValue689 = appMainCurrentCompatSlotLowerJ(
+      let onboardingPageValue689 = getConversationalOnboardingWorkflowState(
         onboardingPageValue193,
       ).selectedTask;
       onboardingPageValue689 != null &&
@@ -2976,7 +2973,10 @@ function onboardingPageHelper33(onboardingPageParam2) {
     onboardingPageValue256();
     onboardingPageValue257();
     onboardingPageValue203.permissionStatus !== "allowed" &&
-      appMainCurrentCompatSlotUpperL(onboardingPageValue193, "denied");
+      setConversationalOnboardingPermissionStatus(
+        onboardingPageValue193,
+        "denied",
+      );
     onboardingPageValue252({
       isSkipped: true,
       personalizedSuggestionsEnabled:
@@ -3057,10 +3057,9 @@ var onboardingPageValue67,
     appMainCurrentCompatSlotUpperZLowerO();
     onboardingPageValue66();
     _appInitialAppMainOnboardingPageO();
-    _appInitialAppMainOnboardingPageL();
     appMainCurrentCompatSlotUpperC();
     appMainCurrentCompatSlotUnderscore();
-    appMainCurrentCompatSlotUpperM();
+    initConversationalOnboardingWorkflowStateChunk();
     onboardingPageValue69 = currentAppInitialSharedCompatSlotLowerLLowerC();
     onboardingPageValue70 = currentAppInitialSharedCompatSlotLowerTLowerR("~");
   });
