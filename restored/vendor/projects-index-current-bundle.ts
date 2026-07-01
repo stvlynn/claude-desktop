@@ -330,7 +330,7 @@ import {
   getThreadTaskKeys as Yi,
   formatAutomationNextRunLabel as Xi,
   getSidebarThreadEntityIds as Zi,
-  appMainCurrentCompatSlotUpperELowerL as Qi,
+  initPullRequestStatusRuntimeChunk as Qi,
   PinIcon as $i,
   initAlertIconChunk as ea,
   setPinnedThreadOptimistically as ta,

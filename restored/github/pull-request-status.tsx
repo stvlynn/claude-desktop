@@ -290,7 +290,9 @@ function getPullRequestCheckStatePresentation({
           : PULL_REQUEST_CHECK_STATE_CLASS_NAMES[state],
   };
 }
+function initPullRequestStatusRuntimeChunk(): void {}
 export {
+  initPullRequestStatusRuntimeChunk,
   PullRequestDraftIcon,
   PullRequestMergedIcon,
   PullRequestStatusIcon,

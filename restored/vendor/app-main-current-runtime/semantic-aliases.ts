@@ -11,6 +11,7 @@ export { PinIcon, initPinIconChunk } from "../../icons/pin-icon";
 export { WarningIcon, initWarningIconChunk } from "../../icons/warning-icon";
 export { FileSourceTab } from "../../review/file-source-tab";
 export {
+  initPullRequestStatusRuntimeChunk,
   PullRequestCheckStatusIcon,
   PullRequestStatusIcon,
 } from "../../github/pull-request-status";
