@@ -75,6 +75,19 @@ export function setConversationalOnboardingPermissionStatus(
   });
 }
 
+export function selectConversationalOnboardingRole(
+  store: ConversationalOnboardingWorkflowStore,
+  selectedRole: string,
+): void {
+  store.set(conversationalOnboardingWorkflowSignal, {
+    declinedTasks: [],
+    phase: "task",
+    selectedRole,
+    selectedTask: null,
+    permissionStatus: "not-requested",
+  });
+}
+
 export function selectConversationalOnboardingTask(
   store: ConversationalOnboardingWorkflowStore,
   selectedTask: ConversationalOnboardingTaskId,

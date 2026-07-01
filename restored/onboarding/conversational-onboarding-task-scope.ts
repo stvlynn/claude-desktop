@@ -31,6 +31,8 @@ export const conversationalOnboardingTaskRequestVisibleSignal =
 export const conversationalOnboardingTaskRequestFailedSignal =
   createScopedAtom<boolean>(conversationalOnboardingTaskScope, false);
 
+export function initConversationalOnboardingTaskScopeChunk(): void {}
+
 export function resetConversationalOnboardingTaskScope(
   store: ConversationalOnboardingTaskScopeStore,
 ): void {

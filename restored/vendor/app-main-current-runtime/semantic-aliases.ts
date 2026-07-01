@@ -85,13 +85,23 @@ export {
   setPinnedThreadsOrder,
 } from "../../utils/set-pinned-thread";
 export {
+  conversationalOnboardingWorkflowSignal,
   declineConversationalOnboardingTask,
   getConversationalOnboardingWorkflowState,
   initConversationalOnboardingWorkflowStateChunk,
   resetConversationalOnboardingWorkflowState,
+  selectConversationalOnboardingRole,
   selectConversationalOnboardingTask,
   setConversationalOnboardingPermissionStatus,
 } from "../../onboarding/conversational-onboarding-workflow-state";
+export {
+  conversationalOnboardingTaskActiveConversationSignal,
+  conversationalOnboardingTaskIntroCompleteSignal,
+  conversationalOnboardingTaskRequestVisibleSignal,
+  conversationalOnboardingTaskScope,
+  initConversationalOnboardingTaskScopeChunk,
+  resetConversationalOnboardingTaskScope,
+} from "../../onboarding/conversational-onboarding-task-scope";
 export { AutomationSchedulePicker } from "../../automations/automation-schedule-picker";
 export {
   initMeasuredTextCollapseRuntimeChunk,
@@ -113,6 +123,27 @@ export {
 } from "../radix-event-helpers";
 export { isComposerDictationTarget } from "../../composer/composer-dictation-focus";
 export { initPrimaryRuntimeInstallStatusMessageChunk } from "../../runtime/primary-runtime-install-status-message";
+
+export {
+  $c as initFileDiffLayoutRuntime,
+  Bt as summarizeParsedDiffs,
+  Ln as AutomationScheduleEditor,
+  Qc as UnifiedDiffIcon,
+  Vt as initFileDiffRuntime,
+  Hc as setThreadBrowserSidePanelExpanded,
+  In as initSettingsRowRuntime,
+  Kt as RemoteConversationShell,
+  ad as initAppMainAttachmentRendererRuntime,
+  ai as initMessageTextRendererRuntime,
+  fo as XcodeLicenseWarningIcon,
+  id as TrashIcon,
+  ii as MessageTextRenderer,
+  kn as AutomationDraftActionForm,
+  ou as FileDiff,
+  po as initReviewModeIconsRuntime,
+  su as initFileDiffSupportRuntime,
+  t as OnboardingStepView,
+} from "../app-main-current-cgnc-bundle";
 
 export {
   $l as SidebarSection,
