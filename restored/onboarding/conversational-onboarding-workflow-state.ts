@@ -72,3 +72,12 @@ export function setConversationalOnboardingPermissionStatus(
     permissionStatus,
   });
 }
+
+export function resetConversationalOnboardingWorkflowState(
+  store: ConversationalOnboardingWorkflowStore,
+): void {
+  store.set(
+    conversationalOnboardingWorkflowSignal,
+    defaultConversationalOnboardingWorkflowState,
+  );
+}

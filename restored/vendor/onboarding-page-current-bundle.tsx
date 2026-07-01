@@ -128,7 +128,6 @@ import {
 } from "./automations-page-current-runtime";
 import {
   appMainCurrentCompatSlotUpperL as _appInitialAppMainOnboardingPageL,
-  logger as _AppInitialAppMainOnboardingPageN,
   appMainCurrentCompatSlotDollarLowerO as _appInitialAppMainOnboardingPageO,
   appMainCurrentCompatSlotUpperS as _appInitialAppMainOnboardingPageS,
   appMainCurrentCompatSlotUpperZLowerO as _appInitialAppMainOnboardingPageZo,
@@ -156,7 +155,7 @@ import {
   appMainCurrentCompatSlotUpperL,
   appMainCurrentCompatSlotLowerLLowerP,
   appMainCurrentCompatSlotUpperM,
-  logger,
+  resetConversationalOnboardingWorkflowState,
   appMainCurrentCompatSlotUpperNLowerP,
   appMainCurrentCompatSlotLowerNLowerS,
   appMainCurrentCompatSlotDollarLowerO,
@@ -1652,7 +1651,7 @@ var onboardingPageValue50,
   onboardingPageValue52 = once(() => {
     onboardingPageValue50 = currentAppInitialSharedCompatSlotLowerGLowerC();
     intlFormatDateTimeRuntime();
-    _AppInitialAppMainOnboardingPageN();
+    appMainCurrentCompatSlotUpperM();
     _appInitialAppMainOnboardingPageL();
     onboardingPageValue51 = currentAppInitialSharedCompatSlotLowerLLowerC();
   });
@@ -2802,7 +2801,7 @@ function onboardingPageHelper33(onboardingPageParam2) {
         onboardingPageValue193,
       );
     appMainCurrentCompatSlotLowerW(onboardingPageValue193);
-    logger(onboardingPageValue193);
+    resetConversationalOnboardingWorkflowState(onboardingPageValue193);
     await appMainCurrentCompatSlotUpperT(currentAppInitialSharedMember0542);
   };
   let onboardingPageValue252 = onboardingPageValue251,

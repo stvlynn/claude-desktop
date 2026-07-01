@@ -26932,7 +26932,7 @@
         "Ms": "appMainCurrentCompatSlotUpperMLowerS",
         "Mt": "appMainCurrentCompatSlotUpperMLowerT",
         "Mu": "appMainCurrentCompatSlotUpperMLowerU",
-        "N": "logger",
+        "N": "resetConversationalOnboardingWorkflowState",
         "Na": "appMainCurrentCompatSlotUpperNLowerA",
         "Nc": "appMainCurrentCompatSlotUpperNLowerC",
         "Nd": "appMainCurrentCompatSlotUpperNLowerD",
@@ -27042,7 +27042,7 @@
         "Uf": "appMainCurrentCompatSlotUpperULowerF",
         "Ui": "appMainCurrentCompatSlotUpperULowerI",
         "Ul": "appMainCurrentCompatSlotUpperULowerL",
-        "Un": "hostBridge",
+        "Un": "AutomationSchedulePicker",
         "Uo": "appMainCurrentCompatSlotUpperULowerO",
         "Up": "appMainCurrentCompatSlotUpperULowerP",
         "Ur": "initFastServiceTierIcon",
@@ -27523,12 +27523,12 @@
         "zu": "appMainCurrentCompatSlotLowerZLowerU"
       },
       "status": "done",
-      "note": "Current app-main/onboarding shared runtime restored as a semantic alias layer over boundaries/current-ref/app-main-current-producer.ts. GlobeIcon, FolderIcon, FileSourceTab, service-tier icons, query-client hooks/provider, tool-result helpers, Appgen disclosure state, OpenAI MCP capability view, path helpers, pricing URL, app logger serialization, panel snapshot helpers, browser/comment command helpers, cloud environment/referral queries, terminal snapshot state, shared highlight themes, SettingsControlRow, pinned-thread ordering, measured-text collapse, LocalConversationGitActions, composeRefs, and composeEventHandlers now resolve directly to semantic modules with their chunk initializers; remaining aliases still route through vendor/app-main-current-cgnc-bundle.ts while semantic consumers continue through app-main-current-runtime.ts.",
-      "lastUpdated": "2026-07-01T05:20:00.000Z",
+      "note": "Current app-main/onboarding shared runtime restored as a semantic alias layer over boundaries/current-ref/app-main-current-producer.ts. GlobeIcon, FolderIcon, FileSourceTab, service-tier icons, query-client hooks/provider, tool-result helpers, Appgen disclosure state, OpenAI MCP capability view, path helpers, pricing URL, app logger serialization, panel snapshot helpers, browser/comment command helpers, cloud environment/referral queries, terminal snapshot state, shared highlight themes, SettingsControlRow, pinned-thread ordering, measured-text collapse, LocalConversationGitActions, conversational onboarding workflow reset, AutomationSchedulePicker, composeRefs, and composeEventHandlers now resolve directly to semantic modules with their chunk initializers; remaining aliases still route through vendor/app-main-current-cgnc-bundle.ts while semantic consumers continue through app-main-current-runtime.ts.",
+      "lastUpdated": "2026-07-01T03:23:05.000Z",
       "stage3Accepted": true,
       "migratedFrom": "app-initial~app-main~onboarding-page-BUwCKIcU",
       "stage3AcceptedAt": "2026-06-29T21:20:00.000Z",
-      "stage3Review": "Host self-review: compared CgNc-Bk2 export aliases against the semantic alias layer, filtered this import-map entry to the current source export surface, and migrated Ar/GlobeIcon, df/FolderIcon, Ds/getBrowserTabIdForPanelTab, Es/deriveBrowserConversationId, Iu/FileSourceTab, Br/Hr/Ur/Vr service-tier icon aliases, Pc/CHATGPT_PRICING_URL, Pd/createToolErrorResult, Rd/terminalSessionSnapshotStore, Wa/setPinnedThreadsOrder, Xl/initAppgenPublicationTermsDisclosureRuntime, Xs/QueryClientProvider, Yl/hasSeenAppgenPublicationTermsDisclosureSignal, Ys/useQueries, Yu/OpenAiMcpCapabilityView, _i/isWindowsStyleAbsolutePath, _o/initSharedHighlightThemeRegistryChunk, br/SettingsControlRow, cl/initMeasuredTextCollapseRuntimeChunk, ff/initFolderIconChunk, fm/initBrowserCommentAttachmentRuntime, ic/getConversationPanelLayoutSnapshot, il/useCloudEnvironmentsQuery, jr/normalizeWorkspacePath, ll/useMeasuredTextCollapse, lt/getCommandExecutionText, mi/serializeError, mp/composeRefs, nl/composeEventHandlers, ol/useReferralInviteMutation, tl/initComposeEventHandlersRuntime, ul/LocalConversationGitActions, ut/initCommandExecutionTextRuntime, vi/isUncPath, vo/sharedHighlightThemeRegistry, ws/browserTabIdForConversation, xr/initSettingsControlRowChunk, and yo/initResolvedHighlightThemesChunk to semantic modules."
+      "stage3Review": "Host self-review: compared CgNc-Bk2 export aliases against the semantic alias layer, filtered this import-map entry to the current source export surface, and migrated Ar/GlobeIcon, df/FolderIcon, Ds/getBrowserTabIdForPanelTab, Es/deriveBrowserConversationId, Iu/FileSourceTab, Br/Hr/Ur/Vr service-tier icon aliases, N/resetConversationalOnboardingWorkflowState, Pc/CHATGPT_PRICING_URL, Pd/createToolErrorResult, Rd/terminalSessionSnapshotStore, Un/AutomationSchedulePicker, Wa/setPinnedThreadsOrder, Xl/initAppgenPublicationTermsDisclosureRuntime, Xs/QueryClientProvider, Yl/hasSeenAppgenPublicationTermsDisclosureSignal, Ys/useQueries, Yu/OpenAiMcpCapabilityView, _i/isWindowsStyleAbsolutePath, _o/initSharedHighlightThemeRegistryChunk, br/SettingsControlRow, cl/initMeasuredTextCollapseRuntimeChunk, ff/initFolderIconChunk, fm/initBrowserCommentAttachmentRuntime, ic/getConversationPanelLayoutSnapshot, il/useCloudEnvironmentsQuery, jr/normalizeWorkspacePath, ll/useMeasuredTextCollapse, lt/getCommandExecutionText, mi/serializeError, mp/composeRefs, nl/composeEventHandlers, ol/useReferralInviteMutation, tl/initComposeEventHandlersRuntime, ul/LocalConversationGitActions, ut/initCommandExecutionTextRuntime, vi/isUncPath, vo/sharedHighlightThemeRegistry, ws/browserTabIdForConversation, xr/initSettingsControlRowChunk, and yo/initResolvedHighlightThemesChunk to semantic modules."
     },
     "app-initial~app-main~remote-conversation-page~new-thread-panel-page~appgen-library-page~hot~djo67r4n-CrVrqCBe": {
       "restored": "runtime/current-app-initial/appgen-library-hot-djo67r4n-runtime.ts",

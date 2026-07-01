@@ -218,7 +218,7 @@ import {
   appMainCurrentCompatSlotLowerTLowerF,
   appMainCurrentCompatSlotUpperTLowerN,
   appMainCurrentCompatSlotUpperTLowerR,
-  hostBridge,
+  AutomationSchedulePicker,
   initFastServiceTierIcon,
   appMainCurrentCompatSlotLowerVLowerF,
   appMainCurrentCompatSlotUpperVLowerN,
@@ -4506,7 +4506,7 @@ function _a(automationsPageParam1) {
   let automationsPageValue184 = automationsPageValue157
       ? "heartbeat"
       : "default",
-    automationsPageValue185 = $.jsx(hostBridge, {
+    automationsPageValue185 = $.jsx(AutomationSchedulePicker, {
       scheduleMode: draft.scheduleConfig.mode,
       scheduleConfig: draft.scheduleConfig,
       align: "end",
