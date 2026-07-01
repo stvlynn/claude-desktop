@@ -209,3 +209,7 @@ export function FeedbackFormDialog({
     </DialogLayout>
   );
 }
+
+export function initFeedbackFormDialogChunk(): void {
+  void feedbackDialogTitleMessage;
+}

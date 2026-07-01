@@ -24,6 +24,10 @@ export {
   initCheckCircleIconChunk,
 } from "../../icons/check-circle-icon";
 export {
+  initProgressionDonutIconChunk,
+  ProgressionDonutIcon,
+} from "../../icons/progression-donut-icon";
+export {
   ArrowUpRightLgIcon,
   initArrowUpRightLgIconChunk,
 } from "../../icons/arrow-up-right-lg-icon";
@@ -184,6 +188,10 @@ export {
   BrowserNotSecureIcon,
   initBrowserNotSecureIconChunk,
 } from "../../browser/browser-address-security-indicator";
+export {
+  FeedbackFormDialog,
+  initFeedbackFormDialogChunk,
+} from "../../ui/feedback-form-dialog";
 export {
   clearBrowserSidebarComments,
   initBrowserSidebarStateChunk,
@@ -354,7 +362,10 @@ export {
   toAutomationRecordWithStatus,
 } from "../../automations/automation-record-sync";
 export { useImageAssetDownload } from "../../image-side-panel/use-image-asset-download";
-export { openImagePreviewTab } from "../../image-side-panel/open-image-preview-tab";
+export {
+  initOpenImagePreviewTabChunk,
+  openImagePreviewTab,
+} from "../../image-side-panel/open-image-preview-tab";
 export {
   ANNOTATION_CROSSHAIR_CURSOR,
   ANNOTATION_EDITOR_ENTER_CLASS,

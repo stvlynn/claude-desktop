@@ -34,3 +34,7 @@ export function openImagePreviewTab(
   focusPreviewTabComposer(scope);
   return true;
 }
+
+export function initOpenImagePreviewTabChunk(): void {
+  void IMAGE_PREVIEW_GATE_ID;
+}

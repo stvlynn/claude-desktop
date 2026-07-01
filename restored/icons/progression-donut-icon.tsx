@@ -72,6 +72,11 @@ export function ProgressionDonutIcon({
     </svg>
   );
 }
+
+export function initProgressionDonutIconChunk(): void {
+  void styles;
+}
+
 function clampProgressPercent(percent: number) {
   if (!Number.isFinite(percent) || percent < 0) return 0;
   if (percent > 100) return 100;
