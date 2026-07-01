@@ -27523,12 +27523,12 @@
         "zu": "appMainCurrentCompatSlotLowerZLowerU"
       },
       "status": "done",
-      "note": "Current app-main/onboarding shared runtime restored as a semantic alias layer over boundaries/current-ref/app-main-current-producer.ts. The producer now re-exports vendor/app-main-current-cgnc-bundle.ts, a faithful CgNc-Bk2 backing bundle with restored import boundaries, while semantic consumers continue through app-main-current-runtime.ts.",
-      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Current app-main/onboarding shared runtime restored as a semantic alias layer over boundaries/current-ref/app-main-current-producer.ts. GlobeIcon now resolves directly to icons/globe-icon.tsx; remaining aliases still route through vendor/app-main-current-cgnc-bundle.ts while semantic consumers continue through app-main-current-runtime.ts.",
+      "lastUpdated": "2026-07-01T02:42:00.000Z",
       "stage3Accepted": true,
       "migratedFrom": "app-initial~app-main~onboarding-page-BUwCKIcU",
       "stage3AcceptedAt": "2026-06-29T21:20:00.000Z",
-      "stage3Review": "Host self-review: compared CgNc-Bk2 export aliases against the semantic alias layer and filtered this import-map entry to the current source export surface."
+      "stage3Review": "Host self-review: compared CgNc-Bk2 export aliases against the semantic alias layer, filtered this import-map entry to the current source export surface, and migrated the Ar/GlobeIcon alias to the semantic icon module."
     },
     "app-initial~app-main~remote-conversation-page~new-thread-panel-page~appgen-library-page~hot~djo67r4n-CrVrqCBe": {
       "restored": "runtime/current-app-initial/appgen-library-hot-djo67r4n-runtime.ts",

@@ -1,8 +1,9 @@
 // Restored from ref/webview/assets/app-initial~app-main~onboarding-page-CgNc-Bk2.js
 // Named app-main current runtime aliases recovered from the current producer.
+export { GlobeIcon } from "../../icons/globe-icon";
+
 export {
   $l as SidebarSection,
-  Ar as GlobeIcon,
   Bn as ArchiveMenuItem,
   Br as UltraFastServiceTierIcon,
   Cl as toggleThreadSidePanel,
