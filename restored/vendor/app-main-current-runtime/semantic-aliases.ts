@@ -60,6 +60,10 @@ export {
 export { resolveSidePanelBrowserTabId } from "../../browser/browser-tab-id-resolution";
 export { normalizeWorkspacePath } from "../../boundaries/src-l0hb/paths";
 export {
+  formatAutomationNextRunLabel,
+  initAutomationNextRunLabelChunk,
+} from "../../automations/shared";
+export {
   initPinnedThreadsQueryChunk,
   pinnedThreadsQuery,
 } from "../../utils/pinned-threads-query";

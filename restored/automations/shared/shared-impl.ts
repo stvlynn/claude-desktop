@@ -150,6 +150,9 @@ export const automationDirectiveResultAtom = createAtom<{
   directiveKey: string;
   automationId: string;
 } | null>(null);
+
+export function initAutomationNextRunLabelChunk(): void {}
+
 export function formatAutomationNextRunLabel({
   intl,
   nextRunAt,

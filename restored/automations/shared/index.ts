@@ -16,6 +16,7 @@ import {
   getAutomationDirectiveActionMode,
   getAutomationDraftDestination,
   getAutomationDraftRrule,
+  initAutomationNextRunLabelChunk,
   isAutomationDraftUsingDefaultCwd,
   isDefaultAutomationDraft,
   setAutomationDraftCwds,
@@ -27,6 +28,7 @@ import {
 } from "./shared-impl";
 export {
   formatAutomationNextRunLabel,
+  initAutomationNextRunLabelChunk,
   getAutomationDraftRrule,
   setAutomationDraftKind,
   automationDirectiveResultAtom,
