@@ -2637,6 +2637,61 @@ function isSemanticSplitBarrel(
   return resolvedPartCount > 0;
 }
 
+function isBroadSemanticFanoutBarrel(
+  targetDir: string,
+  semanticPath: string,
+  src: string,
+): boolean {
+  const publicFile = resolvePublicTarget(targetDir, semanticPath);
+  if (!fs.existsSync(publicFile) || !fs.statSync(publicFile).isFile()) {
+    return false;
+  }
+  const sources = reExportSources(src);
+  if (sources.length < 8) return false;
+
+  const publicDir = path.dirname(publicFile);
+  const targetRoot = path.resolve(targetDir);
+  const targetRootWithSep = `${targetRoot}${path.sep}`;
+  const sourceDomains = new Set<string>();
+
+  for (const source of sources) {
+    if (!source.startsWith(".")) return false;
+    const resolved = resolveRelativeModuleFile(publicDir, source);
+    if (!fs.existsSync(resolved) || !fs.statSync(resolved).isFile()) {
+      return false;
+    }
+    if (!SOURCE_EXT_RE.test(resolved)) return false;
+    if (!resolved.startsWith(targetRootWithSep)) return false;
+
+    const restoredRelative = path.relative(targetRoot, resolved);
+    const segments = restoredRelative.split(path.sep);
+    const topLevelDomain = segments[0] ?? "";
+    if (
+      topLevelDomain === "vendor" ||
+      topLevelDomain === "boundaries" ||
+      restoredRelative.startsWith(
+        path.join("runtime", "current-app-initial") + path.sep,
+      ) ||
+      restoredRelative.startsWith(`.deobfuscate-javascript${path.sep}`)
+    ) {
+      return false;
+    }
+
+    let restoredSource = "";
+    try {
+      restoredSource = fs.readFileSync(resolved, "utf8");
+    } catch {
+      return false;
+    }
+    if (!/^\s*\/\/ Restored from ref\/webview\/assets\//.test(restoredSource)) {
+      return false;
+    }
+    sourceDomains.add(topLevelDomain);
+  }
+
+  return sourceDomains.size >= 4;
+}
+
 /**
  * Source-line count above which a `kind: local` app-feature chunk promoted to a
  * pure re-export barrel is treated as a facade-promotion (body never restored),
@@ -2709,7 +2764,8 @@ function analyzeOrganizePromoteState(
         if (
           src != null &&
           isReExportBarrel(src) &&
-          !isSemanticSplitBarrel(targetDir, org.semanticPath, src)
+          !isSemanticSplitBarrel(targetDir, org.semanticPath, src) &&
+          !isBroadSemanticFanoutBarrel(targetDir, org.semanticPath, src)
         ) {
           facadePromoted.push({
             basename,

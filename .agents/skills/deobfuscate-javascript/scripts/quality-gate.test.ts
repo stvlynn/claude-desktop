@@ -1568,6 +1568,58 @@ export function __rest(value) {
     );
   });
 
+  test("aggregator-body-not-restored does NOT fire: large app-feature fanout barrel re-exports semantic modules", () => {
+    const targetDir = makeTmpRoot();
+    const sourceModules = [
+      ["app-shell/app-fallback.tsx", "AppFallback"],
+      ["app-shell/codex-app.tsx", "CodexApp"],
+      ["automation/eligibility.ts", "heartbeatAutomationEligibilitySignal"],
+      ["composer/project-selector.tsx", "ComposerProjectSelector"],
+      ["features/keyboard-shortcuts.ts", "initKeyboardShortcutsDialogChunk"],
+      ["github/pull-request-helper.ts", "startPullRequestMergeHelper"],
+      ["onboarding/chronicle-setup-state.ts", "buildChronicleSetupState"],
+      ["settings/local-environment-create-route.ts", "buildRoute"],
+    ] as const;
+    writePromotedFile(
+      targetDir,
+      "vendor/automations-page-current-runtime.ts",
+      "// Restored from ref/webview/assets/app-initial~app-main~automations-page-Bc0ZtIBr.js\n" +
+        sourceModules
+          .map(
+            ([modulePath, exportName]) =>
+              `export { ${exportName} } from "../${modulePath.replace(/\.[cm]?[jt]sx?$/i, "")}";`,
+          )
+          .join("\n") +
+        "\n",
+    );
+    for (const [modulePath, exportName] of sourceModules) {
+      writePromotedFile(
+        targetDir,
+        modulePath,
+        "// Restored from ref/webview/assets/app-initial~app-main~automations-page-Bc0ZtIBr.js\n" +
+          `export const ${exportName} = {};\n`,
+      );
+    }
+    writeFullManifest(targetDir, {
+      "app-initial~app-main~automations-page-Bc0ZtIBr": {
+        basename: "app-initial~app-main~automations-page-Bc0ZtIBr",
+        kind: "local",
+        lineCount: 43136,
+        stages: { promoted: true },
+        organization: {
+          domain: "vendor",
+          semanticPath: "vendor/automations-page-current-runtime.ts",
+          classification: "app-feature",
+        },
+      },
+    });
+    const reports = analyzeFullRestorationCoverage(targetDir);
+    const codes = reports.flatMap((r) => r.issues.map((i) => i.code));
+    expect(codes).not.toContain(
+      "full-restoration-aggregator-body-not-restored",
+    );
+  });
+
   test("aggregator-body-not-restored does NOT fire: genuine vendor-runtime barrel is exempt", () => {
     const targetDir = makeTmpRoot();
     writePromotedFile(
