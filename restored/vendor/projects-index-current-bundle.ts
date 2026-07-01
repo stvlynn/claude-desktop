@@ -341,7 +341,7 @@ import {
   appMainCurrentCompatSlotUpperOLowerC as oa,
   appMainCurrentCompatSlotUpperOLowerN as sa,
   appMainCurrentCompatSlotUpperRLowerA as ca,
-  primeBrowserTabTransfers as la,
+  initPullRequestStatusBadgeChunk as la,
   appMainCurrentCompatSlotUpperTLowerC as ua,
   appMainCurrentCompatSlotUpperTLowerD as da,
   appMainCurrentCompatSlotUpperTLowerL as fa,
