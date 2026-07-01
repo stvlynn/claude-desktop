@@ -5,6 +5,8 @@ import type { SVGProps } from "react";
 
 export type IconProps = SVGProps<SVGSVGElement>;
 
+export function initWhitespaceEyeIconChunk(): void {}
+
 export function WhitespaceEyeIcon(props: IconProps) {
   return (
     <svg

@@ -36,6 +36,10 @@ export {
   PullRequestOpenIcon,
 } from "../../icons/pull-request-open-icon";
 export {
+  initWhitespaceEyeIconChunk,
+  WhitespaceEyeIcon,
+} from "../../icons/whitespace-eye-icon";
+export {
   ArrowUpRightLgIcon,
   initArrowUpRightLgIconChunk,
 } from "../../icons/arrow-up-right-lg-icon";
