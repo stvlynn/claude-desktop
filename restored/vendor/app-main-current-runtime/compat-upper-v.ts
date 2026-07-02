@@ -22,6 +22,6 @@ export { isWorkspaceCreditsExhausted as appMainCurrentCompatSlotUpperVLowerS } f
 
 export { useAddBrowserUseOriginMutation as appMainCurrentCompatSlotUpperVLowerU } from "../../browser/browser-use-origin-state-queries";
 
-export { Vt as appMainCurrentCompatSlotUpperVLowerT } from "../app-main-current-cgnc-bundle";
+export { initFileDiffRuntime as appMainCurrentCompatSlotUpperVLowerT } from "../../review/file-diff-runtime";
 
 export { initThreadPinningRuntimeChunk as appMainCurrentCompatSlotUpperVLowerA } from "../../threads/thread-actions";

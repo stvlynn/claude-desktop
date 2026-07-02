@@ -143,6 +143,10 @@ export {
   initBranchSearchListChunk as SidebarRowMenuSeparator,
 } from "../../review/branch-search-list";
 export {
+  initFileDiffRuntime,
+  initFileDiffSupportRuntime,
+} from "../../review/file-diff-runtime";
+export {
   transferForkedConversationBrowserTabs,
   transferForkedConversationBrowserTabs as primeBrowserTabTransfers,
 } from "../../app-shell/thread-browser-panel-tabs";
@@ -153,11 +157,9 @@ export {
 
 export {
   Ln as AutomationScheduleEditor,
-  Vt as initFileDiffRuntime,
   Kt as RemoteConversationShell,
   kn as AutomationDraftActionForm,
   ou as FileDiff,
-  su as initFileDiffSupportRuntime,
 } from "../app-main-current-cgnc-bundle";
 
 export {
