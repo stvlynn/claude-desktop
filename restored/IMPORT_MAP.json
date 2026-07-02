@@ -5235,7 +5235,9 @@
       "exports": {
         "t": "Dist"
       },
-      "status": "done"
+      "status": "done",
+      "note": "Replaced the bundled react-colorful HexColorPicker body with an npm-backed facade that preserves the historical Dist export alias.",
+      "lastUpdated": "2026-07-02T00:00:00.000Z"
     },
     "dist-eWHzKSsV": {
       "restored": "vendor/radix-ui-core.tsx",
@@ -16224,8 +16226,8 @@
       },
       "status": "done",
       "aliasOf": "dist-BDOgluP9",
-      "lastUpdated": "2026-06-29T00:00:00.000Z",
-      "note": "Current app-initial chunk is the bundled react-colorful HexColorPicker with the same component body as the existing vendor/react-colorful restore plus a chunk init export."
+      "lastUpdated": "2026-07-02T00:00:00.000Z",
+      "note": "Current app-initial chunk is the bundled react-colorful HexColorPicker; it now delegates through the npm-backed vendor/react-colorful facade plus a chunk init export."
     },
     "app-initial~app-main~worktree-init-v2-page~appgen-page~remote-conversation-page~new-thread-~cudo26ta-w-TJZ3uo": {
       "restored": "icons/worktree-macbook-icons.ts",
