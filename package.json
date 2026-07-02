@@ -11,6 +11,12 @@
     "jotai": "^2.20.1",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
-    "react-intl": "^10.1.14"
+    "react-intl": "^10.1.14",
+    "react-is": "^19.2.7",
+    "use-sync-external-store": "^1.6.0"
+  },
+  "devDependencies": {
+    "@types/react-is": "^19.2.0",
+    "@types/use-sync-external-store": "^1.5.0"
   }
 }
