@@ -262,8 +262,9 @@ Never resolves already-bare specifiers; leaves a specifier alone on rename colli
 
 Do not hand-restore a stock package body after this step. If a high-confidence
 vendor chunk (for example React Router, FormatJS/`react-intl`, Day.js, KaTeX,
-RoughJS, Cytoscape, D3 hierarchy/sankey helpers, Jotai, react-style-singleton,
-React companion packages, react-colorful, dotLottie React) still appears as local code, turn it
+RoughJS, Cytoscape, D3 hierarchy/sankey helpers, Jotai, Segment analytics/
+middleware, react-style-singleton, React companion packages, react-colorful,
+dotLottie React) still appears as local code, turn it
 into an npm-backed re-export/alias shim, add the package root to the nearest
 `package.json`, and register the package/gate entry so future runs resolve it
 automatically. For generic chunk stems such as `lib-*` or `src-*`, register the

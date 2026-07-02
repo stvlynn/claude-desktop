@@ -505,6 +505,11 @@ const PUBLIC_NPM_VENDOR_SHIMS: Record<string, PublicNpmVendorSpecifiers> = {
   roughjs: "roughjs",
   analytics: "@segment/analytics-next",
   "segment-analytics": ["@segment/analytics-next", "@segment/analytics-core"],
+  "segment-middleware": [
+    "@segment/analytics-next",
+    "@segment/analytics-core",
+    "@segment/facade",
+  ],
   "tanstack-react-form": "@tanstack/react-form",
   "use-sync-external-store-selector-runtime":
     "use-sync-external-store/shim/with-selector",
@@ -530,6 +535,16 @@ const PUBLIC_NPM_VENDOR_SOURCE_CHUNKS: Record<
   "katex-CjHJ1D7d": "katex",
   "lib-BWT6A3Q0": "react-intl",
   "merge-jSBXKSH5": "lodash/merge",
+  "middleware-BDgBoOJW": [
+    "@segment/analytics-next",
+    "@segment/analytics-core",
+    "@segment/facade",
+  ],
+  "middleware-CcPovR3s": [
+    "@segment/analytics-next",
+    "@segment/analytics-core",
+    "@segment/facade",
+  ],
   "pkg-CJtlEP_l": "@segment/analytics-next",
   "pkg-CsBnWPsQ": "@segment/analytics-next",
   "rough.esm-BDP__8iH": "roughjs",

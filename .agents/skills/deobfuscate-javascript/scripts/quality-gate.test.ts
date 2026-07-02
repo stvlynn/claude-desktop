@@ -1091,6 +1091,133 @@ describe("quality-gate", () => {
     });
   });
 
+  test("fails hand-written Segment middleware vendor runtimes", () => {
+    const source = `
+      // Restored from ref/webview/assets/middleware-CcPovR3s.js
+      export class middlewareA {
+        constructor(event, id) {
+          this.event = event;
+          this.id = id;
+        }
+      }
+      export class middlewareF extends Error {}
+      export function middlewareR(event) {
+        return {
+          obj: event,
+          rawEvent() {
+            return event;
+          },
+        };
+      }
+      export async function middlewareT(_, event) {
+        return event;
+      }
+      export function middlewareN(sourceMiddleware) {
+        return {
+          name: "Source Middleware",
+          type: "before",
+          isLoaded: () => true,
+          load: () => Promise.resolve(),
+          track: sourceMiddleware,
+        };
+      }
+    `;
+    const report = analyzeSource(
+      source,
+      "restored/vendor/segment-middleware.ts",
+      {
+        ...DEFAULT_OPTIONS,
+        allowFlat: true,
+        allowUntyped: true,
+      },
+    );
+    expect(report.issues.map((issue) => issue.code)).toContain(
+      "third-party-npm-shim-not-reexport",
+    );
+    expect(
+      report.issues.find(
+        (issue) => issue.code === "third-party-npm-shim-not-reexport",
+      )?.detail,
+    ).toMatchObject({
+      expectedSpecifiers: [
+        "@segment/analytics-next",
+        "@segment/analytics-core",
+        "@segment/facade",
+      ],
+    });
+  });
+
+  test("passes Segment middleware shims that re-export npm packages", () => {
+    const source = `
+      // Restored from ref/webview/assets/middleware-CcPovR3s.js
+      import { Facade } from "@segment/facade";
+      export { Context as middlewareA } from "@segment/analytics-next";
+      export {
+        ContextCancelation as middlewareF,
+        CoreContext as middlewareP,
+      } from "@segment/analytics-core";
+      export { Facade as segmentFacadeBase } from "@segment/facade";
+      export function middlewareR(event) {
+        return new Facade(event);
+      }
+      export async function middlewareT(_, event) {
+        return event;
+      }
+      export function middlewareN(sourceMiddleware) {
+        return {
+          name: "Source Middleware",
+          type: "before",
+          isLoaded: () => true,
+          load: () => Promise.resolve(),
+          track: sourceMiddleware,
+        };
+      }
+    `;
+    const report = analyzeSource(
+      source,
+      "restored/vendor/segment-middleware.ts",
+      {
+        ...DEFAULT_OPTIONS,
+        allowFlat: true,
+      },
+    );
+    expect(report.issues).toEqual([]);
+  });
+
+  test("fails Segment middleware shims when facade dependency is not declared", () => {
+    const root = makeTmpRoot();
+    const restoredDir = path.join(root, "restored");
+    const vendorDir = path.join(restoredDir, "vendor");
+    fs.mkdirSync(vendorDir, { recursive: true });
+    fs.writeFileSync(
+      path.join(root, "package.json"),
+      JSON.stringify({
+        dependencies: {
+          "@segment/analytics-core": "^1.0.0",
+          "@segment/analytics-next": "^1.0.0",
+        },
+      }),
+    );
+    fs.writeFileSync(
+      path.join(vendorDir, "segment-middleware.ts"),
+      `
+        // Restored from ref/webview/assets/middleware-BDgBoOJW.js
+        export { Context as middlewareA } from "@segment/analytics-next";
+        export { CoreContext as middlewareP } from "@segment/analytics-core";
+        export { Facade as segmentFacadeBase } from "@segment/facade";
+      `,
+    );
+
+    const reports = analyzePublicNpmVendorShimDependencies(restoredDir);
+    expect(reports).toHaveLength(1);
+    expect(reports[0]!.issues.map((issue) => issue.code)).toContain(
+      "third-party-npm-shim-dependency-missing",
+    );
+    expect(reports[0]!.issues[0]!.detail).toMatchObject({
+      missingPackages: ["@segment/facade"],
+    });
+  });
+
   test("fails hand-written Jotai vendor compatibility runtimes", () => {
     const source = `
       // Restored from ref/webview/assets/jotai-react-DpDsdUHx.js

@@ -78,6 +78,15 @@ exports/API fingerprints, license/banner text, consumer import names,
 `ref/node_modules` when present. Missing extracted dependencies are weak evidence
 only; they do **not** justify reimplementing a confirmed package.
 
+Make the preflight concrete before edits: search the registries and project
+profile (`rg "<stem>|<export>" .agents/skills/deobfuscate-javascript`), inspect
+the nearest `package.json`, inspect consumers, then run
+`bun .agents/skills/deobfuscate-javascript/scripts/quality-gate.ts <target> --allow-flat --vendored`
+on the current target to see whether a stock package rule already exists. If the
+target is a new package family, add the registry/gate/test entry first, in a
+separate skill commit, so the local compatibility implementation cannot pass the
+same gate later.
+
 Treat this as a blocking preflight for every `vendor/` edit: if the public API
 matches a known npm surface, stop before hand-writing code, add the package root
 to the nearest `package.json`, and register the package/gate fingerprint in the
