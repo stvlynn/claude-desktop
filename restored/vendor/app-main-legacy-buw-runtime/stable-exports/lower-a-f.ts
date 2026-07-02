@@ -44,6 +44,11 @@ export {
   getLocaleLanguageDisplayName as legacyAppMainBuwLowerDLowerGExport,
   initLocaleResolverChunk as legacyAppMainBuwLowerFLowerGExport,
 } from "../../../i18n/locale-resolver";
+export {
+  cancelPrimaryRuntimeInstall as legacyAppMainBuwLowerDLowerSExport,
+  hasPendingPrimaryRuntimeInstall as legacyAppMainBuwLowerFLowerSExport,
+  isPrimaryRuntimeInstallProgressPhase as legacyAppMainBuwLowerCLowerSExport,
+} from "../../../runtime/primary-runtime-install-state";
 
 export { shouldExpandReviewPanelSignal } from "../../../conversations/local-conversation-page-runtime";
 export { initArrowUpRightLgIconChunk as SidebarRowPrBadge } from "../../../icons/arrow-up-right-lg-icon";
@@ -119,7 +124,6 @@ export {
   cn as legacyAppMainBuwLowerCLowerNExport,
   co as legacyAppMainBuwLowerCLowerOExport,
   cr as legacyAppMainBuwLowerCLowerRExport,
-  cs as legacyAppMainBuwLowerCLowerSExport,
   ct as legacyAppMainBuwLowerCLowerTExport,
   cu as legacyAppMainBuwLowerCLowerUExport,
   cv as legacyAppMainBuwLowerCLowerVExport,
@@ -137,7 +141,6 @@ export {
   do as legacyAppMainBuwLowerDLowerOExport,
   dp as legacyAppMainBuwLowerDLowerPExport,
   dr as legacyAppMainBuwLowerDLowerRExport,
-  ds as legacyAppMainBuwLowerDLowerSExport,
   dt as legacyAppMainBuwLowerDLowerTExport,
   dv as legacyAppMainBuwLowerDLowerVExport,
   dy as legacyAppMainBuwLowerDLowerYExport,
@@ -166,7 +169,6 @@ export {
   fn as legacyAppMainBuwLowerFLowerNExport,
   fo as legacyAppMainBuwLowerFLowerOExport,
   fp as legacyAppMainBuwLowerFLowerPExport,
-  fs as legacyAppMainBuwLowerFLowerSExport,
   ft as legacyAppMainBuwLowerFLowerTExport,
   fu as legacyAppMainBuwLowerFLowerUExport,
   fy as legacyAppMainBuwLowerFLowerYExport,

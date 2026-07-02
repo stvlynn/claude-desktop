@@ -70,6 +70,7 @@ export {
 } from "../../../utils/rate-limit-status/account-status";
 export { initUserSavedConfigQueryChunk as legacyAppMainBuwLowerULowerXExport } from "../../../config/user-saved-config-query";
 export { getSupportedLocales as legacyAppMainBuwLowerULowerGExport } from "../../../i18n/locale-resolver";
+export { primaryRuntimeInstallStatusSignal as legacyAppMainBuwLowerULowerSExport } from "../../../runtime/primary-runtime-install-state";
 
 export {
   tS as legacyAppMainBuwLowerTUpperSExport,
@@ -101,7 +102,6 @@ export {
   uo as legacyAppMainBuwLowerULowerOExport,
   up as legacyAppMainBuwLowerULowerPExport,
   ur as legacyAppMainBuwLowerULowerRExport,
-  us as legacyAppMainBuwLowerULowerSExport,
   uv as legacyAppMainBuwLowerULowerVExport,
   uy as legacyAppMainBuwLowerULowerYExport,
   vS as legacyAppMainBuwLowerVUpperSExport,

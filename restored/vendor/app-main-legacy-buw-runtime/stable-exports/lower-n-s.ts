@@ -57,6 +57,11 @@ export {
   initWarningContextRuntime,
   Portal,
 } from "../../../runtime/app-main-new-thread-runtime";
+export {
+  finishPrimaryRuntimeInstallBeforeFirstTurn as legacyAppMainBuwLowerOLowerSExport,
+  initPrimaryRuntimeInstallStateChunk as legacyAppMainBuwLowerPLowerSExport,
+} from "../../../runtime/primary-runtime-install-state";
+export { primaryRuntimeInstallProgress as legacyAppMainBuwLowerRLowerSExport } from "../../../runtime/primary-runtime-install-status-message";
 export { initOpenConfigInEditorChunk as legacyAppMainBuwLowerSLowerXExport } from "../../../composer/open-config-in-editor";
 export {
   initReviewDiffStateRuntime as initReviewDiffStateChunk,
@@ -92,7 +97,6 @@ export {
   oo as legacyAppMainBuwLowerOLowerOExport,
   op as legacyAppMainBuwLowerOLowerPExport,
   or as legacyAppMainBuwLowerOLowerRExport,
-  os as legacyAppMainBuwLowerOLowerSExport,
   ot as legacyAppMainBuwLowerOLowerTExport,
   ou as legacyAppMainBuwLowerOLowerUExport,
   ox as legacyAppMainBuwLowerOLowerXExport,
@@ -109,7 +113,6 @@ export {
   pn as legacyAppMainBuwLowerPLowerNExport,
   po as legacyAppMainBuwLowerPLowerOExport,
   pp as legacyAppMainBuwLowerPLowerPExport,
-  ps as legacyAppMainBuwLowerPLowerSExport,
   pt as legacyAppMainBuwLowerPLowerTExport,
   pu as legacyAppMainBuwLowerPLowerUExport,
   px as legacyAppMainBuwLowerPLowerXExport,
@@ -148,7 +151,6 @@ export {
   ro as legacyAppMainBuwLowerRLowerOExport,
   rp as legacyAppMainBuwLowerRLowerPExport,
   rr as legacyAppMainBuwLowerRLowerRExport,
-  rs as legacyAppMainBuwLowerRLowerSExport,
   ru as legacyAppMainBuwLowerRLowerUExport,
   rx as legacyAppMainBuwLowerRLowerXExport,
   ry as legacyAppMainBuwLowerRLowerYExport,

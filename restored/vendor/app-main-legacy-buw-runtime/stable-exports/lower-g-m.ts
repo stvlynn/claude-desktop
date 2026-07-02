@@ -43,6 +43,11 @@ export {
   normalizeLocale as legacyAppMainBuwLowerGLowerGExport,
   resolveLocale as legacyAppMainBuwLowerLLowerGExport,
 } from "../../../i18n/locale-resolver";
+export {
+  primaryRuntimeInstallReleaseSignal as legacyAppMainBuwLowerLLowerSExport,
+  requestPrimaryRuntimeInstall as legacyAppMainBuwLowerMLowerSExport,
+} from "../../../runtime/primary-runtime-install-state";
+export { primaryRuntimeInstallStatusMessage as legacyAppMainBuwLowerILowerSExport } from "../../../runtime/primary-runtime-install-status-message";
 
 export { findActiveDomainAtom } from "../../../find/thread-find-atoms";
 
@@ -118,7 +123,6 @@ export {
   io as legacyAppMainBuwLowerILowerOExport,
   ip as legacyAppMainBuwLowerILowerPExport,
   ir as legacyAppMainBuwLowerILowerRExport,
-  is as legacyAppMainBuwLowerILowerSExport,
   iu as legacyAppMainBuwLowerILowerUExport,
   iv as legacyAppMainBuwLowerILowerVExport,
   ix as legacyAppMainBuwLowerILowerXExport,
@@ -169,7 +173,6 @@ export {
   lo as legacyAppMainBuwLowerLLowerOExport,
   lp as legacyAppMainBuwLowerLLowerPExport,
   lr as legacyAppMainBuwLowerLLowerRExport,
-  ls as legacyAppMainBuwLowerLLowerSExport,
   lu as legacyAppMainBuwLowerLLowerUExport,
   ly as legacyAppMainBuwLowerLLowerYExport,
   m as legacyAppMainBuwLowerMExport,
@@ -184,7 +187,6 @@ export {
   mm as legacyAppMainBuwLowerMLowerMExport,
   mn as legacyAppMainBuwLowerMLowerNExport,
   mr as legacyAppMainBuwLowerMLowerRExport,
-  ms as legacyAppMainBuwLowerMLowerSExport,
   mt as legacyAppMainBuwLowerMLowerTExport,
   mu as legacyAppMainBuwLowerMLowerUExport,
   my as legacyAppMainBuwLowerMLowerYExport,
