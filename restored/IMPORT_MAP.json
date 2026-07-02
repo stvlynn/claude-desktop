@@ -12749,8 +12749,8 @@
         "z": "appShellStateZSignal"
       },
       "status": "done",
-      "note": "App shell state exports restored with stable signal aliases for the remaining one-letter compatibility exports; legacy appShellStateExport...Alias names remain exported for local consumers.",
-      "lastUpdated": "2026-07-01T16:07:20.441Z"
+      "note": "App shell state exports restored with stable signal aliases for the remaining one-letter compatibility exports; implementation internals now use semantic sidebar/right-panel/bottom-panel names, lowercase aliases d/i/p/v/y resolve to their true runtime signals or setters, and legacy appShellStateExport...Alias names remain exported for local consumers.",
+      "lastUpdated": "2026-07-02T02:57:16.000Z"
     },
     "mention-item-Cs3Au6lU": {
       "restored": "composer/mention-item/index.ts",
