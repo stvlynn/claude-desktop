@@ -5,12 +5,10 @@
 // text; `buildComposerImageInputItems` turns staged image attachments into the
 // conversation input items the app-server expects; `normalizeConversationAttachments`
 // de-duplicates the merged attachment list; `removeAllImageComments` clears the
-// image-comment overlay for a composer scope. The image-item builder, the
-// attachment normalizer, and the overlay reset resolve to the remote-projects /
-// worktree new-thread bundles this chunk was code-split from; the comment→prompt
-// folding is a pure helper reconstructed inline.
-import { Og as buildComposerImageInputItemsImpl } from "../vendor/remote-projects-app-shared-current-bundle";
-import { Ag as normalizeConversationAttachmentsImpl } from "../vendor/remote-projects-app-shared-current-bundle";
+// image-comment overlay for a composer scope. The attachment item builder and
+// normalizer are restored inline from the remote-projects shared chunk; the
+// overlay reset resolves to the worktree new-thread atoms this chunk was
+// code-split from.
 import {
   composerImageCommentDraftAtom,
   composerImageInputsAtom,
@@ -42,6 +40,36 @@ function formatCommentCoordinate(fraction: number): string {
   return `${(Math.min(Math.max(fraction, 0), 1) * 100).toFixed(1)}%`;
 }
 
+function stripExtendedWindowsPathPrefix(path: string): string {
+  const uncMatch = path.match(/^\\\\\?\\UNC\\(.*)$/i);
+  if (uncMatch != null) return `\\\\${uncMatch[1]}`;
+
+  const driveMatch = path.match(/^\\\\\?\\([a-zA-Z]:[\\/].*)$/);
+  return driveMatch == null ? path : driveMatch[1];
+}
+
+function normalizeAttachmentPath(path: string): string {
+  return stripExtendedWindowsPathPrefix(path).replace(/\\/g, "/");
+}
+
+function basenameFromAttachmentPath(path: string): string {
+  const withoutTrailingSlashes = normalizeAttachmentPath(path).replace(
+    /\/+$/,
+    "",
+  );
+  return withoutTrailingSlashes.split("/").at(-1) ?? withoutTrailingSlashes;
+}
+
+function conversationAttachmentDedupeKey({
+  label,
+  path,
+  fsPath,
+  startLine,
+  endLine,
+}: ConversationInputAttachment): string {
+  return JSON.stringify([label, path, fsPath, startLine, endLine]);
+}
+
 /**
  * Fold the image-comment overlay draft into the prompt: when there are comments,
  * render them as a numbered list of `(x%, y%) text` lines followed by the trimmed
@@ -70,14 +98,36 @@ export function splitCommentsForSubmit({
 export function buildComposerImageInputItems(
   imageAttachments: readonly ComposerImageAttachment[],
 ): ConversationInputAttachment[] {
-  return buildComposerImageInputItemsImpl(imageAttachments);
+  return imageAttachments.flatMap((attachment) => {
+    if (attachment.localPath == null) return [];
+
+    const normalizedPath = normalizeAttachmentPath(attachment.localPath);
+    return [
+      {
+        label:
+          basenameFromAttachmentPath(normalizedPath) ||
+          attachment.filename ||
+          attachment.localPath,
+        path: normalizedPath,
+        fsPath: normalizedPath,
+      },
+    ];
+  });
 }
 
 /** De-duplicate / normalize a merged list of conversation input attachments. */
 export function normalizeConversationAttachments(
   attachments: readonly ConversationInputAttachment[],
 ): ConversationInputAttachment[] {
-  return normalizeConversationAttachmentsImpl(attachments);
+  const seen = new Set<string>();
+  const normalized: ConversationInputAttachment[] = [];
+  for (const attachment of attachments) {
+    const key = conversationAttachmentDedupeKey(attachment);
+    if (seen.has(key)) continue;
+    seen.add(key);
+    normalized.push(attachment);
+  }
+  return normalized;
 }
 
 /** Clear the image-comment overlay draft for the given composer scope. */
