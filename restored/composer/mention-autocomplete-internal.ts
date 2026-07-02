@@ -4,13 +4,8 @@
 // and the shared `applyMentionSelection` primitive that the @-mention and
 // skill-mention hooks (see ./mention-autocomplete) build on.
 
-import { lo as suggestionMenuPluginKey } from "../vendor/worktree-new-thread-orchestrator-current-bundle";
-
 // ── ProseMirror / controller surface (minimal local interfaces) ─────────────
 
-interface ProseMirrorTransaction {
-  setMeta(key: unknown, value: unknown): ProseMirrorTransaction;
-}
 /** The subset of ProseMirror's `EditorState` this subsystem reads. */
 export interface ProseMirrorEditorState {
   readonly tr: ProseMirrorTransaction;
@@ -20,7 +15,11 @@ export interface ProseMirrorEditorView {
   dispatch(transaction: ProseMirrorTransaction): void;
 }
 interface SuggestionMenuPluginKey {
+  readonly key: string;
   getState(state: ProseMirrorEditorState): SuggestionMenuState | undefined;
+}
+interface ProseMirrorTransaction {
+  setMeta(key: unknown, value: unknown): ProseMirrorTransaction;
 }
 
 /** Composer controller methods the mention hooks call. */
@@ -95,13 +94,21 @@ export type AtMentionActionEvent = "complete-query" | "insert-mention";
 
 // ── Suggestion-plugin state readers ─────────────────────────────────────────
 
-const typedSuggestionMenuKey =
-  suggestionMenuPluginKey as unknown as SuggestionMenuPluginKey;
+const SUGGESTION_MENU_PLUGIN_KEY = "composer-suggestion-ui$";
+
+const suggestionMenuPluginKey: SuggestionMenuPluginKey = {
+  key: SUGGESTION_MENU_PLUGIN_KEY,
+  getState(state) {
+    return (
+      state as unknown as Record<string, SuggestionMenuState | undefined>
+    )[this.key];
+  },
+};
 
 export function readSuggestionMenuState(
   state: ProseMirrorEditorState,
 ): SuggestionMenuState | undefined {
-  return typedSuggestionMenuKey.getState(state);
+  return suggestionMenuPluginKey.getState(state);
 }
 export function readAtMentionMenuState(
   controller: ComposerController,
