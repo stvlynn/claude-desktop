@@ -492,6 +492,8 @@ const PUBLIC_NPM_VENDOR_SHIMS: Record<string, PublicNpmVendorSpecifiers> = {
   "react-router": "react-router",
   "react-intl": "react-intl",
   "react-is-runtime": "react-is",
+  analytics: "@segment/analytics-next",
+  "segment-analytics": ["@segment/analytics-next", "@segment/analytics-core"],
   "tanstack-react-form": "@tanstack/react-form",
   "use-sync-external-store-selector-runtime":
     "use-sync-external-store/shim/with-selector",
@@ -503,7 +505,10 @@ const PUBLIC_NPM_VENDOR_SOURCE_CHUNKS: Record<
   string,
   PublicNpmVendorSpecifiers
 > = {
+  "esm-Bs7-NtHW": "@segment/analytics-core",
   "lib-BWT6A3Q0": "react-intl",
+  "pkg-CJtlEP_l": "@segment/analytics-next",
+  "pkg-CsBnWPsQ": "@segment/analytics-next",
 };
 
 const PUBLIC_NPM_VENDOR_API_FINGERPRINTS: Array<{
@@ -523,6 +528,19 @@ const PUBLIC_NPM_VENDOR_API_FINGERPRINTS: Array<{
       "defineMessages",
       "formatMessage",
       "useIntl",
+    ],
+    minimumUniqueApiNames: 2,
+  },
+  {
+    specifiers: "@segment/analytics-next",
+    apiNames: [
+      "Analytics",
+      "AnalyticsBrowser",
+      "Context",
+      "ContextCancelation",
+      "EventFactory",
+      "UniversalStorage",
+      "segmentio",
     ],
     minimumUniqueApiNames: 2,
   },

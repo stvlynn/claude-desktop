@@ -541,6 +541,156 @@ describe("quality-gate", () => {
     expect(analyzePublicNpmVendorShimDependencies(restoredDir)).toEqual([]);
   });
 
+  test("fails hand-written Segment analytics vendor runtimes", () => {
+    const source = `
+      // Restored from ref/webview/assets/pkg-CsBnWPsQ.js
+      export class AnalyticsBrowser {
+        static load(settings) {
+          return new AnalyticsBrowser(settings);
+        }
+        constructor(settings) {
+          this.settings = settings;
+        }
+      }
+      export class Context {
+        constructor(event) {
+          this.event = event;
+        }
+      }
+      export const segmentio = { name: "Segment.io" };
+    `;
+    const report = analyzeSource(
+      source,
+      "restored/vendor/segment-analytics.ts",
+      {
+        ...DEFAULT_OPTIONS,
+        allowFlat: true,
+        allowUntyped: true,
+      },
+    );
+    expect(report.issues.map((issue) => issue.code)).toContain(
+      "third-party-npm-shim-not-reexport",
+    );
+  });
+
+  test("fails hand-written Segment analytics shims by source chunk when renamed", () => {
+    const source = `
+      // Restored from ref/webview/assets/esm-Bs7-NtHW.js
+      export function Context(event) {
+        return { event };
+      }
+      export function segmentEventEmitter() {
+        return { emit() {}, on() {} };
+      }
+    `;
+    const report = analyzeSource(source, "restored/vendor/analytics-core.ts", {
+      ...DEFAULT_OPTIONS,
+      allowFlat: true,
+      allowUntyped: true,
+    });
+    expect(report.issues.map((issue) => issue.code)).toContain(
+      "third-party-npm-shim-not-reexport",
+    );
+    expect(
+      report.issues.find(
+        (issue) => issue.code === "third-party-npm-shim-not-reexport",
+      )?.detail,
+    ).toMatchObject({ expectedSpecifiers: ["@segment/analytics-core"] });
+  });
+
+  test("fails Segment analytics-compatible vendor shims by API fingerprint", () => {
+    const source = `
+      export class AnalyticsBrowser {
+        static load(settings) {
+          return new AnalyticsBrowser(settings);
+        }
+      }
+      export const segmentio = { name: "Segment.io" };
+    `;
+    const report = analyzeSource(
+      source,
+      "restored/vendor/browser-analytics.ts",
+      {
+        ...DEFAULT_OPTIONS,
+        allowFlat: true,
+        allowUntyped: true,
+      },
+    );
+    expect(report.issues.map((issue) => issue.code)).toContain(
+      "third-party-npm-shim-not-reexport",
+    );
+    expect(
+      report.issues.find(
+        (issue) => issue.code === "third-party-npm-shim-not-reexport",
+      )?.detail,
+    ).toMatchObject({ expectedSpecifiers: ["@segment/analytics-next"] });
+  });
+
+  test("passes Segment analytics vendor shims that re-export npm packages", () => {
+    const source = `
+      // Restored from ref/webview/assets/pkg-CsBnWPsQ.js
+      export {
+        Analytics,
+        AnalyticsBrowser,
+        AnalyticsNode,
+        Context,
+        ContextCancelation,
+        EventFactory,
+        Group,
+        UniversalStorage,
+        User,
+        getGlobalAnalytics,
+        isDestinationPluginWithAddMiddleware,
+        resolveAliasArguments,
+        resolveArguments,
+        resolvePageArguments,
+        resolveUserArguments,
+        segmentio,
+      } from "@segment/analytics-next";
+      export {
+        Context as CoreContext,
+        ContextCancelation as CoreContextCancelation,
+      } from "@segment/analytics-core";
+    `;
+    const report = analyzeSource(
+      source,
+      "restored/vendor/segment-analytics.ts",
+      {
+        ...DEFAULT_OPTIONS,
+        allowFlat: true,
+      },
+    );
+    expect(report.issues).toEqual([]);
+  });
+
+  test("fails Segment analytics shims when package dependencies are not declared", () => {
+    const root = makeTmpRoot();
+    const restoredDir = path.join(root, "restored");
+    const vendorDir = path.join(restoredDir, "vendor");
+    fs.mkdirSync(vendorDir, { recursive: true });
+    fs.writeFileSync(
+      path.join(root, "package.json"),
+      JSON.stringify({ dependencies: { "@segment/analytics-next": "^1.0.0" } }),
+    );
+    fs.writeFileSync(
+      path.join(vendorDir, "segment-analytics.ts"),
+      `
+        // Restored from ref/webview/assets/pkg-CsBnWPsQ.js
+        export { AnalyticsBrowser } from "@segment/analytics-next";
+        export { Context } from "@segment/analytics-core";
+      `,
+    );
+
+    const reports = analyzePublicNpmVendorShimDependencies(restoredDir);
+    expect(reports).toHaveLength(1);
+    expect(reports[0]!.issues.map((issue) => issue.code)).toContain(
+      "third-party-npm-shim-dependency-missing",
+    );
+    expect(reports[0]!.issues[0]!.detail).toMatchObject({
+      missingPackages: ["@segment/analytics-core"],
+    });
+  });
+
   test("fails hand-written Jotai vendor compatibility runtimes", () => {
     const source = `
       // Restored from ref/webview/assets/jotai-react-DpDsdUHx.js

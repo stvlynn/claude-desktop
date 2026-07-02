@@ -206,7 +206,7 @@ repo (record the package in IMPORT_MAP `vendor`; `classifyBoundary()` reads it):
 | `markdown-ast.ts` (`lib-CqEvD6Nn`)                        | `mdast-util-*`                 | confirm the exact util                                          |
 | `parse-patch-files.ts` (`parsePatchFiles-*`)              | `@pierre/diffs`                | **forked** — see Pierre note; keep wrapper if it diverges       |
 | `src.ts` (`src-*`)                                        | `zod`                          | verify it is stock Zod, not a fork                              |
-| `analytics.ts` (`pkg-*`)                                  | `@segment/analytics-next`      | Segment browser SDK                                             |
+| `segment-analytics.ts` (`pkg-*`, `esm-Bs7-NtHW`)          | `@segment/analytics-next`      | Segment browser SDK + analytics-core compatibility aliases      |
 | `radix-*.ts` (`dist-*`, `Combination-*`)                  | `@radix-ui/react-*`            | per-primitive; **may be forked**                                |
 
 **Fork caveat:** `@pierre/*`, `@radix-ui/*`, and `zod`(`src`) may be Codex forks, not
@@ -230,6 +230,9 @@ Also keep API-fingerprint coverage for distinctive surfaces: a `vendor/*` file
 that exports React Intl APIs such as `useIntl`, `FormattedMessage`, or
 `IntlProvider` must be an npm-backed `react-intl` re-export even when the file
 name and provenance header are not self-identifying.
+The same rule applies to Segment: a `vendor/*` file exporting
+`AnalyticsBrowser`, `ContextCancelation`, or `segmentio` should be resolved to
+`@segment/analytics-next` / `@segment/analytics-core`, not a local SDK body.
 For a confirmed fork keep the forked wrapper and boundary-ize it
 (`quality-gate.ts --vendored`).
 
