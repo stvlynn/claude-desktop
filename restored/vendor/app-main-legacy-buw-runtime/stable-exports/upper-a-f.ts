@@ -44,6 +44,7 @@ export {
 export { stashPendingWorktreePanelState as copyConversationStateToFork } from "../../../conversations/fork-conversation-panel-state";
 
 export { CSS as ThreadRowLayout } from "../../dnd-kit-utilities";
+export { initPendingWorktreeStoreRuntime as initPendingWorktreeComposerRuntimeChunk } from "../../../threads/pending-worktree-store";
 
 export {
   A as legacyAppMainBuwUpperAExport,
@@ -152,7 +153,6 @@ export {
   Fb as legacyAppMainBuwUpperFLowerBExport,
   Fc as legacyAppMainBuwUpperFLowerCExport,
   Fd as legacyAppMainBuwUpperFLowerDExport,
-  Fh as initPendingWorktreeComposerRuntimeChunk,
   Fl as legacyAppMainBuwUpperFLowerLExport,
   Fm as legacyAppMainBuwUpperFLowerMExport,
   Fn as legacyAppMainBuwUpperFLowerNExport,

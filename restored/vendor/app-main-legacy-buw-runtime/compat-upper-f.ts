@@ -1,14 +1,13 @@
 // Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
 // Uppercase F compatibility aliases for the legacy app-main/onboarding producer.
-export {
-  CommentAttachmentPill as appMainCurrentCompatSlotUpperFLowerI,
-} from "../../composer/user-message-attachment-pills";
+export { CommentAttachmentPill as appMainCurrentCompatSlotUpperFLowerI } from "../../composer/user-message-attachment-pills";
 
 export { initThreadRowLayoutRuntimeChunk } from "../app-main-current-runtime";
 
 export { initWebLinksAddonChunk } from "../../runtime/window-chrome-runtime";
 
 export { findQueryAtom } from "../../find/thread-find-atoms";
+export { initPendingWorktreeStoreRuntime as initPendingWorktreeComposerRuntimeChunk } from "../../threads/pending-worktree-store";
 
 export {
   F as appMainCurrentCompatSlotUpperF,
@@ -17,7 +16,6 @@ export {
   Fc as appMainCurrentCompatSlotUpperFLowerC,
   FC as appMainCurrentCompatSlotUpperFUpperC,
   Fd as appMainCurrentCompatSlotUpperFLowerD,
-  Fh as initPendingWorktreeComposerRuntimeChunk,
   Fl as appMainCurrentCompatSlotUpperFLowerL,
   Fm as appMainCurrentCompatSlotUpperFLowerM,
   Fn as appMainCurrentCompatSlotUpperFLowerN,

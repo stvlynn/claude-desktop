@@ -36,3 +36,22 @@ export {
   createPendingWorktreeInDesktop,
   materializeThreadGoalDraft,
 };
+
+export function initPendingWorktreeStoreRuntime(): void {
+  // Legacy chunks exposed a Rollup initializer; ESM imports initialize these
+  // restored pending-worktree modules eagerly.
+  void usePendingWorktrees;
+  void cleanupMaterializedThreadGoal;
+  void readMaterializedThreadGoalObjective;
+  void clearThreadGoal;
+  void usePendingWorktreeStore;
+  void cleanupThreadGoalDraftPastedTextAttachments;
+  void setThreadGoalStatus;
+  void isPendingWorktreeInProgress;
+  void getPendingWorktreeConversationStartActions;
+  void setThreadGoal;
+  void usePendingWorktree;
+  void usePendingWorktreeConversationStarts;
+  void createPendingWorktreeInDesktop;
+  void materializeThreadGoalDraft;
+}
