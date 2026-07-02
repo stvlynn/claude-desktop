@@ -132,6 +132,59 @@ describe("quality-gate", () => {
     expect(report.issues).toEqual([]);
   });
 
+  test("fails hand-written Jotai vendor compatibility runtimes", () => {
+    const source = `
+      // Restored from ref/webview/assets/jotai-react-DpDsdUHx.js
+      import * as React from "react";
+      export function createAtom(initialValue) {
+        return { init: initialValue, read: () => initialValue };
+      }
+      export function useAtomValue(atom) {
+        return atom.read();
+      }
+      export function useSetAtom() {
+        return () => undefined;
+      }
+      export function useAtom(atom) {
+        return [useAtomValue(atom), useSetAtom(atom)];
+      }
+    `;
+    const report = analyzeSource(source, "restored/vendor/jotai-runtime.tsx", {
+      ...DEFAULT_OPTIONS,
+      allowFlat: true,
+      allowUntyped: true,
+    });
+    expect(report.issues.map((issue) => issue.code)).toContain(
+      "third-party-npm-shim-not-reexport",
+    );
+  });
+
+  test("passes Jotai vendor shims that re-export the npm package", () => {
+    const source = `
+      // Restored from ref/webview/assets/jotai-react-DpDsdUHx.js
+      export {
+        atom as createAtom,
+        Provider as JotaiProvider,
+        useAtom,
+        useAtomValue,
+        useSetAtom,
+        useStore,
+      } from "jotai";
+      export type {
+        Atom,
+        Getter,
+        PrimitiveAtom,
+        Setter,
+        WritableAtom,
+      } from "jotai";
+    `;
+    const report = analyzeSource(source, "restored/vendor/jotai-runtime.tsx", {
+      ...DEFAULT_OPTIONS,
+      allowFlat: true,
+    });
+    expect(report.issues).toEqual([]);
+  });
+
   test("passes Electron main build provenance headers when required", () => {
     const source = `
       // Restored from ref/.vite/build/preload.js

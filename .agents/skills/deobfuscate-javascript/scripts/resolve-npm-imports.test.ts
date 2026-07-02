@@ -79,6 +79,20 @@ describe("resolveNpmImports (chunk-name based)", () => {
     expect(out.stats.specifiersResolved).toBe(3);
   });
 
+  test("rewrites Jotai chunk imports to the npm package", () => {
+    const src = `
+      import { u as useAtomValue, s as useSetAtom } from "../jotai-react-DpDsdUHx.js";
+      useAtomValue; useSetAtom;
+    `;
+    const out = resolveNpmImports(src);
+    const n = normalize(out.code);
+    expect(n).toContain('from "jotai"');
+    expect(n).toContain("useAtomValue");
+    expect(n).toContain("useSetAtom");
+    expect(n).not.toContain("jotai-react-DpDsdUHx");
+    expect(out.stats.specifiersResolved).toBe(2);
+  });
+
   test("rewrites tslib chunk as named-only", () => {
     const src = `import { a as __assign, b as __rest } from "../tslib-X.js";`;
     const out = resolveNpmImports(src);

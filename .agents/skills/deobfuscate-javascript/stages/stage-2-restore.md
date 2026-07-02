@@ -67,15 +67,15 @@ bun <skill-dir>/scripts/extract.ts <input.js|-> [--out $WS/symbols.json] [--cont
 
 `<input.js>` may be `-` (stdin); without `--out` writes to stdout. **Filter flags** (essential for files > 200 KB / > 1000 symbols):
 
-| Flag                 | Effect                                                                            |
-| -------------------- | --------------------------------------------------------------------------------- |
-| `--top N`            | Keep first N (post-sort, highest-scope-impact).                                   |
-| `--min-refs N`       | Drop bindings with < N references (0/1-use are usually scratch).                  |
-| `--scope-kind X`     | Keep only bindings in scope of AST type X (e.g. `Program`).                       |
-| `--name <regex>`     | Keep only names matching the regex.                                               |
-| `--only-cryptic`     | Keep `_0xNN…`, single/double-letter, letter+digit names; skip meaningful ones.    |
-| `--no-context`       | Empty the `context` field — biggest size cut.                                     |
-| `--max-same-scope N` | Cap `sameScopeBindings` length.                                                   |
+| Flag                 | Effect                                                                                     |
+| -------------------- | ------------------------------------------------------------------------------------------ |
+| `--top N`            | Keep first N (post-sort, highest-scope-impact).                                            |
+| `--min-refs N`       | Drop bindings with < N references (0/1-use are usually scratch).                           |
+| `--scope-kind X`     | Keep only bindings in scope of AST type X (e.g. `Program`).                                |
+| `--name <regex>`     | Keep only names matching the regex.                                                        |
+| `--only-cryptic`     | Keep `_0xNN…`, single/double-letter, letter+digit names; skip meaningful ones.             |
+| `--no-context`       | Empty the `context` field — biggest size cut.                                              |
+| `--max-same-scope N` | Cap `sameScopeBindings` length.                                                            |
 | `--compact`          | `--no-context` + `--max-same-scope 10`. **Planning extracts only** — naming needs context. |
 
 **Sizing:** a fully-extracted 1 MB / ~10k-symbol bundle with 500-char context ≈ 50 MB JSON; `--only-cryptic --min-refs 3 --top 200 --max-same-scope 5 --context-size 300` drops it to ~100 KB.
@@ -113,12 +113,12 @@ The #1 rename failure: pass `--scope-kind Program`, rename the small clean top-l
 
 **The goal is an outcome, not a fixed pass count: rename until single-letter density is low** (the verify sweep measures it). Work outward from the highest-leverage scope:
 
-| Pass                            | Filter                                                                       | Names                                                                                                                              |
-| ------------------------------- | ---------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| **1 — Program**                 | `--scope-kind Program`                                                       | Exports, top-level helpers, module constants, registries. Highest leverage — every downstream ref sees these.                    |
-| **2 — Function bodies**         | no `--scope-kind` + `--kind let,const,var,hoisted --only-cryptic --min-refs 2` | Hook results (`let A = useIntl()` → `intl`), JSX intermediates (`let H = <span…>` → `labelEl`), destructured props. Makes each component _body_ readable. |
-| **3 — Params (incl. single-use)** | `--kind param --only-cryptic --min-refs 1`                                  | Component `props`, event handlers (`event`), iteratees (`(item,index)`), reducers (`(accumulator,current)`). Must be `--min-refs 1` (props/events used once via destructure). Mostly mechanical — run `smart-rename.ts` first. |
-| **4 — Nested arrow/expr** (opt) | no filter + `--only-cryptic --min-refs 3`                                    | Deep callback/IIFE/switch-case locals. Diminishing returns.                                                                       |
+| Pass                              | Filter                                                                         | Names                                                                                                                                                                                                                          |
+| --------------------------------- | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **1 — Program**                   | `--scope-kind Program`                                                         | Exports, top-level helpers, module constants, registries. Highest leverage — every downstream ref sees these.                                                                                                                  |
+| **2 — Function bodies**           | no `--scope-kind` + `--kind let,const,var,hoisted --only-cryptic --min-refs 2` | Hook results (`let A = useIntl()` → `intl`), JSX intermediates (`let H = <span…>` → `labelEl`), destructured props. Makes each component _body_ readable.                                                                      |
+| **3 — Params (incl. single-use)** | `--kind param --only-cryptic --min-refs 1`                                     | Component `props`, event handlers (`event`), iteratees (`(item,index)`), reducers (`(accumulator,current)`). Must be `--min-refs 1` (props/events used once via destructure). Mostly mechanical — run `smart-rename.ts` first. |
+| **4 — Nested arrow/expr** (opt)   | no filter + `--only-cryptic --min-refs 3`                                      | Deep callback/IIFE/switch-case locals. Diminishing returns.                                                                                                                                                                    |
 
 A Program-only output looks fine on a skim, falls apart on a real read. Keep going into bodies and params until the density sweep is clean.
 
@@ -254,7 +254,7 @@ bun <skill-dir>/scripts/resolve-npm-imports.ts <input.js|-> [--out output.js] [-
 
 Rewrites vendored-npm chunk imports back to bare specifiers, two strategies in order:
 
-- **Chunk-name lookup (high confidence):** strips the hash suffix off `../clsx-DDuZWq6Y.js` → `clsx`, looks it up in `CHUNK_NAME_REGISTRY`; if found, every specifier is rewritten. The registry knows clsx, classnames, tslib, react, react-dom, jsx-runtime, jsx-dev-runtime, `@dnd-kit/*`, framer-motion, react-intl, marked, `@floating-ui/*`, Statsig, and more.
+- **Chunk-name lookup (high confidence):** strips the hash suffix off `../clsx-DDuZWq6Y.js` → `clsx`, looks it up in `CHUNK_NAME_REGISTRY`; if found, every specifier is rewritten. The registry knows clsx, classnames, tslib, react, react-dom, jsx-runtime, jsx-dev-runtime, Jotai, `@dnd-kit/*`, framer-motion, react-intl, marked, `@floating-ui/*`, Statsig, and more.
 - **Alias fallback:** when the basename isn't recognised (`./shared`), looks up each specifier's local binding in `ALIAS_REGISTRY` (React API, jsx helpers, clsx, tslib, etc.) and splits matching ones into a bare import.
 - **Cross-file shim chains:** recognises `_React = toESM(React())` re-exported via `./shared`, rewrites consumers to `import React from "react"` and renames `_React.useState(…)` → `React.useState(…)`.
 

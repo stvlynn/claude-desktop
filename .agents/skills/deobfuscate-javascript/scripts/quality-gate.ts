@@ -468,7 +468,16 @@ const MECHANICAL_IMPORT_BINDING_RE =
 const SOURCE_EXT_RE = /\.[cm]?[jt]sx?$/i;
 const SMALL_COHESIVE_MODULE_LINE_LIMIT = 300;
 const PUBLIC_NPM_VENDOR_SHIMS: Record<string, string> = {
+  "dnd-kit-core": "@dnd-kit/core",
+  "dnd-kit-sortable": "@dnd-kit/sortable",
+  "dnd-kit-utilities": "@dnd-kit/utilities",
+  "framer-motion": "framer-motion",
   formatjs: "react-intl",
+  jotai: "jotai",
+  "jotai-runtime": "jotai",
+  lodash: "lodash",
+  motion: "framer-motion",
+  "react-router": "react-router",
   "react-intl": "react-intl",
 };
 

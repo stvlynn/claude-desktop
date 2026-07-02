@@ -64,7 +64,8 @@ const DATA_LIB_STEMS: Record<string, string> = {
 // (`"scopeName":`). Match the JSON-key form as well as a bare object-literal key
 // (`scopeName:`) so both bundler shapes are recognised.
 const SHIKI_GRAMMAR_SCOPE_RE = /(?:"scopeName"|\bscopeName)\s*:/;
-const SHIKI_GRAMMAR_BODY_RE = /(?:"(?:patterns|repository)"|\b(?:patterns|repository))\s*:/;
+const SHIKI_GRAMMAR_BODY_RE =
+  /(?:"(?:patterns|repository)"|\b(?:patterns|repository))\s*:/;
 const SHIKI_THEME_TOKENCOLORS_RE = /(?:"tokenColors"|\btokenColors)\s*:/;
 const SHIKI_THEME_TYPE_RE = /(?:"type"|\btype)\s*:\s*["'](?:light|dark)["']/;
 const SHIKI_THEME_COLORS_RE = /(?:"colors"|\bcolors)\s*:/;
@@ -154,13 +155,7 @@ const APP_PREFIXES = [
 
 const APP_SEGMENT_RE = /(?:^|[-_~])(?:page|panel|view|dialog)(?:[-_~]|$)/;
 
-const VENDOR_PREFIXES = [
-  "app-scope",
-  "src",
-  "statsig",
-  "vscode-api",
-  "zod",
-];
+const VENDOR_PREFIXES = ["app-scope", "src", "statsig", "vscode-api", "zod"];
 
 /**
  * Heuristic: does this chunk basename look like project/app code that deep/full
@@ -255,6 +250,11 @@ export const VENDOR_NPM_SPECIFIERS: Record<string, string> = {
   zod: "zod",
   "framer-motion": "framer-motion",
   motion: "framer-motion",
+  jotai: "jotai",
+  "dnd-kit": "@dnd-kit/core",
+  "@dnd-kit/core": "@dnd-kit/core",
+  "@dnd-kit/sortable": "@dnd-kit/sortable",
+  "@dnd-kit/utilities": "@dnd-kit/utilities",
   analytics: "@segment/analytics-next",
   segment: "@segment/analytics-next",
   // @radix-ui resolves per-primitive (@radix-ui/react-menu, …) — agent picks.

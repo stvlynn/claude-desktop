@@ -5,10 +5,12 @@ import babelTraverse, { type NodePath } from "@babel/traverse";
 import babelGenerator from "@babel/generator";
 import * as t from "@babel/types";
 
-const traverse = ((babelTraverse as unknown as { default?: typeof babelTraverse })
-  .default ?? babelTraverse) as typeof babelTraverse;
-const generate = ((babelGenerator as unknown as { default?: typeof babelGenerator })
-  .default ?? babelGenerator) as typeof babelGenerator;
+const traverse = ((
+  babelTraverse as unknown as { default?: typeof babelTraverse }
+).default ?? babelTraverse) as typeof babelTraverse;
+const generate = ((
+  babelGenerator as unknown as { default?: typeof babelGenerator }
+).default ?? babelGenerator) as typeof babelGenerator;
 
 export const PARSER_PLUGINS: parser.ParserPlugin[] = [
   "jsx",
@@ -77,6 +79,9 @@ export const CHUNK_NAME_REGISTRY: Record<string, ChunkRule> = {
   proxy: { package: "framer-motion", namedOnly: true },
   // react-intl
   "react-intl": { package: "react-intl", namedOnly: true },
+  // Jotai
+  jotai: { package: "jotai", namedOnly: true },
+  "jotai-react": { package: "jotai", namedOnly: true },
   // markdown / parsers
   "marked.esm": { package: "marked", namedOnly: true },
   marked: { package: "marked", namedOnly: true },
@@ -206,7 +211,10 @@ export const ALIAS_REGISTRY: Record<string, AliasRule> = {
   useSortable: { package: "@dnd-kit/sortable", style: "named" },
   arrayMove: { package: "@dnd-kit/sortable", style: "named" },
   sortableKeyboardCoordinates: { package: "@dnd-kit/sortable", style: "named" },
-  horizontalListSortingStrategy: { package: "@dnd-kit/sortable", style: "named" },
+  horizontalListSortingStrategy: {
+    package: "@dnd-kit/sortable",
+    style: "named",
+  },
   verticalListSortingStrategy: { package: "@dnd-kit/sortable", style: "named" },
   rectSortingStrategy: { package: "@dnd-kit/sortable", style: "named" },
   rectSwappingStrategy: { package: "@dnd-kit/sortable", style: "named" },
@@ -220,6 +228,11 @@ export const ALIAS_REGISTRY: Record<string, AliasRule> = {
   useIntl: { package: "react-intl", style: "named" },
   defineMessages: { package: "react-intl", style: "named" },
   defineMessage: { package: "react-intl", style: "named" },
+
+  // jotai
+  useAtom: { package: "jotai", style: "named" },
+  useAtomValue: { package: "jotai", style: "named" },
+  useSetAtom: { package: "jotai", style: "named" },
 };
 
 export type ResolveStats = {
@@ -285,10 +298,7 @@ export function extractChunkBasename(source: string): string | null {
   return last || null;
 }
 
-type SpecKind =
-  | "named"
-  | "default"
-  | "namespace";
+type SpecKind = "named" | "default" | "namespace";
 
 type SpecInfo = {
   kind: SpecKind;
@@ -298,7 +308,10 @@ type SpecInfo = {
 };
 
 function describeSpecifier(
-  spec: t.ImportSpecifier | t.ImportDefaultSpecifier | t.ImportNamespaceSpecifier,
+  spec:
+    | t.ImportSpecifier
+    | t.ImportDefaultSpecifier
+    | t.ImportNamespaceSpecifier,
 ): SpecInfo {
   if (t.isImportDefaultSpecifier(spec)) {
     return { kind: "default", localName: spec.local.name };
@@ -426,8 +439,13 @@ function resolveByAlias(info: SpecInfo, alias: AliasRule): Resolution {
  * Build a fresh `import` statement for a group of resolutions targeting the
  * same package.
  */
-function buildImport(packageName: string, group: Resolution[]): t.ImportDeclaration {
-  const specifiers: Array<t.ImportSpecifier | t.ImportDefaultSpecifier | t.ImportNamespaceSpecifier> = [];
+function buildImport(
+  packageName: string,
+  group: Resolution[],
+): t.ImportDeclaration {
+  const specifiers: Array<
+    t.ImportSpecifier | t.ImportDefaultSpecifier | t.ImportNamespaceSpecifier
+  > = [];
 
   // At most one default + one namespace + many named per `import` decl.
   let defaultSpec: t.ImportDefaultSpecifier | null = null;
@@ -518,7 +536,9 @@ export function resolveNpmImports(
     path: NodePath<t.ImportDeclaration>;
     groups: Map<string, Resolution[]>;
     /** Specifiers that should stay on the original import source. */
-    leftover: Array<t.ImportSpecifier | t.ImportDefaultSpecifier | t.ImportNamespaceSpecifier>;
+    leftover: Array<
+      t.ImportSpecifier | t.ImportDefaultSpecifier | t.ImportNamespaceSpecifier
+    >;
     /** Renames to apply across the program (oldName → newName). */
     renames: Array<{ from: string; to: string }>;
     originalSpecifierCount: number;
@@ -530,7 +550,9 @@ export function resolveNpmImports(
     const source = node.source.value;
     const basename = extractChunkBasename(source);
     const chunkRule =
-      !opts.noChunkLookup && basename ? CHUNK_NAME_REGISTRY[basename] ?? null : null;
+      !opts.noChunkLookup && basename
+        ? (CHUNK_NAME_REGISTRY[basename] ?? null)
+        : null;
 
     const groups = new Map<string, Resolution[]>();
     const leftover: Plan["leftover"] = [];
@@ -538,7 +560,9 @@ export function resolveNpmImports(
 
     for (const spec of node.specifiers) {
       const info = describeSpecifier(spec);
-      const aliasRule = !opts.noAliasLookup ? ALIAS_REGISTRY[info.localName] ?? null : null;
+      const aliasRule = !opts.noAliasLookup
+        ? (ALIAS_REGISTRY[info.localName] ?? null)
+        : null;
       const res = resolveSpecifier(info, chunkRule, aliasRule);
 
       if (!res) {
@@ -549,7 +573,10 @@ export function resolveNpmImports(
       // Skip resolution if the rename would collide with another binding.
       if (res.localName !== info.localName) {
         const programScope = programPath.scope;
-        if (programScope.hasBinding(res.localName) && res.localName !== info.localName) {
+        if (
+          programScope.hasBinding(res.localName) &&
+          res.localName !== info.localName
+        ) {
           // Collision — leave specifier alone.
           leftover.push(spec);
           continue;
@@ -596,7 +623,8 @@ export function resolveNpmImports(
       stats.importsRewritten++;
     }
 
-    stats.specifiersResolved += plan.originalSpecifierCount - plan.leftover.length;
+    stats.specifiersResolved +=
+      plan.originalSpecifierCount - plan.leftover.length;
   }
 
   // Merge duplicate imports from the same package (e.g. multiple files re-exported `React`).
@@ -639,7 +667,10 @@ function mergeDuplicateImports(
     // Merge: dedupe by (localName, importedName, kind).
     const seen = new Set<string>();
     const keyOf = (
-      s: t.ImportSpecifier | t.ImportDefaultSpecifier | t.ImportNamespaceSpecifier,
+      s:
+        | t.ImportSpecifier
+        | t.ImportDefaultSpecifier
+        | t.ImportNamespaceSpecifier,
     ): string => {
       if (t.isImportDefaultSpecifier(s)) return `default:${s.local.name}`;
       if (t.isImportNamespaceSpecifier(s)) return `ns:${s.local.name}`;

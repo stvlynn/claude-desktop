@@ -188,6 +188,8 @@ repo (record the package in IMPORT_MAP `vendor`; `classifyBoundary()` reads it):
 | `lodash.ts` (`isEqual-*`)                    | `lodash`                  | named/star re-export                                      |
 | `react-router.ts` (`chunk-LFPYN7LY-*`)       | `react-router`            |                                                           |
 | `formatjs.ts` (`lib-BWT6A3Q0`)               | `react-intl`              | consumers import `useIntl`/`FormattedMessage`             |
+| `jotai-runtime.ts` (`jotai-react-*`)         | `jotai`                   | atom/store hooks; keep a thin app-facing alias shim only  |
+| `dnd-kit-*.ts` (`core.esm-*`, etc.)          | `@dnd-kit/*`              | core/sortable/utilities re-export shims                   |
 | `motion.ts` (`single-value-*`)               | `framer-motion`           |                                                           |
 | `markdown-ast.ts` (`lib-CqEvD6Nn`)           | `mdast-util-*`            | confirm the exact util                                    |
 | `parse-patch-files.ts` (`parsePatchFiles-*`) | `@pierre/diffs`           | **forked** — see Pierre note; keep wrapper if it diverges |
@@ -200,9 +202,11 @@ stock npm. Before swapping to a bare specifier, confirm the export surface match
 stock. Prefer `ref/node_modules` proof when available, but do not require it for
 unforked, high-confidence packages already listed above: `formatjs.ts` /
 `lib-BWT6A3Q0` is `react-intl` even if the extracted app snapshot lacks
-`ref/node_modules/react-intl` or a `react-intl` package entry. In that case emit
-the npm-backed re-export shim and add/keep ambient module declarations or package
-install notes as needed; do not create a local "minimal React Intl" replacement.
+`ref/node_modules/react-intl` or a `react-intl` package entry. The same rule
+applies to Jotai, `@dnd-kit/*`, and other high-confidence registry packages. In
+that case emit the npm-backed re-export shim and add/keep ambient module
+declarations or package install notes as needed; do not create a local "minimal"
+replacement for a stock package.
 For a confirmed fork keep the forked wrapper and boundary-ize it
 (`quality-gate.ts --vendored`).
 

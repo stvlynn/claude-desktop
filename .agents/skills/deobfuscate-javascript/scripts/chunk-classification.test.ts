@@ -8,7 +8,16 @@ import {
   JS_GLOBALS,
 } from "./chunk-classification.ts";
 
-const ASSETS = path.join(import.meta.dir, "..", "..", "..", "..", "ref", "webview", "assets");
+const ASSETS = path.join(
+  import.meta.dir,
+  "..",
+  "..",
+  "..",
+  "..",
+  "ref",
+  "webview",
+  "assets",
+);
 function findChunk(stem: string): string | null {
   if (!fs.existsSync(ASSETS)) return null;
   const f = fs
@@ -44,7 +53,10 @@ describe("classifyVendorDataChunk", () => {
   });
 
   test("recognises a known standalone data lib by stem", () => {
-    const m = classifyVendorDataChunk("3Dmol-Ck5hjXCs", "export const GLViewer=function(){};");
+    const m = classifyVendorDataChunk(
+      "3Dmol-Ck5hjXCs",
+      "export const GLViewer=function(){};",
+    );
     expect(m).not.toBeNull();
     expect(m!.reason).toBe("data-lib");
     expect(m!.specifier).toBe("3dmol");
@@ -55,7 +67,10 @@ describe("classifyVendorDataChunk", () => {
     expect(classifyVendorDataChunk("composer-Ii99Jj00", app)).toBeNull();
     // a util that merely mentions "colors" but has no theme/grammar shape
     expect(
-      classifyVendorDataChunk("palette-Kk11Ll22", "export const colors=['red'];"),
+      classifyVendorDataChunk(
+        "palette-Kk11Ll22",
+        "export const colors=['red'];",
+      ),
     ).toBeNull();
   });
 
@@ -131,6 +146,10 @@ describe("classifyBoundary", () => {
     expect(classifyBoundary("lib-XX", { vendor: "formatjs" }).specifier).toBe(
       "react-intl",
     );
+    expect(classifyBoundary("jotai-react-XX", { vendor: "jotai" })).toEqual({
+      kind: "vendor-npm",
+      specifier: "jotai",
+    });
   });
 
   test("the literal runtime marker → vendor-runtime", () => {
@@ -141,8 +160,8 @@ describe("classifyBoundary", () => {
   });
 
   test("radix chunks are vendor-npm even without a vendor field", () => {
-    expect(classifyBoundary("dist-XX", { note: "bundled Radix menu" }).kind).toBe(
-      "vendor-npm",
-    );
+    expect(
+      classifyBoundary("dist-XX", { note: "bundled Radix menu" }).kind,
+    ).toBe("vendor-npm");
   });
 });
