@@ -50,6 +50,10 @@ export {
 export {
   FolderOpenIcon as liveMcpAppFrameSignal,
 } from "../../icons/folder-open-icon";
+export {
+  aggregateChangedFileSummary as SidebarSection,
+  computeFileLineStats as SidebarTaskRowActions,
+} from "../../review/diff-selection-summary";
 
 export {
   Ln as AutomationScheduleEditor,
@@ -63,7 +67,6 @@ export {
 } from "../app-main-current-cgnc-bundle";
 
 export {
-  $l as SidebarSection,
   Bn as ArchiveMenuItem,
   Cl as toggleThreadSidePanel,
   Ff as initThreadRowLayoutRuntimeChunk,
@@ -79,7 +82,6 @@ export {
   Oi as SidebarRowOverflowMenu,
   Pf as initSidebarTaskRowRuntimeChunk,
   Pn as SidebarTaskRow,
-  Ql as SidebarTaskRowActions,
   Qp as SidebarTaskRowTitle,
   Sl as initPullRequestStatusBadgeChunk,
   Ud as ThreadRowPinAction,
