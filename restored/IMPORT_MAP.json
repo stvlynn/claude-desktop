@@ -16247,8 +16247,8 @@
       },
       "status": "done",
       "aliasOf": "dist-BDOgluP9",
-      "lastUpdated": "2026-07-02T00:00:00.000Z",
-      "note": "Current app-initial chunk is the bundled react-colorful HexColorPicker; it now delegates through the npm-backed vendor/react-colorful facade plus a chunk init export."
+      "lastUpdated": "2026-07-02T00:00:00.000-05:00",
+      "note": "Current app-initial chunk is the bundled react-colorful HexColorPicker; it now directly re-exports HexColorPicker from the npm package plus a chunk init export."
     },
     "app-initial~app-main~worktree-init-v2-page~appgen-page~remote-conversation-page~new-thread-~cudo26ta-w-TJZ3uo": {
       "restored": "icons/worktree-macbook-icons.ts",
