@@ -46,6 +46,9 @@ export {
   useDictation as ThreadRowEnvironmentMeta,
 } from "../../features/use-dictation/use-dictation";
 export {
+  cleanupDictationTranscript as SidebarRowHostLabel,
+} from "../../utils/transcribe-audio";
+export {
   isDeeplyDifferent as initSidebarRowPrimitivesChunk,
 } from "../../utils/is-deeply-different";
 export {
@@ -113,7 +116,6 @@ export {
   gl as openThreadBrowserSidePanelTab,
   gm as SidebarRowProjectLabel,
   hl as openThreadBranchReviewSidePanelTab,
-  hm as SidebarRowHostLabel,
   ho as forkConversationMessages,
   hp as useComposedRefs,
   ki as SidebarRowIcon,
