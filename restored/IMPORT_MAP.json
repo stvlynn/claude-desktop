@@ -42933,12 +42933,12 @@
         "LocalEnvironmentsSettings": "LocalEnvironmentsSettingsPage"
       },
       "status": "done",
-      "note": "Current local environments settings page hash maps to a dedicated current-ref runtime over vendor/local-environments-settings-page-current-bundle.tsx; dependencies are rewritten through restored current bundles.",
-      "lastUpdated": "2026-06-30T23:21:25.587Z",
+      "note": "Current local environments settings page hash maps to a dedicated current-ref runtime over settings/local-environments-settings-page.tsx; the page body was lifted out of vendor parking, moved-relative imports were repaired, and the form, preview, and workspace-selection helpers now use semantic names.",
+      "lastUpdated": "2026-07-02T04:35:00.000Z",
       "stage3Accepted": true,
-      "stage3AcceptedAt": "2026-06-30T23:21:25.587Z",
-      "stage3Review": "Host self-review: parsed local-environments-settings-page-q1SLOHGN.js exports, rebuilt compatibility exports from auto-renames.json, and rewrote dependency imports through restored/IMPORT_MAP.json.",
-      "stage3Note": "Accepted as a current-ref compatibility export over a restored-dependency backing bundle; full semantic split remains future cleanup."
+      "stage3AcceptedAt": "2026-07-02T04:35:00.000Z",
+      "stage3Review": "Host self-review: promoted local-environments-settings-page-q1SLOHGN.js out of vendor parking, fixed moved imports for automations/app-main/tanstack dependencies, named form, preview, and workspace-selection helpers, and verified page/runtime builds plus the runtime quality gate.",
+      "stage3Note": "Accepted as a promoted current-ref implementation; JSX factory cleanup and splitting remain future cleanup."
     },
     "remote-connections-settings-DnApG523": {
       "restored": "runtime/current-app-initial/remote-connections-settings-current-runtime.ts",
