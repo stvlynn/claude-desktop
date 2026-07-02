@@ -4775,6 +4775,9 @@
         "u": "axisS",
         "v": "axisU"
       },
+      "vendor": "d3-axis/d3-scale/d3-time/d3-time-format/d3-interpolate",
+      "note": "Legacy Gantt D3 axis/time bundle replaced with npm-backed aliases: axisN/axisT map to d3-axis top/bottom, axisR to d3-scale scaleTime, axisI to d3-time-format timeFormat, axisV to d3-interpolate interpolateHcl, and interval aliases to d3-time.",
+      "stage3Review": "Host self-review: vendor/d3-axis.ts is now a typed npm shim over official D3 packages while preserving the historical axis-* aliases used by legacy Gantt diagram chunks.",
       "status": "done"
     },
     "chunk-TZMSLE5B-BvWo7845": {
