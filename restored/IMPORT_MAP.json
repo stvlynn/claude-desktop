@@ -2949,14 +2949,18 @@
     },
     "monotone-DKOUTWfZ": {
       "restored": "vendor/d3-curve-monotone.ts",
+      "vendor": "d3-shape",
       "exports": {
         "n": "curveMonotoneY",
         "r": "curveLinear",
         "t": "curveMonotoneX"
       },
       "status": "done",
-      "lastUpdated": "2026-06-30T00:00:00.000Z",
-      "note": "D3 monotone chunk exports re-derived semantically: n=curveMonotoneY, r=curveLinear, t=curveMonotoneX. monotoneN/monotoneR/monotoneT remain as restored compatibility aliases."
+      "lastUpdated": "2026-07-02T00:00:00.000Z",
+      "note": "D3 monotone curve helper replaced with npm-backed d3-shape aliases for curveLinear, curveMonotoneX, and curveMonotoneY.",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-07-02T00:00:00.000Z",
+      "stage3Review": "Host self-review: vendor/d3-curve-monotone.ts preserves the recorded monotone aliases through d3-shape re-exports and passes quality-gate --vendored."
     },
     "sankeyLinkHorizontal-DCfEjaVP": {
       "restored": "vendor/d3-sankey-link-horizontal.ts",
@@ -3072,10 +3076,16 @@
     },
     "arc-D3MQZVTw": {
       "restored": "vendor/d3-shape-arc.ts",
+      "vendor": "d3-shape",
       "exports": {
         "t": "arc"
       },
-      "status": "done"
+      "status": "done",
+      "note": "D3 shape arc helper replaced with npm-backed re-export from d3-shape while preserving the historical export alias.",
+      "lastUpdated": "2026-07-02T00:00:00.000Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-07-02T00:00:00.000Z",
+      "stage3Review": "Host self-review: vendor/d3-shape-arc.ts exports arc from d3-shape, preserves the recorded t alias, and passes quality-gate --vendored."
     },
     "channel-ykMIcoPi": {
       "restored": "vendor/color-channel.ts",
@@ -3130,27 +3140,29 @@
     },
     "line-DIsP-Yv_": {
       "restored": "vendor/d3-shape-line.ts",
+      "vendor": "d3-shape",
       "exports": {
         "t": "line"
       },
       "status": "done",
-      "note": "Historical D3 line generator retained in vendor/d3-shape-line.ts; the current synced ref no longer contains this exact hash.",
-      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "D3 shape line helper replaced with npm-backed re-export from d3-shape while preserving the historical export alias.",
+      "lastUpdated": "2026-07-02T00:00:00.000Z",
       "stage3Accepted": true,
-      "stage3AcceptedAt": "2026-06-30T00:00:00.000Z",
-      "stage3Review": "Host self-review: current ref no longer contains line-DIsP-Yv_, vendor/d3-shape-line.ts passes quality-gate, and the recorded line alias is exported."
+      "stage3AcceptedAt": "2026-07-02T00:00:00.000Z",
+      "stage3Review": "Host self-review: vendor/d3-shape-line.ts exports line from d3-shape, preserves the recorded t alias, and passes quality-gate --vendored."
     },
     "pie-ChHHloNp": {
       "restored": "vendor/d3-shape-pie.ts",
+      "vendor": "d3-shape",
       "exports": {
         "t": "pie"
       },
       "status": "done",
-      "note": "Historical D3 pie generator retained in vendor/d3-shape-pie.ts; the current synced ref no longer contains this exact hash.",
-      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "D3 shape pie helper replaced with npm-backed re-export from d3-shape while preserving the historical export alias.",
+      "lastUpdated": "2026-07-02T00:00:00.000Z",
       "stage3Accepted": true,
-      "stage3AcceptedAt": "2026-06-30T00:00:00.000Z",
-      "stage3Review": "Host self-review: current ref no longer contains pie-ChHHloNp, vendor/d3-shape-pie.ts passes quality-gate, and the recorded pie alias is exported."
+      "stage3AcceptedAt": "2026-07-02T00:00:00.000Z",
+      "stage3Review": "Host self-review: vendor/d3-shape-pie.ts exports pie from d3-shape, preserves the recorded t alias, and passes quality-gate --vendored."
     },
     "auto-track-CVxnO46V": {
       "restored": "vendor/segment-auto-track.ts",
@@ -3628,6 +3640,7 @@
     },
     "step-K6tEdR0Q": {
       "restored": "vendor/d3-shape-curves.ts",
+      "vendor": "d3-shape",
       "exports": {
         "_": "stepUnderscore",
         "a": "stepA",
@@ -3647,7 +3660,12 @@
         "t": "stepT",
         "u": "stepU"
       },
-      "status": "done"
+      "status": "done",
+      "note": "Legacy D3 shape curve helper bundle replaced with npm-backed aliases for public d3-shape curves plus a small typed wrapper for Mermaid's legacy curveBumpX/curveBumpY aliases.",
+      "lastUpdated": "2026-07-02T00:00:00.000Z",
+      "stage3Accepted": true,
+      "stage3AcceptedAt": "2026-07-02T00:00:00.000Z",
+      "stage3Review": "Host self-review: vendor/d3-shape-curves.ts preserves all recorded step aliases through d3-shape re-exports plus vendor/d3-shape-curves/bump-curves.ts for the legacy bump curves, and passes quality-gate --vendored."
     },
     "chunk-HN2XXSSU-dadJeUL1": {
       "restored": "vendor/mermaid-relation-markers.ts",
