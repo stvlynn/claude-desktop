@@ -2968,7 +2968,11 @@
         "r": "sankeyLinkHorizontalR",
         "t": "sankeyLinkHorizontalT"
       },
-      "status": "done"
+      "status": "done",
+      "vendor": "d3-sankey",
+      "lastUpdated": "2026-07-02T00:00:00.000-05:00",
+      "note": "Bundled d3-sankey helper chunk replaced with npm-backed compatibility aliases; a/i/n/o/r/t map to d3-sankey's alignment, layout, and link helpers.",
+      "stage3Accepted": true
     },
     "string-CKccV857": {
       "restored": "vendor/d3-interpolate-string.ts",
@@ -2997,7 +3001,11 @@
         "r": "treemapR",
         "t": "treemapT"
       },
-      "status": "done"
+      "status": "done",
+      "vendor": "d3-hierarchy",
+      "lastUpdated": "2026-07-02T00:00:00.000-05:00",
+      "note": "Bundled d3-hierarchy treemap chunk replaced with npm-backed compatibility aliases; i remains the small coordinate-rounding helper absent from the public package.",
+      "stage3Accepted": true
     },
     "Serializer-yJ_eEkxi": {
       "restored": "vendor/css-tree-serializer.ts",
