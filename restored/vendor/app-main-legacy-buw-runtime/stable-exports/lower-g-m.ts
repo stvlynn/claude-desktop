@@ -55,6 +55,9 @@ export { EllipsisHorizontalIcon as ThreadRowTooltip } from "../../../icons/ellip
 export { initFolderOpenIconChunk as legacyAppMainBuwLowerGLowerHExport } from "../../../icons/folder-open-icon";
 export { Alert as ToastContent } from "../../../utils/alert";
 export { hasRateLimitReached as legacyAppMainBuwLowerGLowerCExport } from "../../../utils/rate-limit-status/account-status";
+export { hasBasicRateLimitReached as legacyAppMainBuwLowerHLowerCExport } from "../../../utils/rate-limit-status/account-status";
+export { formatResetTimestamp as legacyAppMainBuwLowerLLowerCExport } from "../../../utils/rate-limit-status/formatting";
+export { remainingUsagePercent as legacyAppMainBuwLowerKLowerCExport } from "../../../utils/rate-limit-status/windows";
 
 export { closestCenter as ThreadRowStatusIndicator } from "../../dnd-kit-core";
 
@@ -81,7 +84,6 @@ export {
   h_ as legacyAppMainBuwLowerHUnderscoreExport,
   ha as legacyAppMainBuwLowerHLowerAExport,
   hb as legacyAppMainBuwLowerHLowerBExport,
-  hc as legacyAppMainBuwLowerHLowerCExport,
   hd as legacyAppMainBuwLowerHLowerDExport,
   hf as legacyAppMainBuwLowerHLowerFExport,
   hg as legacyAppMainBuwLowerHLowerGExport,
@@ -135,7 +137,6 @@ export {
   k_ as legacyAppMainBuwLowerKUnderscoreExport,
   ka as legacyAppMainBuwLowerKLowerAExport,
   kb as legacyAppMainBuwLowerKLowerBExport,
-  kc as legacyAppMainBuwLowerKLowerCExport,
   kd as legacyAppMainBuwLowerKLowerDExport,
   kf as legacyAppMainBuwLowerKLowerFExport,
   kg as legacyAppMainBuwLowerKLowerGExport,
@@ -156,7 +157,6 @@ export {
   l_ as legacyAppMainBuwLowerLUnderscoreExport,
   la as legacyAppMainBuwLowerLLowerAExport,
   lb as legacyAppMainBuwLowerLLowerBExport,
-  lc as legacyAppMainBuwLowerLLowerCExport,
   lg as legacyAppMainBuwLowerLLowerGExport,
   li as legacyAppMainBuwLowerLLowerIExport,
   ln as legacyAppMainBuwLowerLLowerNExport,

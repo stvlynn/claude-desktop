@@ -13,12 +13,12 @@ export {
 export { initPermissionsModeDefaultsRuntime } from "../../runtime/window-chrome-runtime";
 export { DragOverlay as ThreadRowShortcutLabel } from "../dnd-kit-core";
 export { initReviewSourceRuntime as initReviewSourceChunk } from "../../review/review-diff-store";
+export { getMonthlySpendLimitUsage as appMainCurrentCompatSlotLowerFLowerC } from "../../utils/rate-limit-status/account-status";
 
 export {
   f as appMainCurrentCompatSlotLowerF,
   f_ as appMainCurrentCompatSlotLowerFUnderscore,
   fa as appMainCurrentCompatSlotLowerFLowerA,
-  fc as appMainCurrentCompatSlotLowerFLowerC,
   fd as appMainCurrentCompatSlotLowerFLowerD,
   fg as appMainCurrentCompatSlotLowerFLowerG,
   fi as appMainCurrentCompatSlotLowerFLowerI,

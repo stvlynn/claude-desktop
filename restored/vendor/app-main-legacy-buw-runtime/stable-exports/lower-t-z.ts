@@ -54,6 +54,7 @@ export { initEllipsisHorizontalIconChunk as SidebarRowLocalEnvironment } from ".
 export { openThreadTimelineSidePanel } from "../../../app-shell/legacy-thread-timeline-side-panel";
 export { initConversationDetailModeRuntime as SidebarRowRemoteEnvironment } from "../../../runtime/conversation-detail-runtime";
 export {
+  getSpendControlWarningThreshold as legacyAppMainBuwLowerULowerCExport,
   isWorkspaceCreditsExhausted as legacyAppMainBuwLowerYLowerCExport,
   shouldUseCreditsRateLimitDisplay as legacyAppMainBuwLowerVLowerCExport,
 } from "../../../utils/rate-limit-status/account-status";
@@ -85,7 +86,6 @@ export {
   u_ as legacyAppMainBuwLowerUUnderscoreExport,
   ua as legacyAppMainBuwLowerULowerAExport,
   ub as legacyAppMainBuwLowerULowerBExport,
-  uc as legacyAppMainBuwLowerULowerCExport,
   ug as legacyAppMainBuwLowerULowerGExport,
   ui as legacyAppMainBuwLowerULowerIExport,
   un as legacyAppMainBuwLowerULowerNExport,

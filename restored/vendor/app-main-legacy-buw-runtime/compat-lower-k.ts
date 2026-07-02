@@ -6,13 +6,13 @@ export { initWhitespaceEyeIconChunk as appMainCurrentCompatSlotLowerKLowerL } fr
 export { SidebarRowIcon } from "../app-main-current-runtime";
 
 export { initComposedRefsRuntime } from "../../runtime/app-main-new-thread-runtime";
+export { remainingUsagePercent as appMainCurrentCompatSlotLowerKLowerC } from "../../utils/rate-limit-status/windows";
 
 export {
   k as appMainCurrentCompatSlotLowerK,
   k_ as appMainCurrentCompatSlotLowerKUnderscore,
   ka as appMainCurrentCompatSlotLowerKLowerA,
   kb as appMainCurrentCompatSlotLowerKLowerB,
-  kc as appMainCurrentCompatSlotLowerKLowerC,
   kd as appMainCurrentCompatSlotLowerKLowerD,
   kf as appMainCurrentCompatSlotLowerKLowerF,
   kg as appMainCurrentCompatSlotLowerKLowerG,

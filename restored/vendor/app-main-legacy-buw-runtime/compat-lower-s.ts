@@ -11,12 +11,12 @@ export {
 export { initAppFeatureRuntimeChunk } from "../../runtime/window-chrome-runtime";
 
 export { focusPendingReviewPanelTarget } from "../../conversations/local-conversation-page-runtime";
+export { isSpendControlBlockedByWorkspaceCap as appMainCurrentCompatSlotLowerSLowerC } from "../../utils/rate-limit-status/account-status";
 
 export {
   s as appMainCurrentCompatSlotLowerS,
   s_ as appMainCurrentCompatSlotLowerSUnderscore,
   sb as appMainCurrentCompatSlotLowerSLowerB,
-  sc as appMainCurrentCompatSlotLowerSLowerC,
   sC as appMainCurrentCompatSlotLowerSUpperC,
   sd as appMainCurrentCompatSlotLowerSLowerD,
   sh as appMainCurrentCompatSlotLowerSLowerH,

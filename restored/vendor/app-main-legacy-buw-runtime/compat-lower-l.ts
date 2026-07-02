@@ -10,13 +10,13 @@ export { pendingReviewPanelTargetSignal } from "../../conversations/local-conver
 export { EllipsisHorizontalIcon as ThreadRowTooltip } from "../../icons/ellipsis-horizontal-icon";
 export { Alert as ToastContent } from "../../utils/alert";
 export { initStyleSingletonRuntime as initArrayEqualityRuntimeChunk } from "../react-style-singleton";
+export { formatResetTimestamp as appMainCurrentCompatSlotLowerLLowerC } from "../../utils/rate-limit-status/formatting";
 
 export {
   l as appMainCurrentCompatSlotLowerL,
   l_ as appMainCurrentCompatSlotLowerLUnderscore,
   la as appMainCurrentCompatSlotLowerLLowerA,
   lb as appMainCurrentCompatSlotLowerLLowerB,
-  lc as appMainCurrentCompatSlotLowerLLowerC,
   lC as appMainCurrentCompatSlotLowerLUpperC,
   lg as appMainCurrentCompatSlotLowerLLowerG,
   li as appMainCurrentCompatSlotLowerLLowerI,

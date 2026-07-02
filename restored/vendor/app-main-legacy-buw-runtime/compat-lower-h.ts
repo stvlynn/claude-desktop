@@ -11,13 +11,13 @@ export {
 
 export { openInitialReviewPanelTarget } from "../../conversations/local-conversation-page-runtime";
 export { closestCenter as ThreadRowStatusIndicator } from "../dnd-kit-core";
+export { hasBasicRateLimitReached as appMainCurrentCompatSlotLowerHLowerC } from "../../utils/rate-limit-status/account-status";
 
 export {
   h as appMainCurrentCompatSlotLowerH,
   h_ as appMainCurrentCompatSlotLowerHUnderscore,
   ha as appMainCurrentCompatSlotLowerHLowerA,
   hb as appMainCurrentCompatSlotLowerHLowerB,
-  hc as appMainCurrentCompatSlotLowerHLowerC,
   hC as appMainCurrentCompatSlotLowerHUpperC,
   hd as appMainCurrentCompatSlotLowerHLowerD,
   hf as appMainCurrentCompatSlotLowerHLowerF,

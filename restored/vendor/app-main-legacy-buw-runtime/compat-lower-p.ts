@@ -1,8 +1,6 @@
 // Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
 // Lowercase p compatibility aliases for the legacy app-main/onboarding producer.
-export {
-  getMicrophoneInputStream as appMainCurrentCompatSlotLowerPUpperC,
-} from "../../utils/microphone-input";
+export { getMicrophoneInputStream as appMainCurrentCompatSlotLowerPUpperC } from "../../utils/microphone-input";
 
 export {
   initThreadSidePanelTabsChunk,
@@ -12,12 +10,12 @@ export {
 export { setDefaultAgentModeForHost } from "../../runtime/window-chrome-runtime";
 
 export { resetReviewPanelEmptyState } from "../../conversations/local-conversation-page-runtime";
+export { hasCredits as appMainCurrentCompatSlotLowerPLowerC } from "../../utils/rate-limit-status/account-status";
 
 export {
   p as appMainCurrentCompatSlotLowerP,
   p_ as appMainCurrentCompatSlotLowerPUnderscore,
   pa as appMainCurrentCompatSlotLowerPLowerA,
-  pc as appMainCurrentCompatSlotLowerPLowerC,
   pd as appMainCurrentCompatSlotLowerPLowerD,
   pf as appMainCurrentCompatSlotLowerPLowerF,
   pg as appMainCurrentCompatSlotLowerPLowerG,

@@ -44,6 +44,10 @@ export {
   resetReviewPanelEmptyState,
   focusPendingReviewPanelTarget,
 } from "../../../conversations/local-conversation-page-runtime";
+export {
+  hasCredits as legacyAppMainBuwLowerPLowerCExport,
+  isSpendControlBlockedByWorkspaceCap as legacyAppMainBuwLowerSLowerCExport,
+} from "../../../utils/rate-limit-status/account-status";
 
 export {
   initWarningContextRuntime,
@@ -94,7 +98,6 @@ export {
   pS as legacyAppMainBuwLowerPUpperSExport,
   p_ as legacyAppMainBuwLowerPUnderscoreExport,
   pa as legacyAppMainBuwLowerPLowerAExport,
-  pc as legacyAppMainBuwLowerPLowerCExport,
   pd as legacyAppMainBuwLowerPLowerDExport,
   pf as legacyAppMainBuwLowerPLowerFExport,
   pg as legacyAppMainBuwLowerPLowerGExport,
@@ -152,7 +155,6 @@ export {
   sS as legacyAppMainBuwLowerSUpperSExport,
   s_ as legacyAppMainBuwLowerSUnderscoreExport,
   sb as legacyAppMainBuwLowerSLowerBExport,
-  sc as legacyAppMainBuwLowerSLowerCExport,
   sd as legacyAppMainBuwLowerSLowerDExport,
   sh as legacyAppMainBuwLowerSLowerHExport,
   si as legacyAppMainBuwLowerSLowerIExport,

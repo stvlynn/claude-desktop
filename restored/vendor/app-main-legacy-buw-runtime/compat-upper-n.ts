@@ -17,11 +17,11 @@ export {
 export { findLoadingAtom } from "../../find/thread-find-atoms";
 
 export { logger } from "../../conversations/local-conversation-thread-parts/local-environment-action-controls-runtime";
+export { parseUnixSeconds as appMainCurrentCompatSlotUpperNLowerC } from "../../utils/rate-limit-status/windows";
 
 export {
   Na as appMainCurrentCompatSlotUpperNLowerA,
   Nb as appMainCurrentCompatSlotUpperNLowerB,
-  Nc as appMainCurrentCompatSlotUpperNLowerC,
   Nd as appMainCurrentCompatSlotUpperNLowerD,
   Nf as appMainCurrentCompatSlotUpperNLowerF,
   Nh as appMainCurrentCompatSlotUpperNLowerH,

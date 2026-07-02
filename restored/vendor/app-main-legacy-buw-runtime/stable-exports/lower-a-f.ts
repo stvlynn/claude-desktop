@@ -52,6 +52,11 @@ export {
   useDroppable as ThreadRowBranchLabel,
 } from "../../dnd-kit-core";
 export { initReviewSourceRuntime as initReviewSourceChunk } from "../../../review/review-diff-store";
+export {
+  getMonthlySpendLimitUsage as legacyAppMainBuwLowerFLowerCExport,
+  isSpendControlNearWorkspaceCap as legacyAppMainBuwLowerCLowerCExport,
+} from "../../../utils/rate-limit-status/account-status";
+export { getLatestRateLimitResetAt as legacyAppMainBuwLowerDLowerCExport } from "../../../utils/rate-limit-status/windows";
 
 export {
   a as legacyAppMainBuwLowerAExport,
@@ -99,7 +104,6 @@ export {
   c_ as legacyAppMainBuwLowerCUnderscoreExport,
   ca as legacyAppMainBuwLowerCLowerAExport,
   cb as legacyAppMainBuwLowerCLowerBExport,
-  cc as legacyAppMainBuwLowerCLowerCExport,
   cd as legacyAppMainBuwLowerCLowerDExport,
   cg as legacyAppMainBuwLowerCLowerGExport,
   ch as legacyAppMainBuwLowerCLowerHExport,
@@ -119,7 +123,6 @@ export {
   d_ as legacyAppMainBuwLowerDUnderscoreExport,
   da as legacyAppMainBuwLowerDLowerAExport,
   db as legacyAppMainBuwLowerDLowerBExport,
-  dc as legacyAppMainBuwLowerDLowerCExport,
   dd as legacyAppMainBuwLowerDLowerDExport,
   dg as legacyAppMainBuwLowerDLowerGExport,
   dh as legacyAppMainBuwLowerDLowerHExport,
@@ -153,7 +156,6 @@ export {
   fS as legacyAppMainBuwLowerFUpperSExport,
   f_ as legacyAppMainBuwLowerFUnderscoreExport,
   fa as legacyAppMainBuwLowerFLowerAExport,
-  fc as legacyAppMainBuwLowerFLowerCExport,
   fd as legacyAppMainBuwLowerFLowerDExport,
   fg as legacyAppMainBuwLowerFLowerGExport,
   fi as legacyAppMainBuwLowerFLowerIExport,

@@ -1,8 +1,6 @@
 // Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
 // Lowercase c compatibility aliases for the legacy app-main/onboarding producer.
-export {
-  useRecordingWaveform as appMainCurrentCompatSlotLowerCUpperC,
-} from "../../utils/use-recording-waveform/use-recording-waveform";
+export { useRecordingWaveform as appMainCurrentCompatSlotLowerCUpperC } from "../../utils/use-recording-waveform/use-recording-waveform";
 
 export { areArraysEqual } from "../../utils/are-arrays-equal";
 
@@ -11,13 +9,13 @@ export {
   ThreadRowEnvironmentMeta,
   ThreadRowTimestamp,
 } from "../app-main-current-runtime";
+export { isSpendControlNearWorkspaceCap as appMainCurrentCompatSlotLowerCLowerC } from "../../utils/rate-limit-status/account-status";
 
 export {
   c as appMainCurrentCompatSlotLowerC,
   c_ as appMainCurrentCompatSlotLowerCUnderscore,
   ca as appMainCurrentCompatSlotLowerCLowerA,
   cb as appMainCurrentCompatSlotLowerCLowerB,
-  cc as appMainCurrentCompatSlotLowerCLowerC,
   cd as appMainCurrentCompatSlotLowerCLowerD,
   cg as appMainCurrentCompatSlotLowerCLowerG,
   ch as appMainCurrentCompatSlotLowerCLowerH,

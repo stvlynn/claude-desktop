@@ -14,13 +14,13 @@ export {
 } from "../app-main-current-runtime";
 
 export { initEllipsisHorizontalIconChunk as SidebarRowLocalEnvironment } from "../../icons/ellipsis-horizontal-icon";
+export { getSpendControlWarningThreshold as appMainCurrentCompatSlotLowerULowerC } from "../../utils/rate-limit-status/account-status";
 
 export {
   u as appMainCurrentCompatSlotLowerU,
   u_ as appMainCurrentCompatSlotLowerUUnderscore,
   ua as appMainCurrentCompatSlotLowerULowerA,
   ub as appMainCurrentCompatSlotLowerULowerB,
-  uc as appMainCurrentCompatSlotLowerULowerC,
   ug as appMainCurrentCompatSlotLowerULowerG,
   ui as appMainCurrentCompatSlotLowerULowerI,
   un as appMainCurrentCompatSlotLowerULowerN,
