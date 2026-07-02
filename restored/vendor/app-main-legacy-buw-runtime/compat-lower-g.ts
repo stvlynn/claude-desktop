@@ -7,12 +7,12 @@ export {
 } from "../app-main-current-runtime";
 
 export { syncReviewPanelForRestoredSource } from "../../conversations/local-conversation-page-runtime";
+export { isConversationDetailModeProse as SidebarRowArchiveToast } from "../../runtime/conversation-detail-runtime";
 
 export {
   g as appMainCurrentCompatSlotLowerG,
   g_ as appMainCurrentCompatSlotLowerGUnderscore,
   ga as appMainCurrentCompatSlotLowerGLowerA,
-  gb as SidebarRowArchiveToast,
   gc as appMainCurrentCompatSlotLowerGLowerC,
   gC as appMainCurrentCompatSlotLowerGUpperC,
   gd as appMainCurrentCompatSlotLowerGLowerD,

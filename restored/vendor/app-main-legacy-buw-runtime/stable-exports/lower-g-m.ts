@@ -37,6 +37,7 @@ export {
 } from "../../../conversations/local-conversation-page-runtime";
 
 export { initComposedRefsRuntime } from "../../../runtime/app-main-new-thread-runtime";
+export { isConversationDetailModeProse as SidebarRowArchiveToast } from "../../../runtime/conversation-detail-runtime";
 export { EllipsisHorizontalIcon as ThreadRowTooltip } from "../../../icons/ellipsis-horizontal-icon";
 
 export { closestCenter as ThreadRowStatusIndicator } from "../../dnd-kit-core";
@@ -47,7 +48,6 @@ export {
   gS as legacyAppMainBuwLowerGUpperSExport,
   g_ as legacyAppMainBuwLowerGUnderscoreExport,
   ga as legacyAppMainBuwLowerGLowerAExport,
-  gb as SidebarRowArchiveToast,
   gc as legacyAppMainBuwLowerGLowerCExport,
   gf as legacyAppMainBuwLowerGLowerFExport,
   gg as legacyAppMainBuwLowerGLowerGExport,
