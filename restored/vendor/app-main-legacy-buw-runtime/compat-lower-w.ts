@@ -5,6 +5,8 @@ export { initTwoPeopleShieldIconChunk as appMainCurrentCompatSlotLowerWLowerH } 
 
 export { browserTabIdForConversation } from "../app-main-current-runtime";
 
+export { initUseDictationUiRuntimeChunk as appMainCurrentCompatSlotLowerWUpperC } from "../../features/use-dictation";
+
 export { initTerminalMouseCoordinatePatchRuntime } from "../../runtime/window-chrome-runtime";
 export { initDndKitUtilitiesRuntime as ThreadRowWorktreeMeta } from "../dnd-kit-utilities";
 export { formatRemainingPercent as appMainCurrentCompatSlotLowerWLowerC } from "../../utils/rate-limit-status/formatting";
@@ -13,7 +15,6 @@ export {
   w as appMainCurrentCompatSlotLowerW,
   wa as appMainCurrentCompatSlotLowerWLowerA,
   wb as appMainCurrentCompatSlotLowerWLowerB,
-  wC as appMainCurrentCompatSlotLowerWUpperC,
   wd as appMainCurrentCompatSlotLowerWLowerD,
   wf as appMainCurrentCompatSlotLowerWLowerF,
   wg as appMainCurrentCompatSlotLowerWLowerG,
