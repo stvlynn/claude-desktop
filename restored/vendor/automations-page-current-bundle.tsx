@@ -258,9 +258,12 @@ import {
   resolveHeartbeatPermissions,
 } from "../automation/heartbeat-permissions";
 import {
+  archiveAutomationHistoryItems,
+  buildAutomationHistoryConversationReference,
   buildAutomationDeleteAnalyticsMetadata,
   filterDeletedAutomation,
   formatAutomationRelativeTimestamp,
+  isArchiveableAutomationHistoryItem,
   parseAutomationRestoreSnapshot,
 } from "../automations/current-automation-helpers";
 import {
@@ -303,53 +306,6 @@ import {
   getAutomationHomeUseCases,
   initHomeUseCasesDataChunk,
 } from "../home/home-use-cases-data";
-function automationsPageHelper1(automationsPageParam74) {
-  return {
-    conversationId: currentAppInitialSharedCompatSlotLowerTLowerA(
-      automationsPageParam74,
-    ),
-    hostId: currentAppInitialSharedMember0542,
-    source: "automation_history",
-  };
-}
-function automationsPageHelper2(automationsPageParam70) {
-  return (
-    automationsPageParam70.status !== "ARCHIVED" &&
-    automationsPageParam70.status !== "IN_PROGRESS" &&
-    automationsPageParam70.threadId != null
-  );
-}
-async function automationsPageHelper3({ archiveThread, items }) {
-  let automationsPageValue474 = items
-      .filter(automationsPageHelper2)
-      .map((item) => item.threadId),
-    automationsPageValue475 = await Promise.all(
-      automationsPageValue474.map(async (item) => {
-        try {
-          return (await archiveThread(item), true);
-        } catch (automationsPageValue497) {
-          return (
-            currentAppInitialSharedCompatSlotUpperC.warning(
-              "automation_history_archive_failed",
-              {
-                safe: {},
-                sensitive: {
-                  error: automationsPageValue497,
-                  threadId: item,
-                },
-              },
-            ),
-            false
-          );
-        }
-      }),
-    ),
-    automationsPageValue476 = automationsPageValue475.filter(Boolean).length;
-  return {
-    succeededCount: automationsPageValue476,
-    failedCount: automationsPageValue475.length - automationsPageValue476,
-  };
-}
 var automationsPageValue1 = once(() => {
   currentAppInitialSharedCompatSlotUpperO();
   currentAppInitialSharedDisplayRuntime();
@@ -4610,7 +4566,7 @@ function automationsPageHelper37({ automationId, formatRootLabel }) {
       (item) => item.readAt == null,
     ),
     automationsPageValue274 = automationsPageValue272.filter(
-      automationsPageHelper2,
+      isArchiveableAutomationHistoryItem,
     ).length,
     automationsPageValue275 = async (automationsPageParam43) => {
       try {
@@ -4639,7 +4595,7 @@ function automationsPageHelper37({ automationId, formatRootLabel }) {
     automationsPageValue277 = async (automationsPageParam90) => {
       await currentAppInitialSharedFunction0895(
         "archive-conversation",
-        automationsPageHelper1(automationsPageParam90),
+        buildAutomationHistoryConversationReference(automationsPageParam90),
       );
     },
     automationsPageValue278 = () => {
@@ -4670,10 +4626,11 @@ function automationsPageHelper37({ automationId, formatRootLabel }) {
       if (!(automationsPageValue274 === 0 || automationsPageValue267)) {
         automationsPageValue268(true);
         try {
-          let { failedCount, succeededCount } = await automationsPageHelper3({
-            items: automationsPageValue272,
-            archiveThread: automationsPageValue277,
-          });
+          let { failedCount, succeededCount } =
+            await archiveAutomationHistoryItems({
+              items: automationsPageValue272,
+              archiveThread: automationsPageValue277,
+            });
           if ((automationsPageValue278(), failedCount === 0)) {
             automationsPageValue266
               .get(worktreeNewThreadQueryCompatSlotLowerGLowerP)
@@ -4808,7 +4765,9 @@ function automationsPageHelper38({
     automationsPageValue248 =
       automationsPageValue246 && automationsPageValue245 != null,
     automationsPageValue249 =
-      automationsPageHelper2(item) && !isRunning && !automationsPageValue243,
+      isArchiveableAutomationHistoryItem(item) &&
+      !isRunning &&
+      !automationsPageValue243,
     automationsPageValue250 =
       automationsPageValue245 != null && !automationsPageValue246
         ? () => {

@@ -42959,12 +42959,12 @@
         "AutomationsLayoutPage": "AutomationsPage"
       },
       "status": "done",
-      "note": "Current automations page hash maps to explicit compatibility aliases backed by the semantic automations/page.tsx entry; delete/restore metadata helpers and relative timestamp formatting are now backed by automations/current-automation-helpers.ts instead of current-bundle mechanical helpers.",
-      "lastUpdated": "2026-07-02T03:39:14.000Z",
+      "note": "Current automations page hash maps to explicit compatibility aliases backed by the semantic automations/page.tsx entry; automation history archive helpers, delete/restore metadata helpers, and relative timestamp formatting are now backed by automations/current-automation-helpers.ts instead of current-bundle mechanical helpers.",
+      "lastUpdated": "2026-07-02T03:46:25.000Z",
       "stage3Accepted": true,
       "stage3AcceptedAt": "2026-06-30T23:21:25.587Z",
-      "stage3Review": "Host self-review: parsed automations-page-CXHLOmAw.js exports, preserved the current restored-dependency backing bundle, extracted the delete/restore metadata helpers and relative timestamp formatter into typed automations/current-automation-helpers.ts, and mapped AutomationsPage through automations/page.tsx.",
-      "stage3Note": "Accepted as a current-ref compatibility export backed by the semantic AutomationsPage entry; automation metadata/date helpers are now split out, while deeper internal page/helper splitting remains future cleanup."
+      "stage3Review": "Host self-review: parsed automations-page-CXHLOmAw.js exports, preserved the current restored-dependency backing bundle, extracted automation history archive helpers, delete/restore metadata helpers, and the relative timestamp formatter into typed automations/current-automation-helpers.ts, and mapped AutomationsPage through automations/page.tsx.",
+      "stage3Note": "Accepted as a current-ref compatibility export backed by the semantic AutomationsPage entry; automation history/archive metadata/date helpers are now split out, while deeper internal page/helper splitting remains future cleanup."
     },
     "avatar-overlay-featuregate-page-CD3wz3Jd": {
       "restored": "runtime/current-app-initial/avatar-overlay-featuregate-page-current-runtime.ts",
