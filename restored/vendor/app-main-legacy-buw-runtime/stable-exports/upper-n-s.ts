@@ -53,6 +53,7 @@ export { logger } from "../../../conversations/local-conversation-thread-parts/l
 export { createPendingWorktree } from "../../../runtime/conversation-fork-runtime";
 
 export { useSensors as ThreadRowArchiveAction } from "../../dnd-kit-core";
+export { openInCodex as legacyAppMainBuwUpperNLowerOExport } from "../../../runtime/open-in-codex-tool";
 export { parseUnixSeconds as legacyAppMainBuwUpperNLowerCExport } from "../../../utils/rate-limit-status/windows";
 export { selectRateLimitAlert as legacyAppMainBuwUpperOLowerCExport } from "../../../utils/rate-limit-status/windows";
 export {
@@ -73,7 +74,6 @@ export {
   Nh as legacyAppMainBuwUpperNLowerHExport,
   Nl as legacyAppMainBuwUpperNLowerLExport,
   Nm as legacyAppMainBuwUpperNLowerMExport,
-  No as legacyAppMainBuwUpperNLowerOExport,
   Np as legacyAppMainBuwUpperNLowerPExport,
   Ns as legacyAppMainBuwUpperNLowerSExport,
   Nt as legacyAppMainBuwUpperNLowerTExport,

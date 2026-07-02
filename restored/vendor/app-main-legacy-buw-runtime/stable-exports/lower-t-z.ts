@@ -55,6 +55,7 @@ export { openThreadTimelineSidePanel } from "../../../app-shell/legacy-thread-ti
 export { initConversationDetailModeRuntime as SidebarRowRemoteEnvironment } from "../../../runtime/conversation-detail-runtime";
 export { CHATGPT_PRICING_HASH_URL as legacyAppMainBuwLowerZLowerCExport } from "../../../utils/links-bd-mmkun-d";
 export { formatRemainingPercent as legacyAppMainBuwLowerWLowerCExport } from "../../../utils/rate-limit-status/formatting";
+export { navigateToCodexPage as legacyAppMainBuwLowerZLowerOExport } from "../../../runtime/navigate-to-codex-page-tool";
 export {
   getSpendControlWarningThreshold as legacyAppMainBuwLowerULowerCExport,
   isWorkspaceCreditsExhausted as legacyAppMainBuwLowerYLowerCExport,
@@ -179,7 +180,6 @@ export {
   zh as legacyAppMainBuwLowerZLowerHExport,
   zl as legacyAppMainBuwLowerZLowerLExport,
   zm as legacyAppMainBuwLowerZLowerMExport,
-  zo as legacyAppMainBuwLowerZLowerOExport,
   zp as legacyAppMainBuwLowerZLowerPExport,
   zr as legacyAppMainBuwLowerZLowerRExport,
   zs as legacyAppMainBuwLowerZLowerSExport,
