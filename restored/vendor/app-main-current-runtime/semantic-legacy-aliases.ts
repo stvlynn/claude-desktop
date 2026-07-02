@@ -64,6 +64,9 @@ export {
   SplitDiffIcon as initOpenInBrowserRuntimeChunk,
 } from "../../icons/split-diff-icon";
 export {
+  getMicrophoneInputStream as SidebarRowProjectLabel,
+} from "../../utils/microphone-input";
+export {
   TwoPeopleShieldIcon as openThreadMcpAppSidePanelTab,
 } from "../../icons/two-people-shield-icon";
 export {
@@ -114,7 +117,6 @@ export {
   eu as SidebarRowUnreadDot,
   fl as getBrowserTabIdForSidePanelOpen,
   gl as openThreadBrowserSidePanelTab,
-  gm as SidebarRowProjectLabel,
   hl as openThreadBranchReviewSidePanelTab,
   ho as forkConversationMessages,
   hp as useComposedRefs,
