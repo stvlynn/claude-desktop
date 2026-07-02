@@ -3685,10 +3685,12 @@
         "u": "metricHelpersU"
       },
       "status": "done",
-      "lastUpdated": "2026-06-30T22:20:00.000Z",
+      "lastUpdated": "2026-07-02T22:03:07.000Z",
+      "vendor": "@segment/analytics-core",
+      "note": "Segment metric helper compatibility surface is backed by @segment/analytics-core and @segment/analytics-generic-utils; local wrappers are split under vendor/segment-metric-helpers for connection state, persisted queue storage, integration settings/metrics, and runWhile.",
       "stage3Accepted": true,
-      "stage3AcceptedAt": "2026-06-30T22:20:00.000Z",
-      "stage3Review": "Host self-review: historical metric-helpers-BidZZeRm is absent from the current ref, vendor/segment-metric-helpers.ts preserves all 12 recorded Segment metric/helper aliases, and the vendored quality gate passes."
+      "stage3AcceptedAt": "2026-07-02T22:03:07.000Z",
+      "stage3Review": "Host self-review: historical metric-helpers-BidZZeRm aliases are preserved by vendor/segment-metric-helpers.ts, the stock Segment queue/delivery/emitter/deferred helpers now re-export from npm packages, local compatibility logic is split into small typed modules, and the npm-shim quality gate passes."
     },
     "metric-helpers-7nP-wnaS": {
       "restored": "vendor/segment-metric-helpers.ts",
@@ -3708,10 +3710,12 @@
       },
       "status": "done",
       "aliasOf": "metric-helpers-BidZZeRm",
-      "lastUpdated": "2026-06-30T22:20:00.000Z",
+      "lastUpdated": "2026-07-02T22:03:07.000Z",
+      "vendor": "@segment/analytics-core",
+      "note": "Alias of metric-helpers-BidZZeRm; Segment metric helper compatibility is npm-backed by @segment/analytics-core and @segment/analytics-generic-utils with local typed wrappers under vendor/segment-metric-helpers.",
       "stage3Accepted": true,
-      "stage3AcceptedAt": "2026-06-30T22:20:00.000Z",
-      "stage3Review": "Host self-review: historical metric-helpers-7nP-wnaS is absent from the current ref, vendor/segment-metric-helpers.ts preserves all 12 recorded aliases, and the vendored quality gate passes."
+      "stage3AcceptedAt": "2026-07-02T22:03:07.000Z",
+      "stage3Review": "Host self-review: historical metric-helpers-7nP-wnaS aliases are preserved by the npm-backed Segment metric helper shim, and the remaining connection/persistence/integration compatibility code is split into typed modules."
     },
     "metric-helpers-DG5zp00d": {
       "restored": "vendor/segment-metric-helpers.ts",
@@ -3730,12 +3734,12 @@
         "u": "initSegmentMetricHelpersLoadScriptRuntime"
       },
       "status": "done",
-      "lastUpdated": "2026-06-30T22:20:00.000Z",
-      "vendor": "@segment/analytics-next",
-      "note": "Current Segment metric helper chunk has a shifted export table relative to the historical hashes; the current aliases now map to the restored online/offline helpers, integration merge and stats helpers, persisted queue class, retry helper, and no-op init facades for Rolldown init thunks.",
+      "lastUpdated": "2026-07-02T22:03:07.000Z",
+      "vendor": "@segment/analytics-core",
+      "note": "Current Segment metric helper chunk has a shifted export table relative to the historical hashes; current aliases now map to npm-backed Segment analytics-core/generic-utils helpers plus typed local wrappers for online/offline state, integration merge/stats, persisted queue storage, runWhile, and no-op init facades for Rolldown init thunks.",
       "stage3Accepted": true,
-      "stage3AcceptedAt": "2026-06-30T22:20:00.000Z",
-      "stage3Review": "Host self-review: re-derived metric-helpers-DG5zp00d from the current ref export table (a=retry init, c=persisted queue init, d=offline, f=online, i=integration merge, l=analytics-core init, n=integration stats, o=retry helper, r=tslib init, s=persisted queue class, t=no-op init, u=load-script init), preserved historical aliases in vendor/segment-metric-helpers.ts, and vendored quality-gate/prettier passed."
+      "stage3AcceptedAt": "2026-07-02T22:03:07.000Z",
+      "stage3Review": "Host self-review: re-derived metric-helpers-DG5zp00d from the current ref export table (a=retry init, c=persisted queue init, d=offline, f=online, i=integration merge, l=analytics-core init, n=integration stats, o=runWhile helper, r=tslib init, s=persisted queue class, t=no-op init, u=load-script init), preserved aliases in vendor/segment-metric-helpers.ts, replaced stock package bodies with npm re-exports, and split the remaining typed wrappers into vendor/segment-metric-helpers/."
     },
     "middleware-Az7vHdEh": {
       "restored": "vendor/segment-middleware-entry.ts",
