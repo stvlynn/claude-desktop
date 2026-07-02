@@ -155,10 +155,9 @@ export {
   mdastToMarkdownDefaultHandlers as SidebarTaskRowTitle,
 } from "../markdown-ast-runtime";
 
-export {
-  Kt as RemoteConversationShell,
-  ou as FileDiff,
-} from "../app-main-current-cgnc-bundle";
+export { Banner as RemoteConversationShell } from "../../ui/banner";
+
+export { ou as FileDiff } from "../app-main-current-cgnc-bundle";
 
 export {
   initBackgroundSubagentsRuntimeChunk as forkConversationMessages,
