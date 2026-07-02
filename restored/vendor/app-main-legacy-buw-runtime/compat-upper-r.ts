@@ -8,12 +8,12 @@ export {
 } from "../../runtime/window-chrome-runtime";
 export { appIntlSignal as intlShapeSignal } from "../../utils/app-intl-signal";
 export { usePendingWorktreeStore as SidebarTaskRowMetadata } from "../../threads/pending-worktree-store";
+export { CHATGPT_ADMIN_URL as appMainCurrentCompatSlotUpperRLowerC } from "../../utils/links-bd-mmkun-d";
 
 export {
   R as appMainCurrentCompatSlotUpperR,
   Ra as appMainCurrentCompatSlotUpperRLowerA,
   Rb as appMainCurrentCompatSlotUpperRLowerB,
-  Rc as appMainCurrentCompatSlotUpperRLowerC,
   RC as appMainCurrentCompatSlotUpperRUpperC,
   Rf as appMainCurrentCompatSlotUpperRLowerF,
   Ri as appMainCurrentCompatSlotUpperRLowerI,

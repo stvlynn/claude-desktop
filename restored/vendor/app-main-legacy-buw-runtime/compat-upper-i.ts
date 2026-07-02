@@ -6,12 +6,12 @@ export { initFitAddonChunk } from "../../runtime/window-chrome-runtime";
 
 export { findResultAtom } from "../../find/thread-find-atoms";
 export { isPendingWorktreeInProgress as RemoteHostStatusIcon } from "../../threads/pending-worktree-store";
+export { OPENAI_APPS_SDK_DOCS_URL as appMainCurrentCompatSlotUpperILowerC } from "../../utils/links-bd-mmkun-d";
 
 export {
   I as appMainCurrentCompatSlotUpperI,
   Ia as appMainCurrentCompatSlotUpperILowerA,
   Ib as appMainCurrentCompatSlotUpperILowerB,
-  Ic as appMainCurrentCompatSlotUpperILowerC,
   IC as appMainCurrentCompatSlotUpperIUpperC,
   Id as appMainCurrentCompatSlotUpperILowerD,
   If as appMainCurrentCompatSlotUpperILowerF,

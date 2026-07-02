@@ -9,13 +9,13 @@ export {
 } from "../app-main-current-runtime";
 
 export { initNewThreadRouteContextChunk } from "../../runtime/window-chrome-runtime";
+export { CODEX_SKILLS_DOCS_URL as appMainCurrentCompatSlotUpperQLowerC } from "../../utils/links-bd-mmkun-d";
 
 export {
   Q as appMainCurrentCompatSlotUpperQ,
   Q_ as appMainCurrentCompatSlotUpperQUnderscore,
   Qa as appMainCurrentCompatSlotUpperQLowerA,
   Qb as appMainCurrentCompatSlotUpperQLowerB,
-  Qc as appMainCurrentCompatSlotUpperQLowerC,
   Qd as appMainCurrentCompatSlotUpperQLowerD,
   Qg as appMainCurrentCompatSlotUpperQLowerG,
   Qh as appMainCurrentCompatSlotUpperQLowerH,

@@ -11,13 +11,13 @@ export {
 } from "../app-main-current-runtime";
 
 export { initPanelTabStoresChunk } from "../../runtime/window-chrome-runtime";
+export { CODEX_LOCAL_ENVIRONMENTS_DOCS_URL as appMainCurrentCompatSlotUpperGLowerC } from "../../utils/links-bd-mmkun-d";
 
 export {
   G as appMainCurrentCompatSlotUpperG,
   G_ as appMainCurrentCompatSlotUpperGUnderscore,
   Ga as appMainCurrentCompatSlotUpperGLowerA,
   Gb as appMainCurrentCompatSlotUpperGLowerB,
-  Gc as appMainCurrentCompatSlotUpperGLowerC,
   Gf as appMainCurrentCompatSlotUpperGLowerF,
   Gg as appMainCurrentCompatSlotUpperGLowerG,
   Gh as appMainCurrentCompatSlotUpperGLowerH,

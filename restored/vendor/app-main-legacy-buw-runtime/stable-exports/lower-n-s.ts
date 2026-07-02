@@ -15,6 +15,7 @@ export { getMicrophoneInputStream as legacyAppMainBuwLowerPUpperCExport } from "
 export { UserMessage as legacyAppMainBuwLowerQLowerIExport } from "../../../conversations/user-message";
 
 export { createWorkspaceFileReader as legacyAppMainBuwLowerQLowerUExport } from "../../../review/workspace-file-reader";
+export { CODEX_IDE_DOCS_URL as legacyAppMainBuwLowerQLowerCExport } from "../../../utils/links-bd-mmkun-d";
 
 export { XCircleIcon as ErrorCircleIcon } from "../../../icons/x-circle-icon";
 
@@ -117,7 +118,6 @@ export {
   q_ as legacyAppMainBuwLowerQUnderscoreExport,
   qa as legacyAppMainBuwLowerQLowerAExport,
   qb as legacyAppMainBuwLowerQLowerBExport,
-  qc as legacyAppMainBuwLowerQLowerCExport,
   qd as legacyAppMainBuwLowerQLowerDExport,
   qf as legacyAppMainBuwLowerQLowerFExport,
   qg as legacyAppMainBuwLowerQLowerGExport,

@@ -5,13 +5,13 @@ export { RobotIcon as appMainCurrentCompatSlotLowerQLowerN } from "../../icons/r
 export { UserMessage as appMainCurrentCompatSlotLowerQLowerI } from "../../conversations/user-message";
 
 export { createWorkspaceFileReader as appMainCurrentCompatSlotLowerQLowerU } from "../../review/workspace-file-reader";
+export { CODEX_IDE_DOCS_URL as appMainCurrentCompatSlotLowerQLowerC } from "../../utils/links-bd-mmkun-d";
 
 export {
   q as appMainCurrentCompatSlotLowerQ,
   q_ as appMainCurrentCompatSlotLowerQUnderscore,
   qa as appMainCurrentCompatSlotLowerQLowerA,
   qb as appMainCurrentCompatSlotLowerQLowerB,
-  qc as appMainCurrentCompatSlotLowerQLowerC,
   qd as appMainCurrentCompatSlotLowerQLowerD,
   qf as appMainCurrentCompatSlotLowerQLowerF,
   qg as appMainCurrentCompatSlotLowerQLowerG,

@@ -11,12 +11,12 @@ export { initWebLinksAddonChunk } from "../../runtime/window-chrome-runtime";
 export { findQueryAtom } from "../../find/thread-find-atoms";
 export { initPendingWorktreeStoreRuntime as initPendingWorktreeComposerRuntimeChunk } from "../../threads/pending-worktree-store";
 export { initReviewRouteContextRuntime as initReviewRouteContextChunk } from "../../review/thread-review-context";
+export { CHATGPT_ADMIN_USAGE_LIMITS_URL as appMainCurrentCompatSlotUpperFLowerC } from "../../utils/links-bd-mmkun-d";
 
 export {
   F as appMainCurrentCompatSlotUpperF,
   Fa as appMainCurrentCompatSlotUpperFLowerA,
   Fb as appMainCurrentCompatSlotUpperFLowerB,
-  Fc as appMainCurrentCompatSlotUpperFLowerC,
   Fd as appMainCurrentCompatSlotUpperFLowerD,
   Fl as appMainCurrentCompatSlotUpperFLowerL,
   Fm as appMainCurrentCompatSlotUpperFLowerM,

@@ -7,13 +7,13 @@ export {
 
 export { conversationTitleByIdSignal } from "../../runtime/window-chrome-runtime";
 export { AvatarIcon as hostBridge } from "../../icons/avatar-icon";
+export { CODEX_CONFIG_DOCS_URL as appMainCurrentCompatSlotUpperULowerC } from "../../utils/links-bd-mmkun-d";
 
 export {
   U as appMainCurrentCompatSlotUpperU,
   U_ as appMainCurrentCompatSlotUpperUUnderscore,
   Ua as appMainCurrentCompatSlotUpperULowerA,
   Ub as appMainCurrentCompatSlotUpperULowerB,
-  Uc as appMainCurrentCompatSlotUpperULowerC,
   Uf as appMainCurrentCompatSlotUpperULowerF,
   Ug as appMainCurrentCompatSlotUpperULowerG,
   Uh as appMainCurrentCompatSlotUpperULowerH,

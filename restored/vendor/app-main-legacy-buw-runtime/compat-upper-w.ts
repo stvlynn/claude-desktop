@@ -10,12 +10,12 @@ export { rightPanelFullWidthStateKey } from "../../conversations/fork-conversati
 export { bottomPanelTabsStore } from "../../app-shell/thread-panel-tabs-store";
 export { initAvatarIconChunk as appMainCurrentCompatSlotUpperWLowerN } from "../../icons/avatar-icon";
 export { handleGetHandoffStatus as pathsMatch } from "../../conversations/handoff-thread-tool-handlers";
+export { CODEX_GLOBAL_AGENTS_GUIDANCE_DOCS_URL as appMainCurrentCompatSlotUpperWLowerC } from "../../utils/links-bd-mmkun-d";
 
 export {
   W as appMainCurrentCompatSlotUpperW,
   W_ as appMainCurrentCompatSlotUpperWUnderscore,
   Wb as appMainCurrentCompatSlotUpperWLowerB,
-  Wc as appMainCurrentCompatSlotUpperWLowerC,
   Wf as appMainCurrentCompatSlotUpperWLowerF,
   Wg as appMainCurrentCompatSlotUpperWLowerG,
   Wh as appMainCurrentCompatSlotUpperWLowerH,

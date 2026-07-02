@@ -8,12 +8,12 @@ export { SidebarRowRuntime } from "../app-main-current-runtime";
 
 export { getAllBrowserTabIdsForConversation } from "../../conversations/fork-conversation-panel-state-deps";
 export { initReviewDiffFilterRuntime as initReviewSourceModeChunk } from "../../review/review-diff-model";
+export { CHATGPT_PRICING_HASH_URL as appMainCurrentCompatSlotLowerZLowerC } from "../../utils/links-bd-mmkun-d";
 
 export {
   z as appMainCurrentCompatSlotLowerZ,
   za as appMainCurrentCompatSlotLowerZLowerA,
   zb as appMainCurrentCompatSlotLowerZLowerB,
-  zc as appMainCurrentCompatSlotLowerZLowerC,
   zd as appMainCurrentCompatSlotLowerZLowerD,
   zf as appMainCurrentCompatSlotLowerZLowerF,
   zg as appMainCurrentCompatSlotLowerZLowerG,

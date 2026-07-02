@@ -5,13 +5,13 @@ export {
   initAppgenPublicationTermsDisclosureRuntime,
   QueryClientProvider,
 } from "../app-main-current-runtime";
+export { OPENAI_PLUGINS_GITHUB_URL as appMainCurrentCompatSlotUpperXLowerC } from "../../utils/links-bd-mmkun-d";
 
 export {
   X as appMainCurrentCompatSlotUpperX,
   X_ as appMainCurrentCompatSlotUpperXUnderscore,
   Xa as appMainCurrentCompatSlotUpperXLowerA,
   Xb as appMainCurrentCompatSlotUpperXLowerB,
-  Xc as appMainCurrentCompatSlotUpperXLowerC,
   Xd as appMainCurrentCompatSlotUpperXLowerD,
   Xf as appMainCurrentCompatSlotUpperXLowerF,
   Xg as appMainCurrentCompatSlotUpperXLowerG,

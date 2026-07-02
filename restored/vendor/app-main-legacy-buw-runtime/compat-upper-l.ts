@@ -3,12 +3,12 @@
 export { initUseRecordingWaveformIconChunk as appMainCurrentCompatSlotUpperLUpperC } from "../../utils/use-recording-waveform";
 export { FileAttachmentPill as appMainCurrentCompatSlotUpperLLowerI } from "../../composer/user-message-attachment-pills";
 export { initAppIntlSignalRuntime as initPendingWorktreeRouteRuntimeChunk } from "../../utils/app-intl-signal";
+export { CHATGPT_PRICING_URL as appMainCurrentCompatSlotUpperLLowerC } from "../../utils/links-bd-mmkun-d";
 
 export {
   L as appMainCurrentCompatSlotUpperL,
   La as appMainCurrentCompatSlotUpperLLowerA,
   Lb as appMainCurrentCompatSlotUpperLLowerB,
-  Lc as appMainCurrentCompatSlotUpperLLowerC,
   Ld as appMainCurrentCompatSlotUpperLLowerD,
   Lf as appMainCurrentCompatSlotUpperLLowerF,
   Lg as appMainCurrentCompatSlotUpperLLowerG,

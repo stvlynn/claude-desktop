@@ -54,6 +54,14 @@ export {
 } from "../../../icons/avatar-icon";
 export { handleGetHandoffStatus as pathsMatch } from "../../../conversations/handoff-thread-tool-handlers";
 export { formatRateLimitWindowLabel as legacyAppMainBuwUpperTLowerCExport } from "../../../utils/rate-limit-status/formatting";
+export {
+  CODEX_AUTOMATIONS_DOCS_URL as legacyAppMainBuwUpperVLowerCExport,
+  CODEX_CONFIG_DOCS_URL as legacyAppMainBuwUpperULowerCExport,
+  CODEX_GLOBAL_AGENTS_GUIDANCE_DOCS_URL as legacyAppMainBuwUpperWLowerCExport,
+  CODEX_MCP_DOCS_URL as legacyAppMainBuwUpperYLowerCExport,
+  CODEX_SANDBOXING_DOCS_URL as legacyAppMainBuwUpperZLowerCExport,
+  OPENAI_PLUGINS_GITHUB_URL as legacyAppMainBuwUpperXLowerCExport,
+} from "../../../utils/links-bd-mmkun-d";
 
 export {
   T as legacyAppMainBuwUpperTExport,
@@ -80,7 +88,6 @@ export {
   U_ as legacyAppMainBuwUpperUUnderscoreExport,
   Ua as legacyAppMainBuwUpperULowerAExport,
   Ub as legacyAppMainBuwUpperULowerBExport,
-  Uc as legacyAppMainBuwUpperULowerCExport,
   Uf as legacyAppMainBuwUpperULowerFExport,
   Ug as legacyAppMainBuwUpperULowerGExport,
   Uh as legacyAppMainBuwUpperULowerHExport,
@@ -99,7 +106,6 @@ export {
   V_ as legacyAppMainBuwUpperVUnderscoreExport,
   Va as legacyAppMainBuwUpperVLowerAExport,
   Vb as legacyAppMainBuwUpperVLowerBExport,
-  Vc as legacyAppMainBuwUpperVLowerCExport,
   Vf as legacyAppMainBuwUpperVLowerFExport,
   Vg as legacyAppMainBuwUpperVLowerGExport,
   Vh as legacyAppMainBuwUpperVLowerHExport,
@@ -116,7 +122,6 @@ export {
   WS as legacyAppMainBuwUpperWUpperSExport,
   W_ as legacyAppMainBuwUpperWUnderscoreExport,
   Wb as legacyAppMainBuwUpperWLowerBExport,
-  Wc as legacyAppMainBuwUpperWLowerCExport,
   Wf as legacyAppMainBuwUpperWLowerFExport,
   Wg as legacyAppMainBuwUpperWLowerGExport,
   Wh as legacyAppMainBuwUpperWLowerHExport,
@@ -133,7 +138,6 @@ export {
   X_ as legacyAppMainBuwUpperXUnderscoreExport,
   Xa as legacyAppMainBuwUpperXLowerAExport,
   Xb as legacyAppMainBuwUpperXLowerBExport,
-  Xc as legacyAppMainBuwUpperXLowerCExport,
   Xd as legacyAppMainBuwUpperXLowerDExport,
   Xf as legacyAppMainBuwUpperXLowerFExport,
   Xg as legacyAppMainBuwUpperXLowerGExport,
@@ -152,7 +156,6 @@ export {
   Y_ as legacyAppMainBuwUpperYUnderscoreExport,
   Ya as legacyAppMainBuwUpperYLowerAExport,
   Yb as legacyAppMainBuwUpperYLowerBExport,
-  Yc as legacyAppMainBuwUpperYLowerCExport,
   Yf as legacyAppMainBuwUpperYLowerFExport,
   Yg as legacyAppMainBuwUpperYLowerGExport,
   Yh as legacyAppMainBuwUpperYLowerHExport,
@@ -166,7 +169,6 @@ export {
   Z_ as legacyAppMainBuwUpperZUnderscoreExport,
   Za as legacyAppMainBuwUpperZLowerAExport,
   Zb as legacyAppMainBuwUpperZLowerBExport,
-  Zc as legacyAppMainBuwUpperZLowerCExport,
   Zd as legacyAppMainBuwUpperZLowerDExport,
   Zf as legacyAppMainBuwUpperZLowerFExport,
   Zg as legacyAppMainBuwUpperZLowerGExport,

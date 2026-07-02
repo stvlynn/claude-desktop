@@ -10,13 +10,13 @@ export { rightPanelOpenStateKey } from "../../../conversations/fork-conversation
 export { resetNewThreadRouteContext } from "../../../runtime/window-chrome-runtime";
 
 export { SidebarSectionTitle } from "../../../projects/home-project-selector-runtime";
+export { CODEX_USAGE_URL as legacyAppMainBuwDollarLowerCExport } from "../../../utils/links-bd-mmkun-d";
 
 export {
   $ as legacyAppMainBuwDollarExport,
   $_ as legacyAppMainBuwDollarUnderscoreExport,
   $a as legacyAppMainBuwDollarLowerAExport,
   $b as legacyAppMainBuwDollarLowerBExport,
-  $c as legacyAppMainBuwDollarLowerCExport,
   $d as legacyAppMainBuwDollarLowerDExport,
   $g as legacyAppMainBuwDollarLowerGExport,
   $h as legacyAppMainBuwDollarLowerHExport,

@@ -19456,7 +19456,7 @@
         "P_": "initXtermTerminalChunk",
         "Pa": "legacyAppMainBuwUpperPLowerAExport",
         "Pb": "legacyAppMainBuwUpperPLowerBExport",
-        "Pc": "CHATGPT_PRICING_URL",
+        "Pc": "CHATGPT_ADMIN_BILLING_ADD_CREDITS_URL",
         "Pd": "createToolErrorResult",
         "Pf": "initSidebarTaskRowRuntimeChunk",
         "Pg": "findOpenAtom",

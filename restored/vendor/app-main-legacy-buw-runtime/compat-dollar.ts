@@ -10,13 +10,13 @@ export { rightPanelOpenStateKey } from "../../conversations/fork-conversation-pa
 export { resetNewThreadRouteContext } from "../../runtime/window-chrome-runtime";
 
 export { SidebarSectionTitle } from "../../projects/home-project-selector-runtime";
+export { CODEX_USAGE_URL as appMainCurrentCompatSlotDollarLowerC } from "../../utils/links-bd-mmkun-d";
 
 export {
   $ as appMainCurrentCompatSlotDollar,
   $_ as appMainCurrentCompatSlotDollarUnderscore,
   $a as appMainCurrentCompatSlotDollarLowerA,
   $b as appMainCurrentCompatSlotDollarLowerB,
-  $c as appMainCurrentCompatSlotDollarLowerC,
   $d as appMainCurrentCompatSlotDollarLowerD,
   $g as appMainCurrentCompatSlotDollarLowerG,
   $h as appMainCurrentCompatSlotDollarLowerH,

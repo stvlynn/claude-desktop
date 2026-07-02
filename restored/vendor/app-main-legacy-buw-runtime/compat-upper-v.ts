@@ -8,13 +8,13 @@ export { AttachmentPill as appMainCurrentCompatSlotUpperVLowerI } from "../../co
 export { initUltraFastServiceTierIcon } from "../app-main-current-runtime";
 
 export { initConversationSummarySelectorsChunk } from "../../runtime/window-chrome-runtime";
+export { CODEX_AUTOMATIONS_DOCS_URL as appMainCurrentCompatSlotUpperVLowerC } from "../../utils/links-bd-mmkun-d";
 
 export {
   V as appMainCurrentCompatSlotUpperV,
   V_ as appMainCurrentCompatSlotUpperVUnderscore,
   Va as appMainCurrentCompatSlotUpperVLowerA,
   Vb as appMainCurrentCompatSlotUpperVLowerB,
-  Vc as appMainCurrentCompatSlotUpperVLowerC,
   Vf as appMainCurrentCompatSlotUpperVLowerF,
   Vg as appMainCurrentCompatSlotUpperVLowerG,
   Vh as appMainCurrentCompatSlotUpperVLowerH,

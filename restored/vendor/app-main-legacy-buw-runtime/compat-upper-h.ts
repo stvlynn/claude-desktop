@@ -5,13 +5,13 @@ export {
   FastServiceTierIcon,
 } from "../app-main-current-runtime";
 export { conversationReviewModelAtom as threadRowStatusSignal } from "../../review/conversation-review-model";
+export { CODEX_CHROME_EXTENSION_DOCS_URL as appMainCurrentCompatSlotUpperHLowerC } from "../../utils/links-bd-mmkun-d";
 
 export {
   H as appMainCurrentCompatSlotUpperH,
   H_ as appMainCurrentCompatSlotUpperHUnderscore,
   Ha as appMainCurrentCompatSlotUpperHLowerA,
   Hb as appMainCurrentCompatSlotUpperHLowerB,
-  Hc as appMainCurrentCompatSlotUpperHLowerC,
   Hf as appMainCurrentCompatSlotUpperHLowerF,
   Hg as appMainCurrentCompatSlotUpperHLowerG,
   Hh as appMainCurrentCompatSlotUpperHLowerH,

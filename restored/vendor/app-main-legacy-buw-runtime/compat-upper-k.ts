@@ -8,13 +8,13 @@ export { waitForDoubleAnimationFrame as appMainCurrentCompatSlotUpperKLowerU } f
 export { ThreadRowMeta } from "../app-main-current-runtime";
 
 export { rightPanelTabsStore } from "../../app-shell/thread-panel-tabs-store";
+export { CODEX_HOOKS_DOCS_URL as appMainCurrentCompatSlotUpperKLowerC } from "../../utils/links-bd-mmkun-d";
 
 export {
   K as appMainCurrentCompatSlotUpperK,
   K_ as appMainCurrentCompatSlotUpperKUnderscore,
   Ka as appMainCurrentCompatSlotUpperKLowerA,
   Kb as appMainCurrentCompatSlotUpperKLowerB,
-  Kc as appMainCurrentCompatSlotUpperKLowerC,
   Kf as appMainCurrentCompatSlotUpperKLowerF,
   Kg as appMainCurrentCompatSlotUpperKLowerG,
   Kh as appMainCurrentCompatSlotUpperKLowerH,

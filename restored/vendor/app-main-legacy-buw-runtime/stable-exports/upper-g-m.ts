@@ -46,6 +46,14 @@ export { rightPanelTabsStore } from "../../../app-shell/thread-panel-tabs-store"
 export { isPendingWorktreeInProgress as RemoteHostStatusIcon } from "../../../threads/pending-worktree-store";
 export { initAppIntlSignalRuntime as initPendingWorktreeRouteRuntimeChunk } from "../../../utils/app-intl-signal";
 export { conversationReviewModelAtom as threadRowStatusSignal } from "../../../review/conversation-review-model";
+export {
+  CHATGPT_PRICING_URL as legacyAppMainBuwUpperLLowerCExport,
+  CODEX_CHROME_EXTENSION_DOCS_URL as legacyAppMainBuwUpperHLowerCExport,
+  CODEX_HOOKS_DOCS_URL as legacyAppMainBuwUpperKLowerCExport,
+  CODEX_LOCAL_ENVIRONMENTS_DOCS_URL as legacyAppMainBuwUpperGLowerCExport,
+  CODEX_LOCKED_COMPUTER_USE_DOCS_URL as legacyAppMainBuwUpperJLowerCExport,
+  OPENAI_APPS_SDK_DOCS_URL as legacyAppMainBuwUpperILowerCExport,
+} from "../../../utils/links-bd-mmkun-d";
 
 export {
   G as legacyAppMainBuwUpperGExport,
@@ -53,7 +61,6 @@ export {
   G_ as legacyAppMainBuwUpperGUnderscoreExport,
   Ga as legacyAppMainBuwUpperGLowerAExport,
   Gb as legacyAppMainBuwUpperGLowerBExport,
-  Gc as legacyAppMainBuwUpperGLowerCExport,
   Gf as legacyAppMainBuwUpperGLowerFExport,
   Gg as legacyAppMainBuwUpperGLowerGExport,
   Gh as legacyAppMainBuwUpperGLowerHExport,
@@ -70,7 +77,6 @@ export {
   H_ as legacyAppMainBuwUpperHUnderscoreExport,
   Ha as legacyAppMainBuwUpperHLowerAExport,
   Hb as legacyAppMainBuwUpperHLowerBExport,
-  Hc as legacyAppMainBuwUpperHLowerCExport,
   Hf as legacyAppMainBuwUpperHLowerFExport,
   Hg as legacyAppMainBuwUpperHLowerGExport,
   Hh as legacyAppMainBuwUpperHLowerHExport,
@@ -89,7 +95,6 @@ export {
   IS as legacyAppMainBuwUpperIUpperSExport,
   Ia as legacyAppMainBuwUpperILowerAExport,
   Ib as legacyAppMainBuwUpperILowerBExport,
-  Ic as legacyAppMainBuwUpperILowerCExport,
   Id as legacyAppMainBuwUpperILowerDExport,
   If as legacyAppMainBuwUpperILowerFExport,
   Ii as legacyAppMainBuwUpperILowerIExport,
@@ -109,7 +114,6 @@ export {
   J_ as legacyAppMainBuwUpperJUnderscoreExport,
   Ja as legacyAppMainBuwUpperJLowerAExport,
   Jb as legacyAppMainBuwUpperJLowerBExport,
-  Jc as legacyAppMainBuwUpperJLowerCExport,
   Jf as legacyAppMainBuwUpperJLowerFExport,
   Jh as legacyAppMainBuwUpperJLowerHExport,
   Ji as legacyAppMainBuwUpperJLowerIExport,
@@ -128,7 +132,6 @@ export {
   K_ as legacyAppMainBuwUpperKUnderscoreExport,
   Ka as legacyAppMainBuwUpperKLowerAExport,
   Kb as legacyAppMainBuwUpperKLowerBExport,
-  Kc as legacyAppMainBuwUpperKLowerCExport,
   Kf as legacyAppMainBuwUpperKLowerFExport,
   Kg as legacyAppMainBuwUpperKLowerGExport,
   Kh as legacyAppMainBuwUpperKLowerHExport,
@@ -145,7 +148,6 @@ export {
   LS as legacyAppMainBuwUpperLUpperSExport,
   La as legacyAppMainBuwUpperLLowerAExport,
   Lb as legacyAppMainBuwUpperLLowerBExport,
-  Lc as legacyAppMainBuwUpperLLowerCExport,
   Ld as legacyAppMainBuwUpperLLowerDExport,
   Lf as legacyAppMainBuwUpperLLowerFExport,
   Lg as legacyAppMainBuwUpperLLowerGExport,

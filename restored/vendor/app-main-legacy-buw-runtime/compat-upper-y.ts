@@ -12,13 +12,13 @@ export {
 } from "../app-main-current-runtime";
 
 export { browserTabSnapshotStore } from "../../conversations/fork-conversation-panel-state-deps";
+export { CODEX_MCP_DOCS_URL as appMainCurrentCompatSlotUpperYLowerC } from "../../utils/links-bd-mmkun-d";
 
 export {
   Y as appMainCurrentCompatSlotUpperY,
   Y_ as appMainCurrentCompatSlotUpperYUnderscore,
   Ya as appMainCurrentCompatSlotUpperYLowerA,
   Yb as appMainCurrentCompatSlotUpperYLowerB,
-  Yc as appMainCurrentCompatSlotUpperYLowerC,
   Yf as appMainCurrentCompatSlotUpperYLowerF,
   Yg as appMainCurrentCompatSlotUpperYLowerG,
   Yh as appMainCurrentCompatSlotUpperYLowerH,

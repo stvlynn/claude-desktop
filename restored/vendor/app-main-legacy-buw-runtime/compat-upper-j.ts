@@ -7,13 +7,13 @@ export {
 } from "../app-main-current-runtime";
 
 export { setThreadAppShellSources } from "../../runtime/window-chrome-runtime";
+export { CODEX_LOCKED_COMPUTER_USE_DOCS_URL as appMainCurrentCompatSlotUpperJLowerC } from "../../utils/links-bd-mmkun-d";
 
 export {
   J as appMainCurrentCompatSlotUpperJ,
   J_ as appMainCurrentCompatSlotUpperJUnderscore,
   Ja as appMainCurrentCompatSlotUpperJLowerA,
   Jb as appMainCurrentCompatSlotUpperJLowerB,
-  Jc as appMainCurrentCompatSlotUpperJLowerC,
   Jf as appMainCurrentCompatSlotUpperJLowerF,
   Jh as appMainCurrentCompatSlotUpperJLowerH,
   Ji as appMainCurrentCompatSlotUpperJLowerI,

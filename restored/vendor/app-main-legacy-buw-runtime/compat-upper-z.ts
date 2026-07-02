@@ -7,13 +7,13 @@ export { UserMessageText as appMainCurrentCompatSlotUpperZLowerI } from "../../c
 export { AppShellOverlayOutlet } from "../app-main-current-runtime";
 
 export { bottomPanelOpenStateKey } from "../../conversations/fork-conversation-panel-state-deps";
+export { CODEX_SANDBOXING_DOCS_URL as appMainCurrentCompatSlotUpperZLowerC } from "../../utils/links-bd-mmkun-d";
 
 export {
   Z as appMainCurrentCompatSlotUpperZ,
   Z_ as appMainCurrentCompatSlotUpperZUnderscore,
   Za as appMainCurrentCompatSlotUpperZLowerA,
   Zb as appMainCurrentCompatSlotUpperZLowerB,
-  Zc as appMainCurrentCompatSlotUpperZLowerC,
   Zd as appMainCurrentCompatSlotUpperZLowerD,
   Zf as appMainCurrentCompatSlotUpperZLowerF,
   Zg as appMainCurrentCompatSlotUpperZLowerG,

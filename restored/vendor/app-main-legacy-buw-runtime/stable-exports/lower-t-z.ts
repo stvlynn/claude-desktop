@@ -53,6 +53,7 @@ export { initWarningIconChunk as PortalFromLowerTC } from "../../../icons/warnin
 export { initEllipsisHorizontalIconChunk as SidebarRowLocalEnvironment } from "../../../icons/ellipsis-horizontal-icon";
 export { openThreadTimelineSidePanel } from "../../../app-shell/legacy-thread-timeline-side-panel";
 export { initConversationDetailModeRuntime as SidebarRowRemoteEnvironment } from "../../../runtime/conversation-detail-runtime";
+export { CHATGPT_PRICING_HASH_URL as legacyAppMainBuwLowerZLowerCExport } from "../../../utils/links-bd-mmkun-d";
 export { formatRemainingPercent as legacyAppMainBuwLowerWLowerCExport } from "../../../utils/rate-limit-status/formatting";
 export {
   getSpendControlWarningThreshold as legacyAppMainBuwLowerULowerCExport,
@@ -172,7 +173,6 @@ export {
   zS as legacyAppMainBuwLowerZUpperSExport,
   za as legacyAppMainBuwLowerZLowerAExport,
   zb as legacyAppMainBuwLowerZLowerBExport,
-  zc as legacyAppMainBuwLowerZLowerCExport,
   zd as legacyAppMainBuwLowerZLowerDExport,
   zf as legacyAppMainBuwLowerZLowerFExport,
   zg as legacyAppMainBuwLowerZLowerGExport,

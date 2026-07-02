@@ -47,6 +47,7 @@ export {
   computePointerVelocity,
   computePointerVelocity as legacyAppMainBuwUpperALowerDExport,
 } from "../../../runtime/pointer-velocity-signals";
+export { CODEX_USAGE_CREDITS_MODAL_URL as legacyAppMainBuwUpperBLowerCExport } from "../../../utils/links-bd-mmkun-d";
 
 export {
   initPrimitiveRuntime as initPrimitiveRuntimeChunk,
@@ -62,6 +63,7 @@ export {
   formatDateAndTime as legacyAppMainBuwUpperELowerCExport,
   formatResetDate as legacyAppMainBuwUpperDLowerCExport,
 } from "../../../utils/rate-limit-status/formatting";
+export { CHATGPT_ADMIN_USAGE_LIMITS_URL as legacyAppMainBuwUpperFLowerCExport } from "../../../utils/links-bd-mmkun-d";
 export { secondsUntilUnixSeconds as legacyAppMainBuwUpperALowerCExport } from "../../../utils/rate-limit-status/windows";
 
 export {
@@ -85,7 +87,6 @@ export {
   BS as legacyAppMainBuwUpperBUpperSExport,
   Ba as legacyAppMainBuwUpperBLowerAExport,
   Bb as legacyAppMainBuwUpperBLowerBExport,
-  Bc as legacyAppMainBuwUpperBLowerCExport,
   Bd as legacyAppMainBuwUpperBLowerDExport,
   Bf as legacyAppMainBuwUpperBLowerFExport,
   Bg as legacyAppMainBuwUpperBLowerGExport,
@@ -159,7 +160,6 @@ export {
   FS as legacyAppMainBuwUpperFUpperSExport,
   Fa as legacyAppMainBuwUpperFLowerAExport,
   Fb as legacyAppMainBuwUpperFLowerBExport,
-  Fc as legacyAppMainBuwUpperFLowerCExport,
   Fd as legacyAppMainBuwUpperFLowerDExport,
   Fl as legacyAppMainBuwUpperFLowerLExport,
   Fm as legacyAppMainBuwUpperFLowerMExport,

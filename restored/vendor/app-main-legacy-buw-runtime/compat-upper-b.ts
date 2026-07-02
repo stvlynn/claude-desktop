@@ -10,12 +10,12 @@ export {
 } from "../app-main-current-runtime";
 
 export { getActiveBrowserTabId } from "../../conversations/fork-conversation-panel-state-deps";
+export { CODEX_USAGE_CREDITS_MODAL_URL as appMainCurrentCompatSlotUpperBLowerC } from "../../utils/links-bd-mmkun-d";
 
 export {
   B as appMainCurrentCompatSlotUpperB,
   Ba as appMainCurrentCompatSlotUpperBLowerA,
   Bb as appMainCurrentCompatSlotUpperBLowerB,
-  Bc as appMainCurrentCompatSlotUpperBLowerC,
   Bd as appMainCurrentCompatSlotUpperBLowerD,
   Bf as appMainCurrentCompatSlotUpperBLowerF,
   Bg as appMainCurrentCompatSlotUpperBLowerG,
