@@ -2394,8 +2394,9 @@
         "t": "loadCytoscapeCoseBilkent"
       },
       "status": "done",
-      "note": "Historical cytoscape-cose-bilkent wrapper retained as an alias of the current Cew5xac- chunk; public export t loads the cytoscape-cose-bilkent package.",
-      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "vendor": "cytoscape-cose-bilkent",
+      "note": "Historical cytoscape-cose-bilkent wrapper retained as an npm-backed alias of the current Cew5xac- chunk; public export t loads the cytoscape-cose-bilkent package.",
+      "lastUpdated": "2026-07-02T00:00:00.000-05:00",
       "stage3Accepted": true,
       "stage3AcceptedAt": "2026-06-30T00:00:00.000Z",
       "stage3Review": "Host self-review: current ref no longer contains cytoscape-cose-bilkent-3yd98erd, current Cew5xac- exists, vendor/cytoscape-cose-bilkent.ts passes quality-gate, and the recorded loadCytoscapeCoseBilkent alias is exported."
@@ -2407,8 +2408,9 @@
       },
       "status": "done",
       "aliasOf": "cytoscape-cose-bilkent-3yd98erd",
-      "lastUpdated": "2026-06-30T00:00:00.000Z",
-      "note": "Historical cytoscape-cose-bilkent wrapper retained as an alias of the current Cew5xac- chunk; public export t loads the cytoscape-cose-bilkent package.",
+      "vendor": "cytoscape-cose-bilkent",
+      "lastUpdated": "2026-07-02T00:00:00.000-05:00",
+      "note": "Historical cytoscape-cose-bilkent wrapper retained as an npm-backed alias of the current Cew5xac- chunk; public export t loads the cytoscape-cose-bilkent package.",
       "stage3Accepted": true,
       "stage3AcceptedAt": "2026-06-30T00:00:00.000Z",
       "stage3Review": "Host self-review: current ref no longer contains cytoscape-cose-bilkent-CZ_nfQWZ, current Cew5xac- exists, vendor/cytoscape-cose-bilkent.ts passes quality-gate, and the recorded loadCytoscapeCoseBilkent alias is exported."
@@ -2420,9 +2422,10 @@
       },
       "status": "done",
       "aliasOf": "cytoscape-cose-bilkent-CZ_nfQWZ",
-      "note": "Current ref cytoscape-cose-bilkent UMD wrapper; public export t loads the cytoscape-cose-bilkent package.",
+      "vendor": "cytoscape-cose-bilkent",
+      "note": "Current ref cytoscape-cose-bilkent UMD wrapper mapped to an npm-backed package shim; public export t loads the cytoscape-cose-bilkent package.",
       "stage3Accepted": true,
-      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "lastUpdated": "2026-07-02T00:00:00.000-05:00",
       "stage3AcceptedAt": "2026-06-30T00:00:00.000Z",
       "stage3Review": "Host self-review: exact current Cew5xac- ref asset exists, vendor/cytoscape-cose-bilkent.ts passes quality-gate, and the recorded loadCytoscapeCoseBilkent alias is exported."
     },
@@ -2432,8 +2435,9 @@
         "t": "loadCytoscapeFcose"
       },
       "status": "done",
-      "note": "Historical cytoscape-fcose wrapper retained as an alias of the current q4BaAAiB chunk; public export t loads the cytoscape-fcose package.",
-      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "vendor": "cytoscape-fcose",
+      "note": "Historical cytoscape-fcose wrapper retained as an npm-backed alias of the current q4BaAAiB chunk; public export t loads the cytoscape-fcose package.",
+      "lastUpdated": "2026-07-02T00:00:00.000-05:00",
       "stage3Accepted": true,
       "stage3AcceptedAt": "2026-06-30T00:00:00.000Z",
       "stage3Review": "Host self-review: current ref no longer contains cytoscape-fcose-CYmUq-SS, current q4BaAAiB exists, vendor/cytoscape-fcose.ts passes quality-gate, and the recorded loadCytoscapeFcose alias is exported."
@@ -2445,8 +2449,9 @@
       },
       "status": "done",
       "aliasOf": "cytoscape-fcose-CYmUq-SS",
-      "lastUpdated": "2026-06-30T00:00:00.000Z",
-      "note": "Historical cytoscape-fcose wrapper retained as an alias of the current q4BaAAiB chunk; public export t loads the cytoscape-fcose package.",
+      "vendor": "cytoscape-fcose",
+      "lastUpdated": "2026-07-02T00:00:00.000-05:00",
+      "note": "Historical cytoscape-fcose wrapper retained as an npm-backed alias of the current q4BaAAiB chunk; public export t loads the cytoscape-fcose package.",
       "stage3Accepted": true,
       "stage3AcceptedAt": "2026-06-30T00:00:00.000Z",
       "stage3Review": "Host self-review: current ref no longer contains cytoscape-fcose-w_4iexyA, current q4BaAAiB exists, vendor/cytoscape-fcose.ts passes quality-gate, and the recorded loadCytoscapeFcose alias is exported."
@@ -2458,9 +2463,10 @@
       },
       "status": "done",
       "aliasOf": "cytoscape-fcose-w_4iexyA",
-      "note": "Current ref cytoscape-fcose UMD wrapper; public export t loads the cytoscape-fcose package.",
+      "vendor": "cytoscape-fcose",
+      "note": "Current ref cytoscape-fcose UMD wrapper mapped to an npm-backed package shim; public export t loads the cytoscape-fcose package.",
       "stage3Accepted": true,
-      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "lastUpdated": "2026-07-02T00:00:00.000-05:00",
       "stage3AcceptedAt": "2026-06-30T00:00:00.000Z",
       "stage3Review": "Host self-review: exact current q4BaAAiB ref asset exists, vendor/cytoscape-fcose.ts passes quality-gate, and the recorded loadCytoscapeFcose alias is exported."
     },
@@ -37023,8 +37029,9 @@
         "t": "cytoscape"
       },
       "status": "done",
-      "lastUpdated": "2026-06-30T00:00:00.000-05:00",
-      "note": "Current Cytoscape ESM Rolldown chunk re-derived from cytoscape.esm-gCnb3XbU.js; n is the initializer thunk and t is the Cytoscape factory.",
+      "vendor": "cytoscape",
+      "lastUpdated": "2026-07-02T00:00:00.000-05:00",
+      "note": "Current Cytoscape ESM Rolldown chunk mapped to npm leaf cytoscape@3.33.1; n is the initializer thunk and t is the Cytoscape factory.",
       "stage3Accepted": true
     },
     "cytoscape.esm-CPPPPA7s": {
@@ -37033,8 +37040,9 @@
         "t": "cytoscape"
       },
       "status": "done",
-      "lastUpdated": "2026-06-30T00:00:00.000-05:00",
-      "note": "Current Cytoscape ESM direct factory export re-derived from cytoscape.esm-CPPPPA7s.js.",
+      "vendor": "cytoscape",
+      "lastUpdated": "2026-07-02T00:00:00.000-05:00",
+      "note": "Current Cytoscape ESM direct factory export mapped to npm leaf cytoscape@3.33.1.",
       "stage3Accepted": true
     },
     "packet-BFZMPI3H-Dx-HO2F6": {
