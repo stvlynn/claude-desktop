@@ -3239,6 +3239,7 @@
     },
     "dist-D8VrLBqU": {
       "restored": "vendor/entities-escape.ts",
+      "vendor": "@braintree/sanitize-url",
       "exports": {
         "t": "dist"
       },
@@ -32992,6 +32993,7 @@
     },
     "dist-CD74BDfk": {
       "restored": "vendor/entities-escape.ts",
+      "vendor": "@braintree/sanitize-url",
       "exports": {
         "t": "dist"
       },
@@ -34732,6 +34734,7 @@
     },
     "dist-BO3qvbGN": {
       "restored": "vendor/entities-escape.ts",
+      "vendor": "@braintree/sanitize-url",
       "exports": {
         "t": "dist"
       },
@@ -34745,6 +34748,7 @@
     },
     "dist-Kh8ku4yn": {
       "restored": "vendor/entities-escape.ts",
+      "vendor": "@braintree/sanitize-url",
       "exports": {
         "t": "dist"
       },
@@ -34758,6 +34762,7 @@
     },
     "dist-WEF1yh7f": {
       "restored": "vendor/entities-escape.ts",
+      "vendor": "@braintree/sanitize-url",
       "exports": {
         "t": "dist"
       },
