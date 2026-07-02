@@ -30,4 +30,5 @@ export function ShieldCodeIcon(props: IconProps) {
     </svg>
   );
 }
+export function initShieldCodeIconChunk(): void {}
 export default ShieldCodeIcon;

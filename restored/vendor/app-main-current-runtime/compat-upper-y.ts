@@ -18,4 +18,6 @@ export { userSavedConfigQueryOptions as appMainCurrentCompatSlotUpperYLowerP } f
 
 export { initSelectedTextAttachmentPillChunk as appMainCurrentCompatSlotUpperYLowerR } from "../../composer/selected-text-attachment-pill";
 
+export { secondsUntilUnixSeconds as appMainCurrentCompatSlotUpperYLowerS } from "../../utils/rate-limit-status/windows";
+
 export { initSubagentAvatarChunk as appMainCurrentCompatSlotUpperYLowerT } from "../../conversations/subagent-avatar";

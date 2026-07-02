@@ -6,6 +6,8 @@ export { SEND_MESSAGE_TO_THREAD_TOOL_NAME as appMainCurrentCompatSlotLowerULower
 
 export { CODEX_CHROME_EXTENSION_DOCS_URL as appMainCurrentCompatSlotLowerULowerC } from "../../utils/links-bd-mmkun-d";
 
+export { useDictationKeyboard as appMainCurrentCompatSlotLowerULowerD } from "../../composer/use-dictation-keyboard";
+
 export { BROWSER_CONVERSATION_FEATURE_GATE_ID as appMainCurrentCompatSlotLowerULowerF } from "../../browser/browser-conversation-feature-gate";
 
 export { countHooksNeedingReview as appMainCurrentCompatSlotLowerULowerI } from "../../settings/hooks-settings-model";

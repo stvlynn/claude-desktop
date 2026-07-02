@@ -14,6 +14,8 @@ export { StreamingDictationTranscriber as appMainCurrentCompatSlotLowerVLowerM }
 
 export { initHooksSettingsRouteChunk as appMainCurrentCompatSlotLowerVLowerN } from "../../settings/hooks-settings-route";
 
+export { ShieldCodeIcon as appMainCurrentCompatSlotLowerVLowerO } from "../../icons/shield-code-icon";
+
 export { initCollaborationModeQueriesChunk as appMainCurrentCompatSlotLowerVLowerP } from "../../collaboration/collaboration-mode-queries";
 
 export { automationDirectiveResultAtom as appMainCurrentCompatSlotLowerVLowerR } from "../../automations/shared";

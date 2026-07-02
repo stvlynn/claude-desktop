@@ -4,6 +4,8 @@ export { conversationalOnboardingTaskRequestVisibleSignal as appMainCurrentCompa
 
 export { moveThreadToHostWorktree as appMainCurrentCompatSlotUpperSLowerA } from "../../conversations/move-thread-to-host-worktree";
 
+export { initCodexLinksChunk as appMainCurrentCompatSlotUpperSLowerC } from "../../utils/links-bd-mmkun-d";
+
 export { browserSidebarCommentModeCoachmarkDismissedAtom as appMainCurrentCompatSlotUpperSLowerD } from "../../browser/browser-sidebar-comment-mode-coachmark-state";
 
 export { resolveLocale as appMainCurrentCompatSlotUpperSLowerF } from "../../i18n/locale-resolver";

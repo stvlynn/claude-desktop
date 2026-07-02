@@ -16,6 +16,8 @@ export { initDictationStreamingTranscriberRuntimeChunk as appMainCurrentCompatSl
 
 export { updateHooksSettingsSearchParams as appMainCurrentCompatSlotLowerYLowerN } from "../../settings/hooks-settings-route";
 
+export { initShieldCodeIconChunk as appMainCurrentCompatSlotLowerYLowerO } from "../../icons/shield-code-icon";
+
 export { aboveComposerSuggestionDismissalsAtom as appMainCurrentCompatSlotLowerYLowerP } from "../../composer/composer-interaction-state";
 
 export { automationDirectiveSeedAtom as appMainCurrentCompatSlotLowerYLowerR } from "../../automations/shared";

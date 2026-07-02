@@ -4,6 +4,8 @@ export { resetConversationalOnboardingTaskScope as appMainCurrentCompatSlotLower
 
 export { initRemapDiffCommentsForHandoffChunk as appMainCurrentCompatSlotLowerWLowerA } from "../../conversations/remap-diff-comments-for-handoff";
 
+export { pinnedThreadsQuery as appMainCurrentCompatSlotLowerWLowerC } from "../../utils/pinned-threads-query";
+
 export { getLocaleLanguageDisplayName as appMainCurrentCompatSlotLowerWLowerF } from "../../i18n/locale-resolver";
 
 export { initHooksIconChunk as appMainCurrentCompatSlotLowerWLowerI } from "../../icons/hooks-icon";

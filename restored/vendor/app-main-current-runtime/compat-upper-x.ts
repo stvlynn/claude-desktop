@@ -20,4 +20,6 @@ export { initUserSavedConfigQueryChunk as appMainCurrentCompatSlotUpperXLowerP }
 
 export { CommentAttachmentPill as appMainCurrentCompatSlotUpperXLowerR } from "../../composer/comment-attachment-pill";
 
+export { selectRateLimitAlert as appMainCurrentCompatSlotUpperXLowerS } from "../../utils/rate-limit-status/windows";
+
 export { BrowserOptionsMenuTriggerButton as appMainCurrentCompatSlotUpperXLowerU } from "../../browser/browser-options-menu-trigger-button";
