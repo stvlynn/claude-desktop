@@ -16,8 +16,10 @@ import {
   setPersistedAtomItem as persistedAtomStoreL,
 } from "../../utils/persisted-atom-store";
 import { shouldReduceMotionSignal as reducedMotionPreferenceR } from "../../utils/reduced-motion-preference";
-import * as motionRuntime from "../../vendor/framer-motion-single-value";
-const MotionValue = motionRuntime["singleValueK"];
+import {
+  motionValue,
+  type FramerMotionValue,
+} from "../../vendor/framer-motion-single-value";
 import {
   centerHeaderActionsSignal,
   headerActionRegistries,
@@ -29,11 +31,7 @@ import {
 import { appShellStateMtState } from "./motion-sequence-impl";
 type RightPanelWidthMode = "regular" | "full";
 type AppShellFocusArea = "main" | "right-panel" | "bottom-panel" | string;
-type MotionValueLike = {
-  get(): number;
-  set(value: number): void;
-  stop(): void;
-};
+type MotionValueLike = FramerMotionValue<number>;
 type AppScopeStore = {
   get<T = unknown>(signal: unknown, ...args: unknown[]): T;
   set(signal: unknown, value: unknown): void;
@@ -265,27 +263,22 @@ var bottomPanelLauncherVisibleStorageKey = `app-shell-bottom-panel-launcher-visi
   sidebarHoverOpenSuppressedSignal = appScopeG(appScopeT, !1),
   sidebarAnimatingSignal = appScopeG(appScopeT, !1),
   sidebarAnimationSequenceSignal = appScopeG(appScopeT, 0),
-  sidebarOpenAnimationSignal = appScopeG(appScopeT, () => new MotionValue(1)),
+  sidebarOpenAnimationSignal = appScopeG(appScopeT, () => motionValue(1)),
   bottomPanelLauncherVisibleSignal = persistedSignalT(
     bottomPanelLauncherVisibleStorageKey,
     !0,
   ),
   bottomPanelOpenSignal = appScopeG(persistedSignalG, !1),
-  bottomPanelAnimationSignal = appScopeG(
-    persistedSignalG,
-    () => new MotionValue(0),
+  bottomPanelAnimationSignal = appScopeG(persistedSignalG, () =>
+    motionValue(0),
   ),
   rightPanelExpandedSignal = appScopeG(persistedSignalG, !1),
-  rightPanelAnimationSignal = appScopeG(
-    persistedSignalG,
-    () => new MotionValue(0),
-  ),
+  rightPanelAnimationSignal = appScopeG(persistedSignalG, () => motionValue(0)),
   rightPanelOpenSignal = appScopeG(persistedSignalG, !1),
   pendingRestoreRightPanelFullWidthSignal = appScopeG(persistedSignalG, !1),
   reviewFileTreeOpenSignal = appScopeG(appScopeT, !1),
-  reviewFileTreeOpenAnimationSignal = appScopeG(
-    appScopeT,
-    () => new MotionValue(0),
+  reviewFileTreeOpenAnimationSignal = appScopeG(appScopeT, () =>
+    motionValue(0),
   );
 const sidebarWidthSignal = appScopeG(appScopeT, readInitialSidebarWidth);
 const sidebarHoverLauncherVisibleSignal = appScopeG(appScopeT, !1, {
