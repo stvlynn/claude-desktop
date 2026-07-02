@@ -153,6 +153,25 @@ describe("resolveNpmImports (chunk-name based)", () => {
     expect(out.stats.specifiersResolved).toBe(1);
   });
 
+  test("rewrites KaTeX chunk aliases to the npm package", () => {
+    const src = `
+      import {
+        c as katex,
+        f as renderToString,
+        l as render,
+      } from "../katex-CjHJ1D7d.js";
+      katex; renderToString; render;
+    `;
+    const out = resolveNpmImports(src);
+    const n = normalize(out.code);
+    expect(n).toContain('from "katex"');
+    expect(n).toContain("katex");
+    expect(n).toContain("renderToString");
+    expect(n).toContain("render");
+    expect(n).not.toContain("katex-CjHJ1D7d");
+    expect(out.stats.specifiersResolved).toBe(3);
+  });
+
   test("rewrites Codex React Router chunks to the npm package", () => {
     const src = `
       import {

@@ -254,14 +254,14 @@ bun <skill-dir>/scripts/resolve-npm-imports.ts <input.js|-> [--out output.js] [-
 
 Rewrites vendored-npm chunk imports back to bare specifiers, two strategies in order:
 
-- **Chunk-name lookup (high confidence):** strips the hash suffix off `../clsx-DDuZWq6Y.js` → `clsx`, looks it up in `CHUNK_NAME_REGISTRY`; if found, every specifier is rewritten. The registry knows clsx, classnames, tslib, react, react-dom, react-is, React Router, react-colorful, dotLottie React, Day.js, jsx-runtime, jsx-dev-runtime, use-sync-external-store, Jotai, `@dnd-kit/*`, framer-motion, react-intl, marked, `@floating-ui/*`, Statsig, and more; the alias fallback covers `react-dom/client` APIs such as `createRoot` and `hydrateRoot`.
+- **Chunk-name lookup (high confidence):** strips the hash suffix off `../clsx-DDuZWq6Y.js` → `clsx`, looks it up in `CHUNK_NAME_REGISTRY`; if found, every specifier is rewritten. The registry knows clsx, classnames, tslib, react, react-dom, react-is, React Router, react-colorful, dotLottie React, Day.js, KaTeX, jsx-runtime, jsx-dev-runtime, use-sync-external-store, Jotai, `@dnd-kit/*`, framer-motion, react-intl, marked, `@floating-ui/*`, Statsig, and more; the alias fallback covers `react-dom/client` APIs such as `createRoot` and `hydrateRoot`.
 - **Alias fallback:** when the basename isn't recognised (`./shared`), looks up each specifier's local binding in `ALIAS_REGISTRY` (React API, jsx helpers, clsx, tslib, etc.) and splits matching ones into a bare import.
 - **Cross-file shim chains:** recognises `_React = toESM(React())` re-exported via `./shared`, rewrites consumers to `import React from "react"` and renames `_React.useState(…)` → `React.useState(…)`.
 
 Never resolves already-bare specifiers; leaves a specifier alone on rename collision. `--no-chunk-lookup` / `--no-alias-lookup` disable a strategy. (Found a vendored package it missed? Add it to the registry — see the [self-improvement protocol](../SKILL.md#maintaining-this-skill-self-improvement-protocol).)
 
 Do not hand-restore a stock package body after this step. If a high-confidence
-vendor chunk (for example React Router, FormatJS/`react-intl`, Day.js, Jotai,
+vendor chunk (for example React Router, FormatJS/`react-intl`, Day.js, KaTeX, Jotai,
 React companion packages, react-colorful, dotLottie React) still appears as local code, turn it
 into an npm-backed re-export/alias shim, add the package root to the nearest
 `package.json`, and register the package/gate entry so future runs resolve it

@@ -199,6 +199,7 @@ repo (record the package in IMPORT_MAP `vendor`; `classifyBoundary()` reads it):
 | `react-colorful-hex-picker.ts` (`app-initial~…`)          | `react-colorful`               | current HexColorPicker chunk shim                               |
 | `dotlottie-react.tsx` (`browser-*`)                       | `@lottiefiles/dotlottie-react` | pin version to the bundled `@lottiefiles/dotlottie-web` runtime |
 | `dayjs-core-alt.ts` (`chunk-AGHRB4JF-*`)                  | `dayjs`                        | keep small typed Mermaid logger/name helper wrapper             |
+| `katex.ts` (`katex-*`)                                    | `katex`                        | pin to bundled KaTeX version; preserve internal alias exports   |
 | `jotai-runtime.ts` (`jotai-react-*`)                      | `jotai`                        | atom/store hooks; keep a thin app-facing alias shim only        |
 | `dnd-kit-*.ts` (`core.esm-*`, etc.)                       | `@dnd-kit/*`                   | core/sortable/utilities re-export shims                         |
 | `framer-motion-single-value.ts` (`single-value-*`)        | `framer-motion`                | MotionValue/motionValue alias shim                              |

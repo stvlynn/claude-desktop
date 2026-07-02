@@ -98,6 +98,10 @@ export const CHUNK_NAME_REGISTRY: Record<string, ChunkRule> = {
   },
   // Day.js
   dayjs: { package: "dayjs", defaultName: "dayjs" },
+  // KaTeX exposes both a default object and named public/internal exports; use
+  // alias rules for safe per-export rewrites instead of collapsing all aliases
+  // to the default object.
+  katex: { package: "katex", namedOnly: true },
   // markdown / parsers
   "marked.esm": { package: "marked", namedOnly: true },
   marked: { package: "marked", namedOnly: true },
@@ -210,6 +214,13 @@ export const ALIAS_REGISTRY: Record<string, AliasRule> = {
 
   // Day.js
   dayjs: { package: "dayjs", style: "default" },
+
+  // KaTeX
+  katex: { package: "katex", style: "default" },
+  render: { package: "katex", style: "named" },
+  renderToString: { package: "katex", style: "named" },
+  ParseError: { package: "katex", style: "named" },
+  version: { package: "katex", style: "named" },
 
   // clsx / classnames default exports
   clsx: { package: "clsx", style: "default" },

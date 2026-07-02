@@ -483,6 +483,7 @@ const PUBLIC_NPM_VENDOR_SHIMS: Record<string, PublicNpmVendorSpecifiers> = {
   formatjs: "react-intl",
   jotai: "jotai",
   "jotai-runtime": "jotai",
+  katex: "katex",
   lodash: "lodash",
   "lodash-current-runtime": "lodash",
   motion: "framer-motion",
@@ -506,6 +507,9 @@ const PUBLIC_NPM_VENDOR_SOURCE_CHUNKS: Record<
   PublicNpmVendorSpecifiers
 > = {
   "esm-Bs7-NtHW": "@segment/analytics-core",
+  "katex--WVKgE7E": "katex",
+  "katex-BvHNzFYT": "katex",
+  "katex-CjHJ1D7d": "katex",
   "lib-BWT6A3Q0": "react-intl",
   "pkg-CJtlEP_l": "@segment/analytics-next",
   "pkg-CsBnWPsQ": "@segment/analytics-next",
@@ -543,6 +547,20 @@ const PUBLIC_NPM_VENDOR_API_FINGERPRINTS: Array<{
       "segmentio",
     ],
     minimumUniqueApiNames: 2,
+  },
+  {
+    specifiers: "katex",
+    apiNames: [
+      "ParseError",
+      "SETTINGS_SCHEMA",
+      "__defineMacro",
+      "__parse",
+      "__renderToDomTree",
+      "render",
+      "renderToString",
+      "version",
+    ],
+    minimumUniqueApiNames: 3,
   },
 ];
 

@@ -1070,6 +1070,47 @@ describe("quality-gate", () => {
     expect(report.issues).toEqual([]);
   });
 
+  test("fails hand-written KaTeX vendor bodies", () => {
+    const source = `
+      // Restored from ref/webview/assets/katex-BvHNzFYT.js
+      export const katexC = {
+        version: "0.16.45",
+        render() {},
+        renderToString() {
+          return "<span class='katex'></span>";
+        },
+        ParseError: Error,
+        SETTINGS_SCHEMA: {},
+        __parse() {},
+        __defineMacro() {},
+      };
+      export const katexF = katexC.renderToString;
+      export default katexC;
+    `;
+    const report = analyzeSource(source, "restored/vendor/katex.ts", {
+      ...DEFAULT_OPTIONS,
+      allowFlat: true,
+      allowUntyped: true,
+    });
+    expect(report.issues.map((issue) => issue.code)).toContain(
+      "third-party-npm-shim-not-reexport",
+    );
+  });
+
+  test("passes KaTeX vendor shims that re-export the npm package", () => {
+    const source = `
+      // Restored from ref/webview/assets/katex-BvHNzFYT.js
+      import katex from "katex";
+      export { default, ParseError, render, renderToString } from "katex";
+      export const katexC = katex;
+    `;
+    const report = analyzeSource(source, "restored/vendor/katex.ts", {
+      ...DEFAULT_OPTIONS,
+      allowFlat: true,
+    });
+    expect(report.issues).toEqual([]);
+  });
+
   test("passes Electron main build provenance headers when required", () => {
     const source = `
       // Restored from ref/.vite/build/preload.js
