@@ -7,6 +7,7 @@ export {
   currentRouteHostIdSignal,
 } from "../../runtime/window-chrome-runtime";
 export { appIntlSignal as intlShapeSignal } from "../../utils/app-intl-signal";
+export { usePendingWorktreeStore as SidebarTaskRowMetadata } from "../../threads/pending-worktree-store";
 
 export {
   R as appMainCurrentCompatSlotUpperR,
@@ -15,7 +16,6 @@ export {
   Rc as appMainCurrentCompatSlotUpperRLowerC,
   RC as appMainCurrentCompatSlotUpperRUpperC,
   Rf as appMainCurrentCompatSlotUpperRLowerF,
-  Rh as SidebarTaskRowMetadata,
   Ri as appMainCurrentCompatSlotUpperRLowerI,
   Rl as appMainCurrentCompatSlotUpperRLowerL,
   Rm as appMainCurrentCompatSlotUpperRLowerM,

@@ -39,6 +39,7 @@ export {
   emptyFindBrowserStatus,
 } from "../../../find/thread-find-atoms";
 export { appIntlSignal as intlShapeSignal } from "../../../utils/app-intl-signal";
+export { usePendingWorktreeStore as SidebarTaskRowMetadata } from "../../../threads/pending-worktree-store";
 
 export { createSlotComponent } from "../../../runtime/app-main-new-thread-runtime";
 
@@ -128,7 +129,6 @@ export {
   Rb as legacyAppMainBuwUpperRLowerBExport,
   Rc as legacyAppMainBuwUpperRLowerCExport,
   Rf as legacyAppMainBuwUpperRLowerFExport,
-  Rh as SidebarTaskRowMetadata,
   Ri as legacyAppMainBuwUpperRLowerIExport,
   Rl as legacyAppMainBuwUpperRLowerLExport,
   Rm as legacyAppMainBuwUpperRLowerMExport,
