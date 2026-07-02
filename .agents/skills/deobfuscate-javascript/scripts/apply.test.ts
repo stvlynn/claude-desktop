@@ -126,3 +126,27 @@ describe("applyRenames", () => {
     expect(nonStringResult.stats.renamed).toBe(0);
   });
 });
+
+describe("TypeScript sources", () => {
+  test("renames bindings in code with type annotations", () => {
+    const source =
+      "function helper1(input1: string, input2: any): number {\n" +
+      "  const local1: Array<string> = [input1];\n" +
+      "  return local1.length + (input2 as number);\n" +
+      "}\n" +
+      "export interface Props { value: string }\n" +
+      "export const useThing = (p: Props) => helper1(p.value, 2);\n";
+    const symbols = extractSymbols(source);
+    const renames: Record<string, string> = {};
+    for (const symbol of symbols) {
+      if (symbol.name === "helper1") renames[symbol.id] = "sumLengths";
+      if (symbol.name === "input1") renames[symbol.id] = "text";
+      if (symbol.name === "local1") renames[symbol.id] = "parts";
+    }
+    const result = applyRenames(source, renames);
+    expect(result.stats.renamed).toBe(3);
+    expect(result.code).toContain("function sumLengths(text: string");
+    expect(result.code).toContain("parts.length");
+    expect(result.code).toContain("interface Props");
+  });
+});

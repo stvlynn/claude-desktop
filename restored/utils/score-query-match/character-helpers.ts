@@ -1,161 +1,139 @@
 // Restored from ref/webview/assets/score-query-match-DS2pZf_b.js
 // score-query-match-DS2pZf_b chunk restored from the Codex webview bundle.
 export class ScoreQueryCharacterHelpers {
-  static boostScoreForLeadingMatch(input117, input118) {
-    return input118.length === 0
-      ? input117
-      : input118[0].startOffset === 0
-        ? input117 + 1e4
-        : input117;
+  static boostScoreForLeadingMatch(score, matches) {
+    return matches.length === 0
+      ? score
+      : matches[0].startOffset === 0
+        ? score + 1e4
+        : score;
   }
-  static isPatternSeparator(input83) {
+  static isPatternSeparator(char) {
     return (
-      input83.trim().length === 0 ||
-      input83 === "_" ||
-      input83 === "-" ||
-      input83 === ":" ||
-      input83 === "+" ||
-      input83 === "." ||
-      input83 === "/" ||
-      input83 === "\\"
+      char.trim().length === 0 ||
+      char === "_" ||
+      char === "-" ||
+      char === ":" ||
+      char === "+" ||
+      char === "." ||
+      char === "/" ||
+      char === "\\"
     );
   }
-  static nextNameWordOffset(input127, input128) {
-    return input128 < input127.length &&
-      ScoreQueryCharacterHelpers.isDigit(input127[input128])
-      ? input128 + 1
-      : ScoreQueryCharacterHelpers.nextWordStartOffset(input127, input128);
+  static nextNameWordOffset(target, offset) {
+    return offset < target.length &&
+      ScoreQueryCharacterHelpers.isDigit(target[offset])
+      ? offset + 1
+      : ScoreQueryCharacterHelpers.nextWordStartOffset(target, offset);
   }
-  static nextWordStartOffset(input74, input75) {
+  static nextWordStartOffset(target, offset) {
     for (
-      let matchLocal85 = input75 + 1;
-      matchLocal85 <= input74.length;
-      matchLocal85 += 1
+      let wordOffset = offset + 1;
+      wordOffset <= target.length;
+      wordOffset += 1
     ) {
-      if (matchLocal85 >= input74.length) return input74.length + 1;
-      if (ScoreQueryCharacterHelpers.isWordStart(input74, matchLocal85))
-        return matchLocal85;
+      if (wordOffset >= target.length) return target.length + 1;
+      if (ScoreQueryCharacterHelpers.isWordStart(target, wordOffset))
+        return wordOffset;
     }
-    return input74.length + 1;
+    return target.length + 1;
   }
-  static isWordStart(input67, input68) {
-    if (input68 < 0 || input68 >= input67.length) return false;
-    let matchLocal68 = input67[input68];
-    if (!ScoreQueryCharacterHelpers.isAsciiAlphaNumeric(matchLocal68))
+  static isWordStart(target, offset) {
+    if (offset < 0 || offset >= target.length) return false;
+    let currentChar = target[offset];
+    if (!ScoreQueryCharacterHelpers.isAsciiAlphaNumeric(currentChar))
       return false;
-    if (input68 === 0) return true;
-    let matchLocal69 = input67[input68 - 1];
+    if (offset === 0) return true;
+    let prevChar = target[offset - 1];
     return !!(
-      !ScoreQueryCharacterHelpers.isAsciiAlphaNumeric(matchLocal69) ||
-      (ScoreQueryCharacterHelpers.isUpperCaseLetter(matchLocal68) &&
-        ScoreQueryCharacterHelpers.isLowerCaseLetter(matchLocal69)) ||
-      (ScoreQueryCharacterHelpers.isDigit(matchLocal68) &&
-        !ScoreQueryCharacterHelpers.isDigit(matchLocal69))
+      !ScoreQueryCharacterHelpers.isAsciiAlphaNumeric(prevChar) ||
+      (ScoreQueryCharacterHelpers.isUpperCaseLetter(currentChar) &&
+        ScoreQueryCharacterHelpers.isLowerCaseLetter(prevChar)) ||
+      (ScoreQueryCharacterHelpers.isDigit(currentChar) &&
+        !ScoreQueryCharacterHelpers.isDigit(prevChar))
     );
   }
-  static indexOfChar(input42, input43, input44, input45, input46) {
-    if (!input46) {
-      for (
-        let matchLocal98 = input44;
-        matchLocal98 < input45;
-        matchLocal98 += 1
-      )
-        if (input42[matchLocal98] === input43) return matchLocal98;
+  static indexOfChar(target, char, start, end, ignoreCase) {
+    if (!ignoreCase) {
+      for (let index = start; index < end; index += 1)
+        if (target[index] === char) return index;
       return -1;
     }
-    let matchLocal59 = input43.toLowerCase(),
-      matchLocal60 = input43.toUpperCase();
-    for (
-      let matchLocal95 = input44;
-      matchLocal95 < input45;
-      matchLocal95 += 1
-    ) {
-      let matchLocal102 = input42[matchLocal95];
-      if (matchLocal102 === matchLocal59 || matchLocal102 === matchLocal60)
-        return matchLocal95;
+    let lowerChar = char.toLowerCase(),
+      upperChar = char.toUpperCase();
+    for (let index = start; index < end; index += 1) {
+      let currentChar = target[index];
+      if (currentChar === lowerChar || currentChar === upperChar) return index;
     }
     return -1;
   }
-  static isWildcardChar(input130) {
-    return input130 === " " || input130 === "*";
+  static isWildcardChar(char) {
+    return char === " " || char === "*";
   }
-  static indexOfAny(input106, input107, input108, input109) {
-    for (
-      let matchLocal96 = input108;
-      matchLocal96 < input109;
-      matchLocal96 += 1
-    )
-      if (input107.includes(input106[matchLocal96])) return matchLocal96;
+  static indexOfAny(target, chars, start, end) {
+    for (let index = start; index < end; index += 1)
+      if (chars.includes(target[index])) return index;
     return -1;
   }
-  static indexOfCharInRange(input112, input113, input114, input115) {
-    for (
-      let matchLocal99 = input114;
-      matchLocal99 < input115;
-      matchLocal99 += 1
-    )
-      if (input112[matchLocal99] === input113) return matchLocal99;
+  static indexOfCharInRange(target, char, start, end) {
+    for (let index = start; index < end; index += 1)
+      if (target[index] === char) return index;
     return -1;
   }
-  static indexOfSubstringIgnoreCase(input79, input80, input81, input82) {
-    let matchLocal79 = input79.toLowerCase(),
-      matchLocal80 = input80.toLowerCase(),
-      matchLocal81 = matchLocal79.indexOf(matchLocal80, input81);
-    return matchLocal81 < 0 || matchLocal81 + input80.length > input82
+  static indexOfSubstringIgnoreCase(target, substring, start, end) {
+    let lowerTarget = target.toLowerCase(),
+      lowerSubstring = substring.toLowerCase(),
+      foundIndex = lowerTarget.indexOf(lowerSubstring, start);
+    return foundIndex < 0 || foundIndex + substring.length > end
       ? -1
-      : matchLocal81;
+      : foundIndex;
   }
-  static regionMatchesIgnoreCase(input99, input100, input101, input102) {
-    return input100 + input101 > input99.length
+  static regionMatchesIgnoreCase(target, offset, length, other) {
+    return offset + length > target.length
       ? false
-      : input99.slice(input100, input100 + input101).toLowerCase() ===
-          input102.toLowerCase();
+      : target.slice(offset, offset + length).toLowerCase() ===
+          other.toLowerCase();
   }
-  static stripWildcards(input120) {
-    let matchLocal93 = "";
-    for (let matchLocal104 of input120)
-      matchLocal104 !== "*" && (matchLocal93 += matchLocal104);
-    return matchLocal93;
+  static stripWildcards(value) {
+    let result = "";
+    for (let char of value) char !== "*" && (result += char);
+    return result;
   }
-  static prependMatchedRange(input31, input32, input33) {
-    if (input31.length === 0)
+  static prependMatchedRange(matches, startOffset, length) {
+    if (matches.length === 0)
       return [
         {
-          startOffset: input32,
-          endOffset: input32 + input33,
+          startOffset: startOffset,
+          endOffset: startOffset + length,
         },
       ];
-    let matchLocal57 = input31[input31.length - 1];
+    let lastRange = matches[matches.length - 1];
     return (
-      matchLocal57.startOffset === input32 + input33
-        ? (input31[input31.length - 1] = {
-            startOffset: input32,
-            endOffset: matchLocal57.endOffset,
+      lastRange.startOffset === startOffset + length
+        ? (matches[matches.length - 1] = {
+            startOffset: startOffset,
+            endOffset: lastRange.endOffset,
           })
-        : input31.push({
-            startOffset: input32,
-            endOffset: input32 + input33,
+        : matches.push({
+            startOffset: startOffset,
+            endOffset: startOffset + length,
           }),
-      input31
+      matches
     );
   }
-  static isAsciiSingleChar(input126) {
-    return input126.length === 1 && input126.charCodeAt(0) <= 127;
+  static isAsciiSingleChar(char) {
+    return char.length === 1 && char.charCodeAt(0) <= 127;
   }
-  static isUpperCaseLetter(input121) {
-    return (
-      input121.toUpperCase() === input121 && input121.toLowerCase() !== input121
-    );
+  static isUpperCaseLetter(char) {
+    return char.toUpperCase() === char && char.toLowerCase() !== char;
   }
-  static isLowerCaseLetter(input122) {
-    return (
-      input122.toLowerCase() === input122 && input122.toUpperCase() !== input122
-    );
+  static isLowerCaseLetter(char) {
+    return char.toLowerCase() === char && char.toUpperCase() !== char;
   }
-  static isDigit(input131) {
-    return input131 >= "0" && input131 <= "9";
+  static isDigit(char) {
+    return char >= "0" && char <= "9";
   }
-  static isAsciiAlphaNumeric(input129) {
-    return /[a-z0-9]/i.test(input129);
+  static isAsciiAlphaNumeric(char) {
+    return /[a-z0-9]/i.test(char);
   }
 }

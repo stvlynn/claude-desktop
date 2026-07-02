@@ -22,6 +22,7 @@ const RESERVED = new Set([
 ]);
 
 export const PARSER_PLUGINS: parser.ParserPlugin[] = [
+  "typescript",
   "jsx",
   "classProperties",
   "classPrivateProperties",

@@ -1,6 +1,6 @@
 // Restored from ref/webview/assets/store-489E8Cj_.js
 // Store chunk restored from the Codex webview bundle.
-function storeRoutine1() {
+function createChildBookkeeping() {
   return {
     childIdByNameId: new Map(),
     childIds: [],
@@ -10,7 +10,7 @@ function storeRoutine1() {
     totalChildVisibleSubtreeCount: 0,
   };
 }
-function storeRoutine2() {
+function createEmptyChildBookkeeping() {
   return {
     childIdByNameId: null,
     childIds: [],
@@ -20,523 +20,480 @@ function storeRoutine2() {
     totalChildVisibleSubtreeCount: 0,
   };
 }
-function storeRoutine3(input234, input235) {
-  if (input235.childIdByNameId != null) return input235.childIdByNameId;
-  let storeLocal458 = new Map();
-  for (let storeLocal639 of input235.childIds) {
-    let storeLocal660 = input234[storeLocal639];
-    storeLocal660 != null &&
-      storeLocal458.set(storeLocal660.nameId, storeLocal639);
+function ensureChildIdByNameId(nodesById, node) {
+  if (node.childIdByNameId != null) return node.childIdByNameId;
+  let childIdByNameId = new Map();
+  for (let childId of node.childIds) {
+    let childNode = nodesById[childId];
+    childNode != null && childIdByNameId.set(childNode.nameId, childId);
   }
-  return ((input235.childIdByNameId = storeLocal458), storeLocal458);
+  return ((node.childIdByNameId = childIdByNameId), childIdByNameId);
 }
-function storeRoutine4(input223) {
-  if (input223.childPositionById != null) return input223.childPositionById;
-  let storeLocal429 = new Map();
-  for (
-    let storeLocal604 = 0;
-    storeLocal604 < input223.childIds.length;
-    storeLocal604++
-  ) {
-    let storeLocal657 = input223.childIds[storeLocal604];
-    storeLocal657 != null && storeLocal429.set(storeLocal657, storeLocal604);
+function ensureChildPositionById(node) {
+  if (node.childPositionById != null) return node.childPositionById;
+  let childPositionById = new Map();
+  for (let index = 0; index < node.childIds.length; index++) {
+    let childId = node.childIds[index];
+    childId != null && childPositionById.set(childId, index);
   }
-  return ((input223.childPositionById = storeLocal429), storeLocal429);
+  return ((node.childPositionById = childPositionById), childPositionById);
 }
-function storeRoutine5(input333, input334) {
-  input333.childPositionById != null &&
-    input333.childPositionById.set(input334, input333.childIds.length);
-  input333.childIds.push(input334);
+function appendChild(node, childId) {
+  node.childPositionById != null &&
+    node.childPositionById.set(childId, node.childIds.length);
+  node.childIds.push(childId);
 }
-function storeRoutine6(input263, input264) {
-  if (input263.childPositionById != null)
-    for (
-      let storeLocal571 = input264;
-      storeLocal571 < input263.childIds.length;
-      storeLocal571++
-    ) {
-      let storeLocal643 = input263.childIds[storeLocal571];
-      storeLocal643 != null &&
-        input263.childPositionById.set(storeLocal643, storeLocal571);
+function reindexChildPositions(node, startIndex) {
+  if (node.childPositionById != null)
+    for (let index = startIndex; index < node.childIds.length; index++) {
+      let childId = node.childIds[index];
+      childId != null && node.childPositionById.set(childId, index);
     }
 }
-function storeRoutine7(input219, input220) {
-  let storeLocal423 = 0,
-    storeLocal424 = 0;
-  for (let storeLocal572 of input220.childIds) {
-    let storeLocal620 = input219[storeLocal572];
-    storeLocal620 != null &&
-      ((storeLocal423 += storeLocal620.subtreeNodeCount),
-      (storeLocal424 += storeLocal620.visibleSubtreeCount));
+function recomputeChildSubtreeCounts(nodesById, node) {
+  let totalSubtreeNodeCount = 0,
+    totalVisibleSubtreeCount = 0;
+  for (let childId of node.childIds) {
+    let childNode = nodesById[childId];
+    childNode != null &&
+      ((totalSubtreeNodeCount += childNode.subtreeNodeCount),
+      (totalVisibleSubtreeCount += childNode.visibleSubtreeCount));
   }
-  input220.totalChildSubtreeNodeCount = storeLocal423;
-  input220.totalChildVisibleSubtreeCount = storeLocal424;
-  storeRoutine11(input219, input220);
+  node.totalChildSubtreeNodeCount = totalSubtreeNodeCount;
+  node.totalChildVisibleSubtreeCount = totalVisibleSubtreeCount;
+  rebuildChildVisibleChunkSums(nodesById, node);
 }
-function storeRoutine8(input196, input197, input198, input199) {
+function applyChildSubtreeCountDelta(
+  node,
+  childId,
+  subtreeNodeCountDelta,
+  visibleSubtreeCountDelta,
+) {
   if (
-    ((input196.totalChildSubtreeNodeCount += input198),
-    (input196.totalChildVisibleSubtreeCount += input199),
-    input196.childVisibleChunkSums == null || input199 === 0)
+    ((node.totalChildSubtreeNodeCount += subtreeNodeCountDelta),
+    (node.totalChildVisibleSubtreeCount += visibleSubtreeCountDelta),
+    node.childVisibleChunkSums == null || visibleSubtreeCountDelta === 0)
   )
     return;
-  let storeLocal389 = storeRoutine4(input196).get(input197);
-  if (storeLocal389 === undefined) return;
-  let storeLocal390 = storeLocal389 >> 5;
-  input196.childVisibleChunkSums[storeLocal390] += input199;
+  let childIndex = ensureChildPositionById(node).get(childId);
+  if (childIndex === undefined) return;
+  let chunkIndex = childIndex >> 5;
+  node.childVisibleChunkSums[chunkIndex] += visibleSubtreeCountDelta;
 }
-function storeRoutine9(input45, input46, input47) {
-  let storeLocal161 = input46.childVisibleChunkSums;
-  if (storeLocal161 != null) {
-    let storeLocal448 = input47,
-      storeLocal449 = 0;
-    for (let storeLocal557 of storeLocal161) {
-      if (storeLocal448 < storeLocal557) {
-        let storeLocal617 = storeRoutine12(
-          input45,
-          input46,
-          storeLocal449,
-          storeLocal448,
+function findChildByVisibleIndex(nodesById, node, visibleIndex) {
+  let chunkSums = node.childVisibleChunkSums;
+  if (chunkSums != null) {
+    let _remainingVisible = visibleIndex,
+      chunkChildBase = 0;
+    for (let chunkSum of chunkSums) {
+      if (_remainingVisible < chunkSum) {
+        let chunkResult = findChildInChunk(
+          nodesById,
+          node,
+          chunkChildBase,
+          _remainingVisible,
         );
         return {
-          ...storeLocal617,
-          childVisibleIndex: input47 - storeLocal617.localVisibleIndex,
+          ...chunkResult,
+          childVisibleIndex: visibleIndex - chunkResult.localVisibleIndex,
         };
       }
-      storeLocal448 -= storeLocal557;
-      storeLocal449 += 32;
+      _remainingVisible -= chunkSum;
+      chunkChildBase += 32;
     }
-    throw Error(`Visible child index ${String(input47)} is out of range`);
+    throw Error(`Visible child index ${String(visibleIndex)} is out of range`);
   }
-  let storeLocal162 = input47;
-  for (
-    let storeLocal388 = 0;
-    storeLocal388 < input46.childIds.length;
-    storeLocal388++
-  ) {
-    let storeLocal450 = input46.childIds[storeLocal388];
-    if (storeLocal450 == null) continue;
-    let storeLocal451 = input45[storeLocal450];
-    if (storeLocal451 != null) {
-      if (storeLocal162 < storeLocal451.visibleSubtreeCount)
+  let remainingVisible = visibleIndex;
+  for (let childIndex = 0; childIndex < node.childIds.length; childIndex++) {
+    let childId = node.childIds[childIndex];
+    if (childId == null) continue;
+    let childNode = nodesById[childId];
+    if (childNode != null) {
+      if (remainingVisible < childNode.visibleSubtreeCount)
         return {
-          childIndex: storeLocal388,
-          childVisibleIndex: input47 - storeLocal162,
-          localVisibleIndex: storeLocal162,
+          childIndex: childIndex,
+          childVisibleIndex: visibleIndex - remainingVisible,
+          localVisibleIndex: remainingVisible,
         };
-      storeLocal162 -= storeLocal451.visibleSubtreeCount;
+      remainingVisible -= childNode.visibleSubtreeCount;
     }
   }
-  throw Error(`Visible child index ${String(input47)} is out of range`);
+  throw Error(`Visible child index ${String(visibleIndex)} is out of range`);
 }
-function storeRoutine10(input180, input181, input182) {
-  let storeLocal364 = 0,
-    storeLocal365 = input181.childVisibleChunkSums,
-    storeLocal366 = 0;
-  if (storeLocal365 != null) {
-    let storeLocal652 = input182 >> 5;
-    for (
-      let storeLocal668 = 0;
-      storeLocal668 < storeLocal652;
-      storeLocal668 += 1
-    )
-      storeLocal364 += storeLocal365[storeLocal668] ?? 0;
-    storeLocal366 = storeLocal652 << 5;
+function sumVisibleBeforeChildIndex(nodesById, node, childIndex) {
+  let visibleCount = 0,
+    chunkSums = node.childVisibleChunkSums,
+    scannedChildCount = 0;
+  if (chunkSums != null) {
+    let fullChunkCount = childIndex >> 5;
+    for (let chunkIndex = 0; chunkIndex < fullChunkCount; chunkIndex += 1)
+      visibleCount += chunkSums[chunkIndex] ?? 0;
+    scannedChildCount = fullChunkCount << 5;
   }
-  for (
-    let storeLocal543 = storeLocal366;
-    storeLocal543 < input182;
-    storeLocal543 += 1
-  ) {
-    let storeLocal586 = input181.childIds[storeLocal543];
-    if (storeLocal586 == null) continue;
-    let storeLocal587 = input180[storeLocal586];
-    storeLocal587 != null &&
-      (storeLocal364 += storeLocal587.visibleSubtreeCount);
+  for (let index = scannedChildCount; index < childIndex; index += 1) {
+    let childId = node.childIds[index];
+    if (childId == null) continue;
+    let childNode = nodesById[childId];
+    childNode != null && (visibleCount += childNode.visibleSubtreeCount);
   }
-  return storeLocal364;
+  return visibleCount;
 }
-function storeRoutine11(input137, input138) {
-  if (input138.childIds.length < 128) {
-    input138.childVisibleChunkSums = null;
+function rebuildChildVisibleChunkSums(nodesById, node) {
+  if (node.childIds.length < 128) {
+    node.childVisibleChunkSums = null;
     return;
   }
-  let storeLocal310 = Math.ceil(input138.childIds.length / 32),
-    storeLocal311 = new Int32Array(storeLocal310);
-  for (
-    let storeLocal506 = 0;
-    storeLocal506 < input138.childIds.length;
-    storeLocal506++
-  ) {
-    let storeLocal573 = input138.childIds[storeLocal506];
-    if (storeLocal573 == null) continue;
-    let storeLocal574 = input137[storeLocal573];
-    storeLocal574 != null &&
-      (storeLocal311[storeLocal506 >> 5] += storeLocal574.visibleSubtreeCount);
+  let chunkCount = Math.ceil(node.childIds.length / 32),
+    chunkSums = new Int32Array(chunkCount);
+  for (let index = 0; index < node.childIds.length; index++) {
+    let childId = node.childIds[index];
+    if (childId == null) continue;
+    let childNode = nodesById[childId];
+    childNode != null &&
+      (chunkSums[index >> 5] += childNode.visibleSubtreeCount);
   }
-  input138.childVisibleChunkSums = storeLocal311;
+  node.childVisibleChunkSums = chunkSums;
 }
-function storeRoutine12(input123, input124, input125, input126) {
-  let storeLocal304 = Math.min(input124.childIds.length, input125 + 32),
-    storeLocal305 = input126;
-  for (
-    let storeLocal452 = input125;
-    storeLocal452 < storeLocal304;
-    storeLocal452++
-  ) {
-    let storeLocal468 = input124.childIds[storeLocal452];
-    if (storeLocal468 == null) continue;
-    let storeLocal469 = input123[storeLocal468];
-    if (storeLocal469 != null) {
-      if (storeLocal305 < storeLocal469.visibleSubtreeCount)
+function findChildInChunk(nodesById, node, chunkStart, visibleIndex) {
+  let chunkEnd = Math.min(node.childIds.length, chunkStart + 32),
+    remainingVisible = visibleIndex;
+  for (let childIndex = chunkStart; childIndex < chunkEnd; childIndex++) {
+    let childId = node.childIds[childIndex];
+    if (childId == null) continue;
+    let childNode = nodesById[childId];
+    if (childNode != null) {
+      if (remainingVisible < childNode.visibleSubtreeCount)
         return {
-          childIndex: storeLocal452,
-          localVisibleIndex: storeLocal305,
+          childIndex: childIndex,
+          localVisibleIndex: remainingVisible,
         };
-      storeLocal305 -= storeLocal469.visibleSubtreeCount;
+      remainingVisible -= childNode.visibleSubtreeCount;
     }
   }
-  throw Error(`Visible child index ${String(input126)} is out of range`);
+  throw Error(`Visible child index ${String(visibleIndex)} is out of range`);
 }
-function storeRoutine13(input422, input423, input424 = 0) {
-  return (input422 << 4) | (input424 << 3) | input423;
+function packDepthAndFlags(depth, flags, isDir = 0) {
+  return (depth << 4) | (isDir << 3) | flags;
 }
-function storeRoutine14(input421) {
-  return input421.depthAndFlags >>> 4;
+function getDepth(node) {
+  return node.depthAndFlags >>> 4;
 }
-function storeRoutine15(input416) {
-  return (input416.depthAndFlags & 8) >> 3;
+function getIsDirBit(node) {
+  return (node.depthAndFlags & 8) >> 3;
 }
-function storeRoutine16(input415) {
-  return (input415.depthAndFlags & 8) !== 0;
+function isDirectory(node) {
+  return (node.depthAndFlags & 8) !== 0;
 }
-function storeRoutine17(input425) {
-  return input425.depthAndFlags & 7;
+function getFlags(node) {
+  return node.depthAndFlags & 7;
 }
-function storeRoutine18(input429, input430) {
-  return (storeRoutine17(input429) & input430) !== 0;
+function hasFlag(node, flagMask) {
+  return (getFlags(node) & flagMask) !== 0;
 }
-function storeRoutine19(input431, input432) {
-  input431.depthAndFlags |= input432;
+function setFlags(node, flags) {
+  node.depthAndFlags |= flags;
 }
-function storeRoutine20(input410, input411) {
-  input410.depthAndFlags = storeRoutine13(
-    input411,
-    storeRoutine17(input410),
-    storeRoutine15(input410),
+function setDepth(node, depth) {
+  node.depthAndFlags = packDepthAndFlags(
+    depth,
+    getFlags(node),
+    getIsDirBit(node),
   );
 }
-var storeLocal8 = Symbol("benchmarkInstrumentation");
-function storeRoutine21(input317, input318) {
+var instrumentationSymbol = Symbol("benchmarkInstrumentation");
+function attachInstrumentation(target, instrumentation) {
   return (
-    input318 == null ||
-      Object.defineProperty(input317, storeLocal8, {
+    instrumentation == null ||
+      Object.defineProperty(target, instrumentationSymbol, {
         configurable: true,
         enumerable: false,
-        value: input318,
+        value: instrumentation,
         writable: false,
       }),
-    input317
+    target
   );
 }
-function storeRoutine22(input412) {
-  return input412 == null ? null : (input412[storeLocal8] ?? null);
+function getInstrumentation(target) {
+  return target == null ? null : (target[instrumentationSymbol] ?? null);
 }
-function storeRoutine23(input398, input399, input400) {
-  return input398 == null
-    ? input400()
-    : input398.measurePhase(input399, input400);
+function measurePhase(instrumentation, label, fn) {
+  return instrumentation == null
+    ? fn()
+    : instrumentation.measurePhase(label, fn);
 }
-function storeRoutine24(input386, input387, input388) {
-  !Number.isFinite(input388) ||
-    input386 == null ||
-    input386.setCounter(input387, input388);
+function setCounter(instrumentation, counterName, value) {
+  !Number.isFinite(value) ||
+    instrumentation == null ||
+    instrumentation.setCounter(counterName, value);
 }
-function storeRoutine25(input433) {
-  return input433 >= 48 && input433 <= 57;
+function isDigitCharCode(charCode) {
+  return charCode >= 48 && charCode <= 57;
 }
-function storeRoutine26(input139) {
-  let storeLocal312 = [],
-    storeLocal313 = 0,
-    storeLocal314 = 0;
-  for (; storeLocal314 < input139.length; ) {
-    for (
-      ;
-      storeLocal314 < input139.length &&
-      !storeRoutine25(input139.charCodeAt(storeLocal314));
-
-    )
-      storeLocal314 += 1;
-    if (storeLocal314 >= input139.length) break;
-    storeLocal314 > storeLocal313 &&
-      storeLocal312.push(input139.slice(storeLocal313, storeLocal314));
-    let storeLocal442 = 0;
-    for (
-      ;
-      storeLocal314 < input139.length &&
-      storeRoutine25(input139.charCodeAt(storeLocal314));
-
-    ) {
-      storeLocal442 =
-        storeLocal442 * 10 + (input139.charCodeAt(storeLocal314) - 48);
-      storeLocal314 += 1;
+function tokenizeNatural(value) {
+  let tokens = [],
+    segmentStart = 0,
+    index = 0;
+  for (; index < value.length; ) {
+    for (; index < value.length && !isDigitCharCode(value.charCodeAt(index)); )
+      index += 1;
+    if (index >= value.length) break;
+    index > segmentStart && tokens.push(value.slice(segmentStart, index));
+    let numericValue = 0;
+    for (; index < value.length && isDigitCharCode(value.charCodeAt(index)); ) {
+      numericValue = numericValue * 10 + (value.charCodeAt(index) - 48);
+      index += 1;
     }
-    storeLocal312.push(storeLocal442);
-    storeLocal313 = storeLocal314;
+    tokens.push(numericValue);
+    segmentStart = index;
   }
   return (
-    (storeLocal313 < input139.length || storeLocal312.length === 0) &&
-      storeLocal312.push(input139.slice(storeLocal313)),
-    storeLocal312
+    (segmentStart < value.length || tokens.length === 0) &&
+      tokens.push(value.slice(segmentStart)),
+    tokens
   );
 }
-function storeRoutine27(input380) {
-  let storeLocal621 = input380.toLowerCase();
+function makeSortKey(value) {
+  let lowerValue = value.toLowerCase();
   return {
-    lowerValue: storeLocal621,
-    tokens: storeRoutine26(storeLocal621),
+    lowerValue: lowerValue,
+    tokens: tokenizeNatural(lowerValue),
   };
 }
-function storeRoutine28(input153, input154) {
-  let storeLocal334 = Math.min(input153.length, input154.length);
-  for (let storeLocal461 = 0; storeLocal461 < storeLocal334; storeLocal461++) {
-    let storeLocal471 = input153[storeLocal461],
-      storeLocal472 = input154[storeLocal461];
-    if (storeLocal471 === storeLocal472) continue;
-    if (typeof storeLocal471 == "number" && typeof storeLocal472 == "number")
-      return storeLocal471 < storeLocal472 ? -1 : 1;
-    let storeLocal473 = String(storeLocal471),
-      storeLocal474 = String(storeLocal472);
-    if (storeLocal473 !== storeLocal474)
-      return storeLocal473 < storeLocal474 ? -1 : 1;
+function compareTokens(tokensA, tokensB) {
+  let minLength = Math.min(tokensA.length, tokensB.length);
+  for (let index = 0; index < minLength; index++) {
+    let tokenA = tokensA[index],
+      tokenB = tokensB[index];
+    if (tokenA === tokenB) continue;
+    if (typeof tokenA == "number" && typeof tokenB == "number")
+      return tokenA < tokenB ? -1 : 1;
+    let stringA = String(tokenA),
+      stringB = String(tokenB);
+    if (stringA !== stringB) return stringA < stringB ? -1 : 1;
   }
-  return input153.length === input154.length
+  return tokensA.length === tokensB.length
     ? 0
-    : input153.length < input154.length
+    : tokensA.length < tokensB.length
       ? -1
       : 1;
 }
-function storeRoutine29(input131, input132) {
+function compareSortKeys(keyA, keyB) {
   if (
-    input131.tokens.length === 1 &&
-    input132.tokens.length === 1 &&
-    typeof input131.tokens[0] == "string" &&
-    typeof input132.tokens[0] == "string"
+    keyA.tokens.length === 1 &&
+    keyB.tokens.length === 1 &&
+    typeof keyA.tokens[0] == "string" &&
+    typeof keyB.tokens[0] == "string"
   )
-    return input131.lowerValue === input132.lowerValue
+    return keyA.lowerValue === keyB.lowerValue
       ? 0
-      : input131.lowerValue < input132.lowerValue
+      : keyA.lowerValue < keyB.lowerValue
         ? -1
         : 1;
-  let storeLocal309 = storeRoutine28(input131.tokens, input132.tokens);
-  return storeLocal309 === 0
-    ? input131.lowerValue === input132.lowerValue
+  let tokenComparison = compareTokens(keyA.tokens, keyB.tokens);
+  return tokenComparison === 0
+    ? keyA.lowerValue === keyB.lowerValue
       ? 0
-      : input131.lowerValue < input132.lowerValue
+      : keyA.lowerValue < keyB.lowerValue
         ? -1
         : 1
-    : storeLocal309;
+    : tokenComparison;
 }
-function storeRoutine30(input372, input373, input374) {
-  let storeLocal618 = storeRoutine29(input374(input372), input374(input373));
-  return storeLocal618 === 0
-    ? input372 === input373
+function compareByKey(valueA, valueB, getSortKey) {
+  let comparison = compareSortKeys(getSortKey(valueA), getSortKey(valueB));
+  return comparison === 0
+    ? valueA === valueB
       ? 0
-      : input372 < input373
+      : valueA < valueB
         ? -1
         : 1
-    : storeLocal618;
+    : comparison;
 }
-function storeRoutine31(input434, input435) {
-  return storeRoutine30(input434, input435, storeRoutine27);
+function compareStrings(a, b) {
+  return compareByKey(a, b, makeSortKey);
 }
-function storeRoutine32(input384, input385) {
-  return input385 === input384.segments.length - 1
-    ? input384.isDirectory
+function segmentSortRank(pathInfo, segmentIndex) {
+  return segmentIndex === pathInfo.segments.length - 1
+    ? pathInfo.isDirectory
       ? 1
       : 0
     : 1;
 }
-function storeRoutine33(input115, input116) {
-  let storeLocal286 = Math.min(
-    input115.segments.length,
-    input116.segments.length,
-  );
-  for (let storeLocal513 = 0; storeLocal513 < storeLocal286; storeLocal513++) {
-    let storeLocal553 = input115.segments[storeLocal513],
-      storeLocal554 = input116.segments[storeLocal513];
-    if (storeLocal553 === storeLocal554) continue;
-    let storeLocal555 = storeRoutine32(input115, storeLocal513);
-    return storeLocal555 === storeRoutine32(input116, storeLocal513)
-      ? storeRoutine31(storeLocal553, storeLocal554)
-      : storeLocal555 === 1
+function comparePaths(pathA, pathB) {
+  let minSegments = Math.min(pathA.segments.length, pathB.segments.length);
+  for (let index = 0; index < minSegments; index++) {
+    let segmentA = pathA.segments[index],
+      segmentB = pathB.segments[index];
+    if (segmentA === segmentB) continue;
+    let rankA = segmentSortRank(pathA, index);
+    return rankA === segmentSortRank(pathB, index)
+      ? compareStrings(segmentA, segmentB)
+      : rankA === 1
         ? -1
         : 1;
   }
-  return input115.segments.length === input116.segments.length
-    ? input115.isDirectory === input116.isDirectory
+  return pathA.segments.length === pathB.segments.length
+    ? pathA.isDirectory === pathB.isDirectory
       ? 0
-      : input115.isDirectory
+      : pathA.isDirectory
         ? -1
         : 1
-    : input115.segments.length < input116.segments.length
+    : pathA.segments.length < pathB.segments.length
       ? -1
       : 1;
 }
-function storeRoutine34(input438, input439) {
-  return storeRoutine33(input438, input439);
+function comparePathsDefault(pathA, pathB) {
+  return comparePaths(pathA, pathB);
 }
-function storeRoutine35(input81, input82, input83) {
-  let storeLocal230 = (input381) => {
-      let storeLocal622 = input83.get(input381);
-      if (storeLocal622 != null) return storeLocal622;
-      let storeLocal623 = storeRoutine27(input381);
-      return (input83.set(input381, storeLocal623), storeLocal623);
+function comparePathsCached(pathA, pathB, sortKeyCache) {
+  let getSortKey = (segment) => {
+      let cached = sortKeyCache.get(segment);
+      if (cached != null) return cached;
+      let sortKey = makeSortKey(segment);
+      return (sortKeyCache.set(segment, sortKey), sortKey);
     },
-    storeLocal231 = Math.min(input81.segments.length, input82.segments.length);
-  for (let storeLocal511 = 0; storeLocal511 < storeLocal231; storeLocal511++) {
-    let storeLocal548 = input81.segments[storeLocal511],
-      storeLocal549 = input82.segments[storeLocal511];
-    if (storeLocal548 === storeLocal549) continue;
-    let storeLocal550 = storeRoutine32(input81, storeLocal511);
-    return storeLocal550 === storeRoutine32(input82, storeLocal511)
-      ? storeRoutine30(storeLocal548, storeLocal549, storeLocal230)
-      : storeLocal550 === 1
+    minSegments = Math.min(pathA.segments.length, pathB.segments.length);
+  for (let index = 0; index < minSegments; index++) {
+    let segmentA = pathA.segments[index],
+      segmentB = pathB.segments[index];
+    if (segmentA === segmentB) continue;
+    let rankA = segmentSortRank(pathA, index);
+    return rankA === segmentSortRank(pathB, index)
+      ? compareByKey(segmentA, segmentB, getSortKey)
+      : rankA === 1
         ? -1
         : 1;
   }
-  return input81.segments.length === input82.segments.length
-    ? input81.isDirectory === input82.isDirectory
+  return pathA.segments.length === pathB.segments.length
+    ? pathA.isDirectory === pathB.isDirectory
       ? 0
-      : input81.isDirectory
+      : pathA.isDirectory
         ? -1
         : 1
-    : input81.segments.length < input82.segments.length
+    : pathA.segments.length < pathB.segments.length
       ? -1
       : 1;
 }
-function storeRoutine36(input305, input306) {
-  let storeLocal519 = input305.sortKeyById[input306];
-  if (storeLocal519 !== undefined) return storeLocal519;
-  let storeLocal520 = input305.valueById[input306],
-    storeLocal521 = storeRoutine27(storeLocal520);
-  return ((input305.sortKeyById[input306] = storeLocal521), storeLocal521);
+function getSortKeyById(interner, segmentId) {
+  let cached = interner.sortKeyById[segmentId];
+  if (cached !== undefined) return cached;
+  let value = interner.valueById[segmentId],
+    sortKey = makeSortKey(value);
+  return ((interner.sortKeyById[segmentId] = sortKey), sortKey);
 }
-function storeRoutine37(input341 = {}) {
+function normalizeOptions(options = {}) {
   return {
-    flattenEmptyDirectories: input341.flattenEmptyDirectories !== false,
-    sort: input341.sort ?? "default",
+    flattenEmptyDirectories: options.flattenEmptyDirectories !== false,
+    sort: options.sort ?? "default",
   };
 }
-function storeRoutine38(input187) {
-  let storeLocal368 =
-      input187.length > 0 && input187.charCodeAt(input187.length - 1) === 47,
-    storeLocal369 = storeLocal368 ? input187.length - 1 : input187.length,
-    storeLocal370 = [],
-    storeLocal371 = 0;
-  for (let storeLocal619 = 0; storeLocal619 < storeLocal369; storeLocal619++)
-    input187.charCodeAt(storeLocal619) === 47 &&
-      (storeLocal370.push(input187.slice(storeLocal371, storeLocal619)),
-      (storeLocal371 = storeLocal619 + 1));
+function splitPathSegments(path) {
+  let hasTrailingSlash =
+      path.length > 0 && path.charCodeAt(path.length - 1) === 47,
+    effectiveLength = hasTrailingSlash ? path.length - 1 : path.length,
+    segments = [],
+    segmentStart = 0;
+  for (let index = 0; index < effectiveLength; index++)
+    path.charCodeAt(index) === 47 &&
+      (segments.push(path.slice(segmentStart, index)),
+      (segmentStart = index + 1));
   return (
-    storeLocal370.push(input187.slice(storeLocal371, storeLocal369)),
+    segments.push(path.slice(segmentStart, effectiveLength)),
     {
-      hasTrailingSlash: storeLocal368,
-      segments: storeLocal370,
+      hasTrailingSlash: hasTrailingSlash,
+      segments: segments,
     }
   );
 }
-function storeRoutine39(input296) {
-  let { hasTrailingSlash, segments } = storeRoutine38(input296);
+function parsePath(path) {
+  let { hasTrailingSlash, segments } = splitPathSegments(path);
   return {
     basename: segments[segments.length - 1] ?? "",
     isDirectory: hasTrailingSlash,
-    path: input296,
+    path: path,
     segments,
   };
 }
-function storeRoutine40(input248) {
-  if (input248.length === 0)
+function parseQueryPath(path) {
+  if (path.length === 0)
     return {
       requiresDirectory: false,
       segments: [],
     };
-  let { hasTrailingSlash, segments } = storeRoutine38(input248);
+  let { hasTrailingSlash, segments } = splitPathSegments(path);
   return {
     requiresDirectory: hasTrailingSlash,
     segments,
   };
 }
-function _e() {
-  let storeLocal569 = new Map();
+function createSegmentTable() {
+  let idByValue = new Map();
   return (
-    storeLocal569.set("", 0),
+    idByValue.set("", 0),
     {
-      idByValue: storeLocal569,
+      idByValue: idByValue,
       valueById: [""],
-      sortKeyById: [storeRoutine27("")],
+      sortKeyById: [makeSortKey("")],
     }
   );
 }
-function storeRoutine41(input266, input267) {
-  let storeLocal492 = input266.idByValue.get(input267);
-  if (storeLocal492 !== undefined) return storeLocal492;
-  let storeLocal493 = input266.valueById.length;
+function internSegment(interner, value) {
+  let existingId = interner.idByValue.get(value);
+  if (existingId !== undefined) return existingId;
+  let newId = interner.valueById.length;
   return (
-    input266.idByValue.set(input267, storeLocal493),
-    input266.valueById.push(input267),
-    storeLocal493
+    interner.idByValue.set(value, newId),
+    interner.valueById.push(value),
+    newId
   );
 }
-function storeRoutine42(input329, input330) {
-  let storeLocal545 = input329.valueById[input330];
-  if (storeLocal545 === undefined)
-    throw Error(`Unknown segment ID: ${String(input330)}`);
-  return storeLocal545;
+function getSegmentValue(interner, segmentId) {
+  let value = interner.valueById[segmentId];
+  if (value === undefined)
+    throw Error(`Unknown segment ID: ${String(segmentId)}`);
+  return value;
 }
-var storeLocal10 = Symbol("pathStorePreparedInputKind");
-function storeRoutine43(input436, input437) {
-  return ((input436[storeLocal10] = input437), input436);
+var preparedInputKindSymbol = Symbol("pathStorePreparedInputKind");
+function tagPreparedInput(target, kind) {
+  return ((target[preparedInputKindSymbol] = kind), target);
 }
-function be(input293) {
+function toSortablePathInfo(pathInfo) {
   return {
-    basename: input293.basename,
-    depth: input293.segments.length,
-    isDirectory: input293.isDirectory,
-    path: input293.path,
-    segments: input293.segments,
+    basename: pathInfo.basename,
+    depth: pathInfo.segments.length,
+    isDirectory: pathInfo.isDirectory,
+    path: pathInfo.path,
+    segments: pathInfo.segments,
   };
 }
-function storeRoutine44(input395, input396, input397) {
-  return input397 === "default"
-    ? storeRoutine34(input395, input396)
-    : input397(be(input395), be(input396));
+function compareWithSort(pathA, pathB, sort) {
+  return sort === "default"
+    ? comparePathsDefault(pathA, pathB)
+    : sort(toSortablePathInfo(pathA), toSortablePathInfo(pathB));
 }
-function storeRoutine45() {
+function createRootNode() {
   return {
-    depthAndFlags: storeRoutine13(0, 3, 1),
+    depthAndFlags: packDepthAndFlags(0, 3, 1),
     nameId: 0,
     parentId: 0,
     subtreeNodeCount: 1,
     visibleSubtreeCount: 1,
   };
 }
-function storeRoutine46(input342, input343) {
-  let storeLocal558 = Math.min(input342.length, input343.length);
-  for (let storeLocal655 = 0; storeLocal655 < storeLocal558; storeLocal655++)
-    if (input342[storeLocal655] !== input343[storeLocal655])
-      return storeLocal655;
-  return storeLocal558;
+function commonPrefixLength(segmentsA, segmentsB) {
+  let minLength = Math.min(segmentsA.length, segmentsB.length);
+  for (let index = 0; index < minLength; index++)
+    if (segmentsA[index] !== segmentsB[index]) return index;
+  return minLength;
 }
-function storeRoutine47(input370) {
-  return input370.isDirectory
-    ? input370.segments.length
-    : input370.segments.length - 1;
+function getDirectoryDepth(pathInfo) {
+  return pathInfo.isDirectory
+    ? pathInfo.segments.length
+    : pathInfo.segments.length - 1;
 }
-function storeRoutine48(input227) {
+function isPreparedPathArray(value) {
   return (
-    Array.isArray(input227) &&
-    input227.every(
+    Array.isArray(value) &&
+    value.every(
       (item) =>
         typeof item == "object" &&
         !!item &&
@@ -547,92 +504,81 @@ function storeRoutine48(input227) {
     )
   );
 }
-function storeRoutine49(input375) {
-  return (
-    Array.isArray(input375) && input375.every((item) => typeof item == "string")
-  );
+function isStringArray(value) {
+  return Array.isArray(value) && value.every((item) => typeof item == "string");
 }
-function storeRoutine50(input408, input409 = {}) {
-  return storeRoutine56(input408, input409).map((item) => item.path);
+function preparePathList(paths, options = {}) {
+  return preparePathEntries(paths, options).map((item) => item.path);
 }
-function storeRoutine51(input351, input352 = {}) {
-  let storeLocal568 = storeRoutine56(input351, input352);
-  return storeRoutine43(
+function preparePreparedInput(paths, options = {}) {
+  let prepared = preparePathEntries(paths, options);
+  return tagPreparedInput(
     {
-      paths: storeLocal568.map((item) => item.path),
-      preparedPaths: storeLocal568,
+      paths: prepared.map((item) => item.path),
+      preparedPaths: prepared,
     },
     "prepared",
   );
 }
-function storeRoutine52(input200) {
-  let storeLocal392 = input200.length,
-    storeLocal393 = false;
-  for (
-    let storeLocal581 = 0;
-    storeLocal581 < storeLocal392;
-    storeLocal581 += 1
-  ) {
-    let storeLocal624 = input200[storeLocal581];
-    if (
-      storeLocal624.length > 0 &&
-      storeLocal624.charCodeAt(storeLocal624.length - 1) === 47
-    ) {
-      storeLocal393 = true;
+function hasAnyDirectoryPath(paths) {
+  let count = paths.length,
+    hasDirectory = false;
+  for (let index = 0; index < count; index += 1) {
+    let path = paths[index];
+    if (path.length > 0 && path.charCodeAt(path.length - 1) === 47) {
+      hasDirectory = true;
       break;
     }
   }
-  return storeRoutine43(
+  return tagPreparedInput(
     {
-      paths: input200,
-      presortedPaths: input200,
-      presortedPathsContainDirectories: storeLocal393,
+      paths: paths,
+      presortedPaths: paths,
+      presortedPathsContainDirectories: hasDirectory,
     },
     "presorted",
   );
 }
-function storeRoutine53(input236) {
-  let storeLocal459 = input236,
-    storeLocal460 = storeLocal459.preparedPaths;
-  if (storeLocal459[storeLocal10] === "prepared" && storeLocal460 != null)
-    return storeLocal460;
-  if (!storeRoutine48(storeLocal460))
+function resolvePreparedPaths(prepared) {
+  let input = prepared,
+    preparedPaths = input.preparedPaths;
+  if (input[preparedInputKindSymbol] === "prepared" && preparedPaths != null)
+    return preparedPaths;
+  if (!isPreparedPathArray(preparedPaths))
     throw Error("preparedInput must come from PathStore.prepareInput()");
-  return storeLocal460;
+  return preparedPaths;
 }
-function storeRoutine54(input309) {
-  let storeLocal527 = input309;
-  return (storeLocal527[storeLocal10] === "presorted" &&
-    storeLocal527.presortedPaths != null) ||
-    storeRoutine49(storeLocal527.presortedPaths)
-    ? storeLocal527.presortedPaths
+function resolvePresortedPaths(presortedInput) {
+  let input = presortedInput;
+  return (input[preparedInputKindSymbol] === "presorted" &&
+    input.presortedPaths != null) ||
+    isStringArray(input.presortedPaths)
+    ? input.presortedPaths
     : null;
 }
-function storeRoutine55(input295) {
-  let storeLocal514 = input295;
-  return typeof storeLocal514.presortedPathsContainDirectories == "boolean"
-    ? storeLocal514.presortedPathsContainDirectories
+function resolvePresortedContainsDirectories(presortedInput) {
+  let input = presortedInput;
+  return typeof input.presortedPathsContainDirectories == "boolean"
+    ? input.presortedPathsContainDirectories
     : null;
 }
-function storeRoutine56(input192, input193 = {}) {
-  let storeLocal383 = storeRoutine37(input193),
-    storeLocal384 = storeRoutine22(input193);
-  storeRoutine24(storeLocal384, "workload.inputFiles", input192.length);
-  let storeLocal385 = storeRoutine23(
-    storeLocal384,
+function preparePathEntries(paths, options = {}) {
+  let _options = normalizeOptions(options),
+    instrumentation = getInstrumentation(options);
+  setCounter(instrumentation, "workload.inputFiles", paths.length);
+  let entries = measurePhase(
+    instrumentation,
     "store.preparePathEntries.parse",
-    () => input192.map((item) => storeRoutine39(item)),
+    () => paths.map((item) => parsePath(item)),
   );
   return (
-    storeRoutine23(storeLocal384, "store.preparePathEntries.sort", () =>
-      storeLocal385.sort((input443, input444) =>
-        storeRoutine44(input443, input444, storeLocal383.sort),
-      ),
+    measurePhase(instrumentation, "store.preparePathEntries.sort", () =>
+      entries.sort((a, b) => compareWithSort(a, b, _options.sort)),
     ),
-    storeLocal385
+    entries
   );
 }
-var storeLocal11 = class {
+var PathTreeBuilder = class {
   directories = new Map();
   directoryStack = [0];
   presortedDirectoryNodeIds = [];
@@ -640,339 +586,304 @@ var storeLocal11 = class {
   createdDirectoriesAllExpanded = false;
   createdDirectoryCount = 0;
   lastPreparedPath = null;
-  nodes = [storeRoutine45()];
+  nodes = [createRootNode()];
   options;
   instrumentation;
   segmentSortKeyCache = new Map();
-  segmentTable = _e();
+  segmentTable = createSegmentTable();
   hasDeferredDirectoryIndexes = false;
-  constructor(input97 = {}) {
-    this.instrumentation = storeRoutine22(input97);
-    this.options = storeRoutine37(input97);
-    let storeLocal258 = input97.initialExpandedPaths ?? null;
-    if (storeLocal258 == null || storeLocal258.length === 0)
+  constructor(options = {}) {
+    this.instrumentation = getInstrumentation(options);
+    this.options = normalizeOptions(options);
+    let initialExpandedPaths = options.initialExpandedPaths ?? null;
+    if (initialExpandedPaths == null || initialExpandedPaths.length === 0)
       this.initialExpandedPathSet = null;
     else {
-      let storeLocal432 = new Set(),
-        storeLocal433 = storeLocal258.length;
-      for (
-        let storeLocal570 = 0;
-        storeLocal570 < storeLocal433;
-        storeLocal570 += 1
-      ) {
-        let storeLocal608 = storeLocal258[storeLocal570],
-          storeLocal609 = storeLocal608.length;
-        storeLocal432.add(
-          storeLocal609 > 0 &&
-            storeLocal608.charCodeAt(storeLocal609 - 1) === 47
-            ? storeLocal608.slice(0, storeLocal609 - 1)
-            : storeLocal608,
+      let expandedPathSet = new Set(),
+        count = initialExpandedPaths.length;
+      for (let index = 0; index < count; index += 1) {
+        let path = initialExpandedPaths[index],
+          length = path.length;
+        expandedPathSet.add(
+          length > 0 && path.charCodeAt(length - 1) === 47
+            ? path.slice(0, length - 1)
+            : path,
         );
       }
-      this.initialExpandedPathSet = storeLocal432;
+      this.initialExpandedPathSet = expandedPathSet;
       this.createdDirectoriesAllExpanded = true;
     }
-    this.directories.set(0, storeRoutine1());
+    this.directories.set(0, createChildBookkeeping());
   }
-  appendPaths(input294) {
-    return storeRoutine23(
+  appendPaths(paths) {
+    return measurePhase(
       this.instrumentation,
       "store.builder.appendPaths.parse",
-      () =>
-        this.appendPreparedPaths(input294.map((item) => storeRoutine39(item))),
+      () => this.appendPreparedPaths(paths.map((item) => parsePath(item))),
     );
   }
-  appendPreparedPaths(input230, input231 = true) {
+  appendPreparedPaths(preparedPaths, checked = true) {
     return (
       (this.createdDirectoriesAllExpanded = false),
-      storeRoutine23(
+      measurePhase(
         this.instrumentation,
         "store.builder.appendPreparedPaths",
         () => {
-          for (let storeLocal656 of input230)
-            this.appendPreparedPath(storeLocal656, input231);
+          for (let preparedPath of preparedPaths)
+            this.appendPreparedPath(preparedPath, checked);
         },
       ),
       this
     );
   }
-  appendPresortedPaths(input1, input2 = null) {
+  appendPresortedPaths(paths, containsDirectories = null) {
     return (
-      storeRoutine23(
+      measurePhase(
         this.instrumentation,
         "store.builder.appendPresortedPaths",
         () => {
-          if (input2 === false) {
-            this.appendPresortedFilePaths(input1);
+          if (containsDirectories === false) {
+            this.appendPresortedFilePaths(paths);
             return;
           }
           this.createdDirectoriesAllExpanded = false;
-          let storeLocal13 = null,
-            storeLocal14 = 0,
-            storeLocal15 = this.nodes,
-            storeLocal16 = this.segmentTable,
-            storeLocal17 = storeLocal16.idByValue,
-            storeLocal18 = storeLocal16.valueById,
-            storeLocal19 = this.directoryStack,
-            storeLocal20 = 0,
-            storeLocal21 = "",
-            storeLocal22 = 0;
-          for (let storeLocal23 of input1) {
-            if (storeLocal13 === storeLocal23)
-              throw Error(`Duplicate path: "${storeLocal23}"`);
-            let storeLocal24 =
-                storeLocal23.length > 0 &&
-                storeLocal23.charCodeAt(storeLocal23.length - 1) === 47,
-              storeLocal25 = storeLocal24
-                ? storeLocal23.length - 1
-                : storeLocal23.length,
-              storeLocal26 = 0,
-              storeLocal27 = 0;
-            if (storeLocal13 != null)
+          let previousPath = null,
+            depth = 0,
+            nodes = this.nodes,
+            segmentTable = this.segmentTable,
+            idByValue = segmentTable.idByValue,
+            valueById = segmentTable.valueById,
+            directoryStack = this.directoryStack,
+            stackDepth = 0,
+            sharedPrefix = "",
+            sharedPrefixDepth = 0;
+          for (let path of paths) {
+            if (previousPath === path) throw Error(`Duplicate path: "${path}"`);
+            let _isDirectory =
+                path.length > 0 && path.charCodeAt(path.length - 1) === 47,
+              pathLength = _isDirectory ? path.length - 1 : path.length,
+              matchedDepth = 0,
+              matchedOffset = 0;
+            if (previousPath != null)
               if (
-                storeLocal21.length > 0 &&
-                storeLocal23.length > storeLocal21.length &&
-                storeLocal23.startsWith(storeLocal21)
+                sharedPrefix.length > 0 &&
+                path.length > sharedPrefix.length &&
+                path.startsWith(sharedPrefix)
               ) {
-                storeLocal26 = storeLocal22;
-                storeLocal27 = storeLocal21.length;
+                matchedDepth = sharedPrefixDepth;
+                matchedOffset = sharedPrefix.length;
               } else {
-                let storeLocal434 = Math.min(storeLocal25, storeLocal13.length),
-                  storeLocal435 = true;
-                for (
-                  let storeLocal564 = 0;
-                  storeLocal564 < storeLocal434;
-                  storeLocal564++
-                ) {
-                  let storeLocal599 = storeLocal23.charCodeAt(storeLocal564);
-                  if (
-                    storeLocal599 !== storeLocal13.charCodeAt(storeLocal564)
-                  ) {
-                    storeLocal435 = false;
+                let limit = Math.min(pathLength, previousPath.length),
+                  prefixMatches = true;
+                for (let index = 0; index < limit; index++) {
+                  let charCode = path.charCodeAt(index);
+                  if (charCode !== previousPath.charCodeAt(index)) {
+                    prefixMatches = false;
                     break;
                   }
-                  storeLocal599 === 47 &&
-                    (storeLocal26++, (storeLocal27 = storeLocal564 + 1));
+                  charCode === 47 &&
+                    (matchedDepth++, (matchedOffset = index + 1));
                 }
-                storeLocal435 &&
-                  storeLocal24 &&
-                  storeLocal434 === storeLocal25 &&
-                  storeLocal13.length > storeLocal25 &&
-                  storeLocal13.charCodeAt(storeLocal25) === 47 &&
-                  (storeLocal26++, (storeLocal27 = storeLocal25 + 1));
+                prefixMatches &&
+                  _isDirectory &&
+                  limit === pathLength &&
+                  previousPath.length > pathLength &&
+                  previousPath.charCodeAt(pathLength) === 47 &&
+                  (matchedDepth++, (matchedOffset = pathLength + 1));
               }
-            storeLocal20 = storeLocal26;
-            storeLocal14 = storeLocal26;
-            let storeLocal28 = storeLocal27,
-              storeLocal29 = storeLocal23.indexOf("/", storeLocal28);
-            for (; storeLocal29 >= 0 && storeLocal29 < storeLocal25; ) {
-              let storeLocal263 = storeLocal19[storeLocal20];
-              if (storeLocal263 === undefined)
+            stackDepth = matchedDepth;
+            depth = matchedDepth;
+            let segmentStart = matchedOffset,
+              slashIndex = path.indexOf("/", segmentStart);
+            for (; slashIndex >= 0 && slashIndex < pathLength; ) {
+              let parentId = directoryStack[stackDepth];
+              if (parentId === undefined)
                 throw Error(
                   "Directory stack underflow while building the path store",
                 );
-              storeLocal14++;
-              let storeLocal264 = storeLocal23.slice(
-                  storeLocal28,
-                  storeLocal29,
-                ),
-                storeLocal265 = storeLocal17.get(storeLocal264);
-              storeLocal265 === undefined &&
-                ((storeLocal265 = storeLocal18.length),
-                storeLocal17.set(storeLocal264, storeLocal265),
-                storeLocal18.push(storeLocal264));
-              let storeLocal266 = storeLocal15.length;
-              storeLocal15.push({
-                depthAndFlags: storeRoutine13(storeLocal14, 0, 1),
-                nameId: storeLocal265,
-                parentId: storeLocal263,
+              depth++;
+              let segment = path.slice(segmentStart, slashIndex),
+                nameId = idByValue.get(segment);
+              nameId === undefined &&
+                ((nameId = valueById.length),
+                idByValue.set(segment, nameId),
+                valueById.push(segment));
+              let nodeId = nodes.length;
+              nodes.push({
+                depthAndFlags: packDepthAndFlags(depth, 0, 1),
+                nameId: nameId,
+                parentId: parentId,
                 subtreeNodeCount: 1,
                 visibleSubtreeCount: 1,
               });
-              this.recordCreatedDirectoryPath(
-                storeLocal23.slice(0, storeLocal29),
-              );
-              storeLocal20++;
-              storeLocal19[storeLocal20] = storeLocal266;
-              storeLocal28 = storeLocal29 + 1;
-              storeLocal29 = storeLocal23.indexOf("/", storeLocal28);
+              this.recordCreatedDirectoryPath(path.slice(0, slashIndex));
+              stackDepth++;
+              directoryStack[stackDepth] = nodeId;
+              segmentStart = slashIndex + 1;
+              slashIndex = path.indexOf("/", segmentStart);
             }
-            if (storeLocal24) {
-              if (storeLocal28 < storeLocal25) {
-                let storeLocal317 = storeLocal19[storeLocal20];
-                if (storeLocal317 === undefined)
+            if (_isDirectory) {
+              if (segmentStart < pathLength) {
+                let parentId = directoryStack[stackDepth];
+                if (parentId === undefined)
                   throw Error(
-                    `Unable to resolve directory parent for "${storeLocal23}"`,
+                    `Unable to resolve directory parent for "${path}"`,
                   );
-                storeLocal14++;
-                let storeLocal318 = storeLocal23.slice(
-                    storeLocal28,
-                    storeLocal25,
-                  ),
-                  storeLocal319 = storeLocal17.get(storeLocal318);
-                storeLocal319 === undefined &&
-                  ((storeLocal319 = storeLocal18.length),
-                  storeLocal17.set(storeLocal318, storeLocal319),
-                  storeLocal18.push(storeLocal318));
-                let storeLocal320 = storeLocal15.length;
-                storeLocal15.push({
-                  depthAndFlags: storeRoutine13(storeLocal14, 0, 1),
-                  nameId: storeLocal319,
-                  parentId: storeLocal317,
+                depth++;
+                let segment = path.slice(segmentStart, pathLength),
+                  nameId = idByValue.get(segment);
+                nameId === undefined &&
+                  ((nameId = valueById.length),
+                  idByValue.set(segment, nameId),
+                  valueById.push(segment));
+                let nodeId = nodes.length;
+                nodes.push({
+                  depthAndFlags: packDepthAndFlags(depth, 0, 1),
+                  nameId: nameId,
+                  parentId: parentId,
                   subtreeNodeCount: 1,
                   visibleSubtreeCount: 1,
                 });
-                storeLocal20++;
-                storeLocal19[storeLocal20] = storeLocal320;
+                stackDepth++;
+                directoryStack[stackDepth] = nodeId;
               }
-              let storeLocal217 = storeLocal19[storeLocal20];
-              if (storeLocal217 === undefined)
-                throw Error(
-                  `Unable to resolve directory node for "${storeLocal23}"`,
-                );
-              this.promoteDirectoryToExplicit(storeLocal217, storeLocal23);
+              let directoryNodeId = directoryStack[stackDepth];
+              if (directoryNodeId === undefined)
+                throw Error(`Unable to resolve directory node for "${path}"`);
+              this.promoteDirectoryToExplicit(directoryNodeId, path);
             } else {
-              let storeLocal344 = storeLocal19[storeLocal20];
-              if (storeLocal344 === undefined)
-                throw Error(
-                  `Unable to resolve file parent for "${storeLocal23}"`,
-                );
-              let storeLocal345 = storeLocal23.slice(storeLocal28),
-                storeLocal346 = storeLocal17.get(storeLocal345);
-              storeLocal346 === undefined &&
-                ((storeLocal346 = storeLocal18.length),
-                storeLocal17.set(storeLocal345, storeLocal346),
-                storeLocal18.push(storeLocal345));
-              storeLocal15.push({
-                depthAndFlags: storeRoutine13(storeLocal14 + 1, 0),
-                nameId: storeLocal346,
-                parentId: storeLocal344,
+              let parentId = directoryStack[stackDepth];
+              if (parentId === undefined)
+                throw Error(`Unable to resolve file parent for "${path}"`);
+              let basename = path.slice(segmentStart),
+                nameId = idByValue.get(basename);
+              nameId === undefined &&
+                ((nameId = valueById.length),
+                idByValue.set(basename, nameId),
+                valueById.push(basename));
+              nodes.push({
+                depthAndFlags: packDepthAndFlags(depth + 1, 0),
+                nameId: nameId,
+                parentId: parentId,
                 subtreeNodeCount: 1,
                 visibleSubtreeCount: 1,
               });
             }
-            storeLocal28 !== storeLocal21.length &&
-              ((storeLocal21 = storeLocal23.substring(0, storeLocal28)),
-              (storeLocal22 = storeLocal14));
-            storeLocal13 = storeLocal23;
+            segmentStart !== sharedPrefix.length &&
+              ((sharedPrefix = path.substring(0, segmentStart)),
+              (sharedPrefixDepth = depth));
+            previousPath = path;
           }
-          storeLocal19.length = storeLocal20 + 1;
-          storeLocal13 != null &&
-            (this.lastPreparedPath = storeRoutine39(storeLocal13));
+          directoryStack.length = stackDepth + 1;
+          previousPath != null &&
+            (this.lastPreparedPath = parsePath(previousPath));
           this.hasDeferredDirectoryIndexes = true;
         },
       ),
       this
     );
   }
-  appendPresortedFilePaths(input6) {
-    let storeLocal45 = null,
-      storeLocal46 = 0,
-      storeLocal47 = this.nodes,
-      storeLocal48 = this.segmentTable,
-      storeLocal49 = storeLocal48.idByValue,
-      storeLocal50 = storeLocal48.valueById,
-      storeLocal51 = this.directoryStack,
-      storeLocal52 = 0,
-      storeLocal53 = "",
-      storeLocal54 = 0;
-    for (let storeLocal68 of input6) {
-      if (storeLocal45 === storeLocal68)
-        throw Error(`Duplicate path: "${storeLocal68}"`);
-      let storeLocal84 = storeLocal68.length,
-        storeLocal85 = 0,
-        storeLocal86 = 0;
-      if (storeLocal45 != null)
+  appendPresortedFilePaths(paths) {
+    let previousPath = null,
+      depth = 0,
+      nodes = this.nodes,
+      segmentTable = this.segmentTable,
+      idByValue = segmentTable.idByValue,
+      valueById = segmentTable.valueById,
+      directoryStack = this.directoryStack,
+      stackDepth = 0,
+      sharedPrefix = "",
+      sharedPrefixDepth = 0;
+    for (let path of paths) {
+      if (previousPath === path) throw Error(`Duplicate path: "${path}"`);
+      let pathLength = path.length,
+        matchedDepth = 0,
+        matchedOffset = 0;
+      if (previousPath != null)
         if (
-          storeLocal53.length > 0 &&
-          storeLocal68.length > storeLocal53.length &&
-          storeLocal68.startsWith(storeLocal53)
+          sharedPrefix.length > 0 &&
+          path.length > sharedPrefix.length &&
+          path.startsWith(sharedPrefix)
         ) {
-          storeLocal85 = storeLocal54;
-          storeLocal86 = storeLocal53.length;
+          matchedDepth = sharedPrefixDepth;
+          matchedOffset = sharedPrefix.length;
         } else {
-          let storeLocal515 = Math.min(storeLocal84, storeLocal45.length);
-          for (
-            let storeLocal577 = 0;
-            storeLocal577 < storeLocal515;
-            storeLocal577++
-          ) {
-            let storeLocal616 = storeLocal68.charCodeAt(storeLocal577);
-            if (storeLocal616 !== storeLocal45.charCodeAt(storeLocal577)) break;
-            storeLocal616 === 47 &&
-              (storeLocal85++, (storeLocal86 = storeLocal577 + 1));
+          let limit = Math.min(pathLength, previousPath.length);
+          for (let index = 0; index < limit; index++) {
+            let charCode = path.charCodeAt(index);
+            if (charCode !== previousPath.charCodeAt(index)) break;
+            charCode === 47 && (matchedDepth++, (matchedOffset = index + 1));
           }
         }
-      storeLocal52 = storeLocal85;
-      storeLocal46 = storeLocal85;
-      let storeLocal87 = storeLocal86,
-        storeLocal88 = storeLocal68.indexOf("/", storeLocal87);
-      for (; storeLocal88 >= 0; ) {
-        let storeLocal232 = storeLocal51[storeLocal52];
-        if (storeLocal232 === undefined)
+      stackDepth = matchedDepth;
+      depth = matchedDepth;
+      let segmentStart = matchedOffset,
+        slashIndex = path.indexOf("/", segmentStart);
+      for (; slashIndex >= 0; ) {
+        let _parentId = directoryStack[stackDepth];
+        if (_parentId === undefined)
           throw Error(
             "Directory stack underflow while building the path store",
           );
-        storeLocal46++;
-        let storeLocal233 = storeLocal68.slice(storeLocal87, storeLocal88),
-          storeLocal234 = storeLocal49.get(storeLocal233);
-        storeLocal234 === undefined &&
-          ((storeLocal234 = storeLocal50.length),
-          storeLocal49.set(storeLocal233, storeLocal234),
-          storeLocal50.push(storeLocal233));
-        let storeLocal235 = storeLocal47.length;
-        storeLocal47.push({
-          depthAndFlags: storeRoutine13(storeLocal46, 0, 1),
-          nameId: storeLocal234,
-          parentId: storeLocal232,
+        depth++;
+        let segment = path.slice(segmentStart, slashIndex),
+          _nameId = idByValue.get(segment);
+        _nameId === undefined &&
+          ((_nameId = valueById.length),
+          idByValue.set(segment, _nameId),
+          valueById.push(segment));
+        let nodeId = nodes.length;
+        nodes.push({
+          depthAndFlags: packDepthAndFlags(depth, 0, 1),
+          nameId: _nameId,
+          parentId: _parentId,
           subtreeNodeCount: 1,
           visibleSubtreeCount: 1,
         });
-        this.recordCreatedDirectoryPath(storeLocal68.slice(0, storeLocal88));
-        this.presortedDirectoryNodeIds.push(storeLocal235);
-        storeLocal52++;
-        storeLocal51[storeLocal52] = storeLocal235;
-        storeLocal87 = storeLocal88 + 1;
-        storeLocal88 = storeLocal68.indexOf("/", storeLocal87);
+        this.recordCreatedDirectoryPath(path.slice(0, slashIndex));
+        this.presortedDirectoryNodeIds.push(nodeId);
+        stackDepth++;
+        directoryStack[stackDepth] = nodeId;
+        segmentStart = slashIndex + 1;
+        slashIndex = path.indexOf("/", segmentStart);
       }
-      let storeLocal89 = storeLocal51[storeLocal52];
-      if (storeLocal89 === undefined)
-        throw Error(`Unable to resolve file parent for "${storeLocal68}"`);
-      let storeLocal90 = storeLocal68.slice(storeLocal87),
-        storeLocal91 = storeLocal49.get(storeLocal90);
-      storeLocal91 === undefined &&
-        ((storeLocal91 = storeLocal50.length),
-        storeLocal49.set(storeLocal90, storeLocal91),
-        storeLocal50.push(storeLocal90));
-      storeLocal47.push({
-        depthAndFlags: storeRoutine13(storeLocal46 + 1, 0),
-        nameId: storeLocal91,
-        parentId: storeLocal89,
+      let parentId = directoryStack[stackDepth];
+      if (parentId === undefined)
+        throw Error(`Unable to resolve file parent for "${path}"`);
+      let basename = path.slice(segmentStart),
+        nameId = idByValue.get(basename);
+      nameId === undefined &&
+        ((nameId = valueById.length),
+        idByValue.set(basename, nameId),
+        valueById.push(basename));
+      nodes.push({
+        depthAndFlags: packDepthAndFlags(depth + 1, 0),
+        nameId: nameId,
+        parentId: parentId,
         subtreeNodeCount: 1,
         visibleSubtreeCount: 1,
       });
-      storeLocal87 !== storeLocal53.length &&
-        ((storeLocal53 = storeLocal68.substring(0, storeLocal87)),
-        (storeLocal54 = storeLocal46));
-      storeLocal45 = storeLocal68;
+      segmentStart !== sharedPrefix.length &&
+        ((sharedPrefix = path.substring(0, segmentStart)),
+        (sharedPrefixDepth = depth));
+      previousPath = path;
     }
-    storeLocal51.length = storeLocal52 + 1;
-    storeLocal45 != null &&
-      (this.lastPreparedPath = storeRoutine39(storeLocal45));
+    directoryStack.length = stackDepth + 1;
+    previousPath != null && (this.lastPreparedPath = parsePath(previousPath));
     this.hasDeferredDirectoryIndexes = true;
   }
-  finish(input48 = {}) {
-    let storeLocal163 = input48.skipSubtreeCountPass === true;
+  finish(options = {}) {
+    let skipSubtreeCounts = options.skipSubtreeCountPass === true;
     return (
       this.hasDeferredDirectoryIndexes
-        ? (storeRoutine23(
+        ? (measurePhase(
             this.instrumentation,
             "store.builder.buildDirectoryIndexes",
-            () => this.buildPresortedFinish(storeLocal163),
+            () => this.buildPresortedFinish(skipSubtreeCounts),
           ),
           (this.hasDeferredDirectoryIndexes = false))
-        : storeLocal163 ||
-          storeRoutine23(
+        : skipSubtreeCounts ||
+          measurePhase(
             this.instrumentation,
             "store.builder.computeSubtreeCounts",
             () => this.computeSubtreeCounts(0),
@@ -997,295 +908,279 @@ var storeLocal11 = class {
       this.createdDirectoryCount === this.initialExpandedPathSet.size
     );
   }
-  appendPreparedPath(input4, input5) {
+  appendPreparedPath(preparedPath, checked) {
     if (
       ((this.hasDeferredDirectoryIndexes &&=
         (this.buildDirectoryIndexes(), false)),
       this.lastPreparedPath != null)
     ) {
-      if (input4.path === this.lastPreparedPath.path)
-        throw Error(`Duplicate path: "${input4.path}"`);
+      if (preparedPath.path === this.lastPreparedPath.path)
+        throw Error(`Duplicate path: "${preparedPath.path}"`);
       if (
-        input5 &&
+        checked &&
         (this.options.sort === "default"
-          ? storeRoutine35(
+          ? comparePathsCached(
               this.lastPreparedPath,
-              input4,
+              preparedPath,
               this.segmentSortKeyCache,
             )
-          : storeRoutine44(this.lastPreparedPath, input4, this.options.sort)) >
-          0
+          : compareWithSort(
+              this.lastPreparedPath,
+              preparedPath,
+              this.options.sort,
+            )) > 0
       )
         throw Error(
-          `Builder input must be sorted before appendPaths(): "${input4.path}"`,
+          `Builder input must be sorted before appendPaths(): "${preparedPath.path}"`,
         );
     }
-    let storeLocal39 = this.lastPreparedPath,
-      storeLocal40 = storeRoutine47(input4),
-      storeLocal41 = storeLocal39 == null ? 0 : storeRoutine47(storeLocal39),
-      storeLocal42 =
-        storeLocal39 == null
+    let previousPath = this.lastPreparedPath,
+      segmentCount = getDirectoryDepth(preparedPath),
+      previousSegmentCount =
+        previousPath == null ? 0 : getDirectoryDepth(previousPath),
+      sharedSegmentCount =
+        previousPath == null
           ? 0
-          : storeRoutine46(storeLocal39.segments, input4.segments),
-      storeLocal43 = Math.min(storeLocal42, storeLocal40, storeLocal41);
-    this.directoryStack.length = storeLocal43 + 1;
-    for (
-      let storeLocal315 = storeLocal43;
-      storeLocal315 < storeLocal40;
-      storeLocal315++
-    ) {
-      let storeLocal335 = this.directoryStack[this.directoryStack.length - 1];
-      if (storeLocal335 === undefined)
+          : commonPrefixLength(previousPath.segments, preparedPath.segments),
+      reuseDepth = Math.min(
+        sharedSegmentCount,
+        segmentCount,
+        previousSegmentCount,
+      );
+    this.directoryStack.length = reuseDepth + 1;
+    for (let depth = reuseDepth; depth < segmentCount; depth++) {
+      let _parentId = this.directoryStack[this.directoryStack.length - 1];
+      if (_parentId === undefined)
         throw Error("Directory stack underflow while building the path store");
-      let storeLocal336 = input5
+      let childId = checked
         ? this.getOrCreateDirectoryChild(
-            storeLocal335,
-            input4.segments[storeLocal315],
+            _parentId,
+            preparedPath.segments[depth],
           )
-        : this.createDirectoryChild(
-            storeLocal335,
-            input4.segments[storeLocal315],
-          );
-      this.directoryStack.push(storeLocal336);
+        : this.createDirectoryChild(_parentId, preparedPath.segments[depth]);
+      this.directoryStack.push(childId);
     }
-    if (input4.isDirectory) {
-      let storeLocal395 = this.directoryStack[this.directoryStack.length - 1];
-      if (storeLocal395 === undefined)
-        throw Error(`Unable to resolve directory node for "${input4.path}"`);
-      this.promoteDirectoryToExplicit(storeLocal395, input4.path);
-      this.lastPreparedPath = input4;
+    if (preparedPath.isDirectory) {
+      let directoryNodeId = this.directoryStack[this.directoryStack.length - 1];
+      if (directoryNodeId === undefined)
+        throw Error(
+          `Unable to resolve directory node for "${preparedPath.path}"`,
+        );
+      this.promoteDirectoryToExplicit(directoryNodeId, preparedPath.path);
+      this.lastPreparedPath = preparedPath;
       return;
     }
-    let storeLocal44 = this.directoryStack[this.directoryStack.length - 1];
-    if (storeLocal44 === undefined)
-      throw Error(`Unable to resolve file parent for "${input4.path}"`);
-    input5
-      ? this.createFileChild(storeLocal44, input4.basename, input4.path)
-      : this.createFileChildUnchecked(storeLocal44, input4.basename);
-    this.lastPreparedPath = input4;
+    let parentId = this.directoryStack[this.directoryStack.length - 1];
+    if (parentId === undefined)
+      throw Error(`Unable to resolve file parent for "${preparedPath.path}"`);
+    checked
+      ? this.createFileChild(parentId, preparedPath.basename, preparedPath.path)
+      : this.createFileChildUnchecked(parentId, preparedPath.basename);
+    this.lastPreparedPath = preparedPath;
   }
-  recordCreatedDirectoryPath(input201) {
+  recordCreatedDirectoryPath(path) {
     !this.createdDirectoriesAllExpanded ||
       this.initialExpandedPathSet == null ||
       ((this.createdDirectoryCount += 1),
-      this.initialExpandedPathSet.has(input201) ||
+      this.initialExpandedPathSet.has(path) ||
         (this.createdDirectoriesAllExpanded = false));
   }
-  createFileChild(input64, input65, input66) {
-    let storeLocal205 = storeRoutine41(this.segmentTable, input65),
-      storeLocal206 = this.getDirectoryIndex(input64),
-      storeLocal207 = storeLocal206.childIdByNameId;
-    if (storeLocal207 != null && storeLocal207.get(storeLocal205) !== undefined)
-      throw Error(`Path collides with an existing entry: "${input66}"`);
-    let storeLocal208 = this.nodes[input64];
-    if (storeLocal208 === undefined)
-      throw Error(`Unknown parent node ID: ${String(input64)}`);
-    let storeLocal209 = this.nodes.length;
+  createFileChild(parentId, basename, path) {
+    let nameId = internSegment(this.segmentTable, basename),
+      directory = this.getDirectoryIndex(parentId),
+      childIdByNameId = directory.childIdByNameId;
+    if (childIdByNameId != null && childIdByNameId.get(nameId) !== undefined)
+      throw Error(`Path collides with an existing entry: "${path}"`);
+    let parentNode = this.nodes[parentId];
+    if (parentNode === undefined)
+      throw Error(`Unknown parent node ID: ${String(parentId)}`);
+    let nodeId = this.nodes.length;
     return (
       this.nodes.push({
-        depthAndFlags: storeRoutine13(storeRoutine14(storeLocal208) + 1, 0),
-        nameId: storeLocal205,
-        parentId: input64,
+        depthAndFlags: packDepthAndFlags(getDepth(parentNode) + 1, 0),
+        nameId: nameId,
+        parentId: parentId,
         subtreeNodeCount: 1,
         visibleSubtreeCount: 1,
       }),
-      storeLocal207?.set(storeLocal205, storeLocal209),
-      storeRoutine5(storeLocal206, storeLocal209),
-      storeLocal209
+      childIdByNameId?.set(nameId, nodeId),
+      appendChild(directory, nodeId),
+      nodeId
     );
   }
-  createFileChildUnchecked(input98, input99) {
-    let storeLocal268 = storeRoutine41(this.segmentTable, input99),
-      storeLocal269 = this.getDirectoryIndex(input98),
-      storeLocal270 = this.nodes[input98];
-    if (storeLocal270 === undefined)
-      throw Error(`Unknown parent node ID: ${String(input98)}`);
-    let storeLocal271 = this.nodes.length;
+  createFileChildUnchecked(parentId, basename) {
+    let nameId = internSegment(this.segmentTable, basename),
+      directory = this.getDirectoryIndex(parentId),
+      parentNode = this.nodes[parentId];
+    if (parentNode === undefined)
+      throw Error(`Unknown parent node ID: ${String(parentId)}`);
+    let nodeId = this.nodes.length;
     return (
       this.nodes.push({
-        depthAndFlags: storeRoutine13(storeRoutine14(storeLocal270) + 1, 0),
-        nameId: storeLocal268,
-        parentId: input98,
+        depthAndFlags: packDepthAndFlags(getDepth(parentNode) + 1, 0),
+        nameId: nameId,
+        parentId: parentId,
         subtreeNodeCount: 1,
         visibleSubtreeCount: 1,
       }),
-      storeLocal269.childIdByNameId != null &&
-        storeLocal269.childIdByNameId.set(storeLocal268, storeLocal271),
-      storeRoutine5(storeLocal269, storeLocal271),
-      storeLocal271
+      directory.childIdByNameId != null &&
+        directory.childIdByNameId.set(nameId, nodeId),
+      appendChild(directory, nodeId),
+      nodeId
     );
   }
-  getOrCreateDirectoryChild(input32, input33) {
-    let storeLocal147 = storeRoutine41(this.segmentTable, input33),
-      storeLocal148 = this.getDirectoryIndex(input32);
-    if (storeLocal148.childIdByNameId != null) {
-      let storeLocal453 = storeLocal148.childIdByNameId.get(storeLocal147);
-      if (storeLocal453 !== undefined) {
-        let storeLocal505 = this.nodes[storeLocal453];
-        if (storeLocal505 != null && !storeRoutine16(storeLocal505))
+  getOrCreateDirectoryChild(parentId, name) {
+    let nameId = internSegment(this.segmentTable, name),
+      directory = this.getDirectoryIndex(parentId);
+    if (directory.childIdByNameId != null) {
+      let existingChildId = directory.childIdByNameId.get(nameId);
+      if (existingChildId !== undefined) {
+        let existingNode = this.nodes[existingChildId];
+        if (existingNode != null && !isDirectory(existingNode))
           throw Error(
-            `Path collides with an existing file while creating directory "${input33}"`,
+            `Path collides with an existing file while creating directory "${name}"`,
           );
-        return storeLocal453;
+        return existingChildId;
       }
     }
-    let storeLocal149 = this.nodes[input32];
-    if (storeLocal149 === undefined)
-      throw Error(`Unknown parent node ID: ${String(input32)}`);
-    let storeLocal150 = this.nodes.length;
+    let parentNode = this.nodes[parentId];
+    if (parentNode === undefined)
+      throw Error(`Unknown parent node ID: ${String(parentId)}`);
+    let nodeId = this.nodes.length;
     return (
       this.nodes.push({
-        depthAndFlags: storeRoutine13(storeRoutine14(storeLocal149) + 1, 0, 1),
-        nameId: storeLocal147,
-        parentId: input32,
+        depthAndFlags: packDepthAndFlags(getDepth(parentNode) + 1, 0, 1),
+        nameId: nameId,
+        parentId: parentId,
         subtreeNodeCount: 1,
         visibleSubtreeCount: 1,
       }),
-      storeLocal148.childIdByNameId != null &&
-        storeLocal148.childIdByNameId.set(storeLocal147, storeLocal150),
-      storeRoutine5(storeLocal148, storeLocal150),
-      this.directories.set(storeLocal150, storeRoutine1()),
-      storeLocal150
+      directory.childIdByNameId != null &&
+        directory.childIdByNameId.set(nameId, nodeId),
+      appendChild(directory, nodeId),
+      this.directories.set(nodeId, createChildBookkeeping()),
+      nodeId
     );
   }
-  createDirectoryChild(input85, input86) {
-    let storeLocal246 = storeRoutine41(this.segmentTable, input86),
-      storeLocal247 = this.getDirectoryIndex(input85),
-      storeLocal248 = this.nodes[input85];
-    if (storeLocal248 === undefined)
-      throw Error(`Unknown parent node ID: ${String(input85)}`);
-    let storeLocal249 = this.nodes.length;
+  createDirectoryChild(parentId, name) {
+    let nameId = internSegment(this.segmentTable, name),
+      directory = this.getDirectoryIndex(parentId),
+      parentNode = this.nodes[parentId];
+    if (parentNode === undefined)
+      throw Error(`Unknown parent node ID: ${String(parentId)}`);
+    let nodeId = this.nodes.length;
     return (
       this.nodes.push({
-        depthAndFlags: storeRoutine13(storeRoutine14(storeLocal248) + 1, 0, 1),
-        nameId: storeLocal246,
-        parentId: input85,
+        depthAndFlags: packDepthAndFlags(getDepth(parentNode) + 1, 0, 1),
+        nameId: nameId,
+        parentId: parentId,
         subtreeNodeCount: 1,
         visibleSubtreeCount: 1,
       }),
-      storeLocal247.childIdByNameId != null &&
-        storeLocal247.childIdByNameId.set(storeLocal246, storeLocal249),
-      storeRoutine5(storeLocal247, storeLocal249),
-      this.directories.set(storeLocal249, storeRoutine1()),
-      storeLocal249
+      directory.childIdByNameId != null &&
+        directory.childIdByNameId.set(nameId, nodeId),
+      appendChild(directory, nodeId),
+      this.directories.set(nodeId, createChildBookkeeping()),
+      nodeId
     );
   }
-  promoteDirectoryToExplicit(input184, input185) {
-    let storeLocal367 = this.nodes[input184];
-    if (storeLocal367 === undefined)
-      throw Error(`Unknown directory node ID: ${String(input184)}`);
-    if (!storeRoutine16(storeLocal367))
-      throw Error(`Path is not a directory: "${input185}"`);
-    if (storeRoutine18(storeLocal367, 1))
-      throw Error(`Duplicate path: "${input185}"`);
-    storeRoutine19(storeLocal367, 1);
+  promoteDirectoryToExplicit(nodeId, path) {
+    let node = this.nodes[nodeId];
+    if (node === undefined)
+      throw Error(`Unknown directory node ID: ${String(nodeId)}`);
+    if (!isDirectory(node)) throw Error(`Path is not a directory: "${path}"`);
+    if (hasFlag(node, 1)) throw Error(`Duplicate path: "${path}"`);
+    setFlags(node, 1);
   }
-  getDirectoryIndex(input265) {
-    let storeLocal491 = this.directories.get(input265);
-    if (storeLocal491 !== undefined) return storeLocal491;
-    throw Error(`Unknown directory child index for node ${String(input265)}`);
+  getDirectoryIndex(nodeId) {
+    let directory = this.directories.get(nodeId);
+    if (directory !== undefined) return directory;
+    throw Error(`Unknown directory child index for node ${String(nodeId)}`);
   }
-  buildPresortedFinish(input60) {
-    let storeLocal200 = this.nodes,
-      storeLocal201 = this.directories;
-    storeLocal201.set(0, storeRoutine2());
-    let storeLocal202 = -1,
-      storeLocal203 = null;
-    for (
-      let storeLocal441 = 1;
-      storeLocal441 < storeLocal200.length;
-      storeLocal441++
-    ) {
-      let storeLocal466 = storeLocal200[storeLocal441];
-      if (storeLocal466 == null) continue;
-      if (storeRoutine16(storeLocal466)) {
-        let storeLocal670 = storeRoutine2();
-        storeLocal201.set(storeLocal441, storeLocal670);
-        storeLocal202 = storeLocal441;
-        storeLocal203 = storeLocal670;
+  buildPresortedFinish(skipSubtreeCounts) {
+    let nodes = this.nodes,
+      directories = this.directories;
+    directories.set(0, createEmptyChildBookkeeping());
+    let lastParentId = -1,
+      lastDirectory = null;
+    for (let nodeId = 1; nodeId < nodes.length; nodeId++) {
+      let node = nodes[nodeId];
+      if (node == null) continue;
+      if (isDirectory(node)) {
+        let directory = createEmptyChildBookkeeping();
+        directories.set(nodeId, directory);
+        lastParentId = nodeId;
+        lastDirectory = directory;
       }
-      let storeLocal467;
-      storeLocal466.parentId === storeLocal202
-        ? (storeLocal467 = storeLocal203)
-        : ((storeLocal467 = storeLocal201.get(storeLocal466.parentId)),
-          (storeLocal202 = storeLocal466.parentId),
-          (storeLocal203 = storeLocal467 ?? null));
-      storeLocal467?.childIds.push(storeLocal441);
+      let parentDirectory;
+      node.parentId === lastParentId
+        ? (parentDirectory = lastDirectory)
+        : ((parentDirectory = directories.get(node.parentId)),
+          (lastParentId = node.parentId),
+          (lastDirectory = parentDirectory ?? null));
+      parentDirectory?.childIds.push(nodeId);
     }
-    if (!input60)
-      for (
-        let storeLocal454 = storeLocal200.length - 1;
-        storeLocal454 >= 1;
-        storeLocal454--
-      ) {
-        let storeLocal478 = storeLocal200[storeLocal454];
-        if (storeLocal478 == null) continue;
-        let storeLocal479 = storeLocal200[storeLocal478.parentId];
-        storeLocal479 != null &&
-          ((storeLocal479.subtreeNodeCount += storeLocal478.subtreeNodeCount),
-          (storeLocal479.visibleSubtreeCount +=
-            storeLocal478.visibleSubtreeCount));
+    if (!skipSubtreeCounts)
+      for (let nodeId = nodes.length - 1; nodeId >= 1; nodeId--) {
+        let node = nodes[nodeId];
+        if (node == null) continue;
+        let parentNode = nodes[node.parentId];
+        parentNode != null &&
+          ((parentNode.subtreeNodeCount += node.subtreeNodeCount),
+          (parentNode.visibleSubtreeCount += node.visibleSubtreeCount));
       }
   }
   buildDirectoryIndexes() {
-    let storeLocal343 = this.nodes;
-    for (
-      let storeLocal394 = 1;
-      storeLocal394 < storeLocal343.length;
-      storeLocal394++
-    ) {
-      let storeLocal446 = storeLocal343[storeLocal394];
-      if (storeLocal446 == null) continue;
-      storeRoutine16(storeLocal446) &&
-        this.directories.set(storeLocal394, storeRoutine1());
-      let storeLocal447 = this.directories.get(storeLocal446.parentId);
-      storeLocal447 != null &&
-        (storeLocal447.childIdByNameId != null &&
-          storeLocal447.childIdByNameId.set(
-            storeLocal446.nameId,
-            storeLocal394,
-          ),
-        storeRoutine5(storeLocal447, storeLocal394));
+    let nodes = this.nodes;
+    for (let nodeId = 1; nodeId < nodes.length; nodeId++) {
+      let node = nodes[nodeId];
+      if (node == null) continue;
+      isDirectory(node) &&
+        this.directories.set(nodeId, createChildBookkeeping());
+      let parentDirectory = this.directories.get(node.parentId);
+      parentDirectory != null &&
+        (parentDirectory.childIdByNameId != null &&
+          parentDirectory.childIdByNameId.set(node.nameId, nodeId),
+        appendChild(parentDirectory, nodeId));
     }
   }
-  computeSubtreeCounts(input117) {
-    let storeLocal289 = this.nodes[input117];
-    if (storeLocal289 === undefined)
-      throw Error(`Unknown node ID: ${String(input117)}`);
-    if (!storeRoutine16(storeLocal289))
-      return (
-        (storeLocal289.subtreeNodeCount = 1),
-        (storeLocal289.visibleSubtreeCount = 1),
-        1
-      );
-    let storeLocal290 = this.getDirectoryIndex(input117),
-      storeLocal291 = 1;
-    for (let storeLocal645 of storeLocal290.childIds)
-      storeLocal291 += this.computeSubtreeCounts(storeLocal645);
+  computeSubtreeCounts(nodeId) {
+    let node = this.nodes[nodeId];
+    if (node === undefined) throw Error(`Unknown node ID: ${String(nodeId)}`);
+    if (!isDirectory(node))
+      return ((node.subtreeNodeCount = 1), (node.visibleSubtreeCount = 1), 1);
+    let directory = this.getDirectoryIndex(nodeId),
+      subtreeCount = 1;
+    for (let childId of directory.childIds)
+      subtreeCount += this.computeSubtreeCounts(childId);
     return (
-      storeRoutine7(this.nodes, storeLocal290),
-      (storeLocal289.subtreeNodeCount = storeLocal291),
-      (storeLocal289.visibleSubtreeCount = storeLocal291),
-      storeLocal291
+      recomputeChildSubtreeCounts(this.nodes, directory),
+      (node.subtreeNodeCount = subtreeCount),
+      (node.visibleSubtreeCount = subtreeCount),
+      subtreeCount
     );
   }
 };
-function storeRoutine57(input61, input62 = "closed", input63 = null) {
-  let storeLocal204 = storeRoutine59(input62);
+function createStoreState(
+  snapshot,
+  initialExpansion = "closed",
+  instrumentation = null,
+) {
+  let defaultExpansion = normalizeInitialExpansion(initialExpansion);
   return {
-    activeNodeCount: input61.nodes.length - 1,
+    activeNodeCount: snapshot.nodes.length - 1,
     collapsedDirectoryIds: new Set(),
     collapseNewDirectoriesByDefault: false,
-    defaultExpansion: storeLocal204,
-    directoriesOpenByDefault: storeLocal204 === "open",
+    defaultExpansion: defaultExpansion,
+    directoriesOpenByDefault: defaultExpansion === "open",
     hasCollapsedDirectoryOverrides: false,
     directoryLoadInfoById: new Map(),
     expandedDirectoryIds: new Set(),
-    instrumentation: input63,
+    instrumentation: instrumentation,
     listeners: new Map(),
     pathCacheByNodeId: new Map([
       [
-        input61.rootId,
+        snapshot.rootId,
         {
           path: "",
           version: 0,
@@ -1293,2713 +1188,2559 @@ function storeRoutine57(input61, input62 = "closed", input63 = null) {
       ],
     ]),
     pathCacheVersion: 0,
-    snapshot: input61,
+    snapshot: snapshot,
     transactionStack: [],
   };
 }
-function storeRoutine58() {
+function createTransactionFrame() {
   return {
     affectedAncestorIds: new Set(),
     affectedNodeIds: new Set(),
     events: [],
   };
 }
-function storeRoutine59(input213) {
-  if (typeof input213 != "number") return input213;
-  if (!Number.isInteger(input213) || input213 < 0)
+function normalizeInitialExpansion(initialExpansion) {
+  if (typeof initialExpansion != "number") return initialExpansion;
+  if (!Number.isInteger(initialExpansion) || initialExpansion < 0)
     throw Error(
-      `initialExpansion must be "open", "closed", or a non-negative integer depth. Received: ${String(input213)}`,
+      `initialExpansion must be "open", "closed", or a non-negative integer depth. Received: ${String(initialExpansion)}`,
     );
-  return input213;
+  return initialExpansion;
 }
-function storeRoutine60(input297, input298) {
-  return storeRoutine18(input298, 2) || input297.defaultExpansion === "open"
+function isExpandedByDefault(state, node) {
+  return hasFlag(node, 2) || state.defaultExpansion === "open"
     ? true
-    : input297.defaultExpansion === "closed"
+    : state.defaultExpansion === "closed"
       ? false
-      : storeRoutine14(input298) <= input297.defaultExpansion;
+      : getDepth(node) <= state.defaultExpansion;
 }
-function storeRoutine61(
-  input205,
-  input206,
-  input207 = input205.snapshot.nodes[input206],
+function isDirectoryExpanded(
+  state,
+  nodeId,
+  node = state.snapshot.nodes[nodeId],
 ) {
-  return input207 == null || !storeRoutine16(input207)
+  return node == null || !isDirectory(node)
     ? false
-    : input205.directoriesOpenByDefault &&
-        !input205.hasCollapsedDirectoryOverrides
+    : state.directoriesOpenByDefault && !state.hasCollapsedDirectoryOverrides
       ? true
-      : input205.collapsedDirectoryIds.has(input206)
+      : state.collapsedDirectoryIds.has(nodeId)
         ? false
-        : input205.expandedDirectoryIds.has(input206)
+        : state.expandedDirectoryIds.has(nodeId)
           ? true
-          : storeRoutine60(input205, input207);
+          : isExpandedByDefault(state, node);
 }
-function storeRoutine62(
-  input104,
-  input105,
-  input106,
-  input107 = input104.snapshot.nodes[input105],
+function setDirectoryExpanded(
+  state,
+  nodeId,
+  expanded,
+  node = state.snapshot.nodes[nodeId],
 ) {
-  if (input107 == null || !storeRoutine16(input107)) return;
-  let storeLocal276 = storeRoutine60(input104, input107);
-  if (input106) {
-    if (storeLocal276) {
-      input104.collapsedDirectoryIds.delete(input105);
-      input104.hasCollapsedDirectoryOverrides =
-        input104.collapsedDirectoryIds.size > 0;
+  if (node == null || !isDirectory(node)) return;
+  let expandedByDefault = isExpandedByDefault(state, node);
+  if (expanded) {
+    if (expandedByDefault) {
+      state.collapsedDirectoryIds.delete(nodeId);
+      state.hasCollapsedDirectoryOverrides =
+        state.collapsedDirectoryIds.size > 0;
       return;
     }
-    input104.expandedDirectoryIds.add(input105);
+    state.expandedDirectoryIds.add(nodeId);
     return;
   }
-  if (storeLocal276) {
-    input104.collapsedDirectoryIds.add(input105);
-    input104.hasCollapsedDirectoryOverrides = true;
+  if (expandedByDefault) {
+    state.collapsedDirectoryIds.add(nodeId);
+    state.hasCollapsedDirectoryOverrides = true;
     return;
   }
-  input104.expandedDirectoryIds.delete(input105);
+  state.expandedDirectoryIds.delete(nodeId);
 }
-function storeRoutine63(input221, input222) {
-  let storeLocal425 = input221.directoryLoadInfoById.get(input222);
-  if (storeLocal425 != null) return storeLocal425;
-  let storeLocal426 = {
+function getOrCreateDirectoryLoadInfo(state, nodeId) {
+  let existing = state.directoryLoadInfoById.get(nodeId);
+  if (existing != null) return existing;
+  let loadInfo = {
     activeAttemptId: null,
     errorMessage: null,
     nextAttemptId: 1,
     state: "loaded",
   };
-  return (
-    input221.directoryLoadInfoById.set(input222, storeLocal426),
-    storeLocal426
-  );
+  return (state.directoryLoadInfoById.set(nodeId, loadInfo), loadInfo);
 }
-function storeRoutine64(input376, input377) {
-  return input376.directoryLoadInfoById.get(input377)?.state ?? "loaded";
+function getDirectoryLoadState(state, nodeId) {
+  return state.directoryLoadInfoById.get(nodeId)?.state ?? "loaded";
 }
-function storeRoutine65(input151, input152) {
-  let storeLocal332 = storeRoutine63(input151, input152);
-  if (
-    storeLocal332.state === "loading" &&
-    storeLocal332.activeAttemptId != null
-  )
+function beginDirectoryLoad(state, nodeId) {
+  let loadInfo = getOrCreateDirectoryLoadInfo(state, nodeId);
+  if (loadInfo.state === "loading" && loadInfo.activeAttemptId != null)
     return {
-      attemptId: storeLocal332.activeAttemptId,
-      nodeId: input152,
+      attemptId: loadInfo.activeAttemptId,
+      nodeId: nodeId,
       reused: true,
     };
-  let storeLocal333 = storeLocal332.nextAttemptId;
+  let attemptId = loadInfo.nextAttemptId;
   return (
-    (storeLocal332.activeAttemptId = storeLocal333),
-    (storeLocal332.errorMessage = null),
-    (storeLocal332.nextAttemptId += 1),
-    (storeLocal332.state = "loading"),
+    (loadInfo.activeAttemptId = attemptId),
+    (loadInfo.errorMessage = null),
+    (loadInfo.nextAttemptId += 1),
+    (loadInfo.state = "loading"),
     {
-      attemptId: storeLocal333,
-      nodeId: input152,
+      attemptId: attemptId,
+      nodeId: nodeId,
       reused: false,
     }
   );
 }
-function storeRoutine66(input354, input355) {
-  let storeLocal575 = storeRoutine63(input354, input355);
-  storeLocal575.activeAttemptId = null;
-  storeLocal575.errorMessage = null;
-  storeLocal575.state = "unloaded";
+function markDirectoryUnloaded(state, nodeId) {
+  let loadInfo = getOrCreateDirectoryLoadInfo(state, nodeId);
+  loadInfo.activeAttemptId = null;
+  loadInfo.errorMessage = null;
+  loadInfo.state = "unloaded";
 }
-function storeRoutine67(input241, input242, input243) {
-  let storeLocal465 = input241.directoryLoadInfoById.get(input242);
-  return storeLocal465 == null || storeLocal465.activeAttemptId !== input243
+function completeDirectoryLoad(state, nodeId, attemptId) {
+  let loadInfo = state.directoryLoadInfoById.get(nodeId);
+  return loadInfo == null || loadInfo.activeAttemptId !== attemptId
     ? false
-    : ((storeLocal465.activeAttemptId = null),
-      (storeLocal465.errorMessage = null),
-      (storeLocal465.state = "loaded"),
+    : ((loadInfo.activeAttemptId = null),
+      (loadInfo.errorMessage = null),
+      (loadInfo.state = "loaded"),
       true);
 }
-function storeRoutine68(input365, input366, input367) {
-  return (
-    input365.directoryLoadInfoById.get(input366)?.activeAttemptId === input367
-  );
+function isLoadAttemptActive(state, nodeId, attemptId) {
+  return state.directoryLoadInfoById.get(nodeId)?.activeAttemptId === attemptId;
 }
-function storeRoutine69(input237, input238, input239, input240) {
-  let storeLocal462 = input237.directoryLoadInfoById.get(input238);
-  return storeLocal462 == null || storeLocal462.activeAttemptId !== input239
+function failDirectoryLoad(state, nodeId, attemptId, errorMessage) {
+  let loadInfo = state.directoryLoadInfoById.get(nodeId);
+  return loadInfo == null || loadInfo.activeAttemptId !== attemptId
     ? false
-    : ((storeLocal462.activeAttemptId = null),
-      (storeLocal462.errorMessage = input240 ?? null),
-      (storeLocal462.state = "error"),
+    : ((loadInfo.activeAttemptId = null),
+      (loadInfo.errorMessage = errorMessage ?? null),
+      (loadInfo.state = "error"),
       true);
 }
-function storeRoutine70(input406, input407) {
-  input406.directoryLoadInfoById.delete(input407);
+function deleteDirectoryLoadInfo(state, nodeId) {
+  state.directoryLoadInfoById.delete(nodeId);
 }
-function storeRoutine71(input224, input225, input226) {
-  let storeLocal430 = input226,
-    storeLocal431 = input224.listeners.get(input225);
+function addDirectoryLoadListener(state, nodeId, listener) {
+  let _listener = listener,
+    listeners = state.listeners.get(nodeId);
   return (
-    storeLocal431 == null
-      ? input224.listeners.set(input225, new Set([storeLocal430]))
-      : storeLocal431.add(storeLocal430),
+    listeners == null
+      ? state.listeners.set(nodeId, new Set([_listener]))
+      : listeners.add(_listener),
     () => {
-      let storeLocal589 = input224.listeners.get(input225);
-      storeLocal589 != null &&
-        (storeLocal589.delete(storeLocal430),
-        storeLocal589.size === 0 && input224.listeners.delete(input225));
+      let _listeners = state.listeners.get(nodeId);
+      _listeners != null &&
+        (_listeners.delete(_listener),
+        _listeners.size === 0 && state.listeners.delete(nodeId));
     }
   );
 }
-function storeRoutine72(input195) {
+function createAddEvent(details) {
   return {
-    affectedAncestorIds: input195.affectedAncestorIds ?? [],
-    affectedNodeIds: input195.affectedNodeIds ?? [],
+    affectedAncestorIds: details.affectedAncestorIds ?? [],
+    affectedNodeIds: details.affectedNodeIds ?? [],
     canonicalChanged: true,
     operation: "add",
-    path: input195.path,
-    projectionChanged: input195.projectionChanged,
+    path: details.path,
+    projectionChanged: details.projectionChanged,
     visibleCountDelta: null,
   };
 }
-function storeRoutine73(input179) {
+function createRemoveEvent(details) {
   return {
-    affectedAncestorIds: input179.affectedAncestorIds ?? [],
-    affectedNodeIds: input179.affectedNodeIds ?? [],
+    affectedAncestorIds: details.affectedAncestorIds ?? [],
+    affectedNodeIds: details.affectedNodeIds ?? [],
     canonicalChanged: true,
     operation: "remove",
-    path: input179.path,
-    projectionChanged: input179.projectionChanged,
-    recursive: input179.recursive,
+    path: details.path,
+    projectionChanged: details.projectionChanged,
+    recursive: details.recursive,
     visibleCountDelta: null,
   };
 }
-function storeRoutine74(input191) {
+function createMoveEvent(details) {
   return {
-    affectedAncestorIds: input191.affectedAncestorIds ?? [],
-    affectedNodeIds: input191.affectedNodeIds ?? [],
+    affectedAncestorIds: details.affectedAncestorIds ?? [],
+    affectedNodeIds: details.affectedNodeIds ?? [],
     canonicalChanged: true,
-    from: input191.from,
+    from: details.from,
     operation: "move",
-    projectionChanged: input191.projectionChanged,
-    to: input191.to,
+    projectionChanged: details.projectionChanged,
+    to: details.to,
     visibleCountDelta: null,
   };
 }
-function storeRoutine75(input210) {
+function createExpandEvent(details) {
   return {
-    affectedAncestorIds: input210.affectedAncestorIds ?? [],
-    affectedNodeIds: input210.affectedNodeIds ?? [],
+    affectedAncestorIds: details.affectedAncestorIds ?? [],
+    affectedNodeIds: details.affectedNodeIds ?? [],
     canonicalChanged: false,
     operation: "expand",
-    path: input210.path,
+    path: details.path,
     projectionChanged: true,
     visibleCountDelta: null,
   };
 }
-function storeRoutine76(input204) {
+function createCollapseEvent(details) {
   return {
-    affectedAncestorIds: input204.affectedAncestorIds ?? [],
-    affectedNodeIds: input204.affectedNodeIds ?? [],
+    affectedAncestorIds: details.affectedAncestorIds ?? [],
+    affectedNodeIds: details.affectedNodeIds ?? [],
     canonicalChanged: false,
     operation: "collapse",
-    path: input204.path,
+    path: details.path,
     projectionChanged: true,
     visibleCountDelta: null,
   };
 }
-function storeRoutine77(input183) {
+function createMarkDirectoryUnloadedEvent(details) {
   return {
-    affectedAncestorIds: input183.affectedAncestorIds ?? [],
-    affectedNodeIds: input183.affectedNodeIds ?? [],
+    affectedAncestorIds: details.affectedAncestorIds ?? [],
+    affectedNodeIds: details.affectedNodeIds ?? [],
     canonicalChanged: false,
     operation: "mark-directory-unloaded",
-    path: input183.path,
-    projectionChanged: input183.projectionChanged,
+    path: details.path,
+    projectionChanged: details.projectionChanged,
     visibleCountDelta: null,
   };
 }
-function $e(input158) {
+function createBeginChildLoadEvent(details) {
   return {
-    affectedAncestorIds: input158.affectedAncestorIds ?? [],
-    affectedNodeIds: input158.affectedNodeIds ?? [],
-    attemptId: input158.attemptId,
+    affectedAncestorIds: details.affectedAncestorIds ?? [],
+    affectedNodeIds: details.affectedNodeIds ?? [],
+    attemptId: details.attemptId,
     canonicalChanged: false,
     operation: "begin-child-load",
-    path: input158.path,
-    projectionChanged: input158.projectionChanged,
-    reused: input158.reused,
+    path: details.path,
+    projectionChanged: details.projectionChanged,
+    reused: details.reused,
     visibleCountDelta: null,
   };
 }
-function storeRoutine78(input122) {
+function createApplyChildPatchEvent(details) {
   return {
-    affectedAncestorIds: input122.affectedAncestorIds ?? [],
-    affectedNodeIds: input122.affectedNodeIds ?? [],
-    attemptId: input122.attemptId,
-    canonicalChanged: input122.childEvents.some(
-      (item) => item.canonicalChanged,
-    ),
-    childEvents: input122.childEvents,
+    affectedAncestorIds: details.affectedAncestorIds ?? [],
+    affectedNodeIds: details.affectedNodeIds ?? [],
+    attemptId: details.attemptId,
+    canonicalChanged: details.childEvents.some((item) => item.canonicalChanged),
+    childEvents: details.childEvents,
     operation: "apply-child-patch",
-    path: input122.path,
-    projectionChanged: input122.projectionChanged,
+    path: details.path,
+    projectionChanged: details.projectionChanged,
     visibleCountDelta: null,
   };
 }
-function storeRoutine79(input157) {
+function createCompleteChildLoadEvent(details) {
   return {
-    affectedAncestorIds: input157.affectedAncestorIds ?? [],
-    affectedNodeIds: input157.affectedNodeIds ?? [],
-    attemptId: input157.attemptId,
+    affectedAncestorIds: details.affectedAncestorIds ?? [],
+    affectedNodeIds: details.affectedNodeIds ?? [],
+    attemptId: details.attemptId,
     canonicalChanged: false,
     operation: "complete-child-load",
-    path: input157.path,
-    projectionChanged: input157.projectionChanged,
-    stale: input157.stale,
+    path: details.path,
+    projectionChanged: details.projectionChanged,
+    stale: details.stale,
     visibleCountDelta: null,
   };
 }
-function storeRoutine80(input136) {
+function createFailChildLoadEvent(details) {
   return {
-    affectedAncestorIds: input136.affectedAncestorIds ?? [],
-    affectedNodeIds: input136.affectedNodeIds ?? [],
-    attemptId: input136.attemptId,
+    affectedAncestorIds: details.affectedAncestorIds ?? [],
+    affectedNodeIds: details.affectedNodeIds ?? [],
+    attemptId: details.attemptId,
     canonicalChanged: false,
-    errorMessage: input136.errorMessage,
+    errorMessage: details.errorMessage,
     operation: "fail-child-load",
-    path: input136.path,
-    projectionChanged: input136.projectionChanged,
-    stale: input136.stale,
+    path: details.path,
+    projectionChanged: details.projectionChanged,
+    stale: details.stale,
     visibleCountDelta: null,
   };
 }
-function storeRoutine81(input15) {
+function createCleanupEvent(details) {
   return {
-    activeNodeCountAfter: input15.activeNodeCountAfter,
-    activeNodeCountBefore: input15.activeNodeCountBefore,
-    affectedAncestorIds: input15.affectedAncestorIds ?? [],
-    affectedNodeIds: input15.affectedNodeIds ?? [],
-    cachedPathEntryCountAfter: input15.cachedPathEntryCountAfter,
-    cachedPathEntryCountBefore: input15.cachedPathEntryCountBefore,
+    activeNodeCountAfter: details.activeNodeCountAfter,
+    activeNodeCountBefore: details.activeNodeCountBefore,
+    affectedAncestorIds: details.affectedAncestorIds ?? [],
+    affectedNodeIds: details.affectedNodeIds ?? [],
+    cachedPathEntryCountAfter: details.cachedPathEntryCountAfter,
+    cachedPathEntryCountBefore: details.cachedPathEntryCountBefore,
     canonicalChanged: false,
-    idsPreserved: input15.idsPreserved,
-    loadInfoEntryCountAfter: input15.loadInfoEntryCountAfter,
-    loadInfoEntryCountBefore: input15.loadInfoEntryCountBefore,
-    mode: input15.mode,
+    idsPreserved: details.idsPreserved,
+    loadInfoEntryCountAfter: details.loadInfoEntryCountAfter,
+    loadInfoEntryCountBefore: details.loadInfoEntryCountBefore,
+    mode: details.mode,
     operation: "cleanup",
-    projectionChanged: input15.projectionChanged,
-    reclaimedCachedPathEntryCount: input15.reclaimedCachedPathEntryCount,
-    reclaimedLoadInfoEntryCount: input15.reclaimedLoadInfoEntryCount,
-    reclaimedNodeSlotCount: input15.reclaimedNodeSlotCount,
-    reclaimedSegmentCount: input15.reclaimedSegmentCount,
-    segmentCountAfter: input15.segmentCountAfter,
-    segmentCountBefore: input15.segmentCountBefore,
-    totalNodeSlotCountAfter: input15.totalNodeSlotCountAfter,
-    totalNodeSlotCountBefore: input15.totalNodeSlotCountBefore,
+    projectionChanged: details.projectionChanged,
+    reclaimedCachedPathEntryCount: details.reclaimedCachedPathEntryCount,
+    reclaimedLoadInfoEntryCount: details.reclaimedLoadInfoEntryCount,
+    reclaimedNodeSlotCount: details.reclaimedNodeSlotCount,
+    reclaimedSegmentCount: details.reclaimedSegmentCount,
+    segmentCountAfter: details.segmentCountAfter,
+    segmentCountBefore: details.segmentCountBefore,
+    totalNodeSlotCountAfter: details.totalNodeSlotCountAfter,
+    totalNodeSlotCountBefore: details.totalNodeSlotCountBefore,
     visibleCountDelta: null,
   };
 }
-function storeRoutine82(input401, input402, input403) {
+function withVisibleCountDelta(state, previousVisibleCount, event) {
   return {
-    ...input403,
-    visibleCountDelta: storeRoutine92(input401) - input402,
+    ...event,
+    visibleCountDelta: getRootVisibleCount(state) - previousVisibleCount,
   };
 }
-function storeRoutine83(input310, input311) {
-  let storeLocal528 = storeRoutine92(input310),
-    storeLocal529 = storeRoutine58();
-  input310.transactionStack.push(storeLocal529);
+function runTransaction(state, run) {
+  let visibleCountBefore = getRootVisibleCount(state),
+    frame = createTransactionFrame();
+  state.transactionStack.push(frame);
   try {
-    input311();
-  } catch (storeLocal671) {
-    throw (storeRoutine85(input310, storeLocal529, false), storeLocal671);
+    run();
+  } catch (error) {
+    throw (finishTransaction(state, frame, false), error);
   }
-  storeRoutine85(
-    input310,
-    storeLocal529,
+  finishTransaction(
+    state,
+    frame,
     true,
-    storeRoutine92(input310) - storeLocal528,
+    getRootVisibleCount(state) - visibleCountBefore,
   );
 }
-function storeRoutine84(input336, input337) {
-  let storeLocal552 = input336.instrumentation;
-  if (storeLocal552 == null) {
-    at(input336, input337);
+function recordEvent(state, event) {
+  let instrumentation = state.instrumentation;
+  if (instrumentation == null) {
+    enqueueEvent(state, event);
     return;
   }
-  storeRoutine23(storeLocal552, "store.events.record", () =>
-    at(input336, input337),
+  measurePhase(instrumentation, "store.events.record", () =>
+    enqueueEvent(state, event),
   );
 }
-function at(input284, input285) {
-  let storeLocal508 =
-    input284.transactionStack[input284.transactionStack.length - 1] ?? null;
-  if (storeLocal508 == null) {
-    storeRoutine90(input284, input285);
+function enqueueEvent(state, event) {
+  let frame = state.transactionStack[state.transactionStack.length - 1] ?? null;
+  if (frame == null) {
+    emitEvent(state, event);
     return;
   }
-  storeLocal508.events.push(input285);
-  storeRoutine89(storeLocal508, input285);
+  frame.events.push(event);
+  mergeAffectedSets(frame, event);
 }
-function storeRoutine85(input93, input94, input95, input96 = null) {
-  if (input93.transactionStack.pop() !== input94)
+function finishTransaction(state, frame, commit, visibleCountDelta = null) {
+  if (state.transactionStack.pop() !== frame)
     throw Error("Transaction stack underflow");
-  if (!input95) return;
-  let storeLocal255 =
-    input93.transactionStack[input93.transactionStack.length - 1] ?? null;
-  if (storeLocal255 != null) {
-    let storeLocal578 = input93.instrumentation;
-    storeLocal578 == null
-      ? storeRoutine88(storeLocal255, input94)
-      : storeRoutine23(storeLocal578, "store.events.batch.merge", () =>
-          storeRoutine88(storeLocal255, input94),
+  if (!commit) return;
+  let parentFrame =
+    state.transactionStack[state.transactionStack.length - 1] ?? null;
+  if (parentFrame != null) {
+    let _instrumentation = state.instrumentation;
+    _instrumentation == null
+      ? mergeMutationResults(parentFrame, frame)
+      : measurePhase(_instrumentation, "store.events.batch.merge", () =>
+          mergeMutationResults(parentFrame, frame),
         );
     return;
   }
-  let storeLocal256 = storeRoutine86(input94, input96),
-    storeLocal257 = input93.instrumentation;
-  if (storeLocal257 == null) {
-    storeRoutine90(input93, storeLocal256);
+  let batchEvent = createBatchEvent(frame, visibleCountDelta),
+    instrumentation = state.instrumentation;
+  if (instrumentation == null) {
+    emitEvent(state, batchEvent);
     return;
   }
-  storeRoutine23(storeLocal257, "store.events.batch.commit", () =>
-    storeRoutine90(input93, storeLocal256),
+  measurePhase(instrumentation, "store.events.batch.commit", () =>
+    emitEvent(state, batchEvent),
   );
 }
-function storeRoutine86(input145, input146) {
+function createBatchEvent(frame, visibleCountDelta) {
   return {
-    affectedAncestorIds: [...input145.affectedAncestorIds],
-    affectedNodeIds: [...input145.affectedNodeIds],
-    canonicalChanged: input145.events.some((item) => item.canonicalChanged),
-    events: [...input145.events],
+    affectedAncestorIds: [...frame.affectedAncestorIds],
+    affectedNodeIds: [...frame.affectedNodeIds],
+    canonicalChanged: frame.events.some((item) => item.canonicalChanged),
+    events: [...frame.events],
     operation: "batch",
-    projectionChanged: input145.events.some((item) => item.projectionChanged),
-    visibleCountDelta: input146,
+    projectionChanged: frame.events.some((item) => item.projectionChanged),
+    visibleCountDelta: visibleCountDelta,
   };
 }
-function storeRoutine87(input268, input269) {
-  for (let storeLocal637 of input269.affectedAncestorIds)
-    input268.affectedAncestorIds.add(storeLocal637);
-  for (let storeLocal648 of input269.affectedNodeIds)
-    input268.affectedNodeIds.add(storeLocal648);
+function mergeAffectedIds(target, source) {
+  for (let ancestorId of source.affectedAncestorIds)
+    target.affectedAncestorIds.add(ancestorId);
+  for (let nodeId of source.affectedNodeIds) target.affectedNodeIds.add(nodeId);
 }
-function storeRoutine88(input392, input393) {
-  for (let storeLocal661 of input393.events)
-    input392.events.push(storeLocal661);
-  storeRoutine87(input392, input393);
+function mergeMutationResults(target, source) {
+  for (let event of source.events) target.events.push(event);
+  mergeAffectedIds(target, source);
 }
-function storeRoutine89(input270, input271) {
-  for (let storeLocal646 of input271.affectedNodeIds)
-    input270.affectedNodeIds.add(storeLocal646);
-  for (let storeLocal640 of input271.affectedAncestorIds)
-    input270.affectedAncestorIds.add(storeLocal640);
+function mergeAffectedSets(target, source) {
+  for (let nodeId of source.affectedNodeIds) target.affectedNodeIds.add(nodeId);
+  for (let ancestorId of source.affectedAncestorIds)
+    target.affectedAncestorIds.add(ancestorId);
 }
-function storeRoutine90(input338, input339) {
-  let storeLocal556 = input338.instrumentation;
-  if (storeLocal556 == null) {
-    storeRoutine91(input338, input339);
+function emitEvent(state, event) {
+  let instrumentation = state.instrumentation;
+  if (instrumentation == null) {
+    notifyListeners(state, event);
     return;
   }
-  storeRoutine23(storeLocal556, "store.events.emit", () =>
-    storeRoutine91(input338, input339),
+  measurePhase(instrumentation, "store.events.emit", () =>
+    notifyListeners(state, event),
   );
 }
-function storeRoutine91(input344, input345) {
-  input344.listeners
-    .get(input345.operation)
-    ?.forEach((input445) => input445(input345));
-  input344.listeners.get("*")?.forEach((input446) => input446(input345));
+function notifyListeners(state, event) {
+  state.listeners.get(event.operation)?.forEach((listener) => listener(event));
+  state.listeners.get("*")?.forEach((listener) => listener(event));
 }
-function storeRoutine92(input361) {
-  return (
-    input361.snapshot.nodes[input361.snapshot.rootId]?.visibleSubtreeCount ?? 0
-  );
+function getRootVisibleCount(state) {
+  return state.snapshot.nodes[state.snapshot.rootId]?.visibleSubtreeCount ?? 0;
 }
-function storeRoutine93(input120, input121) {
-  if (input120.snapshot.options.flattenEmptyDirectories !== true) return null;
-  let storeLocal294 = input120.snapshot.nodes[input121];
-  if (
-    storeLocal294 == null ||
-    !storeRoutine16(storeLocal294) ||
-    storeRoutine18(storeLocal294, 2)
-  )
-    return null;
-  let storeLocal295 = input120.snapshot.directories.get(input121);
-  if (storeLocal295 == null || storeLocal295.childIds.length !== 1) return null;
-  let storeLocal296 = storeLocal295.childIds[0];
-  if (storeLocal296 == null) return null;
-  let storeLocal297 = input120.snapshot.nodes[storeLocal296];
-  return storeLocal297 == null || !storeRoutine16(storeLocal297)
-    ? null
-    : storeLocal296;
+function getCollapsibleChildId(state, nodeId) {
+  if (state.snapshot.options.flattenEmptyDirectories !== true) return null;
+  let node = state.snapshot.nodes[nodeId];
+  if (node == null || !isDirectory(node) || hasFlag(node, 2)) return null;
+  let directory = state.snapshot.directories.get(nodeId);
+  if (directory == null || directory.childIds.length !== 1) return null;
+  let childId = directory.childIds[0];
+  if (childId == null) return null;
+  let childNode = state.snapshot.nodes[childId];
+  return childNode == null || !isDirectory(childNode) ? null : childId;
 }
-function storeRoutine94(input382, input383) {
-  let storeLocal625 = input383;
+function findFlattenedLeaf(state, nodeId) {
+  let currentId = nodeId;
   for (;;) {
-    let storeLocal662 = storeRoutine93(input382, storeLocal625);
-    if (storeLocal662 == null) return storeLocal625;
-    storeLocal625 = storeLocal662;
+    let nextId = getCollapsibleChildId(state, currentId);
+    if (nextId == null) return currentId;
+    currentId = nextId;
   }
 }
-function storeRoutine95(input359, input360) {
-  let storeLocal590 = [input360],
-    storeLocal591 = input360;
+function collectFlattenChain(state, nodeId) {
+  let chain = [nodeId],
+    currentId = nodeId;
   for (;;) {
-    let storeLocal653 = storeRoutine93(input359, storeLocal591);
-    if (storeLocal653 == null) return storeLocal590;
-    storeLocal590.push(storeLocal653);
-    storeLocal591 = storeLocal653;
+    let nextId = getCollapsibleChildId(state, currentId);
+    if (nextId == null) return chain;
+    chain.push(nextId);
+    currentId = nextId;
   }
 }
-function storeRoutine96(input362, input363) {
-  let storeLocal593 =
-    input363 == null
-      ? input362.snapshot.rootId
-      : storeRoutine105(input362, input363);
-  return storeLocal593 == null ? [] : storeRoutine109(input362, storeLocal593);
+function getVisibleChildren(state, path) {
+  let nodeId = path == null ? state.snapshot.rootId : resolvePath(state, path);
+  return nodeId == null ? [] : collectDescendantPaths(state, nodeId);
 }
-function storeRoutine97(input58, input59) {
-  let storeLocal194 = storeRoutine39(input59),
-    storeLocal195 = storeLocal194.isDirectory
-      ? storeLocal194.segments
-      : storeLocal194.segments.slice(0, -1),
-    storeLocal196 = storeRoutine124(
-      input58,
-      storeRoutine123(input58, storeLocal195),
+function addPath(state, path) {
+  let parsed = parsePath(path),
+    directorySegments = parsed.isDirectory
+      ? parsed.segments
+      : parsed.segments.slice(0, -1),
+    projectionBefore = serializePathInfo(
+      state,
+      resolveNodeIdByPath(state, directorySegments),
     ),
-    { createdNodeIds, directoryId } = storeRoutine110(input58, storeLocal195),
-    storeLocal197 = new Set(createdNodeIds),
-    storeLocal198 = directoryId;
-  if (storeLocal194.isDirectory) {
-    let storeLocal480 = storeRoutine108(input58, directoryId);
-    if (storeRoutine18(storeLocal480, 1))
-      throw Error(`Path already exists: "${input59}"`);
-    storeRoutine19(storeLocal480, 1);
-    input58.pathCacheByNodeId.set(directoryId, {
-      path: input59,
-      version: input58.pathCacheVersion,
+    { createdNodeIds, directoryId } = ensureDirectoryPath(
+      state,
+      directorySegments,
+    ),
+    affectedNodeIds = new Set(createdNodeIds),
+    targetNodeId = directoryId;
+  if (parsed.isDirectory) {
+    let node = getNode(state, directoryId);
+    if (hasFlag(node, 1)) throw Error(`Path already exists: "${path}"`);
+    setFlags(node, 1);
+    state.pathCacheByNodeId.set(directoryId, {
+      path: path,
+      version: state.pathCacheVersion,
     });
-    storeLocal197.add(directoryId);
+    affectedNodeIds.add(directoryId);
   } else {
-    storeLocal198 = storeRoutine112(
-      input58,
-      directoryId,
-      storeLocal194.basename,
-    );
-    storeLocal197.add(storeLocal198);
+    targetNodeId = createFileNode(state, directoryId, parsed.basename);
+    affectedNodeIds.add(targetNodeId);
   }
-  storeRoutine102(input58, directoryId);
-  let storeLocal199 = storeRoutine124(input58, directoryId);
-  return storeRoutine72({
-    affectedAncestorIds: storeRoutine104(input58, storeLocal198),
-    affectedNodeIds: [...storeLocal197],
-    path: input59,
-    projectionChanged: storeRoutine125(storeLocal196, storeLocal199),
+  recomputeCountsUpwardFrom(state, directoryId);
+  let projectionAfter = serializePathInfo(state, directoryId);
+  return createAddEvent({
+    affectedAncestorIds: collectAncestorIds(state, targetNodeId),
+    affectedNodeIds: [...affectedNodeIds],
+    path: path,
+    projectionChanged: valuesDiffer(projectionBefore, projectionAfter),
   });
 }
-function storeRoutine98(input51, input52, input53) {
-  let storeLocal167 = storeRoutine105(input51, input52);
-  if (storeLocal167 == null) throw Error(`Path does not exist: "${input52}"`);
-  let storeLocal168 = storeRoutine108(input51, storeLocal167);
-  if (storeRoutine18(storeLocal168, 2))
-    throw Error("The root node cannot be removed");
+function removePath(state, path, options) {
+  let nodeId = resolvePath(state, path);
+  if (nodeId == null) throw Error(`Path does not exist: "${path}"`);
+  let node = getNode(state, nodeId);
+  if (hasFlag(node, 2)) throw Error("The root node cannot be removed");
   if (
-    storeRoutine16(storeLocal168) &&
-    storeRoutine107(input51, storeLocal167).childIds.length > 0 &&
-    input53.recursive !== true
+    isDirectory(node) &&
+    getDirectory(state, nodeId).childIds.length > 0 &&
+    options.recursive !== true
   )
     throw Error(
-      `Cannot remove a non-empty directory without recursive: "${input52}"`,
+      `Cannot remove a non-empty directory without recursive: "${path}"`,
     );
-  let storeLocal169 = storeLocal168.parentId,
-    storeLocal170 = storeRoutine124(input51, storeLocal169),
-    storeLocal171 = storeRoutine121(input51, storeLocal167);
-  storeRoutine115(input51, storeLocal169, storeLocal167, storeLocal168.nameId);
-  storeRoutine122(input51, storeLocal169);
-  storeRoutine102(input51, storeLocal169);
-  let storeLocal172 = storeRoutine124(input51, storeLocal169);
-  return storeRoutine73({
-    affectedAncestorIds: storeRoutine104(input51, storeLocal169),
-    affectedNodeIds: storeLocal171,
-    path: input52,
-    projectionChanged: storeRoutine125(storeLocal170, storeLocal172),
-    recursive: input53.recursive === true,
+  let parentId = node.parentId,
+    projectionBefore = serializePathInfo(state, parentId),
+    removedNodeIds = removeSubtree(state, nodeId);
+  unlinkChildFromParent(state, parentId, nodeId, node.nameId);
+  collapseEmptyAncestors(state, parentId);
+  recomputeCountsUpwardFrom(state, parentId);
+  let projectionAfter = serializePathInfo(state, parentId);
+  return createRemoveEvent({
+    affectedAncestorIds: collectAncestorIds(state, parentId),
+    affectedNodeIds: removedNodeIds,
+    path: path,
+    projectionChanged: valuesDiffer(projectionBefore, projectionAfter),
+    recursive: options.recursive === true,
   });
 }
-function _t(input11, input12, input13, input14) {
-  let storeLocal99 = storeRoutine105(input11, input12);
-  if (storeLocal99 == null)
-    throw Error(`Source path does not exist: "${input12}"`);
-  let storeLocal100 = storeRoutine108(input11, storeLocal99);
-  if (storeRoutine18(storeLocal100, 2))
-    throw Error("The root node cannot be moved");
-  let storeLocal101 = input14.collision ?? "error",
-    storeLocal102 = storeRoutine119(input11, storeLocal99, input13),
-    storeLocal103 = storeRoutine124(input11, storeLocal100.parentId),
-    storeLocal104 = storeRoutine124(input11, storeLocal102.parentId),
-    storeLocal105 = storeRoutine42(
-      input11.snapshot.segmentTable,
-      storeLocal100.nameId,
+function buildMoveEvent(state, fromPath, toPath, options) {
+  let sourceNodeId = resolvePath(state, fromPath);
+  if (sourceNodeId == null)
+    throw Error(`Source path does not exist: "${fromPath}"`);
+  let sourceNode = getNode(state, sourceNodeId);
+  if (hasFlag(sourceNode, 2)) throw Error("The root node cannot be moved");
+  let collision = options.collision ?? "error",
+    destination = resolveMoveDestination(state, sourceNodeId, toPath),
+    sourceParentProjectionBefore = serializePathInfo(
+      state,
+      sourceNode.parentId,
     ),
-    storeLocal106 = storeRoutine41(
-      input11.snapshot.segmentTable,
-      storeLocal102.basename,
+    destParentProjectionBefore = serializePathInfo(state, destination.parentId),
+    sourceName = getSegmentValue(
+      state.snapshot.segmentTable,
+      sourceNode.nameId,
+    ),
+    destNameId = internSegment(
+      state.snapshot.segmentTable,
+      destination.basename,
     );
   if (
-    storeLocal102.parentId === storeLocal100.parentId &&
-    storeLocal105 === storeLocal102.basename
+    destination.parentId === sourceNode.parentId &&
+    sourceName === destination.basename
   )
     return null;
   if (
-    storeRoutine16(storeLocal100) &&
-    storeRoutine129(input11, storeLocal99, storeLocal102.parentId)
+    isDirectory(sourceNode) &&
+    isAncestorOf(state, sourceNodeId, destination.parentId)
   )
     throw Error("Cannot move a directory into one of its descendants");
-  let storeLocal107 = storeRoutine3(
-      input11.snapshot.nodes,
-      storeRoutine107(input11, storeLocal102.parentId),
-    ).get(storeLocal106),
-    storeLocal108 = storeLocal102.existingNodeId ?? storeLocal107 ?? null;
+  let existingChildId = ensureChildIdByNameId(
+      state.snapshot.nodes,
+      getDirectory(state, destination.parentId),
+    ).get(destNameId),
+    collisionNodeId = destination.existingNodeId ?? existingChildId ?? null;
   if (
-    storeLocal108 != null &&
-    storeLocal108 !== storeLocal99 &&
-    storeRoutine120(
-      input11,
-      storeLocal108,
-      storeLocal101,
-      storeRoutine15(storeLocal100),
+    collisionNodeId != null &&
+    collisionNodeId !== sourceNodeId &&
+    resolveMoveCollision(
+      state,
+      collisionNodeId,
+      collision,
+      getIsDirBit(sourceNode),
     ) === "skip"
   )
     return null;
-  let storeLocal109 = storeLocal100.parentId;
-  storeRoutine115(input11, storeLocal109, storeLocal99, storeLocal100.nameId);
-  storeLocal100.parentId = storeLocal102.parentId;
-  storeLocal100.nameId = storeLocal106;
-  input11.pathCacheByNodeId.delete(storeLocal99);
-  storeRoutine128(input11, storeLocal99);
-  storeRoutine114(input11, storeLocal102.parentId, storeLocal99);
-  storeRoutine122(input11, storeLocal109);
-  input11.pathCacheVersion++;
-  storeRoutine102(input11, storeLocal109);
-  storeLocal102.parentId !== storeLocal109 &&
-    storeRoutine102(input11, storeLocal102.parentId);
-  let storeLocal110 = storeRoutine124(input11, storeLocal109),
-    storeLocal111 = storeRoutine124(input11, storeLocal102.parentId);
-  return storeRoutine74({
+  let sourceParentId = sourceNode.parentId;
+  unlinkChildFromParent(state, sourceParentId, sourceNodeId, sourceNode.nameId);
+  sourceNode.parentId = destination.parentId;
+  sourceNode.nameId = destNameId;
+  state.pathCacheByNodeId.delete(sourceNodeId);
+  recomputeSubtreeDepths(state, sourceNodeId);
+  linkChildIntoParent(state, destination.parentId, sourceNodeId);
+  collapseEmptyAncestors(state, sourceParentId);
+  state.pathCacheVersion++;
+  recomputeCountsUpwardFrom(state, sourceParentId);
+  destination.parentId !== sourceParentId &&
+    recomputeCountsUpwardFrom(state, destination.parentId);
+  let sourceParentProjectionAfter = serializePathInfo(state, sourceParentId),
+    destParentProjectionAfter = serializePathInfo(state, destination.parentId);
+  return createMoveEvent({
     affectedAncestorIds: [
       ...new Set([
-        ...storeRoutine104(input11, storeLocal109),
-        ...storeRoutine104(input11, storeLocal102.parentId),
+        ...collectAncestorIds(state, sourceParentId),
+        ...collectAncestorIds(state, destination.parentId),
       ]),
     ],
-    affectedNodeIds: [storeLocal99],
-    from: input12,
-    projectionChanged: storeRoutine126(
-      [storeLocal103, storeLocal104],
-      [storeLocal110, storeLocal111],
+    affectedNodeIds: [sourceNodeId],
+    from: fromPath,
+    projectionChanged: idArraysDiffer(
+      [sourceParentProjectionBefore, destParentProjectionBefore],
+      [sourceParentProjectionAfter, destParentProjectionAfter],
     ),
-    to: storeRoutine101(input11, storeLocal99),
+    to: buildNodePath(state, sourceNodeId),
   });
 }
-function storeRoutine99(input325, input326) {
-  let storeLocal544 = input325.pathCacheByNodeId.get(input326);
-  return storeLocal544 != null &&
-    storeLocal544.version === input325.pathCacheVersion
-    ? storeLocal544.path
+function getCachedPath(state, nodeId) {
+  let cacheEntry = state.pathCacheByNodeId.get(nodeId);
+  return cacheEntry != null && cacheEntry.version === state.pathCacheVersion
+    ? cacheEntry.path
     : null;
 }
-function storeRoutine100(input356, input357, input358) {
+function cachePath(state, nodeId, path) {
   return (
-    input356.pathCacheByNodeId.set(input357, {
-      path: input358,
-      version: input356.pathCacheVersion,
+    state.pathCacheByNodeId.set(nodeId, {
+      path: path,
+      version: state.pathCacheVersion,
     }),
-    input358
+    path
   );
 }
-function storeRoutine101(input202, input203) {
-  let storeLocal396 = storeRoutine108(input202, input203),
-    storeLocal397 = storeRoutine99(input202, input203);
-  if (storeLocal397 != null) return storeLocal397;
-  if (storeRoutine18(storeLocal396, 2))
-    return storeRoutine100(input202, input203, "");
-  let storeLocal398 = storeRoutine101(input202, storeLocal396.parentId),
-    storeLocal399 = storeRoutine42(
-      input202.snapshot.segmentTable,
-      storeLocal396.nameId,
-    ),
-    storeLocal400 =
-      storeLocal398.length === 0
-        ? storeLocal399
-        : `${storeLocal398}${storeLocal399}`;
-  return storeRoutine100(
-    input202,
-    input203,
-    storeRoutine16(storeLocal396) ? `${storeLocal400}/` : storeLocal400,
-  );
+function buildNodePath(state, nodeId) {
+  let node = getNode(state, nodeId),
+    cachedPath = getCachedPath(state, nodeId);
+  if (cachedPath != null) return cachedPath;
+  if (hasFlag(node, 2)) return cachePath(state, nodeId, "");
+  let parentPath = buildNodePath(state, node.parentId),
+    segment = getSegmentValue(state.snapshot.segmentTable, node.nameId),
+    path = parentPath.length === 0 ? segment : `${parentPath}${segment}`;
+  return cachePath(state, nodeId, isDirectory(node) ? `${path}/` : path);
 }
-function storeRoutine102(input312, input313) {
-  let storeLocal530 = input312.instrumentation;
-  if (storeLocal530 == null) {
-    storeRoutine131(input312, input313);
+function recomputeCountsUpwardFrom(state, nodeId) {
+  let instrumentation = state.instrumentation;
+  if (instrumentation == null) {
+    recomputeAncestorCounts(state, nodeId);
     return;
   }
-  storeRoutine23(storeLocal530, "store.recomputeCountsUpwardFrom", () =>
-    storeRoutine131(input312, input313),
+  measurePhase(instrumentation, "store.recomputeCountsUpwardFrom", () =>
+    recomputeAncestorCounts(state, nodeId),
   );
 }
-function storeRoutine103(input140, input141) {
-  let storeLocal316 = [[input141, 0]],
-    { nodes, directories } = input140.snapshot;
-  for (; storeLocal316.length > 0; ) {
-    let storeLocal401 = storeLocal316[storeLocal316.length - 1],
-      storeLocal402 = storeLocal401[0],
-      storeLocal403 = nodes[storeLocal402];
-    if (storeLocal403 == null || !storeRoutine16(storeLocal403)) {
-      storeRoutine130(input140, storeLocal402, storeLocal403, true);
-      storeLocal316.pop();
+function recomputeSubtreeCounts(state, nodeId) {
+  let stack = [[nodeId, 0]],
+    { nodes, directories } = state.snapshot;
+  for (; stack.length > 0; ) {
+    let frame = stack[stack.length - 1],
+      currentId = frame[0],
+      node = nodes[currentId];
+    if (node == null || !isDirectory(node)) {
+      recomputeNodeCounts(state, currentId, node, true);
+      stack.pop();
       continue;
     }
-    let storeLocal404 = directories.get(storeLocal402);
-    if (
-      storeLocal404 == null ||
-      storeLocal401[1] >= storeLocal404.childIds.length
-    ) {
-      storeRoutine130(input140, storeLocal402, storeLocal403, true);
-      storeLocal316.pop();
+    let directory = directories.get(currentId);
+    if (directory == null || frame[1] >= directory.childIds.length) {
+      recomputeNodeCounts(state, currentId, node, true);
+      stack.pop();
       continue;
     }
-    let storeLocal405 = storeLocal404.childIds[storeLocal401[1]++];
-    storeLocal316.push([storeLocal405, 0]);
+    let childId = directory.childIds[frame[1]++];
+    stack.push([childId, 0]);
   }
 }
-function storeRoutine104(input299, input300) {
-  let storeLocal516 = [],
-    storeLocal517 = input300;
-  for (; storeLocal517 != null; ) {
-    let storeLocal631 = storeRoutine108(input299, storeLocal517);
-    if (
-      (storeLocal516.push(storeLocal517),
-      storeLocal517 === input299.snapshot.rootId)
-    )
+function collectAncestorIds(state, nodeId) {
+  let ancestorIds = [],
+    currentId = nodeId;
+  for (; currentId != null; ) {
+    let node = getNode(state, currentId);
+    if ((ancestorIds.push(currentId), currentId === state.snapshot.rootId))
       break;
-    storeLocal517 = storeLocal631.parentId;
+    currentId = node.parentId;
   }
-  return storeLocal516;
+  return ancestorIds;
 }
-function storeRoutine105(input319, input320) {
-  if (input320.length === 0) return input319.snapshot.rootId;
-  let storeLocal535 = storeRoutine40(input320);
-  return storeRoutine106(
-    input319,
-    storeLocal535.segments,
-    storeLocal535.requiresDirectory,
+function resolvePath(state, path) {
+  if (path.length === 0) return state.snapshot.rootId;
+  let parsed = parseQueryPath(path);
+  return resolveSegmentsToNodeId(
+    state,
+    parsed.segments,
+    parsed.requiresDirectory,
   );
 }
-function storeRoutine106(input176, input177, input178) {
-  let storeLocal361 = input176.snapshot.rootId;
-  for (let storeLocal464 of input177) {
-    let storeLocal475 =
-      input176.snapshot.segmentTable.idByValue.get(storeLocal464);
-    if (storeLocal475 === undefined) return null;
-    let storeLocal476 = storeRoutine107(input176, storeLocal361),
-      storeLocal477 = storeRoutine3(input176.snapshot.nodes, storeLocal476).get(
-        storeLocal475,
+function resolveSegmentsToNodeId(state, segments, requireDirectory) {
+  let currentNodeId = state.snapshot.rootId;
+  for (let segment of segments) {
+    let segmentNameId = state.snapshot.segmentTable.idByValue.get(segment);
+    if (segmentNameId === undefined) return null;
+    let directory = getDirectory(state, currentNodeId),
+      childId = ensureChildIdByNameId(state.snapshot.nodes, directory).get(
+        segmentNameId,
       );
-    if (storeLocal477 === undefined) return null;
-    storeLocal361 = storeLocal477;
+    if (childId === undefined) return null;
+    currentNodeId = childId;
   }
-  let storeLocal362 = storeRoutine108(input176, storeLocal361);
-  return input178 && !storeRoutine16(storeLocal362) ? null : storeLocal361;
+  let node = getNode(state, currentNodeId);
+  return requireDirectory && !isDirectory(node) ? null : currentNodeId;
 }
-function storeRoutine107(input261, input262) {
-  let storeLocal490 = input261.snapshot.directories.get(input262);
-  if (storeLocal490 === undefined)
-    throw Error(`Unknown directory child index for node ${String(input262)}`);
-  return storeLocal490;
+function getDirectory(state, nodeId) {
+  let directory = state.snapshot.directories.get(nodeId);
+  if (directory === undefined)
+    throw Error(`Unknown directory child index for node ${String(nodeId)}`);
+  return directory;
 }
-function storeRoutine108(input314, input315) {
-  let storeLocal531 = input314.snapshot.nodes[input315];
-  if (storeLocal531 === undefined || storeRoutine18(storeLocal531, 4))
-    throw Error(`Unknown node ID: ${String(input315)}`);
-  return storeLocal531;
+function getNode(state, nodeId) {
+  let node = state.snapshot.nodes[nodeId];
+  if (node === undefined || hasFlag(node, 4))
+    throw Error(`Unknown node ID: ${String(nodeId)}`);
+  return node;
 }
-function storeRoutine109(input34, input35) {
-  let storeLocal151 = input34.snapshot.nodes[input35];
-  if (storeLocal151 === undefined || storeRoutine18(storeLocal151, 4))
-    return [];
-  if (!storeRoutine16(storeLocal151))
-    return [storeRoutine101(input34, input35)];
-  if (storeRoutine107(input34, input35).childIds.length === 0)
-    return storeRoutine18(storeLocal151, 1) && !storeRoutine18(storeLocal151, 2)
-      ? [storeRoutine101(input34, input35)]
+function collectDescendantPaths(state, nodeId) {
+  let node = state.snapshot.nodes[nodeId];
+  if (node === undefined || hasFlag(node, 4)) return [];
+  if (!isDirectory(node)) return [buildNodePath(state, nodeId)];
+  if (getDirectory(state, nodeId).childIds.length === 0)
+    return hasFlag(node, 1) && !hasFlag(node, 2)
+      ? [buildNodePath(state, nodeId)]
       : [];
-  let storeLocal152 = [],
-    storeLocal153 = [
+  let paths = [],
+    stack = [
       {
         childIndex: 0,
-        nodeId: input35,
+        nodeId: nodeId,
       },
     ];
-  for (; storeLocal153.length > 0; ) {
-    let storeLocal259 = storeLocal153[storeLocal153.length - 1];
-    if (storeLocal259 == null) break;
-    let storeLocal260 = input34.snapshot.nodes[storeLocal259.nodeId];
-    if (storeLocal260 === undefined || storeRoutine18(storeLocal260, 4)) {
-      storeLocal153.pop();
+  for (; stack.length > 0; ) {
+    let frame = stack[stack.length - 1];
+    if (frame == null) break;
+    let frameNode = state.snapshot.nodes[frame.nodeId];
+    if (frameNode === undefined || hasFlag(frameNode, 4)) {
+      stack.pop();
       continue;
     }
-    if (!storeRoutine16(storeLocal260)) {
-      storeLocal152.push(storeRoutine101(input34, storeLocal259.nodeId));
-      storeLocal153.pop();
+    if (!isDirectory(frameNode)) {
+      paths.push(buildNodePath(state, frame.nodeId));
+      stack.pop();
       continue;
     }
-    let storeLocal261 = storeRoutine107(input34, storeLocal259.nodeId);
-    if (storeLocal261.childIds.length === 0) {
-      storeRoutine18(storeLocal260, 1) &&
-        !storeRoutine18(storeLocal260, 2) &&
-        storeLocal152.push(storeRoutine101(input34, storeLocal259.nodeId));
-      storeLocal153.pop();
+    let frameDirectory = getDirectory(state, frame.nodeId);
+    if (frameDirectory.childIds.length === 0) {
+      hasFlag(frameNode, 1) &&
+        !hasFlag(frameNode, 2) &&
+        paths.push(buildNodePath(state, frame.nodeId));
+      stack.pop();
       continue;
     }
-    let storeLocal262 = storeLocal261.childIds[storeLocal259.childIndex];
-    if (storeLocal262 == null) {
-      storeLocal153.pop();
+    let childId = frameDirectory.childIds[frame.childIndex];
+    if (childId == null) {
+      stack.pop();
       continue;
     }
-    storeLocal259.childIndex++;
-    storeLocal153.push({
+    frame.childIndex++;
+    stack.push({
       childIndex: 0,
-      nodeId: storeLocal262,
+      nodeId: childId,
     });
   }
-  return storeLocal152;
+  return paths;
 }
-function storeRoutine110(input118, input119) {
-  let storeLocal292 = [],
-    storeLocal293 = input118.snapshot.rootId;
-  for (let storeLocal363 of input119) {
-    let storeLocal377 = storeRoutine41(
-        input118.snapshot.segmentTable,
-        storeLocal363,
-      ),
-      storeLocal378 = storeRoutine107(input118, storeLocal293),
-      storeLocal379 = storeRoutine3(input118.snapshot.nodes, storeLocal378).get(
-        storeLocal377,
+function ensureDirectoryPath(state, segments) {
+  let createdNodeIds = [],
+    currentDirectoryId = state.snapshot.rootId;
+  for (let segment of segments) {
+    let segmentNameId = internSegment(state.snapshot.segmentTable, segment),
+      directory = getDirectory(state, currentDirectoryId),
+      childId = ensureChildIdByNameId(state.snapshot.nodes, directory).get(
+        segmentNameId,
       );
-    if (storeLocal379 !== undefined) {
-      if (!storeRoutine16(storeRoutine108(input118, storeLocal379)))
+    if (childId !== undefined) {
+      if (!isDirectory(getNode(state, childId)))
         throw Error(
-          `Cannot create a directory that collides with an existing file: "${storeLocal363}"`,
+          `Cannot create a directory that collides with an existing file: "${segment}"`,
         );
-      storeLocal293 = storeLocal379;
+      currentDirectoryId = childId;
       continue;
     }
-    storeLocal293 = storeRoutine111(input118, storeLocal293, storeLocal377);
-    storeLocal292.push(storeLocal293);
+    currentDirectoryId = createDirectoryNode(
+      state,
+      currentDirectoryId,
+      segmentNameId,
+    );
+    createdNodeIds.push(currentDirectoryId);
   }
   return {
-    createdNodeIds: storeLocal292,
-    directoryId: storeLocal293,
+    createdNodeIds: createdNodeIds,
+    directoryId: currentDirectoryId,
   };
 }
-function storeRoutine111(input101, input102, input103) {
-  let storeLocal272 = storeRoutine108(input101, input102),
-    storeLocal273 = input101.snapshot.nodes.length;
+function createDirectoryNode(state, parentId, nameId) {
+  let parentNode = getNode(state, parentId),
+    newNodeId = state.snapshot.nodes.length;
   return (
-    input101.snapshot.nodes.push({
-      depthAndFlags: storeRoutine13(storeRoutine14(storeLocal272) + 1, 0, 1),
-      nameId: input103,
-      parentId: input102,
+    state.snapshot.nodes.push({
+      depthAndFlags: packDepthAndFlags(getDepth(parentNode) + 1, 0, 1),
+      nameId: nameId,
+      parentId: parentId,
       subtreeNodeCount: 1,
       visibleSubtreeCount: 1,
     }),
-    input101.snapshot.directories.set(storeLocal273, storeRoutine1()),
-    storeRoutine114(input101, input102, storeLocal273),
-    input101.collapseNewDirectoriesByDefault &&
-      (input101.collapsedDirectoryIds.add(storeLocal273),
-      (input101.hasCollapsedDirectoryOverrides = true)),
-    input101.activeNodeCount++,
-    storeLocal273
+    state.snapshot.directories.set(newNodeId, createChildBookkeeping()),
+    linkChildIntoParent(state, parentId, newNodeId),
+    state.collapseNewDirectoriesByDefault &&
+      (state.collapsedDirectoryIds.add(newNodeId),
+      (state.hasCollapsedDirectoryOverrides = true)),
+    state.activeNodeCount++,
+    newNodeId
   );
 }
-function storeRoutine112(input109, input110, input111) {
-  let storeLocal277 = storeRoutine41(input109.snapshot.segmentTable, input111),
-    storeLocal278 = storeRoutine107(input109, input110);
-  if (storeRoutine3(input109.snapshot.nodes, storeLocal278).has(storeLocal277))
+function createFileNode(state, parentId, name) {
+  let nameId = internSegment(state.snapshot.segmentTable, name),
+    directory = getDirectory(state, parentId);
+  if (ensureChildIdByNameId(state.snapshot.nodes, directory).has(nameId))
     throw Error(
-      `Path already exists: "${storeRoutine133(input109, input110, input111)}"`,
+      `Path already exists: "${buildChildPath(state, parentId, name)}"`,
     );
-  let storeLocal279 = storeRoutine108(input109, input110),
-    storeLocal280 = input109.snapshot.nodes.length;
+  let parentNode = getNode(state, parentId),
+    newNodeId = state.snapshot.nodes.length;
   return (
-    input109.snapshot.nodes.push({
-      depthAndFlags: storeRoutine13(storeRoutine14(storeLocal279) + 1, 0),
-      nameId: storeLocal277,
-      parentId: input110,
+    state.snapshot.nodes.push({
+      depthAndFlags: packDepthAndFlags(getDepth(parentNode) + 1, 0),
+      nameId: nameId,
+      parentId: parentId,
       subtreeNodeCount: 1,
       visibleSubtreeCount: 1,
     }),
-    storeRoutine114(input109, input110, storeLocal280),
-    input109.activeNodeCount++,
-    storeLocal280
+    linkChildIntoParent(state, parentId, newNodeId),
+    state.activeNodeCount++,
+    newNodeId
   );
 }
-function storeRoutine113(input256, input257, input258) {
-  let storeLocal485 = 0,
-    storeLocal486 = input257.childIds.length;
-  for (; storeLocal485 < storeLocal486; ) {
-    let storeLocal600 = (storeLocal485 + storeLocal486) >>> 1,
-      storeLocal601 = input257.childIds[storeLocal600];
-    if (storeLocal601 == null) {
-      storeLocal486 = storeLocal600;
+function findChildInsertionIndex(state, parentDirectory, childId) {
+  let low = 0,
+    high = parentDirectory.childIds.length;
+  for (; low < high; ) {
+    let mid = (low + high) >>> 1,
+      midChildId = parentDirectory.childIds[mid];
+    if (midChildId == null) {
+      high = mid;
       continue;
     }
-    storeRoutine116(input256, input258, storeLocal601) < 0
-      ? (storeLocal486 = storeLocal600)
-      : (storeLocal485 = storeLocal600 + 1);
+    compareNodes(state, childId, midChildId) < 0
+      ? (high = mid)
+      : (low = mid + 1);
   }
-  return storeLocal485;
+  return low;
 }
-function storeRoutine114(input214, input215, input216) {
-  let storeLocal418 = storeRoutine107(input214, input215),
-    storeLocal419 = storeRoutine108(input214, input216);
-  storeRoutine3(input214.snapshot.nodes, storeLocal418).set(
-    storeLocal419.nameId,
-    input216,
+function linkChildIntoParent(state, parentId, childId) {
+  let parentDirectory = getDirectory(state, parentId),
+    childNode = getNode(state, childId);
+  ensureChildIdByNameId(state.snapshot.nodes, parentDirectory).set(
+    childNode.nameId,
+    childId,
   );
-  storeRoutine8(
-    storeLocal418,
-    input216,
-    storeLocal419.subtreeNodeCount,
-    storeLocal419.visibleSubtreeCount,
+  applyChildSubtreeCountDelta(
+    parentDirectory,
+    childId,
+    childNode.subtreeNodeCount,
+    childNode.visibleSubtreeCount,
   );
-  let storeLocal420 = storeRoutine113(input214, storeLocal418, input216);
-  storeLocal418.childIds.splice(storeLocal420, 0, input216);
-  storeRoutine6(storeLocal418, storeLocal420);
-  storeRoutine11(input214.snapshot.nodes, storeLocal418);
+  let insertIndex = findChildInsertionIndex(state, parentDirectory, childId);
+  parentDirectory.childIds.splice(insertIndex, 0, childId);
+  reindexChildPositions(parentDirectory, insertIndex);
+  rebuildChildVisibleChunkSums(state.snapshot.nodes, parentDirectory);
 }
-function storeRoutine115(input170, input171, input172, input173) {
-  let storeLocal351 = storeRoutine107(input170, input171),
-    storeLocal352 = storeRoutine4(storeLocal351),
-    storeLocal353 = storeLocal352.get(input172) ?? -1;
-  storeRoutine3(input170.snapshot.nodes, storeLocal351).delete(input173);
-  storeLocal352.delete(input172);
-  let storeLocal354 = input170.snapshot.nodes[input172];
-  storeLocal354 != null &&
-    storeRoutine8(
-      storeLocal351,
-      input172,
-      -storeLocal354.subtreeNodeCount,
-      -storeLocal354.visibleSubtreeCount,
+function unlinkChildFromParent(state, parentId, childId, childNameId) {
+  let parentDirectory = getDirectory(state, parentId),
+    positionById = ensureChildPositionById(parentDirectory),
+    childIndex = positionById.get(childId) ?? -1;
+  ensureChildIdByNameId(state.snapshot.nodes, parentDirectory).delete(
+    childNameId,
+  );
+  positionById.delete(childId);
+  let childNode = state.snapshot.nodes[childId];
+  childNode != null &&
+    applyChildSubtreeCountDelta(
+      parentDirectory,
+      childId,
+      -childNode.subtreeNodeCount,
+      -childNode.visibleSubtreeCount,
     );
-  storeLocal353 >= 0 &&
-    (storeLocal351.childIds.splice(storeLocal353, 1),
-    storeRoutine6(storeLocal351, storeLocal353),
-    storeRoutine11(input170.snapshot.nodes, storeLocal351));
+  childIndex >= 0 &&
+    (parentDirectory.childIds.splice(childIndex, 1),
+    reindexChildPositions(parentDirectory, childIndex),
+    rebuildChildVisibleChunkSums(state.snapshot.nodes, parentDirectory));
 }
-function storeRoutine116(input346, input347, input348) {
-  let storeLocal563 = input346.snapshot.options.sort;
-  return storeLocal563 === "default"
-    ? storeRoutine117(input346, input347, input348)
-    : storeLocal563(
-        storeRoutine118(input346, input347),
-        storeRoutine118(input346, input348),
+function compareNodes(state, nodeIdA, nodeIdB) {
+  let sortOption = state.snapshot.options.sort;
+  return sortOption === "default"
+    ? compareNodesDefault(state, nodeIdA, nodeIdB)
+    : sortOption(
+        buildNodeSortInfo(state, nodeIdA),
+        buildNodeSortInfo(state, nodeIdB),
       );
 }
-function storeRoutine117(input142, input143, input144) {
-  let storeLocal321 = storeRoutine108(input142, input143),
-    storeLocal322 = storeRoutine108(input142, input144),
-    storeLocal323 = storeRoutine16(storeLocal321);
-  if (storeLocal323 !== storeRoutine16(storeLocal322))
-    return storeLocal323 ? -1 : 1;
-  let storeLocal324 = storeRoutine29(
-    storeRoutine36(input142.snapshot.segmentTable, storeLocal321.nameId),
-    storeRoutine36(input142.snapshot.segmentTable, storeLocal322.nameId),
+function compareNodesDefault(state, nodeIdA, nodeIdB) {
+  let nodeA = getNode(state, nodeIdA),
+    nodeB = getNode(state, nodeIdB),
+    isDirectoryA = isDirectory(nodeA);
+  if (isDirectoryA !== isDirectory(nodeB)) return isDirectoryA ? -1 : 1;
+  let segmentCompare = compareSortKeys(
+    getSortKeyById(state.snapshot.segmentTable, nodeA.nameId),
+    getSortKeyById(state.snapshot.segmentTable, nodeB.nameId),
   );
-  if (storeLocal324 !== 0) return storeLocal324;
-  let storeLocal325 = storeRoutine42(
-      input142.snapshot.segmentTable,
-      storeLocal321.nameId,
-    ),
-    storeLocal326 = storeRoutine42(
-      input142.snapshot.segmentTable,
-      storeLocal322.nameId,
-    );
-  return storeLocal325 === storeLocal326
-    ? input143 < input144
+  if (segmentCompare !== 0) return segmentCompare;
+  let basenameA = getSegmentValue(state.snapshot.segmentTable, nodeA.nameId),
+    basenameB = getSegmentValue(state.snapshot.segmentTable, nodeB.nameId);
+  return basenameA === basenameB
+    ? nodeIdA < nodeIdB
       ? -1
       : 1
-    : storeLocal325 < storeLocal326
+    : basenameA < basenameB
       ? -1
       : 1;
 }
-function storeRoutine118(input228, input229) {
-  let storeLocal437 = storeRoutine108(input228, input229),
-    storeLocal438 = storeRoutine101(input228, input229),
-    storeLocal439 = storeRoutine16(storeLocal437),
-    storeLocal440 = storeLocal439 ? storeLocal438.slice(0, -1) : storeLocal438;
+function buildNodeSortInfo(state, nodeId) {
+  let node = getNode(state, nodeId),
+    path = buildNodePath(state, nodeId),
+    _isDirectory = isDirectory(node),
+    trimmedPath = _isDirectory ? path.slice(0, -1) : path;
   return {
-    basename: storeRoutine42(
-      input228.snapshot.segmentTable,
-      storeLocal437.nameId,
-    ),
-    depth: storeRoutine14(storeLocal437),
-    isDirectory: storeLocal439,
-    path: storeLocal438,
-    segments: storeLocal440.length === 0 ? [] : storeLocal440.split("/"),
+    basename: getSegmentValue(state.snapshot.segmentTable, node.nameId),
+    depth: getDepth(node),
+    isDirectory: _isDirectory,
+    path: path,
+    segments: trimmedPath.length === 0 ? [] : trimmedPath.split("/"),
   };
 }
-function storeRoutine119(input54, input55, input56) {
-  let storeLocal173 = storeRoutine108(input54, input55),
-    storeLocal174 = storeRoutine105(input54, input56);
-  if (storeLocal174 != null) {
-    let storeLocal415 = storeRoutine108(input54, storeLocal174);
-    if (storeRoutine16(storeLocal415))
+function resolveMoveDestination(state, sourceNodeId, destinationPath) {
+  let sourceNode = getNode(state, sourceNodeId),
+    existingDestinationId = resolvePath(state, destinationPath);
+  if (existingDestinationId != null) {
+    let existingDestinationNode = getNode(state, existingDestinationId);
+    if (isDirectory(existingDestinationNode))
       return {
-        basename: storeRoutine42(
-          input54.snapshot.segmentTable,
-          storeLocal173.nameId,
+        basename: getSegmentValue(
+          state.snapshot.segmentTable,
+          sourceNode.nameId,
         ),
         existingNodeId: null,
-        parentId: storeLocal174,
+        parentId: existingDestinationId,
       };
-    let storeLocal416 = storeRoutine40(input56).segments;
+    let destinationSegments = parseQueryPath(destinationPath).segments;
     return {
-      basename: storeLocal416[storeLocal416.length - 1] ?? "",
-      existingNodeId: storeLocal174,
-      parentId: storeLocal415.parentId,
+      basename: destinationSegments[destinationSegments.length - 1] ?? "",
+      existingNodeId: existingDestinationId,
+      parentId: existingDestinationNode.parentId,
     };
   }
-  let storeLocal175 = storeRoutine40(input56),
-    storeLocal176 =
-      storeLocal175.segments[storeLocal175.segments.length - 1] ?? "",
-    storeLocal177 = storeLocal175.segments.slice(0, -1),
-    storeLocal178 =
-      storeLocal177.length === 0
-        ? input54.snapshot.rootId
-        : storeRoutine106(input54, storeLocal177, true);
-  if (storeLocal178 == null)
-    throw Error(`Destination parent does not exist: "${input56}"`);
+  let parsedPath = parseQueryPath(destinationPath),
+    basename = parsedPath.segments[parsedPath.segments.length - 1] ?? "",
+    parentSegments = parsedPath.segments.slice(0, -1),
+    parentId =
+      parentSegments.length === 0
+        ? state.snapshot.rootId
+        : resolveSegmentsToNodeId(state, parentSegments, true);
+  if (parentId == null)
+    throw Error(`Destination parent does not exist: "${destinationPath}"`);
   return {
-    basename: storeLocal176,
+    basename: basename,
     existingNodeId: null,
-    parentId: storeLocal178,
+    parentId: parentId,
   };
 }
-function storeRoutine120(input75, input76, input77, input78) {
-  if (input77 === "skip") return "skip";
-  if (input77 === "error")
+function resolveMoveCollision(state, nodeId, collisionStrategy, kind) {
+  if (collisionStrategy === "skip") return "skip";
+  if (collisionStrategy === "error")
     throw Error(
-      `Destination already exists: "${storeRoutine101(input75, input76)}"`,
+      `Destination already exists: "${buildNodePath(state, nodeId)}"`,
     );
-  let storeLocal227 = storeRoutine108(input75, input76);
-  if (storeRoutine15(storeLocal227) !== input78)
+  let node = getNode(state, nodeId);
+  if (getIsDirBit(node) !== kind)
     throw Error(
       "replace collision requires the same source and destination kinds",
     );
-  if (
-    storeRoutine16(storeLocal227) &&
-    storeRoutine107(input75, input76).childIds.length > 0
-  )
+  if (isDirectory(node) && getDirectory(state, nodeId).childIds.length > 0)
     throw Error("replace collision does not support non-empty directories");
-  let storeLocal228 = storeLocal227.parentId,
-    storeLocal229 = storeLocal227.nameId;
+  let parentId = node.parentId,
+    nameId = node.nameId;
   return (
-    storeRoutine121(input75, input76),
-    storeRoutine115(input75, storeLocal228, input76, storeLocal229),
-    storeRoutine122(input75, storeLocal228),
-    storeRoutine102(input75, storeLocal228),
+    removeSubtree(state, nodeId),
+    unlinkChildFromParent(state, parentId, nodeId, nameId),
+    collapseEmptyAncestors(state, parentId),
+    recomputeCountsUpwardFrom(state, parentId),
     "handled"
   );
 }
-function storeRoutine121(input30, input31) {
-  let storeLocal145 = [],
-    storeLocal146 = [
+function removeSubtree(state, rootNodeId) {
+  let removedNodeIds = [],
+    stack = [
       {
-        nodeId: input31,
+        nodeId: rootNodeId,
         visitedChildren: false,
       },
     ];
-  for (; storeLocal146.length > 0; ) {
-    let storeLocal156 = storeLocal146.pop();
-    if (storeLocal156 == null) break;
-    let storeLocal157 = storeRoutine108(input30, storeLocal156.nodeId);
-    if (storeLocal156.visitedChildren || !storeRoutine16(storeLocal157)) {
-      storeRoutine16(storeLocal157) &&
-        input30.snapshot.directories.delete(storeLocal156.nodeId);
-      storeRoutine19(storeLocal157, 4);
-      input30.pathCacheByNodeId.delete(storeLocal156.nodeId);
-      input30.collapsedDirectoryIds.delete(storeLocal156.nodeId) &&
-        (input30.hasCollapsedDirectoryOverrides =
-          input30.collapsedDirectoryIds.size > 0);
-      input30.expandedDirectoryIds.delete(storeLocal156.nodeId);
-      storeRoutine70(input30, storeLocal156.nodeId);
-      input30.activeNodeCount--;
-      storeLocal145.push(storeLocal156.nodeId);
+  for (; stack.length > 0; ) {
+    let frame = stack.pop();
+    if (frame == null) break;
+    let node = getNode(state, frame.nodeId);
+    if (frame.visitedChildren || !isDirectory(node)) {
+      isDirectory(node) && state.snapshot.directories.delete(frame.nodeId);
+      setFlags(node, 4);
+      state.pathCacheByNodeId.delete(frame.nodeId);
+      state.collapsedDirectoryIds.delete(frame.nodeId) &&
+        (state.hasCollapsedDirectoryOverrides =
+          state.collapsedDirectoryIds.size > 0);
+      state.expandedDirectoryIds.delete(frame.nodeId);
+      deleteDirectoryLoadInfo(state, frame.nodeId);
+      state.activeNodeCount--;
+      removedNodeIds.push(frame.nodeId);
       continue;
     }
-    storeLocal146.push({
-      nodeId: storeLocal156.nodeId,
+    stack.push({
+      nodeId: frame.nodeId,
       visitedChildren: true,
     });
-    let storeLocal158 = storeRoutine107(input30, storeLocal156.nodeId);
+    let childBookkeeping = getDirectory(state, frame.nodeId);
     for (
-      let storeLocal551 = storeLocal158.childIds.length - 1;
-      storeLocal551 >= 0;
-      storeLocal551--
+      let index = childBookkeeping.childIds.length - 1;
+      index >= 0;
+      index--
     ) {
-      let storeLocal632 = storeLocal158.childIds[storeLocal551];
-      storeLocal632 != null &&
-        storeLocal146.push({
-          nodeId: storeLocal632,
+      let childId = childBookkeeping.childIds[index];
+      childId != null &&
+        stack.push({
+          nodeId: childId,
           visitedChildren: false,
         });
     }
   }
-  return storeLocal145;
+  return removedNodeIds;
 }
-function storeRoutine122(input259, input260) {
-  let storeLocal487 = input260;
-  for (; storeLocal487 != null; ) {
-    let storeLocal559 = storeRoutine108(input259, storeLocal487);
+function collapseEmptyAncestors(state, startNodeId) {
+  let currentNodeId = startNodeId;
+  for (; currentNodeId != null; ) {
+    let node = getNode(state, currentNodeId);
     if (
-      !storeRoutine16(storeLocal559) ||
-      storeRoutine18(storeLocal559, 2) ||
-      storeRoutine107(input259, storeLocal487).childIds.length > 0
+      !isDirectory(node) ||
+      hasFlag(node, 2) ||
+      getDirectory(state, currentNodeId).childIds.length > 0
     )
       return;
-    storeRoutine19(storeLocal559, 1);
-    storeLocal487 =
-      storeLocal559.parentId === storeLocal487 ? null : storeLocal559.parentId;
+    setFlags(node, 1);
+    currentNodeId = node.parentId === currentNodeId ? null : node.parentId;
   }
 }
-function storeRoutine123(input208, input209) {
-  let storeLocal406 = input208.snapshot.rootId;
-  for (let storeLocal470 of input209) {
-    let storeLocal494 =
-      input208.snapshot.segmentTable.idByValue.get(storeLocal470);
-    if (storeLocal494 == null) break;
-    let storeLocal495 = storeRoutine3(
-      input208.snapshot.nodes,
-      storeRoutine107(input208, storeLocal406),
-    ).get(storeLocal494);
-    if (
-      storeLocal495 == null ||
-      !storeRoutine16(storeRoutine108(input208, storeLocal495))
-    )
-      break;
-    storeLocal406 = storeLocal495;
+function resolveNodeIdByPath(state, segments) {
+  let currentNodeId = state.snapshot.rootId;
+  for (let segment of segments) {
+    let segmentId = state.snapshot.segmentTable.idByValue.get(segment);
+    if (segmentId == null) break;
+    let childId = ensureChildIdByNameId(
+      state.snapshot.nodes,
+      getDirectory(state, currentNodeId),
+    ).get(segmentId);
+    if (childId == null || !isDirectory(getNode(state, childId))) break;
+    currentNodeId = childId;
   }
-  return storeLocal406;
+  return currentNodeId;
 }
-function storeRoutine124(input189, input190) {
-  let storeLocal373 = storeRoutine127(input189, input190);
-  if (storeLocal373 == null) return null;
-  let storeLocal374 = storeRoutine94(input189, storeLocal373),
-    storeLocal375 = storeRoutine108(input189, storeLocal374),
-    storeLocal376 =
-      storeLocal373 === storeLocal374
+function serializePathInfo(state, nodeId) {
+  let anchorNodeId = findFlattenAnchorNodeId(state, nodeId);
+  if (anchorNodeId == null) return null;
+  let targetNodeId = findFlattenedLeaf(state, anchorNodeId),
+    targetNode = getNode(state, targetNodeId),
+    flattenedSegmentPaths =
+      anchorNodeId === targetNodeId
         ? null
-        : storeRoutine95(input189, storeLocal373).map((item) =>
-            storeRoutine101(input189, item),
+        : collectFlattenChain(state, anchorNodeId).map((item) =>
+            buildNodePath(state, item),
           );
   return JSON.stringify({
-    flattenedSegmentPaths: storeLocal376,
-    hasChildren: storeRoutine107(input189, storeLocal374).childIds.length > 0,
-    path: storeRoutine101(input189, storeLocal374),
-    terminalKind: storeRoutine15(storeLocal375),
+    flattenedSegmentPaths: flattenedSegmentPaths,
+    hasChildren: getDirectory(state, targetNodeId).childIds.length > 0,
+    path: buildNodePath(state, targetNodeId),
+    terminalKind: getIsDirBit(targetNode),
   });
 }
-function storeRoutine125(input427, input428) {
-  return storeRoutine126([input427], [input428]);
+function valuesDiffer(leftId, rightId) {
+  return idArraysDiffer([leftId], [rightId]);
 }
-function storeRoutine126(input327, input328) {
-  for (
-    let storeLocal592 = 0;
-    storeLocal592 < input327.length;
-    storeLocal592 += 1
-  ) {
-    let storeLocal649 = input327[storeLocal592],
-      storeLocal650 = input328[storeLocal592];
-    if (
-      storeLocal649 == null ||
-      storeLocal650 == null ||
-      storeLocal649 !== storeLocal650
-    )
-      return true;
+function idArraysDiffer(leftIds, rightIds) {
+  for (let index = 0; index < leftIds.length; index += 1) {
+    let leftId = leftIds[index],
+      rightId = rightIds[index];
+    if (leftId == null || rightId == null || leftId !== rightId) return true;
   }
   return false;
 }
-function storeRoutine127(input286, input287) {
-  let storeLocal509 = input287;
-  for (; storeLocal509 != null; ) {
-    let storeLocal602 = storeRoutine108(input286, storeLocal509);
-    if (!storeRoutine16(storeLocal602) || storeRoutine18(storeLocal602, 2))
-      return null;
-    if (!storeRoutine61(input286, storeLocal509, storeLocal602))
-      return storeLocal509;
-    storeLocal509 = storeLocal602.parentId;
+function findFlattenAnchorNodeId(state, nodeId) {
+  let currentNodeId = nodeId;
+  for (; currentNodeId != null; ) {
+    let node = getNode(state, currentNodeId);
+    if (!isDirectory(node) || hasFlag(node, 2)) return null;
+    if (!isDirectoryExpanded(state, currentNodeId, node)) return currentNodeId;
+    currentNodeId = node.parentId;
   }
   return null;
 }
-function storeRoutine128(input251, input252) {
-  let storeLocal482 = storeRoutine108(input251, input252);
+function recomputeSubtreeDepths(state, nodeId) {
+  let node = getNode(state, nodeId);
   if (
-    (storeRoutine20(
-      storeLocal482,
-      (input252 === input251.snapshot.rootId
+    (setDepth(
+      node,
+      (nodeId === state.snapshot.rootId
         ? -1
-        : storeRoutine14(storeRoutine108(input251, storeLocal482.parentId))) +
-        1,
+        : getDepth(getNode(state, node.parentId))) + 1,
     ),
-    !storeRoutine16(storeLocal482))
+    !isDirectory(node))
   )
     return;
-  let storeLocal483 = storeRoutine107(input251, input252);
-  for (let storeLocal669 of storeLocal483.childIds)
-    storeRoutine128(input251, storeLocal669);
+  let childBookkeeping = getDirectory(state, nodeId);
+  for (let childId of childBookkeeping.childIds)
+    recomputeSubtreeDepths(state, childId);
 }
-function storeRoutine129(input288, input289, input290) {
-  let storeLocal510 = input290;
-  for (; storeLocal510 != null; ) {
-    if (storeLocal510 === input289) return true;
-    let storeLocal595 = storeRoutine108(input288, storeLocal510);
-    if (storeLocal510 === input288.snapshot.rootId) return false;
-    storeLocal510 = storeLocal595.parentId;
+function isAncestorOf(state, ancestorId, nodeId) {
+  let currentNodeId = nodeId;
+  for (; currentNodeId != null; ) {
+    if (currentNodeId === ancestorId) return true;
+    let node = getNode(state, currentNodeId);
+    if (currentNodeId === state.snapshot.rootId) return false;
+    currentNodeId = node.parentId;
   }
   return false;
 }
-function storeRoutine130(
-  input273,
-  input274,
-  input275 = storeRoutine108(input273, input274),
-  input276 = false,
+function recomputeNodeCounts(
+  state,
+  nodeId,
+  node = getNode(state, nodeId),
+  rebuildChildAggregates = false,
 ) {
-  let storeLocal498 = input273.instrumentation;
-  if (storeLocal498 == null) {
-    storeRoutine132(input273, input274, input275, input276);
+  let instrumentation = state.instrumentation;
+  if (instrumentation == null) {
+    recomputeNodeCountsImpl(state, nodeId, node, rebuildChildAggregates);
     return;
   }
-  storeRoutine23(storeLocal498, "store.recomputeNodeCounts", () =>
-    storeRoutine132(input273, input274, input275, input276),
+  measurePhase(instrumentation, "store.recomputeNodeCounts", () =>
+    recomputeNodeCountsImpl(state, nodeId, node, rebuildChildAggregates),
   );
 }
-function storeRoutine131(input174, input175) {
-  let storeLocal360 = input175;
-  for (; storeLocal360 != null; ) {
-    let storeLocal407 = storeRoutine108(input174, storeLocal360),
-      storeLocal408 = storeLocal407.subtreeNodeCount,
-      storeLocal409 = storeLocal407.visibleSubtreeCount;
+function recomputeAncestorCounts(state, startNodeId) {
+  let currentNodeId = startNodeId;
+  for (; currentNodeId != null; ) {
+    let node = getNode(state, currentNodeId),
+      prevSubtreeNodeCount = node.subtreeNodeCount,
+      prevVisibleSubtreeCount = node.visibleSubtreeCount;
     if (
-      (storeRoutine130(input174, storeLocal360, storeLocal407),
-      storeLocal360 === input174.snapshot.rootId)
+      (recomputeNodeCounts(state, currentNodeId, node),
+      currentNodeId === state.snapshot.rootId)
     )
       return;
-    let storeLocal410 = storeLocal407.subtreeNodeCount - storeLocal408,
-      storeLocal411 = storeLocal407.visibleSubtreeCount - storeLocal409,
-      storeLocal412 = storeLocal407.parentId;
-    (storeLocal410 !== 0 || storeLocal411 !== 0) &&
-      storeRoutine8(
-        storeRoutine107(input174, storeLocal412),
-        storeLocal360,
-        storeLocal410,
-        storeLocal411,
+    let subtreeNodeCountDelta = node.subtreeNodeCount - prevSubtreeNodeCount,
+      visibleSubtreeCountDelta =
+        node.visibleSubtreeCount - prevVisibleSubtreeCount,
+      parentId = node.parentId;
+    (subtreeNodeCountDelta !== 0 || visibleSubtreeCountDelta !== 0) &&
+      applyChildSubtreeCountDelta(
+        getDirectory(state, parentId),
+        currentNodeId,
+        subtreeNodeCountDelta,
+        visibleSubtreeCountDelta,
       );
-    storeLocal360 = storeLocal412;
+    currentNodeId = parentId;
   }
 }
-function storeRoutine132(input70, input71, input72, input73) {
-  if (!storeRoutine16(input72)) {
-    input72.subtreeNodeCount = 1;
-    input72.visibleSubtreeCount = 1;
+function recomputeNodeCountsImpl(state, nodeId, node, rebuildChildAggregates) {
+  if (!isDirectory(node)) {
+    node.subtreeNodeCount = 1;
+    node.visibleSubtreeCount = 1;
     return;
   }
-  let storeLocal214 = storeRoutine107(input70, input71);
-  if (input73) {
-    let storeLocal496 = input70.instrumentation;
-    storeLocal496 == null
-      ? storeRoutine7(input70.snapshot.nodes, storeLocal214)
-      : storeRoutine23(
-          storeLocal496,
+  let childBookkeeping = getDirectory(state, nodeId);
+  if (rebuildChildAggregates) {
+    let instrumentation = state.instrumentation;
+    instrumentation == null
+      ? recomputeChildSubtreeCounts(state.snapshot.nodes, childBookkeeping)
+      : measurePhase(
+          instrumentation,
           "store.recomputeNodeCounts.rebuildChildAggregates",
-          () => storeRoutine7(input70.snapshot.nodes, storeLocal214),
+          () =>
+            recomputeChildSubtreeCounts(state.snapshot.nodes, childBookkeeping),
         );
   }
-  let storeLocal215 = 1 + storeLocal214.totalChildSubtreeNodeCount,
-    storeLocal216 = storeLocal214.totalChildVisibleSubtreeCount;
-  if (
-    ((input72.subtreeNodeCount = storeLocal215), storeRoutine18(input72, 2))
-  ) {
-    input72.visibleSubtreeCount = storeLocal216;
+  let subtreeNodeCount = 1 + childBookkeeping.totalChildSubtreeNodeCount,
+    visibleSubtreeCount = childBookkeeping.totalChildVisibleSubtreeCount;
+  if (((node.subtreeNodeCount = subtreeNodeCount), hasFlag(node, 2))) {
+    node.visibleSubtreeCount = visibleSubtreeCount;
     return;
   }
-  input72.visibleSubtreeCount =
-    storeRoutine93(input70, input71) == null
-      ? storeRoutine61(input70, input71, input72)
-        ? 1 + storeLocal216
+  node.visibleSubtreeCount =
+    getCollapsibleChildId(state, nodeId) == null
+      ? isDirectoryExpanded(state, nodeId, node)
+        ? 1 + visibleSubtreeCount
         : 1
-      : storeLocal216;
+      : visibleSubtreeCount;
 }
-function storeRoutine133(input389, input390, input391) {
-  let storeLocal635 = storeRoutine101(input389, input390);
-  return storeLocal635.length === 0 ? input391 : `${storeLocal635}${input391}`;
+function buildChildPath(state, nodeId, suffix) {
+  let basePath = buildNodePath(state, nodeId);
+  return basePath.length === 0 ? suffix : `${basePath}${suffix}`;
 }
-function storeRoutine134(input426) {
-  return input426 != null && !storeRoutine18(input426, 4);
+function isLiveNode(node) {
+  return node != null && !hasFlag(node, 4);
 }
-function storeRoutine135(input368, input369) {
-  let storeLocal607 = input368.snapshot.nodes[input369];
-  return !storeRoutine134(storeLocal607) ||
-    !storeRoutine16(storeLocal607) ||
-    storeRoutine18(storeLocal607, 2)
+function getLiveDirectoryNode(state, nodeId) {
+  let node = state.snapshot.nodes[nodeId];
+  return !isLiveNode(node) || !isDirectory(node) || hasFlag(node, 2)
     ? null
-    : storeLocal607;
+    : node;
 }
-function storeRoutine136(input282) {
-  let storeLocal507 = 0;
-  for (let [storeLocal565, storeLocal566] of input282.pathCacheByNodeId)
-    storeLocal566.version === input282.pathCacheVersion &&
-      storeRoutine134(input282.snapshot.nodes[storeLocal565]) &&
-      (storeLocal507 += 1);
-  return storeLocal507;
+function countCachedPathEntries(state) {
+  let count = 0;
+  for (let [nodeId, cacheEntry] of state.pathCacheByNodeId)
+    cacheEntry.version === state.pathCacheVersion &&
+      isLiveNode(state.snapshot.nodes[nodeId]) &&
+      (count += 1);
+  return count;
 }
-function storeRoutine137(input404) {
-  return Math.max(0, input404.valueById.length - 1);
+function getSegmentCount(segmentTable) {
+  return Math.max(0, segmentTable.valueById.length - 1);
 }
-function storeRoutine138(input186) {
+function captureStoreMetrics(state) {
   return {
-    activeNodeCount: input186.activeNodeCount,
-    cachedPathEntryCount: storeRoutine136(input186),
-    loadInfoEntryCount: input186.directoryLoadInfoById.size,
-    segmentCount: storeRoutine137(input186.snapshot.segmentTable),
-    totalNodeSlotCount: Math.max(0, input186.snapshot.nodes.length - 1),
+    activeNodeCount: state.activeNodeCount,
+    cachedPathEntryCount: countCachedPathEntries(state),
+    loadInfoEntryCount: state.directoryLoadInfoById.size,
+    segmentCount: getSegmentCount(state.snapshot.segmentTable),
+    totalNodeSlotCount: Math.max(0, state.snapshot.nodes.length - 1),
   };
 }
-function storeRoutine139(input22, input23, input24, input25) {
+function buildCleanupReport(mode, idsPreserved, beforeMetrics, afterMetrics) {
   return {
-    activeNodeCountAfter: input25.activeNodeCount,
-    activeNodeCountBefore: input24.activeNodeCount,
-    cachedPathEntryCountAfter: input25.cachedPathEntryCount,
-    cachedPathEntryCountBefore: input24.cachedPathEntryCount,
-    idsPreserved: input23,
-    loadInfoEntryCountAfter: input25.loadInfoEntryCount,
-    loadInfoEntryCountBefore: input24.loadInfoEntryCount,
-    mode: input22,
+    activeNodeCountAfter: afterMetrics.activeNodeCount,
+    activeNodeCountBefore: beforeMetrics.activeNodeCount,
+    cachedPathEntryCountAfter: afterMetrics.cachedPathEntryCount,
+    cachedPathEntryCountBefore: beforeMetrics.cachedPathEntryCount,
+    idsPreserved: idsPreserved,
+    loadInfoEntryCountAfter: afterMetrics.loadInfoEntryCount,
+    loadInfoEntryCountBefore: beforeMetrics.loadInfoEntryCount,
+    mode: mode,
     reclaimedCachedPathEntryCount:
-      input24.cachedPathEntryCount - input25.cachedPathEntryCount,
+      beforeMetrics.cachedPathEntryCount - afterMetrics.cachedPathEntryCount,
     reclaimedLoadInfoEntryCount:
-      input24.loadInfoEntryCount - input25.loadInfoEntryCount,
+      beforeMetrics.loadInfoEntryCount - afterMetrics.loadInfoEntryCount,
     reclaimedNodeSlotCount:
-      input24.totalNodeSlotCount - input25.totalNodeSlotCount,
-    reclaimedSegmentCount: input24.segmentCount - input25.segmentCount,
-    segmentCountAfter: input25.segmentCount,
-    segmentCountBefore: input24.segmentCount,
-    totalNodeSlotCountAfter: input25.totalNodeSlotCount,
-    totalNodeSlotCountBefore: input24.totalNodeSlotCount,
+      beforeMetrics.totalNodeSlotCount - afterMetrics.totalNodeSlotCount,
+    reclaimedSegmentCount:
+      beforeMetrics.segmentCount - afterMetrics.segmentCount,
+    segmentCountAfter: afterMetrics.segmentCount,
+    segmentCountBefore: beforeMetrics.segmentCount,
+    totalNodeSlotCountAfter: afterMetrics.totalNodeSlotCount,
+    totalNodeSlotCountBefore: beforeMetrics.totalNodeSlotCount,
   };
 }
-function storeRoutine140(input212) {
-  let storeLocal413 = [],
-    storeLocal414 = [];
-  for (let storeLocal634 of input212.collapsedDirectoryIds)
-    storeRoutine135(input212, storeLocal634) != null &&
-      storeLocal413.push(storeRoutine101(input212, storeLocal634));
-  for (let storeLocal636 of input212.expandedDirectoryIds)
-    storeRoutine135(input212, storeLocal636) != null &&
-      storeLocal414.push(storeRoutine101(input212, storeLocal636));
+function collectExpansionPaths(state) {
+  let collapsedPaths = [],
+    expandedPaths = [];
+  for (let collapsedDirectoryId of state.collapsedDirectoryIds)
+    getLiveDirectoryNode(state, collapsedDirectoryId) != null &&
+      collapsedPaths.push(buildNodePath(state, collapsedDirectoryId));
+  for (let expandedDirectoryId of state.expandedDirectoryIds)
+    getLiveDirectoryNode(state, expandedDirectoryId) != null &&
+      expandedPaths.push(buildNodePath(state, expandedDirectoryId));
   return {
-    collapsedPaths: storeLocal413,
-    expandedPaths: storeLocal414,
+    collapsedPaths: collapsedPaths,
+    expandedPaths: expandedPaths,
   };
 }
-function storeRoutine141(input188) {
-  let storeLocal372 = [];
-  for (let [storeLocal427, storeLocal428] of input188.directoryLoadInfoById)
-    storeRoutine135(input188, storeLocal427) == null ||
-      storeRoutine64(input188, storeLocal427) === "loaded" ||
-      storeLocal372.push({
+function collectDirectoryLoadInfo(state) {
+  let loadInfoEntries = [];
+  for (let [directoryId, loadInfo] of state.directoryLoadInfoById)
+    getLiveDirectoryNode(state, directoryId) == null ||
+      getDirectoryLoadState(state, directoryId) === "loaded" ||
+      loadInfoEntries.push({
         info: {
           activeAttemptId: null,
-          errorMessage: storeLocal428.errorMessage,
-          nextAttemptId: storeLocal428.nextAttemptId,
-          state: storeLocal428.state,
+          errorMessage: loadInfo.errorMessage,
+          nextAttemptId: loadInfo.nextAttemptId,
+          state: loadInfo.state,
         },
-        path: storeRoutine101(input188, storeLocal427),
+        path: buildNodePath(state, directoryId),
       });
-  return storeLocal372;
+  return loadInfoEntries;
 }
-function storeRoutine142(input160, input161) {
-  input160.collapsedDirectoryIds.clear();
-  input160.hasCollapsedDirectoryOverrides = false;
-  input160.expandedDirectoryIds.clear();
-  for (let storeLocal629 of input161.expandedPaths) {
-    let storeLocal658 = storeRoutine105(input160, storeLocal629);
-    storeLocal658 != null &&
-      storeRoutine62(
-        input160,
-        storeLocal658,
-        true,
-        storeRoutine108(input160, storeLocal658),
-      );
+function restoreExpansionOverrides(state, overrides) {
+  state.collapsedDirectoryIds.clear();
+  state.hasCollapsedDirectoryOverrides = false;
+  state.expandedDirectoryIds.clear();
+  for (let path of overrides.expandedPaths) {
+    let nodeId = resolvePath(state, path);
+    nodeId != null &&
+      setDirectoryExpanded(state, nodeId, true, getNode(state, nodeId));
   }
-  for (let storeLocal626 of input161.collapsedPaths) {
-    let storeLocal659 = storeRoutine105(input160, storeLocal626);
-    storeLocal659 != null &&
-      storeRoutine62(
-        input160,
-        storeLocal659,
-        false,
-        storeRoutine108(input160, storeLocal659),
-      );
+  for (let path of overrides.collapsedPaths) {
+    let nodeId = resolvePath(state, path);
+    nodeId != null &&
+      setDirectoryExpanded(state, nodeId, false, getNode(state, nodeId));
   }
 }
-function $t(input168, input169) {
-  input168.directoryLoadInfoById.clear();
-  for (let storeLocal417 of input169) {
-    let storeLocal445 = storeRoutine105(input168, storeLocal417.path);
-    storeLocal445 != null &&
-      storeRoutine135(input168, storeLocal445) != null &&
-      input168.directoryLoadInfoById.set(storeLocal445, {
+function restoreDirectoryLoadInfos(state, loadInfos) {
+  state.directoryLoadInfoById.clear();
+  for (let loadInfo of loadInfos) {
+    let nodeId = resolvePath(state, loadInfo.path);
+    nodeId != null &&
+      getLiveDirectoryNode(state, nodeId) != null &&
+      state.directoryLoadInfoById.set(nodeId, {
         activeAttemptId: null,
-        errorMessage: storeLocal417.info.errorMessage,
-        nextAttemptId: storeLocal417.info.nextAttemptId,
-        state: storeLocal417.info.state,
+        errorMessage: loadInfo.info.errorMessage,
+        nextAttemptId: loadInfo.info.nextAttemptId,
+        state: loadInfo.info.state,
       });
   }
 }
-function storeRoutine143(input253) {
-  input253.pathCacheVersion += 1;
-  input253.pathCacheByNodeId.clear();
-  input253.pathCacheByNodeId.set(input253.snapshot.rootId, {
+function clearPathCaches(state) {
+  state.pathCacheVersion += 1;
+  state.pathCacheByNodeId.clear();
+  state.pathCacheByNodeId.set(state.snapshot.rootId, {
     path: "",
-    version: input253.pathCacheVersion,
+    version: state.pathCacheVersion,
   });
 }
-function storeRoutine144(input232) {
-  let storeLocal455 = input232.snapshot.segmentTable,
-    storeLocal456 = _e();
-  for (let storeLocal567 of input232.snapshot.nodes)
-    if (storeRoutine134(storeLocal567)) {
-      if (storeRoutine18(storeLocal567, 2)) {
-        storeLocal567.nameId = 0;
+function rebuildSegmentTable(state) {
+  let oldSegmentTable = state.snapshot.segmentTable,
+    segmentTable = createSegmentTable();
+  for (let node of state.snapshot.nodes)
+    if (isLiveNode(node)) {
+      if (hasFlag(node, 2)) {
+        node.nameId = 0;
         continue;
       }
-      storeLocal567.nameId = storeRoutine41(
-        storeLocal456,
-        storeRoutine42(storeLocal455, storeLocal567.nameId),
+      node.nameId = internSegment(
+        segmentTable,
+        getSegmentValue(oldSegmentTable, node.nameId),
       );
     }
-  input232.snapshot.segmentTable = storeLocal456;
+  state.snapshot.segmentTable = segmentTable;
 }
-function storeRoutine145(input100) {
-  for (let [storeLocal274, storeLocal275] of input100.snapshot.directories) {
-    let storeLocal302 = input100.snapshot.nodes[storeLocal274];
-    if (!storeRoutine134(storeLocal302) || !storeRoutine16(storeLocal302)) {
-      input100.snapshot.directories.delete(storeLocal274);
+function rebuildDirectoryIndexes(state) {
+  for (let [directoryId, directory] of state.snapshot.directories) {
+    let node = state.snapshot.nodes[directoryId];
+    if (!isLiveNode(node) || !isDirectory(node)) {
+      state.snapshot.directories.delete(directoryId);
       continue;
     }
-    let storeLocal303 = storeLocal275.childIds.filter((item) => {
-      let storeLocal644 = input100.snapshot.nodes[item];
-      return (
-        storeRoutine134(storeLocal644) &&
-        storeLocal644.parentId === storeLocal274
-      );
+    let liveChildIds = directory.childIds.filter((item) => {
+      let childNode = state.snapshot.nodes[item];
+      return isLiveNode(childNode) && childNode.parentId === directoryId;
     });
-    storeLocal275.childIds = storeLocal303;
-    storeLocal275.childIdByNameId = new Map(
-      storeLocal303.map((item) => [
-        storeRoutine108(input100, item).nameId,
-        item,
-      ]),
+    directory.childIds = liveChildIds;
+    directory.childIdByNameId = new Map(
+      liveChildIds.map((item) => [getNode(state, item).nameId, item]),
     );
-    storeLocal275.childPositionById = new Map(
-      storeLocal303.map((item, index) => [item, index]),
+    directory.childPositionById = new Map(
+      liveChildIds.map((item, index) => [item, index]),
     );
-    storeRoutine7(input100.snapshot.nodes, storeLocal275);
+    recomputeChildSubtreeCounts(state.snapshot.nodes, directory);
   }
 }
-function storeRoutine146(input250) {
-  let storeLocal481 = input250.snapshot.nodes.length - 1;
-  for (; storeLocal481 > input250.snapshot.rootId; ) {
-    let storeLocal654 = input250.snapshot.nodes[storeLocal481];
-    if (storeRoutine134(storeLocal654)) break;
-    --storeLocal481;
+function trimTrailingRemovedNodeSlots(state) {
+  let index = state.snapshot.nodes.length - 1;
+  for (; index > state.snapshot.rootId; ) {
+    let node = state.snapshot.nodes[index];
+    if (isLiveNode(node)) break;
+    --index;
   }
-  input250.snapshot.nodes.length = storeLocal481 + 1;
+  state.snapshot.nodes.length = index + 1;
 }
-function storeRoutine147(input36) {
-  let storeLocal154 = storeRoutine140(input36),
-    storeLocal155 = storeRoutine141(input36);
-  storeRoutine23(
-    input36.instrumentation,
+function runStableCleanup(state) {
+  let expansionOverrides = collectExpansionPaths(state),
+    directoryLoadInfos = collectDirectoryLoadInfo(state);
+  measurePhase(
+    state.instrumentation,
     "store.cleanup.stable.clearPathCaches",
-    () => storeRoutine143(input36),
+    () => clearPathCaches(state),
   );
-  storeRoutine23(
-    input36.instrumentation,
+  measurePhase(
+    state.instrumentation,
     "store.cleanup.stable.rebuildSegmentTable",
-    () => storeRoutine144(input36),
+    () => rebuildSegmentTable(state),
   );
-  storeRoutine23(
-    input36.instrumentation,
+  measurePhase(
+    state.instrumentation,
     "store.cleanup.stable.rebuildDirectoryIndexes",
-    () => storeRoutine145(input36),
+    () => rebuildDirectoryIndexes(state),
   );
-  storeRoutine23(
-    input36.instrumentation,
+  measurePhase(
+    state.instrumentation,
     "store.cleanup.stable.trimTrailingRemovedNodeSlots",
-    () => storeRoutine146(input36),
+    () => trimTrailingRemovedNodeSlots(state),
   );
-  storeRoutine23(
-    input36.instrumentation,
+  measurePhase(
+    state.instrumentation,
     "store.cleanup.stable.restoreExpansionOverrides",
-    () => storeRoutine142(input36, storeLocal154),
+    () => restoreExpansionOverrides(state, expansionOverrides),
   );
-  storeRoutine23(
-    input36.instrumentation,
+  measurePhase(
+    state.instrumentation,
     "store.cleanup.stable.restoreDirectoryLoadInfos",
-    () => $t(input36, storeLocal155),
+    () => restoreDirectoryLoadInfos(state, directoryLoadInfos),
   );
-  storeRoutine23(
-    input36.instrumentation,
+  measurePhase(
+    state.instrumentation,
     "store.cleanup.stable.recomputeCounts",
-    () => storeRoutine103(input36, input36.snapshot.rootId),
+    () => recomputeSubtreeCounts(state, state.snapshot.rootId),
   );
 }
-function on(input29) {
-  let storeLocal140 = storeRoutine140(input29),
-    storeLocal141 = storeRoutine141(input29),
-    storeLocal142 = storeRoutine23(
-      input29.instrumentation,
+function runAggressiveCleanup(state) {
+  let expansionOverrides = collectExpansionPaths(state),
+    directoryLoadInfos = collectDirectoryLoadInfo(state),
+    paths = measurePhase(
+      state.instrumentation,
       "store.cleanup.aggressive.listPaths",
-      () => storeRoutine96(input29),
+      () => getVisibleChildren(state),
     ),
-    storeLocal143 = storeRoutine21(
+    builderOptions = attachInstrumentation(
       {
-        ...input29.snapshot.options,
+        ...state.snapshot.options,
       },
-      input29.instrumentation,
+      state.instrumentation,
     ),
-    storeLocal144 = storeRoutine23(
-      input29.instrumentation,
+    snapshot = measurePhase(
+      state.instrumentation,
       "store.cleanup.aggressive.rebuildSnapshot",
       () => {
-        let storeLocal647 = new storeLocal11(storeLocal143);
-        return (
-          storeLocal647.appendPaths(storeLocal142),
-          storeLocal647.finish()
-        );
+        let builder = new PathTreeBuilder(builderOptions);
+        return (builder.appendPaths(paths), builder.finish());
       },
     );
-  input29.snapshot = storeLocal144;
-  input29.activeNodeCount = storeLocal144.nodes.length - 1;
-  input29.pathCacheByNodeId = new Map([
+  state.snapshot = snapshot;
+  state.activeNodeCount = snapshot.nodes.length - 1;
+  state.pathCacheByNodeId = new Map([
     [
-      storeLocal144.rootId,
+      snapshot.rootId,
       {
         path: "",
         version: 0,
       },
     ],
   ]);
-  input29.pathCacheVersion = 0;
-  storeRoutine23(
-    input29.instrumentation,
+  state.pathCacheVersion = 0;
+  measurePhase(
+    state.instrumentation,
     "store.cleanup.aggressive.restoreExpansionOverrides",
-    () => storeRoutine142(input29, storeLocal140),
+    () => restoreExpansionOverrides(state, expansionOverrides),
   );
-  storeRoutine23(
-    input29.instrumentation,
+  measurePhase(
+    state.instrumentation,
     "store.cleanup.aggressive.restoreDirectoryLoadInfos",
-    () => $t(input29, storeLocal141),
+    () => restoreDirectoryLoadInfos(state, directoryLoadInfos),
   );
-  storeRoutine23(
-    input29.instrumentation,
+  measurePhase(
+    state.instrumentation,
     "store.cleanup.aggressive.recomputeCounts",
-    () => storeRoutine103(input29, input29.snapshot.rootId),
+    () => recomputeSubtreeCounts(state, state.snapshot.rootId),
   );
 }
-function storeRoutine148(input291) {
-  for (let storeLocal560 of input291.directoryLoadInfoById.values())
-    if (
-      storeLocal560.state === "loading" &&
-      storeLocal560.activeAttemptId != null
-    )
+function hasActiveDirectoryLoad(state) {
+  for (let loadInfo of state.directoryLoadInfoById.values())
+    if (loadInfo.state === "loading" && loadInfo.activeAttemptId != null)
       return true;
   return false;
 }
-function storeRoutine149(input217, input218) {
-  let storeLocal421 = storeRoutine138(input217);
-  input218 === "stable"
-    ? storeRoutine23(input217.instrumentation, "store.cleanup.stable", () =>
-        storeRoutine147(input217),
+function runCleanup(state, mode) {
+  let statsBefore = captureStoreMetrics(state);
+  mode === "stable"
+    ? measurePhase(state.instrumentation, "store.cleanup.stable", () =>
+        runStableCleanup(state),
       )
-    : storeRoutine23(input217.instrumentation, "store.cleanup.aggressive", () =>
-        on(input217),
+    : measurePhase(state.instrumentation, "store.cleanup.aggressive", () =>
+        runAggressiveCleanup(state),
       );
-  let storeLocal422 = storeRoutine138(input217);
-  return storeRoutine139(
-    input218,
-    input218 === "stable",
-    storeLocal421,
-    storeLocal422,
-  );
+  let statsAfter = captureStoreMetrics(state);
+  return buildCleanupReport(mode, mode === "stable", statsBefore, statsAfter);
 }
-function storeRoutine150(input277, input278) {
-  let storeLocal499 = input278 + 2;
-  if (storeLocal499 <= input277.length) return input277;
-  let storeLocal500 = input277.length;
-  for (; storeLocal500 < storeLocal499; ) storeLocal500 *= 2;
-  let storeLocal501 = new Int32Array(storeLocal500);
-  return (storeLocal501.fill(-1), storeLocal501.set(input277), storeLocal501);
+function ensureInt32ArrayCapacity(array, count) {
+  let requiredLength = count + 2;
+  if (requiredLength <= array.length) return array;
+  let newLength = array.length;
+  for (; newLength < requiredLength; ) newLength *= 2;
+  let grownArray = new Int32Array(newLength);
+  return (grownArray.fill(-1), grownArray.set(array), grownArray);
 }
-function storeRoutine151(input394) {
-  return storeRoutine108(input394, input394.snapshot.rootId)
-    .visibleSubtreeCount;
+function getVisibleCount(state) {
+  return getNode(state, state.snapshot.rootId).visibleSubtreeCount;
 }
-function storeRoutine152(input321, input322, input323, input324) {
-  let storeLocal536 = storeRoutine108(input321, input322.terminalNodeId),
-    storeLocal537 = Math.max(1, storeLocal536.visibleSubtreeCount);
-  return Math.min(input324 - 1, input323 + storeLocal537 - 1);
+function computeSubtreeEndIndex(state, cursor, index, count) {
+  let terminalNode = getNode(state, cursor.terminalNodeId),
+    visibleSubtreeCount = Math.max(1, terminalNode.visibleSubtreeCount);
+  return Math.min(count - 1, index + visibleSubtreeCount - 1);
 }
-function storeRoutine153(input244, input245, input246, input247) {
+function buildVisibleRowContext(state, entry, visibleCount, ancestorPaths) {
   return {
-    ancestorPaths: input247,
-    index: input245.index,
-    posInSet: input245.posInSet,
-    row: $(input244, input245.cursor),
-    setSize: input245.setSize,
-    subtreeEndIndex: storeRoutine152(
-      input244,
-      input245.cursor,
-      input245.index,
-      input246,
+    ancestorPaths: ancestorPaths,
+    index: entry.index,
+    posInSet: entry.posInSet,
+    row: buildVisibleRowInfo(state, entry.cursor),
+    setSize: entry.setSize,
+    subtreeEndIndex: computeSubtreeEndIndex(
+      state,
+      entry.cursor,
+      entry.index,
+      visibleCount,
     ),
   };
 }
-function storeRoutine154(
-  input162,
-  input163,
-  input164,
-  input165,
-  input166,
-  input167,
+function descendToVisibleChild(
+  state,
+  nodeId,
+  visibleIndex,
+  index,
+  visibleDepth,
+  ancestors,
 ) {
-  let storeLocal347 = storeRoutine107(input162, input163),
-    { childIndex, childVisibleIndex, localVisibleIndex } = storeRoutine9(
-      input162.snapshot.nodes,
-      storeLocal347,
-      input164,
-    ),
-    storeLocal348 = storeLocal347.childIds[childIndex];
-  if (storeLocal348 == null)
-    throw Error(`Visible index ${String(input164)} is out of range`);
-  return storeRoutine155(
-    input162,
-    storeLocal348,
+  let parentNode = getDirectory(state, nodeId),
+    { childIndex, childVisibleIndex, localVisibleIndex } =
+      findChildByVisibleIndex(state.snapshot.nodes, parentNode, visibleIndex),
+    childId = parentNode.childIds[childIndex];
+  if (childId == null)
+    throw Error(`Visible index ${String(visibleIndex)} is out of range`);
+  return resolveVisibleCursor(
+    state,
+    childId,
     localVisibleIndex,
-    input165 + childVisibleIndex,
-    input166 + 1,
+    index + childVisibleIndex,
+    visibleDepth + 1,
     childIndex,
-    storeLocal347.childIds.length,
-    input167,
+    parentNode.childIds.length,
+    ancestors,
   );
 }
-function storeRoutine155(
-  input37,
-  input38,
-  input39,
-  input40,
-  input41,
-  input42,
-  input43,
-  input44,
+function resolveVisibleCursor(
+  state,
+  nodeId,
+  visibleIndex,
+  index,
+  visibleDepth,
+  posInSet,
+  setSize,
+  ancestors,
 ) {
-  if (!storeRoutine16(storeRoutine108(input37, input38))) {
-    if (input39 === 0)
+  if (!isDirectory(getNode(state, nodeId))) {
+    if (visibleIndex === 0)
       return {
-        ancestors: input44,
+        ancestors: ancestors,
         cursor: {
-          headNodeId: input38,
-          terminalNodeId: input38,
-          visibleDepth: input41,
+          headNodeId: nodeId,
+          terminalNodeId: nodeId,
+          visibleDepth: visibleDepth,
         },
-        index: input40,
-        posInSet: input42,
-        setSize: input43,
+        index: index,
+        posInSet: posInSet,
+        setSize: setSize,
       };
-    throw Error(`Visible index ${String(input39)} is out of range for file`);
+    throw Error(
+      `Visible index ${String(visibleIndex)} is out of range for file`,
+    );
   }
-  let storeLocal159 = storeRoutine165(input37, input38, input41);
-  if (input39 === 0)
+  let cursor = flattenDirectoryChain(state, nodeId, visibleDepth);
+  if (visibleIndex === 0)
     return {
-      ancestors: input44,
-      cursor: storeLocal159,
-      index: input40,
-      posInSet: input42,
-      setSize: input43,
+      ancestors: ancestors,
+      cursor: cursor,
+      index: index,
+      posInSet: posInSet,
+      setSize: setSize,
     };
-  let storeLocal160 = storeRoutine108(input37, storeLocal159.terminalNodeId);
+  let terminalNode = getNode(state, cursor.terminalNodeId);
   if (
-    !storeRoutine16(storeLocal160) ||
-    !storeRoutine61(input37, storeLocal159.terminalNodeId, storeLocal160)
+    !isDirectory(terminalNode) ||
+    !isDirectoryExpanded(state, cursor.terminalNodeId, terminalNode)
   )
     throw Error(
-      `Visible index ${String(input39)} is out of range for collapsed directory`,
+      `Visible index ${String(visibleIndex)} is out of range for collapsed directory`,
     );
-  return storeRoutine154(
-    input37,
-    storeLocal159.terminalNodeId,
-    input39 - 1,
-    input40 + 1,
-    storeLocal159.visibleDepth,
+  return descendToVisibleChild(
+    state,
+    cursor.terminalNodeId,
+    visibleIndex - 1,
+    index + 1,
+    cursor.visibleDepth,
     [
-      ...input44,
+      ...ancestors,
       {
-        cursor: storeLocal159,
-        index: input40,
-        posInSet: input42,
-        setSize: input43,
+        cursor: cursor,
+        index: index,
+        posInSet: posInSet,
+        setSize: setSize,
       },
     ],
   );
 }
-function storeRoutine156(input68, input69) {
-  let storeLocal210 = storeRoutine151(input68);
-  if (input69 < 0 || input69 >= storeLocal210) return null;
-  let storeLocal211 = storeRoutine154(
-      input68,
-      input68.snapshot.rootId,
-      input69,
+function getVisibleRowContext(state, visibleIndex) {
+  let visibleCount = getVisibleCount(state);
+  if (visibleIndex < 0 || visibleIndex >= visibleCount) return null;
+  let context = descendToVisibleChild(
+      state,
+      state.snapshot.rootId,
+      visibleIndex,
       0,
       -1,
       [],
     ),
-    storeLocal212 = storeLocal211.ancestors.map((item) =>
-      storeRoutine101(input68, item.cursor.terminalNodeId),
+    ancestorPaths = context.ancestors.map((item) =>
+      buildNodePath(state, item.cursor.terminalNodeId),
     ),
-    storeLocal213 = null;
+    cachedAncestorRows = null;
   return {
-    ancestorPaths: storeLocal212,
+    ancestorPaths: ancestorPaths,
     get ancestorRows() {
-      if (storeLocal213 != null) return storeLocal213;
-      let storeLocal488 = [],
-        storeLocal489 = [];
-      for (let storeLocal603 of storeLocal211.ancestors) {
-        let storeLocal651 = storeRoutine153(
-          input68,
-          storeLocal603,
-          storeLocal210,
-          [...storeLocal489],
+      if (cachedAncestorRows != null) return cachedAncestorRows;
+      let ancestorRows = [],
+        ancestorRowPaths = [];
+      for (let ancestorEntry of context.ancestors) {
+        let rowContext = buildVisibleRowContext(
+          state,
+          ancestorEntry,
+          visibleCount,
+          [...ancestorRowPaths],
         );
-        storeLocal488.push(storeLocal651);
-        storeLocal489.push(storeLocal651.row.path);
+        ancestorRows.push(rowContext);
+        ancestorRowPaths.push(rowContext.row.path);
       }
-      return ((storeLocal213 = storeLocal488), storeLocal213);
+      return ((cachedAncestorRows = ancestorRows), cachedAncestorRows);
     },
-    index: storeLocal211.index,
-    posInSet: storeLocal211.posInSet,
-    row: $(input68, storeLocal211.cursor),
-    setSize: storeLocal211.setSize,
-    subtreeEndIndex: storeRoutine152(
-      input68,
-      storeLocal211.cursor,
-      storeLocal211.index,
-      storeLocal210,
+    index: context.index,
+    posInSet: context.posInSet,
+    row: buildVisibleRowInfo(state, context.cursor),
+    setSize: context.setSize,
+    subtreeEndIndex: computeSubtreeEndIndex(
+      state,
+      context.cursor,
+      context.index,
+      visibleCount,
     ),
   };
 }
-function storeRoutine157(input26, input27, input28) {
-  let storeLocal132 = input26.instrumentation,
-    storeLocal133 = storeRoutine151(input26);
-  if (storeLocal133 <= 0 || input28 < input27) return [];
-  let storeLocal134 = Math.max(0, Math.min(input27, storeLocal133 - 1)),
-    storeLocal135 = Math.max(
-      storeLocal134,
-      Math.min(input28, storeLocal133 - 1),
-    );
-  if (storeLocal132 == null) {
-    if (storeLocal134 === 0) return storeRoutine170(input26, storeLocal135 + 1);
-    let storeLocal522 = [],
-      storeLocal523 = storeRoutine162(input26, storeLocal134);
+function getVisibleSlice(state, startIndex, endIndex) {
+  let instrumentation = state.instrumentation,
+    visibleCount = getVisibleCount(state);
+  if (visibleCount <= 0 || endIndex < startIndex) return [];
+  let clampedStart = Math.max(0, Math.min(startIndex, visibleCount - 1)),
+    clampedEnd = Math.max(clampedStart, Math.min(endIndex, visibleCount - 1));
+  if (instrumentation == null) {
+    if (clampedStart === 0) return collectVisibleRows(state, clampedEnd + 1);
+    let _rows = [],
+      _cursor = resolveVisibleRow(state, clampedStart);
     for (
-      let storeLocal638 = storeLocal134;
-      storeLocal638 <= storeLocal135 && storeLocal523 != null;
-      storeLocal638++
+      let index = clampedStart;
+      index <= clampedEnd && _cursor != null;
+      index++
     ) {
-      let storeLocal667 = $(input26, storeLocal523);
-      storeLocal522.push(storeLocal667);
-      storeLocal523 = storeRoutine167(input26, storeLocal523);
+      let row = buildVisibleRowInfo(state, _cursor);
+      _rows.push(row);
+      _cursor = advanceToNextVisibleRow(state, _cursor);
     }
-    return storeLocal522;
+    return _rows;
   }
-  let storeLocal136 = [],
-    storeLocal137 = 0,
-    storeLocal138 = 0,
-    storeLocal139 = storeRoutine23(
-      storeLocal132,
+  let rows = [],
+    flattenedRowCount = 0,
+    flattenedSegmentCount = 0,
+    cursor = measurePhase(
+      instrumentation,
       "store.getVisibleSlice.selectFirstRow",
-      () => storeRoutine162(input26, storeLocal134),
+      () => resolveVisibleRow(state, clampedStart),
     );
   for (
-    let storeLocal391 = storeLocal134;
-    storeLocal391 <= storeLocal135 && storeLocal139 != null;
-    storeLocal391++
+    let index = clampedStart;
+    index <= clampedEnd && cursor != null;
+    index++
   ) {
-    let storeLocal444 = storeRoutine23(
-      storeLocal132,
+    let row = measurePhase(
+      instrumentation,
       "store.getVisibleSlice.materializeRow",
-      () => $(input26, storeLocal139),
+      () => buildVisibleRowInfo(state, cursor),
     );
-    storeLocal136.push(storeLocal444);
-    storeLocal444.isFlattened &&
-      (storeLocal137++,
-      (storeLocal138 += storeLocal444.flattenedSegments?.length ?? 0));
-    storeLocal139 = storeRoutine23(
-      storeLocal132,
+    rows.push(row);
+    row.isFlattened &&
+      (flattenedRowCount++,
+      (flattenedSegmentCount += row.flattenedSegments?.length ?? 0));
+    cursor = measurePhase(
+      instrumentation,
       "store.getVisibleSlice.advanceCursor",
-      () => storeRoutine167(input26, storeLocal139),
+      () => advanceToNextVisibleRow(state, cursor),
     );
   }
   return (
-    storeRoutine24(
-      storeLocal132,
-      "workload.visibleRowsRead",
-      storeLocal136.length,
+    setCounter(instrumentation, "workload.visibleRowsRead", rows.length),
+    setCounter(
+      instrumentation,
+      "workload.flattenedRowsRead",
+      flattenedRowCount,
     ),
-    storeRoutine24(storeLocal132, "workload.flattenedRowsRead", storeLocal137),
-    storeRoutine24(
-      storeLocal132,
+    setCounter(
+      instrumentation,
       "workload.flattenedSegmentsRead",
-      storeLocal138,
+      flattenedSegmentCount,
     ),
-    storeLocal136
+    rows
   );
 }
-function _n(input307, input308 = storeRoutine151(input307)) {
-  let storeLocal524 = input307.instrumentation;
-  return storeLocal524 == null
-    ? storeRoutine169(input307, input308)
-    : storeRoutine23(storeLocal524, "store.getVisibleTreeProjection", () =>
-        storeRoutine169(input307, input308),
+function projectVisibleTree(state, visibleCount = getVisibleCount(state)) {
+  let instrumentation = state.instrumentation;
+  return instrumentation == null
+    ? collectVisiblePaths(state, visibleCount)
+    : measurePhase(instrumentation, "store.getVisibleTreeProjection", () =>
+        collectVisiblePaths(state, visibleCount),
       );
 }
-function storeRoutine158(input440) {
-  return storeRoutine168(_n(input440));
+function buildVisibleTreeProjection(state) {
+  return buildTreeProjectionRows(projectVisibleTree(state));
 }
-function storeRoutine159(input91, input92) {
-  let storeLocal252 = storeRoutine105(input91, input92);
+function computeVisibleIndex(state, path) {
+  let nodeId = resolvePath(state, path);
   if (
-    storeLocal252 == null ||
-    storeLocal252 === input91.snapshot.rootId ||
-    (storeRoutine16(storeRoutine108(input91, storeLocal252)) &&
-      storeRoutine94(input91, storeLocal252) !== storeLocal252)
+    nodeId == null ||
+    nodeId === state.snapshot.rootId ||
+    (isDirectory(getNode(state, nodeId)) &&
+      findFlattenedLeaf(state, nodeId) !== nodeId)
   )
     return null;
-  let storeLocal253 = 0,
-    storeLocal254 = storeLocal252,
-    { nodes, rootId } = input91.snapshot;
-  for (; storeLocal254 !== rootId; ) {
-    let storeLocal380 = storeRoutine108(input91, storeLocal254).parentId,
-      storeLocal381 = storeRoutine107(input91, storeLocal380),
-      storeLocal382 = storeRoutine4(storeLocal381).get(storeLocal254);
-    if (storeLocal382 == null)
+  let visibleIndex = 0,
+    currentNodeId = nodeId,
+    { nodes, rootId } = state.snapshot;
+  for (; currentNodeId !== rootId; ) {
+    let parentId = getNode(state, currentNodeId).parentId,
+      parentDirectory = getDirectory(state, parentId),
+      childIndex = ensureChildPositionById(parentDirectory).get(currentNodeId);
+    if (childIndex == null)
       throw Error(
-        `Child ${String(storeLocal254)} was not found in its parent index`,
+        `Child ${String(currentNodeId)} was not found in its parent index`,
       );
     if (
-      ((storeLocal253 += storeRoutine10(nodes, storeLocal381, storeLocal382)),
-      storeLocal380 !== rootId)
+      ((visibleIndex += sumVisibleBeforeChildIndex(
+        nodes,
+        parentDirectory,
+        childIndex,
+      )),
+      parentId !== rootId)
     ) {
-      let storeLocal610 = storeRoutine108(input91, storeLocal380),
-        storeLocal611 = storeRoutine93(input91, storeLocal380);
+      let parentNode = getNode(state, parentId),
+        firstVisibleChildId = getCollapsibleChildId(state, parentId);
       if (
-        !storeRoutine61(input91, storeLocal380, storeLocal610) &&
-        storeLocal611 !== storeLocal254
+        !isDirectoryExpanded(state, parentId, parentNode) &&
+        firstVisibleChildId !== currentNodeId
       )
         return null;
-      storeRoutine94(input91, storeLocal380) === storeLocal380 &&
-        (storeLocal253 += 1);
+      findFlattenedLeaf(state, parentId) === parentId && (visibleIndex += 1);
     }
-    storeLocal254 = storeLocal380;
+    currentNodeId = parentId;
   }
-  return storeLocal253;
+  return visibleIndex;
 }
-function storeRoutine160(input147, input148) {
-  let storeLocal328 = storeRoutine105(input147, input148);
-  if (storeLocal328 == null) throw Error(`Path does not exist: "${input148}"`);
-  let storeLocal329 = storeRoutine108(input147, storeLocal328);
-  if (!storeRoutine16(storeLocal329))
-    throw Error(`Path is not a directory: "${input148}"`);
-  return storeRoutine61(input147, storeLocal328, storeLocal329)
+function expandPath(state, path) {
+  let nodeId = resolvePath(state, path);
+  if (nodeId == null) throw Error(`Path does not exist: "${path}"`);
+  let node = getNode(state, nodeId);
+  if (!isDirectory(node)) throw Error(`Path is not a directory: "${path}"`);
+  return isDirectoryExpanded(state, nodeId, node)
     ? null
-    : (storeRoutine62(input147, storeLocal328, true, storeLocal329),
-      storeRoutine102(input147, storeLocal328),
-      storeRoutine75({
-        affectedAncestorIds: storeRoutine104(input147, storeLocal328),
-        affectedNodeIds: [storeLocal328],
-        path: input148,
+    : (setDirectoryExpanded(state, nodeId, true, node),
+      recomputeCountsUpwardFrom(state, nodeId),
+      createExpandEvent({
+        affectedAncestorIds: collectAncestorIds(state, nodeId),
+        affectedNodeIds: [nodeId],
+        path: path,
         projectionChanged: true,
       }));
 }
-function storeRoutine161(input149, input150) {
-  let storeLocal330 = storeRoutine105(input149, input150);
-  if (storeLocal330 == null) throw Error(`Path does not exist: "${input150}"`);
-  let storeLocal331 = storeRoutine108(input149, storeLocal330);
-  if (!storeRoutine16(storeLocal331))
-    throw Error(`Path is not a directory: "${input150}"`);
-  return storeRoutine61(input149, storeLocal330, storeLocal331)
-    ? (storeRoutine62(input149, storeLocal330, false, storeLocal331),
-      storeRoutine102(input149, storeLocal330),
-      storeRoutine76({
-        affectedAncestorIds: storeRoutine104(input149, storeLocal330),
-        affectedNodeIds: [storeLocal330],
-        path: input150,
+function collapsePath(state, path) {
+  let nodeId = resolvePath(state, path);
+  if (nodeId == null) throw Error(`Path does not exist: "${path}"`);
+  let node = getNode(state, nodeId);
+  if (!isDirectory(node)) throw Error(`Path is not a directory: "${path}"`);
+  return isDirectoryExpanded(state, nodeId, node)
+    ? (setDirectoryExpanded(state, nodeId, false, node),
+      recomputeCountsUpwardFrom(state, nodeId),
+      createCollapseEvent({
+        affectedAncestorIds: collectAncestorIds(state, nodeId),
+        affectedNodeIds: [nodeId],
+        path: path,
         projectionChanged: true,
       }))
     : null;
 }
-function storeRoutine162(input378, input379) {
-  return input379 < 0 || input379 >= storeRoutine151(input378)
+function resolveVisibleRow(state, visibleIndex) {
+  return visibleIndex < 0 || visibleIndex >= getVisibleCount(state)
     ? null
-    : storeRoutine163(input378, input378.snapshot.rootId, input379, -1);
+    : descendToVisibleRow(state, state.snapshot.rootId, visibleIndex, -1);
 }
-function storeRoutine163(input127, input128, input129, input130) {
-  let storeLocal306 = storeRoutine107(input127, input128),
-    storeLocal307 = input127.instrumentation,
+function descendToVisibleRow(state, nodeId, visibleIndex, depth) {
+  let directoryNode = getDirectory(state, nodeId),
+    instrumentation = state.instrumentation,
     { childIndex, localVisibleIndex } =
-      storeLocal307 == null
-        ? storeRoutine9(input127.snapshot.nodes, storeLocal306, input129)
-        : storeRoutine23(
-            storeLocal307,
+      instrumentation == null
+        ? findChildByVisibleIndex(
+            state.snapshot.nodes,
+            directoryNode,
+            visibleIndex,
+          )
+        : measurePhase(
+            instrumentation,
             "store.getVisibleSlice.selectChildIndex",
             () =>
-              storeRoutine9(input127.snapshot.nodes, storeLocal306, input129),
+              findChildByVisibleIndex(
+                state.snapshot.nodes,
+                directoryNode,
+                visibleIndex,
+              ),
           ),
-    storeLocal308 = storeLocal306.childIds[childIndex];
-  if (storeLocal308 != null)
-    return storeRoutine164(
-      input127,
-      storeLocal308,
-      localVisibleIndex,
-      input130 + 1,
-    );
-  throw Error(`Visible index ${String(input129)} is out of range`);
+    childId = directoryNode.childIds[childIndex];
+  if (childId != null)
+    return flattenToVisibleRow(state, childId, localVisibleIndex, depth + 1);
+  throw Error(`Visible index ${String(visibleIndex)} is out of range`);
 }
-function storeRoutine164(input87, input88, input89, input90) {
-  if (!storeRoutine16(storeRoutine108(input87, input88))) {
-    if (input89 === 0)
+function flattenToVisibleRow(state, nodeId, visibleIndex, depth) {
+  if (!isDirectory(getNode(state, nodeId))) {
+    if (visibleIndex === 0)
       return {
-        headNodeId: input88,
-        terminalNodeId: input88,
-        visibleDepth: input90,
+        headNodeId: nodeId,
+        terminalNodeId: nodeId,
+        visibleDepth: depth,
       };
-    throw Error(`Visible index ${String(input89)} is out of range for file`);
+    throw Error(
+      `Visible index ${String(visibleIndex)} is out of range for file`,
+    );
   }
-  let storeLocal250 = storeRoutine165(input87, input88, input90);
-  if (input89 === 0) return storeLocal250;
-  let storeLocal251 = storeRoutine108(input87, storeLocal250.terminalNodeId);
+  let flattenedRow = flattenDirectoryChain(state, nodeId, depth);
+  if (visibleIndex === 0) return flattenedRow;
+  let terminalNode = getNode(state, flattenedRow.terminalNodeId);
   if (
-    !storeRoutine16(storeLocal251) ||
-    !storeRoutine61(input87, storeLocal250.terminalNodeId, storeLocal251)
+    !isDirectory(terminalNode) ||
+    !isDirectoryExpanded(state, flattenedRow.terminalNodeId, terminalNode)
   )
     throw Error(
-      `Visible index ${String(input89)} is out of range for collapsed directory`,
+      `Visible index ${String(visibleIndex)} is out of range for collapsed directory`,
     );
-  return storeRoutine163(
-    input87,
-    storeLocal250.terminalNodeId,
-    input89 - 1,
-    storeLocal250.visibleDepth,
+  return descendToVisibleRow(
+    state,
+    flattenedRow.terminalNodeId,
+    visibleIndex - 1,
+    flattenedRow.visibleDepth,
   );
 }
-function storeRoutine165(input133, input134, input135) {
-  return storeRoutine16(storeRoutine108(input133, input134))
-    ? input133.instrumentation == null
+function flattenDirectoryChain(state, headNodeId, depth) {
+  return isDirectory(getNode(state, headNodeId))
+    ? state.instrumentation == null
       ? {
-          headNodeId: input134,
-          terminalNodeId: storeRoutine94(input133, input134),
-          visibleDepth: input135,
+          headNodeId: headNodeId,
+          terminalNodeId: findFlattenedLeaf(state, headNodeId),
+          visibleDepth: depth,
         }
       : {
-          headNodeId: input134,
-          terminalNodeId: storeRoutine23(
-            input133.instrumentation,
+          headNodeId: headNodeId,
+          terminalNodeId: measurePhase(
+            state.instrumentation,
             "store.getVisibleSlice.flatten.resolveTerminalDirectory",
-            () => storeRoutine94(input133, input134),
+            () => findFlattenedLeaf(state, headNodeId),
           ),
-          visibleDepth: input135,
+          visibleDepth: depth,
         }
     : {
-        headNodeId: input134,
-        terminalNodeId: input134,
-        visibleDepth: input135,
+        headNodeId: headNodeId,
+        terminalNodeId: headNodeId,
+        visibleDepth: depth,
       };
 }
-function storeRoutine166(input331, input332) {
-  let storeLocal546 = storeRoutine108(input331, input332);
-  if (!storeRoutine16(storeLocal546)) return true;
-  let storeLocal547 = storeLocal546.parentId;
-  return storeLocal547 === input331.snapshot.rootId
+function isLastVisibleChild(state, nodeId) {
+  let node = getNode(state, nodeId);
+  if (!isDirectory(node)) return true;
+  let parentId = node.parentId;
+  return parentId === state.snapshot.rootId
     ? true
-    : storeRoutine93(input331, storeLocal547) !== input332;
+    : getCollapsibleChildId(state, parentId) !== nodeId;
 }
-function storeRoutine167(input49, input50) {
-  let storeLocal164 = storeRoutine108(input49, input50.terminalNodeId);
-  if (storeRoutine16(storeLocal164)) {
-    let storeLocal484 = storeRoutine107(input49, input50.terminalNodeId);
+function advanceToNextVisibleRow(state, row) {
+  let terminalNode = getNode(state, row.terminalNodeId);
+  if (isDirectory(terminalNode)) {
+    let directoryNode = getDirectory(state, row.terminalNodeId);
     if (
-      storeRoutine61(input49, input50.terminalNodeId, storeLocal164) &&
-      storeLocal484.childIds.length > 0
+      isDirectoryExpanded(state, row.terminalNodeId, terminalNode) &&
+      directoryNode.childIds.length > 0
     ) {
-      let storeLocal633 = storeLocal484.childIds[0];
-      return storeLocal633 == null
+      let firstChildId = directoryNode.childIds[0];
+      return firstChildId == null
         ? null
-        : storeRoutine164(input49, storeLocal633, 0, input50.visibleDepth + 1);
+        : flattenToVisibleRow(state, firstChildId, 0, row.visibleDepth + 1);
     }
   }
-  let storeLocal165 = input50.terminalNodeId,
-    storeLocal166 = input50.visibleDepth;
+  let currentNodeId = row.terminalNodeId,
+    currentDepth = row.visibleDepth;
   for (;;) {
-    let storeLocal355 = storeRoutine108(input49, storeLocal165);
-    if (storeLocal165 === input49.snapshot.rootId) return null;
-    let storeLocal356 = storeLocal355.parentId,
-      storeLocal357 = storeRoutine107(input49, storeLocal356),
-      storeLocal358 = storeRoutine4(storeLocal357).get(storeLocal165) ?? -1;
-    if (storeLocal358 < 0)
+    let currentNode = getNode(state, currentNodeId);
+    if (currentNodeId === state.snapshot.rootId) return null;
+    let parentId = currentNode.parentId,
+      parentDirectory = getDirectory(state, parentId),
+      childIndex =
+        ensureChildPositionById(parentDirectory).get(currentNodeId) ?? -1;
+    if (childIndex < 0)
       throw Error(
-        `Child ${String(storeLocal165)} was not found in its parent index`,
+        `Child ${String(currentNodeId)} was not found in its parent index`,
       );
-    let storeLocal359 = storeLocal357.childIds[storeLocal358 + 1] ?? null;
-    if (storeLocal359 != null)
-      return storeRoutine164(input49, storeLocal359, 0, storeLocal166);
-    storeRoutine166(input49, storeLocal165) && storeLocal166--;
-    storeLocal165 = storeLocal356;
+    let nextSiblingId = parentDirectory.childIds[childIndex + 1] ?? null;
+    if (nextSiblingId != null)
+      return flattenToVisibleRow(state, nextSiblingId, 0, currentDepth);
+    isLastVisibleChild(state, currentNodeId) && currentDepth--;
+    currentNodeId = parentId;
   }
 }
-function storeRoutine168(input114) {
-  let storeLocal281 = input114.paths.length,
-    storeLocal282 = Array(storeLocal281);
-  for (
-    let storeLocal443 = 0;
-    storeLocal443 < storeLocal281;
-    storeLocal443 += 1
-  ) {
-    let storeLocal463 = input114.getParentIndex(storeLocal443);
-    storeLocal282[storeLocal443] = {
-      index: storeLocal443,
+function buildTreeProjectionRows(projection) {
+  let count = projection.paths.length,
+    rows = Array(count);
+  for (let index = 0; index < count; index += 1) {
+    let parentIndex = projection.getParentIndex(index);
+    rows[index] = {
+      index: index,
       parentPath:
-        storeLocal463 >= 0 ? (input114.paths[storeLocal463] ?? null) : null,
-      path: input114.paths[storeLocal443] ?? "",
-      posInSet: input114.posInSetByIndex[storeLocal443] ?? 0,
-      setSize: input114.setSizeByIndex[storeLocal443] ?? 0,
+        parentIndex >= 0 ? (projection.paths[parentIndex] ?? null) : null,
+      path: projection.paths[index] ?? "",
+      posInSet: projection.posInSetByIndex[index] ?? 0,
+      setSize: projection.setSizeByIndex[index] ?? 0,
     };
   }
   return {
-    getParentIndex: input114.getParentIndex,
-    rows: storeLocal282,
+    getParentIndex: projection.getParentIndex,
+    rows: rows,
     get visibleIndexByPath() {
-      return input114.visibleIndexByPath;
+      return projection.visibleIndexByPath;
     },
   };
 }
-function storeRoutine169(input8, input9) {
-  let storeLocal69 = Array(input9),
-    storeLocal70 = new Int32Array(input9),
-    storeLocal71 = new Int32Array(input9),
-    storeLocal72 = new Int32Array(input9),
-    storeLocal73 = new Int32Array(64);
-  storeLocal73.fill(-1);
-  let storeLocal74 = 0,
-    { nodes, directories, segmentTable } = input8.snapshot,
-    storeLocal75 = [[directories.get(input8.snapshot.rootId), 0, -1, ""]],
-    storeLocal76 = input8.snapshot.options.flattenEmptyDirectories,
-    storeLocal77 = input8.pathCacheByNodeId,
-    storeLocal78 = input8.pathCacheVersion,
-    storeLocal79 = segmentTable.valueById;
-  for (; storeLocal75.length > 0 && storeLocal74 < input9; ) {
-    let storeLocal236 = storeLocal75[storeLocal75.length - 1],
-      storeLocal237 = storeLocal236[0];
-    if (storeLocal236[1] >= storeLocal237.childIds.length) {
-      storeLocal75.pop();
+function collectVisiblePaths(state, count) {
+  let paths = Array(count),
+    parentIndices = new Int32Array(count),
+    posInSets = new Int32Array(count),
+    setSizes = new Int32Array(count),
+    depthStack = new Int32Array(64);
+  depthStack.fill(-1);
+  let rowCount = 0,
+    { nodes, directories, segmentTable } = state.snapshot,
+    stack = [[directories.get(state.snapshot.rootId), 0, -1, ""]],
+    flattenEmptyDirectories = state.snapshot.options.flattenEmptyDirectories,
+    pathCache = state.pathCacheByNodeId,
+    pathCacheVersion = state.pathCacheVersion,
+    nameValues = segmentTable.valueById;
+  for (; stack.length > 0 && rowCount < count; ) {
+    let frame = stack[stack.length - 1],
+      frameNode = frame[0];
+    if (frame[1] >= frameNode.childIds.length) {
+      stack.pop();
       continue;
     }
-    let storeLocal238 = storeLocal236[1],
-      storeLocal239 = storeLocal237.childIds[storeLocal236[1]++],
-      storeLocal240 = nodes[storeLocal239],
-      storeLocal241 = storeLocal236[2] + 1,
-      storeLocal242 = storeLocal236[3];
-    storeLocal73 = storeRoutine150(storeLocal73, storeLocal241);
-    let storeLocal243,
-      storeLocal244 = storeLocal239;
-    if (storeRoutine16(storeLocal240)) {
-      storeLocal244 = storeLocal76
-        ? storeRoutine94(input8, storeLocal239)
-        : storeLocal239;
-      storeLocal243 =
-        storeLocal244 === storeLocal239
-          ? `${storeLocal242}${storeLocal79[storeLocal240.nameId]}/`
-          : storeRoutine101(input8, storeLocal244);
+    let childIndex = frame[1],
+      childId = frameNode.childIds[frame[1]++],
+      childNode = nodes[childId],
+      depth = frame[2] + 1,
+      parentPath = frame[3];
+    depthStack = ensureInt32ArrayCapacity(depthStack, depth);
+    let path,
+      terminalNodeId = childId;
+    if (isDirectory(childNode)) {
+      terminalNodeId = flattenEmptyDirectories
+        ? findFlattenedLeaf(state, childId)
+        : childId;
+      path =
+        terminalNodeId === childId
+          ? `${parentPath}${nameValues[childNode.nameId]}/`
+          : buildNodePath(state, terminalNodeId);
     } else {
-      let storeLocal630 = storeLocal77.get(storeLocal239);
-      storeLocal243 =
-        storeLocal630 != null && storeLocal630.version === storeLocal78
-          ? storeLocal630.path
-          : `${storeLocal242}${storeLocal79[storeLocal240.nameId]}`;
+      let cachedPath = pathCache.get(childId);
+      path =
+        cachedPath != null && cachedPath.version === pathCacheVersion
+          ? cachedPath.path
+          : `${parentPath}${nameValues[childNode.nameId]}`;
     }
-    storeLocal70[storeLocal74] = storeLocal73[storeLocal241];
-    storeLocal69[storeLocal74] = storeLocal243;
-    storeLocal71[storeLocal74] = storeLocal238;
-    storeLocal72[storeLocal74] = storeLocal237.childIds.length;
-    storeLocal73[storeLocal241 + 1] = storeLocal74;
-    storeLocal74 += 1;
-    let storeLocal245 = nodes[storeLocal244];
-    storeLocal245 != null &&
-      storeRoutine16(storeLocal245) &&
-      storeRoutine61(input8, storeLocal244, storeLocal245) &&
-      storeLocal75.push([
-        directories.get(storeLocal244),
-        0,
-        storeLocal241,
-        storeLocal243,
-      ]);
+    parentIndices[rowCount] = depthStack[depth];
+    paths[rowCount] = path;
+    posInSets[rowCount] = childIndex;
+    setSizes[rowCount] = frameNode.childIds.length;
+    depthStack[depth + 1] = rowCount;
+    rowCount += 1;
+    let terminalNode = nodes[terminalNodeId];
+    terminalNode != null &&
+      isDirectory(terminalNode) &&
+      isDirectoryExpanded(state, terminalNodeId, terminalNode) &&
+      stack.push([directories.get(terminalNodeId), 0, depth, path]);
   }
-  storeLocal74 < input9 && (storeLocal69.length = storeLocal74);
-  let storeLocal80 = storeLocal70.subarray(0, storeLocal74),
-    storeLocal81 = storeLocal71.subarray(0, storeLocal74),
-    storeLocal82 = storeLocal72.subarray(0, storeLocal74),
-    storeLocal83 = null;
+  rowCount < count && (paths.length = rowCount);
+  let visibleParentIndices = parentIndices.subarray(0, rowCount),
+    visiblePosInSets = posInSets.subarray(0, rowCount),
+    visibleSetSizes = setSizes.subarray(0, rowCount),
+    visibleIndexByPath = null;
   return {
-    getParentIndex(input413) {
-      return input413 < 0 || input413 >= storeLocal74
+    getParentIndex(index) {
+      return index < 0 || index >= rowCount
         ? -1
-        : (storeLocal80[input413] ?? -1);
+        : (visibleParentIndices[index] ?? -1);
     },
-    paths: storeLocal69,
-    posInSetByIndex: storeLocal81,
-    setSizeByIndex: storeLocal82,
+    paths: paths,
+    posInSetByIndex: visiblePosInSets,
+    setSizeByIndex: visibleSetSizes,
     get visibleIndexByPath() {
-      if (storeLocal83 == null) {
-        storeLocal83 = new Map();
-        for (
-          let storeLocal663 = 0;
-          storeLocal663 < storeLocal74;
-          storeLocal663 += 1
-        )
-          storeLocal83.set(storeLocal69[storeLocal663] ?? "", storeLocal663);
+      if (visibleIndexByPath == null) {
+        visibleIndexByPath = new Map();
+        for (let index = 0; index < rowCount; index += 1)
+          visibleIndexByPath.set(paths[index] ?? "", index);
       }
-      return storeLocal83;
+      return visibleIndexByPath;
     },
   };
 }
-function storeRoutine170(input20, input21) {
-  let storeLocal125 = Array(input21),
-    storeLocal126 = 0,
-    { nodes, directories, segmentTable } = input20.snapshot,
-    storeLocal127 = [[directories.get(input20.snapshot.rootId), 0, -1]],
-    storeLocal128 = segmentTable.valueById,
-    storeLocal129 = input20.snapshot.options.flattenEmptyDirectories,
-    storeLocal130 = input20.pathCacheByNodeId,
-    storeLocal131 = input20.pathCacheVersion;
-  for (; storeLocal127.length > 0 && storeLocal126 < input21; ) {
-    let storeLocal179 = storeLocal127[storeLocal127.length - 1],
-      storeLocal180 = storeLocal179[0];
-    if (storeLocal179[1] >= storeLocal180.childIds.length) {
-      storeLocal127.pop();
+function collectVisibleRows(state, count) {
+  let rows = Array(count),
+    rowCount = 0,
+    { nodes, directories, segmentTable } = state.snapshot,
+    stack = [[directories.get(state.snapshot.rootId), 0, -1]],
+    nameValues = segmentTable.valueById,
+    flattenEmptyDirectories = state.snapshot.options.flattenEmptyDirectories,
+    pathCache = state.pathCacheByNodeId,
+    pathCacheVersion = state.pathCacheVersion;
+  for (; stack.length > 0 && rowCount < count; ) {
+    let frame = stack[stack.length - 1],
+      frameNode = frame[0];
+    if (frame[1] >= frameNode.childIds.length) {
+      stack.pop();
       continue;
     }
-    let storeLocal181 = storeLocal180.childIds[storeLocal179[1]++],
-      storeLocal182 = nodes[storeLocal181],
-      storeLocal183 = storeLocal179[2] + 1;
-    if (!storeRoutine16(storeLocal182)) {
-      let storeLocal386 = storeLocal130.get(storeLocal181);
-      storeLocal125[storeLocal126++] = {
-        depth: storeLocal183,
+    let childId = frameNode.childIds[frame[1]++],
+      childNode = nodes[childId],
+      depth = frame[2] + 1;
+    if (!isDirectory(childNode)) {
+      let cachedPath = pathCache.get(childId);
+      rows[rowCount++] = {
+        depth: depth,
         flattenedSegments: undefined,
         hasChildren: false,
-        id: storeLocal181,
+        id: childId,
         isExpanded: false,
         isFlattened: false,
         isLoading: false,
         kind: "file",
         loadState: undefined,
-        name: storeLocal128[storeLocal182.nameId],
+        name: nameValues[childNode.nameId],
         path:
-          storeLocal386 != null && storeLocal386.version === storeLocal131
-            ? storeLocal386.path
-            : storeRoutine101(input20, storeLocal181),
+          cachedPath != null && cachedPath.version === pathCacheVersion
+            ? cachedPath.path
+            : buildNodePath(state, childId),
       };
       continue;
     }
-    let storeLocal184 = storeLocal129
-        ? storeRoutine94(input20, storeLocal181)
-        : storeLocal181,
-      storeLocal185 = {
-        headNodeId: storeLocal181,
-        terminalNodeId: storeLocal184,
-        visibleDepth: storeLocal183,
+    let terminalNodeId = flattenEmptyDirectories
+        ? findFlattenedLeaf(state, childId)
+        : childId,
+      row = {
+        headNodeId: childId,
+        terminalNodeId: terminalNodeId,
+        visibleDepth: depth,
       };
-    storeLocal125[storeLocal126++] = $(input20, storeLocal185);
-    let storeLocal186 = nodes[storeLocal184];
-    storeLocal186 != null &&
-      storeRoutine16(storeLocal186) &&
-      storeRoutine61(input20, storeLocal184, storeLocal186) &&
-      storeLocal127.push([directories.get(storeLocal184), 0, storeLocal183]);
+    rows[rowCount++] = buildVisibleRowInfo(state, row);
+    let terminalNode = nodes[terminalNodeId];
+    terminalNode != null &&
+      isDirectory(terminalNode) &&
+      isDirectoryExpanded(state, terminalNodeId, terminalNode) &&
+      stack.push([directories.get(terminalNodeId), 0, depth]);
   }
-  return (
-    storeLocal126 < input21 && (storeLocal125.length = storeLocal126),
-    storeLocal125
-  );
+  return (rowCount < count && (rows.length = rowCount), rows);
 }
-function $(input16, input17) {
-  let storeLocal112 = storeRoutine108(input16, input17.terminalNodeId),
-    storeLocal113 = storeRoutine16(storeLocal112)
-      ? storeRoutine171(input16, input17)
+function buildVisibleRowInfo(state, row) {
+  let terminalNode = getNode(state, row.terminalNodeId),
+    loadState = isDirectory(terminalNode)
+      ? aggregateDirectoryLoadState(state, row)
       : null,
-    storeLocal114 = storeRoutine101(input16, input17.terminalNodeId),
-    storeLocal115 = storeRoutine42(
-      input16.snapshot.segmentTable,
-      storeLocal112.nameId,
-    ),
-    storeLocal116 =
-      storeRoutine16(storeLocal112) &&
-      storeRoutine107(input16, input17.terminalNodeId).childIds.length > 0,
-    storeLocal117 = input17.headNodeId !== input17.terminalNodeId,
-    storeLocal118 = input16.instrumentation,
-    storeLocal119 = storeLocal117
-      ? storeLocal118 == null
-        ? storeRoutine95(input16, input17.headNodeId).map((item) => {
-            let storeLocal525 = storeRoutine108(input16, item);
+    path = buildNodePath(state, row.terminalNodeId),
+    name = getSegmentValue(state.snapshot.segmentTable, terminalNode.nameId),
+    hasChildren =
+      isDirectory(terminalNode) &&
+      getDirectory(state, row.terminalNodeId).childIds.length > 0,
+    isFlattened = row.headNodeId !== row.terminalNodeId,
+    instrumentation = state.instrumentation,
+    flattenedSegments = isFlattened
+      ? instrumentation == null
+        ? collectFlattenChain(state, row.headNodeId).map((item) => {
+            let segmentNode = getNode(state, item);
             return {
-              isTerminal: item === input17.terminalNodeId,
-              name: storeRoutine42(
-                input16.snapshot.segmentTable,
-                storeLocal525.nameId,
+              isTerminal: item === row.terminalNodeId,
+              name: getSegmentValue(
+                state.snapshot.segmentTable,
+                segmentNode.nameId,
               ),
               nodeId: item,
-              path: storeRoutine101(input16, item),
+              path: buildNodePath(state, item),
             };
           })
-        : storeRoutine23(
-            storeLocal118,
+        : measurePhase(
+            instrumentation,
             "store.getVisibleSlice.flatten.collectSegments",
             () =>
-              storeRoutine95(input16, input17.headNodeId).map((item) => {
-                let storeLocal526 = storeRoutine108(input16, item);
+              collectFlattenChain(state, row.headNodeId).map((item) => {
+                let segmentNode = getNode(state, item);
                 return {
-                  isTerminal: item === input17.terminalNodeId,
-                  name: storeRoutine42(
-                    input16.snapshot.segmentTable,
-                    storeLocal526.nameId,
+                  isTerminal: item === row.terminalNodeId,
+                  name: getSegmentValue(
+                    state.snapshot.segmentTable,
+                    segmentNode.nameId,
                   ),
                   nodeId: item,
-                  path: storeRoutine101(input16, item),
+                  path: buildNodePath(state, item),
                 };
               }),
           )
       : undefined;
   return {
-    depth: input17.visibleDepth,
-    flattenedSegments: storeLocal119,
-    hasChildren: storeLocal116,
-    id: input17.terminalNodeId,
+    depth: row.visibleDepth,
+    flattenedSegments: flattenedSegments,
+    hasChildren: hasChildren,
+    id: row.terminalNodeId,
     isExpanded:
-      storeRoutine16(storeLocal112) &&
-      storeRoutine61(input16, input17.terminalNodeId, storeLocal112),
-    isFlattened: storeLocal117,
-    isLoading: storeLocal113 === "loading",
-    kind: storeRoutine16(storeLocal112) ? "directory" : "file",
+      isDirectory(terminalNode) &&
+      isDirectoryExpanded(state, row.terminalNodeId, terminalNode),
+    isFlattened: isFlattened,
+    isLoading: loadState === "loading",
+    kind: isDirectory(terminalNode) ? "directory" : "file",
     loadState:
-      storeLocal113 == null || storeLocal113 === "loaded"
-        ? undefined
-        : storeLocal113,
-    name: storeLocal115,
-    path: storeLocal114,
+      loadState == null || loadState === "loaded" ? undefined : loadState,
+    name: name,
+    path: path,
   };
 }
-function storeRoutine171(input155, input156) {
-  if (input156.headNodeId === input156.terminalNodeId)
-    return storeRoutine64(input155, input156.terminalNodeId);
-  let storeLocal337 = storeRoutine95(input155, input156.headNodeId),
-    storeLocal338 = false,
-    storeLocal339 = false;
-  for (let storeLocal533 of storeLocal337) {
-    let storeLocal561 = storeRoutine64(input155, storeLocal533);
-    if (storeLocal561 === "loading") return "loading";
-    if (storeLocal561 === "error") {
-      storeLocal339 = true;
+function aggregateDirectoryLoadState(state, range) {
+  if (range.headNodeId === range.terminalNodeId)
+    return getDirectoryLoadState(state, range.terminalNodeId);
+  let nodeIds = collectFlattenChain(state, range.headNodeId),
+    hasUnloaded = false,
+    hasError = false;
+  for (let nodeId of nodeIds) {
+    let loadState = getDirectoryLoadState(state, nodeId);
+    if (loadState === "loading") return "loading";
+    if (loadState === "error") {
+      hasError = true;
       continue;
     }
-    storeLocal561 === "unloaded" && (storeLocal338 = true);
+    loadState === "unloaded" && (hasUnloaded = true);
   }
-  return storeLocal339 ? "error" : storeLocal338 ? "unloaded" : "loaded";
+  return hasError ? "error" : hasUnloaded ? "unloaded" : "loaded";
 }
-function storeRoutine172(input10) {
+function initializeOpenVisibleCounts(state) {
   let { directories, nodes, options, rootId, presortedDirectoryNodeIds } =
-      input10.snapshot,
-    storeLocal92 = options.flattenEmptyDirectories === true,
-    storeLocal93 = (input57) => {
-      let storeLocal187 = nodes[input57];
-      if (storeLocal187 == null || !storeRoutine16(storeLocal187)) return;
-      let storeLocal188 = directories.get(input57);
-      if (storeLocal188 == null)
-        throw Error(
-          `Unknown directory child index for node ${String(input57)}`,
-        );
-      let storeLocal189 = storeLocal188.childIds,
-        storeLocal190 = storeLocal189.length,
-        storeLocal191 = 0,
-        storeLocal192 = 0;
-      for (
-        let storeLocal542 = 0;
-        storeLocal542 < storeLocal190;
-        storeLocal542++
-      ) {
-        let storeLocal582 = storeLocal189[storeLocal542];
-        if (storeLocal582 == null) continue;
-        let storeLocal583 = nodes[storeLocal582];
-        storeLocal191 += storeLocal583.subtreeNodeCount;
-        storeLocal192 += storeLocal583.visibleSubtreeCount;
+      state.snapshot,
+    flattenEmptyDirectories = options.flattenEmptyDirectories === true,
+    recomputeDirectoryCounts = (nodeId) => {
+      let node = nodes[nodeId];
+      if (node == null || !isDirectory(node)) return;
+      let directory = directories.get(nodeId);
+      if (directory == null)
+        throw Error(`Unknown directory child index for node ${String(nodeId)}`);
+      let childIds = directory.childIds,
+        childCount = childIds.length,
+        subtreeNodeCount = 0,
+        visibleSubtreeCount = 0;
+      for (let index = 0; index < childCount; index++) {
+        let childId = childIds[index];
+        if (childId == null) continue;
+        let childNode = nodes[childId];
+        subtreeNodeCount += childNode.subtreeNodeCount;
+        visibleSubtreeCount += childNode.visibleSubtreeCount;
       }
-      storeLocal188.totalChildSubtreeNodeCount = storeLocal191;
-      storeLocal188.totalChildVisibleSubtreeCount = storeLocal192;
-      storeLocal190 >= 128 && storeRoutine11(nodes, storeLocal188);
-      storeLocal187.subtreeNodeCount = 1 + storeLocal191;
-      let storeLocal193;
-      if (storeLocal92 && storeLocal190 === 1) {
-        let storeLocal665 = nodes[storeLocal189[0]];
-        storeLocal193 =
-          storeLocal665 != null && storeRoutine16(storeLocal665)
-            ? storeLocal192
-            : 1 + storeLocal192;
-      } else storeLocal193 = 1 + storeLocal192;
-      storeLocal187.visibleSubtreeCount = storeLocal193;
+      directory.totalChildSubtreeNodeCount = subtreeNodeCount;
+      directory.totalChildVisibleSubtreeCount = visibleSubtreeCount;
+      childCount >= 128 && rebuildChildVisibleChunkSums(nodes, directory);
+      node.subtreeNodeCount = 1 + subtreeNodeCount;
+      let visibleCount;
+      if (flattenEmptyDirectories && childCount === 1) {
+        let onlyChildNode = nodes[childIds[0]];
+        visibleCount =
+          onlyChildNode != null && isDirectory(onlyChildNode)
+            ? visibleSubtreeCount
+            : 1 + visibleSubtreeCount;
+      } else visibleCount = 1 + visibleSubtreeCount;
+      node.visibleSubtreeCount = visibleCount;
     };
   if (presortedDirectoryNodeIds != null)
-    for (
-      let storeLocal664 = presortedDirectoryNodeIds.length - 1;
-      storeLocal664 >= 0;
-      storeLocal664--
-    )
-      storeLocal93(presortedDirectoryNodeIds[storeLocal664]);
+    for (let index = presortedDirectoryNodeIds.length - 1; index >= 0; index--)
+      recomputeDirectoryCounts(presortedDirectoryNodeIds[index]);
   else
-    for (
-      let storeLocal666 = nodes.length - 1;
-      storeLocal666 >= 1;
-      storeLocal666--
-    )
-      storeLocal93(storeLocal666);
-  let storeLocal94 = nodes[rootId],
-    storeLocal95 = directories.get(rootId);
-  if (storeLocal94 == null || storeLocal95 == null) return;
-  let storeLocal96 = storeLocal95.childIds,
-    storeLocal97 = 0,
-    storeLocal98 = 0;
-  for (
-    let storeLocal532 = 0;
-    storeLocal532 < storeLocal96.length;
-    storeLocal532++
-  ) {
-    let storeLocal584 = storeLocal96[storeLocal532];
-    if (storeLocal584 == null) continue;
-    let storeLocal585 = nodes[storeLocal584];
-    storeLocal97 += storeLocal585.subtreeNodeCount;
-    storeLocal98 += storeLocal585.visibleSubtreeCount;
+    for (let index = nodes.length - 1; index >= 1; index--)
+      recomputeDirectoryCounts(index);
+  let rootNode = nodes[rootId],
+    rootDirectory = directories.get(rootId);
+  if (rootNode == null || rootDirectory == null) return;
+  let rootChildIds = rootDirectory.childIds,
+    rootSubtreeNodeCount = 0,
+    rootVisibleSubtreeCount = 0;
+  for (let index = 0; index < rootChildIds.length; index++) {
+    let childId = rootChildIds[index];
+    if (childId == null) continue;
+    let childNode = nodes[childId];
+    rootSubtreeNodeCount += childNode.subtreeNodeCount;
+    rootVisibleSubtreeCount += childNode.visibleSubtreeCount;
   }
-  storeLocal95.totalChildSubtreeNodeCount = storeLocal97;
-  storeLocal95.totalChildVisibleSubtreeCount = storeLocal98;
-  storeRoutine11(nodes, storeLocal95);
-  storeLocal94.subtreeNodeCount = 1 + storeLocal97;
-  storeLocal94.visibleSubtreeCount = storeLocal98;
+  rootDirectory.totalChildSubtreeNodeCount = rootSubtreeNodeCount;
+  rootDirectory.totalChildVisibleSubtreeCount = rootVisibleSubtreeCount;
+  rebuildChildVisibleChunkSums(nodes, rootDirectory);
+  rootNode.subtreeNodeCount = 1 + rootSubtreeNodeCount;
+  rootNode.visibleSubtreeCount = rootVisibleSubtreeCount;
 }
-function storeRoutine173(input316) {
+function isDefaultOpenExpansion(options) {
   return (
-    input316.initialExpansion === "open" &&
-    (input316.initialExpandedPaths == null ||
-      input316.initialExpandedPaths.length === 0)
+    options.initialExpansion === "open" &&
+    (options.initialExpandedPaths == null ||
+      options.initialExpandedPaths.length === 0)
   );
 }
 export const Store = class PathTreeStore {
   #state;
-  constructor(input7 = {}) {
-    let storeLocal55 = storeRoutine22(input7),
-      storeLocal56 = storeRoutine23(
-        storeLocal55,
+  constructor(options = {}) {
+    let instrumentation = getInstrumentation(options),
+      builder = measurePhase(
+        instrumentation,
         "store.builder.create",
-        () => new storeLocal11(input7),
+        () => new PathTreeBuilder(options),
       );
-    if (input7.preparedInput != null) {
-      let storeLocal512 = storeRoutine54(input7.preparedInput);
-      storeLocal512 == null
-        ? storeLocal56.appendPreparedPaths(
-            storeRoutine53(input7.preparedInput),
+    if (options.preparedInput != null) {
+      let presortedInput = resolvePresortedPaths(options.preparedInput);
+      presortedInput == null
+        ? builder.appendPreparedPaths(
+            resolvePreparedPaths(options.preparedInput),
             false,
           )
-        : storeLocal56.appendPresortedPaths(
-            storeLocal512,
-            storeRoutine55(input7.preparedInput),
+        : builder.appendPresortedPaths(
+            presortedInput,
+            resolvePresortedContainsDirectories(options.preparedInput),
           );
     } else {
-      let storeLocal518 = input7.paths ?? [];
-      input7.presorted === true
-        ? storeLocal56.appendPaths(storeLocal518)
-        : storeLocal56.appendPreparedPaths(
-            storeRoutine23(storeLocal55, "store.preparePathEntries", () =>
-              storeRoutine56(storeLocal518, input7),
+      let paths = options.paths ?? [];
+      options.presorted === true
+        ? builder.appendPaths(paths)
+        : builder.appendPreparedPaths(
+            measurePhase(instrumentation, "store.preparePathEntries", () =>
+              preparePathEntries(paths, options),
             ),
           );
     }
-    let storeLocal57 = storeRoutine23(
-        storeLocal55,
-        "store.builder.finish",
-        () =>
-          storeLocal56.finish({
-            skipSubtreeCountPass: true,
-          }),
+    let snapshot = measurePhase(instrumentation, "store.builder.finish", () =>
+        builder.finish({
+          skipSubtreeCountPass: true,
+        }),
       ),
-      storeLocal58 = storeRoutine23(
-        storeLocal55,
+      allDirectoriesExpanded = measurePhase(
+        instrumentation,
         "store.state.detectAllDirectoriesExpanded",
         () =>
-          (input7.initialExpansion ?? "closed") === "closed" &&
-          storeLocal56.didMatchAllInitialExpandedPaths(),
+          (options.initialExpansion ?? "closed") === "closed" &&
+          builder.didMatchAllInitialExpandedPaths(),
       );
-    this.#state = storeRoutine23(storeLocal55, "store.state.create", () =>
-      storeRoutine57(
-        storeLocal57,
-        storeLocal58 ? "open" : (input7.initialExpansion ?? "closed"),
-        storeLocal55,
+    this.#state = measurePhase(instrumentation, "store.state.create", () =>
+      createStoreState(
+        snapshot,
+        allDirectoriesExpanded
+          ? "open"
+          : (options.initialExpansion ?? "closed"),
+        instrumentation,
       ),
     );
-    storeLocal58 && (this.#state.collapseNewDirectoriesByDefault = true);
-    let storeLocal59 = storeLocal58
+    allDirectoriesExpanded &&
+      (this.#state.collapseNewDirectoriesByDefault = true);
+    let expandedCount = allDirectoriesExpanded
       ? this.#state.snapshot.directories.size - 1
-      : storeRoutine23(
-          storeLocal55,
+      : measurePhase(
+          instrumentation,
           "store.state.initializeExpandedPaths",
-          () => this.initializeExpandedPaths(input7.initialExpandedPaths),
+          () => this.initializeExpandedPaths(options.initialExpandedPaths),
         );
-    storeLocal58 ||
-    storeRoutine173(input7) ||
-    ((input7.initialExpansion ?? "closed") === "closed" &&
-      storeLocal59 === this.#state.snapshot.directories.size - 1) ||
-    ((input7.initialExpandedPaths?.length ?? 0) > 0 &&
-      storeRoutine23(
-        storeLocal55,
+    allDirectoriesExpanded ||
+    isDefaultOpenExpansion(options) ||
+    ((options.initialExpansion ?? "closed") === "closed" &&
+      expandedCount === this.#state.snapshot.directories.size - 1) ||
+    ((options.initialExpandedPaths?.length ?? 0) > 0 &&
+      measurePhase(
+        instrumentation,
         "store.state.checkAllDirectoriesExpanded",
         () => this.hasAllDirectoriesExpanded(),
       ))
-      ? storeRoutine23(
-          storeLocal55,
+      ? measurePhase(
+          instrumentation,
           "store.state.initializeOpenVisibleCounts",
-          () => storeRoutine172(this.#state),
+          () => initializeOpenVisibleCounts(this.#state),
         )
-      : storeRoutine23(storeLocal55, "store.state.recomputeCounts", () =>
-          storeRoutine103(this.#state, this.#state.snapshot.rootId),
+      : measurePhase(instrumentation, "store.state.recomputeCounts", () =>
+          recomputeSubtreeCounts(this.#state, this.#state.snapshot.rootId),
         );
   }
-  static preparePaths(input417, input418 = {}) {
-    return storeRoutine50(input417, input418);
+  static preparePaths(paths, options = {}) {
+    return preparePathList(paths, options);
   }
-  static prepareInput(input419, input420 = {}) {
-    return storeRoutine51(input419, input420);
+  static prepareInput(input, options = {}) {
+    return preparePreparedInput(input, options);
   }
-  static preparePresortedInput(input414) {
-    return storeRoutine52(input414);
+  static preparePresortedInput(input) {
+    return hasAnyDirectoryPath(input);
   }
-  list(input371) {
-    return storeRoutine23(this.#state.instrumentation, "store.list", () =>
-      storeRoutine96(this.#state, input371),
+  list(path) {
+    return measurePhase(this.#state.instrumentation, "store.list", () =>
+      getVisibleChildren(this.#state, path),
     );
   }
-  add(input335) {
-    storeRoutine23(this.#state.instrumentation, "store.add", () => {
-      let storeLocal642 = storeRoutine151(this.#state);
-      storeRoutine84(
+  add(path) {
+    measurePhase(this.#state.instrumentation, "store.add", () => {
+      let previousVisibleCount = getVisibleCount(this.#state);
+      recordEvent(
         this.#state,
-        storeRoutine82(
+        withVisibleCountDelta(
           this.#state,
-          storeLocal642,
-          storeRoutine97(this.#state, input335),
+          previousVisibleCount,
+          addPath(this.#state, path),
         ),
       );
     });
   }
-  remove(input301, input302 = {}) {
-    storeRoutine23(this.#state.instrumentation, "store.remove", () => {
-      let storeLocal641 = storeRoutine151(this.#state);
-      storeRoutine84(
+  remove(path, options = {}) {
+    measurePhase(this.#state.instrumentation, "store.remove", () => {
+      let previousVisibleCount = getVisibleCount(this.#state);
+      recordEvent(
         this.#state,
-        storeRoutine82(
+        withVisibleCountDelta(
           this.#state,
-          storeLocal641,
-          storeRoutine98(this.#state, input301, input302),
+          previousVisibleCount,
+          removePath(this.#state, path, options),
         ),
       );
     });
   }
-  move(input279, input280, input281 = {}) {
-    storeRoutine23(this.#state.instrumentation, "store.move", () => {
-      let storeLocal605 = storeRoutine151(this.#state),
-        storeLocal606 = _t(this.#state, input279, input280, input281);
-      storeLocal606 != null &&
-        storeRoutine84(
+  move(fromPath, toPath, options = {}) {
+    measurePhase(this.#state.instrumentation, "store.move", () => {
+      let previousVisibleCount = getVisibleCount(this.#state),
+        event = buildMoveEvent(this.#state, fromPath, toPath, options);
+      event != null &&
+        recordEvent(
           this.#state,
-          storeRoutine82(this.#state, storeLocal605, storeLocal606),
+          withVisibleCountDelta(this.#state, previousVisibleCount, event),
         );
     });
   }
-  batch(input159) {
-    storeRoutine83(this.#state, () => {
-      if (typeof input159 == "function") {
-        input159(this);
+  batch(operations) {
+    runTransaction(this.#state, () => {
+      if (typeof operations == "function") {
+        operations(this);
         return;
       }
-      for (let storeLocal436 of input159)
-        switch (storeLocal436.type) {
+      for (let operation of operations)
+        switch (operation.type) {
           case "add":
-            this.add(storeLocal436.path);
+            this.add(operation.path);
             break;
           case "remove":
-            this.remove(storeLocal436.path, {
-              recursive: storeLocal436.recursive,
+            this.remove(operation.path, {
+              recursive: operation.recursive,
             });
             break;
           case "move":
-            this.move(storeLocal436.from, storeLocal436.to, {
-              collision: storeLocal436.collision,
+            this.move(operation.from, operation.to, {
+              collision: operation.collision,
             });
             break;
         }
     });
   }
   getVisibleCount() {
-    return storeRoutine23(
+    return measurePhase(
       this.#state.instrumentation,
       "store.getVisibleCount",
-      () => storeRoutine151(this.#state),
+      () => getVisibleCount(this.#state),
     );
   }
-  getVisibleSlice(input349, input350) {
-    return storeRoutine23(
+  getVisibleSlice(startIndex, endIndex) {
+    return measurePhase(
       this.#state.instrumentation,
       "store.getVisibleSlice",
-      () => storeRoutine157(this.#state, input349, input350),
+      () => getVisibleSlice(this.#state, startIndex, endIndex),
     );
   }
-  getVisibleRowContext(input340) {
-    return storeRoutine23(
+  getVisibleRowContext(visibleIndex) {
+    return measurePhase(
       this.#state.instrumentation,
       "store.getVisibleRowContext",
-      () => storeRoutine156(this.#state, input340),
+      () => getVisibleRowContext(this.#state, visibleIndex),
     );
   }
   getVisibleTreeProjection() {
-    return storeRoutine158(this.#state);
+    return buildVisibleTreeProjection(this.#state);
   }
-  getVisibleTreeProjectionData(input405) {
-    return _n(this.#state, input405);
+  getVisibleTreeProjectionData(options) {
+    return projectVisibleTree(this.#state, options);
   }
-  getVisibleIndex(input353) {
-    return storeRoutine23(
+  getVisibleIndex(path) {
+    return measurePhase(
       this.#state.instrumentation,
       "store.getVisibleIndex",
-      () => storeRoutine159(this.#state, input353),
+      () => computeVisibleIndex(this.#state, path),
     );
   }
-  getPathInfo(input211) {
-    return storeRoutine23(
+  getPathInfo(path) {
+    return measurePhase(
       this.#state.instrumentation,
       "store.getPathInfo",
       () => {
-        let storeLocal503 = storeRoutine105(this.#state, input211);
-        if (storeLocal503 == null) return null;
-        let storeLocal504 = storeRoutine108(this.#state, storeLocal503);
+        let nodeId = resolvePath(this.#state, path);
+        if (nodeId == null) return null;
+        let node = getNode(this.#state, nodeId);
         return {
-          depth: storeRoutine14(storeLocal504),
-          kind: storeRoutine16(storeLocal504) ? "directory" : "file",
-          path: storeRoutine101(this.#state, storeLocal503),
+          depth: getDepth(node),
+          kind: isDirectory(node) ? "directory" : "file",
+          path: buildNodePath(this.#state, nodeId),
         };
       },
     );
   }
-  isExpanded(input249) {
-    return storeRoutine23(
-      this.#state.instrumentation,
-      "store.isExpanded",
-      () => {
-        let storeLocal596 = this.requireDirectoryNodeId(input249),
-          storeLocal597 = storeRoutine108(this.#state, storeLocal596);
-        return storeRoutine61(this.#state, storeLocal596, storeLocal597);
-      },
-    );
+  isExpanded(path) {
+    return measurePhase(this.#state.instrumentation, "store.isExpanded", () => {
+      let nodeId = this.requireDirectoryNodeId(path),
+        node = getNode(this.#state, nodeId);
+      return isDirectoryExpanded(this.#state, nodeId, node);
+    });
   }
-  expand(input292) {
-    storeRoutine23(this.#state.instrumentation, "store.expand", () => {
-      let storeLocal612 = storeRoutine151(this.#state),
-        storeLocal613 = storeRoutine160(this.#state, input292);
-      storeLocal613 != null &&
-        storeRoutine84(
+  expand(path) {
+    measurePhase(this.#state.instrumentation, "store.expand", () => {
+      let previousVisibleCount = getVisibleCount(this.#state),
+        event = expandPath(this.#state, path);
+      event != null &&
+        recordEvent(
           this.#state,
-          storeRoutine82(this.#state, storeLocal612, storeLocal613),
+          withVisibleCountDelta(this.#state, previousVisibleCount, event),
         );
     });
   }
-  collapse(input283) {
-    storeRoutine23(this.#state.instrumentation, "store.collapse", () => {
-      let storeLocal614 = storeRoutine151(this.#state),
-        storeLocal615 = storeRoutine161(this.#state, input283);
-      storeLocal615 != null &&
-        storeRoutine84(
+  collapse(path) {
+    measurePhase(this.#state.instrumentation, "store.collapse", () => {
+      let previousVisibleCount = getVisibleCount(this.#state),
+        event = collapsePath(this.#state, path);
+      event != null &&
+        recordEvent(
           this.#state,
-          storeRoutine82(this.#state, storeLocal614, storeLocal615),
+          withVisibleCountDelta(this.#state, previousVisibleCount, event),
         );
     });
   }
-  on(input441, input442) {
-    return storeRoutine71(this.#state, input441, input442);
+  on(event, listener) {
+    return addDirectoryLoadListener(this.#state, event, listener);
   }
-  getDirectoryLoadState(input364) {
-    let storeLocal594 = this.requireDirectoryNodeId(input364);
-    return storeRoutine64(this.#state, storeLocal594);
+  getDirectoryLoadState(path) {
+    let nodeId = this.requireDirectoryNodeId(path);
+    return getDirectoryLoadState(this.#state, nodeId);
   }
-  markDirectoryUnloaded(input74) {
-    storeRoutine23(
+  markDirectoryUnloaded(path) {
+    measurePhase(
       this.#state.instrumentation,
       "store.markDirectoryUnloaded",
       () => {
-        let storeLocal287 = this.requireDirectoryNodeId(input74);
-        if (storeRoutine107(this.#state, storeLocal287).childIds.length > 0)
+        let nodeId = this.requireDirectoryNodeId(path);
+        if (getDirectory(this.#state, nodeId).childIds.length > 0)
           throw Error(
-            `Cannot mark a directory with known children as unloaded: "${input74}"`,
+            `Cannot mark a directory with known children as unloaded: "${path}"`,
           );
-        let storeLocal288 = storeRoutine151(this.#state);
-        storeRoutine66(this.#state, storeLocal287);
-        storeRoutine84(
+        let previousVisibleCount = getVisibleCount(this.#state);
+        markDirectoryUnloaded(this.#state, nodeId);
+        recordEvent(
           this.#state,
-          storeRoutine82(
+          withVisibleCountDelta(
             this.#state,
-            storeLocal288,
-            storeRoutine77({
-              affectedAncestorIds: storeRoutine104(this.#state, storeLocal287),
-              affectedNodeIds: [storeLocal287],
-              path: input74,
-              projectionChanged:
-                this.isDirectoryProjectionVisible(storeLocal287),
+            previousVisibleCount,
+            createMarkDirectoryUnloadedEvent({
+              affectedAncestorIds: collectAncestorIds(this.#state, nodeId),
+              affectedNodeIds: [nodeId],
+              path: path,
+              projectionChanged: this.isDirectoryProjectionVisible(nodeId),
             }),
           ),
         );
       },
     );
   }
-  beginChildLoad(input108) {
-    return storeRoutine23(
+  beginChildLoad(path) {
+    return measurePhase(
       this.#state.instrumentation,
       "store.beginChildLoad",
       () => {
-        let storeLocal340 = this.requireDirectoryNodeId(input108),
-          storeLocal341 = storeRoutine151(this.#state),
-          storeLocal342 = storeRoutine65(this.#state, storeLocal340);
+        let nodeId = this.requireDirectoryNodeId(path),
+          previousVisibleCount = getVisibleCount(this.#state),
+          loadAttempt = beginDirectoryLoad(this.#state, nodeId);
         return (
-          storeRoutine84(
+          recordEvent(
             this.#state,
-            storeRoutine82(
+            withVisibleCountDelta(
               this.#state,
-              storeLocal341,
-              $e({
-                affectedAncestorIds: storeRoutine104(
-                  this.#state,
-                  storeLocal340,
-                ),
-                affectedNodeIds: [storeLocal340],
-                attemptId: storeLocal342.attemptId,
-                path: input108,
-                projectionChanged:
-                  this.isDirectoryProjectionVisible(storeLocal340),
-                reused: storeLocal342.reused,
+              previousVisibleCount,
+              createBeginChildLoadEvent({
+                affectedAncestorIds: collectAncestorIds(this.#state, nodeId),
+                affectedNodeIds: [nodeId],
+                attemptId: loadAttempt.attemptId,
+                path: path,
+                projectionChanged: this.isDirectoryProjectionVisible(nodeId),
+                reused: loadAttempt.reused,
               }),
             ),
           ),
-          storeLocal342
+          loadAttempt
         );
       },
     );
   }
-  applyChildPatch(input18, input19) {
-    return storeRoutine23(
+  applyChildPatch(loadHandle, patch) {
+    return measurePhase(
       this.#state.instrumentation,
       "store.applyChildPatch",
       () => {
-        let storeLocal120 = this.resolveActiveDirectoryNodeId(input18.nodeId);
+        let nodeId = this.resolveActiveDirectoryNodeId(loadHandle.nodeId);
         if (
-          storeLocal120 == null ||
-          storeRoutine64(this.#state, storeLocal120) !== "loading" ||
-          !storeRoutine68(this.#state, storeLocal120, input18.attemptId)
+          nodeId == null ||
+          getDirectoryLoadState(this.#state, nodeId) !== "loading" ||
+          !isLoadAttemptActive(this.#state, nodeId, loadHandle.attemptId)
         )
           return false;
-        let storeLocal121 = storeRoutine101(this.#state, storeLocal120);
-        this.validateChildPatch(storeLocal121, input19);
-        let storeLocal122 = storeRoutine151(this.#state),
-          storeLocal123 = [];
-        for (let storeLocal301 of input19.operations) {
-          storeRoutine174(storeLocal121, storeLocal301);
-          let storeLocal327 = storeRoutine151(this.#state);
-          switch (storeLocal301.type) {
+        let directoryPath = buildNodePath(this.#state, nodeId);
+        this.validateChildPatch(directoryPath, patch);
+        let previousVisibleCount = getVisibleCount(this.#state),
+          childEvents = [];
+        for (let operation of patch.operations) {
+          assertOperationWithinPath(directoryPath, operation);
+          let operationVisibleCount = getVisibleCount(this.#state);
+          switch (operation.type) {
             case "add":
-              storeLocal123.push(
-                storeRoutine82(
+              childEvents.push(
+                withVisibleCountDelta(
                   this.#state,
-                  storeLocal327,
-                  storeRoutine97(this.#state, storeLocal301.path),
+                  operationVisibleCount,
+                  addPath(this.#state, operation.path),
                 ),
               );
               break;
             case "remove":
-              storeLocal123.push(
-                storeRoutine82(
+              childEvents.push(
+                withVisibleCountDelta(
                   this.#state,
-                  storeLocal327,
-                  storeRoutine98(this.#state, storeLocal301.path, {
-                    recursive: storeLocal301.recursive,
+                  operationVisibleCount,
+                  removePath(this.#state, operation.path, {
+                    recursive: operation.recursive,
                   }),
                 ),
               );
               break;
             case "move": {
-              let storeLocal576 = _t(
+              let moveEvent = buildMoveEvent(
                 this.#state,
-                storeLocal301.from,
-                storeLocal301.to,
+                operation.from,
+                operation.to,
                 {
-                  collision: storeLocal301.collision,
+                  collision: operation.collision,
                 },
               );
-              storeLocal576 != null &&
-                storeLocal123.push(
-                  storeRoutine82(this.#state, storeLocal327, storeLocal576),
+              moveEvent != null &&
+                childEvents.push(
+                  withVisibleCountDelta(
+                    this.#state,
+                    operationVisibleCount,
+                    moveEvent,
+                  ),
                 );
               break;
             }
           }
         }
-        let storeLocal124 =
-          storeLocal123.some((item) => item.projectionChanged) ||
-          this.isDirectoryProjectionVisible(storeLocal120);
+        let projectionChanged =
+          childEvents.some((item) => item.projectionChanged) ||
+          this.isDirectoryProjectionVisible(nodeId);
         return (
-          storeRoutine84(
+          recordEvent(
             this.#state,
-            storeRoutine82(
+            withVisibleCountDelta(
               this.#state,
-              storeLocal122,
-              storeRoutine78({
-                affectedAncestorIds: storeRoutine104(
-                  this.#state,
-                  storeLocal120,
-                ),
-                affectedNodeIds: [storeLocal120],
-                attemptId: input18.attemptId,
-                childEvents: storeLocal123,
-                path: storeRoutine101(this.#state, storeLocal120),
-                projectionChanged: storeLocal124,
+              previousVisibleCount,
+              createApplyChildPatchEvent({
+                affectedAncestorIds: collectAncestorIds(this.#state, nodeId),
+                affectedNodeIds: [nodeId],
+                attemptId: loadHandle.attemptId,
+                childEvents: childEvents,
+                path: buildNodePath(this.#state, nodeId),
+                projectionChanged: projectionChanged,
               }),
             ),
           ),
@@ -4008,99 +3749,91 @@ export const Store = class PathTreeStore {
       },
     );
   }
-  completeChildLoad(input84) {
-    return storeRoutine23(
+  completeChildLoad(loadHandle) {
+    return measurePhase(
       this.#state.instrumentation,
       "store.completeChildLoad",
       () => {
-        let storeLocal298 = this.resolveActiveDirectoryNodeId(input84.nodeId);
-        if (storeLocal298 == null) return false;
-        let storeLocal299 = storeRoutine151(this.#state),
-          storeLocal300 = storeRoutine67(
+        let nodeId = this.resolveActiveDirectoryNodeId(loadHandle.nodeId);
+        if (nodeId == null) return false;
+        let previousVisibleCount = getVisibleCount(this.#state),
+          wasCurrent = completeDirectoryLoad(
             this.#state,
-            storeLocal298,
-            input84.attemptId,
+            nodeId,
+            loadHandle.attemptId,
           );
         return (
-          storeRoutine84(
+          recordEvent(
             this.#state,
-            storeRoutine82(
+            withVisibleCountDelta(
               this.#state,
-              storeLocal299,
-              storeRoutine79({
-                affectedAncestorIds: storeRoutine104(
-                  this.#state,
-                  storeLocal298,
-                ),
-                affectedNodeIds: [storeLocal298],
-                attemptId: input84.attemptId,
-                path: storeRoutine101(this.#state, storeLocal298),
-                projectionChanged:
-                  this.isDirectoryProjectionVisible(storeLocal298),
-                stale: !storeLocal300,
+              previousVisibleCount,
+              createCompleteChildLoadEvent({
+                affectedAncestorIds: collectAncestorIds(this.#state, nodeId),
+                affectedNodeIds: [nodeId],
+                attemptId: loadHandle.attemptId,
+                path: buildNodePath(this.#state, nodeId),
+                projectionChanged: this.isDirectoryProjectionVisible(nodeId),
+                stale: !wasCurrent,
               }),
             ),
           ),
-          storeLocal300
+          wasCurrent
         );
       },
     );
   }
-  failChildLoad(input79, input80) {
-    return storeRoutine23(
+  failChildLoad(loadHandle, errorMessage) {
+    return measurePhase(
       this.#state.instrumentation,
       "store.failChildLoad",
       () => {
-        let storeLocal283 = this.resolveActiveDirectoryNodeId(input79.nodeId);
-        if (storeLocal283 == null) return false;
-        let storeLocal284 = storeRoutine151(this.#state),
-          storeLocal285 = storeRoutine69(
+        let nodeId = this.resolveActiveDirectoryNodeId(loadHandle.nodeId);
+        if (nodeId == null) return false;
+        let previousVisibleCount = getVisibleCount(this.#state),
+          wasCurrent = failDirectoryLoad(
             this.#state,
-            storeLocal283,
-            input79.attemptId,
-            input80,
+            nodeId,
+            loadHandle.attemptId,
+            errorMessage,
           );
         return (
-          storeRoutine84(
+          recordEvent(
             this.#state,
-            storeRoutine82(
+            withVisibleCountDelta(
               this.#state,
-              storeLocal284,
-              storeRoutine80({
-                affectedAncestorIds: storeRoutine104(
-                  this.#state,
-                  storeLocal283,
-                ),
-                affectedNodeIds: [storeLocal283],
-                attemptId: input79.attemptId,
-                errorMessage: input80,
-                path: storeRoutine101(this.#state, storeLocal283),
-                projectionChanged:
-                  this.isDirectoryProjectionVisible(storeLocal283),
-                stale: !storeLocal285,
+              previousVisibleCount,
+              createFailChildLoadEvent({
+                affectedAncestorIds: collectAncestorIds(this.#state, nodeId),
+                affectedNodeIds: [nodeId],
+                attemptId: loadHandle.attemptId,
+                errorMessage: errorMessage,
+                path: buildNodePath(this.#state, nodeId),
+                projectionChanged: this.isDirectoryProjectionVisible(nodeId),
+                stale: !wasCurrent,
               }),
             ),
           ),
-          storeLocal285
+          wasCurrent
         );
       },
     );
   }
-  cleanup(input67 = {}) {
-    return storeRoutine23(this.#state.instrumentation, "store.cleanup", () => {
+  cleanup(options = {}) {
+    return measurePhase(this.#state.instrumentation, "store.cleanup", () => {
       if (this.#state.transactionStack.length > 0)
         throw Error("Cleanup cannot run during an open batch or transaction.");
-      if (storeRoutine148(this.#state))
+      if (hasActiveDirectoryLoad(this.#state))
         throw Error("Cleanup cannot run while directory loads are active.");
-      let storeLocal267 = storeRoutine151(this.#state),
-        className = storeRoutine149(this.#state, input67.mode ?? "stable");
+      let previousVisibleCount = getVisibleCount(this.#state),
+        className = runCleanup(this.#state, options.mode ?? "stable");
       return (
-        storeRoutine84(
+        recordEvent(
           this.#state,
-          storeRoutine82(
+          withVisibleCountDelta(
             this.#state,
-            storeLocal267,
-            storeRoutine81({
+            previousVisibleCount,
+            createCleanupEvent({
               ...className,
               affectedAncestorIds: [],
               affectedNodeIds: [],
@@ -4115,232 +3848,217 @@ export const Store = class PathTreeStore {
   getNodeCount() {
     return this.#state.activeNodeCount;
   }
-  initializeExpandedPaths(input3) {
-    if (input3 == null || input3.length === 0) return 0;
-    let storeLocal30 = 0,
-      storeLocal31 = [],
-      storeLocal32 = [],
-      storeLocal33 = 0,
-      storeLocal34 = null,
-      storeLocal35 = this.#state.snapshot.segmentTable,
-      storeLocal36 = storeLocal35.valueById,
-      storeLocal37 = this.#state.snapshot.nodes,
-      storeLocal38 = new Map();
-    for (let storeLocal60 of input3) {
-      storeLocal34 != null &&
-        storeLocal60 < storeLocal34 &&
-        ((storeLocal34 = null),
-        (storeLocal33 = 0),
-        (storeLocal31.length = 0),
-        (storeLocal32.length = 0));
-      let storeLocal61 =
-        storeLocal60.length > 0 &&
-        storeLocal60.charCodeAt(storeLocal60.length - 1) === 47
-          ? storeLocal60.length - 1
-          : storeLocal60.length;
-      if (storeLocal61 === 0) {
-        storeLocal34 = storeLocal60;
-        storeLocal33 = storeLocal61;
-        storeLocal31.length = 0;
-        storeLocal32.length = 0;
+  initializeExpandedPaths(expandedPaths) {
+    if (expandedPaths == null || expandedPaths.length === 0) return 0;
+    let expandedCount = 0,
+      matchedChildIndices = [],
+      matchedNodeIds = [],
+      previousPathLength = 0,
+      previousPath = null,
+      segmentTable = this.#state.snapshot.segmentTable,
+      segmentValueById = segmentTable.valueById,
+      nodes = this.#state.snapshot.nodes,
+      segmentIdByName = new Map();
+    for (let path of expandedPaths) {
+      previousPath != null &&
+        path < previousPath &&
+        ((previousPath = null),
+        (previousPathLength = 0),
+        (matchedChildIndices.length = 0),
+        (matchedNodeIds.length = 0));
+      let pathLength =
+        path.length > 0 && path.charCodeAt(path.length - 1) === 47
+          ? path.length - 1
+          : path.length;
+      if (pathLength === 0) {
+        previousPath = path;
+        previousPathLength = pathLength;
+        matchedChildIndices.length = 0;
+        matchedNodeIds.length = 0;
         continue;
       }
-      let storeLocal62 = 0,
-        storeLocal63 = 0;
-      if (storeLocal34 != null) {
-        let storeLocal349 = Math.min(storeLocal61, storeLocal33),
-          storeLocal350 = true;
-        for (
-          let storeLocal562 = 0;
-          storeLocal562 < storeLocal349;
-          storeLocal562 += 1
-        ) {
-          let storeLocal598 = storeLocal60.charCodeAt(storeLocal562);
-          if (storeLocal598 !== storeLocal34.charCodeAt(storeLocal562)) {
-            storeLocal350 = false;
+      let sharedSegmentCount = 0,
+        sharedPrefixEnd = 0;
+      if (previousPath != null) {
+        let commonLength = Math.min(pathLength, previousPathLength),
+          isPrefixMatch = true;
+        for (let index = 0; index < commonLength; index += 1) {
+          let charCode = path.charCodeAt(index);
+          if (charCode !== previousPath.charCodeAt(index)) {
+            isPrefixMatch = false;
             break;
           }
-          storeLocal598 === 47 &&
-            ((storeLocal62 += 1), (storeLocal63 = storeLocal562 + 1));
+          charCode === 47 &&
+            ((sharedSegmentCount += 1), (sharedPrefixEnd = index + 1));
         }
-        storeLocal350 &&
-          (storeLocal349 === storeLocal33 &&
-          storeLocal61 > storeLocal349 &&
-          storeLocal60.charCodeAt(storeLocal349) === 47
-            ? ((storeLocal62 += 1), (storeLocal63 = storeLocal349 + 1))
-            : storeLocal349 === storeLocal61 &&
-              storeLocal33 > storeLocal349 &&
-              storeLocal34.charCodeAt(storeLocal349) === 47 &&
-              ((storeLocal62 += 1), (storeLocal63 = storeLocal61 + 1)));
-        storeLocal62 = Math.min(storeLocal62, storeLocal32.length);
+        isPrefixMatch &&
+          (commonLength === previousPathLength &&
+          pathLength > commonLength &&
+          path.charCodeAt(commonLength) === 47
+            ? ((sharedSegmentCount += 1), (sharedPrefixEnd = commonLength + 1))
+            : commonLength === pathLength &&
+              previousPathLength > commonLength &&
+              previousPath.charCodeAt(commonLength) === 47 &&
+              ((sharedSegmentCount += 1), (sharedPrefixEnd = pathLength + 1)));
+        sharedSegmentCount = Math.min(
+          sharedSegmentCount,
+          matchedNodeIds.length,
+        );
       }
-      let storeLocal64 =
-          storeLocal62 === 0
+      let parentNodeId =
+          sharedSegmentCount === 0
             ? this.#state.snapshot.rootId
-            : (storeLocal32[storeLocal62 - 1] ?? this.#state.snapshot.rootId),
-        storeLocal65 = storeLocal62,
-        storeLocal66 = true,
-        storeLocal67 = storeLocal63;
-      for (; storeLocal67 <= storeLocal61; ) {
-        let storeLocal218 = storeLocal60.indexOf("/", storeLocal67),
-          storeLocal219 =
-            storeLocal218 === -1 || storeLocal218 > storeLocal61
-              ? storeLocal61
-              : storeLocal218,
-          storeLocal220 = storeLocal60.slice(storeLocal67, storeLocal219),
-          storeLocal221 = storeRoutine107(this.#state, storeLocal64).childIds,
-          storeLocal222 =
-            storeLocal65 === storeLocal62
-              ? (storeLocal31[storeLocal65] ?? 0)
+            : (matchedNodeIds[sharedSegmentCount - 1] ??
+              this.#state.snapshot.rootId),
+        segmentIndex = sharedSegmentCount,
+        allSegmentsMatched = true,
+        cursor = sharedPrefixEnd;
+      for (; cursor <= pathLength; ) {
+        let slashIndex = path.indexOf("/", cursor),
+          segmentEnd =
+            slashIndex === -1 || slashIndex > pathLength
+              ? pathLength
+              : slashIndex,
+          segment = path.slice(cursor, segmentEnd),
+          childIds = getDirectory(this.#state, parentNodeId).childIds,
+          startIndex =
+            segmentIndex === sharedSegmentCount
+              ? (matchedChildIndices[segmentIndex] ?? 0)
               : 0,
-          storeLocal223 = storeLocal222,
-          storeLocal224,
-          storeLocal225 =
-            storeLocal38.get(storeLocal220) ?? storeRoutine27(storeLocal220);
-        storeLocal38.set(storeLocal220, storeLocal225);
-        let storeLocal226 = (input254, input255) => {
-          for (
-            storeLocal223 = input254;
-            storeLocal223 < input255;
-            storeLocal223 += 1
-          ) {
-            let storeLocal538 = storeLocal221[storeLocal223],
-              storeLocal539 = storeLocal37[storeLocal538],
-              storeLocal540 = storeLocal36[storeLocal539.nameId];
-            if (storeLocal540 === storeLocal220)
-              return ((storeLocal224 = storeLocal538), true);
-            let storeLocal541 = storeRoutine29(
-              storeRoutine36(storeLocal35, storeLocal539.nameId),
-              storeLocal225,
+          scanIndex = startIndex,
+          matchedChildId,
+          segmentId = segmentIdByName.get(segment) ?? makeSortKey(segment);
+        segmentIdByName.set(segment, segmentId);
+        let scanRange = (from, to) => {
+          for (scanIndex = from; scanIndex < to; scanIndex += 1) {
+            let candidateId = childIds[scanIndex],
+              candidateNode = nodes[candidateId],
+              candidateName = segmentValueById[candidateNode.nameId];
+            if (candidateName === segment)
+              return ((matchedChildId = candidateId), true);
+            let comparison = compareSortKeys(
+              getSortKeyById(segmentTable, candidateNode.nameId),
+              segmentId,
             );
-            if (
-              storeLocal541 > 0 ||
-              (storeLocal541 === 0 && storeLocal540 > storeLocal220)
-            )
+            if (comparison > 0 || (comparison === 0 && candidateName > segment))
               return false;
           }
           return false;
         };
         if (
-          (!storeLocal226(storeLocal222, storeLocal221.length) &&
-            storeLocal222 > 0 &&
-            storeLocal226(0, storeLocal222),
-          storeLocal224 === undefined)
+          (!scanRange(startIndex, childIds.length) &&
+            startIndex > 0 &&
+            scanRange(0, startIndex),
+          matchedChildId === undefined)
         ) {
-          storeLocal66 = false;
+          allSegmentsMatched = false;
           break;
         }
-        if (!storeRoutine16(storeRoutine108(this.#state, storeLocal224))) {
-          storeLocal66 = false;
+        if (!isDirectory(getNode(this.#state, matchedChildId))) {
+          allSegmentsMatched = false;
           break;
         }
         if (
-          ((storeLocal31[storeLocal65] = storeLocal223),
-          (storeLocal32[storeLocal65] = storeLocal224),
-          (storeLocal64 = storeLocal224),
-          (storeLocal65 += 1),
-          storeLocal219 === storeLocal61)
+          ((matchedChildIndices[segmentIndex] = scanIndex),
+          (matchedNodeIds[segmentIndex] = matchedChildId),
+          (parentNodeId = matchedChildId),
+          (segmentIndex += 1),
+          segmentEnd === pathLength)
         )
           break;
-        storeLocal67 = storeLocal219 + 1;
+        cursor = segmentEnd + 1;
       }
       if (
-        ((storeLocal34 = storeLocal60),
-        (storeLocal33 = storeLocal61),
-        (storeLocal31.length = storeLocal65),
-        (storeLocal32.length = storeLocal65),
-        !storeLocal66)
+        ((previousPath = path),
+        (previousPathLength = pathLength),
+        (matchedChildIndices.length = segmentIndex),
+        (matchedNodeIds.length = segmentIndex),
+        !allSegmentsMatched)
       ) {
-        storeLocal34 = null;
-        storeLocal33 = 0;
-        storeLocal31.length = 0;
-        storeLocal32.length = 0;
+        previousPath = null;
+        previousPathLength = 0;
+        matchedChildIndices.length = 0;
+        matchedNodeIds.length = 0;
         continue;
       }
-      for (
-        let storeLocal534 = storeLocal62;
-        storeLocal534 < storeLocal65;
-        storeLocal534 += 1
-      ) {
-        let storeLocal579 = storeLocal32[storeLocal534];
-        if (storeLocal579 == null) continue;
-        let storeLocal580 = storeRoutine108(this.#state, storeLocal579);
-        storeRoutine61(this.#state, storeLocal579, storeLocal580) ||
-          (storeRoutine62(this.#state, storeLocal579, true, storeLocal580),
-          (storeLocal30 += 1));
+      for (let index = sharedSegmentCount; index < segmentIndex; index += 1) {
+        let nodeId = matchedNodeIds[index];
+        if (nodeId == null) continue;
+        let node = getNode(this.#state, nodeId);
+        isDirectoryExpanded(this.#state, nodeId, node) ||
+          (setDirectoryExpanded(this.#state, nodeId, true, node),
+          (expandedCount += 1));
       }
     }
-    return storeLocal30;
+    return expandedCount;
   }
   hasAllDirectoriesExpanded() {
-    for (let storeLocal497 of this.#state.snapshot.directories.keys()) {
-      if (storeLocal497 === this.#state.snapshot.rootId) continue;
-      let storeLocal588 = storeRoutine108(this.#state, storeLocal497);
-      if (!storeRoutine61(this.#state, storeLocal497, storeLocal588))
-        return false;
+    for (let directoryId of this.#state.snapshot.directories.keys()) {
+      if (directoryId === this.#state.snapshot.rootId) continue;
+      let node = getNode(this.#state, directoryId);
+      if (!isDirectoryExpanded(this.#state, directoryId, node)) return false;
     }
     return true;
   }
-  requireDirectoryNodeId(input233) {
-    let storeLocal457 = storeRoutine105(this.#state, input233);
-    if (storeLocal457 == null)
-      throw Error(`Path does not exist: "${input233}"`);
-    if (!storeRoutine16(storeRoutine108(this.#state, storeLocal457)))
-      throw Error(`Path is not a directory: "${input233}"`);
-    return storeLocal457;
+  requireDirectoryNodeId(path) {
+    let nodeId = resolvePath(this.#state, path);
+    if (nodeId == null) throw Error(`Path does not exist: "${path}"`);
+    if (!isDirectory(getNode(this.#state, nodeId)))
+      throw Error(`Path is not a directory: "${path}"`);
+    return nodeId;
   }
-  resolveActiveDirectoryNodeId(input272) {
+  resolveActiveDirectoryNodeId(nodeId) {
     try {
-      if (!storeRoutine16(storeRoutine108(this.#state, input272)))
-        throw Error(`Node is not a directory: ${String(input272)}`);
-      return input272;
+      if (!isDirectory(getNode(this.#state, nodeId)))
+        throw Error(`Node is not a directory: ${String(nodeId)}`);
+      return nodeId;
     } catch {
       return null;
     }
   }
-  isDirectoryProjectionVisible(input194) {
-    let storeLocal387 = input194;
-    for (; storeLocal387 !== this.#state.snapshot.rootId; ) {
-      let storeLocal502 = storeRoutine108(this.#state, storeLocal387).parentId;
-      if (storeLocal502 !== this.#state.snapshot.rootId) {
-        let storeLocal627 = storeRoutine108(this.#state, storeLocal502),
-          storeLocal628 = storeRoutine93(this.#state, storeLocal502);
+  isDirectoryProjectionVisible(nodeId) {
+    let currentId = nodeId;
+    for (; currentId !== this.#state.snapshot.rootId; ) {
+      let parentId = getNode(this.#state, currentId).parentId;
+      if (parentId !== this.#state.snapshot.rootId) {
+        let parentNode = getNode(this.#state, parentId),
+          visibleChildId = getCollapsibleChildId(this.#state, parentId);
         if (
-          !storeRoutine61(this.#state, storeLocal502, storeLocal627) &&
-          storeLocal628 !== storeLocal387
+          !isDirectoryExpanded(this.#state, parentId, parentNode) &&
+          visibleChildId !== currentId
         )
           return false;
       }
-      storeLocal387 = storeLocal502;
+      currentId = parentId;
     }
     return true;
   }
-  validateChildPatch(input303, input304) {
+  validateChildPatch(path, patch) {
     new PathTreeStore({
-      paths: this.list(input303),
+      paths: this.list(path),
       presorted: true,
       sort: this.#state.snapshot.options.sort,
-    }).batch(input304.operations);
+    }).batch(patch.operations);
   }
 };
-function storeRoutine174(input112, input113) {
-  switch (input113.type) {
+function assertOperationWithinPath(basePath, operation) {
+  switch (operation.type) {
     case "add":
     case "remove":
-      if (!input113.path.startsWith(input112) || input113.path === input112)
+      if (!operation.path.startsWith(basePath) || operation.path === basePath)
         throw Error(
-          `Child patch operation must stay within ${input112}: "${input113.path}"`,
+          `Child patch operation must stay within ${basePath}: "${operation.path}"`,
         );
       break;
     case "move":
       if (
-        !input113.from.startsWith(input112) ||
-        !input113.to.startsWith(input112) ||
-        input113.from === input112 ||
-        input113.to === input112
+        !operation.from.startsWith(basePath) ||
+        !operation.to.startsWith(basePath) ||
+        operation.from === basePath ||
+        operation.to === basePath
       )
         throw Error(
-          `Child patch move must stay within ${input112}: "${input113.from}" -> "${input113.to}"`,
+          `Child patch move must stay within ${basePath}: "${operation.from}" -> "${operation.to}"`,
         );
       break;
   }

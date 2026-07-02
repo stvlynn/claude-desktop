@@ -16,51 +16,51 @@ export function scoreQueryMatch(candidate: string, query: string): number {
   let scoreDelta = rawScore * 10 - candidate.length;
   return scoreDelta <= 0 ? 1 : scoreDelta;
 }
-function createMatcher(input69) {
-  let matchLocal70 = containsPathSeparator(input69),
-    matchLocal71 = matchLocal70
-      ? buildPathWildcardPattern(input69)
-      : `*${input69}`,
-    matchLocal72 = basenameAfterLastSeparator(input69);
+function createMatcher(query) {
+  let hasPathSeparator = containsPathSeparator(query),
+    wildcardPattern = hasPathSeparator
+      ? buildPathWildcardPattern(query)
+      : `*${query}`,
+    basename = basenameAfterLastSeparator(query);
   return new CompositeMatcher(
     new WildcardPatternMatcher(
-      matchLocal71,
+      wildcardPattern,
       "IGNORE_CASE",
       PATH_SEPARATORS.join(""),
     ),
-    matchLocal70 && input69 !== matchLocal72
+    hasPathSeparator && query !== basename
       ? new WildcardPatternMatcher(
-          matchLocal72,
+          basename,
           "IGNORE_CASE",
           PATH_SEPARATORS.join(""),
         )
       : null,
   );
 }
-function buildPathWildcardPattern(input105) {
-  let matchLocal87 = `*${input105}`;
-  for (let matchLocal97 of PATH_SEPARATORS)
-    matchLocal87 = matchLocal87.split(matchLocal97).join(`*${"\0"}*`);
-  return matchLocal87;
+function buildPathWildcardPattern(query) {
+  let pattern = `*${query}`;
+  for (let separator of PATH_SEPARATORS)
+    pattern = pattern.split(separator).join(`*${"\0"}*`);
+  return pattern;
 }
-function basenameAfterLastSeparator(input73) {
-  let matchLocal77 = -1;
-  for (let matchLocal88 of PATH_SEPARATORS) {
-    let matchLocal94 = input73.lastIndexOf(matchLocal88);
-    matchLocal94 >= 0 &&
-      matchLocal94 < input73.length - 1 &&
-      (matchLocal77 = Math.max(matchLocal77, matchLocal94));
+function basenameAfterLastSeparator(query) {
+  let lastSeparatorIndex = -1;
+  for (let separator of PATH_SEPARATORS) {
+    let separatorIndex = query.lastIndexOf(separator);
+    separatorIndex >= 0 &&
+      separatorIndex < query.length - 1 &&
+      (lastSeparatorIndex = Math.max(lastSeparatorIndex, separatorIndex));
   }
-  return input73.slice(matchLocal77 + 1);
+  return query.slice(lastSeparatorIndex + 1);
 }
-function normalizePathSeparators(input116) {
-  let matchLocal91 = input116;
-  for (let matchLocal103 of PATH_SEPARATORS)
-    matchLocal91 = matchLocal91.split(matchLocal103).join("\0");
-  return matchLocal91;
+function normalizePathSeparators(value) {
+  let normalized = value;
+  for (let separator of PATH_SEPARATORS)
+    normalized = normalized.split(separator).join("\0");
+  return normalized;
 }
-function containsPathSeparator(input119) {
-  for (let matchLocal100 of PATH_SEPARATORS)
-    if (input119.includes(matchLocal100)) return true;
+function containsPathSeparator(value) {
+  for (let separator of PATH_SEPARATORS)
+    if (value.includes(separator)) return true;
   return false;
 }

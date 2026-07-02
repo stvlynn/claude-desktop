@@ -14,16 +14,18 @@ import {
   type BuildFlavorValue,
 } from "./logging/file-based-logger";
 import {
-  getCurrentAppBundlePath,
-  getDesktopRuntimeState,
   getNativeIntl,
   getNativeIntlLoader,
   getRuntimeAppBrand,
-  ignoreConsolePipeErrors,
-  initializeOpenFileQueue,
+} from "./intl/native-runtime-identity";
+import { ignoreConsolePipeErrors } from "./logging/desktop-log-bridge";
+import {
+  getCurrentAppBundlePath,
   shouldUseSingleInstanceLock,
-  verifyStateDatabaseAvailable,
-} from "./workspace/workspace-root-drop-handler";
+} from "./runtime/desktop-process-utils";
+import { getDesktopRuntimeState } from "./runtime/desktop-runtime-state";
+import { verifyStateDatabaseAvailable } from "./state-db/state-database-recovery";
+import { initializeOpenFileQueue } from "./workspace/desktop-open-file-queue";
 
 type StructuredLogger = {
   info(message: string, details?: unknown): void;

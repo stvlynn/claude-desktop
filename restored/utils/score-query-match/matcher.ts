@@ -5,24 +5,24 @@ import { ScoreQueryCharacterHelpers } from "./character-helpers";
 export class CompositeMatcher {
   mainMatcher;
   fallbackMatcher;
-  constructor(input123, input124) {
-    this.mainMatcher = input123;
-    this.fallbackMatcher = input124;
+  constructor(mainMatcher, fallbackMatcher) {
+    this.mainMatcher = mainMatcher;
+    this.fallbackMatcher = fallbackMatcher;
   }
-  matchingDegree(input27) {
-    let matchLocal48 = this.mainMatcher.match(input27);
-    if (matchLocal48 != null)
+  matchingDegree(name) {
+    let mainRanges = this.mainMatcher.match(name);
+    if (mainRanges != null)
       return ScoreQueryCharacterHelpers.boostScoreForLeadingMatch(
-        this.mainMatcher.matchingDegree(input27, false, matchLocal48),
-        matchLocal48,
+        this.mainMatcher.matchingDegree(name, false, mainRanges),
+        mainRanges,
       );
     if (this.fallbackMatcher == null) return -2147483648;
-    let matchLocal49 = this.fallbackMatcher.match(input27);
-    return matchLocal49 == null
+    let fallbackRanges = this.fallbackMatcher.match(name);
+    return fallbackRanges == null
       ? -2147483648
       : ScoreQueryCharacterHelpers.boostScoreForLeadingMatch(
-          this.fallbackMatcher.matchingDegree(input27, false, matchLocal49),
-          matchLocal49,
+          this.fallbackMatcher.matchingDegree(name, false, fallbackRanges),
+          fallbackRanges,
         );
   }
 }
@@ -41,9 +41,11 @@ export class WildcardPatternMatcher {
   hasDots;
   meaningfulCharacters;
   minNameLength;
-  constructor(input1, input2, input3) {
-    let matchLocal8 = input1.endsWith("* ") ? input1.slice(0, -2) : input1;
-    this.myPattern = Array.from(matchLocal8);
+  constructor(pattern, matchingMode, hardSeparators) {
+    let normalizedPattern = pattern.endsWith("* ")
+      ? pattern.slice(0, -2)
+      : pattern;
+    this.myPattern = Array.from(normalizedPattern);
     this.isLowerCase = Array.from(
       {
         length: this.myPattern.length,
@@ -74,227 +76,217 @@ export class WildcardPatternMatcher {
       },
       () => "",
     );
-    this.hardSeparators = Array.from(input3);
-    this.matchingMode = input2;
-    let matchLocal9 = [],
-      matchLocal10 = false,
-      matchLocal11 = false,
+    this.hardSeparators = Array.from(hardSeparators);
+    this.matchingMode = matchingMode;
+    let meaningfulChars = [],
+      hasContentChar = false,
+      hasLowerCase = false,
       scoreDelta = false,
-      matchLocal12 = false,
-      matchLocal13 = false;
-    for (
-      let matchLocal31 = 0;
-      matchLocal31 < this.myPattern.length;
-      matchLocal31 += 1
-    ) {
-      let matchLocal38 = this.myPattern[matchLocal31],
-        matchLocal39 =
-          ScoreQueryCharacterHelpers.isPatternSeparator(matchLocal38),
-        matchLocal40 =
-          ScoreQueryCharacterHelpers.isUpperCaseLetter(matchLocal38),
-        matchLocal41 =
-          ScoreQueryCharacterHelpers.isLowerCaseLetter(matchLocal38),
-        matchLocal42 = matchLocal38.toUpperCase(),
-        matchLocal43 = matchLocal38.toLowerCase();
-      matchLocal41 && (matchLocal11 = true);
-      matchLocal38 === "." && (matchLocal12 = true);
-      matchLocal10 && matchLocal40 && (scoreDelta = true);
-      ScoreQueryCharacterHelpers.isWildcardChar(matchLocal38) ||
-        ((matchLocal10 = true),
-        matchLocal9.push(matchLocal43),
-        matchLocal9.push(matchLocal42));
-      matchLocal10 && matchLocal39 && (matchLocal13 = true);
-      this.isWordSeparator[matchLocal31] = matchLocal39;
-      this.isUpperCase[matchLocal31] = matchLocal40;
-      this.isLowerCase[matchLocal31] = matchLocal41;
-      this.toUpperCase[matchLocal31] = matchLocal42;
-      this.toLowerCase[matchLocal31] = matchLocal43;
+      hasDot = false,
+      hasSeparator = false;
+    for (let i = 0; i < this.myPattern.length; i += 1) {
+      let ch = this.myPattern[i],
+        isSeparator = ScoreQueryCharacterHelpers.isPatternSeparator(ch),
+        isUpper = ScoreQueryCharacterHelpers.isUpperCaseLetter(ch),
+        isLower = ScoreQueryCharacterHelpers.isLowerCaseLetter(ch),
+        upperChar = ch.toUpperCase(),
+        lowerChar = ch.toLowerCase();
+      isLower && (hasLowerCase = true);
+      ch === "." && (hasDot = true);
+      hasContentChar && isUpper && (scoreDelta = true);
+      ScoreQueryCharacterHelpers.isWildcardChar(ch) ||
+        ((hasContentChar = true),
+        meaningfulChars.push(lowerChar),
+        meaningfulChars.push(upperChar));
+      hasContentChar && isSeparator && (hasSeparator = true);
+      this.isWordSeparator[i] = isSeparator;
+      this.isUpperCase[i] = isUpper;
+      this.isLowerCase[i] = isLower;
+      this.toUpperCase[i] = upperChar;
+      this.toLowerCase[i] = lowerChar;
     }
-    this.hasDots = matchLocal12;
-    this.mixedCase = matchLocal11 && scoreDelta;
-    this.hasSeparators = matchLocal13;
-    this.meaningfulCharacters = matchLocal9;
-    this.minNameLength = matchLocal9.length / 2;
+    this.hasDots = hasDot;
+    this.mixedCase = hasLowerCase && scoreDelta;
+    this.hasSeparators = hasSeparator;
+    this.meaningfulCharacters = meaningfulChars;
+    this.minNameLength = meaningfulChars.length / 2;
   }
   get pattern() {
     return this.myPattern.join("");
   }
-  matchingDegree(input4, input5 = false, input6 = this.match(input4)) {
-    if (input6 == null) return -2147483648;
-    if (input6.length === 0) return 0;
-    let matchLocal14 = input6[0],
-      matchLocal15 = matchLocal14.startOffset === 0,
-      matchLocal16 = matchLocal15 && input5,
+  matchingDegree(name, valueStartCaseMatch = false, ranges = this.match(name)) {
+    if (ranges == null) return -2147483648;
+    if (ranges.length === 0) return 0;
+    let firstRange = ranges[0],
+      startMatch = firstRange.startOffset === 0,
+      startCaseMatch = startMatch && valueStartCaseMatch,
       scoreDelta = 0,
-      matchLocal17 = -1,
-      matchLocal18 = 0,
-      matchLocal19 = 0,
-      matchLocal20 = false;
-    for (let matchLocal34 of input6)
+      patternIndex = -1,
+      skippedWordCount = 0,
+      wordBoundary = 0,
+      caseMatchesUpper = false;
+    for (let range of ranges)
       for (
-        let matchLocal37 = matchLocal34.startOffset;
-        matchLocal37 < matchLocal34.endOffset;
-        matchLocal37 += 1
+        let offset = range.startOffset;
+        offset < range.endOffset;
+        offset += 1
       ) {
-        let matchLocal50 =
-            matchLocal37 === matchLocal34.startOffset &&
-            matchLocal34 !== matchLocal14,
-          matchLocal51 = false;
-        for (; matchLocal19 <= matchLocal37; ) {
-          matchLocal19 === matchLocal37
-            ? (matchLocal51 = true)
-            : matchLocal50 && (matchLocal18 += 1);
-          matchLocal19 = ScoreQueryCharacterHelpers.nextNameWordOffset(
-            input4,
-            matchLocal19,
+        let afterGap = offset === range.startOffset && range !== firstRange,
+          isWordStart = false;
+        for (; wordBoundary <= offset; ) {
+          wordBoundary === offset
+            ? (isWordStart = true)
+            : afterGap && (skippedWordCount += 1);
+          wordBoundary = ScoreQueryCharacterHelpers.nextNameWordOffset(
+            name,
+            wordBoundary,
           );
         }
-        let matchLocal52 = input4[matchLocal37];
+        let nameChar = name[offset];
         if (
-          ((matchLocal17 = ScoreQueryCharacterHelpers.indexOfChar(
+          ((patternIndex = ScoreQueryCharacterHelpers.indexOfChar(
             this.myPattern,
-            matchLocal52,
-            matchLocal17 + 1,
+            nameChar,
+            patternIndex + 1,
             this.myPattern.length,
             true,
           )),
-          matchLocal17 < 0)
+          patternIndex < 0)
         )
           break;
-        matchLocal51 &&
-          (matchLocal20 =
-            matchLocal52 === this.myPattern[matchLocal17] &&
-            this.isUpperCase[matchLocal17]);
+        isWordStart &&
+          (caseMatchesUpper =
+            nameChar === this.myPattern[patternIndex] &&
+            this.isUpperCase[patternIndex]);
         scoreDelta += this.evaluateCaseMatching(
-          matchLocal16,
-          matchLocal17,
-          matchLocal20,
-          matchLocal37,
-          matchLocal50,
-          matchLocal51,
-          matchLocal52,
+          startCaseMatch,
+          patternIndex,
+          caseMatchesUpper,
+          offset,
+          afterGap,
+          isWordStart,
+          nameChar,
         );
       }
-    let matchLocal21 = matchLocal14.startOffset,
-      matchLocal22 =
+    let firstMatchOffset = firstRange.startOffset,
+      separatorBeforeMatch =
         ScoreQueryCharacterHelpers.indexOfAny(
-          input4,
+          name,
           this.hardSeparators,
           0,
-          matchLocal21,
+          firstMatchOffset,
         ) >= 0,
-      matchLocal23 =
-        matchLocal21 === 0 ||
-        (ScoreQueryCharacterHelpers.isWordStart(input4, matchLocal21) &&
-          !ScoreQueryCharacterHelpers.isWordStart(input4, matchLocal21 - 1)),
-      matchLocal24 = input6[input6.length - 1].endOffset === input4.length;
+      matchStartsWord =
+        firstMatchOffset === 0 ||
+        (ScoreQueryCharacterHelpers.isWordStart(name, firstMatchOffset) &&
+          !ScoreQueryCharacterHelpers.isWordStart(name, firstMatchOffset - 1)),
+      matchEndsName = ranges[ranges.length - 1].endOffset === name.length;
     return (
-      (matchLocal23 ? 1e3 : 0) +
+      (matchStartsWord ? 1e3 : 0) +
       scoreDelta -
-      input6.length +
-      -matchLocal18 * 10 +
-      (matchLocal22 ? 0 : 2) +
-      (matchLocal15 ? 1 : 0) +
-      (matchLocal24 ? 1 : 0)
+      ranges.length +
+      -skippedWordCount * 10 +
+      (separatorBeforeMatch ? 0 : 2) +
+      (startMatch ? 1 : 0) +
+      (matchEndsName ? 1 : 0)
     );
   }
-  match(input19) {
-    if (input19.length < this.minNameLength) return null;
-    if (this.myPattern.length > 100) return this.matchBySubstring(input19);
-    let matchLocal29 = 0;
+  match(name) {
+    if (name.length < this.minNameLength) return null;
+    if (this.myPattern.length > 100) return this.matchBySubstring(name);
+    let meaningfulIndex = 0;
     for (
-      let matchLocal65 = 0;
-      matchLocal65 < input19.length &&
-      matchLocal29 < this.meaningfulCharacters.length;
-      matchLocal65 += 1
+      let i = 0;
+      i < name.length && meaningfulIndex < this.meaningfulCharacters.length;
+      i += 1
     ) {
-      let matchLocal84 = input19[matchLocal65];
-      (matchLocal84 === this.meaningfulCharacters[matchLocal29] ||
-        matchLocal84 === this.meaningfulCharacters[matchLocal29 + 1]) &&
-        (matchLocal29 += 2);
+      let nameChar = name[i];
+      (nameChar === this.meaningfulCharacters[meaningfulIndex] ||
+        nameChar === this.meaningfulCharacters[meaningfulIndex + 1]) &&
+        (meaningfulIndex += 2);
     }
-    if (matchLocal29 < this.minNameLength * 2) return null;
-    let matchLocal30 = this.matchWildcards(input19, 0, 0);
-    return matchLocal30 == null ? null : matchLocal30.reverse();
+    if (meaningfulIndex < this.minNameLength * 2) return null;
+    let matchResult = this.matchWildcards(name, 0, 0);
+    return matchResult == null ? null : matchResult.reverse();
   }
   evaluateCaseMatching(
-    input51,
-    input52,
-    input53,
-    input54,
-    input55,
-    input56,
-    input57,
+    startCaseMatch,
+    patternIndex,
+    caseMatchesUpper,
+    offset,
+    afterGap,
+    isWordStart,
+    nameChar,
   ) {
-    return input55 && input56 && this.isLowerCase[input52]
+    return afterGap && isWordStart && this.isLowerCase[patternIndex]
       ? -10
-      : input57 === this.myPattern[input52]
-        ? this.isUpperCase[input52]
+      : nameChar === this.myPattern[patternIndex]
+        ? this.isUpperCase[patternIndex]
           ? 50
-          : input54 === 0 && input51
+          : offset === 0 && startCaseMatch
             ? 150
-            : input56
+            : isWordStart
               ? 1
               : 0
-        : input56 || (this.isLowerCase[input52] && input53)
+        : isWordStart || (this.isLowerCase[patternIndex] && caseMatchesUpper)
           ? -1
           : 0;
   }
-  matchBySubstring(input26) {
-    let matchLocal46 = this.isPatternChar(0, "*"),
-      matchLocal47 = ScoreQueryCharacterHelpers.stripWildcards(this.myPattern);
-    if (input26.length < matchLocal47.length) return null;
-    if (matchLocal46) {
-      let matchLocal86 = ScoreQueryCharacterHelpers.indexOfSubstringIgnoreCase(
-        input26,
-        matchLocal47,
+  matchBySubstring(name) {
+    let infix = this.isPatternChar(0, "*"),
+      patternText = ScoreQueryCharacterHelpers.stripWildcards(this.myPattern);
+    if (name.length < patternText.length) return null;
+    if (infix) {
+      let matchIndex = ScoreQueryCharacterHelpers.indexOfSubstringIgnoreCase(
+        name,
+        patternText,
         0,
-        input26.length,
+        name.length,
       );
-      return matchLocal86 >= 0
+      return matchIndex >= 0
         ? [
             {
-              startOffset: matchLocal86,
-              endOffset: matchLocal86 + matchLocal47.length,
+              startOffset: matchIndex,
+              endOffset: matchIndex + patternText.length,
             },
           ]
         : null;
     }
     return ScoreQueryCharacterHelpers.regionMatchesIgnoreCase(
-      input26,
+      name,
       0,
-      matchLocal47.length,
-      matchLocal47,
+      patternText.length,
+      patternText,
     )
       ? [
           {
             startOffset: 0,
-            endOffset: matchLocal47.length,
+            endOffset: patternText.length,
           },
         ]
       : null;
   }
-  matchWildcards(input7, input8, input9) {
-    let matchLocal25 = input8;
-    if (input9 < 0) return null;
-    if (!this.isWildcard(matchLocal25))
-      return matchLocal25 === this.myPattern.length
+  matchWildcards(name, patternStart, nameIndex) {
+    let patternIndex = patternStart;
+    if (nameIndex < 0) return null;
+    if (!this.isWildcard(patternIndex))
+      return patternIndex === this.myPattern.length
         ? []
-        : this.matchFragment(input7, matchLocal25, input9);
-    do matchLocal25 += 1;
-    while (this.isWildcard(matchLocal25));
-    if (matchLocal25 === this.myPattern.length) {
+        : this.matchFragment(name, patternIndex, nameIndex);
+    do patternIndex += 1;
+    while (this.isWildcard(patternIndex));
+    if (patternIndex === this.myPattern.length) {
       if (
         this.isTrailingSpacePattern() &&
-        input9 !== input7.length &&
-        (matchLocal25 < 2 || !this.isUpperCaseOrDigit(matchLocal25 - 2))
+        nameIndex !== name.length &&
+        (patternIndex < 2 || !this.isUpperCaseOrDigit(patternIndex - 2))
       ) {
-        let matchLocal90 = input7.indexOf(" ", input9);
-        return matchLocal90 >= 0
+        let spaceIndex = name.indexOf(" ", nameIndex);
+        return spaceIndex >= 0
           ? [
               {
-                startOffset: matchLocal90,
-                endOffset: matchLocal90 + 1,
+                startOffset: spaceIndex,
+                endOffset: spaceIndex + 1,
               },
             ]
           : null;
@@ -302,344 +294,339 @@ export class WildcardPatternMatcher {
       return [];
     }
     return this.matchSkippingWords(
-      input7,
-      matchLocal25,
-      this.findNextPatternCharOccurrence(input7, input9, matchLocal25),
+      name,
+      patternIndex,
+      this.findNextPatternCharOccurrence(name, nameIndex, patternIndex),
       true,
     );
   }
   isTrailingSpacePattern() {
     return this.isPatternChar(this.myPattern.length - 1, " ");
   }
-  isUpperCaseOrDigit(input111) {
+  isUpperCaseOrDigit(patternIndex) {
     return (
-      this.isUpperCase[input111] ||
-      ScoreQueryCharacterHelpers.isDigit(this.myPattern[input111])
+      this.isUpperCase[patternIndex] ||
+      ScoreQueryCharacterHelpers.isDigit(this.myPattern[patternIndex])
     );
   }
-  matchSkippingWords(input15, input16, input17, input18) {
-    let matchLocal27 = input17,
-      matchLocal28 = 0;
-    for (; matchLocal27 >= 0; ) {
-      let matchLocal32 = this.seemsLikeFragmentStart(
-        input15,
-        input16,
-        matchLocal27,
+  matchSkippingWords(name, patternIndex, nameIndex, allowSpecialChars) {
+    let start = nameIndex,
+      maxFoundLength = 0;
+    for (; start >= 0; ) {
+      let fragmentLength = this.seemsLikeFragmentStart(
+        name,
+        patternIndex,
+        start,
       )
-        ? this.maxMatchingFragment(input15, input16, matchLocal27)
+        ? this.maxMatchingFragment(name, patternIndex, start)
         : 0;
       if (
-        matchLocal32 > matchLocal28 ||
-        (matchLocal27 + matchLocal32 === input15.length &&
+        fragmentLength > maxFoundLength ||
+        (start + fragmentLength === name.length &&
           this.isTrailingSpacePattern())
       ) {
-        this.isMiddleMatch(input15, input16, matchLocal27) ||
-          (matchLocal28 = matchLocal32);
-        let matchLocal83 = this.matchInsideFragment(
-          input15,
-          input16,
-          matchLocal27,
-          matchLocal32,
+        this.isMiddleMatch(name, patternIndex, start) ||
+          (maxFoundLength = fragmentLength);
+        let fragmentMatch = this.matchInsideFragment(
+          name,
+          patternIndex,
+          start,
+          fragmentLength,
         );
-        if (matchLocal83 != null) return matchLocal83;
+        if (fragmentMatch != null) return fragmentMatch;
       }
-      let matchLocal33 = this.findNextPatternCharOccurrence(
-        input15,
-        matchLocal27 + 1,
-        input16,
+      let nextOccurrence = this.findNextPatternCharOccurrence(
+        name,
+        start + 1,
+        patternIndex,
       );
-      matchLocal27 = input18
-        ? matchLocal33
+      start = allowSpecialChars
+        ? nextOccurrence
         : this.checkForSpecialChars(
-            input15,
-            matchLocal27 + 1,
-            matchLocal33,
-            input16,
+            name,
+            start + 1,
+            nextOccurrence,
+            patternIndex,
           );
     }
     return null;
   }
-  findNextPatternCharOccurrence(input58, input59, input60) {
-    return !this.isPatternChar(input60 - 1, "*") &&
-      !this.isWordSeparator[input60]
-      ? this.indexOfWordStart(input58, input60, input59)
-      : this.indexOfIgnoreCase(input58, input59, input60);
+  findNextPatternCharOccurrence(name, nameIndex, patternIndex) {
+    return !this.isPatternChar(patternIndex - 1, "*") &&
+      !this.isWordSeparator[patternIndex]
+      ? this.indexOfWordStart(name, patternIndex, nameIndex)
+      : this.indexOfIgnoreCase(name, nameIndex, patternIndex);
   }
-  checkForSpecialChars(input47, input48, input49, input50) {
-    return input49 < 0 ||
+  checkForSpecialChars(name, fromIndex, nextOccurrence, patternIndex) {
+    return nextOccurrence < 0 ||
       (!this.hasSeparators &&
         !this.mixedCase &&
         ScoreQueryCharacterHelpers.indexOfAny(
-          input47,
+          name,
           this.hardSeparators,
-          input48,
-          input49,
+          fromIndex,
+          nextOccurrence,
         ) !== -1) ||
       (this.hasDots &&
-        !this.isPatternChar(input50 - 1, ".") &&
+        !this.isPatternChar(patternIndex - 1, ".") &&
         ScoreQueryCharacterHelpers.indexOfCharInRange(
-          input47,
+          name,
           ".",
-          input48,
-          input49,
+          fromIndex,
+          nextOccurrence,
         ) !== -1)
       ? -1
-      : input49;
+      : nextOccurrence;
   }
-  seemsLikeFragmentStart(input70, input71, input72) {
-    return !this.isUpperCase[input71] ||
-      ScoreQueryCharacterHelpers.isUpperCaseLetter(input70[input72]) ||
-      ScoreQueryCharacterHelpers.isWordStart(input70, input72)
+  seemsLikeFragmentStart(name, patternIndex, nameIndex) {
+    return !this.isUpperCase[patternIndex] ||
+      ScoreQueryCharacterHelpers.isUpperCaseLetter(name[nameIndex]) ||
+      ScoreQueryCharacterHelpers.isWordStart(name, nameIndex)
       ? true
       : !this.mixedCase && this.matchingMode !== "MATCH_CASE";
   }
-  charEquals(input95, input96, input97, input98) {
-    return input95 === input97
+  charEquals(patternChar, patternIndex, nameChar, ignoreCase) {
+    return patternChar === nameChar
       ? true
-      : input98
-        ? this.toLowerCase[input96] === input97 ||
-          this.toUpperCase[input96] === input97
+      : ignoreCase
+        ? this.toLowerCase[patternIndex] === nameChar ||
+          this.toUpperCase[patternIndex] === nameChar
         : false;
   }
-  matchFragment(input76, input77, input78) {
-    let matchLocal78 = this.maxMatchingFragment(input76, input77, input78);
-    return matchLocal78 === 0
+  matchFragment(name, patternIndex, nameIndex) {
+    let fragmentLength = this.maxMatchingFragment(
+      name,
+      patternIndex,
+      nameIndex,
+    );
+    return fragmentLength === 0
       ? null
-      : this.matchInsideFragment(input76, input77, input78, matchLocal78);
+      : this.matchInsideFragment(name, patternIndex, nameIndex, fragmentLength);
   }
-  maxMatchingFragment(input20, input21, input22) {
-    if (!this.isFirstCharMatching(input20, input22, input21)) return 0;
-    let matchLocal35 = 1,
-      matchLocal36 = this.matchingMode !== "MATCH_CASE";
+  maxMatchingFragment(name, patternIndex, nameIndex) {
+    if (!this.isFirstCharMatching(name, nameIndex, patternIndex)) return 0;
+    let i = 1,
+      ignoreCase = this.matchingMode !== "MATCH_CASE";
     for (
       ;
-      input22 + matchLocal35 < input20.length &&
-      input21 + matchLocal35 < this.myPattern.length;
+      nameIndex + i < name.length && patternIndex + i < this.myPattern.length;
 
     ) {
-      let matchLocal74 = input20[input22 + matchLocal35];
+      let nameChar = name[nameIndex + i];
       if (
         !this.charEquals(
-          this.myPattern[input21 + matchLocal35],
-          input21 + matchLocal35,
-          matchLocal74,
-          matchLocal36,
+          this.myPattern[patternIndex + i],
+          patternIndex + i,
+          nameChar,
+          ignoreCase,
         )
       ) {
         if (
-          this.isSkippingDigitBetweenPatternDigits(
-            input21 + matchLocal35,
-            matchLocal74,
-          )
+          this.isSkippingDigitBetweenPatternDigits(patternIndex + i, nameChar)
         )
           return 0;
         break;
       }
-      matchLocal35 += 1;
+      i += 1;
     }
-    return matchLocal35;
+    return i;
   }
-  isSkippingDigitBetweenPatternDigits(input87, input88) {
+  isSkippingDigitBetweenPatternDigits(patternIndex, nameChar) {
     return (
-      ScoreQueryCharacterHelpers.isDigit(this.myPattern[input87]) &&
-      ScoreQueryCharacterHelpers.isDigit(this.myPattern[input87 - 1]) &&
-      ScoreQueryCharacterHelpers.isDigit(input88)
+      ScoreQueryCharacterHelpers.isDigit(this.myPattern[patternIndex]) &&
+      ScoreQueryCharacterHelpers.isDigit(this.myPattern[patternIndex - 1]) &&
+      ScoreQueryCharacterHelpers.isDigit(nameChar)
     );
   }
-  matchInsideFragment(input63, input64, input65, input66) {
-    let matchLocal67 = this.isMiddleMatch(input63, input64, input65) ? 3 : 1;
+  matchInsideFragment(name, patternIndex, nameIndex, fragmentLength) {
+    let minFragment = this.isMiddleMatch(name, patternIndex, nameIndex) ? 3 : 1;
     return (
       this.improveCamelHumps(
-        input63,
-        input64,
-        input65,
-        input66,
-        matchLocal67,
+        name,
+        patternIndex,
+        nameIndex,
+        fragmentLength,
+        minFragment,
       ) ??
       this.findLongestMatchingPrefix(
-        input63,
-        input64,
-        input65,
-        input66,
-        matchLocal67,
+        name,
+        patternIndex,
+        nameIndex,
+        fragmentLength,
+        minFragment,
       )
     );
   }
-  isMiddleMatch(input89, input90, input91) {
-    return !this.isPatternChar(input90 - 1, "*") ||
-      this.isWildcard(input90 + 1) ||
-      !ScoreQueryCharacterHelpers.isAsciiAlphaNumeric(input89[input91])
+  isMiddleMatch(name, patternIndex, nameIndex) {
+    return !this.isPatternChar(patternIndex - 1, "*") ||
+      this.isWildcard(patternIndex + 1) ||
+      !ScoreQueryCharacterHelpers.isAsciiAlphaNumeric(name[nameIndex])
       ? false
-      : !ScoreQueryCharacterHelpers.isWordStart(input89, input91);
+      : !ScoreQueryCharacterHelpers.isWordStart(name, nameIndex);
   }
-  findLongestMatchingPrefix(input10, input11, input12, input13, input14) {
-    if (input11 + input13 >= this.myPattern.length)
+  findLongestMatchingPrefix(
+    name,
+    patternIndex,
+    nameIndex,
+    fragmentLength,
+    minFragment,
+  ) {
+    if (patternIndex + fragmentLength >= this.myPattern.length)
       return [
         {
-          startOffset: input12,
-          endOffset: input12 + input13,
+          startOffset: nameIndex,
+          endOffset: nameIndex + fragmentLength,
         },
       ];
-    let matchLocal26 = input13;
-    for (
-      ;
-      matchLocal26 >= input14 ||
-      (matchLocal26 > 0 && this.isWildcard(input11 + matchLocal26));
-
-    ) {
-      let matchLocal53 = null;
-      if (this.isWildcard(input11 + matchLocal26))
-        matchLocal53 = this.matchWildcards(
-          input10,
-          input11 + matchLocal26,
-          input12 + matchLocal26,
+    let i = fragmentLength;
+    for (; i >= minFragment || (i > 0 && this.isWildcard(patternIndex + i)); ) {
+      let matchedRanges = null;
+      if (this.isWildcard(patternIndex + i))
+        matchedRanges = this.matchWildcards(
+          name,
+          patternIndex + i,
+          nameIndex + i,
         );
       else {
-        let matchLocal73 = this.findNextPatternCharOccurrence(
-          input10,
-          input12 + matchLocal26 + 1,
-          input11 + matchLocal26,
+        let nextOccurrence = this.findNextPatternCharOccurrence(
+          name,
+          nameIndex + i + 1,
+          patternIndex + i,
         );
-        matchLocal73 = this.checkForSpecialChars(
-          input10,
-          input12 + matchLocal26,
-          matchLocal73,
-          input11 + matchLocal26,
+        nextOccurrence = this.checkForSpecialChars(
+          name,
+          nameIndex + i,
+          nextOccurrence,
+          patternIndex + i,
         );
-        matchLocal73 >= 0 &&
-          (matchLocal53 = this.matchSkippingWords(
-            input10,
-            input11 + matchLocal26,
-            matchLocal73,
+        nextOccurrence >= 0 &&
+          (matchedRanges = this.matchSkippingWords(
+            name,
+            patternIndex + i,
+            nextOccurrence,
             false,
           ));
       }
-      if (matchLocal53 != null)
+      if (matchedRanges != null)
         return ScoreQueryCharacterHelpers.prependMatchedRange(
-          matchLocal53,
-          input12,
-          matchLocal26,
+          matchedRanges,
+          nameIndex,
+          i,
         );
-      --matchLocal26;
+      --i;
     }
     return null;
   }
-  improveCamelHumps(input37, input38, input39, input40, input41) {
-    for (let matchLocal66 = input41; matchLocal66 < input40; matchLocal66 += 1)
+  improveCamelHumps(
+    name,
+    patternIndex,
+    nameIndex,
+    fragmentLength,
+    minFragment,
+  ) {
+    for (let i = minFragment; i < fragmentLength; i += 1)
       if (
         this.isUppercasePatternVsLowercaseNameChar(
-          input37,
-          input38 + matchLocal66,
-          input39 + matchLocal66,
+          name,
+          patternIndex + i,
+          nameIndex + i,
         )
       ) {
-        let matchLocal89 = this.findUppercaseMatchFurther(
-          input37,
-          input38 + matchLocal66,
-          input39 + matchLocal66,
+        let humpMatch = this.findUppercaseMatchFurther(
+          name,
+          patternIndex + i,
+          nameIndex + i,
         );
-        if (matchLocal89 != null)
+        if (humpMatch != null)
           return ScoreQueryCharacterHelpers.prependMatchedRange(
-            matchLocal89,
-            input39,
-            matchLocal66,
+            humpMatch,
+            nameIndex,
+            i,
           );
       }
     return null;
   }
-  isUppercasePatternVsLowercaseNameChar(input92, input93, input94) {
+  isUppercasePatternVsLowercaseNameChar(name, patternIndex, nameIndex) {
     return (
-      this.isUpperCase[input93] && this.myPattern[input93] !== input92[input94]
+      this.isUpperCase[patternIndex] &&
+      this.myPattern[patternIndex] !== name[nameIndex]
     );
   }
-  findUppercaseMatchFurther(input84, input85, input86) {
-    let matchLocal82 = this.indexOfWordStart(input84, input85, input86);
-    return this.matchWildcards(input84, input85, matchLocal82);
+  findUppercaseMatchFurther(name, patternIndex, nameIndex) {
+    let nextWordStart = this.indexOfWordStart(name, patternIndex, nameIndex);
+    return this.matchWildcards(name, patternIndex, nextWordStart);
   }
-  isFirstCharMatching(input23, input24, input25) {
-    if (input24 >= input23.length) return false;
-    let matchLocal44 = this.matchingMode !== "MATCH_CASE",
-      matchLocal45 = this.myPattern[input25];
+  isFirstCharMatching(name, nameIndex, patternIndex) {
+    if (nameIndex >= name.length) return false;
+    let ignoreCase = this.matchingMode !== "MATCH_CASE",
+      patternChar = this.myPattern[patternIndex];
     return this.charEquals(
-      matchLocal45,
-      input25,
-      input23[input24],
-      matchLocal44,
+      patternChar,
+      patternIndex,
+      name[nameIndex],
+      ignoreCase,
     )
       ? this.matchingMode === "FIRST_LETTER" &&
-        (input25 === 0 || (input25 === 1 && this.isWildcard(0))) &&
-        this.hasCase(input25)
-        ? this.isUpperCase[input25] ===
-          ScoreQueryCharacterHelpers.isUpperCaseLetter(input23[0])
+        (patternIndex === 0 || (patternIndex === 1 && this.isWildcard(0))) &&
+        this.hasCase(patternIndex)
+        ? this.isUpperCase[patternIndex] ===
+          ScoreQueryCharacterHelpers.isUpperCaseLetter(name[0])
         : true
       : false;
   }
-  hasCase(input125) {
-    return this.isUpperCase[input125] || this.isLowerCase[input125];
+  hasCase(patternIndex) {
+    return this.isUpperCase[patternIndex] || this.isLowerCase[patternIndex];
   }
-  isWildcard(input110) {
+  isWildcard(patternIndex) {
     return (
-      input110 >= 0 &&
-      input110 < this.myPattern.length &&
-      ScoreQueryCharacterHelpers.isWildcardChar(this.myPattern[input110])
+      patternIndex >= 0 &&
+      patternIndex < this.myPattern.length &&
+      ScoreQueryCharacterHelpers.isWildcardChar(this.myPattern[patternIndex])
     );
   }
-  isPatternChar(input103, input104) {
-    return input103 < 0 || input103 >= this.myPattern.length
+  isPatternChar(patternIndex, char) {
+    return patternIndex < 0 || patternIndex >= this.myPattern.length
       ? false
-      : this.myPattern[input103] === input104;
+      : this.myPattern[patternIndex] === char;
   }
-  indexOfWordStart(input28, input29, input30) {
-    let matchLocal54 = this.myPattern[input29];
+  indexOfWordStart(name, patternIndex, nameIndex) {
+    let patternChar = this.myPattern[patternIndex];
     if (
-      input30 >= input28.length ||
+      nameIndex >= name.length ||
       (this.mixedCase &&
-        this.isLowerCase[input29] &&
-        !(input29 > 0 && this.isWordSeparator[input29 - 1]))
+        this.isLowerCase[patternIndex] &&
+        !(patternIndex > 0 && this.isWordSeparator[patternIndex - 1]))
     )
       return -1;
-    let matchLocal55 = input30,
-      matchLocal56 =
-        !ScoreQueryCharacterHelpers.isAsciiAlphaNumeric(matchLocal54);
+    let index = nameIndex,
+      isSpecialChar =
+        !ScoreQueryCharacterHelpers.isAsciiAlphaNumeric(patternChar);
     for (;;) {
       if (
-        ((matchLocal55 = this.indexOfIgnoreCase(
-          input28,
-          matchLocal55,
-          input29,
-        )),
-        matchLocal55 < 0)
+        ((index = this.indexOfIgnoreCase(name, index, patternIndex)), index < 0)
       )
         return -1;
-      if (
-        matchLocal56 ||
-        ScoreQueryCharacterHelpers.isWordStart(input28, matchLocal55)
-      )
-        return matchLocal55;
-      matchLocal55 += 1;
+      if (isSpecialChar || ScoreQueryCharacterHelpers.isWordStart(name, index))
+        return index;
+      index += 1;
     }
   }
-  indexOfIgnoreCase(input34, input35, input36) {
-    let matchLocal58 = this.myPattern[input36];
-    if (ScoreQueryCharacterHelpers.isAsciiSingleChar(matchLocal58)) {
-      let matchLocal75 = this.toUpperCase[input36],
-        matchLocal76 = this.toLowerCase[input36];
-      for (
-        let matchLocal92 = input35;
-        matchLocal92 < input34.length;
-        matchLocal92 += 1
-      ) {
-        let matchLocal101 = input34[matchLocal92];
-        if (matchLocal101 === matchLocal75 || matchLocal101 === matchLocal76)
-          return matchLocal92;
+  indexOfIgnoreCase(name, fromIndex, patternIndex) {
+    let patternChar = this.myPattern[patternIndex];
+    if (ScoreQueryCharacterHelpers.isAsciiSingleChar(patternChar)) {
+      let upperChar = this.toUpperCase[patternIndex],
+        lowerChar = this.toLowerCase[patternIndex];
+      for (let i = fromIndex; i < name.length; i += 1) {
+        let nameChar = name[i];
+        if (nameChar === upperChar || nameChar === lowerChar) return i;
       }
       return -1;
     }
     return ScoreQueryCharacterHelpers.indexOfCharInRange(
-      input34,
-      matchLocal58,
-      input35,
-      input34.length,
+      name,
+      patternChar,
+      fromIndex,
+      name.length,
     );
   }
 }

@@ -1,5 +1,5 @@
 // Restored from ref/.vite/build/src-BZqs_tzA.js
-// Vendored runtime boundary.
+// CommonJS/ESM interop helpers emitted by the bundler for the Electron main chunk.
 import { createRequire } from "node:module";
 
 type GetterMap = Record<string, () => unknown>;
@@ -169,10 +169,4 @@ export {
   toEsModule,
   toCommonJsModule,
   loadDebugModule,
-  toCommonJsModule as a,
-  defineGetterNamespace as i,
-  createCommonJsModule as n,
-  toEsModule as o,
-  createLazyInitializer as r,
-  loadDebugModule as t,
 };

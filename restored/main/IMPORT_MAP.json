@@ -214,7 +214,7 @@
       "status": "done"
     },
     "workspace-root-drop-handler-DbDnwAf_": {
-      "restored": "workspace/workspace-root-drop-handler.ts",
+      "restored": "runtime/desktop-runtime-state.ts",
       "exports": {
         "$": "configureNativeIntl",
         "A": "AVATAR_OVERLAY_OPEN_CHANNEL",
@@ -274,12 +274,10 @@
         "z": "WORKTREE_CLEANUP_BUFFER_START_MS_KEY"
       },
       "status": "done",
-      "vendor": "runtime",
-      "dependencyBoundary": "desktop workspace runtime aggregate",
-      "note": "Workspace-root selection, app:// protocol handling, deep-link routing, SQLite recovery, Owl feature bootstrap/cache state, file-backed global state, desktop settings-store config/migration paths, and updater/Sparkle lifecycle manager restored; Sentry/OpenTelemetry SDK boundary remains vendor-owned."
+      "note": "Split into 28 domain files under main/{intl,protocol,owl,updater,settings,state-db,deeplinks,runtime,logging,workspace}/ (primary: runtime/desktop-runtime-state.ts); cryptic alias exports dropped — consumers use the semantic names below. desktopReleaseMetadata (alias H) was internalized (no consumers). | Workspace-root selection, app:// protocol handling, deep-link routing, SQLite recovery, Owl feature bootstrap/cache state, file-backed global state, desktop settings-store config/migration paths, and updater/Sparkle lifecycle manager restored; Sentry/OpenTelemetry SDK boundary remains vendor-owned."
     },
     "workspace-root-drop-handler-DeLi4ACJ": {
-      "restored": "workspace/workspace-root-drop-handler.ts",
+      "restored": "runtime/desktop-runtime-state.ts",
       "exports": {
         "$": "configureNativeIntl",
         "A": "AVATAR_OVERLAY_OPEN_CHANNEL",
@@ -339,9 +337,7 @@
         "z": "WORKTREE_CLEANUP_BUFFER_START_MS_KEY"
       },
       "status": "done",
-      "vendor": "runtime",
-      "dependencyBoundary": "desktop workspace runtime aggregate",
-      "note": "Current-build successor of workspace-root-drop-handler-DbDnwAf_. Workspace-root selection, app:// protocol handling, SQLite recovery, desktop settings-store config/migration paths, and updater/Sparkle lifecycle manager restored; Sentry/OpenTelemetry SDK boundary remains vendor-owned."
+      "note": "Split into 28 domain files under main/{intl,protocol,owl,updater,settings,state-db,deeplinks,runtime,logging,workspace}/ (primary: runtime/desktop-runtime-state.ts); cryptic alias exports dropped — consumers use the semantic names below. desktopReleaseMetadata (alias H) was internalized (no consumers). | Current-build successor of workspace-root-drop-handler-DbDnwAf_. Workspace-root selection, app:// protocol handling, SQLite recovery, desktop settings-store config/migration paths, and updater/Sparkle lifecycle manager restored; Sentry/OpenTelemetry SDK boundary remains vendor-owned."
     }
   }
 }

@@ -17,13 +17,17 @@ import {
 } from "./logging/file-based-logger";
 import {
   configureNativeIntl,
-  createDesktopRuntimePaths,
-  createWebviewAppUrl,
-  getDesktopRuntimeState,
   getRuntimeAppBrand,
+} from "./intl/native-runtime-identity";
+import {
+  createWebviewAppUrl,
   registerAppProtocolHandler,
   webviewRootFromModuleDir,
-} from "./workspace/workspace-root-drop-handler";
+} from "./protocol/app-protocol-handler";
+import {
+  createDesktopRuntimePaths,
+  getDesktopRuntimeState,
+} from "./runtime/desktop-runtime-state";
 import {
   createComputerUseCaptureMainRpcHandler,
   createExecutionHostMainRpcHandler,
