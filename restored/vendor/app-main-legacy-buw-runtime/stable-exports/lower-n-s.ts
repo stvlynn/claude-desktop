@@ -41,6 +41,10 @@ export {
   initWarningContextRuntime,
   Portal,
 } from "../../../runtime/app-main-new-thread-runtime";
+export {
+  initReviewDiffStateRuntime as initReviewDiffStateChunk,
+  initReviewFileListRuntime as initReviewFileListChunk,
+} from "../../../review/review-diff-store";
 
 export {
   n as legacyAppMainBuwLowerNExport,
@@ -80,7 +84,6 @@ export {
   os as legacyAppMainBuwLowerOLowerSExport,
   ot as legacyAppMainBuwLowerOLowerTExport,
   ou as legacyAppMainBuwLowerOLowerUExport,
-  ov as initReviewDiffStateChunk,
   ox as legacyAppMainBuwLowerOLowerXExport,
   oy as legacyAppMainBuwLowerOLowerYExport,
   p as legacyAppMainBuwLowerPExport,
@@ -141,7 +144,6 @@ export {
   rs as legacyAppMainBuwLowerRLowerSExport,
   rt as legacyAppMainBuwLowerRLowerTExport,
   ru as legacyAppMainBuwLowerRLowerUExport,
-  rv as initReviewFileListChunk,
   rx as legacyAppMainBuwLowerRLowerXExport,
   ry as legacyAppMainBuwLowerRLowerYExport,
   sC as legacyAppMainBuwLowerSUpperCExport,

@@ -11,6 +11,7 @@ export {
 
 export { initPermissionsModeDefaultsRuntime } from "../../runtime/window-chrome-runtime";
 export { DragOverlay as ThreadRowShortcutLabel } from "../dnd-kit-core";
+export { initReviewSourceRuntime as initReviewSourceChunk } from "../../review/review-diff-store";
 
 export {
   f as appMainCurrentCompatSlotLowerF,
@@ -28,6 +29,5 @@ export {
   fS as appMainCurrentCompatSlotLowerFUpperS,
   ft as appMainCurrentCompatSlotLowerFLowerT,
   fu as appMainCurrentCompatSlotLowerFLowerU,
-  fv as initReviewSourceChunk,
   fy as appMainCurrentCompatSlotLowerFLowerY,
 } from "../app-main-legacy-buw-compat-bundle";

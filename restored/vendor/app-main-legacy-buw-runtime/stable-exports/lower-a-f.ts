@@ -45,6 +45,7 @@ export {
   DragOverlay as ThreadRowShortcutLabel,
   useDroppable as ThreadRowBranchLabel,
 } from "../../dnd-kit-core";
+export { initReviewSourceRuntime as initReviewSourceChunk } from "../../../review/review-diff-store";
 
 export {
   a as legacyAppMainBuwLowerAExport,
@@ -161,6 +162,5 @@ export {
   fs as legacyAppMainBuwLowerFLowerSExport,
   ft as legacyAppMainBuwLowerFLowerTExport,
   fu as legacyAppMainBuwLowerFLowerUExport,
-  fv as initReviewSourceChunk,
   fy as legacyAppMainBuwLowerFLowerYExport,
 } from "../../app-main-legacy-buw-compat-bundle";

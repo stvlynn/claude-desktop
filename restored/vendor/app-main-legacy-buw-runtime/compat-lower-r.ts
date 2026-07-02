@@ -5,6 +5,7 @@ export { SidebarRowKeyboardScope } from "../app-main-current-runtime";
 export { Portal } from "../../runtime/app-main-new-thread-runtime";
 
 export { XCircleIcon as ErrorCircleIcon } from "../../icons/x-circle-icon";
+export { initReviewFileListRuntime as initReviewFileListChunk } from "../../review/review-diff-store";
 
 export {
   r as appMainCurrentCompatSlotLowerR,
@@ -25,7 +26,6 @@ export {
   rS as appMainCurrentCompatSlotLowerRUpperS,
   rt as appMainCurrentCompatSlotLowerRLowerT,
   ru as appMainCurrentCompatSlotLowerRLowerU,
-  rv as initReviewFileListChunk,
   rx as appMainCurrentCompatSlotLowerRLowerX,
   ry as appMainCurrentCompatSlotLowerRLowerY,
 } from "../app-main-legacy-buw-compat-bundle";

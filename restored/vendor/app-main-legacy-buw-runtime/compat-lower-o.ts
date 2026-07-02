@@ -1,8 +1,6 @@
 // Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
 // Lowercase o compatibility aliases for the legacy app-main/onboarding producer.
-export {
-  useDictationCore as appMainCurrentCompatSlotLowerOUpperC,
-} from "../../features/use-dictation/use-dictation";
+export { useDictationCore as appMainCurrentCompatSlotLowerOUpperC } from "../../features/use-dictation/use-dictation";
 
 export {
   closeThreadMcpAppSidePanelTab,
@@ -10,6 +8,7 @@ export {
 } from "../app-main-current-runtime";
 
 export { getCodexWindowChrome } from "../../runtime/window-chrome-runtime";
+export { initReviewDiffStateRuntime as initReviewDiffStateChunk } from "../../review/review-diff-store";
 
 export {
   o as appMainCurrentCompatSlotLowerO,
@@ -29,7 +28,6 @@ export {
   oS as appMainCurrentCompatSlotLowerOUpperS,
   ot as appMainCurrentCompatSlotLowerOLowerT,
   ou as appMainCurrentCompatSlotLowerOLowerU,
-  ov as initReviewDiffStateChunk,
   ox as appMainCurrentCompatSlotLowerOLowerX,
   oy as appMainCurrentCompatSlotLowerOLowerY,
 } from "../app-main-legacy-buw-compat-bundle";
