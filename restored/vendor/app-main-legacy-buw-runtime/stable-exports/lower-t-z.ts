@@ -61,6 +61,7 @@ export {
   isWorkspaceCreditsExhausted as legacyAppMainBuwLowerYLowerCExport,
   shouldUseCreditsRateLimitDisplay as legacyAppMainBuwLowerVLowerCExport,
 } from "../../../utils/rate-limit-status/account-status";
+export { initUserSavedConfigQueryChunk as legacyAppMainBuwLowerULowerXExport } from "../../../config/user-saved-config-query";
 
 export {
   t as legacyAppMainBuwLowerTExport,
@@ -97,7 +98,6 @@ export {
   ur as legacyAppMainBuwLowerULowerRExport,
   us as legacyAppMainBuwLowerULowerSExport,
   uv as legacyAppMainBuwLowerULowerVExport,
-  ux as legacyAppMainBuwLowerULowerXExport,
   uy as legacyAppMainBuwLowerULowerYExport,
   vC as legacyAppMainBuwLowerVUpperCExport,
   vS as legacyAppMainBuwLowerVUpperSExport,

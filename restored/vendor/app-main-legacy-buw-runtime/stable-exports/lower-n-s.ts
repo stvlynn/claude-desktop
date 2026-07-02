@@ -54,6 +54,7 @@ export {
   initWarningContextRuntime,
   Portal,
 } from "../../../runtime/app-main-new-thread-runtime";
+export { initOpenConfigInEditorChunk as legacyAppMainBuwLowerSLowerXExport } from "../../../composer/open-config-in-editor";
 export {
   initReviewDiffStateRuntime as initReviewDiffStateChunk,
   initReviewFileListRuntime as initReviewFileListChunk,
@@ -165,6 +166,5 @@ export {
   ss as legacyAppMainBuwLowerSLowerSExport,
   st as legacyAppMainBuwLowerSLowerTExport,
   su as legacyAppMainBuwLowerSLowerUExport,
-  sx as legacyAppMainBuwLowerSLowerXExport,
   sy as legacyAppMainBuwLowerSLowerYExport,
 } from "../../app-main-legacy-buw-compat-bundle";

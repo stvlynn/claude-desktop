@@ -6,6 +6,8 @@ export { initCollapseIconChunk as legacyAppMainBuwLowerELowerRExport } from "../
 export { initMicrosoftIconChunk as legacyAppMainBuwLowerELowerCExport } from "../../../icons/microsoft-icon";
 
 export { useDictation as legacyAppMainBuwLowerAUpperCExport } from "../../../features/use-dictation/use-dictation";
+export { OpenConfigTomlButton as legacyAppMainBuwLowerALowerXExport } from "../../../composer/open-config-toml-button";
+export { openConfigInEditor as legacyAppMainBuwLowerCLowerXExport } from "../../../composer/open-config-in-editor";
 
 export { useRecordingWaveform as legacyAppMainBuwLowerCUpperCExport } from "../../../utils/use-recording-waveform/use-recording-waveform";
 
@@ -77,7 +79,6 @@ export {
   as as legacyAppMainBuwLowerALowerSExport,
   at as legacyAppMainBuwLowerALowerTExport,
   au as legacyAppMainBuwLowerALowerUExport,
-  ax as legacyAppMainBuwLowerALowerXExport,
   ay as legacyAppMainBuwLowerALowerYExport,
   b as legacyAppMainBuwLowerBExport,
   bC as legacyAppMainBuwLowerBUpperCExport,
@@ -115,7 +116,6 @@ export {
   ct as legacyAppMainBuwLowerCLowerTExport,
   cu as legacyAppMainBuwLowerCLowerUExport,
   cv as legacyAppMainBuwLowerCLowerVExport,
-  cx as legacyAppMainBuwLowerCLowerXExport,
   cy as legacyAppMainBuwLowerCLowerYExport,
   d as legacyAppMainBuwLowerDExport,
   dC as legacyAppMainBuwLowerDUpperCExport,

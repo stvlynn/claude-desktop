@@ -7,6 +7,7 @@ export { SidebarRowMenuSeparator } from "../app-main-current-runtime";
 export { shouldExpandReviewPanelSignal } from "../../conversations/local-conversation-page-runtime";
 
 export { ProgressionDonutIcon as appMainCurrentCompatSlotLowerALowerM } from "../../icons/progression-donut-icon";
+export { OpenConfigTomlButton as appMainCurrentCompatSlotLowerALowerX } from "../../composer/open-config-toml-button";
 
 export {
   a as appMainCurrentCompatSlotLowerA,
@@ -27,6 +28,5 @@ export {
   aS as appMainCurrentCompatSlotLowerAUpperS,
   at as appMainCurrentCompatSlotLowerALowerT,
   au as appMainCurrentCompatSlotLowerALowerU,
-  ax as appMainCurrentCompatSlotLowerALowerX,
   ay as appMainCurrentCompatSlotLowerALowerY,
 } from "../app-main-legacy-buw-compat-bundle";

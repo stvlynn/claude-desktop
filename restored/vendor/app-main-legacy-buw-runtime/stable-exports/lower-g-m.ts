@@ -50,6 +50,7 @@ export {
 
 export { initComposedRefsRuntime } from "../../../runtime/app-main-new-thread-runtime";
 export { isConversationDetailModeProse as SidebarRowArchiveToast } from "../../../runtime/conversation-detail-runtime";
+export { userSavedConfigQueryOptions as legacyAppMainBuwLowerLLowerXExport } from "../../../config/user-saved-config-query";
 export { initDocumentSearchIconChunk as legacyAppMainBuwLowerGLowerYExport } from "../../../icons/document-search-icon";
 export { EllipsisHorizontalIcon as ThreadRowTooltip } from "../../../icons/ellipsis-horizontal-icon";
 export { initFolderOpenIconChunk as legacyAppMainBuwLowerGLowerHExport } from "../../../icons/folder-open-icon";
@@ -167,7 +168,6 @@ export {
   lr as legacyAppMainBuwLowerLLowerRExport,
   ls as legacyAppMainBuwLowerLLowerSExport,
   lu as legacyAppMainBuwLowerLLowerUExport,
-  lx as legacyAppMainBuwLowerLLowerXExport,
   ly as legacyAppMainBuwLowerLLowerYExport,
   m as legacyAppMainBuwLowerMExport,
   mC as legacyAppMainBuwLowerMUpperCExport,

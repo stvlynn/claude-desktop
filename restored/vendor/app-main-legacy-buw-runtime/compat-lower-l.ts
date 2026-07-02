@@ -11,6 +11,7 @@ export { EllipsisHorizontalIcon as ThreadRowTooltip } from "../../icons/ellipsis
 export { Alert as ToastContent } from "../../utils/alert";
 export { initStyleSingletonRuntime as initArrayEqualityRuntimeChunk } from "../react-style-singleton";
 export { formatResetTimestamp as appMainCurrentCompatSlotLowerLLowerC } from "../../utils/rate-limit-status/formatting";
+export { userSavedConfigQueryOptions as appMainCurrentCompatSlotLowerLLowerX } from "../../config/user-saved-config-query";
 
 export {
   l as appMainCurrentCompatSlotLowerL,
@@ -27,6 +28,5 @@ export {
   ls as appMainCurrentCompatSlotLowerLLowerS,
   lS as appMainCurrentCompatSlotLowerLUpperS,
   lu as appMainCurrentCompatSlotLowerLLowerU,
-  lx as appMainCurrentCompatSlotLowerLLowerX,
   ly as appMainCurrentCompatSlotLowerLLowerY,
 } from "../app-main-legacy-buw-compat-bundle";

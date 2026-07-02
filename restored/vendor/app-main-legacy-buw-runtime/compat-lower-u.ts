@@ -15,6 +15,7 @@ export {
 
 export { initEllipsisHorizontalIconChunk as SidebarRowLocalEnvironment } from "../../icons/ellipsis-horizontal-icon";
 export { getSpendControlWarningThreshold as appMainCurrentCompatSlotLowerULowerC } from "../../utils/rate-limit-status/account-status";
+export { initUserSavedConfigQueryChunk as appMainCurrentCompatSlotLowerULowerX } from "../../config/user-saved-config-query";
 
 export {
   u as appMainCurrentCompatSlotLowerU,
@@ -30,6 +31,5 @@ export {
   us as appMainCurrentCompatSlotLowerULowerS,
   uS as appMainCurrentCompatSlotLowerUUpperS,
   uv as appMainCurrentCompatSlotLowerULowerV,
-  ux as appMainCurrentCompatSlotLowerULowerX,
   uy as appMainCurrentCompatSlotLowerULowerY,
 } from "../app-main-legacy-buw-compat-bundle";

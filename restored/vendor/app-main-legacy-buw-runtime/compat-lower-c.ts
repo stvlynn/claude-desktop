@@ -10,6 +10,7 @@ export {
   ThreadRowTimestamp,
 } from "../app-main-current-runtime";
 export { isSpendControlNearWorkspaceCap as appMainCurrentCompatSlotLowerCLowerC } from "../../utils/rate-limit-status/account-status";
+export { openConfigInEditor as appMainCurrentCompatSlotLowerCLowerX } from "../../composer/open-config-in-editor";
 
 export {
   c as appMainCurrentCompatSlotLowerC,
@@ -28,6 +29,5 @@ export {
   ct as appMainCurrentCompatSlotLowerCLowerT,
   cu as appMainCurrentCompatSlotLowerCLowerU,
   cv as appMainCurrentCompatSlotLowerCLowerV,
-  cx as appMainCurrentCompatSlotLowerCLowerX,
   cy as appMainCurrentCompatSlotLowerCLowerY,
 } from "../app-main-legacy-buw-compat-bundle";
