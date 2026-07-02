@@ -46,6 +46,9 @@ export {
   isDeeplyDifferent as initSidebarRowPrimitivesChunk,
 } from "../../utils/is-deeply-different";
 export {
+  initSettingsControlRowChunk as initSettingsRowRuntime,
+} from "../../ui/settings-row";
+export {
   TwoPeopleShieldIcon as openThreadMcpAppSidePanelTab,
 } from "../../icons/two-people-shield-icon";
 export {
@@ -62,7 +65,6 @@ export {
 export {
   Ln as AutomationScheduleEditor,
   Vt as initFileDiffRuntime,
-  In as initSettingsRowRuntime,
   Kt as RemoteConversationShell,
   kn as AutomationDraftActionForm,
   ou as FileDiff,
