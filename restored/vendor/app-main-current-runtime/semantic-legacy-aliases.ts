@@ -157,22 +157,32 @@ export {
 
 export {
   Kt as RemoteConversationShell,
-  kn as AutomationDraftActionForm,
   ou as FileDiff,
-  Ln as AutomationScheduleEditor,
 } from "../app-main-current-cgnc-bundle";
 
 export {
-  Bn as ArchiveMenuItem,
-  Nn as SidebarRowActionButton,
-  Nr as SidebarRowContextMenu,
-  Pn as SidebarTaskRow,
   ho as forkConversationMessages,
   hp as useComposedRefs,
   mo as initForkConversationMessagesChunk,
-  zn as SidebarRowRuntime,
 } from "../app-main-current-cgnc-bundle";
 
+export { AutomationNameInput as ArchiveMenuItem } from "../../automations/automation-name-input";
+export {
+  AutomationPromptForm as AutomationScheduleEditor,
+} from "../../automations/automation-prompt-form";
+export {
+  AutomationSaveTooltip as AutomationDraftActionForm,
+} from "../../automations/automation-save-tooltip";
+export {
+  AutomationSandboxBanner as SidebarRowRuntime,
+} from "../../automations/automation-sandbox-banner";
+export {
+  initAutomationDraftRuntimeChunk as SidebarRowContextMenu,
+} from "../../automations/shared";
+export { AutomationDetailRow as SidebarTaskRow } from "../../automations/automation-side-panel/status-components";
+export {
+  SettingsButtonRow as SidebarRowActionButton,
+} from "../../ui/settings-row";
 export {
   initCursorIconChunk as SidebarRowOverflowMenu,
 } from "../../icons/cursor-icon";

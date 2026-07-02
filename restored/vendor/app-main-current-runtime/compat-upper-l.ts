@@ -26,6 +26,6 @@ export { isToggleImageCommentShortcut as appMainCurrentCompatSlotUpperLLowerT } 
 
 export { useBrowserUseSettingsVisibility as appMainCurrentCompatSlotUpperLLowerU } from "../../browser/browser-use-settings-visibility";
 
-export { Ln as appMainCurrentCompatSlotUpperLLowerN } from "../app-main-current-cgnc-bundle";
+export { AutomationPromptForm as appMainCurrentCompatSlotUpperLLowerN } from "../../automations/automation-prompt-form";
 
 export { initThreadActionsRuntimeChunk as appMainCurrentCompatSlotUpperLLowerA } from "../../threads/thread-actions";

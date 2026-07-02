@@ -42,6 +42,8 @@ const PROMPT_COMPACT_CLASS_NAME = classNames(
   ...PROMPT_PROSEMIRROR_CLASSES,
 );
 
+export function initAutomationPromptFormChunk(): void {}
+
 interface AutomationPromptDraft {
   prompt: string;
   cwds: string[];

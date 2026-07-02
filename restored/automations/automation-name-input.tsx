@@ -6,6 +6,8 @@ import { useIntl } from "../vendor/react-intl";
 const AUTOMATION_NAME_INPUT_CLASS_NAME =
   "text-token-input-foreground placeholder:text-token-input-placeholder-foreground m-0 w-full min-w-0 appearance-none bg-transparent p-0 text-lg leading-tight outline-none";
 
+export function initAutomationNameInputChunk(): void {}
+
 export interface AutomationNameInputProps {
   id?: string;
   value: string;

@@ -13,6 +13,8 @@ export interface AutomationSandboxBannerProps {
   isDangerFullAccess: boolean;
 }
 
+export function initAutomationSandboxBannerChunk(): void {}
+
 function renderRulesDocsLink(chunks: ReactNode): ReactElement {
   return (
     <a
