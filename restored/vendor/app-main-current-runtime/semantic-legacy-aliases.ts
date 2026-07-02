@@ -67,6 +67,12 @@ export {
   getMicrophoneInputStream as SidebarRowProjectLabel,
 } from "../../utils/microphone-input";
 export {
+  initGitApplyClipboardIconChunk as SidebarRowKeyboardScope,
+} from "../../icons/git-apply-clipboard-icon";
+export {
+  initReviewTabIconChunk as getThreadMcpAppSidePanelTabId,
+} from "../../icons/review-tab-icon";
+export {
   TwoPeopleShieldIcon as openThreadMcpAppSidePanelTab,
 } from "../../icons/two-people-shield-icon";
 export {
@@ -125,8 +131,6 @@ export {
   mo as initForkConversationMessagesChunk,
   nm as SidebarRowHoverCard,
   pl as initThreadSidePanelTabsChunk,
-  rl as SidebarRowKeyboardScope,
-  sf as getThreadMcpAppSidePanelTabId,
   sl as SidebarRowShortcutScope,
   sm as SidebarRowContextMenuItem,
   ud as initExternalAgentImportStatusIconsChunk,

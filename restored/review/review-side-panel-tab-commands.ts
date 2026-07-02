@@ -13,10 +13,10 @@ import {
   getSidePanelTabControllerForTarget,
   ReviewSidePanelTabContent,
   reviewSidePanelTabDefaultState,
-  ReviewTabIcon,
   intlControllerAtom,
   navigateToReviewFilePath,
 } from "../boundaries/onboarding-commons-externals.facade";
+import { ReviewTabIcon } from "../icons/review-tab-icon";
 
 interface AppStore {
   get(atom: unknown): any;

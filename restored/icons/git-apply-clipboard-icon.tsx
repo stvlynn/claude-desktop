@@ -20,4 +20,6 @@ export function GitApplyClipboardIcon(props: IconProps) {
   );
 }
 
+export function initGitApplyClipboardIconChunk(): void {}
+
 export default GitApplyClipboardIcon;
