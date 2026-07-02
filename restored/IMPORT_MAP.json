@@ -42510,12 +42510,12 @@
         "ProjectsIndexPage": "ProjectsIndexPage"
       },
       "status": "done",
-      "note": "Current ProjectsIndexPage hash maps to a dedicated current-ref runtime over vendor/projects-index-page-current-bundle.tsx; the single semantic export is re-derived from the current file.",
-      "lastUpdated": "2026-06-30T23:35:00.000Z",
+      "note": "Current ProjectsIndexPage hash maps to a dedicated current-ref runtime over projects/projects-index-page.tsx; the page body was lifted out of vendor parking, React Compiler cache scaffolding was stripped, and the main page helpers now use semantic names.",
+      "lastUpdated": "2026-07-02T02:46:38.000Z",
       "stage3Accepted": true,
       "stage3AcceptedAt": "2026-06-30T23:35:00.000Z",
-      "stage3Review": "Host self-review: verified the current file exports ProjectsIndexPage, rewrote dependency imports through restored/IMPORT_MAP.json, and passed quality gates on the backing bundle and runtime.",
-      "stage3Note": "Accepted as a current-ref compatibility export over a restored-dependency backing bundle; full semantic split of ProjectsIndexPage remains a later cleanup."
+      "stage3Review": "Host self-review: verified the current file exports ProjectsIndexPage, rewrote dependency imports through restored/IMPORT_MAP.json, lifted the page body into projects/projects-index-page.tsx, stripped React Compiler cache scaffolding, named the main helper components/functions, and verified the promoted page plus runtime with Bun builds. Runtime quality gate passes; the page gate now only reports remaining JSX factory call residue and the later component split.",
+      "stage3Note": "Accepted as a current-ref compatibility export over a promoted ProjectsIndexPage implementation; JSX factory cleanup and component splitting remain later cleanup."
     },
     "pending-request-item-panel-DnKsF6y0": {
       "restored": "runtime/current-app-initial/pending-request-item-panel-current-runtime.ts",
