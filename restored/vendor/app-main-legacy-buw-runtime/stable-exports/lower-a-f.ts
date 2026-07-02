@@ -1,20 +1,12 @@
 // Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
 // Stable BUw aliases: lower-a-f.
-export {
-  useDictation as legacyAppMainBuwLowerAUpperCExport,
-} from "../../../features/use-dictation/use-dictation";
+export { useDictation as legacyAppMainBuwLowerAUpperCExport } from "../../../features/use-dictation/use-dictation";
 
-export {
-  useRecordingWaveform as legacyAppMainBuwLowerCUpperCExport,
-} from "../../../utils/use-recording-waveform/use-recording-waveform";
+export { useRecordingWaveform as legacyAppMainBuwLowerCUpperCExport } from "../../../utils/use-recording-waveform/use-recording-waveform";
 
-export {
-  formatHookEventName as legacyAppMainBuwLowerELowerAExport,
-} from "../../../settings/hooks-settings-copy";
+export { formatHookEventName as legacyAppMainBuwLowerELowerAExport } from "../../../settings/hooks-settings-copy";
 
-export {
-  cleanupDictationTranscript as legacyAppMainBuwLowerFUpperCExport,
-} from "../../../utils/transcribe-audio/responses-cleanup";
+export { cleanupDictationTranscript as legacyAppMainBuwLowerFUpperCExport } from "../../../utils/transcribe-audio/responses-cleanup";
 
 export { areArraysEqual } from "../../../utils/are-arrays-equal";
 
@@ -47,6 +39,11 @@ export {
 } from "../../../runtime/app-main-new-thread-runtime";
 
 export { openThreadReviewSidePanelTab } from "../../../app-shell/thread-side-panel-tabs";
+
+export {
+  DragOverlay as ThreadRowShortcutLabel,
+  useDroppable as ThreadRowBranchLabel,
+} from "../../dnd-kit-core";
 
 export {
   a as legacyAppMainBuwLowerAExport,
@@ -89,7 +86,6 @@ export {
   bt as legacyAppMainBuwLowerBLowerTExport,
   bu as legacyAppMainBuwLowerBLowerUExport,
   bv as legacyAppMainBuwLowerBLowerVExport,
-  bx as ThreadRowBranchLabel,
   by as legacyAppMainBuwLowerBLowerYExport,
   c as legacyAppMainBuwLowerCExport,
   cS as legacyAppMainBuwLowerCUpperSExport,
@@ -166,6 +162,5 @@ export {
   ft as legacyAppMainBuwLowerFLowerTExport,
   fu as legacyAppMainBuwLowerFLowerUExport,
   fv as initReviewSourceChunk,
-  fx as ThreadRowShortcutLabel,
   fy as legacyAppMainBuwLowerFLowerYExport,
 } from "../../app-main-legacy-buw-compat-bundle";

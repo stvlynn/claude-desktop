@@ -6,6 +6,8 @@ export { normalizeTerminalFontFamily } from "../../runtime/window-chrome-runtime
 
 export { openThreadReviewSidePanelTab } from "../../app-shell/thread-side-panel-tabs";
 
+export { useDroppable as ThreadRowBranchLabel } from "../dnd-kit-core";
+
 export {
   b as appMainCurrentCompatSlotLowerB,
   ba as appMainCurrentCompatSlotLowerBLowerA,
@@ -26,6 +28,5 @@ export {
   bt as appMainCurrentCompatSlotLowerBLowerT,
   bu as appMainCurrentCompatSlotLowerBLowerU,
   bv as appMainCurrentCompatSlotLowerBLowerV,
-  bx as ThreadRowBranchLabel,
   by as appMainCurrentCompatSlotLowerBLowerY,
 } from "../app-main-legacy-buw-compat-bundle";

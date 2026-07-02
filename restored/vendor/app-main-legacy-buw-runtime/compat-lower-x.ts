@@ -6,6 +6,7 @@ export {
 } from "../app-main-current-runtime";
 
 export { ensureTerminalFontLoaded } from "../../runtime/window-chrome-runtime";
+export { useSensor as ThreadRowCloudMeta } from "../dnd-kit-core";
 
 export {
   x as appMainCurrentCompatSlotLowerX,
@@ -27,6 +28,5 @@ export {
   xt as appMainCurrentCompatSlotLowerXLowerT,
   xu as appMainCurrentCompatSlotLowerXLowerU,
   xv as appMainCurrentCompatSlotLowerXLowerV,
-  xx as ThreadRowCloudMeta,
   xy as appMainCurrentCompatSlotLowerXLowerY,
 } from "../app-main-legacy-buw-compat-bundle";

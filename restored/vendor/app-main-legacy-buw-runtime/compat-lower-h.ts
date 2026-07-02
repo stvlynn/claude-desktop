@@ -8,6 +8,7 @@ export {
 } from "../app-main-current-runtime";
 
 export { openInitialReviewPanelTarget } from "../../conversations/local-conversation-page-runtime";
+export { closestCenter as ThreadRowStatusIndicator } from "../dnd-kit-core";
 
 export {
   h as appMainCurrentCompatSlotLowerH,
@@ -27,6 +28,5 @@ export {
   hS as appMainCurrentCompatSlotLowerHUpperS,
   ht as appMainCurrentCompatSlotLowerHLowerT,
   hu as appMainCurrentCompatSlotLowerHLowerU,
-  hx as ThreadRowStatusIndicator,
   hy as appMainCurrentCompatSlotLowerHLowerY,
 } from "../app-main-legacy-buw-compat-bundle";

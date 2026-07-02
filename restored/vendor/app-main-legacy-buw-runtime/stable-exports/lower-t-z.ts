@@ -39,6 +39,8 @@ export {
 
 export { resolveWorkspacePathFromCwd } from "../../../runtime/app-main-new-thread-runtime";
 export { initThreadPanelTabsStoreChunk } from "../../../app-shell/thread-panel-tabs-store";
+export { useSensor as ThreadRowCloudMeta } from "../../dnd-kit-core";
+export { initDndKitUtilitiesRuntime as ThreadRowWorktreeMeta } from "../../dnd-kit-utilities";
 
 export {
   t as legacyAppMainBuwLowerTExport,
@@ -121,7 +123,6 @@ export {
   wt as legacyAppMainBuwLowerWLowerTExport,
   wu as legacyAppMainBuwLowerWLowerUExport,
   wv as legacyAppMainBuwLowerWLowerVExport,
-  wx as ThreadRowWorktreeMeta,
   wy as legacyAppMainBuwLowerWLowerYExport,
   x as legacyAppMainBuwLowerXExport,
   xC as legacyAppMainBuwLowerXUpperCExport,
@@ -142,7 +143,6 @@ export {
   xt as legacyAppMainBuwLowerXLowerTExport,
   xu as legacyAppMainBuwLowerXLowerUExport,
   xv as legacyAppMainBuwLowerXLowerVExport,
-  xx as ThreadRowCloudMeta,
   xy as legacyAppMainBuwLowerXLowerYExport,
   y as legacyAppMainBuwLowerYExport,
   yC as legacyAppMainBuwLowerYUpperCExport,

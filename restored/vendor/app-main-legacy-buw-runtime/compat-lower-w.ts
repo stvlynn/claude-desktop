@@ -3,6 +3,7 @@
 export { browserTabIdForConversation } from "../app-main-current-runtime";
 
 export { initTerminalMouseCoordinatePatchRuntime } from "../../runtime/window-chrome-runtime";
+export { initDndKitUtilitiesRuntime as ThreadRowWorktreeMeta } from "../dnd-kit-utilities";
 
 export {
   w as appMainCurrentCompatSlotLowerW,
@@ -25,6 +26,5 @@ export {
   wt as appMainCurrentCompatSlotLowerWLowerT,
   wu as appMainCurrentCompatSlotLowerWLowerU,
   wv as appMainCurrentCompatSlotLowerWLowerV,
-  wx as ThreadRowWorktreeMeta,
   wy as appMainCurrentCompatSlotLowerWLowerY,
 } from "../app-main-legacy-buw-compat-bundle";

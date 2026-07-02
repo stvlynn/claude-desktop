@@ -1,20 +1,12 @@
 // Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
 // Stable BUw aliases: upper-a-f.
-export {
-  ComposerContextButton as legacyAppMainBuwUpperAUpperCExport,
-} from "../../../features/use-dictation/context-button";
+export { ComposerContextButton as legacyAppMainBuwUpperAUpperCExport } from "../../../features/use-dictation/context-button";
 
-export {
-  countCommentsByFilePath as legacyAppMainBuwUpperBLowerUExport,
-} from "../../../review/review-comment-utils";
+export { countCommentsByFilePath as legacyAppMainBuwUpperBLowerUExport } from "../../../review/review-comment-utils";
 
-export {
-  DictationRecordingFooter as legacyAppMainBuwUpperCUpperCExport,
-} from "../../../features/use-dictation/recording-footer";
+export { DictationRecordingFooter as legacyAppMainBuwUpperCUpperCExport } from "../../../features/use-dictation/recording-footer";
 
-export {
-  CommentAttachmentPill as legacyAppMainBuwUpperFLowerIExport,
-} from "../../../composer/user-message-attachment-pills";
+export { CommentAttachmentPill as legacyAppMainBuwUpperFLowerIExport } from "../../../composer/user-message-attachment-pills";
 
 export {
   GlobeIcon,
@@ -45,6 +37,8 @@ export {
 } from "../../../find/thread-find-atoms";
 
 export { Primitive } from "../../../runtime/app-main-new-thread-runtime";
+
+export { CSS as ThreadRowLayout } from "../../dnd-kit-utilities";
 
 export {
   A as legacyAppMainBuwUpperAExport,
@@ -105,7 +99,6 @@ export {
   Ct as legacyAppMainBuwUpperCLowerTExport,
   Cu as legacyAppMainBuwUpperCLowerUExport,
   Cv as legacyAppMainBuwUpperCLowerVExport,
-  Cx as ThreadRowLayout,
   Cy as legacyAppMainBuwUpperCLowerYExport,
   D as legacyAppMainBuwUpperDExport,
   DC as initPrimitiveRuntimeChunk,

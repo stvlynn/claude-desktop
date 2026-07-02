@@ -1,14 +1,13 @@
 // Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
 // Uppercase S compatibility aliases for the legacy app-main/onboarding producer.
-export {
-  DictationButton as appMainCurrentCompatSlotUpperSUpperC,
-} from "../../features/use-dictation/dictation-button";
+export { DictationButton as appMainCurrentCompatSlotUpperSUpperC } from "../../features/use-dictation/dictation-button";
 
 export { primeBrowserTabTransfers } from "../app-main-current-runtime";
 
 export { readTerminalThemeFromCss } from "../../runtime/window-chrome-runtime";
 
 export { emptyFindBrowserStatus } from "../../find/thread-find-atoms";
+export { useSensors as ThreadRowArchiveAction } from "../dnd-kit-core";
 
 export {
   S as appMainCurrentCompatSlotUpperS,
@@ -29,6 +28,5 @@ export {
   St as appMainCurrentCompatSlotUpperSLowerT,
   Su as appMainCurrentCompatSlotUpperSLowerU,
   Sv as appMainCurrentCompatSlotUpperSLowerV,
-  Sx as ThreadRowArchiveAction,
   Sy as appMainCurrentCompatSlotUpperSLowerY,
 } from "../app-main-legacy-buw-compat-bundle";

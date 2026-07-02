@@ -1,16 +1,10 @@
 // Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
 // Stable BUw aliases: upper-n-s.
-export {
-  SelectedTextTooltip as legacyAppMainBuwUpperNLowerIExport,
-} from "../../../composer/user-message-attachment-pills";
+export { SelectedTextTooltip as legacyAppMainBuwUpperNLowerIExport } from "../../../composer/user-message-attachment-pills";
 
-export {
-  cancelActiveConversationalOnboardingForHost as legacyAppMainBuwUpperOExport,
-} from "../../../onboarding/conversational-onboarding-cancel-for-host";
+export { cancelActiveConversationalOnboardingForHost as legacyAppMainBuwUpperOExport } from "../../../onboarding/conversational-onboarding-cancel-for-host";
 
-export {
-  DictationButton as legacyAppMainBuwUpperSUpperCExport,
-} from "../../../features/use-dictation/dictation-button";
+export { DictationButton as legacyAppMainBuwUpperSUpperCExport } from "../../../features/use-dictation/dictation-button";
 
 export {
   SidebarRowActionButton,
@@ -50,6 +44,8 @@ export { createSlotComponent } from "../../../runtime/app-main-new-thread-runtim
 export { logger } from "../../../conversations/local-conversation-thread-parts/local-environment-action-controls-runtime";
 
 export { createPendingWorktree } from "../../../runtime/conversation-fork-runtime";
+
+export { useSensors as ThreadRowArchiveAction } from "../../dnd-kit-core";
 
 export {
   NC as legacyAppMainBuwUpperNUpperCExport,
@@ -163,6 +159,5 @@ export {
   St as legacyAppMainBuwUpperSLowerTExport,
   Su as legacyAppMainBuwUpperSLowerUExport,
   Sv as legacyAppMainBuwUpperSLowerVExport,
-  Sx as ThreadRowArchiveAction,
   Sy as legacyAppMainBuwUpperSLowerYExport,
 } from "../../app-main-legacy-buw-compat-bundle";

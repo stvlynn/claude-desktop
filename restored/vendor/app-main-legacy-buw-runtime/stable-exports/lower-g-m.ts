@@ -1,8 +1,6 @@
 // Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
 // Stable BUw aliases: lower-g-m.
-export {
-  getConversationalOnboardingTaskPluginName as legacyAppMainBuwLowerIExport,
-} from "../../../onboarding/conversational-onboarding-task-registry";
+export { getConversationalOnboardingTaskPluginName as legacyAppMainBuwLowerIExport } from "../../../onboarding/conversational-onboarding-task-registry";
 
 export {
   DragIcon,
@@ -39,6 +37,8 @@ export {
 } from "../../../conversations/local-conversation-page-runtime";
 
 export { initComposedRefsRuntime } from "../../../runtime/app-main-new-thread-runtime";
+
+export { closestCenter as ThreadRowStatusIndicator } from "../../dnd-kit-core";
 
 export {
   g as legacyAppMainBuwLowerGExport,
@@ -77,7 +77,6 @@ export {
   hs as legacyAppMainBuwLowerHLowerSExport,
   ht as legacyAppMainBuwLowerHLowerTExport,
   hu as legacyAppMainBuwLowerHLowerUExport,
-  hx as ThreadRowStatusIndicator,
   hy as legacyAppMainBuwLowerHLowerYExport,
   iC as legacyAppMainBuwLowerIUpperCExport,
   iS as legacyAppMainBuwLowerIUpperSExport,

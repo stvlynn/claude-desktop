@@ -1,8 +1,6 @@
 // Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
 // Lowercase f compatibility aliases for the legacy app-main/onboarding producer.
-export {
-  cleanupDictationTranscript as appMainCurrentCompatSlotLowerFUpperC,
-} from "../../utils/transcribe-audio/responses-cleanup";
+export { cleanupDictationTranscript as appMainCurrentCompatSlotLowerFUpperC } from "../../utils/transcribe-audio/responses-cleanup";
 
 export {
   initFolderIconChunk,
@@ -12,6 +10,7 @@ export {
 } from "../app-main-current-runtime";
 
 export { initPermissionsModeDefaultsRuntime } from "../../runtime/window-chrome-runtime";
+export { DragOverlay as ThreadRowShortcutLabel } from "../dnd-kit-core";
 
 export {
   f as appMainCurrentCompatSlotLowerF,
@@ -30,6 +29,5 @@ export {
   ft as appMainCurrentCompatSlotLowerFLowerT,
   fu as appMainCurrentCompatSlotLowerFLowerU,
   fv as initReviewSourceChunk,
-  fx as ThreadRowShortcutLabel,
   fy as appMainCurrentCompatSlotLowerFLowerY,
 } from "../app-main-legacy-buw-compat-bundle";
