@@ -121,6 +121,25 @@ describe("resolveNpmImports (chunk-name based)", () => {
     expect(out.stats.specifiersResolved).toBe(1);
   });
 
+  test("rewrites react-style-singleton chunk imports to the npm package", () => {
+    const src = `
+      import {
+        a as styleSingleton,
+        b as styleHookSingleton,
+        c as stylesheetSingleton,
+      } from "../react-style-singleton-BUwCKIcU.js";
+      styleSingleton; styleHookSingleton; stylesheetSingleton;
+    `;
+    const out = resolveNpmImports(src);
+    const n = normalize(out.code);
+    expect(n).toContain('from "react-style-singleton"');
+    expect(n).toContain("styleSingleton");
+    expect(n).toContain("styleHookSingleton");
+    expect(n).toContain("stylesheetSingleton");
+    expect(n).not.toContain("react-style-singleton-BUwCKIcU");
+    expect(out.stats.specifiersResolved).toBe(3);
+  });
+
   test("rewrites dotLottie React aliases to the npm package", () => {
     const src = `
       import {
