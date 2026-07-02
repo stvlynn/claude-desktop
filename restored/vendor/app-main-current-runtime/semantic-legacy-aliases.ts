@@ -49,6 +49,9 @@ export {
   initSettingsControlRowChunk as initSettingsRowRuntime,
 } from "../../ui/settings-row";
 export {
+  initPullRequestStatusRuntimeChunk as initPullRequestStatusBadgeChunk,
+} from "../../github/pull-request-status";
+export {
   TwoPeopleShieldIcon as openThreadMcpAppSidePanelTab,
 } from "../../icons/two-people-shield-icon";
 export {
@@ -87,7 +90,6 @@ export {
   Pf as initSidebarTaskRowRuntimeChunk,
   Pn as SidebarTaskRow,
   Qp as SidebarTaskRowTitle,
-  Sl as initPullRequestStatusBadgeChunk,
   Ud as ThreadRowPinAction,
   Wc as primeBrowserTabTransfers,
   Wc as transferForkedConversationBrowserTabs,
