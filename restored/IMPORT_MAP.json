@@ -42536,12 +42536,12 @@
         "Profile": "Profile"
       },
       "status": "done",
-      "note": "Current Profile hash maps to explicit compatibility aliases backed by the semantic profile/page.tsx entry.",
-      "lastUpdated": "2026-06-30T23:45:00.000Z",
+      "note": "Current Profile hash maps to explicit compatibility aliases backed by the semantic profile/page.tsx entry; the activity metric row and metric value helpers are now backed by profile/activity-metric.tsx instead of current-bundle mechanical helpers.",
+      "lastUpdated": "2026-07-02T05:18:00.000Z",
       "stage3Accepted": true,
       "stage3AcceptedAt": "2026-06-30T23:45:00.000Z",
-      "stage3Review": "Host self-review: verified the current file exports Profile, preserved the current restored-dependency backing bundle, and mapped the page export through profile/page.tsx.",
-      "stage3Note": "Accepted as a current-ref compatibility export backed by the semantic Profile entry; deeper internal helper splitting remains future cleanup."
+      "stage3Review": "Host self-review: verified the current file exports Profile, preserved the current restored-dependency backing bundle for the remaining page body, extracted the activity metric row/value helpers into typed profile/activity-metric.tsx, rewired profile activity insight rows to use that semantic component, and mapped the page export through profile/page.tsx.",
+      "stage3Note": "Accepted as a current-ref compatibility export backed by the semantic Profile entry; Profile activity metrics are now split out, while deeper internal page/helper splitting remains future cleanup."
     },
     "usage-settings-D_gEzTFv": {
       "restored": "runtime/current-app-initial/usage-settings-current-runtime.ts",

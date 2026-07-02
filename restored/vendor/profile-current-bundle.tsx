@@ -185,6 +185,13 @@ import {
   initPlusSmIconChunk as plusSmN,
   PlusSmIcon as plusSmT,
 } from "../icons/plus-sm-icon";
+import {
+  formatProfilePercent,
+  ProfileActivityMetricRow,
+  ProfileActivityNoneValue,
+  ProfileActivityNotUsedValue,
+  ProfileReasoningEffortValue,
+} from "../profile/activity-metric";
 function profileHelper1(profileParam3) {
   let profileValue300 = (0, profileValue1.c)(40),
     { insights: insights, plugins: plugins } = profileParam3,
@@ -252,7 +259,7 @@ function profileHelper1(profileParam3) {
       ? ((profileValue313 =
           insights.fastModePercent === void 0
             ? null
-            : (0, profileValue3.jsx)(profileHelper3, {
+            : (0, profileValue3.jsx)(ProfileActivityMetricRow, {
                 label: (0, profileValue3.jsx)(
                   appInitialAppMainRemoteConversationPageNewThreadPanelPageProjectsIndexPageAppIy8s9c2dZy,
                   {
@@ -273,8 +280,11 @@ function profileHelper1(profileParam3) {
                 value:
                   insights.fastModePercent != null &&
                   insights.fastModePercent !== 0
-                    ? profileHelper7(profileValue303, insights.fastModePercent)
-                    : (0, profileValue3.jsx)($t, {}),
+                    ? formatProfilePercent(
+                        profileValue303,
+                        insights.fastModePercent,
+                      )
+                    : (0, profileValue3.jsx)(ProfileActivityNotUsedValue, {}),
               })),
         (profileValue300[15] = profileValue308),
         (profileValue300[16] = insights.fastModePercent),
@@ -288,7 +298,7 @@ function profileHelper1(profileParam3) {
     profileValue300[22] !== profileValue307
       ? ((profileValue314 =
           profileValue306 !== void 0 && profileValue307 !== void 0
-            ? (0, profileValue3.jsx)(profileHelper3, {
+            ? (0, profileValue3.jsx)(ProfileActivityMetricRow, {
                 label: (0, profileValue3.jsx)(
                   appInitialAppMainRemoteConversationPageNewThreadPanelPageProjectsIndexPageAppIy8s9c2dZy,
                   {
@@ -309,14 +319,14 @@ function profileHelper1(profileParam3) {
                 value: profileValue309
                   ? (0, profileValue3.jsxs)(profileValue3.Fragment, {
                       children: [
-                        (0, profileValue3.jsx)(profileHelper5, {
+                        (0, profileValue3.jsx)(ProfileReasoningEffortValue, {
                           effort: profileValue306,
                         }),
                         ` · `,
-                        profileHelper7(profileValue303, profileValue307),
+                        formatProfilePercent(profileValue303, profileValue307),
                       ],
                     })
-                  : (0, profileValue3.jsx)($t, {}),
+                  : (0, profileValue3.jsx)(ProfileActivityNotUsedValue, {}),
               })
             : null),
         (profileValue300[19] = profileValue309),
@@ -331,7 +341,7 @@ function profileHelper1(profileParam3) {
       ? ((profileValue315 =
           insights.skillsExplored == null
             ? null
-            : (0, profileValue3.jsx)(profileHelper3, {
+            : (0, profileValue3.jsx)(ProfileActivityMetricRow, {
                 label: (0, profileValue3.jsx)(
                   appInitialAppMainRemoteConversationPageNewThreadPanelPageProjectsIndexPageAppIy8s9c2dZy,
                   {
@@ -351,7 +361,7 @@ function profileHelper1(profileParam3) {
                 ),
                 value:
                   insights.skillsExplored === 0
-                    ? (0, profileValue3.jsx)(profileHelper4, {})
+                    ? (0, profileValue3.jsx)(ProfileActivityNoneValue, {})
                     : profileValue303.formatNumber(insights.skillsExplored),
               })),
         (profileValue300[24] = insights.skillsExplored),
@@ -365,7 +375,7 @@ function profileHelper1(profileParam3) {
       ? ((profileValue316 =
           insights.totalSkillsUsed == null
             ? null
-            : (0, profileValue3.jsx)(profileHelper3, {
+            : (0, profileValue3.jsx)(ProfileActivityMetricRow, {
                 label: (0, profileValue3.jsx)(
                   appInitialAppMainRemoteConversationPageNewThreadPanelPageProjectsIndexPageAppIy8s9c2dZy,
                   {
@@ -385,7 +395,7 @@ function profileHelper1(profileParam3) {
                 ),
                 value: profileValue310
                   ? profileValue303.formatNumber(insights.totalSkillsUsed)
-                  : (0, profileValue3.jsx)(profileHelper4, {}),
+                  : (0, profileValue3.jsx)(ProfileActivityNoneValue, {}),
               })),
         (profileValue300[27] = profileValue310),
         (profileValue300[28] = insights.totalSkillsUsed),
@@ -398,7 +408,7 @@ function profileHelper1(profileParam3) {
       ? ((profileValue317 =
           insights.totalThreads == null
             ? null
-            : (0, profileValue3.jsx)(profileHelper3, {
+            : (0, profileValue3.jsx)(ProfileActivityMetricRow, {
                 label: (0, profileValue3.jsx)(
                   appInitialAppMainRemoteConversationPageNewThreadPanelPageProjectsIndexPageAppIy8s9c2dZy,
                   {
@@ -418,7 +428,7 @@ function profileHelper1(profileParam3) {
                 ),
                 value:
                   insights.totalThreads === 0
-                    ? (0, profileValue3.jsx)(profileHelper4, {})
+                    ? (0, profileValue3.jsx)(ProfileActivityNoneValue, {})
                     : profileValue303.formatNumber(insights.totalThreads),
               })),
         (profileValue300[31] = insights.totalThreads),
@@ -672,167 +682,6 @@ function profileHelper2(profileParam6) {
     profileValue412
   );
 }
-function profileHelper3(profileParam10) {
-  let profileValue442 = (0, profileValue1.c)(15),
-    {
-      isEmpty: isEmpty,
-      label: label,
-      tooltipContent: tooltipContent,
-      value: value,
-    } = profileParam10,
-    profileValue443;
-  profileValue442[0] === label
-    ? (profileValue443 = profileValue442[1])
-    : ((profileValue443 = (0, profileValue3.jsx)(`dt`, {
-        className: `min-w-0 truncate text-token-text-secondary`,
-        children: label,
-      })),
-      (profileValue442[0] = label),
-      (profileValue442[1] = profileValue443));
-  let profileValue444 = isEmpty
-      ? `text-token-text-tertiary`
-      : `text-token-text-primary`,
-    profileValue445;
-  profileValue442[2] === profileValue444
-    ? (profileValue445 = profileValue442[3])
-    : ((profileValue445 =
-        appInitialAppMainWorktreeInitV2PageRemoteConversationPageNewThreadPanelPageOKo8xg8gwMh(
-          `shrink-0 tabular-nums`,
-          profileValue444,
-        )),
-      (profileValue442[2] = profileValue444),
-      (profileValue442[3] = profileValue445));
-  let profileValue446;
-  profileValue442[4] === value
-    ? (profileValue446 = profileValue442[5])
-    : ((profileValue446 = (0, profileValue3.jsx)(`span`, {
-        className: `inline-block`,
-        tabIndex: 0,
-        children: value,
-      })),
-      (profileValue442[4] = value),
-      (profileValue442[5] = profileValue446));
-  let profileValue447;
-  profileValue442[6] !== profileValue446 ||
-  profileValue442[7] !== tooltipContent
-    ? ((profileValue447 = (0, profileValue3.jsx)(
-        appInitialAppMainWorktreeInitV2PageRemoteConversationPageNewThreadPanelPageOKo8xg8gwYp,
-        {
-          delayDuration: 250,
-          disablePadding: !0,
-          side: `top`,
-          tooltipClassName: `flex h-[38px] items-center gap-2.5 p-2`,
-          tooltipContent: tooltipContent,
-          children: profileValue446,
-        },
-      )),
-      (profileValue442[6] = profileValue446),
-      (profileValue442[7] = tooltipContent),
-      (profileValue442[8] = profileValue447))
-    : (profileValue447 = profileValue442[8]);
-  let profileValue448;
-  profileValue442[9] !== profileValue445 ||
-  profileValue442[10] !== profileValue447
-    ? ((profileValue448 = (0, profileValue3.jsx)(`dd`, {
-        className: profileValue445,
-        children: profileValue447,
-      })),
-      (profileValue442[9] = profileValue445),
-      (profileValue442[10] = profileValue447),
-      (profileValue442[11] = profileValue448))
-    : (profileValue448 = profileValue442[11]);
-  let profileValue449;
-  return (
-    profileValue442[12] !== profileValue443 ||
-    profileValue442[13] !== profileValue448
-      ? ((profileValue449 = (0, profileValue3.jsxs)(`div`, {
-          className: `flex h-6 min-w-0 items-center justify-between gap-3 text-base leading-5`,
-          children: [profileValue443, profileValue448],
-        })),
-        (profileValue442[12] = profileValue443),
-        (profileValue442[13] = profileValue448),
-        (profileValue442[14] = profileValue449))
-      : (profileValue449 = profileValue442[14]),
-    profileValue449
-  );
-}
-function $t() {
-  let profileValue548 = (0, profileValue1.c)(1),
-    profileValue549;
-  return (
-    profileValue548[0] === Symbol.for(`react.memo_cache_sentinel`)
-      ? ((profileValue549 = (0, profileValue3.jsx)(
-          appInitialAppMainRemoteConversationPageNewThreadPanelPageProjectsIndexPageAppIy8s9c2dZy,
-          {
-            id: `profile.activity.features.notUsed`,
-            defaultMessage: `Not used`,
-            description: `Empty activity metric value on the profile page`,
-          },
-        )),
-        (profileValue548[0] = profileValue549))
-      : (profileValue549 = profileValue548[0]),
-    profileValue549
-  );
-}
-function profileHelper4() {
-  let profileValue550 = (0, profileValue1.c)(1),
-    profileValue551;
-  return (
-    profileValue550[0] === Symbol.for(`react.memo_cache_sentinel`)
-      ? ((profileValue551 = (0, profileValue3.jsx)(
-          appInitialAppMainRemoteConversationPageNewThreadPanelPageProjectsIndexPageAppIy8s9c2dZy,
-          {
-            id: `profile.activity.features.none`,
-            defaultMessage: `None`,
-            description: `Empty count metric value on the profile page`,
-          },
-        )),
-        (profileValue550[0] = profileValue551))
-      : (profileValue551 = profileValue550[0]),
-    profileValue551
-  );
-}
-function profileHelper5(profileParam26) {
-  let profileValue519 = (0, profileValue1.c)(4),
-    { effort: effort } = profileParam26;
-  switch (effort) {
-    case `none`:
-    case `minimal`:
-    case `low`:
-    case `medium`:
-    case `high`:
-    case `xhigh`:
-    case `max`: {
-      let profileValue618;
-      return (
-        profileValue519[0] === effort
-          ? (profileValue618 = profileValue519[1])
-          : ((profileValue618 = (0, profileValue3.jsx)(
-              appInitialAppMainOnboardingPageUr,
-              {
-                effort: effort,
-              },
-            )),
-            (profileValue519[0] = effort),
-            (profileValue519[1] = profileValue618)),
-        profileValue618
-      );
-    }
-    default: {
-      let profileValue600;
-      return (
-        profileValue519[2] === effort
-          ? (profileValue600 = profileValue519[3])
-          : ((profileValue600 = (0, profileValue3.jsx)(profileValue3.Fragment, {
-              children: effort,
-            })),
-            (profileValue519[2] = effort),
-            (profileValue519[3] = profileValue600)),
-        profileValue600
-      );
-    }
-  }
-}
 function profileHelper6(profileParam9) {
   let profileValue433 = (0, profileValue1.c)(11),
     {
@@ -923,12 +772,6 @@ function profileHelper6(profileParam9) {
       return profileValue530;
   }
   return profileValue435;
-}
-function profileHelper7(profileParam142, profileParam143) {
-  return profileParam142.formatNumber(profileParam143 / 100, {
-    maximumFractionDigits: 0,
-    style: `percent`,
-  });
 }
 function profileHelper8(profileParam134) {
   return (
