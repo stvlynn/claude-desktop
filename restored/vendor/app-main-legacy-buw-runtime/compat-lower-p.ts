@@ -12,6 +12,7 @@ export { setDefaultAgentModeForHost } from "../../runtime/window-chrome-runtime"
 export { resetReviewPanelEmptyState } from "../../conversations/local-conversation-page-runtime";
 export { hasCredits as appMainCurrentCompatSlotLowerPLowerC } from "../../utils/rate-limit-status/account-status";
 export { initPrimaryRuntimeInstallStateChunk as appMainCurrentCompatSlotLowerPLowerS } from "../../runtime/primary-runtime-install-state";
+export { copySessionId as appMainCurrentCompatSlotLowerPLowerO } from "../../threads/thread-actions/actions";
 
 export {
   p as appMainCurrentCompatSlotLowerP,
@@ -24,7 +25,6 @@ export {
   pi as appMainCurrentCompatSlotLowerPLowerI,
   pm as appMainCurrentCompatSlotLowerPLowerM,
   pn as appMainCurrentCompatSlotLowerPLowerN,
-  po as appMainCurrentCompatSlotLowerPLowerO,
   pp as appMainCurrentCompatSlotLowerPLowerP,
   pS as appMainCurrentCompatSlotLowerPUpperS,
   pt as appMainCurrentCompatSlotLowerPLowerT,

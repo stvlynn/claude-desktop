@@ -15,6 +15,7 @@ export { DragOverlay as ThreadRowShortcutLabel } from "../dnd-kit-core";
 export { initReviewSourceRuntime as initReviewSourceChunk } from "../../review/review-diff-store";
 export { getMonthlySpendLimitUsage as appMainCurrentCompatSlotLowerFLowerC } from "../../utils/rate-limit-status/account-status";
 export { hasPendingPrimaryRuntimeInstall as appMainCurrentCompatSlotLowerFLowerS } from "../../runtime/primary-runtime-install-state";
+export { copyAppLink as appMainCurrentCompatSlotLowerFLowerO } from "../../threads/thread-actions/actions";
 
 export {
   f as appMainCurrentCompatSlotLowerF,
@@ -24,7 +25,6 @@ export {
   fg as appMainCurrentCompatSlotLowerFLowerG,
   fi as appMainCurrentCompatSlotLowerFLowerI,
   fn as appMainCurrentCompatSlotLowerFLowerN,
-  fo as appMainCurrentCompatSlotLowerFLowerO,
   fp as appMainCurrentCompatSlotLowerFLowerP,
   fS as appMainCurrentCompatSlotLowerFUpperS,
   ft as appMainCurrentCompatSlotLowerFLowerT,

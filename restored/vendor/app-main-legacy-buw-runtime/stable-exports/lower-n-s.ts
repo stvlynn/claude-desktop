@@ -69,6 +69,7 @@ export {
   initReviewFileListRuntime as initReviewFileListChunk,
 } from "../../../review/review-diff-store";
 export { initInterruptedTurnStateChunk as legacyAppMainBuwLowerQLowerSExport } from "../../../threads/interrupted-turn-state";
+export { copySessionId as legacyAppMainBuwLowerPLowerOExport } from "../../../threads/thread-actions/actions";
 
 export {
   nS as legacyAppMainBuwLowerNUpperSExport,
@@ -113,7 +114,6 @@ export {
   pi as legacyAppMainBuwLowerPLowerIExport,
   pm as legacyAppMainBuwLowerPLowerMExport,
   pn as legacyAppMainBuwLowerPLowerNExport,
-  po as legacyAppMainBuwLowerPLowerOExport,
   pp as legacyAppMainBuwLowerPLowerPExport,
   pt as legacyAppMainBuwLowerPLowerTExport,
   pu as legacyAppMainBuwLowerPLowerUExport,

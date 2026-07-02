@@ -76,6 +76,7 @@ export {
   isSpendControlNearWorkspaceCap as legacyAppMainBuwLowerCLowerCExport,
 } from "../../../utils/rate-limit-status/account-status";
 export { getLatestRateLimitResetAt as legacyAppMainBuwLowerDLowerCExport } from "../../../utils/rate-limit-status/windows";
+export { copyAppLink as legacyAppMainBuwLowerFLowerOExport } from "../../../threads/thread-actions/actions";
 
 export {
   aS as legacyAppMainBuwLowerAUpperSExport,
@@ -167,7 +168,6 @@ export {
   fd as legacyAppMainBuwLowerFLowerDExport,
   fi as legacyAppMainBuwLowerFLowerIExport,
   fn as legacyAppMainBuwLowerFLowerNExport,
-  fo as legacyAppMainBuwLowerFLowerOExport,
   fp as legacyAppMainBuwLowerFLowerPExport,
   ft as legacyAppMainBuwLowerFLowerTExport,
   fu as legacyAppMainBuwLowerFLowerUExport,
