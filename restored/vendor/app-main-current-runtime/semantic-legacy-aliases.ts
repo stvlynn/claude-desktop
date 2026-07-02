@@ -52,6 +52,9 @@ export {
   initPullRequestStatusRuntimeChunk as initPullRequestStatusBadgeChunk,
 } from "../../github/pull-request-status";
 export {
+  SplitDiffIcon as initOpenInBrowserRuntimeChunk,
+} from "../../icons/split-diff-icon";
+export {
   TwoPeopleShieldIcon as openThreadMcpAppSidePanelTab,
 } from "../../icons/two-people-shield-icon";
 export {
@@ -101,7 +104,6 @@ export {
   cm as ThreadRowEnvironmentMeta,
   cp as ThreadRowTimestamp,
   dl as SidebarRowDragHandle,
-  el as initOpenInBrowserRuntimeChunk,
   eu as SidebarRowUnreadDot,
   fl as getBrowserTabIdForSidePanelOpen,
   gl as openThreadBrowserSidePanelTab,
