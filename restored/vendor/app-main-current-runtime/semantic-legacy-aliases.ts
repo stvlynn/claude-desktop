@@ -164,7 +164,9 @@ export {
   initBackgroundSubagentsRuntimeChunk as initForkConversationMessagesChunk,
 } from "../../conversations/background-subagent-signals";
 
-export { hp as useComposedRefs } from "../app-main-current-cgnc-bundle";
+export {
+  initUseCollaborationModeChunk as useComposedRefs,
+} from "../../collaboration/use-collaboration-mode";
 
 export { AutomationNameInput as ArchiveMenuItem } from "../../automations/automation-name-input";
 export {
