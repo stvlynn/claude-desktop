@@ -42270,12 +42270,12 @@
         "PdfPreviewPanel": "PdfPreviewPanel"
       },
       "status": "done",
-      "note": "Current PdfPreviewPanel hash maps to a dedicated current-ref runtime over vendor/pdf-preview-panel-current-bundle.ts; the single semantic export is re-derived from the current file, and the unused TSX duplicate has been removed.",
-      "lastUpdated": "2026-07-02T00:00:00.000Z",
+      "note": "Current PdfPreviewPanel hash maps to a dedicated current-ref runtime over vendor/pdf-preview-panel-runtime.ts; the vendored preview runtime was moved out of the current-bundle backlog.",
+      "lastUpdated": "2026-07-02T01:40:29.000Z",
       "stage3Accepted": true,
-      "stage3AcceptedAt": "2026-07-02T00:00:00.000Z",
-      "stage3Review": "Host self-review: verified extensionless imports resolve to the tracked TypeScript backing bundle, found no explicit references to the TSX duplicate, and passed quality gates on the backing bundle, runtime facade, and artifact preview panel producer.",
-      "stage3Note": "Accepted as a current-ref compatibility export over the TypeScript backing bundle; full semantic split of PdfPreviewPanel remains a later cleanup."
+      "stage3AcceptedAt": "2026-07-02T01:40:29.000Z",
+      "stage3Review": "Host self-review: preserved the PdfPreviewPanel export surface, moved the vendored preview backing file to vendor/pdf-preview-panel-runtime.ts, updated artifact preview producers and runtime facade, and verified no current-bundle references remain.",
+      "stage3Note": "Accepted as a current-ref compatibility export over the vendored PdfPreviewPanel runtime; generated PDF preview payloads are intentionally gated as vendored output."
     },
     "review-mode-content-Bx3AaAoJ": {
       "restored": "runtime/current-app-initial/review-mode-content-current-runtime.ts",
@@ -42369,17 +42369,17 @@
       "stage3Review": "Host self-review: current ref mindmap-definition-QFDTVHPH-C-RA3VgZ.js exports only diagram; restored/vendor/mermaid-mindmap-definition-k5.ts preserves that surface and passes vendored quality-gate."
     },
     "docx-preview-panel-BsZXEpj7": {
-      "restored": "vendor/docx-preview-panel-current-bundle.ts",
+      "restored": "vendor/docx-preview-panel-runtime.ts",
       "exports": {
         "DocxPreviewPanel": "DocxPreviewPanel"
       },
       "status": "done",
       "vendor": "docx-preview-panel-runtime",
-      "note": "Current DocxPreviewPanel hash maps to the restored docx preview vendor/runtime backing bundle; the single semantic export is re-derived from the current file.",
-      "lastUpdated": "2026-06-30T23:06:00.000Z",
+      "note": "Current DocxPreviewPanel hash maps to the restored docx preview vendor/runtime backing file, moved out of the current-bundle backlog.",
+      "lastUpdated": "2026-07-02T01:40:29.000Z",
       "stage3Accepted": true,
-      "stage3AcceptedAt": "2026-06-30T23:06:00.000Z",
-      "stage3Review": "Host self-review: current ref docx-preview-panel-BsZXEpj7.js exports only DocxPreviewPanel; restored/vendor/docx-preview-panel-current-bundle.ts preserves that surface and passes vendored quality-gate.",
+      "stage3AcceptedAt": "2026-07-02T01:40:29.000Z",
+      "stage3Review": "Host self-review: current ref docx-preview-panel-BsZXEpj7.js exports only DocxPreviewPanel; vendor/docx-preview-panel-runtime.ts preserves that surface, artifact preview producers were updated, and no current-bundle references remain.",
       "stage3Note": "Accepted as a docx-preview vendor/runtime wrapper over the existing restored backing module; generated document preview payloads are intentionally gated as vendored output rather than split as app features."
     },
     "PopcornElectronPresentationPanel-B56eXPt5": {
