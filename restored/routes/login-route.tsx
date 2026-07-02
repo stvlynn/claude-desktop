@@ -1,5 +1,5 @@
 // Restored from ref/webview/assets/login-route-Cx8NmtG2.js
-// login-route-Cx8NmtG2 chunk restored from the Codex webview bundle.
+// Current ref login-route-BmCnkGdw.js uses the same semantic LoginRoute body.
 import React from "react";
 import type { RefObject, SVGProps } from "react";
 import { useSetAtom } from "jotai";
@@ -15,7 +15,6 @@ import {
 } from "../boundaries/use-host-config.facade";
 import {
   vscodeApiA as useQueryClient,
-  vscodeApiF as vscodeApi,
   vscodeApiR as createVscodeQueryKey,
 } from "../boundaries/vscode-api";
 import { formatUnknownError } from "../boundaries/src-l0hb-mz-p";
@@ -39,6 +38,7 @@ import {
 import { appIdentity, appIdentityId } from "../utils/app-identity";
 import { OpenaiBlossomIcon } from "../icons/openai-blossom-icon";
 import { codexAppGaLogo } from "../utils/codex-app-ga-logo";
+import { openExternalUrl } from "../runtime/current-app-initial/worktree-new-thread-query-runtime";
 import { OnboardingShellScreen } from "../onboarding/onboarding-shell";
 import {
   buildChatGptAuthUrl,
@@ -237,19 +237,15 @@ function DesktopOnboardingLoginRoute() {
           useStreamlinedLogin: useStreamlinedLoginUx,
         });
         if (authUrl) {
-          const url = buildChatGptAuthUrl({
-            authUrl: applyChatGptSignInIntent(authUrl, intent),
-            includeCodexOriginStableId,
-            useDesktopAuth,
-            useStreamlinedLoginUx,
-          });
-          vscodeApi.dispatchMessage("open-in-browser", {
-            url,
-            ...(useDesktopAuth
-              ? {
-                  useExternalBrowser: true,
-                }
-              : {}),
+          openExternalUrl({
+            href: buildChatGptAuthUrl({
+              authUrl: applyChatGptSignInIntent(authUrl, intent),
+              includeCodexOriginStableId,
+              useDesktopAuth,
+              useStreamlinedLoginUx,
+            }),
+            initiator: "open_in_browser_bridge",
+            openTarget: "external-browser",
           });
         }
         const result = await completion;
@@ -415,12 +411,9 @@ function DesktopLoginContent({
   const appLogo = isChatGptBrand ? iconChatgpt : codexAppGaLogo;
   const title = isChatGptBrand ? (
     <FormattedMessage
-      id="electron.onboarding.login.welcomeV2.title.streamlined"
-      defaultMessage="Welcome to {appName}"
+      id="electron.onboarding.login.welcomeV2.title.chatgptSignIn"
+      defaultMessage="Sign in to ChatGPT"
       description="Title on the v2 desktop onboarding login page for streamlined ChatGPT sign-in"
-      values={{
-        appName,
-      }}
     />
   ) : (
     <FormattedMessage
@@ -549,8 +542,8 @@ function DesktopLoginButtons({
         <OpenaiBlossomIcon className="size-6 shrink-0 text-token-dropdown-background" />
         {isChatGptBrand ? (
           <FormattedMessage
-            id="electron.onboarding.login.chatgpt.signIn.streamlined"
-            defaultMessage="Continue with ChatGPT"
+            id="electron.onboarding.login.chatgpt.continueToSignIn"
+            defaultMessage="Continue to sign in"
             description="Button label for streamlined ChatGPT sign-in on desktop onboarding"
           />
         ) : (

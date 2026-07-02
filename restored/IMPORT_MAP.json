@@ -42496,12 +42496,12 @@
         "LoginRoute": "LoginRoute"
       },
       "status": "done",
-      "note": "Current LoginRoute hash maps to a dedicated current-ref runtime over vendor/login-route-current-bundle.tsx; the single semantic export is re-derived from the current file.",
-      "lastUpdated": "2026-06-30T23:35:00.000Z",
+      "note": "Current LoginRoute hash maps through a dedicated runtime facade to the semantic routes/login-route.tsx implementation; the vendor current bundle has been removed.",
+      "lastUpdated": "2026-07-02T00:00:00.000Z",
       "stage3Accepted": true,
-      "stage3AcceptedAt": "2026-06-30T23:35:00.000Z",
-      "stage3Review": "Host self-review: verified the current file exports LoginRoute, rewrote dependency imports through restored/IMPORT_MAP.json, and passed quality gates on the backing bundle and runtime.",
-      "stage3Note": "Accepted as a current-ref compatibility export over a restored-dependency backing bundle; full semantic split of LoginRoute remains a later cleanup."
+      "stage3AcceptedAt": "2026-07-02T00:00:00.000Z",
+      "stage3Review": "Host self-review: re-read the current exported LoginRoute body, reconciled the semantic route to the current ChatGPT copy and external-browser dispatch behavior, updated the runtime facade, removed the vendor current bundle, and passed focused quality gates.",
+      "stage3Note": "Accepted as a semantic LoginRoute implementation via routes/login-route.tsx; the current runtime no longer depends on the vendor bundle."
     },
     "projects-index-page-CJjk7dRY": {
       "restored": "runtime/current-app-initial/projects-index-page-current-runtime.ts",
