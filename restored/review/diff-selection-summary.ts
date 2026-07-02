@@ -82,3 +82,7 @@ export function normalizeDiffPath(path: string): string {
     ? withoutDotSlash.slice(2)
     : withoutDotSlash;
 }
+
+export function initDiffSelectionSummaryChunk(): void {
+  void sumBy;
+}

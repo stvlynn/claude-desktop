@@ -84,6 +84,7 @@ export {
 export {
   aggregateChangedFileSummary as SidebarSection,
   computeFileLineStats as SidebarTaskRowActions,
+  initDiffSelectionSummaryChunk as SidebarRowUnreadDot,
 } from "../../review/diff-selection-summary";
 
 export {
@@ -120,7 +121,6 @@ export {
   _l as openThreadBrowserSidePanelTabWithPendingState,
   al as SidebarRowMenuSeparator,
   dl as SidebarRowDragHandle,
-  eu as SidebarRowUnreadDot,
   fl as getBrowserTabIdForSidePanelOpen,
   gl as openThreadBrowserSidePanelTab,
   hl as openThreadBranchReviewSidePanelTab,
