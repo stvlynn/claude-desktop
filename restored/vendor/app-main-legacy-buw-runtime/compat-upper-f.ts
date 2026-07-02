@@ -8,6 +8,7 @@ export { initWebLinksAddonChunk } from "../../runtime/window-chrome-runtime";
 
 export { findQueryAtom } from "../../find/thread-find-atoms";
 export { initPendingWorktreeStoreRuntime as initPendingWorktreeComposerRuntimeChunk } from "../../threads/pending-worktree-store";
+export { initReviewRouteContextRuntime as initReviewRouteContextChunk } from "../../review/thread-review-context";
 
 export {
   F as appMainCurrentCompatSlotUpperF,
@@ -26,7 +27,6 @@ export {
   FS as appMainCurrentCompatSlotUpperFUpperS,
   Ft as appMainCurrentCompatSlotUpperFLowerT,
   Fu as appMainCurrentCompatSlotUpperFLowerU,
-  Fv as initReviewRouteContextChunk,
   Fx as appMainCurrentCompatSlotUpperFLowerX,
   Fy as appMainCurrentCompatSlotUpperFLowerY,
 } from "../app-main-legacy-buw-compat-bundle";

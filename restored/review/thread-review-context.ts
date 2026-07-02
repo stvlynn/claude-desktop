@@ -171,3 +171,15 @@ export const reviewHostKeyAtom = createComputedAtom(
   threadAtomScope,
   ({ get }: ComputedAtomContext) => getHostKey(get(reviewHostConfigAtom)),
 );
+
+export function initReviewRouteContextRuntime(): void {
+  // Legacy chunks exposed a Rollup initializer; ESM imports initialize these
+  // restored review route-context atoms eagerly.
+  void resolveProjectThreadContext;
+  void reviewThreadContextAtom;
+  void reviewCodexHomeAtom;
+  void reviewCwdAtom;
+  void reviewHostIdAtom;
+  void reviewHostConfigAtom;
+  void reviewHostKeyAtom;
+}
