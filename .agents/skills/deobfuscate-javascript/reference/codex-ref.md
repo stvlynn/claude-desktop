@@ -211,6 +211,7 @@ repo (record the package in IMPORT_MAP `vendor`; `classifyBoundary()` reads it):
 | `cytoscape-cose-bilkent.ts` (`cytoscape-cose-bilkent-*`)                  | `cytoscape-cose-bilkent`                                                  | layout plugin loader; add a local module declaration if needed  |
 | `graphlib.ts` / `graphlib-alt.ts` (`graphlib-*`)                          | `graphlib`                                                                | graph runtime aliases for Mermaid/Dagre                         |
 | `dagre.ts` / `dagre-alt.ts` (`dagre-*` package chunks)                    | `dagre`                                                                   | layout aliases; renderer chunks stay Mermaid                    |
+| `pdfjs.ts` / `pdfjs-entry.ts` (`pdf-*` package chunks)                    | `pdfjs-dist`                                                              | PDF.js library aliases; worker stays an asset                   |
 | `react-dom-client.ts` (`client-*`)                                        | `react-dom/client`                                                        | client root loader/re-export shim                               |
 | `formatjs.ts` (`lib-BWT6A3Q0`)                                            | `react-intl`                                                              | consumers import `useIntl`/`FormattedMessage`                   |
 | `react-is-runtime.ts`                                                     | `react-is`                                                                | React companion package; keep loader shape if needed            |
@@ -301,6 +302,12 @@ packages are CommonJS at runtime, so prefer a default import plus typed alias
 exports (`const Dagre = dagre.layout`, `const Graphlib = graphlib.Graph`) and
 keep a type-only bare re-export from the package so the shim remains
 quality-gate visible.
+For PDF.js, package-body chunks whose provenance is `pdf-*` and whose public API
+contains `getDocument`, `GlobalWorkerOptions`, `AnnotationLayer`, `TextLayer`,
+`PDFWorker`, or `version` are stock `pdfjs-dist` surfaces. Keep worker files
+such as `pdf.worker.min-*.mjs` as assets, but the library/entry chunks become
+typed npm-backed shims over `pdfjs-dist`; do not hand-write a minimal renderer
+or annotation/text-layer compatibility body.
 RoughJS has both provenance and API-fingerprint coverage: `rough.esm-*` chunks
 or vendor files exporting `roughjs` plus `canvas`/`svg`/`generator` must resolve
 to the `roughjs` package.

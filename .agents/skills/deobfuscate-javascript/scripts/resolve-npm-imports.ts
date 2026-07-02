@@ -123,6 +123,9 @@ export const CHUNK_NAME_REGISTRY: Record<string, ChunkRule> = {
   },
   graphlib: { package: "graphlib", namedOnly: true },
   dagre: { package: "dagre", namedOnly: true },
+  // PDF.js distribution chunks are emitted as `pdf-HASH.js`; worker files stay
+  // assets, but runtime imports should resolve to the package entry.
+  pdf: { package: "pdfjs-dist", namedOnly: true },
   // D3 / Mermaid diagram chunks.
   "src-BhkLFyc4": { package: "d3-hierarchy", namedOnly: true },
   treemap: { package: "d3-hierarchy", namedOnly: true },
@@ -247,6 +250,23 @@ export const ALIAS_REGISTRY: Record<string, AliasRule> = {
     style: "named",
     importedAs: "layout",
   },
+
+  // PDF.js
+  AbortException: { package: "pdfjs-dist", style: "named" },
+  AnnotationEditorLayer: { package: "pdfjs-dist", style: "named" },
+  AnnotationEditorParamsType: { package: "pdfjs-dist", style: "named" },
+  AnnotationEditorType: { package: "pdfjs-dist", style: "named" },
+  AnnotationEditorUIManager: { package: "pdfjs-dist", style: "named" },
+  AnnotationLayer: { package: "pdfjs-dist", style: "named" },
+  AnnotationMode: { package: "pdfjs-dist", style: "named" },
+  AnnotationType: { package: "pdfjs-dist", style: "named" },
+  GlobalWorkerOptions: { package: "pdfjs-dist", style: "named" },
+  PDFDataRangeTransport: { package: "pdfjs-dist", style: "named" },
+  PDFDateString: { package: "pdfjs-dist", style: "named" },
+  PDFWorker: { package: "pdfjs-dist", style: "named" },
+  TextLayer: { package: "pdfjs-dist", style: "named" },
+  XfaLayer: { package: "pdfjs-dist", style: "named" },
+  getDocument: { package: "pdfjs-dist", style: "named" },
 
   // Day.js
   dayjs: { package: "dayjs", style: "default" },

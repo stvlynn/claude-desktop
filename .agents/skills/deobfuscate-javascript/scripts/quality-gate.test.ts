@@ -447,6 +447,130 @@ describe("quality-gate", () => {
     });
   });
 
+  test("fails hand-written PDF.js vendor shims", () => {
+    const source = `
+      // Restored from ref/webview/assets/pdf-CaT3Fa-k.js
+      export const GlobalWorkerOptions = { workerSrc: "" };
+      export function getDocument(source) {
+        return { promise: Promise.resolve(source), destroy() {} };
+      }
+      export class AnnotationLayer {}
+      export class TextLayer {}
+      export const version = "5.4.296";
+    `;
+    const report = analyzeSource(source, "restored/vendor/pdfjs.ts", {
+      ...DEFAULT_OPTIONS,
+      allowFlat: true,
+      allowUntyped: true,
+    });
+    expect(report.issues.map((issue) => issue.code)).toContain(
+      "third-party-npm-shim-not-reexport",
+    );
+    expect(
+      report.issues.find(
+        (issue) => issue.code === "third-party-npm-shim-not-reexport",
+      )?.detail,
+    ).toMatchObject({ expectedSpecifiers: ["pdfjs-dist"] });
+  });
+
+  test("fails renamed PDF.js source chunks that do not re-export npm", () => {
+    const source = `
+      // Restored from ref/webview/assets/pdf-CEc0zmuq.js
+      export function getDocument(source) {
+        return { source };
+      }
+      export const GlobalWorkerOptions = {};
+      export class TextLayer {}
+    `;
+    const report = analyzeSource(source, "restored/vendor/pdf-runtime.ts", {
+      ...DEFAULT_OPTIONS,
+      allowFlat: true,
+      allowUntyped: true,
+    });
+    expect(report.issues.map((issue) => issue.code)).toContain(
+      "third-party-npm-shim-not-reexport",
+    );
+    expect(
+      report.issues.find(
+        (issue) => issue.code === "third-party-npm-shim-not-reexport",
+      )?.detail,
+    ).toMatchObject({ expectedSpecifiers: ["pdfjs-dist"] });
+  });
+
+  test("passes PDF.js shims that re-export pdfjs-dist", () => {
+    const root = makeTmpRoot();
+    const vendorDir = path.join(root, "restored", "vendor");
+    fs.mkdirSync(vendorDir, { recursive: true });
+    fs.writeFileSync(
+      path.join(root, "package.json"),
+      JSON.stringify({ dependencies: { "pdfjs-dist": "5.4.296" } }),
+    );
+
+    const shimSources = new Map<string, string>([
+      [
+        path.join(vendorDir, "pdfjs.ts"),
+        `
+          // Restored from ref/webview/assets/pdf-CaT3Fa-k.js
+          export {
+            AnnotationLayer,
+            GlobalWorkerOptions,
+            PDFWorker,
+            TextLayer,
+            getDocument,
+            version,
+          } from "pdfjs-dist";
+        `,
+      ],
+      [
+        path.join(vendorDir, "pdfjs-entry.ts"),
+        `
+          // Restored from ref/webview/assets/pdf-CEc0zmuq.js
+          export {
+            AnnotationLayer,
+            GlobalWorkerOptions,
+            TextLayer,
+            getDocument,
+          } from "pdfjs-dist";
+        `,
+      ],
+    ]);
+
+    for (const [file, source] of shimSources) {
+      const report = analyzeSource(source, file, {
+        ...DEFAULT_OPTIONS,
+        allowFlat: true,
+      });
+      expect(report.issues).toEqual([]);
+    }
+    expect(
+      analyzePublicNpmVendorShimDependencies(path.join(root, "restored")),
+    ).toEqual([]);
+  });
+
+  test("fails PDF.js shims when the package dependency is not declared", () => {
+    const root = makeTmpRoot();
+    const restoredDir = path.join(root, "restored");
+    const vendorDir = path.join(restoredDir, "vendor");
+    fs.mkdirSync(vendorDir, { recursive: true });
+    fs.writeFileSync(path.join(root, "package.json"), JSON.stringify({}));
+    fs.writeFileSync(
+      path.join(vendorDir, "pdfjs.ts"),
+      `
+        // Restored from ref/webview/assets/pdf-CaT3Fa-k.js
+        export { getDocument, GlobalWorkerOptions } from "pdfjs-dist";
+      `,
+    );
+
+    const reports = analyzePublicNpmVendorShimDependencies(restoredDir);
+    expect(reports).toHaveLength(1);
+    expect(reports[0]!.issues.map((issue) => issue.code)).toContain(
+      "third-party-npm-shim-dependency-missing",
+    );
+    expect(reports[0]!.issues[0]!.detail).toMatchObject({
+      missingPackages: ["pdfjs-dist"],
+    });
+  });
+
   test("fails hand-written react-style-singleton vendor shims", () => {
     const source = `
       // Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js

@@ -294,6 +294,21 @@ describe("resolveNpmImports (chunk-name based)", () => {
     expect(n).not.toContain("dagre-BqhzN4_p");
     expect(out.stats.specifiersResolved).toBe(2);
   });
+
+  test("rewrites PDF.js chunks to pdfjs-dist", () => {
+    const src = `
+      import { getDocument, GlobalWorkerOptions, TextLayer } from "../pdf-CaT3Fa-k.js";
+      getDocument; GlobalWorkerOptions; TextLayer;
+    `;
+    const out = resolveNpmImports(src);
+    const n = normalize(out.code);
+    expect(n).toContain('from "pdfjs-dist"');
+    expect(n).toContain("getDocument");
+    expect(n).toContain("GlobalWorkerOptions");
+    expect(n).toContain("TextLayer");
+    expect(n).not.toContain("pdf-CaT3Fa-k");
+    expect(out.stats.specifiersResolved).toBe(3);
+  });
 });
 
 describe("resolveNpmImports (alias-based)", () => {
