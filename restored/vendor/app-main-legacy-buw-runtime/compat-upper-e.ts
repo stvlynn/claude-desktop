@@ -4,12 +4,13 @@ export { deriveBrowserConversationId } from "../app-main-current-runtime";
 
 export { initTerminalLinkHandlerChunk } from "../../runtime/window-chrome-runtime";
 
+export { Primitive } from "../../runtime/app-main-new-thread-runtime";
+
 export {
   E as appMainCurrentCompatSlotUpperE,
   Ea as appMainCurrentCompatSlotUpperELowerA,
   Eb as appMainCurrentCompatSlotUpperELowerB,
   Ec as appMainCurrentCompatSlotUpperELowerC,
-  EC as Primitive,
   Ed as appMainCurrentCompatSlotUpperELowerD,
   Ef as appMainCurrentCompatSlotUpperELowerF,
   Eg as appMainCurrentCompatSlotUpperELowerG,

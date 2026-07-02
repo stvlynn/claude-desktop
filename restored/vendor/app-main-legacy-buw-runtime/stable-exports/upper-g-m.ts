@@ -20,6 +20,8 @@ export {
 
 export { findResultAtom } from "../../../find/thread-find-atoms";
 
+export { rightPanelTabsStore } from "../../../app-shell/thread-panel-tabs-store";
+
 export {
   G as legacyAppMainBuwUpperGExport,
   GS as legacyAppMainBuwUpperGUpperSExport,
@@ -122,7 +124,6 @@ export {
   Ks as legacyAppMainBuwUpperKLowerSExport,
   Kt as legacyAppMainBuwUpperKLowerTExport,
   Ku as legacyAppMainBuwUpperKLowerUExport,
-  Kv as rightPanelTabsStore,
   Kx as legacyAppMainBuwUpperKLowerXExport,
   Ky as legacyAppMainBuwUpperKLowerYExport,
   L as legacyAppMainBuwUpperLExport,

@@ -26,8 +26,12 @@ export {
 } from "../../../conversations/local-conversation-page-runtime";
 
 export {
+  initWarningContextRuntime,
+  Portal,
+} from "../../../runtime/app-main-new-thread-runtime";
+
+export {
   n as legacyAppMainBuwLowerNExport,
-  nC as initWarningContextRuntime,
   nS as legacyAppMainBuwLowerNUpperSExport,
   n_ as legacyAppMainBuwLowerNUnderscoreExport,
   na as legacyAppMainBuwLowerNLowerAExport,
@@ -112,7 +116,6 @@ export {
   qx as legacyAppMainBuwLowerQLowerXExport,
   qy as legacyAppMainBuwLowerQLowerYExport,
   r as legacyAppMainBuwLowerRExport,
-  rC as Portal,
   rS as legacyAppMainBuwLowerRUpperSExport,
   r_ as legacyAppMainBuwLowerRUnderscoreExport,
   ra as legacyAppMainBuwLowerRLowerAExport,

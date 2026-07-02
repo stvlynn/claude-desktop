@@ -7,6 +7,8 @@ export {
 
 export { rightPanelFullWidthStateKey } from "../../conversations/fork-conversation-panel-state-deps";
 
+export { bottomPanelTabsStore } from "../../app-shell/thread-panel-tabs-store";
+
 export {
   W as appMainCurrentCompatSlotUpperW,
   W_ as appMainCurrentCompatSlotUpperWUnderscore,
@@ -26,6 +28,5 @@ export {
   WS as appMainCurrentCompatSlotUpperWUpperS,
   Wt as appMainCurrentCompatSlotUpperWLowerT,
   Wu as appMainCurrentCompatSlotUpperWLowerU,
-  Wv as bottomPanelTabsStore,
   Wx as appMainCurrentCompatSlotUpperWLowerX,
 } from "../app-main-legacy-buw-compat-bundle";

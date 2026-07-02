@@ -26,6 +26,13 @@ export {
 export { shouldExpandReviewPanelSignal } from "../../../conversations/local-conversation-page-runtime";
 
 export {
+  getPathBasename,
+  initPortalRuntime,
+} from "../../../runtime/app-main-new-thread-runtime";
+
+export { openThreadReviewSidePanelTab } from "../../../app-shell/thread-side-panel-tabs";
+
+export {
   a as legacyAppMainBuwLowerAExport,
   aC as legacyAppMainBuwLowerAUpperCExport,
   aS as legacyAppMainBuwLowerAUpperSExport,
@@ -59,7 +66,6 @@ export {
   bg as legacyAppMainBuwLowerBLowerGExport,
   bh as legacyAppMainBuwLowerBLowerHExport,
   bi as legacyAppMainBuwLowerBLowerIExport,
-  bl as openThreadReviewSidePanelTab,
   bm as legacyAppMainBuwLowerBLowerMExport,
   bn as legacyAppMainBuwLowerBLowerNExport,
   bo as legacyAppMainBuwLowerBLowerOExport,
@@ -110,9 +116,7 @@ export {
   dt as legacyAppMainBuwLowerDLowerTExport,
   du as legacyAppMainBuwLowerDLowerUExport,
   dv as legacyAppMainBuwLowerDLowerVExport,
-  dx as getPathBasename,
   dy as legacyAppMainBuwLowerDLowerYExport,
-  eC as initPortalRuntime,
   eS as legacyAppMainBuwLowerEUpperSExport,
   e_ as legacyAppMainBuwLowerEUnderscoreExport,
   ea as legacyAppMainBuwLowerELowerAExport,

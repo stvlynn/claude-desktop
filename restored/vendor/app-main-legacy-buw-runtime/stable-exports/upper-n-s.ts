@@ -33,8 +33,13 @@ export {
   emptyFindBrowserStatus,
 } from "../../../find/thread-find-atoms";
 
+export { createSlotComponent } from "../../../runtime/app-main-new-thread-runtime";
+
+export { logger } from "../../../conversations/local-conversation-thread-parts/local-environment-action-controls-runtime";
+
+export { createPendingWorktree } from "../../../runtime/conversation-fork-runtime";
+
 export {
-  N as logger,
   NC as legacyAppMainBuwUpperNUpperCExport,
   NS as legacyAppMainBuwUpperNUpperSExport,
   Na as legacyAppMainBuwUpperNLowerAExport,
@@ -54,7 +59,6 @@ export {
   Nv as legacyAppMainBuwUpperNLowerVExport,
   Nx as legacyAppMainBuwUpperNLowerXExport,
   O as legacyAppMainBuwUpperOExport,
-  OC as createSlotComponent,
   OS as legacyAppMainBuwUpperOUpperSExport,
   Oa as legacyAppMainBuwUpperOLowerAExport,
   Ob as legacyAppMainBuwUpperOLowerBExport,
@@ -79,7 +83,6 @@ export {
   PS as legacyAppMainBuwUpperPUpperSExport,
   Pa as legacyAppMainBuwUpperPLowerAExport,
   Pb as legacyAppMainBuwUpperPLowerBExport,
-  Ph as createPendingWorktree,
   Pi as legacyAppMainBuwUpperPLowerIExport,
   Pl as legacyAppMainBuwUpperPLowerLExport,
   Pm as legacyAppMainBuwUpperPLowerMExport,

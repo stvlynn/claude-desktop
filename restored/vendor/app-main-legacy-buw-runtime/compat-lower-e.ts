@@ -5,12 +5,13 @@ export {
   SidebarRowUnreadDot,
 } from "../app-main-current-runtime";
 
+export { initPortalRuntime } from "../../runtime/app-main-new-thread-runtime";
+
 export {
   e_ as appMainCurrentCompatSlotLowerEUnderscore,
   ea as appMainCurrentCompatSlotLowerELowerA,
   eb as appMainCurrentCompatSlotLowerELowerB,
   ec as appMainCurrentCompatSlotLowerELowerC,
-  eC as initPortalRuntime,
   ed as appMainCurrentCompatSlotLowerELowerD,
   ef as appMainCurrentCompatSlotLowerELowerF,
   eg as appMainCurrentCompatSlotLowerELowerG,

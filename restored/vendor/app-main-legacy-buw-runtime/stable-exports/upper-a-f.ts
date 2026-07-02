@@ -28,6 +28,8 @@ export {
   findQueryAtom,
 } from "../../../find/thread-find-atoms";
 
+export { Primitive } from "../../../runtime/app-main-new-thread-runtime";
+
 export {
   A as legacyAppMainBuwUpperAExport,
   AC as legacyAppMainBuwUpperAUpperCExport,
@@ -114,7 +116,6 @@ export {
   Dx as legacyAppMainBuwUpperDLowerXExport,
   Dy as legacyAppMainBuwUpperDLowerYExport,
   E as legacyAppMainBuwUpperEExport,
-  EC as Primitive,
   ES as legacyAppMainBuwUpperEUpperSExport,
   Ea as legacyAppMainBuwUpperELowerAExport,
   Eb as legacyAppMainBuwUpperELowerBExport,

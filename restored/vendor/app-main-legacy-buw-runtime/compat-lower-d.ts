@@ -2,6 +2,8 @@
 // Lowercase d compatibility aliases for the legacy app-main/onboarding producer.
 export { FolderIcon, SidebarRowDragHandle } from "../app-main-current-runtime";
 
+export { getPathBasename } from "../../runtime/app-main-new-thread-runtime";
+
 export {
   d as appMainCurrentCompatSlotLowerD,
   d_ as appMainCurrentCompatSlotLowerDUnderscore,
@@ -23,6 +25,5 @@ export {
   dt as appMainCurrentCompatSlotLowerDLowerT,
   du as appMainCurrentCompatSlotLowerDLowerU,
   dv as appMainCurrentCompatSlotLowerDLowerV,
-  dx as getPathBasename,
   dy as appMainCurrentCompatSlotLowerDLowerY,
 } from "../app-main-legacy-buw-compat-bundle";

@@ -34,6 +34,8 @@ export {
   revealChangedFilesInReviewPanel,
 } from "../../../conversations/local-conversation-page-runtime";
 
+export { initComposedRefsRuntime } from "../../../runtime/app-main-new-thread-runtime";
+
 export {
   g as legacyAppMainBuwLowerGExport,
   gC as legacyAppMainBuwLowerGUpperCExport,
@@ -117,7 +119,6 @@ export {
   jx as legacyAppMainBuwLowerJLowerXExport,
   jy as legacyAppMainBuwLowerJLowerYExport,
   k as legacyAppMainBuwLowerKExport,
-  kC as initComposedRefsRuntime,
   kS as legacyAppMainBuwLowerKUpperSExport,
   k_ as legacyAppMainBuwLowerKUnderscoreExport,
   ka as legacyAppMainBuwLowerKLowerAExport,

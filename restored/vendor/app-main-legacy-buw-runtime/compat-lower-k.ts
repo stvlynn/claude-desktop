@@ -2,13 +2,14 @@
 // Lowercase k compatibility aliases for the legacy app-main/onboarding producer.
 export { SidebarRowIcon } from "../app-main-current-runtime";
 
+export { initComposedRefsRuntime } from "../../runtime/app-main-new-thread-runtime";
+
 export {
   k as appMainCurrentCompatSlotLowerK,
   k_ as appMainCurrentCompatSlotLowerKUnderscore,
   ka as appMainCurrentCompatSlotLowerKLowerA,
   kb as appMainCurrentCompatSlotLowerKLowerB,
   kc as appMainCurrentCompatSlotLowerKLowerC,
-  kC as initComposedRefsRuntime,
   kd as appMainCurrentCompatSlotLowerKLowerD,
   kf as appMainCurrentCompatSlotLowerKLowerF,
   kg as appMainCurrentCompatSlotLowerKLowerG,

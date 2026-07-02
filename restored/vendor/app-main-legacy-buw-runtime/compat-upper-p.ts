@@ -14,12 +14,13 @@ export {
 
 export { findOpenAtom } from "../../find/thread-find-atoms";
 
+export { createPendingWorktree } from "../../runtime/conversation-fork-runtime";
+
 export {
   P as appMainCurrentCompatSlotUpperP,
   Pa as appMainCurrentCompatSlotUpperPLowerA,
   Pb as appMainCurrentCompatSlotUpperPLowerB,
   PC as appMainCurrentCompatSlotUpperPUpperC,
-  Ph as createPendingWorktree,
   Pi as appMainCurrentCompatSlotUpperPLowerI,
   Pl as appMainCurrentCompatSlotUpperPLowerL,
   Pm as appMainCurrentCompatSlotUpperPLowerM,

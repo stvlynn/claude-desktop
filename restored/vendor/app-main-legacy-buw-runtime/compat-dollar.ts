@@ -6,6 +6,8 @@ export { rightPanelOpenStateKey } from "../../conversations/fork-conversation-pa
 
 export { resetNewThreadRouteContext } from "../../runtime/window-chrome-runtime";
 
+export { SidebarSectionTitle } from "../../projects/home-project-selector-runtime";
+
 export {
   $ as appMainCurrentCompatSlotDollar,
   $_ as appMainCurrentCompatSlotDollarUnderscore,
@@ -17,7 +19,6 @@ export {
   $g as appMainCurrentCompatSlotDollarLowerG,
   $h as appMainCurrentCompatSlotDollarLowerH,
   $i as appMainCurrentCompatSlotDollarLowerI,
-  $m as SidebarSectionTitle,
   $n as appMainCurrentCompatSlotDollarLowerN,
   $o as appMainCurrentCompatSlotDollarLowerO,
   $p as appMainCurrentCompatSlotDollarLowerP,

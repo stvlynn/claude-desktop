@@ -29,6 +29,8 @@ export {
   patchTerminalMouseCoordsForZoom,
 } from "../../../runtime/window-chrome-runtime";
 
+export { resolveWorkspacePathFromCwd } from "../../../runtime/app-main-new-thread-runtime";
+
 export {
   t as legacyAppMainBuwLowerTExport,
   tC as PortalFromLowerTC,
@@ -155,7 +157,6 @@ export {
   yt as legacyAppMainBuwLowerYLowerTExport,
   yu as legacyAppMainBuwLowerYLowerUExport,
   yv as legacyAppMainBuwLowerYLowerVExport,
-  yx as resolveWorkspacePathFromCwd,
   yy as legacyAppMainBuwLowerYLowerYExport,
   z as legacyAppMainBuwLowerZExport,
   zS as legacyAppMainBuwLowerZUpperSExport,

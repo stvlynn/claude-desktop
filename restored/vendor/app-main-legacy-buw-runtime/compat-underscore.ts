@@ -8,6 +8,8 @@ export {
 
 export { initTerminalMousePatchRuntime } from "../../runtime/window-chrome-runtime";
 
+export { normalizeArtifactPathKey } from "../../runtime/app-main-new-thread-runtime";
+
 export {
   _ as appMainCurrentCompatSlotUnderscore,
   _a as appMainCurrentCompatSlotUnderscoreLowerA,
@@ -27,6 +29,5 @@ export {
   _t as appMainCurrentCompatSlotUnderscoreLowerT,
   _u as appMainCurrentCompatSlotUnderscoreLowerU,
   _v as appMainCurrentCompatSlotUnderscoreLowerV,
-  _x as normalizeArtifactPathKey,
   _y as appMainCurrentCompatSlotUnderscoreLowerY,
 } from "../app-main-legacy-buw-compat-bundle";

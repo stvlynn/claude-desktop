@@ -6,12 +6,13 @@ export { terminalLinkHandler } from "../../runtime/window-chrome-runtime";
 
 export { findBrowserTargetAtom } from "../../find/thread-find-atoms";
 
+export { createSlotComponent } from "../../runtime/app-main-new-thread-runtime";
+
 export {
   O as appMainCurrentCompatSlotUpperO,
   Oa as appMainCurrentCompatSlotUpperOLowerA,
   Ob as appMainCurrentCompatSlotUpperOLowerB,
   Oc as appMainCurrentCompatSlotUpperOLowerC,
-  OC as createSlotComponent,
   Od as appMainCurrentCompatSlotUpperOLowerD,
   Of as appMainCurrentCompatSlotUpperOLowerF,
   Oh as appMainCurrentCompatSlotUpperOLowerH,

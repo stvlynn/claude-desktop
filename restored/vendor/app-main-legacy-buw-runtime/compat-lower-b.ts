@@ -4,6 +4,8 @@ export { SettingsControlRow } from "../app-main-current-runtime";
 
 export { normalizeTerminalFontFamily } from "../../runtime/window-chrome-runtime";
 
+export { openThreadReviewSidePanelTab } from "../../app-shell/thread-side-panel-tabs";
+
 export {
   b as appMainCurrentCompatSlotLowerB,
   ba as appMainCurrentCompatSlotLowerBLowerA,
@@ -15,7 +17,6 @@ export {
   bg as appMainCurrentCompatSlotLowerBLowerG,
   bh as appMainCurrentCompatSlotLowerBLowerH,
   bi as appMainCurrentCompatSlotLowerBLowerI,
-  bl as openThreadReviewSidePanelTab,
   bm as appMainCurrentCompatSlotLowerBLowerM,
   bn as appMainCurrentCompatSlotLowerBLowerN,
   bo as appMainCurrentCompatSlotLowerBLowerO,

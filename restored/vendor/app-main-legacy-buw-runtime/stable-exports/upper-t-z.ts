@@ -30,6 +30,8 @@ export {
 
 export { findActiveMatchIndexAtom } from "../../../find/thread-find-atoms";
 
+export { bottomPanelTabsStore } from "../../../app-shell/thread-panel-tabs-store";
+
 export {
   T as legacyAppMainBuwUpperTExport,
   TC as legacyAppMainBuwUpperTUpperCExport,
@@ -111,7 +113,6 @@ export {
   Ws as legacyAppMainBuwUpperWLowerSExport,
   Wt as legacyAppMainBuwUpperWLowerTExport,
   Wu as legacyAppMainBuwUpperWLowerUExport,
-  Wv as bottomPanelTabsStore,
   Wx as legacyAppMainBuwUpperWLowerXExport,
   X as legacyAppMainBuwUpperXExport,
   XS as legacyAppMainBuwUpperXUpperSExport,

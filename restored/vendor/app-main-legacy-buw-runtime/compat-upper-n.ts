@@ -12,8 +12,9 @@ export {
 
 export { findLoadingAtom } from "../../find/thread-find-atoms";
 
+export { logger } from "../../conversations/local-conversation-thread-parts/local-environment-action-controls-runtime";
+
 export {
-  N as logger,
   Na as appMainCurrentCompatSlotUpperNLowerA,
   Nb as appMainCurrentCompatSlotUpperNLowerB,
   Nc as appMainCurrentCompatSlotUpperNLowerC,

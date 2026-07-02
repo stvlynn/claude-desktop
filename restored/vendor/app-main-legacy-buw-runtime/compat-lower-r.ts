@@ -2,13 +2,14 @@
 // Lowercase r compatibility aliases for the legacy app-main/onboarding producer.
 export { SidebarRowKeyboardScope } from "../app-main-current-runtime";
 
+export { Portal } from "../../runtime/app-main-new-thread-runtime";
+
 export {
   r as appMainCurrentCompatSlotLowerR,
   r_ as appMainCurrentCompatSlotLowerRUnderscore,
   ra as appMainCurrentCompatSlotLowerRLowerA,
   rb as appMainCurrentCompatSlotLowerRLowerB,
   rc as ErrorCircleIcon,
-  rC as Portal,
   rd as appMainCurrentCompatSlotLowerRLowerD,
   rf as appMainCurrentCompatSlotLowerRLowerF,
   rg as appMainCurrentCompatSlotLowerRLowerG,

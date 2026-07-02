@@ -6,13 +6,14 @@ export {
   SidebarRowHoverCard,
 } from "../app-main-current-runtime";
 
+export { initWarningContextRuntime } from "../../runtime/app-main-new-thread-runtime";
+
 export {
   n as appMainCurrentCompatSlotLowerN,
   n_ as appMainCurrentCompatSlotLowerNUnderscore,
   na as appMainCurrentCompatSlotLowerNLowerA,
   nb as appMainCurrentCompatSlotLowerNLowerB,
   nc as appMainCurrentCompatSlotLowerNLowerC,
-  nC as initWarningContextRuntime,
   nd as appMainCurrentCompatSlotLowerNLowerD,
   ng as appMainCurrentCompatSlotLowerNLowerG,
   nh as appMainCurrentCompatSlotLowerNLowerH,

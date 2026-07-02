@@ -7,6 +7,8 @@ export {
 
 export { patchTerminalMouseCoordsForZoom } from "../../runtime/window-chrome-runtime";
 
+export { resolveWorkspacePathFromCwd } from "../../runtime/app-main-new-thread-runtime";
+
 export {
   y as appMainCurrentCompatSlotLowerY,
   ya as appMainCurrentCompatSlotLowerYLowerA,
@@ -27,6 +29,5 @@ export {
   yt as appMainCurrentCompatSlotLowerYLowerT,
   yu as appMainCurrentCompatSlotLowerYLowerU,
   yv as appMainCurrentCompatSlotLowerYLowerV,
-  yx as resolveWorkspacePathFromCwd,
   yy as appMainCurrentCompatSlotLowerYLowerY,
 } from "../app-main-legacy-buw-compat-bundle";
