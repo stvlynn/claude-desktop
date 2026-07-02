@@ -5,9 +5,7 @@ export {
   waitForDoubleAnimationFrame as legacyAppMainBuwUpperKLowerUExport,
 } from "../../../review/review-scroll-into-view";
 
-export {
-  setConversationalOnboardingPermissionStatus as legacyAppMainBuwUpperIExport,
-} from "../../../onboarding/conversational-onboarding-workflow-state";
+export { setConversationalOnboardingPermissionStatus as legacyAppMainBuwUpperIExport } from "../../../onboarding/conversational-onboarding-workflow-state";
 
 export {
   FileAttachmentPill as legacyAppMainBuwUpperLLowerIExport,
@@ -35,6 +33,7 @@ export {
 export { findResultAtom } from "../../../find/thread-find-atoms";
 
 export { rightPanelTabsStore } from "../../../app-shell/thread-panel-tabs-store";
+export { isPendingWorktreeInProgress as RemoteHostStatusIcon } from "../../../threads/pending-worktree-store";
 
 export {
   G as legacyAppMainBuwUpperGExport,
@@ -84,7 +83,6 @@ export {
   Ic as legacyAppMainBuwUpperILowerCExport,
   Id as legacyAppMainBuwUpperILowerDExport,
   If as legacyAppMainBuwUpperILowerFExport,
-  Ih as RemoteHostStatusIcon,
   Ii as legacyAppMainBuwUpperILowerIExport,
   Il as legacyAppMainBuwUpperILowerLExport,
   Im as legacyAppMainBuwUpperILowerMExport,

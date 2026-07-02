@@ -5,6 +5,7 @@ export { FileSourceTab } from "../app-main-current-runtime";
 export { initFitAddonChunk } from "../../runtime/window-chrome-runtime";
 
 export { findResultAtom } from "../../find/thread-find-atoms";
+export { isPendingWorktreeInProgress as RemoteHostStatusIcon } from "../../threads/pending-worktree-store";
 
 export {
   I as appMainCurrentCompatSlotUpperI,
@@ -14,7 +15,6 @@ export {
   IC as appMainCurrentCompatSlotUpperIUpperC,
   Id as appMainCurrentCompatSlotUpperILowerD,
   If as appMainCurrentCompatSlotUpperILowerF,
-  Ih as RemoteHostStatusIcon,
   Ii as appMainCurrentCompatSlotUpperILowerI,
   Il as appMainCurrentCompatSlotUpperILowerL,
   Im as appMainCurrentCompatSlotUpperILowerM,
