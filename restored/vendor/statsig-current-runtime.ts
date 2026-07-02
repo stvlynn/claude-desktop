@@ -1,12 +1,23 @@
 // Restored from ref/webview/assets/app-initial~app-main~automations-page-Bc0ZtIBr.js
-// Current-ref Statsig binding. Bc0ZtIBr imports the shared bundle as
-// `Sq = my()` for @statsig/client-core and `Cq = py()` for
-// @statsig/js-client + @statsig/react-bindings.
+// Current-ref Statsig binding. The original bundle loaded @statsig/client-core
+// and @statsig/js-client/@statsig/react-bindings through shared current-ref
+// loaders; keep this file as the compatibility boundary but resolve those
+// packages through npm directly.
 import type { ReactElement, ReactNode } from "react";
 import {
-  my as loadStatsigCoreModule,
-  py as loadStatsigReactBindingsModule,
-} from "./remote-projects-app-shared-current-bundle";
+  StableID as statsigStableID,
+  StatsigMetadataProvider as statsigMetadataProvider,
+  StatsigSession as statsigSession,
+} from "@statsig/client-core";
+import { StatsigClient as StatsigClientRaw } from "@statsig/js-client";
+import {
+  StatsigProvider as StatsigProviderRaw,
+  useClientAsyncInit as useClientAsyncInitRaw,
+  useDynamicConfig as useDynamicConfigRaw,
+  useGateValue as useGateValueRaw,
+  useLayer as useLayerRaw,
+  useStatsigClient as useStatsigClientRaw,
+} from "@statsig/react-bindings";
 
 type StatsigSessionRecord = {
   data: {
@@ -149,40 +160,40 @@ type UseClientAsyncInit = (
   isLoading: boolean;
 };
 
-const statsigCoreModule = loadStatsigCoreModule() as {
-  StableID: StableIDModule;
-  StatsigSession: StatsigSessionModule;
-  StatsigMetadataProvider: StatsigMetadataProviderModule;
-};
-
-const statsigReactBindingsModule = loadStatsigReactBindingsModule() as {
-  StatsigClient: StatsigClientStatic;
-  StatsigProvider: StatsigProviderComponent;
-  useClientAsyncInit: UseClientAsyncInit;
-  useDynamicConfig(configName: string, options?: unknown): StatsigConfigLike;
-  useGateValue(gateName: string, options?: unknown): boolean;
-  useLayer(layerName: string, options?: unknown): StatsigLayerLike;
-  useStatsigClient(): UseStatsigClientResult;
-};
-
-export const { StableID, StatsigSession, StatsigMetadataProvider } =
-  statsigCoreModule;
-export const {
-  StatsigClient,
-  StatsigProvider,
-  useClientAsyncInit,
-  useDynamicConfig,
-  useGateValue,
-  useLayer,
-  useStatsigClient,
-} = statsigReactBindingsModule;
+export const StableID = statsigStableID as unknown as StableIDModule;
+export const StatsigSession = statsigSession as unknown as StatsigSessionModule;
+export const StatsigMetadataProvider =
+  statsigMetadataProvider as unknown as StatsigMetadataProviderModule;
+export const StatsigClient = StatsigClientRaw as unknown as StatsigClientStatic;
+export const StatsigProvider =
+  StatsigProviderRaw as unknown as StatsigProviderComponent;
+export const useClientAsyncInit =
+  useClientAsyncInitRaw as unknown as UseClientAsyncInit;
+export const useDynamicConfig = useDynamicConfigRaw as unknown as (
+  configName: string,
+  options?: unknown,
+) => StatsigConfigLike;
+export const useGateValue = useGateValueRaw as unknown as (
+  gateName: string,
+  options?: unknown,
+) => boolean;
+export const useLayer = useLayerRaw as unknown as (
+  layerName: string,
+  options?: unknown,
+) => StatsigLayerLike;
+export const useStatsigClient =
+  useStatsigClientRaw as unknown as () => UseStatsigClientResult;
 
 export function loadStatsigCore(): {
   StableID: StableIDModule;
   StatsigSession: StatsigSessionModule;
   StatsigMetadataProvider: StatsigMetadataProviderModule;
 } {
-  return statsigCoreModule;
+  return {
+    StableID,
+    StatsigSession,
+    StatsigMetadataProvider,
+  };
 }
 
 export function getStatsigClient(statsigClientKey?: string): StatsigClientLike {
