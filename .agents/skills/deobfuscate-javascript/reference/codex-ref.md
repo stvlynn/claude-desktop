@@ -212,6 +212,7 @@ repo (record the package in IMPORT_MAP `vendor`; `classifyBoundary()` reads it):
 | `graphlib.ts` / `graphlib-alt.ts` (`graphlib-*`)                          | `graphlib`                                                                | graph runtime aliases for Mermaid/Dagre                         |
 | `dagre.ts` / `dagre-alt.ts` (`dagre-*` package chunks)                    | `dagre`                                                                   | layout aliases; renderer chunks stay Mermaid                    |
 | `pdfjs.ts` / `pdfjs-entry.ts` (`pdf-*` package chunks)                    | `pdfjs-dist`                                                              | PDF.js library aliases; worker stays an asset                   |
+| `entities-escape.ts` (`dist-CD74BDfk` and synced `dist-*` hashes)         | `@braintree/sanitize-url`                                                 | Mermaid URL sanitizer CommonJS compatibility shim               |
 | `react-dom-client.ts` (`client-*`)                                        | `react-dom/client`                                                        | client root loader/re-export shim                               |
 | `formatjs.ts` (`lib-BWT6A3Q0`)                                            | `react-intl`                                                              | consumers import `useIntl`/`FormattedMessage`                   |
 | `react-is-runtime.ts`                                                     | `react-is`                                                                | React companion package; keep loader shape if needed            |
@@ -308,6 +309,12 @@ contains `getDocument`, `GlobalWorkerOptions`, `AnnotationLayer`, `TextLayer`,
 such as `pdf.worker.min-*.mjs` as assets, but the library/entry chunks become
 typed npm-backed shims over `pdfjs-dist`; do not hand-write a minimal renderer
 or annotation/text-layer compatibility body.
+For Mermaid URL sanitizer helpers, exact source chunks `dist-CD74BDfk`,
+`dist-BO3qvbGN`, `dist-Kh8ku4yn`, and `dist-WEF1yh7f` match
+`@braintree/sanitize-url` (`sanitizeUrl`). The public file may retain the
+historical `entities-escape.ts` name and CommonJS `dist` module factory for
+consumer compatibility, but the sanitizer implementation must come from the npm
+package.
 RoughJS has both provenance and API-fingerprint coverage: `rough.esm-*` chunks
 or vendor files exporting `roughjs` plus `canvas`/`svg`/`generator` must resolve
 to the `roughjs` package.

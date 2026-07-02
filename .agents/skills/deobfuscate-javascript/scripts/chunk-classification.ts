@@ -256,6 +256,8 @@ export const VENDOR_NPM_SPECIFIERS: Record<string, string> = {
   "use-sync-external-store": "use-sync-external-store/shim/with-selector",
   formatjs: "react-intl",
   "react-intl": "react-intl",
+  "@braintree/sanitize-url": "@braintree/sanitize-url",
+  "sanitize-url": "@braintree/sanitize-url",
   "mdast-util": "mdast-util-to-markdown",
   mdast: "mdast-util-to-markdown",
   "@pierre/diffs": "@pierre/diffs",

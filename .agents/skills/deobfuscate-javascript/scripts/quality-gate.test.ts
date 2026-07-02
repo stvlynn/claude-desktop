@@ -571,6 +571,122 @@ describe("quality-gate", () => {
     });
   });
 
+  test("fails hand-written sanitize-url vendor shims", () => {
+    const source = `
+      // Restored from ref/webview/assets/dist-CD74BDfk.js
+      export function sanitizeUrl(url) {
+        if (!url) return "about:blank";
+        return String(url).replace(/javascript:/gi, "");
+      }
+      export const dist = { sanitizeUrl };
+    `;
+    const report = analyzeSource(source, "restored/vendor/entities-escape.ts", {
+      ...DEFAULT_OPTIONS,
+      allowFlat: true,
+      allowUntyped: true,
+    });
+    expect(report.issues.map((issue) => issue.code)).toContain(
+      "third-party-npm-shim-not-reexport",
+    );
+    expect(
+      report.issues.find(
+        (issue) => issue.code === "third-party-npm-shim-not-reexport",
+      )?.detail,
+    ).toMatchObject({ expectedSpecifiers: ["@braintree/sanitize-url"] });
+  });
+
+  test("fails renamed sanitize-url source chunks that do not re-export npm", () => {
+    const source = `
+      // Restored from ref/webview/assets/dist-WEF1yh7f.js
+      export function sanitizeUrl(url) {
+        return url == null ? "about:blank" : String(url);
+      }
+    `;
+    const report = analyzeSource(source, "restored/vendor/url-sanitizer.ts", {
+      ...DEFAULT_OPTIONS,
+      allowFlat: true,
+      allowUntyped: true,
+    });
+    expect(report.issues.map((issue) => issue.code)).toContain(
+      "third-party-npm-shim-not-reexport",
+    );
+    expect(
+      report.issues.find(
+        (issue) => issue.code === "third-party-npm-shim-not-reexport",
+      )?.detail,
+    ).toMatchObject({ expectedSpecifiers: ["@braintree/sanitize-url"] });
+  });
+
+  test("passes sanitize-url shims that re-export the npm package", () => {
+    const root = makeTmpRoot();
+    const runtimeDir = path.join(root, "restored", "runtime");
+    const vendorDir = path.join(root, "restored", "vendor");
+    fs.mkdirSync(runtimeDir, { recursive: true });
+    fs.mkdirSync(vendorDir, { recursive: true });
+    fs.writeFileSync(
+      path.join(runtimeDir, "commonjs-interop.ts"),
+      `
+        export function createCommonJsModule<T>(factory: (exports: T) => void): T {
+          const exports = {} as T;
+          factory(exports);
+          return exports;
+        }
+      `,
+    );
+    fs.writeFileSync(
+      path.join(root, "package.json"),
+      JSON.stringify({
+        dependencies: { "@braintree/sanitize-url": "^7.1.2" },
+      }),
+    );
+    const source = `
+      // Restored from ref/webview/assets/dist-CD74BDfk.js
+      import { sanitizeUrl } from "@braintree/sanitize-url";
+      import { createCommonJsModule } from "../runtime/commonjs-interop";
+      export { sanitizeUrl } from "@braintree/sanitize-url";
+      export const dist = createCommonJsModule((exports) => {
+        Object.defineProperty(exports, "__esModule", { value: true });
+        exports.sanitizeUrl = sanitizeUrl;
+      });
+    `;
+    const report = analyzeSource(
+      source,
+      path.join(vendorDir, "entities-escape.ts"),
+      {
+        ...DEFAULT_OPTIONS,
+        allowFlat: true,
+      },
+    );
+    expect(report.issues).toEqual([]);
+    expect(
+      analyzePublicNpmVendorShimDependencies(path.join(root, "restored")),
+    ).toEqual([]);
+  });
+
+  test("fails sanitize-url shims when the package dependency is not declared", () => {
+    const root = makeTmpRoot();
+    const restoredDir = path.join(root, "restored");
+    const vendorDir = path.join(restoredDir, "vendor");
+    fs.mkdirSync(vendorDir, { recursive: true });
+    fs.writeFileSync(path.join(root, "package.json"), JSON.stringify({}));
+    fs.writeFileSync(
+      path.join(vendorDir, "entities-escape.ts"),
+      `
+        // Restored from ref/webview/assets/dist-CD74BDfk.js
+        export { sanitizeUrl } from "@braintree/sanitize-url";
+      `,
+    );
+
+    const reports = analyzePublicNpmVendorShimDependencies(restoredDir);
+    expect(reports).toHaveLength(1);
+    expect(reports[0]!.issues.map((issue) => issue.code)).toContain(
+      "third-party-npm-shim-dependency-missing",
+    );
+    expect(reports[0]!.issues[0]!.detail).toMatchObject({
+      missingPackages: ["@braintree/sanitize-url"],
+    });
+  });
+
   test("fails hand-written react-style-singleton vendor shims", () => {
     const source = `
       // Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
