@@ -276,6 +276,171 @@ describe("quality-gate", () => {
     });
   });
 
+  test("fails hand-written Graphlib/Dagre vendor shims", () => {
+    const graphlibSource = `
+      // Restored from ref/webview/assets/graphlib-DGNlaJmK.js
+      export class Graphlib {
+        constructor(options) {
+          this.options = options;
+        }
+        setNode(id, value) {
+          return { id, value };
+        }
+      }
+    `;
+    const dagreSource = `
+      // Restored from ref/webview/assets/dagre-BqhzN4_p.js
+      export function Dagre(graph) {
+        graph.setGraph?.({});
+        return graph;
+      }
+      export function initDagre() {}
+    `;
+
+    for (const [source, file, expectedSpecifiers] of [
+      [graphlibSource, "restored/vendor/graphlib.ts", ["graphlib"]],
+      [dagreSource, "restored/vendor/dagre.ts", ["dagre"]],
+    ] as const) {
+      const report = analyzeSource(source, file, {
+        ...DEFAULT_OPTIONS,
+        allowFlat: true,
+        allowUntyped: true,
+      });
+      expect(report.issues.map((issue) => issue.code)).toContain(
+        "third-party-npm-shim-not-reexport",
+      );
+      expect(
+        report.issues.find(
+          (issue) => issue.code === "third-party-npm-shim-not-reexport",
+        )?.detail,
+      ).toMatchObject({ expectedSpecifiers });
+    }
+  });
+
+  test("fails renamed Graphlib/Dagre source chunks that do not re-export npm", () => {
+    const graphlibSource = `
+      // Restored from ref/webview/assets/graphlib-CU4GKOO2.js
+      export class Graphlib {
+        setEdge(edge, value) {
+          return { edge, value };
+        }
+      }
+    `;
+    const dagreSource = `
+      // Restored from ref/webview/assets/dagre-5oTtyBe6.js
+      export function layout(graph) {
+        return graph;
+      }
+    `;
+
+    for (const [source, file, expectedSpecifiers] of [
+      [graphlibSource, "restored/vendor/graph-runtime.ts", ["graphlib"]],
+      [dagreSource, "restored/vendor/layout-runtime.ts", ["dagre"]],
+    ] as const) {
+      const report = analyzeSource(source, file, {
+        ...DEFAULT_OPTIONS,
+        allowFlat: true,
+        allowUntyped: true,
+      });
+      expect(report.issues.map((issue) => issue.code)).toContain(
+        "third-party-npm-shim-not-reexport",
+      );
+      expect(
+        report.issues.find(
+          (issue) => issue.code === "third-party-npm-shim-not-reexport",
+        )?.detail,
+      ).toMatchObject({ expectedSpecifiers });
+    }
+  });
+
+  test("passes Graphlib/Dagre shims that re-export npm packages", () => {
+    const root = makeTmpRoot();
+    const vendorDir = path.join(root, "restored", "vendor");
+    fs.mkdirSync(vendorDir, { recursive: true });
+    fs.writeFileSync(
+      path.join(root, "package.json"),
+      JSON.stringify({
+        dependencies: {
+          dagre: "^0.8.5",
+          graphlib: "^2.1.8",
+        },
+      }),
+    );
+
+    const shimSources = new Map<string, string>([
+      [
+        path.join(vendorDir, "graphlib.ts"),
+        `
+          // Restored from ref/webview/assets/graphlib-DGNlaJmK.js
+          export { Graph as Graphlib } from "graphlib";
+          export type { Edge as GraphlibEdge } from "graphlib";
+        `,
+      ],
+      [
+        path.join(vendorDir, "graphlib-alt.ts"),
+        `
+          // Restored from ref/webview/assets/graphlib-ichArG6F.js
+          export { Graph as Graphlib } from "graphlib";
+          export type { Edge as GraphlibEdge } from "graphlib";
+          export function initGraphlibAltChunk(): void {}
+        `,
+      ],
+      [
+        path.join(vendorDir, "dagre.ts"),
+        `
+          // Restored from ref/webview/assets/dagre-BqhzN4_p.js
+          export { layout as Dagre } from "dagre";
+          export function initDagre(): void {}
+        `,
+      ],
+      [
+        path.join(vendorDir, "dagre-alt.ts"),
+        `
+          // Restored from ref/webview/assets/dagre-Ba2O9HBx.js
+          export { layout as Dagre } from "dagre";
+        `,
+      ],
+    ]);
+
+    for (const [file, source] of shimSources) {
+      const report = analyzeSource(source, file, {
+        ...DEFAULT_OPTIONS,
+        allowFlat: true,
+      });
+      expect(report.issues).toEqual([]);
+    }
+    expect(
+      analyzePublicNpmVendorShimDependencies(path.join(root, "restored")),
+    ).toEqual([]);
+  });
+
+  test("fails Graphlib/Dagre shims when package dependencies are not declared", () => {
+    const root = makeTmpRoot();
+    const restoredDir = path.join(root, "restored");
+    const vendorDir = path.join(restoredDir, "vendor");
+    fs.mkdirSync(vendorDir, { recursive: true });
+    fs.writeFileSync(
+      path.join(root, "package.json"),
+      JSON.stringify({ dependencies: { graphlib: "^2.1.8" } }),
+    );
+    fs.writeFileSync(
+      path.join(vendorDir, "dagre.ts"),
+      `
+        // Restored from ref/webview/assets/dagre-BqhzN4_p.js
+        export { layout as Dagre } from "dagre";
+      `,
+    );
+
+    const reports = analyzePublicNpmVendorShimDependencies(restoredDir);
+    expect(reports).toHaveLength(1);
+    expect(reports[0]!.issues.map((issue) => issue.code)).toContain(
+      "third-party-npm-shim-dependency-missing",
+    );
+    expect(reports[0]!.issues[0]!.detail).toMatchObject({
+      missingPackages: ["dagre"],
+    });
+  });
+
   test("fails hand-written react-style-singleton vendor shims", () => {
     const source = `
       // Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js

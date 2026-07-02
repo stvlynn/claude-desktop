@@ -277,6 +277,23 @@ describe("resolveNpmImports (chunk-name based)", () => {
     expect(n).not.toContain("cytoscape.esm-EFcka3gR");
     expect(out.stats.specifiersResolved).toBe(3);
   });
+
+  test("rewrites Graphlib and Dagre chunks to npm packages", () => {
+    const src = `
+      import { Graph as Graphlib } from "../graphlib-DGNlaJmK.js";
+      import { layout as Dagre } from "../dagre-BqhzN4_p.js";
+      Graphlib; Dagre;
+    `;
+    const out = resolveNpmImports(src);
+    const n = normalize(out.code);
+    expect(n).toContain('from "graphlib"');
+    expect(n).toContain('from "dagre"');
+    expect(n).toContain("Graphlib");
+    expect(n).toContain("Dagre");
+    expect(n).not.toContain("graphlib-DGNlaJmK");
+    expect(n).not.toContain("dagre-BqhzN4_p");
+    expect(out.stats.specifiersResolved).toBe(2);
+  });
 });
 
 describe("resolveNpmImports (alias-based)", () => {

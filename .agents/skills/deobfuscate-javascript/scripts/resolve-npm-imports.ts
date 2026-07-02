@@ -121,6 +121,8 @@ export const CHUNK_NAME_REGISTRY: Record<string, ChunkRule> = {
     package: "cytoscape-fcose",
     defaultName: "cytoscapeFcose",
   },
+  graphlib: { package: "graphlib", namedOnly: true },
+  dagre: { package: "dagre", namedOnly: true },
   // D3 / Mermaid diagram chunks.
   "src-BhkLFyc4": { package: "d3-hierarchy", namedOnly: true },
   treemap: { package: "d3-hierarchy", namedOnly: true },
@@ -232,6 +234,18 @@ export const ALIAS_REGISTRY: Record<string, AliasRule> = {
   setWasmUrl: {
     package: "@lottiefiles/dotlottie-react",
     style: "named",
+  },
+
+  // Graphlib / Dagre
+  Graphlib: {
+    package: "graphlib",
+    style: "named",
+    importedAs: "Graph",
+  },
+  Dagre: {
+    package: "dagre",
+    style: "named",
+    importedAs: "layout",
   },
 
   // Day.js

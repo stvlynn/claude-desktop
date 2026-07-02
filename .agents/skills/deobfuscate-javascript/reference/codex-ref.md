@@ -209,6 +209,8 @@ repo (record the package in IMPORT_MAP `vendor`; `classifyBoundary()` reads it):
 | `cytoscape-runtime.ts` (`cytoscape.esm-*`)                                | `cytoscape`                                                               | pin to bundled Cytoscape runtime version                        |
 | `cytoscape-fcose.ts` (`cytoscape-fcose-*`)                                | `cytoscape-fcose`                                                         | layout plugin loader                                            |
 | `cytoscape-cose-bilkent.ts` (`cytoscape-cose-bilkent-*`)                  | `cytoscape-cose-bilkent`                                                  | layout plugin loader; add a local module declaration if needed  |
+| `graphlib.ts` / `graphlib-alt.ts` (`graphlib-*`)                          | `graphlib`                                                                | graph runtime aliases for Mermaid/Dagre                         |
+| `dagre.ts` / `dagre-alt.ts` (`dagre-*` package chunks)                    | `dagre`                                                                   | layout aliases; renderer chunks stay Mermaid                    |
 | `react-dom-client.ts` (`client-*`)                                        | `react-dom/client`                                                        | client root loader/re-export shim                               |
 | `formatjs.ts` (`lib-BWT6A3Q0`)                                            | `react-intl`                                                              | consumers import `useIntl`/`FormattedMessage`                   |
 | `react-is-runtime.ts`                                                     | `react-is`                                                                | React companion package; keep loader shape if needed            |
@@ -240,7 +242,7 @@ unforked, high-confidence packages already listed above: `formatjs.ts` /
 applies to React Router, cmdk, TanStack React Form, D3 diagram helpers, React
 companion packages (`react-dom/client`, `react-is`, `react-style-singleton`,
 `use-sync-external-store`), react-colorful, dotLottie React, Day.js, KaTeX,
-RoughJS, Cytoscape runtime/plugins, Jotai, `@dnd-kit/*`, and other
+RoughJS, Cytoscape runtime/plugins, Graphlib/Dagre, Jotai, `@dnd-kit/*`, and other
 high-confidence registry packages. In
 that case emit the npm-backed re-export shim, add the package root to the
 restored project `package.json`, and keep ambient module declarations only when
@@ -289,6 +291,12 @@ Likewise, keep only tiny typed wrappers for D3 aliases the public package does
 not expose directly (for example `defaultLocaleA`, a legacy path digits helper,
 or the non-public D3 continuous-scale/color interpolation helper aliases); the
 package APIs themselves still come from npm re-exports.
+For Graphlib/Dagre, the package-body chunks `graphlib-*`, `dagre-BqhzN4_p`,
+`dagre-Ba2O9HBx`, `dagre-5oTtyBe6`, `dagre-DgCFaaOE`, `dagre-Bz3drg_2`,
+`dagre-D3FnCVRr`, and `dagre-bCFXQEZA` are stock `graphlib` / `dagre` package
+surfaces. Mermaid renderer chunks such as `dagre-6UL2VRFP-*` and
+`dagre-KV5264BT-*` are not the Dagre package body; restore those as Mermaid
+renderer modules while keeping their Graphlib/Dagre imports npm-backed.
 RoughJS has both provenance and API-fingerprint coverage: `rough.esm-*` chunks
 or vendor files exporting `roughjs` plus `canvas`/`svg`/`generator` must resolve
 to the `roughjs` package.
