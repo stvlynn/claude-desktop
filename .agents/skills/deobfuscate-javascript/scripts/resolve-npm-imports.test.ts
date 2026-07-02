@@ -121,6 +121,25 @@ describe("resolveNpmImports (chunk-name based)", () => {
     expect(out.stats.specifiersResolved).toBe(1);
   });
 
+  test("rewrites dotLottie React aliases to the npm package", () => {
+    const src = `
+      import {
+        a as DotLottieReact,
+        b as DotLottieWorkerReact,
+        c as setWasmUrl,
+      } from "../browser-4rTfxlUZ.js";
+      DotLottieReact; DotLottieWorkerReact; setWasmUrl;
+    `;
+    const out = resolveNpmImports(src);
+    const n = normalize(out.code);
+    expect(n).toContain('from "@lottiefiles/dotlottie-react"');
+    expect(n).toContain("DotLottieReact");
+    expect(n).toContain("DotLottieWorkerReact");
+    expect(n).toContain("setWasmUrl");
+    expect(n).not.toContain("browser-4rTfxlUZ");
+    expect(out.stats.specifiersResolved).toBe(3);
+  });
+
   test("rewrites tslib chunk as named-only", () => {
     const src = `import { a as __assign, b as __rest } from "../tslib-X.js";`;
     const out = resolveNpmImports(src);

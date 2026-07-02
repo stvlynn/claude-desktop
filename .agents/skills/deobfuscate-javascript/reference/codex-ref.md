@@ -183,22 +183,23 @@ a **bare re-export shim** (`make-facade.ts <chunk> --reexport <specifier>`), not
 `any`-facade — `boundaries/highlight-js-core.ts` is the model. The map seen in this
 repo (record the package in IMPORT_MAP `vendor`; `classifyBoundary()` reads it):
 
-| Boundary file (chunk)                        | npm specifier             | notes                                                     |
-| -------------------------------------------- | ------------------------- | --------------------------------------------------------- |
-| `lodash.ts` (`isEqual-*`)                    | `lodash`                  | named/star re-export                                      |
-| `react-router.ts` (`chunk-LFPYN7LY-*`)       | `react-router`            |                                                           |
-| `formatjs.ts` (`lib-BWT6A3Q0`)               | `react-intl`              | consumers import `useIntl`/`FormattedMessage`             |
-| `react-is-runtime.ts`                        | `react-is`                | React companion package; keep loader shape if needed      |
-| `use-sync-external-store-*.ts`               | `use-sync-external-store` | `shim/with-selector` selector helper                      |
-| `react-colorful.tsx` (`dist-*`)              | `react-colorful`          | preserve `Dist` as `HexColorPicker` alias                 |
-| `jotai-runtime.ts` (`jotai-react-*`)         | `jotai`                   | atom/store hooks; keep a thin app-facing alias shim only  |
-| `dnd-kit-*.ts` (`core.esm-*`, etc.)          | `@dnd-kit/*`              | core/sortable/utilities re-export shims                   |
-| `motion.ts` (`single-value-*`)               | `framer-motion`           |                                                           |
-| `markdown-ast.ts` (`lib-CqEvD6Nn`)           | `mdast-util-*`            | confirm the exact util                                    |
-| `parse-patch-files.ts` (`parsePatchFiles-*`) | `@pierre/diffs`           | **forked** — see Pierre note; keep wrapper if it diverges |
-| `src.ts` (`src-*`)                           | `zod`                     | verify it is stock Zod, not a fork                        |
-| `analytics.ts` (`pkg-*`)                     | `@segment/analytics-next` | Segment browser SDK                                       |
-| `radix-*.ts` (`dist-*`, `Combination-*`)     | `@radix-ui/react-*`       | per-primitive; **may be forked**                          |
+| Boundary file (chunk)                        | npm specifier                  | notes                                                           |
+| -------------------------------------------- | ------------------------------ | --------------------------------------------------------------- |
+| `lodash.ts` (`isEqual-*`)                    | `lodash`                       | named/star re-export                                            |
+| `react-router.ts` (`chunk-LFPYN7LY-*`)       | `react-router`                 |                                                                 |
+| `formatjs.ts` (`lib-BWT6A3Q0`)               | `react-intl`                   | consumers import `useIntl`/`FormattedMessage`                   |
+| `react-is-runtime.ts`                        | `react-is`                     | React companion package; keep loader shape if needed            |
+| `use-sync-external-store-*.ts`               | `use-sync-external-store`      | `shim/with-selector` selector helper                            |
+| `react-colorful.tsx` (`dist-*`)              | `react-colorful`               | preserve `Dist` as `HexColorPicker` alias                       |
+| `dotlottie-react.tsx` (`browser-*`)          | `@lottiefiles/dotlottie-react` | pin version to the bundled `@lottiefiles/dotlottie-web` runtime |
+| `jotai-runtime.ts` (`jotai-react-*`)         | `jotai`                        | atom/store hooks; keep a thin app-facing alias shim only        |
+| `dnd-kit-*.ts` (`core.esm-*`, etc.)          | `@dnd-kit/*`                   | core/sortable/utilities re-export shims                         |
+| `motion.ts` (`single-value-*`)               | `framer-motion`                |                                                                 |
+| `markdown-ast.ts` (`lib-CqEvD6Nn`)           | `mdast-util-*`                 | confirm the exact util                                          |
+| `parse-patch-files.ts` (`parsePatchFiles-*`) | `@pierre/diffs`                | **forked** — see Pierre note; keep wrapper if it diverges       |
+| `src.ts` (`src-*`)                           | `zod`                          | verify it is stock Zod, not a fork                              |
+| `analytics.ts` (`pkg-*`)                     | `@segment/analytics-next`      | Segment browser SDK                                             |
+| `radix-*.ts` (`dist-*`, `Combination-*`)     | `@radix-ui/react-*`            | per-primitive; **may be forked**                                |
 
 **Fork caveat:** `@pierre/*`, `@radix-ui/*`, and `zod`(`src`) may be Codex forks, not
 stock npm. Before swapping to a bare specifier, confirm the export surface matches
@@ -207,7 +208,7 @@ unforked, high-confidence packages already listed above: `formatjs.ts` /
 `lib-BWT6A3Q0` is `react-intl` even if the extracted app snapshot lacks
 `ref/node_modules/react-intl` or a `react-intl` package entry. The same rule
 applies to React companion packages (`react-is`, `use-sync-external-store`),
-react-colorful, Jotai, `@dnd-kit/*`, and other high-confidence registry
+react-colorful, dotLottie React, Jotai, `@dnd-kit/*`, and other high-confidence registry
 packages. In that case emit the npm-backed re-export shim and add/keep ambient
 module declarations or package install notes as needed; do not create a local
 "minimal" replacement for a stock package.

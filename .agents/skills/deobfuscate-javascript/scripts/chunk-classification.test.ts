@@ -161,6 +161,14 @@ describe("classifyBoundary", () => {
       specifier: "react-colorful",
     });
     expect(
+      classifyBoundary("browser-XX", {
+        vendor: "@lottiefiles/dotlottie-react",
+      }),
+    ).toEqual({
+      kind: "vendor-npm",
+      specifier: "@lottiefiles/dotlottie-react",
+    });
+    expect(
       classifyBoundary("with-selector-XX", {
         vendor: "use-sync-external-store",
       }),

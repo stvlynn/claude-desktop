@@ -300,6 +300,53 @@ describe("quality-gate", () => {
     expect(report.issues).toEqual([]);
   });
 
+  test("fails hand-written dotLottie React vendor bodies", () => {
+    const source = `
+      // Restored from ref/webview/assets/browser-4rTfxlUZ.js
+      import React from "react";
+      export const DotLottieReact = function DotLottieReactBody() {
+        return React.createElement("canvas");
+      };
+      export const DotLottieWorkerReact = DotLottieReact;
+      export const setWasmUrl = (url: string) => url;
+    `;
+    const report = analyzeSource(
+      source,
+      "restored/vendor/dotlottie-react.tsx",
+      {
+        ...DEFAULT_OPTIONS,
+        allowFlat: true,
+        allowUntyped: true,
+      },
+    );
+    expect(report.issues.map((issue) => issue.code)).toContain(
+      "third-party-npm-shim-not-reexport",
+    );
+  });
+
+  test("passes dotLottie React vendor shims that re-export the npm package", () => {
+    const source = `
+      // Restored from ref/webview/assets/browser-4rTfxlUZ.js
+      export {
+        DotLottieReact,
+        DotLottieReact as browserDotLottieReact,
+        DotLottieWorkerReact,
+        DotLottieWorkerReact as browserDotLottieWorkerReact,
+        setWasmUrl,
+        setWasmUrl as browserSetWasmUrl,
+      } from "@lottiefiles/dotlottie-react";
+    `;
+    const report = analyzeSource(
+      source,
+      "restored/vendor/dotlottie-react.tsx",
+      {
+        ...DEFAULT_OPTIONS,
+        allowFlat: true,
+      },
+    );
+    expect(report.issues).toEqual([]);
+  });
+
   test("passes Electron main build provenance headers when required", () => {
     const source = `
       // Restored from ref/.vite/build/preload.js
@@ -1206,7 +1253,7 @@ export function __rest(value) {
       const runtimeValue = runtimeFactory();
       export const DotLottieWorkerReact = () => runtimeValue.jsx("canvas", {});
     `;
-    const report = analyzeSource(source, "vendor/dotlottie-react.tsx", {
+    const report = analyzeSource(source, "vendor/schema-runtime.tsx", {
       ...DEFAULT_OPTIONS,
       allowFlat: true,
       allowMechanicalNames: true,

@@ -471,6 +471,7 @@ const PUBLIC_NPM_VENDOR_SHIMS: Record<string, string> = {
   "dnd-kit-core": "@dnd-kit/core",
   "dnd-kit-sortable": "@dnd-kit/sortable",
   "dnd-kit-utilities": "@dnd-kit/utilities",
+  "dotlottie-react": "@lottiefiles/dotlottie-react",
   "framer-motion": "framer-motion",
   formatjs: "react-intl",
   jotai: "jotai",

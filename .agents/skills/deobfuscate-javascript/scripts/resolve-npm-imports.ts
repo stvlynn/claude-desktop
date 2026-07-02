@@ -89,6 +89,11 @@ export const CHUNK_NAME_REGISTRY: Record<string, ChunkRule> = {
   "jotai-react": { package: "jotai", namedOnly: true },
   // react-colorful
   "react-colorful": { package: "react-colorful", namedOnly: true },
+  // dotLottie React
+  "dotlottie-react": {
+    package: "@lottiefiles/dotlottie-react",
+    namedOnly: true,
+  },
   // markdown / parsers
   "marked.esm": { package: "marked", namedOnly: true },
   marked: { package: "marked", namedOnly: true },
@@ -184,6 +189,20 @@ export const ALIAS_REGISTRY: Record<string, AliasRule> = {
 
   // react-colorful
   HexColorPicker: { package: "react-colorful", style: "named" },
+
+  // dotLottie React
+  DotLottieReact: {
+    package: "@lottiefiles/dotlottie-react",
+    style: "named",
+  },
+  DotLottieWorkerReact: {
+    package: "@lottiefiles/dotlottie-react",
+    style: "named",
+  },
+  setWasmUrl: {
+    package: "@lottiefiles/dotlottie-react",
+    style: "named",
+  },
 
   // clsx / classnames default exports
   clsx: { package: "clsx", style: "default" },
