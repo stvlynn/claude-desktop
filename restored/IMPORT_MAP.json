@@ -42919,12 +42919,12 @@
         "PersonalizationSettings": "PersonalizationSettings"
       },
       "status": "done",
-      "note": "Current personalization settings hash maps to a dedicated current-ref runtime over vendor/personalization-settings-current-bundle.tsx; dependencies are rewritten through restored current bundles.",
-      "lastUpdated": "2026-06-30T23:21:25.587Z",
+      "note": "Current personalization settings hash maps to a dedicated current-ref runtime over settings/personalization-settings; vendor backing bundle was removed after semantic split.",
+      "lastUpdated": "2026-07-02T01:32:08.000Z",
       "stage3Accepted": true,
-      "stage3AcceptedAt": "2026-06-30T23:21:25.587Z",
-      "stage3Review": "Host self-review: parsed personalization-settings-B1J6eU5_.js exports, rebuilt compatibility exports from auto-renames.json, and rewrote dependency imports through restored/IMPORT_MAP.json.",
-      "stage3Note": "Accepted as a current-ref compatibility export over a restored-dependency backing bundle; full semantic split remains future cleanup."
+      "stage3AcceptedAt": "2026-07-02T01:32:08.000Z",
+      "stage3Review": "Host self-review: split personalization settings into semantic personality, agents editor, memory, Chronicle, query, and message modules; preserved the PersonalizationSettings export through the current-ref runtime and removed the obsolete vendor backing bundle.",
+      "stage3Note": "Accepted as a semantic personalization settings surface with current-ref runtime exports."
     },
     "local-environments-settings-page-q1SLOHGN": {
       "restored": "runtime/current-app-initial/local-environments-settings-page-current-runtime.ts",
