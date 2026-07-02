@@ -42432,12 +42432,12 @@
         "AgentSettings": "AgentSettings"
       },
       "status": "done",
-      "note": "Current AgentSettings hash maps to a dedicated current-ref runtime over settings/agent-settings.tsx; the page body was lifted out of vendor parking, React Compiler cache scaffolding was stripped, and the main settings/config helpers now use semantic names.",
-      "lastUpdated": "2026-07-02T03:35:42.000Z",
+      "note": "Current AgentSettings hash maps to a dedicated current-ref runtime over settings/agent-settings.tsx; the page body is split into focused settings helpers with JSX factory residue removed.",
+      "lastUpdated": "2026-07-02T04:52:29.000Z",
       "stage3Accepted": true,
-      "stage3AcceptedAt": "2026-06-30T23:35:00.000Z",
-      "stage3Review": "Host self-review: verified the current file exports AgentSettings, rewrote dependency imports through restored/IMPORT_MAP.json, lifted the page body into settings/agent-settings.tsx, stripped React Compiler cache scaffolding, named the main settings/config helpers, and verified the promoted page plus runtime with Bun builds. Runtime quality gate passes; the page gate now only reports remaining JSX factory call residue and the later component split.",
-      "stage3Note": "Accepted as a current-ref compatibility export over a promoted AgentSettings implementation; JSX factory cleanup and component splitting remain later cleanup."
+      "stage3AcceptedAt": "2026-07-02T04:52:29.000Z",
+      "stage3Review": "Host self-review: verified the current file exports AgentSettings through the current-ref runtime, split the settings page into runtime, config model, page composition, experimental features, model features, primary runtime dependencies, and config section helpers, removed JSX factory call residue, and verified the entry plus helper directory with quality gates and Bun builds.",
+      "stage3Note": "Accepted as a current-ref compatibility export over a split AgentSettings implementation with focused helper modules."
     },
     "appgen-settings-page-BxhhSHRZ": {
       "restored": "runtime/current-app-initial/appgen-settings-page-current-runtime.ts",
