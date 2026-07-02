@@ -497,6 +497,13 @@ const PUBLIC_NPM_VENDOR_SHIMS: Record<string, PublicNpmVendorSpecifiers> = {
     "use-sync-external-store/shim/with-selector",
 };
 
+const PUBLIC_NPM_VENDOR_SOURCE_CHUNKS: Record<
+  string,
+  PublicNpmVendorSpecifiers
+> = {
+  "lib-BWT6A3Q0": "react-intl",
+};
+
 const PACKAGE_DEPENDENCY_FIELDS = [
   "dependencies",
   "devDependencies",
@@ -816,18 +823,44 @@ function isVendoredDataModule(file: string, source: string): boolean {
   );
 }
 
-function expectedPublicNpmVendorSpecifiers(file: string): string[] | null {
-  const normalized = file.replace(/\\/g, "/");
-  if (!/(?:^|\/)vendor\/[^/]+\.[cm]?[jt]sx?$/i.test(normalized)) {
-    return null;
-  }
+function restoredSourceChunkBasename(source: string): string | null {
+  const match = source
+    .slice(0, 700)
+    .match(
+      /^\s*\/\/ Restored from ref\/(?:webview\/assets|\.vite\/build)\/([^/\r\n]+)\.js\b/m,
+    );
+  return match?.[1] ?? null;
+}
 
-  const extensionlessBasename = path
-    .basename(normalized)
-    .replace(/\.[cm]?[jt]sx?$/i, "");
-  const specifiers = PUBLIC_NPM_VENDOR_SHIMS[extensionlessBasename];
+function normalizePublicNpmVendorSpecifiers(
+  specifiers: PublicNpmVendorSpecifiers | null | undefined,
+): string[] | null {
   if (specifiers == null) return null;
   return Array.isArray(specifiers) ? [...specifiers] : [specifiers];
+}
+
+function expectedPublicNpmVendorSpecifiers(
+  file: string,
+  source?: string,
+): string[] | null {
+  const normalized = file.replace(/\\/g, "/");
+  if (/(?:^|\/)vendor\/[^/]+\.[cm]?[jt]sx?$/i.test(normalized)) {
+    const extensionlessBasename = path
+      .basename(normalized)
+      .replace(/\.[cm]?[jt]sx?$/i, "");
+    const specifiers = normalizePublicNpmVendorSpecifiers(
+      PUBLIC_NPM_VENDOR_SHIMS[extensionlessBasename],
+    );
+    if (specifiers != null) return specifiers;
+  }
+
+  const sourceChunkBasename =
+    source == null ? null : restoredSourceChunkBasename(source);
+  return normalizePublicNpmVendorSpecifiers(
+    sourceChunkBasename == null
+      ? null
+      : PUBLIC_NPM_VENDOR_SOURCE_CHUNKS[sourceChunkBasename],
+  );
 }
 
 function hasBareReexportFrom(source: string, specifier: string): boolean {
@@ -2002,7 +2035,10 @@ export function analyzeSource(
   const unfinishedAppFlatBoundaryBundle =
     isUnfinishedAppFlatBoundaryBundle(source);
   const relocatedBundleBody = isRelocatedBundleBody(source, lineCount);
-  const expectedNpmVendorSpecifiers = expectedPublicNpmVendorSpecifiers(file);
+  const expectedNpmVendorSpecifiers = expectedPublicNpmVendorSpecifiers(
+    file,
+    source,
+  );
   const isPublicNpmVendorReexportShim =
     expectedNpmVendorSpecifiers != null &&
     expectedNpmVendorSpecifiers.every((specifier) =>
@@ -2377,7 +2413,13 @@ export function analyzePublicNpmVendorShimDependencies(
   >();
 
   for (const file of files) {
-    const expectedSpecifiers = expectedPublicNpmVendorSpecifiers(file);
+    let source = "";
+    try {
+      source = fs.readFileSync(file, "utf-8");
+    } catch {
+      continue;
+    }
+    const expectedSpecifiers = expectedPublicNpmVendorSpecifiers(file, source);
     if (expectedSpecifiers == null) continue;
 
     const startDir = path.dirname(path.resolve(file));

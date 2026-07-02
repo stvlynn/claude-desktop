@@ -265,7 +265,9 @@ vendor chunk (for example React Router, FormatJS/`react-intl`, Day.js, Jotai,
 React companion packages, react-colorful, dotLottie React) still appears as local code, turn it
 into an npm-backed re-export/alias shim, add the package root to the nearest
 `package.json`, and register the package/gate entry so future runs resolve it
-automatically.
+automatically. For generic chunk stems such as `lib-*` or `src-*`, register the
+exact provenance basename in `quality-gate.ts` as well as the public vendor
+filename, so renaming the restored file cannot bypass the npm-shim rule.
 
 ## Collapse npm CJS interop shims (deep-mode tail)
 
