@@ -4,11 +4,11 @@ import clsx from "clsx";
 const styles = {
   fillOnMount: "_fillOnMount_9hstz_1",
 };
-type ProgressionDonutIconProps = {
+export type ProgressionDonutIconProps = {
   animateOnMount?: boolean;
   animateOnMountDelayMs?: number;
   className?: string;
-  percent: number;
+  percent?: number;
   reducedMotion?: boolean;
   size?: number;
   strokeWidth?: number;
@@ -18,7 +18,7 @@ export function ProgressionDonutIcon({
   animateOnMount = false,
   animateOnMountDelayMs = 0,
   className,
-  percent,
+  percent = 0,
   reducedMotion = false,
   size = 12,
   strokeWidth = 2,

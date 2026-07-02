@@ -33,6 +33,7 @@ export {
 
 export { shouldExpandReviewPanelSignal } from "../../../conversations/local-conversation-page-runtime";
 export { initArrowUpRightLgIconChunk as SidebarRowPrBadge } from "../../../icons/arrow-up-right-lg-icon";
+export { ProgressionDonutIcon as legacyAppMainBuwLowerALowerMExport } from "../../../icons/progression-donut-icon";
 
 export {
   getPathBasename,
@@ -59,7 +60,6 @@ export {
   ag as legacyAppMainBuwLowerALowerGExport,
   ah as legacyAppMainBuwLowerALowerHExport,
   ai as legacyAppMainBuwLowerALowerIExport,
-  am as legacyAppMainBuwLowerALowerMExport,
   an as legacyAppMainBuwLowerALowerNExport,
   ao as legacyAppMainBuwLowerALowerOExport,
   ap as legacyAppMainBuwLowerALowerPExport,
