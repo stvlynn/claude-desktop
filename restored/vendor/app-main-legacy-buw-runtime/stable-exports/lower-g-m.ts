@@ -59,6 +59,9 @@ export { hasRateLimitReached as legacyAppMainBuwLowerGLowerCExport } from "../..
 export { hasBasicRateLimitReached as legacyAppMainBuwLowerHLowerCExport } from "../../../utils/rate-limit-status/account-status";
 export { formatResetTimestamp as legacyAppMainBuwLowerLLowerCExport } from "../../../utils/rate-limit-status/formatting";
 export { StreamingDictationTranscriber as legacyAppMainBuwLowerHUpperCExport } from "../../../utils/transcribe-audio/streaming-transcriber";
+export { initDictationStreamingTranscriberRuntimeChunk as legacyAppMainBuwLowerGUpperCExport } from "../../../utils/transcribe-audio";
+export { initUseDictationRuntimeChunk as legacyAppMainBuwLowerIUpperCExport } from "../../../features/use-dictation";
+export { initUseRecordingWaveformChunk as legacyAppMainBuwLowerLUpperCExport } from "../../../utils/use-recording-waveform";
 export {
   hasRateLimitWindow as legacyAppMainBuwLowerJLowerCExport,
   remainingUsagePercent as legacyAppMainBuwLowerKLowerCExport,
@@ -68,7 +71,6 @@ export { closestCenter as ThreadRowStatusIndicator } from "../../dnd-kit-core";
 
 export {
   g as legacyAppMainBuwLowerGExport,
-  gC as legacyAppMainBuwLowerGUpperCExport,
   gS as legacyAppMainBuwLowerGUpperSExport,
   g_ as legacyAppMainBuwLowerGUnderscoreExport,
   ga as legacyAppMainBuwLowerGLowerAExport,
@@ -98,7 +100,6 @@ export {
   hs as legacyAppMainBuwLowerHLowerSExport,
   ht as legacyAppMainBuwLowerHLowerTExport,
   hu as legacyAppMainBuwLowerHLowerUExport,
-  iC as legacyAppMainBuwLowerIUpperCExport,
   iS as legacyAppMainBuwLowerIUpperSExport,
   i_ as legacyAppMainBuwLowerIUnderscoreExport,
   ia as legacyAppMainBuwLowerILowerAExport,
@@ -155,7 +156,6 @@ export {
   kx as legacyAppMainBuwLowerKLowerXExport,
   ky as legacyAppMainBuwLowerKLowerYExport,
   l as legacyAppMainBuwLowerLExport,
-  lC as legacyAppMainBuwLowerLUpperCExport,
   lS as legacyAppMainBuwLowerLUpperSExport,
   l_ as legacyAppMainBuwLowerLUnderscoreExport,
   la as legacyAppMainBuwLowerLLowerAExport,

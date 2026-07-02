@@ -5,13 +5,13 @@ export { initImagesIconChunk as appMainCurrentCompatSlotLowerILowerT } from "../
 export { useCloudEnvironmentsQuery } from "../app-main-current-runtime";
 
 export { getConversationPanelLayoutSnapshot } from "../../conversations/fork-conversation-panel-state-deps";
+export { initUseDictationRuntimeChunk as appMainCurrentCompatSlotLowerIUpperC } from "../../features/use-dictation";
 
 export {
   i as appMainCurrentCompatSlotLowerI,
   i_ as appMainCurrentCompatSlotLowerIUnderscore,
   ia as appMainCurrentCompatSlotLowerILowerA,
   ib as appMainCurrentCompatSlotLowerILowerB,
-  iC as appMainCurrentCompatSlotLowerIUpperC,
   id as appMainCurrentCompatSlotLowerILowerD,
   if as appMainCurrentCompatSlotLowerILowerF,
   ig as appMainCurrentCompatSlotLowerILowerG,

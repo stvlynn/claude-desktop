@@ -12,13 +12,13 @@ export { Alert as ToastContent } from "../../utils/alert";
 export { initStyleSingletonRuntime as initArrayEqualityRuntimeChunk } from "../react-style-singleton";
 export { formatResetTimestamp as appMainCurrentCompatSlotLowerLLowerC } from "../../utils/rate-limit-status/formatting";
 export { userSavedConfigQueryOptions as appMainCurrentCompatSlotLowerLLowerX } from "../../config/user-saved-config-query";
+export { initUseRecordingWaveformChunk as appMainCurrentCompatSlotLowerLUpperC } from "../../utils/use-recording-waveform";
 
 export {
   l as appMainCurrentCompatSlotLowerL,
   l_ as appMainCurrentCompatSlotLowerLUnderscore,
   la as appMainCurrentCompatSlotLowerLLowerA,
   lb as appMainCurrentCompatSlotLowerLLowerB,
-  lC as appMainCurrentCompatSlotLowerLUpperC,
   lg as appMainCurrentCompatSlotLowerLLowerG,
   li as appMainCurrentCompatSlotLowerLLowerI,
   ln as appMainCurrentCompatSlotLowerLLowerN,
