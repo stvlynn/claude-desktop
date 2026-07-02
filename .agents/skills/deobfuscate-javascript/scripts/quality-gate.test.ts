@@ -586,35 +586,71 @@ describe("quality-gate", () => {
   });
 
   test("fails hand-written D3 shape vendor shims", () => {
-    const source = `
-      // Restored from ref/webview/assets/step-K6tEdR0Q.js
-      export function stepH(context) {
-        return {
-          lineStart() {},
-          lineEnd() {},
-          point(x, y) {
-            context.lineTo(x, y);
-          },
-        };
-      }
-      export function stepR(context) {
-        return stepH(context);
-      }
-    `;
-    const report = analyzeSource(source, "restored/vendor/d3-shape-curves.ts", {
-      ...DEFAULT_OPTIONS,
-      allowFlat: true,
-      allowUntyped: true,
-      vendored: true,
-    });
-    expect(report.issues.map((issue) => issue.code)).toContain(
-      "third-party-npm-shim-not-reexport",
-    );
-    expect(
-      report.issues.find(
-        (issue) => issue.code === "third-party-npm-shim-not-reexport",
-      )?.detail,
-    ).toMatchObject({ expectedSpecifiers: ["d3-shape"] });
+    const shimSources = new Map<string, string>([
+      [
+        "restored/vendor/d3-shape-curves.ts",
+        `
+          // Restored from ref/webview/assets/step-K6tEdR0Q.js
+          export function stepH(context) {
+            return {
+              lineStart() {},
+              lineEnd() {},
+              point(x, y) {
+                context.lineTo(x, y);
+              },
+            };
+          }
+          export function stepR(context) {
+            return stepH(context);
+          }
+        `,
+      ],
+      [
+        "restored/vendor/d3-shape-curve-cardinal.ts",
+        `
+          // Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
+          export function curveCardinal(context) {
+            return { lineStart() {}, lineEnd() {}, point(x, y) { context.lineTo(x, y); } };
+          }
+        `,
+      ],
+      [
+        "restored/vendor/d3-shape-curve-catmull-rom.ts",
+        `
+          // Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
+          export function curveCatmullRom(context) {
+            return { lineStart() {}, lineEnd() {}, point(x, y) { context.lineTo(x, y); } };
+          }
+        `,
+      ],
+      [
+        "restored/vendor/d3-shape-curve-context.ts",
+        `
+          // Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
+          export interface CurveContext {
+            moveTo(x: number, y: number): void;
+            lineTo(x: number, y: number): void;
+          }
+        `,
+      ],
+    ]);
+
+    for (const [file, source] of shimSources) {
+      const report = analyzeSource(source, file, {
+        ...DEFAULT_OPTIONS,
+        allowFlat: true,
+        allowUntyped: true,
+        vendored: true,
+      });
+      expect(report.issues.map((issue) => issue.code)).toContain(
+        "third-party-npm-shim-not-reexport",
+      );
+      expect(
+        report.issues.find(
+          (issue) => issue.code === "third-party-npm-shim-not-reexport",
+        )?.detail,
+      ).toMatchObject({ expectedSpecifiers: ["d3-shape"] });
+    }
   });
 
   test("fails renamed D3 shape source chunks that do not re-export npm", () => {
@@ -687,6 +723,52 @@ describe("quality-gate", () => {
       },
     );
     expect(report.issues).toEqual([]);
+
+    const extraShimSources = new Map<string, string>([
+      [
+        path.join(vendorDir, "d3-shape-curve-cardinal.ts"),
+        `
+          // Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
+          export {
+            curveCardinal,
+            curveCardinalClosed,
+            curveCardinalOpen,
+          } from "d3-shape";
+          export type { CurveCardinalFactory } from "d3-shape";
+        `,
+      ],
+      [
+        path.join(vendorDir, "d3-shape-curve-catmull-rom.ts"),
+        `
+          // Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
+          export {
+            curveCatmullRom,
+            curveCatmullRomClosed,
+            curveCatmullRomOpen,
+          } from "d3-shape";
+          export type { CurveCatmullRomFactory } from "d3-shape";
+        `,
+      ],
+      [
+        path.join(vendorDir, "d3-shape-curve-context.ts"),
+        `
+          // Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
+          export type {
+            CurveFactory,
+            CurveGenerator as Curve,
+            CurveGeneratorLineOnly,
+          } from "d3-shape";
+        `,
+      ],
+    ]);
+
+    for (const [file, source] of extraShimSources) {
+      const extraReport = analyzeSource(source, file, {
+        ...DEFAULT_OPTIONS,
+        allowFlat: true,
+      });
+      expect(extraReport.issues).toEqual([]);
+    }
   });
 
   test("fails hand-written D3 utility vendor shims", () => {
