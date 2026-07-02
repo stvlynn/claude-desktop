@@ -8,7 +8,7 @@ import {
 const rightPanelTabsStore = rightAppShellTabController;
 const bottomPanelTabsStore = bottomAppShellTabController;
 
-function initThreadPanelTabsStoreChunk(): void {}
+export function initThreadPanelTabsStoreChunk(): void {}
 
 const initRightPanelTabsStoreChunk = initThreadPanelTabsStoreChunk;
 

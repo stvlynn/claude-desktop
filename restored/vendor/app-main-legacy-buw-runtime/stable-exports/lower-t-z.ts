@@ -1,20 +1,12 @@
 // Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
 // Stable BUw aliases: lower-t-z.
-export {
-  transcribeAudio as legacyAppMainBuwLowerUUpperCExport,
-} from "../../../utils/transcribe-audio/multipart";
+export { transcribeAudio as legacyAppMainBuwLowerUUpperCExport } from "../../../utils/transcribe-audio/multipart";
 
-export {
-  conversationalOnboardingTaskScope as legacyAppMainBuwLowerVExport,
-} from "../../../onboarding/conversational-onboarding-task-scope";
+export { conversationalOnboardingTaskScope as legacyAppMainBuwLowerVExport } from "../../../onboarding/conversational-onboarding-task-scope";
 
-export {
-  PopoverAttachmentPill as legacyAppMainBuwLowerZLowerIExport,
-} from "../../../composer/user-message-attachment-pills";
+export { PopoverAttachmentPill as legacyAppMainBuwLowerZLowerIExport } from "../../../composer/user-message-attachment-pills";
 
-export {
-  getCommentText as legacyAppMainBuwLowerZLowerUExport,
-} from "../../../review/review-comment-utils";
+export { getCommentText as legacyAppMainBuwLowerZLowerUExport } from "../../../review/review-comment-utils";
 
 export { mergeVisibleThreadIdsIntoThreadOrder as mergeVisibleThreadOrder } from "../../../threads/thread-actions";
 
@@ -46,6 +38,7 @@ export {
 } from "../../../runtime/window-chrome-runtime";
 
 export { resolveWorkspacePathFromCwd } from "../../../runtime/app-main-new-thread-runtime";
+export { initThreadPanelTabsStoreChunk } from "../../../app-shell/thread-panel-tabs-store";
 
 export {
   t as legacyAppMainBuwLowerTExport,
@@ -68,7 +61,6 @@ export {
   ts as legacyAppMainBuwLowerTLowerSExport,
   tt as legacyAppMainBuwLowerTLowerTExport,
   tu as legacyAppMainBuwLowerTLowerUExport,
-  tv as initThreadPanelTabsStoreChunk,
   tx as legacyAppMainBuwLowerTLowerXExport,
   ty as legacyAppMainBuwLowerTLowerYExport,
   u as legacyAppMainBuwLowerUExport,
