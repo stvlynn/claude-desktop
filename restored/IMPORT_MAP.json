@@ -28278,11 +28278,11 @@
       },
       "status": "done",
       "migratedFrom": "app-initial~app-main~pets-settings~appearance-settings~general-settings-D0OOyiXs",
-      "note": "Current exact-hash chunk restored through runtime/current-app-initial/general-appearance-current-runtime.ts; all current export aliases now point at semantic general-appearance and external-agent import names while compatibility aliases remain available for existing consumers.",
+      "note": "Current exact-hash chunk restored through runtime/current-app-initial/general-appearance-current-runtime.ts; all current export aliases point at semantic general-appearance and external-agent import names while compatibility aliases remain available for existing consumers, and the unused vendor current bundle has been removed.",
       "stage3Accepted": true,
-      "stage3AcceptedAt": "2026-06-29T20:20:00.000Z",
-      "lastUpdated": "2026-07-01T00:00:00.000Z",
-      "stage3Review": "Host self-review: re-derived the current source export table, mapped all 58 aliases to semantic general-appearance/external-agent import exports, retained compat re-exports for existing consumers, and passed focused quality gates plus export closure checks."
+      "stage3AcceptedAt": "2026-07-02T00:00:00.000Z",
+      "lastUpdated": "2026-07-02T00:00:00.000Z",
+      "stage3Review": "Host self-review: re-verified the current source export table maps all 58 aliases to semantic general-appearance/external-agent import exports, retained compat re-exports for existing consumers, passed the current runtime quality gate, found no references to the old current-bundle parking file, and removed that unused vendor file."
     },
     "app-initial~app-main~remote-conversation-page~new-thread-panel-page~onboarding-page~appgen-~mhwq036p-DS9KwK15": {
       "restored": "onboarding/sidebar-onboarding-checklist-state/index.ts",
