@@ -242,6 +242,8 @@ export type BoundaryKind = "vendor-npm" | "vendor-runtime";
 export const VENDOR_NPM_SPECIFIERS: Record<string, string> = {
   lodash: "lodash",
   "react-router": "react-router",
+  "react-is": "react-is",
+  "use-sync-external-store": "use-sync-external-store/shim/with-selector",
   formatjs: "react-intl",
   "react-intl": "react-intl",
   "mdast-util": "mdast-util-to-markdown",

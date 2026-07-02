@@ -479,6 +479,11 @@ const PUBLIC_NPM_VENDOR_SHIMS: Record<string, string> = {
   motion: "framer-motion",
   "react-router": "react-router",
   "react-intl": "react-intl",
+  "react-is-runtime": "react-is",
+  "use-sync-external-store-selector-runtime":
+    "use-sync-external-store/shim/with-selector",
+  "use-sync-external-store-with-selector":
+    "use-sync-external-store/shim/with-selector",
 };
 
 export type QualityGateOptions = {

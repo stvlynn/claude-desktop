@@ -185,6 +185,91 @@ describe("quality-gate", () => {
     expect(report.issues).toEqual([]);
   });
 
+  test("fails hand-written React companion vendor runtimes", () => {
+    const reactIsSource = `
+      // Restored from ref/webview/assets/react-is-AbCdEf12.js
+      const reactFragmentType = Symbol.for("react.fragment");
+      export const reactIsRuntime = {
+        isFragment(value) {
+          return value?.type === reactFragmentType;
+        },
+      };
+      export function requireReactIsRuntime() {
+        return reactIsRuntime;
+      }
+    `;
+    const useSyncSource = `
+      // Restored from ref/webview/assets/use-sync-external-store-with-selector-AbCdEf12.js
+      import * as React from "react";
+      export function useSyncExternalStoreWithSelector(subscribe, getSnapshot, getServerSnapshot, selector) {
+        return selector(React.useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot));
+      }
+      export const useSyncExternalStoreWithSelectorRuntime = { useSyncExternalStoreWithSelector };
+    `;
+
+    const reactIsReport = analyzeSource(
+      reactIsSource,
+      "restored/vendor/react-is-runtime.ts",
+      {
+        ...DEFAULT_OPTIONS,
+        allowFlat: true,
+        allowUntyped: true,
+      },
+    );
+    const useSyncReport = analyzeSource(
+      useSyncSource,
+      "restored/vendor/use-sync-external-store-selector-runtime.ts",
+      {
+        ...DEFAULT_OPTIONS,
+        allowFlat: true,
+        allowUntyped: true,
+      },
+    );
+    expect(reactIsReport.issues.map((issue) => issue.code)).toContain(
+      "third-party-npm-shim-not-reexport",
+    );
+    expect(useSyncReport.issues.map((issue) => issue.code)).toContain(
+      "third-party-npm-shim-not-reexport",
+    );
+  });
+
+  test("passes React companion vendor shims that re-export npm packages", () => {
+    const reactIsSource = `
+      // Restored from ref/webview/assets/react-is-AbCdEf12.js
+      import { isFragment } from "react-is";
+      export const reactIsRuntime = { isFragment };
+      export function requireReactIsRuntime() {
+        return reactIsRuntime;
+      }
+      export { isFragment } from "react-is";
+    `;
+    const useSyncSource = `
+      // Restored from ref/webview/assets/use-sync-external-store-with-selector-AbCdEf12.js
+      import { useSyncExternalStoreWithSelector } from "use-sync-external-store/shim/with-selector";
+      export { useSyncExternalStoreWithSelector } from "use-sync-external-store/shim/with-selector";
+      export const useSyncExternalStoreWithSelectorRuntime = { useSyncExternalStoreWithSelector };
+    `;
+
+    const reactIsReport = analyzeSource(
+      reactIsSource,
+      "restored/vendor/react-is-runtime.ts",
+      {
+        ...DEFAULT_OPTIONS,
+        allowFlat: true,
+      },
+    );
+    const useSyncReport = analyzeSource(
+      useSyncSource,
+      "restored/vendor/use-sync-external-store-selector-runtime.ts",
+      {
+        ...DEFAULT_OPTIONS,
+        allowFlat: true,
+      },
+    );
+    expect(reactIsReport.issues).toEqual([]);
+    expect(useSyncReport.issues).toEqual([]);
+  });
+
   test("passes Electron main build provenance headers when required", () => {
     const source = `
       // Restored from ref/.vite/build/preload.js

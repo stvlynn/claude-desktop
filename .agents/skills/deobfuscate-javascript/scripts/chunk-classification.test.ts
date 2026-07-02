@@ -150,6 +150,18 @@ describe("classifyBoundary", () => {
       kind: "vendor-npm",
       specifier: "jotai",
     });
+    expect(classifyBoundary("react-is-XX", { vendor: "react-is" })).toEqual({
+      kind: "vendor-npm",
+      specifier: "react-is",
+    });
+    expect(
+      classifyBoundary("with-selector-XX", {
+        vendor: "use-sync-external-store",
+      }),
+    ).toEqual({
+      kind: "vendor-npm",
+      specifier: "use-sync-external-store/shim/with-selector",
+    });
   });
 
   test("the literal runtime marker → vendor-runtime", () => {

@@ -79,6 +79,21 @@ describe("resolveNpmImports (chunk-name based)", () => {
     expect(out.stats.specifiersResolved).toBe(3);
   });
 
+  test("rewrites React companion runtime chunks to npm packages", () => {
+    const src = `
+      import { isFragment } from "../react-is-AbCdEf12.js";
+      import { useSyncExternalStoreWithSelector } from "../use-sync-external-store-with-selector-IjKlMn34.js";
+      isFragment; useSyncExternalStoreWithSelector;
+    `;
+    const out = resolveNpmImports(src);
+    const n = normalize(out.code);
+    expect(n).toContain('from "react-is"');
+    expect(n).toContain('from "use-sync-external-store/shim/with-selector"');
+    expect(n).not.toContain("react-is-AbCdEf12");
+    expect(n).not.toContain("use-sync-external-store-with-selector-IjKlMn34");
+    expect(out.stats.specifiersResolved).toBe(2);
+  });
+
   test("rewrites Jotai chunk imports to the npm package", () => {
     const src = `
       import { u as useAtomValue, s as useSetAtom } from "../jotai-react-DpDsdUHx.js";

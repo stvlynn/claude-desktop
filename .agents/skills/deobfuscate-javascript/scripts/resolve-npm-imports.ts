@@ -68,8 +68,13 @@ export const CHUNK_NAME_REGISTRY: Record<string, ChunkRule> = {
   "tslib.es6": { package: "tslib", namedOnly: true },
   react: { package: "react", defaultName: "React" },
   "react-dom": { package: "react-dom", defaultName: "ReactDOM" },
+  "react-is": { package: "react-is", namedOnly: true },
   "jsx-runtime": { package: "react/jsx-runtime", namedOnly: true },
   "jsx-dev-runtime": { package: "react/jsx-dev-runtime", namedOnly: true },
+  "use-sync-external-store-with-selector": {
+    package: "use-sync-external-store/shim/with-selector",
+    namedOnly: true,
+  },
   // @dnd-kit/* chunks usually ship as `core.esm`, `sortable.esm`, `utilities.esm`.
   "core.esm": { package: "@dnd-kit/core", namedOnly: true },
   "sortable.esm": { package: "@dnd-kit/sortable", namedOnly: true },
@@ -165,6 +170,15 @@ export const ALIAS_REGISTRY: Record<string, AliasRule> = {
   flushSync: { package: "react-dom", style: "named" },
   createRoot: { package: "react-dom/client", style: "named" },
   hydrateRoot: { package: "react-dom/client", style: "named" },
+
+  // react-is
+  isFragment: { package: "react-is", style: "named" },
+
+  // use-sync-external-store
+  useSyncExternalStoreWithSelector: {
+    package: "use-sync-external-store/shim/with-selector",
+    style: "named",
+  },
 
   // clsx / classnames default exports
   clsx: { package: "clsx", style: "default" },
