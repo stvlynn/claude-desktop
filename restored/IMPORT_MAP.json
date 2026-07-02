@@ -36963,11 +36963,11 @@
         "z": "lodashZ"
       },
       "status": "done",
-      "note": "Current lodash aggregate alias map re-derived from lodash-BhBwOd7I.js. Public vendor runtime keeps the current export surface while importing restored lodash dependency chunks.",
+      "note": "Current lodash aggregate alias map re-derived from lodash-BhBwOd7I.js. Public vendor runtime is now a named npm re-export shim over lodash.",
       "stage3Accepted": true,
-      "lastUpdated": "2026-06-30T14:37:35.799Z",
-      "stage3AcceptedAt": "2026-06-30T14:37:35.799Z",
-      "stage3Note": "Accepted as a vendored Lodash aggregate runtime with current chunk provenance and validated export aliases."
+      "lastUpdated": "2026-07-02T00:00:00.000-05:00",
+      "stage3AcceptedAt": "2026-07-02T00:00:00.000-05:00",
+      "stage3Note": "Accepted as a vendored Lodash aggregate npm shim with current chunk provenance and validated export aliases."
     },
     "esm-Bs7-NtHW": {
       "restored": "vendor/segment-analytics.ts",
