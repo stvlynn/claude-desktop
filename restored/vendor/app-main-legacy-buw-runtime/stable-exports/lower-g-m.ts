@@ -54,6 +54,7 @@ export { initDocumentSearchIconChunk as legacyAppMainBuwLowerGLowerYExport } fro
 export { EllipsisHorizontalIcon as ThreadRowTooltip } from "../../../icons/ellipsis-horizontal-icon";
 export { initFolderOpenIconChunk as legacyAppMainBuwLowerGLowerHExport } from "../../../icons/folder-open-icon";
 export { Alert as ToastContent } from "../../../utils/alert";
+export { hasRateLimitReached as legacyAppMainBuwLowerGLowerCExport } from "../../../utils/rate-limit-status/account-status";
 
 export { closestCenter as ThreadRowStatusIndicator } from "../../dnd-kit-core";
 
@@ -63,7 +64,6 @@ export {
   gS as legacyAppMainBuwLowerGUpperSExport,
   g_ as legacyAppMainBuwLowerGUnderscoreExport,
   ga as legacyAppMainBuwLowerGLowerAExport,
-  gc as legacyAppMainBuwLowerGLowerCExport,
   gd as legacyAppMainBuwLowerGLowerDExport,
   gf as legacyAppMainBuwLowerGLowerFExport,
   gg as legacyAppMainBuwLowerGLowerGExport,

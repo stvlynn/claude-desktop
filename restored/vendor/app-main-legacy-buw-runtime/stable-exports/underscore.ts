@@ -9,6 +9,7 @@ export {
 export { initTerminalMousePatchRuntime } from "../../../runtime/window-chrome-runtime";
 
 export { normalizeArtifactPathKey } from "../../../runtime/app-main-new-thread-runtime";
+export { isWorkspaceSpendControlReached as legacyAppMainBuwUnderscoreLowerCExport } from "../../../utils/rate-limit-status/account-status";
 
 export {
   _ as legacyAppMainBuwUnderscoreExport,
@@ -16,7 +17,6 @@ export {
   _S as legacyAppMainBuwUnderscoreUpperSExport,
   _a as legacyAppMainBuwUnderscoreLowerAExport,
   _b as legacyAppMainBuwUnderscoreLowerBExport,
-  _c as legacyAppMainBuwUnderscoreLowerCExport,
   _d as legacyAppMainBuwUnderscoreLowerDExport,
   _f as legacyAppMainBuwUnderscoreLowerFExport,
   _g as legacyAppMainBuwUnderscoreLowerGExport,

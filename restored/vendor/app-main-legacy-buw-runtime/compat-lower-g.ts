@@ -10,12 +10,12 @@ export { syncReviewPanelForRestoredSource } from "../../conversations/local-conv
 export { isConversationDetailModeProse as SidebarRowArchiveToast } from "../../runtime/conversation-detail-runtime";
 export { initDocumentSearchIconChunk as appMainCurrentCompatSlotLowerGLowerY } from "../../icons/document-search-icon";
 export { initFolderOpenIconChunk as appMainCurrentCompatSlotLowerGLowerH } from "../../icons/folder-open-icon";
+export { hasRateLimitReached as appMainCurrentCompatSlotLowerGLowerC } from "../../utils/rate-limit-status/account-status";
 
 export {
   g as appMainCurrentCompatSlotLowerG,
   g_ as appMainCurrentCompatSlotLowerGUnderscore,
   ga as appMainCurrentCompatSlotLowerGLowerA,
-  gc as appMainCurrentCompatSlotLowerGLowerC,
   gd as appMainCurrentCompatSlotLowerGLowerD,
   gC as appMainCurrentCompatSlotLowerGUpperC,
   gf as appMainCurrentCompatSlotLowerGLowerF,

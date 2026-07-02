@@ -10,11 +10,11 @@ export { normalizeFilesystemPath } from "../../conversations/fork-conversation-p
 
 export { initTerminalSurfaceRuntime } from "../../runtime/window-chrome-runtime";
 export { initConversationDetailModeRuntime as SidebarRowRemoteEnvironment } from "../../runtime/conversation-detail-runtime";
+export { shouldUseCreditsRateLimitDisplay as appMainCurrentCompatSlotLowerVLowerC } from "../../utils/rate-limit-status/account-status";
 
 export {
   v as appMainCurrentCompatSlotLowerV,
   va as appMainCurrentCompatSlotLowerVLowerA,
-  vc as appMainCurrentCompatSlotLowerVLowerC,
   vC as appMainCurrentCompatSlotLowerVUpperC,
   vd as appMainCurrentCompatSlotLowerVLowerD,
   vf as appMainCurrentCompatSlotLowerVLowerF,

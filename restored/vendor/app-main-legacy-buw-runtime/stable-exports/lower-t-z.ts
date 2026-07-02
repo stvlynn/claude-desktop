@@ -53,6 +53,10 @@ export { initWarningIconChunk as PortalFromLowerTC } from "../../../icons/warnin
 export { initEllipsisHorizontalIconChunk as SidebarRowLocalEnvironment } from "../../../icons/ellipsis-horizontal-icon";
 export { openThreadTimelineSidePanel } from "../../../app-shell/legacy-thread-timeline-side-panel";
 export { initConversationDetailModeRuntime as SidebarRowRemoteEnvironment } from "../../../runtime/conversation-detail-runtime";
+export {
+  isWorkspaceCreditsExhausted as legacyAppMainBuwLowerYLowerCExport,
+  shouldUseCreditsRateLimitDisplay as legacyAppMainBuwLowerVLowerCExport,
+} from "../../../utils/rate-limit-status/account-status";
 
 export {
   t as legacyAppMainBuwLowerTExport,
@@ -95,7 +99,6 @@ export {
   vC as legacyAppMainBuwLowerVUpperCExport,
   vS as legacyAppMainBuwLowerVUpperSExport,
   va as legacyAppMainBuwLowerVLowerAExport,
-  vc as legacyAppMainBuwLowerVLowerCExport,
   vd as legacyAppMainBuwLowerVLowerDExport,
   vf as legacyAppMainBuwLowerVLowerFExport,
   vg as legacyAppMainBuwLowerVLowerGExport,
@@ -151,7 +154,6 @@ export {
   yS as legacyAppMainBuwLowerYUpperSExport,
   ya as legacyAppMainBuwLowerYLowerAExport,
   yb as legacyAppMainBuwLowerYLowerBExport,
-  yc as legacyAppMainBuwLowerYLowerCExport,
   yd as legacyAppMainBuwLowerYLowerDExport,
   yf as legacyAppMainBuwLowerYLowerFExport,
   yg as legacyAppMainBuwLowerYLowerGExport,

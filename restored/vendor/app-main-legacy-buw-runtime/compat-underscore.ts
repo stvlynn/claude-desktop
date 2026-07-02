@@ -9,12 +9,12 @@ export {
 export { initTerminalMousePatchRuntime } from "../../runtime/window-chrome-runtime";
 
 export { normalizeArtifactPathKey } from "../../runtime/app-main-new-thread-runtime";
+export { isWorkspaceSpendControlReached as appMainCurrentCompatSlotUnderscoreLowerC } from "../../utils/rate-limit-status/account-status";
 
 export {
   _ as appMainCurrentCompatSlotUnderscore,
   _a as appMainCurrentCompatSlotUnderscoreLowerA,
   _b as appMainCurrentCompatSlotUnderscoreLowerB,
-  _c as appMainCurrentCompatSlotUnderscoreLowerC,
   _C as appMainCurrentCompatSlotUnderscoreUpperC,
   _d as appMainCurrentCompatSlotUnderscoreLowerD,
   _f as appMainCurrentCompatSlotUnderscoreLowerF,
