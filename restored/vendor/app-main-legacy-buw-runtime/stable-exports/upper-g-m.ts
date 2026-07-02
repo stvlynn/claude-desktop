@@ -63,6 +63,7 @@ export {
   trackConversationalOnboardingLifecycleStarted as legacyAppMainBuwUpperHLowerSExport,
 } from "../../../onboarding/conversational-onboarding-analytics";
 export { trackConversationalOnboardingAccessDenied as legacyAppMainBuwUpperILowerSExport } from "../../../onboarding/conversational-onboarding-access-analytics";
+export { findConnectorAppByIdentifier as legacyAppMainBuwUpperMLowerSExport } from "../../../connectors/apps-queries/onboarding-app-connection";
 
 export {
   G as legacyAppMainBuwUpperGExport,
@@ -180,7 +181,6 @@ export {
   Ml as legacyAppMainBuwUpperMLowerLExport,
   Mm as legacyAppMainBuwUpperMLowerMExport,
   Mp as legacyAppMainBuwUpperMLowerPExport,
-  Ms as legacyAppMainBuwUpperMLowerSExport,
   Mt as legacyAppMainBuwUpperMLowerTExport,
   Mv as legacyAppMainBuwUpperMLowerVExport,
   Mx as legacyAppMainBuwUpperMLowerXExport,

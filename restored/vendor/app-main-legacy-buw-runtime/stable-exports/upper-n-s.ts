@@ -65,6 +65,10 @@ export { NAVIGATE_TO_CODEX_PAGE_TOOL_NAME as legacyAppMainBuwUpperRLowerOExport 
 export { WRITE_SETTINGS_TOOL_NAME as legacyAppMainBuwUpperOLowerOExport } from "../../../settings/settings-tool-definitions";
 export { buildAppgenAccessPolicyWithoutUser as legacyAppMainBuwUpperOLowerSExport } from "../../../utils/appgen-access";
 export { trackConversationalOnboardingExecutionCancelled as legacyAppMainBuwUpperRLowerSExport } from "../../../onboarding/conversational-onboarding-analytics";
+export {
+  appConnectionLinkQueryOptions as legacyAppMainBuwUpperNLowerSExport,
+  initConversationalOnboardingAppConnectionQueryChunk as legacyAppMainBuwUpperPLowerSExport,
+} from "../../../connectors/apps-queries/onboarding-app-connection";
 
 export {
   NC as legacyAppMainBuwUpperNUpperCExport,
@@ -77,7 +81,6 @@ export {
   Nl as legacyAppMainBuwUpperNLowerLExport,
   Nm as legacyAppMainBuwUpperNLowerMExport,
   Np as legacyAppMainBuwUpperNLowerPExport,
-  Ns as legacyAppMainBuwUpperNLowerSExport,
   Nt as legacyAppMainBuwUpperNLowerTExport,
   Nu as legacyAppMainBuwUpperNLowerUExport,
   Nv as legacyAppMainBuwUpperNLowerVExport,
@@ -109,7 +112,6 @@ export {
   Po as legacyAppMainBuwUpperPLowerOExport,
   Pp as legacyAppMainBuwUpperPLowerPExport,
   Pr as legacyAppMainBuwUpperPLowerRExport,
-  Ps as legacyAppMainBuwUpperPLowerSExport,
   Pt as legacyAppMainBuwUpperPLowerTExport,
   Pu as legacyAppMainBuwUpperPLowerUExport,
   Pv as legacyAppMainBuwUpperPLowerVExport,
