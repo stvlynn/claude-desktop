@@ -30,6 +30,10 @@ const setReviewFileTreeOpen = appShellStateImpl.setReviewFileTreeOpen;
 const setActiveAppShellFocusArea = appShellStateImpl.appShellStateTtState;
 const setRightPanelOpenWithOptions =
   appShellStateImpl.setRightPanelOpenWithOptions;
+const appShellFocusAreaAttribute = appShellStateImpl.appShellStateKSignal;
+const bottomPanelLauncherVisibleSignal =
+  appShellStateImpl.appShellStateNSignal;
+const headerActionRegistries = appShellStateImpl.appShellStateZSignal;
 
 const appShellStateExportDollar = appShellStateImpl.appShellStateDollarState;
 const appShellStateExportA = bottomPanelPreviousFocusAreaSignal;
@@ -75,23 +79,23 @@ const appShellStateExportHAlias = reviewFileTreeOpenAnimationSignal;
 const appShellStateExportIAlias = appShellStateImpl.appShellStateISignal;
 const appShellStateExportIt = appShellStateImpl.appShellStateItState;
 const appShellStateExportJAlias = activeAppShellFocusAreaSignal;
-const appShellStateExportKAlias = appShellStateImpl.appShellStateKState;
+const appShellStateExportKAlias = appShellFocusAreaAttribute;
 const appShellStateExportLAlias = sidebarHoverOpenSuppressedSignal;
 const appShellStateExportLt = appShellStateImpl.appShellStateLtState;
 const appShellStateExportMAlias = sidebarHoverLauncherVisibleSignal;
 const appShellStateExportMt = appShellStateImpl.appShellStateMtState;
-const appShellStateExportNAlias = appShellStateImpl.appShellStateNState;
+const appShellStateExportNAlias = bottomPanelLauncherVisibleSignal;
 const appShellStateExportNt = appShellStateImpl.appShellStateNtState;
 const appShellStateExportOAlias = rightPanelOpenSignal;
 const appShellStateExportOt = appShellStateImpl.appShellStateOtState;
 const appShellStateExportPAlias = appShellStateImpl.appShellStatePSignal;
 const appShellStateExportPt = appShellStateImpl.appShellStatePtState;
-const appShellStateExportQAlias = appShellStateImpl.appShellStateQState;
+const appShellStateExportQAlias = appShellStateImpl.appShellStateQSignal;
 const appShellStateExportRAlias = bottomPanelOpenSignal;
 const appShellStateExportRt = appShellStateImpl.appShellStateRtState;
 const appShellStateExportSAlias = sidebarAnimatingSignal;
 const appShellStateExportSt = appShellStateImpl.appShellStateStState;
-const appShellStateExportTAlias = appShellStateImpl.appShellStateTState;
+const appShellStateExportTAlias = appShellStateImpl.appShellStateTSignal;
 const appShellStateExportTt = setActiveAppShellFocusArea;
 const appShellStateExportUAlias = sidebarOpenSignal;
 const appShellStateExportUt = appShellStateImpl.appShellStateUtState;
@@ -101,7 +105,7 @@ const ensureBottomPanelLauncherVisibilityDefault =
 const appShellStateExportWAlias = setReviewFileTreeOpen;
 const appShellStateExportXAlias = setRightPanelOpenWithOptions;
 const appShellStateExportYAlias = appShellStateImpl.appShellStateYSignal;
-const appShellStateExportZAlias = appShellStateImpl.appShellStateZState;
+const appShellStateExportZAlias = headerActionRegistries;
 const appShellStateDSignal = appShellStateExportDAlias;
 const appShellStateISignal = appShellStateExportIAlias;
 const appShellStateKSignal = appShellStateExportKAlias;
@@ -139,6 +143,9 @@ export {
   setReviewFileTreeOpen,
   setActiveAppShellFocusArea,
   setRightPanelOpenWithOptions,
+  appShellFocusAreaAttribute,
+  bottomPanelLauncherVisibleSignal,
+  headerActionRegistries,
   appShellStateDSignal,
   appShellStateISignal,
   appShellStateKSignal,
