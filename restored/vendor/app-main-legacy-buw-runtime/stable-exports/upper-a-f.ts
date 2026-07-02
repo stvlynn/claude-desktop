@@ -58,12 +58,16 @@ export { stashPendingWorktreePanelState as copyConversationStateToFork } from ".
 export { CSS as ThreadRowLayout } from "../../dnd-kit-utilities";
 export { initPendingWorktreeStoreRuntime as initPendingWorktreeComposerRuntimeChunk } from "../../../threads/pending-worktree-store";
 export { initReviewRouteContextRuntime as initReviewRouteContextChunk } from "../../../review/thread-review-context";
+export {
+  formatDateAndTime as legacyAppMainBuwUpperELowerCExport,
+  formatResetDate as legacyAppMainBuwUpperDLowerCExport,
+} from "../../../utils/rate-limit-status/formatting";
+export { secondsUntilUnixSeconds as legacyAppMainBuwUpperALowerCExport } from "../../../utils/rate-limit-status/windows";
 
 export {
   A as legacyAppMainBuwUpperAExport,
   Aa as legacyAppMainBuwUpperALowerAExport,
   Ab as legacyAppMainBuwUpperALowerBExport,
-  Ac as legacyAppMainBuwUpperALowerCExport,
   Af as legacyAppMainBuwUpperALowerFExport,
   Ag as legacyAppMainBuwUpperALowerGExport,
   Ah as legacyAppMainBuwUpperALowerHExport,
@@ -117,7 +121,6 @@ export {
   DS as legacyAppMainBuwUpperDUpperSExport,
   Da as legacyAppMainBuwUpperDLowerAExport,
   Db as legacyAppMainBuwUpperDLowerBExport,
-  Dc as legacyAppMainBuwUpperDLowerCExport,
   Dd as legacyAppMainBuwUpperDLowerDExport,
   Df as legacyAppMainBuwUpperDLowerFExport,
   Dh as legacyAppMainBuwUpperDLowerHExport,
@@ -137,7 +140,6 @@ export {
   ES as legacyAppMainBuwUpperEUpperSExport,
   Ea as legacyAppMainBuwUpperELowerAExport,
   Eb as legacyAppMainBuwUpperELowerBExport,
-  Ec as legacyAppMainBuwUpperELowerCExport,
   Ed as legacyAppMainBuwUpperELowerDExport,
   Ef as legacyAppMainBuwUpperELowerFExport,
   Eg as legacyAppMainBuwUpperELowerGExport,

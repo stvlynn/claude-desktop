@@ -12,12 +12,12 @@ export { focusAreaStateKey } from "../../conversations/fork-conversation-panel-s
 export { initTerminalFontSettingsChunk } from "../../runtime/window-chrome-runtime";
 
 export { computePointerVelocity as appMainCurrentCompatSlotUpperALowerD } from "../../runtime/pointer-velocity-signals";
+export { secondsUntilUnixSeconds as appMainCurrentCompatSlotUpperALowerC } from "../../utils/rate-limit-status/windows";
 
 export {
   A as appMainCurrentCompatSlotUpperA,
   Aa as appMainCurrentCompatSlotUpperALowerA,
   Ab as appMainCurrentCompatSlotUpperALowerB,
-  Ac as appMainCurrentCompatSlotUpperALowerC,
   Af as appMainCurrentCompatSlotUpperALowerF,
   Ag as appMainCurrentCompatSlotUpperALowerG,
   Ah as appMainCurrentCompatSlotUpperALowerH,

@@ -9,12 +9,12 @@ export { normalizeWorkspacePath } from "../app-main-current-runtime";
 export { findActiveDomainAtom } from "../../find/thread-find-atoms";
 
 export { scheduleReviewRestore } from "../../conversations/local-conversation-page-runtime";
+export { hasRateLimitWindow as appMainCurrentCompatSlotLowerJLowerC } from "../../utils/rate-limit-status/windows";
 
 export {
   j as appMainCurrentCompatSlotLowerJ,
   ja as appMainCurrentCompatSlotLowerJLowerA,
   jb as appMainCurrentCompatSlotLowerJLowerB,
-  jc as appMainCurrentCompatSlotLowerJLowerC,
   jC as appMainCurrentCompatSlotLowerJUpperC,
   jd as appMainCurrentCompatSlotLowerJLowerD,
   jf as appMainCurrentCompatSlotLowerJLowerF,

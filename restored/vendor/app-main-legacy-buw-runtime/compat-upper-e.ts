@@ -7,12 +7,12 @@ export { initTerminalLinkHandlerChunk } from "../../runtime/window-chrome-runtim
 export { Primitive } from "../radix-primitive-helpers";
 
 export { stashPendingWorktreePanelState as copyConversationStateToFork } from "../../conversations/fork-conversation-panel-state";
+export { formatDateAndTime as appMainCurrentCompatSlotUpperELowerC } from "../../utils/rate-limit-status/formatting";
 
 export {
   E as appMainCurrentCompatSlotUpperE,
   Ea as appMainCurrentCompatSlotUpperELowerA,
   Eb as appMainCurrentCompatSlotUpperELowerB,
-  Ec as appMainCurrentCompatSlotUpperELowerC,
   Ed as appMainCurrentCompatSlotUpperELowerD,
   Ef as appMainCurrentCompatSlotUpperELowerF,
   Eg as appMainCurrentCompatSlotUpperELowerG,

@@ -57,7 +57,10 @@ export { Alert as ToastContent } from "../../../utils/alert";
 export { hasRateLimitReached as legacyAppMainBuwLowerGLowerCExport } from "../../../utils/rate-limit-status/account-status";
 export { hasBasicRateLimitReached as legacyAppMainBuwLowerHLowerCExport } from "../../../utils/rate-limit-status/account-status";
 export { formatResetTimestamp as legacyAppMainBuwLowerLLowerCExport } from "../../../utils/rate-limit-status/formatting";
-export { remainingUsagePercent as legacyAppMainBuwLowerKLowerCExport } from "../../../utils/rate-limit-status/windows";
+export {
+  hasRateLimitWindow as legacyAppMainBuwLowerJLowerCExport,
+  remainingUsagePercent as legacyAppMainBuwLowerKLowerCExport,
+} from "../../../utils/rate-limit-status/windows";
 
 export { closestCenter as ThreadRowStatusIndicator } from "../../dnd-kit-core";
 
@@ -119,7 +122,6 @@ export {
   jS as legacyAppMainBuwLowerJUpperSExport,
   ja as legacyAppMainBuwLowerJLowerAExport,
   jb as legacyAppMainBuwLowerJLowerBExport,
-  jc as legacyAppMainBuwLowerJLowerCExport,
   jd as legacyAppMainBuwLowerJLowerDExport,
   jf as legacyAppMainBuwLowerJLowerFExport,
   jh as legacyAppMainBuwLowerJLowerHExport,

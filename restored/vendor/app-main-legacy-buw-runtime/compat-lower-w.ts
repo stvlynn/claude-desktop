@@ -7,12 +7,12 @@ export { browserTabIdForConversation } from "../app-main-current-runtime";
 
 export { initTerminalMouseCoordinatePatchRuntime } from "../../runtime/window-chrome-runtime";
 export { initDndKitUtilitiesRuntime as ThreadRowWorktreeMeta } from "../dnd-kit-utilities";
+export { formatRemainingPercent as appMainCurrentCompatSlotLowerWLowerC } from "../../utils/rate-limit-status/formatting";
 
 export {
   w as appMainCurrentCompatSlotLowerW,
   wa as appMainCurrentCompatSlotLowerWLowerA,
   wb as appMainCurrentCompatSlotLowerWLowerB,
-  wc as appMainCurrentCompatSlotLowerWLowerC,
   wC as appMainCurrentCompatSlotLowerWUpperC,
   wd as appMainCurrentCompatSlotLowerWLowerD,
   wf as appMainCurrentCompatSlotLowerWLowerF,

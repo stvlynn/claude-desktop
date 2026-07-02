@@ -53,13 +53,13 @@ export {
   initAvatarIconChunk as legacyAppMainBuwUpperWLowerNExport,
 } from "../../../icons/avatar-icon";
 export { handleGetHandoffStatus as pathsMatch } from "../../../conversations/handoff-thread-tool-handlers";
+export { formatRateLimitWindowLabel as legacyAppMainBuwUpperTLowerCExport } from "../../../utils/rate-limit-status/formatting";
 
 export {
   T as legacyAppMainBuwUpperTExport,
   TS as legacyAppMainBuwUpperTUpperSExport,
   Ta as legacyAppMainBuwUpperTLowerAExport,
   Tb as legacyAppMainBuwUpperTLowerBExport,
-  Tc as legacyAppMainBuwUpperTLowerCExport,
   Td as legacyAppMainBuwUpperTLowerDExport,
   Tf as legacyAppMainBuwUpperTLowerFExport,
   Th as legacyAppMainBuwUpperTLowerHExport,

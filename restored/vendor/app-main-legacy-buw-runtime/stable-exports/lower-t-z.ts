@@ -53,6 +53,7 @@ export { initWarningIconChunk as PortalFromLowerTC } from "../../../icons/warnin
 export { initEllipsisHorizontalIconChunk as SidebarRowLocalEnvironment } from "../../../icons/ellipsis-horizontal-icon";
 export { openThreadTimelineSidePanel } from "../../../app-shell/legacy-thread-timeline-side-panel";
 export { initConversationDetailModeRuntime as SidebarRowRemoteEnvironment } from "../../../runtime/conversation-detail-runtime";
+export { formatRemainingPercent as legacyAppMainBuwLowerWLowerCExport } from "../../../utils/rate-limit-status/formatting";
 export {
   getSpendControlWarningThreshold as legacyAppMainBuwLowerULowerCExport,
   isWorkspaceCreditsExhausted as legacyAppMainBuwLowerYLowerCExport,
@@ -117,7 +118,6 @@ export {
   wS as legacyAppMainBuwLowerWUpperSExport,
   wa as legacyAppMainBuwLowerWLowerAExport,
   wb as legacyAppMainBuwLowerWLowerBExport,
-  wc as legacyAppMainBuwLowerWLowerCExport,
   wd as legacyAppMainBuwLowerWLowerDExport,
   wf as legacyAppMainBuwLowerWLowerFExport,
   wg as legacyAppMainBuwLowerWLowerGExport,

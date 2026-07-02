@@ -54,6 +54,7 @@ export { createPendingWorktree } from "../../../runtime/conversation-fork-runtim
 
 export { useSensors as ThreadRowArchiveAction } from "../../dnd-kit-core";
 export { parseUnixSeconds as legacyAppMainBuwUpperNLowerCExport } from "../../../utils/rate-limit-status/windows";
+export { selectRateLimitAlert as legacyAppMainBuwUpperOLowerCExport } from "../../../utils/rate-limit-status/windows";
 
 export {
   NC as legacyAppMainBuwUpperNUpperCExport,
@@ -75,7 +76,6 @@ export {
   OS as legacyAppMainBuwUpperOUpperSExport,
   Oa as legacyAppMainBuwUpperOLowerAExport,
   Ob as legacyAppMainBuwUpperOLowerBExport,
-  Oc as legacyAppMainBuwUpperOLowerCExport,
   Od as legacyAppMainBuwUpperOLowerDExport,
   Of as legacyAppMainBuwUpperOLowerFExport,
   Oh as legacyAppMainBuwUpperOLowerHExport,
