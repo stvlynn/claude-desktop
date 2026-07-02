@@ -585,6 +585,97 @@ describe("quality-gate", () => {
     expect(report.issues).toEqual([]);
   });
 
+  test("fails hand-written D3 shape vendor shims", () => {
+    const source = `
+      // Restored from ref/webview/assets/step-K6tEdR0Q.js
+      export function stepH(context) {
+        return {
+          lineStart() {},
+          lineEnd() {},
+          point(x, y) {
+            context.lineTo(x, y);
+          },
+        };
+      }
+      export function stepR(context) {
+        return stepH(context);
+      }
+    `;
+    const report = analyzeSource(source, "restored/vendor/d3-shape-curves.ts", {
+      ...DEFAULT_OPTIONS,
+      allowFlat: true,
+      allowUntyped: true,
+      vendored: true,
+    });
+    expect(report.issues.map((issue) => issue.code)).toContain(
+      "third-party-npm-shim-not-reexport",
+    );
+    expect(
+      report.issues.find(
+        (issue) => issue.code === "third-party-npm-shim-not-reexport",
+      )?.detail,
+    ).toMatchObject({ expectedSpecifiers: ["d3-shape"] });
+  });
+
+  test("fails renamed D3 shape source chunks that do not re-export npm", () => {
+    const source = `
+      // Restored from ref/webview/assets/arc-D3MQZVTw.js
+      export function createArc() {
+        return () => "M0,0";
+      }
+    `;
+    const report = analyzeSource(source, "restored/vendor/diagram-arc.ts", {
+      ...DEFAULT_OPTIONS,
+      allowFlat: true,
+      allowUntyped: true,
+    });
+    expect(report.issues.map((issue) => issue.code)).toContain(
+      "third-party-npm-shim-not-reexport",
+    );
+  });
+
+  test("passes D3 shape shims that re-export the npm package", () => {
+    const root = makeTmpRoot();
+    const vendorDir = path.join(root, "restored", "vendor");
+    fs.mkdirSync(vendorDir, { recursive: true });
+    fs.writeFileSync(
+      path.join(root, "package.json"),
+      JSON.stringify({ dependencies: { "d3-shape": "^3.2.0" } }),
+    );
+
+    const source = `
+      // Restored from ref/webview/assets/step-K6tEdR0Q.js
+      export {
+        curveBasis as stepH,
+        curveBasisClosed as stepM,
+        curveBasisOpen as stepP,
+        curveBumpX as stepG,
+        curveBumpY as stepUnderscore,
+        curveBundle as stepF,
+        curveCardinal as stepD,
+        curveCardinalClosed as stepU,
+        curveCardinalOpen as stepL,
+        curveCatmullRom as stepC,
+        curveCatmullRomClosed as stepS,
+        curveCatmullRomOpen as stepO,
+        curveLinearClosed as stepA,
+        curveNatural as stepI,
+        curveStep as stepR,
+        curveStepAfter as stepT,
+        curveStepBefore as stepN,
+      } from "d3-shape";
+    `;
+    const report = analyzeSource(
+      source,
+      path.join(vendorDir, "d3-shape-curves.ts"),
+      {
+        ...DEFAULT_OPTIONS,
+        allowFlat: true,
+      },
+    );
+    expect(report.issues).toEqual([]);
+  });
+
   test("fails hand-written Lodash current vendor shims", () => {
     const source = `
       // Restored from ref/webview/assets/lodash-BhBwOd7I.js

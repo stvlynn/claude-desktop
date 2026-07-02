@@ -197,6 +197,7 @@ repo (record the package in IMPORT_MAP `vendor`; `classifyBoundary()` reads it):
 | `d3-hierarchy-treemap.ts` (`treemap-*`)                                  | `d3-hierarchy`                                                            | legacy treemap helper aliases                                   |
 | `d3-sankey.ts` (`src-6yFswxVy`)                                          | `d3-sankey`                                                               | Sankey layout exports for Mermaid                               |
 | `d3-sankey-link-horizontal.ts` (`sankeyLinkHorizontal-*`)                | `d3-sankey`                                                               | legacy Sankey helper aliases                                    |
+| `d3-shape-*.ts` (`arc-*`, `line-*`, `pie-*`, `step-*`, `monotone-*`)     | `d3-shape`                                                                | Mermaid arc/line/pie/stack/curve helpers and legacy aliases     |
 | `cytoscape-runtime.ts` (`cytoscape.esm-*`)                               | `cytoscape`                                                               | pin to bundled Cytoscape runtime version                        |
 | `cytoscape-fcose.ts` (`cytoscape-fcose-*`)                               | `cytoscape-fcose`                                                         | layout plugin loader                                            |
 | `cytoscape-cose-bilkent.ts` (`cytoscape-cose-bilkent-*`)                 | `cytoscape-cose-bilkent`                                                  | layout plugin loader; add a local module declaration if needed  |
@@ -261,7 +262,11 @@ be re-exported from `react-style-singleton`, not reimplemented.
 For D3/Mermaid helpers, `src-BhkLFyc4` is `d3-hierarchy` plus
 `d3-scale-chromatic`, `src-6yFswxVy` is `d3-sankey`, and legacy
 `treemap-*` / `sankeyLinkHorizontal-*` chunks are the same upstream public
-helpers under minified aliases.
+helpers under minified aliases. The D3 shape helper chunks (`arc-*`, `line-*`,
+`pie-*`, `step-*`, `monotone-*`, plus the semantic `d3-shape-*` public files)
+are stock `d3-shape` surfaces; preserve legacy aliases by re-exporting real
+package exports such as `curveBasis`, `curveCardinal`, `curveCatmullRom`,
+`curveNatural`, and `curveStep*`.
 RoughJS has both provenance and API-fingerprint coverage: `rough.esm-*` chunks
 or vendor files exporting `roughjs` plus `canvas`/`svg`/`generator` must resolve
 to the `roughjs` package.
