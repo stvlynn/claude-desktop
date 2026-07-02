@@ -79,6 +79,7 @@ export {
 } from "../../../utils/appgen-access-state-messages";
 export {
   hasRateLimitWindow as legacyAppMainBuwLowerJLowerCExport,
+  initRateLimitStatusDependenciesChunk as legacyAppMainBuwLowerMLowerCExport,
   remainingUsagePercent as legacyAppMainBuwLowerKLowerCExport,
 } from "../../../utils/rate-limit-status/windows";
 
@@ -183,7 +184,6 @@ export {
   m_ as legacyAppMainBuwLowerMUnderscoreExport,
   ma as legacyAppMainBuwLowerMLowerAExport,
   mb as legacyAppMainBuwLowerMLowerBExport,
-  mc as legacyAppMainBuwLowerMLowerCExport,
   md as legacyAppMainBuwLowerMLowerDExport,
   mf as legacyAppMainBuwLowerMLowerFExport,
   mm as legacyAppMainBuwLowerMLowerMExport,

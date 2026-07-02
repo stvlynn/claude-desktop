@@ -55,6 +55,7 @@ export {
   OPENAI_APPS_SDK_DOCS_URL as legacyAppMainBuwUpperILowerCExport,
 } from "../../../utils/links-bd-mmkun-d";
 export { OPEN_IN_CODEX_TOOL_NAME as legacyAppMainBuwUpperMLowerOExport } from "../../../runtime/run-app-action-in-primary-window";
+export { applyRequestUserInputAutoResolutionChange as legacyAppMainBuwUpperJLowerSExport } from "../../../runtime/request-user-input-auto-resolution";
 
 export {
   G as legacyAppMainBuwUpperGExport,
@@ -122,7 +123,6 @@ export {
   Jo as legacyAppMainBuwUpperJLowerOExport,
   Jp as legacyAppMainBuwUpperJLowerPExport,
   Jr as legacyAppMainBuwUpperJLowerRExport,
-  Js as legacyAppMainBuwUpperJLowerSExport,
   Jt as legacyAppMainBuwUpperJLowerTExport,
   Ju as legacyAppMainBuwUpperJLowerUExport,
   Jv as legacyAppMainBuwUpperJLowerVExport,
