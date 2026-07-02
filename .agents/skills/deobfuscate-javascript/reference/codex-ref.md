@@ -183,37 +183,41 @@ a **bare re-export shim** (`make-facade.ts <chunk> --reexport <specifier>`), not
 `any`-facade — `boundaries/highlight-js-core.ts` is the model. The map seen in this
 repo (record the package in IMPORT_MAP `vendor`; `classifyBoundary()` reads it):
 
-| Boundary file (chunk)                                                    | npm specifier                  | notes                                                           |
-| ------------------------------------------------------------------------ | ------------------------------ | --------------------------------------------------------------- |
-| `lodash.ts` (`isEqual-*`)                                                | `lodash`                       | named/star re-export                                            |
-| `lodash-current-runtime.ts` (`lodash-*`)                                 | `lodash`                       | current aggregate aliases; named re-export shim                 |
-| `react-router.ts` (`chunk-LFPYN7LY-*`)                                   | `react-router`                 |                                                                 |
-| `cmdk.tsx` (`dist-*`)                                                    | `cmdk`                         | command palette primitives                                      |
-| `tanstack-react-form.ts` (`esm-*`)                                       | `@tanstack/react-form`         | form hook wrapper                                               |
-| `d3-axis-current-runtime.ts` (`src-*`)                                   | `d3-axis` + `d3-selection`     | axis/selection exports; generic `src` basename                  |
-| `cytoscape-runtime.ts` (`cytoscape.esm-*`)                               | `cytoscape`                    | pin to bundled Cytoscape runtime version                        |
-| `cytoscape-fcose.ts` (`cytoscape-fcose-*`)                               | `cytoscape-fcose`              | layout plugin loader                                            |
-| `cytoscape-cose-bilkent.ts` (`cytoscape-cose-bilkent-*`)                 | `cytoscape-cose-bilkent`       | layout plugin loader; add a local module declaration if needed  |
-| `react-dom-client.ts` (`client-*`)                                       | `react-dom/client`             | client root loader/re-export shim                               |
-| `formatjs.ts` (`lib-BWT6A3Q0`)                                           | `react-intl`                   | consumers import `useIntl`/`FormattedMessage`                   |
-| `react-is-runtime.ts`                                                    | `react-is`                     | React companion package; keep loader shape if needed            |
-| `react-style-singleton.ts` (`react-style-singleton-*` / API fingerprint) | `react-style-singleton`        | style singleton helpers; package ships its own types            |
-| `use-sync-external-store-*.ts`                                           | `use-sync-external-store`      | `shim/with-selector` selector helper                            |
-| `react-colorful.tsx` (`dist-*`)                                          | `react-colorful`               | preserve `Dist` as `HexColorPicker` alias                       |
-| `react-colorful-hex-picker.ts` (`app-initial~…`)                         | `react-colorful`               | current HexColorPicker chunk shim                               |
-| `dotlottie-react.tsx` (`browser-*`)                                      | `@lottiefiles/dotlottie-react` | pin version to the bundled `@lottiefiles/dotlottie-web` runtime |
-| `dayjs-core-alt.ts` (`chunk-AGHRB4JF-*`)                                 | `dayjs`                        | keep small typed Mermaid logger/name helper wrapper             |
-| `katex.ts` (`katex-*`)                                                   | `katex`                        | pin to bundled KaTeX version; preserve internal alias exports   |
-| `roughjs.ts` (`rough.esm-*`)                                             | `roughjs`                      | RoughJS generator facade; use package default export            |
-| `jotai-runtime.ts` (`jotai-react-*`)                                     | `jotai`                        | atom/store hooks; keep a thin app-facing alias shim only        |
-| `dnd-kit-*.ts` (`core.esm-*`, etc.)                                      | `@dnd-kit/*`                   | core/sortable/utilities re-export shims                         |
-| `framer-motion-single-value.ts` (`single-value-*`)                       | `framer-motion`                | MotionValue/motionValue alias shim                              |
-| `framer-motion-animate-sequence.ts` (`app-shell-state-*`)                | `framer-motion`                | animate/createScopedAnimate alias shim                          |
-| `markdown-ast.ts` (`lib-CqEvD6Nn`)                                       | `mdast-util-*`                 | confirm the exact util                                          |
-| `parse-patch-files.ts` (`parsePatchFiles-*`)                             | `@pierre/diffs`                | **forked** — see Pierre note; keep wrapper if it diverges       |
-| `src.ts` (`src-*`)                                                       | `zod`                          | verify it is stock Zod, not a fork                              |
-| `segment-analytics.ts` (`pkg-*`, `esm-Bs7-NtHW`)                         | `@segment/analytics-next`      | Segment browser SDK + analytics-core compatibility aliases      |
-| `radix-*.ts` (`dist-*`, `Combination-*`)                                 | `@radix-ui/react-*`            | per-primitive; **may be forked**                                |
+| Boundary file (chunk)                                                    | npm specifier                         | notes                                                           |
+| ------------------------------------------------------------------------ | ------------------------------------- | --------------------------------------------------------------- |
+| `lodash.ts` (`isEqual-*`)                                                | `lodash`                              | named/star re-export                                            |
+| `lodash-current-runtime.ts` (`lodash-*`)                                 | `lodash`                              | current aggregate aliases; named re-export shim                 |
+| `react-router.ts` (`chunk-LFPYN7LY-*`)                                   | `react-router`                        |                                                                 |
+| `cmdk.tsx` (`dist-*`)                                                    | `cmdk`                                | command palette primitives                                      |
+| `tanstack-react-form.ts` (`esm-*`)                                       | `@tanstack/react-form`                | form hook wrapper                                               |
+| `d3-axis-current-runtime.ts` (`src-*`)                                   | `d3-axis` + `d3-selection`            | axis/selection exports; generic `src` basename                  |
+| `d3-hierarchy.ts` (`src-BhkLFyc4`)                                       | `d3-hierarchy` + `d3-scale-chromatic` | hierarchy/treemap helpers and color schemes for Mermaid         |
+| `d3-hierarchy-treemap.ts` (`treemap-*`)                                  | `d3-hierarchy`                        | legacy treemap helper aliases                                   |
+| `d3-sankey.ts` (`src-6yFswxVy`)                                          | `d3-sankey`                           | Sankey layout exports for Mermaid                               |
+| `d3-sankey-link-horizontal.ts` (`sankeyLinkHorizontal-*`)                | `d3-sankey`                           | legacy Sankey helper aliases                                    |
+| `cytoscape-runtime.ts` (`cytoscape.esm-*`)                               | `cytoscape`                           | pin to bundled Cytoscape runtime version                        |
+| `cytoscape-fcose.ts` (`cytoscape-fcose-*`)                               | `cytoscape-fcose`                     | layout plugin loader                                            |
+| `cytoscape-cose-bilkent.ts` (`cytoscape-cose-bilkent-*`)                 | `cytoscape-cose-bilkent`              | layout plugin loader; add a local module declaration if needed  |
+| `react-dom-client.ts` (`client-*`)                                       | `react-dom/client`                    | client root loader/re-export shim                               |
+| `formatjs.ts` (`lib-BWT6A3Q0`)                                           | `react-intl`                          | consumers import `useIntl`/`FormattedMessage`                   |
+| `react-is-runtime.ts`                                                    | `react-is`                            | React companion package; keep loader shape if needed            |
+| `react-style-singleton.ts` (`react-style-singleton-*` / API fingerprint) | `react-style-singleton`               | style singleton helpers; package ships its own types            |
+| `use-sync-external-store-*.ts`                                           | `use-sync-external-store`             | `shim/with-selector` selector helper                            |
+| `react-colorful.tsx` (`dist-*`)                                          | `react-colorful`                      | preserve `Dist` as `HexColorPicker` alias                       |
+| `react-colorful-hex-picker.ts` (`app-initial~…`)                         | `react-colorful`                      | current HexColorPicker chunk shim                               |
+| `dotlottie-react.tsx` (`browser-*`)                                      | `@lottiefiles/dotlottie-react`        | pin version to the bundled `@lottiefiles/dotlottie-web` runtime |
+| `dayjs-core-alt.ts` (`chunk-AGHRB4JF-*`)                                 | `dayjs`                               | keep small typed Mermaid logger/name helper wrapper             |
+| `katex.ts` (`katex-*`)                                                   | `katex`                               | pin to bundled KaTeX version; preserve internal alias exports   |
+| `roughjs.ts` (`rough.esm-*`)                                             | `roughjs`                             | RoughJS generator facade; use package default export            |
+| `jotai-runtime.ts` (`jotai-react-*`)                                     | `jotai`                               | atom/store hooks; keep a thin app-facing alias shim only        |
+| `dnd-kit-*.ts` (`core.esm-*`, etc.)                                      | `@dnd-kit/*`                          | core/sortable/utilities re-export shims                         |
+| `framer-motion-single-value.ts` (`single-value-*`)                       | `framer-motion`                       | MotionValue/motionValue alias shim                              |
+| `framer-motion-animate-sequence.ts` (`app-shell-state-*`)                | `framer-motion`                       | animate/createScopedAnimate alias shim                          |
+| `markdown-ast.ts` (`lib-CqEvD6Nn`)                                       | `mdast-util-*`                        | confirm the exact util                                          |
+| `parse-patch-files.ts` (`parsePatchFiles-*`)                             | `@pierre/diffs`                       | **forked** — see Pierre note; keep wrapper if it diverges       |
+| `src.ts` (`src-*`)                                                       | `zod`                                 | verify it is stock Zod, not a fork                              |
+| `segment-analytics.ts` (`pkg-*`, `esm-Bs7-NtHW`)                         | `@segment/analytics-next`             | Segment browser SDK + analytics-core compatibility aliases      |
+| `radix-*.ts` (`dist-*`, `Combination-*`)                                 | `@radix-ui/react-*`                   | per-primitive; **may be forked**                                |
 
 **Fork caveat:** `@pierre/*`, `@radix-ui/*`, and `zod`(`src`) may be Codex forks, not
 stock npm. Before swapping to a bare specifier, confirm the export surface matches
@@ -221,8 +225,8 @@ stock. Prefer `ref/node_modules` proof when available, but do not require it for
 unforked, high-confidence packages already listed above: `formatjs.ts` /
 `lib-BWT6A3Q0` is `react-intl` even if the extracted app snapshot lacks
 `ref/node_modules/react-intl` or a `react-intl` package entry. The same rule
-applies to React Router, cmdk, TanStack React Form, React companion packages
-(`react-dom/client`, `react-is`, `react-style-singleton`,
+applies to React Router, cmdk, TanStack React Form, D3 diagram helpers, React
+companion packages (`react-dom/client`, `react-is`, `react-style-singleton`,
 `use-sync-external-store`), react-colorful, dotLottie React, Day.js, KaTeX,
 RoughJS, Cytoscape runtime/plugins, Jotai, `@dnd-kit/*`, and other
 high-confidence registry packages. In
@@ -247,6 +251,10 @@ The same rule applies to Segment: a `vendor/*` file exporting
 And to react-style-singleton: exports such as `styleHookSingleton`,
 `styleSingleton`, or `stylesheetSingleton` are package fingerprints and should
 be re-exported from `react-style-singleton`, not reimplemented.
+For D3/Mermaid helpers, `src-BhkLFyc4` is `d3-hierarchy` plus
+`d3-scale-chromatic`, `src-6yFswxVy` is `d3-sankey`, and legacy
+`treemap-*` / `sankeyLinkHorizontal-*` chunks are the same upstream public
+helpers under minified aliases.
 RoughJS has both provenance and API-fingerprint coverage: `rough.esm-*` chunks
 or vendor files exporting `roughjs` plus `canvas`/`svg`/`generator` must resolve
 to the `roughjs` package.
