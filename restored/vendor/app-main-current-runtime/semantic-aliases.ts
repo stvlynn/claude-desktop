@@ -597,10 +597,12 @@ export { initSidePanelBrowserTabCommandsChunk } from "../../browser/side-panel-b
 export { openExistingBrowserTab } from "../../browser/side-panel-browser-tab-open-existing";
 export { BrowserTabMetadataSyncEffect } from "../../browser/browser-tab-metadata-sync-effect";
 export {
+  openReviewTab as openThreadReviewSidePanelTab,
   openBranchReviewTab,
   openReviewTab,
   openReviewTabForConversation,
 } from "../../review/review-side-panel-tab-commands";
+export { openBrowserRouteSidePanelTabUnavailable as openThreadTimelineSidePanel } from "../../browser/browser-route-side-panel-stubs";
 export {
   initReviewSidePanelTabContentChunk,
   ReviewSidePanelTabContent,
