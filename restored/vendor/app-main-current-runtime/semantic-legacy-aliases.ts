@@ -43,6 +43,9 @@ export {
   parseHttpsUrl as associateBranchWithConversation,
 } from "../../conversations/parse-https-url";
 export {
+  isDeeplyDifferent as initSidebarRowPrimitivesChunk,
+} from "../../utils/is-deeply-different";
+export {
   TwoPeopleShieldIcon as openThreadMcpAppSidePanelTab,
 } from "../../icons/two-people-shield-icon";
 export {
@@ -76,7 +79,6 @@ export {
   Jd as ThreadRowHoverCard,
   Jl as ThreadRowTitle,
   Kd as ThreadRowMeta,
-  Mr as initSidebarRowPrimitivesChunk,
   Nn as SidebarRowActionButton,
   Nr as SidebarRowContextMenu,
   Oi as SidebarRowOverflowMenu,
