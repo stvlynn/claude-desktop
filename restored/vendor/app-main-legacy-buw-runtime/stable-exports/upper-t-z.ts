@@ -1,5 +1,7 @@
 // Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
 // Stable BUw aliases: upper-t-z.
+export { initExpandIconChunk as legacyAppMainBuwUpperVLowerDExport } from "../../../icons/expand-icon";
+export { initCanvasCubeIconChunk as legacyAppMainBuwUpperXLowerNExport } from "../../../icons/canvas-cube-icon";
 export { BrowserWindowIcon as legacyAppMainBuwUpperYExport } from "../../../icons/browser-window-icon";
 export { CanvasCubeIcon as legacyAppMainBuwUpperYLowerNExport } from "../../../icons/canvas-cube-icon";
 export { ShieldCodeIcon as legacyAppMainBuwUpperZLowerOExport } from "../../../icons/shield-code-icon";
@@ -98,7 +100,6 @@ export {
   Va as legacyAppMainBuwUpperVLowerAExport,
   Vb as legacyAppMainBuwUpperVLowerBExport,
   Vc as legacyAppMainBuwUpperVLowerCExport,
-  Vd as legacyAppMainBuwUpperVLowerDExport,
   Vf as legacyAppMainBuwUpperVLowerFExport,
   Vg as legacyAppMainBuwUpperVLowerGExport,
   Vh as legacyAppMainBuwUpperVLowerHExport,
@@ -139,7 +140,6 @@ export {
   Xh as legacyAppMainBuwUpperXLowerHExport,
   Xi as legacyAppMainBuwUpperXLowerIExport,
   Xm as legacyAppMainBuwUpperXLowerMExport,
-  Xn as legacyAppMainBuwUpperXLowerNExport,
   Xo as legacyAppMainBuwUpperXLowerOExport,
   Xp as legacyAppMainBuwUpperXLowerPExport,
   Xr as legacyAppMainBuwUpperXLowerRExport,

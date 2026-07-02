@@ -1,5 +1,7 @@
 // Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
 // Stable BUw aliases: lower-a-f.
+export { initPullRequestIconChunk as legacyAppMainBuwLowerDLowerUExport } from "../../../icons/pull-request-icon";
+export { initCirclePlayIconChunk as legacyAppMainBuwLowerFLowerHExport } from "../../../icons/play-circle";
 export { initCollapseIconChunk as legacyAppMainBuwLowerELowerRExport } from "../../../icons/collapse-icon";
 export { initMicrosoftIconChunk as legacyAppMainBuwLowerELowerCExport } from "../../../icons/microsoft-icon";
 
@@ -129,7 +131,6 @@ export {
   dr as legacyAppMainBuwLowerDLowerRExport,
   ds as legacyAppMainBuwLowerDLowerSExport,
   dt as legacyAppMainBuwLowerDLowerTExport,
-  du as legacyAppMainBuwLowerDLowerUExport,
   dv as legacyAppMainBuwLowerDLowerVExport,
   dy as legacyAppMainBuwLowerDLowerYExport,
   eS as legacyAppMainBuwLowerEUpperSExport,
@@ -155,7 +156,6 @@ export {
   fc as legacyAppMainBuwLowerFLowerCExport,
   fd as legacyAppMainBuwLowerFLowerDExport,
   fg as legacyAppMainBuwLowerFLowerGExport,
-  fh as legacyAppMainBuwLowerFLowerHExport,
   fi as legacyAppMainBuwLowerFLowerIExport,
   fn as legacyAppMainBuwLowerFLowerNExport,
   fo as legacyAppMainBuwLowerFLowerOExport,

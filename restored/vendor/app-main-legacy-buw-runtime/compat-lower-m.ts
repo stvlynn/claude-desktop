@@ -1,5 +1,6 @@
 // Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
 // Lowercase m compatibility aliases for the legacy app-main/onboarding producer.
+export { initCirclePauseIconChunk as appMainCurrentCompatSlotLowerMLowerH } from "../../icons/play-circle";
 export {
   serializeError,
   openSessionSandboxSidePanel,
@@ -21,7 +22,6 @@ export {
   md as appMainCurrentCompatSlotLowerMLowerD,
   mf as appMainCurrentCompatSlotLowerMLowerF,
   mg as appMainCurrentCompatSlotLowerMLowerG,
-  mh as appMainCurrentCompatSlotLowerMLowerH,
   mm as appMainCurrentCompatSlotLowerMLowerM,
   mn as appMainCurrentCompatSlotLowerMLowerN,
   mr as appMainCurrentCompatSlotLowerMLowerR,

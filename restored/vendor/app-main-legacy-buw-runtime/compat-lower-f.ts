@@ -1,5 +1,6 @@
 // Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
 // Lowercase f compatibility aliases for the legacy app-main/onboarding producer.
+export { initCirclePlayIconChunk as appMainCurrentCompatSlotLowerFLowerH } from "../../icons/play-circle";
 export { cleanupDictationTranscript as appMainCurrentCompatSlotLowerFUpperC } from "../../utils/transcribe-audio/responses-cleanup";
 
 export {
@@ -20,7 +21,6 @@ export {
   fc as appMainCurrentCompatSlotLowerFLowerC,
   fd as appMainCurrentCompatSlotLowerFLowerD,
   fg as appMainCurrentCompatSlotLowerFLowerG,
-  fh as appMainCurrentCompatSlotLowerFLowerH,
   fi as appMainCurrentCompatSlotLowerFLowerI,
   fn as appMainCurrentCompatSlotLowerFLowerN,
   fo as appMainCurrentCompatSlotLowerFLowerO,

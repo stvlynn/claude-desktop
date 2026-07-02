@@ -1,5 +1,6 @@
 // Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
 // Uppercase K compatibility aliases for the legacy app-main/onboarding producer.
+export { initCommentIconChunk as appMainCurrentCompatSlotUpperKLowerI } from "../../icons/comment-icon";
 export { initReviewModeIconsRuntime as appMainCurrentCompatSlotUpperKLowerO } from "../../icons/xcode-license-warning-icon";
 
 export { waitForDoubleAnimationFrame as appMainCurrentCompatSlotUpperKLowerU } from "../../review/review-scroll-into-view";
@@ -17,7 +18,6 @@ export {
   Kf as appMainCurrentCompatSlotUpperKLowerF,
   Kg as appMainCurrentCompatSlotUpperKLowerG,
   Kh as appMainCurrentCompatSlotUpperKLowerH,
-  Ki as appMainCurrentCompatSlotUpperKLowerI,
   Kl as appMainCurrentCompatSlotUpperKLowerL,
   Km as appMainCurrentCompatSlotUpperKLowerM,
   Kn as appMainCurrentCompatSlotUpperKLowerN,

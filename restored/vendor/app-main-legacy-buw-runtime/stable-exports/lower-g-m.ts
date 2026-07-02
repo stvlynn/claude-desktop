@@ -1,5 +1,6 @@
 // Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
 // Stable BUw aliases: lower-g-m.
+export { initCirclePauseIconChunk as legacyAppMainBuwLowerMLowerHExport } from "../../../icons/play-circle";
 export { ArrowRotateCcwIcon as legacyAppMainBuwLowerLLowerMExport } from "../../../icons/arrow-rotate-ccw-icon";
 export { DocumentSearchIcon as legacyAppMainBuwLowerHLowerYExport } from "../../../icons/document-search-icon";
 export { HistoryIcon as legacyAppMainBuwLowerLLowerFExport } from "../../../icons/history-icon";
@@ -176,7 +177,6 @@ export {
   md as legacyAppMainBuwLowerMLowerDExport,
   mf as legacyAppMainBuwLowerMLowerFExport,
   mg as legacyAppMainBuwLowerMLowerGExport,
-  mh as legacyAppMainBuwLowerMLowerHExport,
   mm as legacyAppMainBuwLowerMLowerMExport,
   mn as legacyAppMainBuwLowerMLowerNExport,
   mr as legacyAppMainBuwLowerMLowerRExport,

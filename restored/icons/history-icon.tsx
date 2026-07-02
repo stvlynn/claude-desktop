@@ -3,6 +3,9 @@
 
 import type { SVGProps } from "react";
 export type IconProps = SVGProps<SVGSVGElement>;
+
+export function initHistoryIconChunk(): void {}
+
 export function HistoryIcon(props: IconProps) {
   return (
     <svg

@@ -1,5 +1,9 @@
 // Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
 // Stable BUw aliases: upper-g-m.
+export { initRobotIconChunk as legacyAppMainBuwUpperJLowerNExport } from "../../../icons/robot-icon";
+export { initCommentIconChunk as legacyAppMainBuwUpperKLowerIExport } from "../../../icons/comment-icon";
+export { initUseRecordingWaveformIconChunk as legacyAppMainBuwUpperLUpperCExport } from "../../../utils/use-recording-waveform";
+export { initTasksIconChunk as legacyAppMainBuwUpperMLowerNExport } from "../../../icons/tasks-icon";
 export { CommentIcon as legacyAppMainBuwUpperGLowerIExport } from "../../../icons/comment-icon";
 export { StopIcon as legacyAppMainBuwUpperMUpperCExport } from "../../../icons/stop-icon";
 export { XcodeLicenseWarningIcon as legacyAppMainBuwUpperGLowerOExport } from "../../../icons/xcode-license-warning-icon";
@@ -110,7 +114,6 @@ export {
   Jh as legacyAppMainBuwUpperJLowerHExport,
   Ji as legacyAppMainBuwUpperJLowerIExport,
   Jm as legacyAppMainBuwUpperJLowerMExport,
-  Jn as legacyAppMainBuwUpperJLowerNExport,
   Jo as legacyAppMainBuwUpperJLowerOExport,
   Jp as legacyAppMainBuwUpperJLowerPExport,
   Jr as legacyAppMainBuwUpperJLowerRExport,
@@ -129,7 +132,6 @@ export {
   Kf as legacyAppMainBuwUpperKLowerFExport,
   Kg as legacyAppMainBuwUpperKLowerGExport,
   Kh as legacyAppMainBuwUpperKLowerHExport,
-  Ki as legacyAppMainBuwUpperKLowerIExport,
   Kl as legacyAppMainBuwUpperKLowerLExport,
   Km as legacyAppMainBuwUpperKLowerMExport,
   Kn as legacyAppMainBuwUpperKLowerNExport,
@@ -140,7 +142,6 @@ export {
   Kx as legacyAppMainBuwUpperKLowerXExport,
   Ky as legacyAppMainBuwUpperKLowerYExport,
   L as legacyAppMainBuwUpperLExport,
-  LC as legacyAppMainBuwUpperLUpperCExport,
   LS as legacyAppMainBuwUpperLUpperSExport,
   La as legacyAppMainBuwUpperLLowerAExport,
   Lb as legacyAppMainBuwUpperLLowerBExport,
@@ -173,7 +174,6 @@ export {
   Mh as legacyAppMainBuwUpperMLowerHExport,
   Ml as legacyAppMainBuwUpperMLowerLExport,
   Mm as legacyAppMainBuwUpperMLowerMExport,
-  Mn as legacyAppMainBuwUpperMLowerNExport,
   Mo as legacyAppMainBuwUpperMLowerOExport,
   Mp as legacyAppMainBuwUpperMLowerPExport,
   Ms as legacyAppMainBuwUpperMLowerSExport,

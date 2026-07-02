@@ -1,5 +1,6 @@
 // Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
 // Lowercase u compatibility aliases for the legacy app-main/onboarding producer.
+export { initHistoryIconChunk as appMainCurrentCompatSlotLowerULowerF } from "../../icons/history-icon";
 export { PullRequestIcon as appMainCurrentCompatSlotLowerULowerU } from "../../icons/pull-request-icon";
 export { initArrowRotateCcwIconChunk as appMainCurrentCompatSlotLowerULowerM } from "../../icons/arrow-rotate-ccw-icon";
 
@@ -20,7 +21,6 @@ export {
   ua as appMainCurrentCompatSlotLowerULowerA,
   ub as appMainCurrentCompatSlotLowerULowerB,
   uc as appMainCurrentCompatSlotLowerULowerC,
-  uf as appMainCurrentCompatSlotLowerULowerF,
   ug as appMainCurrentCompatSlotLowerULowerG,
   ui as appMainCurrentCompatSlotLowerULowerI,
   un as appMainCurrentCompatSlotLowerULowerN,

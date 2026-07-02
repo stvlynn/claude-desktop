@@ -2,6 +2,8 @@
 // Small 3D-cube glyph used as a canvas/MCP-app marker.
 import type { SVGProps } from "react";
 
+export function initCanvasCubeIconChunk(): void {}
+
 export function CanvasCubeIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg

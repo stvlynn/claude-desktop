@@ -3,6 +3,9 @@
 
 import type { SVGProps } from "react";
 export type IconProps = SVGProps<SVGSVGElement>;
+
+export function initTasksIconChunk(): void {}
+
 export function TasksIcon(props: IconProps) {
   return (
     <svg

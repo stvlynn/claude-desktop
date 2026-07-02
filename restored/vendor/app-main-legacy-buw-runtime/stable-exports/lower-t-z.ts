@@ -1,5 +1,6 @@
 // Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
 // Stable BUw aliases: lower-t-z.
+export { initHistoryIconChunk as legacyAppMainBuwLowerULowerFExport } from "../../../icons/history-icon";
 export { PullRequestIcon as legacyAppMainBuwLowerULowerUExport } from "../../../icons/pull-request-icon";
 export { initArrowRotateCcwIconChunk as legacyAppMainBuwLowerULowerMExport } from "../../../icons/arrow-rotate-ccw-icon";
 export { initGoogleChromeIconChunk as legacyAppMainBuwLowerWLowerMExport } from "../../../icons/google-chrome-icon";
@@ -81,7 +82,6 @@ export {
   ua as legacyAppMainBuwLowerULowerAExport,
   ub as legacyAppMainBuwLowerULowerBExport,
   uc as legacyAppMainBuwLowerULowerCExport,
-  uf as legacyAppMainBuwLowerULowerFExport,
   ug as legacyAppMainBuwLowerULowerGExport,
   ui as legacyAppMainBuwLowerULowerIExport,
   un as legacyAppMainBuwLowerULowerNExport,

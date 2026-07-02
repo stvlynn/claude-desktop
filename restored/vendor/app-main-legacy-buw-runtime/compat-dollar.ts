@@ -1,5 +1,6 @@
 // Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
 // Dollar-prefixed compatibility aliases for the legacy app-main/onboarding producer.
+export { initHomepageLogoIconChunk as appMainCurrentCompatSlotDollarLowerF } from "../../icons/homepage-logo-icon";
 export { CollapseIcon as appMainCurrentCompatSlotDollarLowerN } from "../../icons/collapse-icon";
 
 export { SidebarSection } from "../app-main-current-runtime";
@@ -17,7 +18,6 @@ export {
   $b as appMainCurrentCompatSlotDollarLowerB,
   $c as appMainCurrentCompatSlotDollarLowerC,
   $d as appMainCurrentCompatSlotDollarLowerD,
-  $f as appMainCurrentCompatSlotDollarLowerF,
   $g as appMainCurrentCompatSlotDollarLowerG,
   $h as appMainCurrentCompatSlotDollarLowerH,
   $i as appMainCurrentCompatSlotDollarLowerI,

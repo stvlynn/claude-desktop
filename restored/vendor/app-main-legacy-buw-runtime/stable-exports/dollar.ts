@@ -1,5 +1,6 @@
 // Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
 // Stable BUw aliases: dollar.
+export { initHomepageLogoIconChunk as legacyAppMainBuwDollarLowerFExport } from "../../../icons/homepage-logo-icon";
 export { CollapseIcon as legacyAppMainBuwDollarLowerNExport } from "../../../icons/collapse-icon";
 
 export { SidebarSection } from "../../app-main-current-runtime";
@@ -17,7 +18,6 @@ export {
   $b as legacyAppMainBuwDollarLowerBExport,
   $c as legacyAppMainBuwDollarLowerCExport,
   $d as legacyAppMainBuwDollarLowerDExport,
-  $f as legacyAppMainBuwDollarLowerFExport,
   $g as legacyAppMainBuwDollarLowerGExport,
   $h as legacyAppMainBuwDollarLowerHExport,
   $i as legacyAppMainBuwDollarLowerIExport,

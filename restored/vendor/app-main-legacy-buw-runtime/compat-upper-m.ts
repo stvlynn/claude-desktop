@@ -1,5 +1,6 @@
 // Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
 // Uppercase M compatibility aliases for the legacy app-main/onboarding producer.
+export { initTasksIconChunk as appMainCurrentCompatSlotUpperMLowerN } from "../../icons/tasks-icon";
 export { StopIcon as appMainCurrentCompatSlotUpperMUpperC } from "../../icons/stop-icon";
 export { initCommitIconChunk as appMainCurrentCompatSlotUpperMLowerU } from "../../icons/commit-icon";
 
@@ -19,7 +20,6 @@ export {
   Mh as appMainCurrentCompatSlotUpperMLowerH,
   Ml as appMainCurrentCompatSlotUpperMLowerL,
   Mm as appMainCurrentCompatSlotUpperMLowerM,
-  Mn as appMainCurrentCompatSlotUpperMLowerN,
   Mo as appMainCurrentCompatSlotUpperMLowerO,
   Mp as appMainCurrentCompatSlotUpperMLowerP,
   Ms as appMainCurrentCompatSlotUpperMLowerS,
