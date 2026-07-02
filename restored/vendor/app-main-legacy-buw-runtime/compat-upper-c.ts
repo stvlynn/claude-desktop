@@ -9,6 +9,7 @@ export { toggleThreadSidePanel } from "../app-main-current-runtime";
 
 export { normalizeTerminalLineEndings } from "../../runtime/window-chrome-runtime";
 export { CSS as ThreadRowLayout } from "../dnd-kit-utilities";
+export { applyPendingWorktreePanelState as appMainCurrentCompatSlotUpperCLowerO } from "../../conversations/fork-conversation-panel-state";
 
 export {
   C as appMainCurrentCompatSlotUpperC,
@@ -21,7 +22,6 @@ export {
   Ch as appMainCurrentCompatSlotUpperCLowerH,
   Ci as appMainCurrentCompatSlotUpperCLowerI,
   Cn as appMainCurrentCompatSlotUpperCLowerN,
-  Co as appMainCurrentCompatSlotUpperCLowerO,
   Cp as appMainCurrentCompatSlotUpperCLowerP,
   Cr as appMainCurrentCompatSlotUpperCLowerR,
   CS as appMainCurrentCompatSlotUpperCUpperS,

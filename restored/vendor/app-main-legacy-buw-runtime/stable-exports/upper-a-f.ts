@@ -59,6 +59,7 @@ export {
 } from "../../radix-primitive-helpers";
 
 export { stashPendingWorktreePanelState as copyConversationStateToFork } from "../../../conversations/fork-conversation-panel-state";
+export { applyPendingWorktreePanelState as legacyAppMainBuwUpperCLowerOExport } from "../../../conversations/fork-conversation-panel-state";
 
 export { CSS as ThreadRowLayout } from "../../dnd-kit-utilities";
 export { initPendingWorktreeStoreRuntime as initPendingWorktreeComposerRuntimeChunk } from "../../../threads/pending-worktree-store";
@@ -116,7 +117,6 @@ export {
   Ch as legacyAppMainBuwUpperCLowerHExport,
   Ci as legacyAppMainBuwUpperCLowerIExport,
   Cn as legacyAppMainBuwUpperCLowerNExport,
-  Co as legacyAppMainBuwUpperCLowerOExport,
   Cp as legacyAppMainBuwUpperCLowerPExport,
   Cr as legacyAppMainBuwUpperCLowerRExport,
   Ct as legacyAppMainBuwUpperCLowerTExport,

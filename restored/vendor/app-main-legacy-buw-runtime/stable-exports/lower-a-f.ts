@@ -69,6 +69,7 @@ export {
   DragOverlay as ThreadRowShortcutLabel,
   useDroppable as ThreadRowBranchLabel,
 } from "../../dnd-kit-core";
+export { clearPendingWorktreePanelState as legacyAppMainBuwLowerBLowerOExport } from "../../../conversations/fork-conversation-panel-state";
 export { initReviewSourceRuntime as initReviewSourceChunk } from "../../../review/review-diff-store";
 export {
   getMonthlySpendLimitUsage as legacyAppMainBuwLowerFLowerCExport,
@@ -107,7 +108,6 @@ export {
   bi as legacyAppMainBuwLowerBLowerIExport,
   bm as legacyAppMainBuwLowerBLowerMExport,
   bn as legacyAppMainBuwLowerBLowerNExport,
-  bo as legacyAppMainBuwLowerBLowerOExport,
   bp as legacyAppMainBuwLowerBLowerPExport,
   bs as legacyAppMainBuwLowerBLowerSExport,
   bt as legacyAppMainBuwLowerBLowerTExport,

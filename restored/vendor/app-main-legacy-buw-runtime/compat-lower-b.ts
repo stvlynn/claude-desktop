@@ -8,6 +8,7 @@ export { openThreadReviewSidePanelTab } from "../../app-shell/thread-side-panel-
 export { fetchIdeContext as appMainCurrentCompatSlotLowerBUpperC } from "../../composer/composer-utils";
 
 export { useDroppable as ThreadRowBranchLabel } from "../dnd-kit-core";
+export { clearPendingWorktreePanelState as appMainCurrentCompatSlotLowerBLowerO } from "../../conversations/fork-conversation-panel-state";
 
 export {
   b as appMainCurrentCompatSlotLowerB,
@@ -21,7 +22,6 @@ export {
   bi as appMainCurrentCompatSlotLowerBLowerI,
   bm as appMainCurrentCompatSlotLowerBLowerM,
   bn as appMainCurrentCompatSlotLowerBLowerN,
-  bo as appMainCurrentCompatSlotLowerBLowerO,
   bp as appMainCurrentCompatSlotLowerBLowerP,
   bs as appMainCurrentCompatSlotLowerBLowerS,
   bS as appMainCurrentCompatSlotLowerBUpperS,

@@ -14,6 +14,11 @@ import type {
   CapturedPanelState,
 } from "./fork-conversation-panel-state-types";
 
+type PendingWorktreePanelState = {
+  sourceWorkspaceRoot: string;
+  state: CapturedPanelState;
+};
+
 export const forkedConversationPanelStateStore = appScopeUnderscore(
   _appScopeT,
   () => null as CapturedPanelState | null,
@@ -21,11 +26,7 @@ export const forkedConversationPanelStateStore = appScopeUnderscore(
 
 export const pendingWorktreePanelStateStore = appScopeUnderscore(
   _appScopeT,
-  () =>
-    null as {
-      sourceWorkspaceRoot: string;
-      state: CapturedPanelState;
-    } | null,
+  () => null as PendingWorktreePanelState | null,
 );
 
 export function applyForkedConversationPanelState(
@@ -64,4 +65,42 @@ export function stashPendingWorktreePanelState(
     sourceWorkspaceRoot,
     state: capturePanelState(scope, sourceConversationId),
   });
+}
+
+export function applyPendingWorktreePanelState(
+  scope: AppScope,
+  {
+    pendingWorktreeId,
+    targetConversationId,
+    targetWorkspaceRoot,
+  }: {
+    pendingWorktreeId: string;
+    targetConversationId: string;
+    targetWorkspaceRoot: string;
+  },
+): boolean {
+  const pendingState = scope.get<PendingWorktreePanelState | null>(
+    pendingWorktreePanelStateStore,
+    pendingWorktreeId,
+  );
+  if (pendingState == null) return false;
+  scope.set(
+    forkedConversationPanelStateStore,
+    targetConversationId,
+    remapPanelStateToTarget(
+      pendingState.state,
+      deriveBrowserConversationId(scope, targetConversationId),
+      pendingState.sourceWorkspaceRoot,
+      targetWorkspaceRoot,
+    ),
+  );
+  scope.set(pendingWorktreePanelStateStore, pendingWorktreeId, null);
+  return true;
+}
+
+export function clearPendingWorktreePanelState(
+  scope: AppScope,
+  pendingWorktreeId: string,
+): void {
+  scope.set(pendingWorktreePanelStateStore, pendingWorktreeId, null);
 }
