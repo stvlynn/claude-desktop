@@ -28045,7 +28045,7 @@
       "restored": "runtime/current-app-initial/projects-index-current-runtime.ts",
       "status": "done",
       "note": "Current projects-index sidebar chunk mapped to semantic aliases for archive/thread rows, project groups, drag/drop, sort/filter menus, pull request badges, remote connection status, and sidebar navigation actions; compatibility slot exports remain available in the runtime for existing restored consumers.",
-      "lastUpdated": "2026-07-01T00:00:00.000-05:00",
+      "lastUpdated": "2026-07-02T02:20:11.000Z",
       "exports": {
         "$": "ArchiveThreadIcon",
         "$t": "initStartProjectConversationRuntime",
@@ -28172,8 +28172,7 @@
       "migratedFrom": "app-initial~app-main~remote-conversation-page~projects-index-page-14pJ3ozX",
       "stage3Accepted": true,
       "stage3AcceptedAt": "2026-07-01T00:00:00.000-05:00",
-      "stage3Review": "Host self-review: px21 current export table was re-derived from restored/vendor/projects-index-current-runtime.ts; the runtime now exposes semantic aliases for all 121 current exports while preserving compat slot exports, and the import-map entry has no remaining mechanical projectsIndexCurrentCompatSlot names.",
-      "lastUpdated": "2026-07-02T02:20:11.000Z"
+      "stage3Review": "Host self-review: px21 current export table was re-derived from restored/vendor/projects-index-current-runtime.ts; the runtime now exposes semantic aliases for all 121 current exports while preserving compat slot exports, and the import-map entry has no remaining mechanical projectsIndexCurrentCompatSlot names."
     },
     "app-initial~app-main~onboarding-page~pending-request-item-panel~home-ambient-suggestions-content-B1ROILfQ": {
       "restored": "onboarding/onboarding-mail-provider.ts",
@@ -43024,12 +43023,12 @@
         "SettingsPage": "SettingsPageIcon"
       },
       "status": "done",
-      "note": "Current settings page hash maps to explicit compatibility aliases backed by the semantic settings/page.tsx entry.",
-      "lastUpdated": "2026-06-30T23:21:25.587Z",
+      "note": "Current settings page hash maps to a compatibility runtime backed by the fully restored semantic settings/settings-page-current module tree.",
+      "lastUpdated": "2026-07-02T16:30:46.000Z",
       "stage3Accepted": true,
-      "stage3AcceptedAt": "2026-06-30T23:21:25.587Z",
-      "stage3Review": "Host self-review: parsed settings-page-Czsl4aZl.js exports, preserved the current restored-dependency backing bundle, and mapped SettingsPage through settings/page.tsx.",
-      "stage3Note": "Accepted as a current-ref compatibility export backed by the semantic SettingsPage entry; deeper internal helper splitting remains future cleanup."
+      "stage3AcceptedAt": "2026-07-02T16:30:46.000Z",
+      "stage3Review": "Host self-review: replaced the relocated 12k-line settings page body with typed SettingsPage, sidebar, navigation, search, icon, and search-catalog modules; preserved the SettingsPage compatibility export through settings/page.tsx and settings-page-current-runtime.ts.",
+      "stage3Note": "Accepted as a full semantic settings page restore. Entry and module tree pass quality-gate; local Bun parse check passed with settings-page-current files as independent entries and imports externalized."
     },
     "onboarding-page-DtzKDTbH": {
       "restored": "runtime/current-app-initial/onboarding-page-current-runtime.ts",
