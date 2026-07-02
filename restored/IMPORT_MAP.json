@@ -2773,40 +2773,43 @@
     },
     "path-BiIEs4Yy": {
       "restored": "vendor/d3-path.ts",
+      "vendor": "d3-path",
       "exports": {
         "n": "constantAccessor",
         "t": "withPathDigits"
       },
       "status": "done",
       "stage3Accepted": true,
-      "stage3AcceptedAt": "2026-06-30T00:00:00.000-05:00",
-      "stage3Note": "Accepted as a typed D3 path builder and d3-shape path helper module with compatibility aliases."
+      "stage3AcceptedAt": "2026-07-02T00:00:00.000-05:00",
+      "stage3Note": "Accepted as an npm-backed d3-path shim with typed legacy constantAccessor/withPathDigits aliases."
     },
     "path-DSoH76MG": {
       "restored": "vendor/d3-path.ts",
+      "vendor": "d3-path",
       "exports": {
         "n": "constantAccessor",
         "t": "withPathDigits"
       },
       "status": "done",
       "aliasOf": "path-BiIEs4Yy",
-      "lastUpdated": "2026-06-30T00:00:00.000-05:00",
+      "lastUpdated": "2026-07-02T00:00:00.000-05:00",
       "stage3Accepted": true,
-      "stage3AcceptedAt": "2026-06-30T00:00:00.000-05:00",
-      "stage3Note": "Current path-DSoH76MG aliases re-derived from the bundle tail; alias n is constantAccessor and alias t is withPathDigits."
+      "stage3AcceptedAt": "2026-07-02T00:00:00.000-05:00",
+      "stage3Note": "Current path-DSoH76MG aliases re-derived from the bundle tail; alias n is constantAccessor and alias t is withPathDigits, backed by d3-path."
     },
     "Tableau10-BYZHCNVA": {
       "restored": "vendor/d3-tableau10.ts",
+      "vendor": "d3-scale-chromatic",
       "exports": {
         "n": "tableau10N",
         "t": "tableau10T"
       },
       "status": "done",
-      "note": "Historical D3 Tableau10 palette helper retained in vendor/d3-tableau10.ts; the current synced ref no longer contains this exact hash.",
-      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Historical D3 Tableau10 palette helper retained as an npm-backed d3-scale-chromatic shim in vendor/d3-tableau10.ts; the current synced ref no longer contains this exact hash.",
+      "lastUpdated": "2026-07-02T00:00:00.000-05:00",
       "stage3Accepted": true,
-      "stage3AcceptedAt": "2026-06-30T00:00:00.000Z",
-      "stage3Review": "Host self-review: current ref no longer contains Tableau10-BYZHCNVA, vendor/d3-tableau10.ts passes quality-gate, and both recorded palette aliases are exported."
+      "stage3AcceptedAt": "2026-07-02T00:00:00.000-05:00",
+      "stage3Review": "Host self-review: current ref no longer contains Tableau10-BYZHCNVA, vendor/d3-tableau10.ts is backed by d3-scale-chromatic, passes quality-gate, and both recorded palette aliases are exported."
     },
     "address-utils-D9uhGifl": {
       "restored": "vendor/xlsx-address-utils.ts",
@@ -2839,6 +2842,7 @@
     },
     "defaultLocale-gPb_B8uX": {
       "restored": "vendor/d3-format-default-locale.ts",
+      "vendor": "d3-format",
       "exports": {
         "a": "defaultLocaleA",
         "i": "defaultLocaleI",
@@ -2847,13 +2851,14 @@
         "t": "defaultLocaleT"
       },
       "status": "done",
-      "lastUpdated": "2026-06-30T21:53:11.000Z",
+      "lastUpdated": "2026-07-02T00:00:00.000-05:00",
       "stage3Accepted": true,
-      "stage3AcceptedAt": "2026-06-30T21:53:11.000Z",
-      "stage3Review": "Host self-review: historical D3 format default-locale hash is absent from the current ref, current defaultLocale-I5DW1pOv preserves the a/i/n/r/t export aliases, vendor/d3-format-default-locale.ts exports the corresponding locale helpers, and the vendored quality gate plus export coverage pass."
+      "stage3AcceptedAt": "2026-07-02T00:00:00.000-05:00",
+      "stage3Review": "Host self-review: historical D3 format default-locale hash is absent from the current ref, current defaultLocale-I5DW1pOv preserves the a/i/n/r/t export aliases, vendor/d3-format-default-locale.ts is backed by d3-format plus a tiny exponent alias, and the quality gate plus export coverage pass."
     },
     "defaultLocale-I5DW1pOv": {
       "restored": "vendor/d3-format-default-locale.ts",
+      "vendor": "d3-format",
       "exports": {
         "a": "defaultLocaleA",
         "i": "defaultLocaleI",
@@ -2863,10 +2868,10 @@
       },
       "status": "done",
       "aliasOf": "defaultLocale-gPb_B8uX",
-      "lastUpdated": "2026-06-30T21:53:11.000Z",
+      "lastUpdated": "2026-07-02T00:00:00.000-05:00",
       "stage3Accepted": true,
-      "stage3AcceptedAt": "2026-06-30T21:53:11.000Z",
-      "stage3Review": "Host self-review: current D3 format default-locale chunk maps to vendor/d3-format-default-locale.ts; sourcemap is referenced but absent, the current export table aliases a/i/n/r/t match the import map, and the restored vendored module passes quality gate."
+      "stage3AcceptedAt": "2026-07-02T00:00:00.000-05:00",
+      "stage3Review": "Host self-review: current D3 format default-locale chunk maps to vendor/d3-format-default-locale.ts; sourcemap is referenced but absent, the current export table aliases a/i/n/r/t match the import map, and the npm-backed d3-format shim passes quality gate."
     },
     "invert-D9sJN2p1": {
       "restored": "vendor/color-convert.ts",
@@ -2936,16 +2941,17 @@
     },
     "min-BVs4UoI0": {
       "restored": "vendor/d3-array-min.ts",
+      "vendor": "d3-array",
       "exports": {
         "n": "minN",
         "t": "minT"
       },
       "status": "done",
-      "note": "Historical D3 min/max helper retained in vendor/d3-array-min.ts; the current synced ref no longer contains this exact hash.",
-      "lastUpdated": "2026-06-30T00:00:00.000Z",
+      "note": "Historical D3 min/max helper retained as an npm-backed d3-array shim in vendor/d3-array-min.ts; the current synced ref no longer contains this exact hash.",
+      "lastUpdated": "2026-07-02T00:00:00.000-05:00",
       "stage3Accepted": true,
-      "stage3AcceptedAt": "2026-06-30T00:00:00.000Z",
-      "stage3Review": "Host self-review: current ref no longer contains min-BVs4UoI0, vendor/d3-array-min.ts passes quality-gate, and both recorded min/max aliases are exported."
+      "stage3AcceptedAt": "2026-07-02T00:00:00.000-05:00",
+      "stage3Review": "Host self-review: current ref no longer contains min-BVs4UoI0, vendor/d3-array-min.ts is backed by d3-array, passes quality-gate, and both recorded min/max aliases are exported."
     },
     "monotone-DKOUTWfZ": {
       "restored": "vendor/d3-curve-monotone.ts",
