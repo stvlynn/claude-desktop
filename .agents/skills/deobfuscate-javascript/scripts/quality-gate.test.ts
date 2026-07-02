@@ -432,6 +432,77 @@ describe("quality-gate", () => {
     expect(report.issues).toEqual([]);
   });
 
+  test("fails hand-written legacy D3 axis/time vendor shims", () => {
+    const source = `
+      // Restored from ref/webview/assets/axis-BWiM9Kg7.js
+      export function axisR() {
+        return { domain() { return this; }, rangeRound() { return this; } };
+      }
+      export function axisN(scale) {
+        return { scale, orient: "top" };
+      }
+      export function axisT(scale) {
+        return { scale, orient: "bottom" };
+      }
+      export function axisI(format) {
+        return format;
+      }
+      export function axisV(start, end) {
+        return () => start ?? end;
+      }
+    `;
+    const report = analyzeSource(source, "restored/vendor/d3-axis.ts", {
+      ...DEFAULT_OPTIONS,
+      allowFlat: true,
+      allowUntyped: true,
+    });
+    expect(report.issues.map((issue) => issue.code)).toContain(
+      "third-party-npm-shim-not-reexport",
+    );
+    expect(
+      report.issues.find(
+        (issue) => issue.code === "third-party-npm-shim-not-reexport",
+      )?.detail,
+    ).toMatchObject({
+      expectedSpecifiers: [
+        "d3-axis",
+        "d3-scale",
+        "d3-time",
+        "d3-time-format",
+        "d3-interpolate",
+      ],
+    });
+  });
+
+  test("passes legacy D3 axis/time shims that re-export npm packages", () => {
+    const source = `
+      // Restored from ref/webview/assets/axis-BWiM9Kg7.js
+      export { axisTop as axisN, axisBottom as axisT } from "d3-axis";
+      export { scaleTime as axisR } from "d3-scale";
+      export { timeFormat as axisI } from "d3-time-format";
+      export {
+        timeDay as axisP,
+        timeFriday as axisO,
+        timeHour as axisM,
+        timeMillisecond as axisUnderscore,
+        timeMonday as axisS,
+        timeMonth as axisA,
+        timeSaturday as axisC,
+        timeSecond as axisG,
+        timeSunday as axisL,
+        timeThursday as axisU,
+        timeTuesday as axisD,
+        timeWednesday as axisF,
+      } from "d3-time";
+      export { interpolateHcl as axisV } from "d3-interpolate";
+    `;
+    const report = analyzeSource(source, "restored/vendor/d3-axis.ts", {
+      ...DEFAULT_OPTIONS,
+      allowFlat: true,
+    });
+    expect(report.issues).toEqual([]);
+  });
+
   test("fails hand-written D3 hierarchy/treemap vendor shims", () => {
     const source = `
       // Restored from ref/webview/assets/treemap-CMHfdOyb.js

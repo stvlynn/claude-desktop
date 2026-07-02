@@ -469,11 +469,20 @@ const SOURCE_EXT_RE = /\.[cm]?[jt]sx?$/i;
 const SMALL_COHESIVE_MODULE_LINE_LIMIT = 300;
 type PublicNpmVendorSpecifiers = string | readonly string[];
 
+const LEGACY_D3_AXIS_TIME_SPECIFIERS = [
+  "d3-axis",
+  "d3-scale",
+  "d3-time",
+  "d3-time-format",
+  "d3-interpolate",
+] as const;
+
 const PUBLIC_NPM_VENDOR_SHIMS: Record<string, PublicNpmVendorSpecifiers> = {
   cmdk: "cmdk",
   "cytoscape-cose-bilkent": "cytoscape-cose-bilkent",
   "cytoscape-fcose": "cytoscape-fcose",
   "cytoscape-runtime": "cytoscape",
+  "d3-axis": LEGACY_D3_AXIS_TIME_SPECIFIERS,
   "d3-axis-current-runtime": ["d3-axis", "d3-selection"],
   "d3-hierarchy": ["d3-hierarchy", "d3-scale-chromatic"],
   "d3-hierarchy-treemap": "d3-hierarchy",
@@ -525,6 +534,7 @@ const PUBLIC_NPM_VENDOR_SOURCE_CHUNKS: Record<
   string,
   PublicNpmVendorSpecifiers
 > = {
+  "axis-BWiM9Kg7": LEGACY_D3_AXIS_TIME_SPECIFIERS,
   "cytoscape-cose-bilkent-3yd98erd": "cytoscape-cose-bilkent",
   "cytoscape-cose-bilkent-Cew5xac-": "cytoscape-cose-bilkent",
   "cytoscape-cose-bilkent-CZ_nfQWZ": "cytoscape-cose-bilkent",
