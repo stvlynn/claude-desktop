@@ -9,3 +9,9 @@ export const appIntlSignal = appScopeRuntime._appScopeG(
     messages: {},
   }),
 );
+
+export function initAppIntlSignalRuntime(): void {
+  // Legacy chunks exposed a Rollup initializer; ESM imports initialize the
+  // restored app-intl signal eagerly.
+  void appIntlSignal;
+}

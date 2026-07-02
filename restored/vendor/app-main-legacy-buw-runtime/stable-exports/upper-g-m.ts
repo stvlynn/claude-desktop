@@ -34,6 +34,7 @@ export { findResultAtom } from "../../../find/thread-find-atoms";
 
 export { rightPanelTabsStore } from "../../../app-shell/thread-panel-tabs-store";
 export { isPendingWorktreeInProgress as RemoteHostStatusIcon } from "../../../threads/pending-worktree-store";
+export { initAppIntlSignalRuntime as initPendingWorktreeRouteRuntimeChunk } from "../../../utils/app-intl-signal";
 
 export {
   G as legacyAppMainBuwUpperGExport,
@@ -138,7 +139,6 @@ export {
   L as legacyAppMainBuwUpperLExport,
   LC as legacyAppMainBuwUpperLUpperCExport,
   LS as legacyAppMainBuwUpperLUpperSExport,
-  L_ as initPendingWorktreeRouteRuntimeChunk,
   La as legacyAppMainBuwUpperLLowerAExport,
   Lb as legacyAppMainBuwUpperLLowerBExport,
   Lc as legacyAppMainBuwUpperLLowerCExport,
