@@ -42458,12 +42458,12 @@
         "ComputerUseSettings": "ComputerUseSettings"
       },
       "status": "done",
-      "note": "Current ComputerUseSettings hash maps to a dedicated current-ref runtime over vendor/computer-use-settings-current-bundle.tsx; the single semantic export is re-derived from the current file.",
-      "lastUpdated": "2026-06-30T23:35:00.000Z",
+      "note": "Current ComputerUseSettings hash maps to a dedicated current-ref runtime over settings/computer-use-settings.tsx; the page body was lifted out of vendor parking, React Compiler cache scaffolding was stripped, and the main setting helpers now use semantic names.",
+      "lastUpdated": "2026-07-02T03:14:19.000Z",
       "stage3Accepted": true,
       "stage3AcceptedAt": "2026-06-30T23:35:00.000Z",
-      "stage3Review": "Host self-review: verified the current file exports ComputerUseSettings, rewrote dependency imports through restored/IMPORT_MAP.json, and passed quality gates on the backing bundle and runtime.",
-      "stage3Note": "Accepted as a current-ref compatibility export over a restored-dependency backing bundle; full semantic split of ComputerUseSettings remains a later cleanup."
+      "stage3Review": "Host self-review: verified the current file exports ComputerUseSettings, rewrote dependency imports through restored/IMPORT_MAP.json, lifted the page body into settings/computer-use-settings.tsx, stripped React Compiler cache scaffolding, named the main settings helpers/components, and verified the promoted page plus runtime with Bun builds. Runtime quality gate passes; the page gate now only reports remaining JSX factory call residue and the later component split.",
+      "stage3Note": "Accepted as a current-ref compatibility export over a promoted ComputerUseSettings implementation; JSX factory cleanup and component splitting remain later cleanup."
     },
     "data-controls-CwyuAPUl": {
       "restored": "runtime/current-app-initial/data-controls-current-runtime.ts",
