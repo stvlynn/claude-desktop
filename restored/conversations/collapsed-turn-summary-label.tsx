@@ -9,6 +9,8 @@ import {
   type WorkedForStatusItem,
 } from "../boundaries/onboarding-commons-externals.facade";
 
+export function initCollapsedTurnSummaryLabelChunk(): void {}
+
 export interface CollapsedTurnSummaryLabelProps {
   collapsedMessageCount: number;
   workedDurationMs?: number | null;

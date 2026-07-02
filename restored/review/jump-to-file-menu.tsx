@@ -17,6 +17,8 @@ import {
   JumpToFileIcon,
 } from "../boundaries/onboarding-commons-externals.facade";
 
+export function initJumpToFileMenuChunk(): void {}
+
 export interface ReviewFileEntry {
   path: string;
   displayPath: string;

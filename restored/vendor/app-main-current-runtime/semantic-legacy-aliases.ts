@@ -156,22 +156,29 @@ export {
 } from "../markdown-ast-runtime";
 
 export {
-  Ln as AutomationScheduleEditor,
   Kt as RemoteConversationShell,
   kn as AutomationDraftActionForm,
   ou as FileDiff,
+  Ln as AutomationScheduleEditor,
 } from "../app-main-current-cgnc-bundle";
 
 export {
   Bn as ArchiveMenuItem,
   Nn as SidebarRowActionButton,
   Nr as SidebarRowContextMenu,
-  Oi as SidebarRowOverflowMenu,
   Pn as SidebarTaskRow,
   ho as forkConversationMessages,
   hp as useComposedRefs,
   mo as initForkConversationMessagesChunk,
-  sl as SidebarRowShortcutScope,
-  xo as initForkConversationToastRuntime,
   zn as SidebarRowRuntime,
 } from "../app-main-current-cgnc-bundle";
+
+export {
+  initCursorIconChunk as SidebarRowOverflowMenu,
+} from "../../icons/cursor-icon";
+export {
+  initJumpToFileMenuChunk as SidebarRowShortcutScope,
+} from "../../review/jump-to-file-menu";
+export {
+  initCollapsedTurnSummaryLabelChunk as initForkConversationToastRuntime,
+} from "../../conversations/collapsed-turn-summary-label";
