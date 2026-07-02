@@ -2,15 +2,22 @@
 // Uppercase B compatibility aliases for the current app-main producer.
 export { shouldUseCreditsRateLimitDisplay as appMainCurrentCompatSlotUpperBLowerS } from "../../utils/rate-limit-status/account-status";
 
-export {
-  B as appMainCurrentCompatSlotUpperB,
-  Bc as appMainCurrentCompatSlotUpperBLowerC,
-  Bd as appMainCurrentCompatSlotUpperBLowerD,
-  Bf as appMainCurrentCompatSlotUpperBLowerF,
-  Bi as appMainCurrentCompatSlotUpperBLowerI,
-  Bl as appMainCurrentCompatSlotUpperBLowerL,
-  Bo as appMainCurrentCompatSlotUpperBLowerO,
-  Bp as appMainCurrentCompatSlotUpperBLowerP,
-  Bt as appMainCurrentCompatSlotUpperBLowerT,
-  Bu as appMainCurrentCompatSlotUpperBLowerU,
-} from "../app-main-current-cgnc-bundle";
+export { sliceTurnItemsAfterIntro as appMainCurrentCompatSlotUpperB } from "../../conversations/partition-turn-items";
+
+export { openExistingBrowserTab as appMainCurrentCompatSlotUpperBLowerC } from "../../browser/side-panel-browser-tab-open-existing";
+
+export { importBrowserProfile as appMainCurrentCompatSlotUpperBLowerD } from "../../browser/browser-profile-import-query";
+
+export { initUseServiceTierSettingsChunk as appMainCurrentCompatSlotUpperBLowerF } from "../../composer/use-service-tier-settings";
+
+export { isCurrentLocationCodexPage as appMainCurrentCompatSlotUpperBLowerI } from "../../utils/is-codex-page-route";
+
+export { CommitCommandMenu as appMainCurrentCompatSlotUpperBLowerL } from "../../review/commit-command-menu";
+
+export { initBuildingIconChunk as appMainCurrentCompatSlotUpperBLowerO } from "../../icons/building-icon";
+
+export { initEnabledReasoningEffortsChunk as appMainCurrentCompatSlotUpperBLowerP } from "../../composer/enabled-reasoning-efforts";
+
+export { useAddBrowserUseFileTransferOriginMutation as appMainCurrentCompatSlotUpperBLowerU } from "../../browser/browser-use-origin-state-queries";
+
+export { summarizeParsedDiffs as appMainCurrentCompatSlotUpperBLowerT } from "../../review/summarize-parsed-diffs";

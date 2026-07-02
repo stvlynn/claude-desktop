@@ -2,16 +2,24 @@
 // Uppercase J compatibility aliases for the current app-main producer.
 export { formatDateAndTime as appMainCurrentCompatSlotUpperJLowerS } from "../../utils/rate-limit-status/formatting";
 
-export {
-  J as appMainCurrentCompatSlotUpperJ,
-  Ja as appMainCurrentCompatSlotUpperJLowerA,
-  Jc as appMainCurrentCompatSlotUpperJLowerC,
-  Jf as appMainCurrentCompatSlotUpperJLowerF,
-  Ji as appMainCurrentCompatSlotUpperJLowerI,
-  Jn as appMainCurrentCompatSlotUpperJLowerN,
-  Jo as appMainCurrentCompatSlotUpperJLowerO,
-  Jp as appMainCurrentCompatSlotUpperJLowerP,
-  Jr as appMainCurrentCompatSlotUpperJLowerR,
-  Jt as appMainCurrentCompatSlotUpperJLowerT,
-  Ju as appMainCurrentCompatSlotUpperJLowerU,
-} from "../app-main-current-cgnc-bundle";
+export { GoogleResourceKindIcon as appMainCurrentCompatSlotUpperJ } from "../../conversations/google-resource-kind-icon";
+
+export { initSettingsToolDefinitionsChunk as appMainCurrentCompatSlotUpperJLowerA } from "../../settings/settings-tool-definitions";
+
+export { ReviewOptionsToolbar as appMainCurrentCompatSlotUpperJLowerC } from "../../review/review-options-toolbar";
+
+export { usePreferredNonFullAccessMode as appMainCurrentCompatSlotUpperJLowerF } from "../../utils/use-permissions-mode/preferred-mode";
+
+export { READ_THREAD_TOOL_NAME as appMainCurrentCompatSlotUpperJLowerI } from "../../conversations/codex-app-tool-names";
+
+export { initLaptopIconChunk as appMainCurrentCompatSlotUpperJLowerN } from "../../icons/laptop-icon";
+
+export { addAppgenSelectedGroup as appMainCurrentCompatSlotUpperJLowerO } from "../../features/appgen-share-dialog/selected-groups-state";
+
+export { openConfigInEditor as appMainCurrentCompatSlotUpperJLowerP } from "../../composer/open-config-in-editor";
+
+export { SelectedTextTooltip as appMainCurrentCompatSlotUpperJLowerR } from "../../composer/selected-text-attachment-pill";
+
+export { SubagentAvatar as appMainCurrentCompatSlotUpperJLowerT } from "../../conversations/subagent-avatar";
+
+export { useUpdateBrowserUseHistoryApprovalModeMutation as appMainCurrentCompatSlotUpperJLowerU } from "../../browser/browser-use-origin-state-queries";

@@ -17,4 +17,7 @@ export function TrashIcon(props: IconProps) {
     </svg>
   );
 }
+
+export function initTrashIconChunk(): void {}
+
 export default TrashIcon;

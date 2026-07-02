@@ -2,16 +2,24 @@
 // Uppercase G compatibility aliases for the current app-main producer.
 export { YEAR_MINUTES as appMainCurrentCompatSlotUpperGLowerS } from "../../utils/rate-limit-status/windows";
 
-export {
-  G as appMainCurrentCompatSlotUpperG,
-  Ga as appMainCurrentCompatSlotUpperGLowerA,
-  Gc as appMainCurrentCompatSlotUpperGLowerC,
-  Gf as appMainCurrentCompatSlotUpperGLowerF,
-  Gi as appMainCurrentCompatSlotUpperGLowerI,
-  Gn as appMainCurrentCompatSlotUpperGLowerN,
-  Go as appMainCurrentCompatSlotUpperGLowerO,
-  Gp as appMainCurrentCompatSlotUpperGLowerP,
-  Gr as appMainCurrentCompatSlotUpperGLowerR,
-  Gt as appMainCurrentCompatSlotUpperGLowerT,
-  Gu as appMainCurrentCompatSlotUpperGLowerU,
-} from "../app-main-current-cgnc-bundle";
+export { getTurnAgentItemGroups as appMainCurrentCompatSlotUpperG } from "../../conversations/partition-turn-items";
+
+export { setPinnedThread as appMainCurrentCompatSlotUpperGLowerA } from "../../utils/set-pinned-thread";
+
+export { setThreadSidePanelExpanded as appMainCurrentCompatSlotUpperGLowerC } from "../../app-shell/thread-side-panel-visibility";
+
+export { initUsePermissionsModeChunk as appMainCurrentCompatSlotUpperGLowerF } from "../../utils/use-permissions-mode/use-permissions-mode";
+
+export { isLocalHost as appMainCurrentCompatSlotUpperGLowerI } from "../../utils/automation-host-support";
+
+export { PinIcon as appMainCurrentCompatSlotUpperGLowerN } from "../../icons/pin-icon";
+
+export { buildAppgenAccessPolicyWithoutUser as appMainCurrentCompatSlotUpperGLowerO } from "../../utils/appgen-access";
+
+export { OpenConfigTomlButton as appMainCurrentCompatSlotUpperGLowerP } from "../../composer/open-config-toml-button";
+
+export { ExternalSiteIcon as appMainCurrentCompatSlotUpperGLowerR } from "../../icons/external-site-icon";
+
+export { initAlertIconChunk as appMainCurrentCompatSlotUpperGLowerT } from "../../icons/alert-icon";
+
+export { useUpdateBrowserUseApprovalModeMutation as appMainCurrentCompatSlotUpperGLowerU } from "../../browser/browser-use-origin-state-queries";

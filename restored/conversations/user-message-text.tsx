@@ -163,6 +163,10 @@ export function UserMessageText({
   );
 }
 
+export const MessageTextRenderer = UserMessageText;
+
+export function initMessageTextRendererRuntime(): void {}
+
 function handleUserTextCopy(event: ReactClipboardEvent<HTMLDivElement>) {
   handleCopyEvent(event.nativeEvent, event.currentTarget);
 }
