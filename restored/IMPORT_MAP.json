@@ -39110,12 +39110,12 @@
       },
       "status": "done",
       "aliasOf": "local-remote-dropdown-BcmhHtfg",
-      "note": "Current local/remote dropdown hash maps to explicit compatibility aliases backed by the semantic thread-summary/local-remote-dropdown split.",
-      "lastUpdated": "2026-07-01T00:33:36.000Z",
+      "note": "Current local/remote dropdown hash maps to explicit compatibility aliases backed by the semantic thread-summary/local-remote-dropdown split; the unused vendor current bundle has been removed.",
+      "lastUpdated": "2026-07-02T00:00:00.000Z",
       "stage3Accepted": true,
-      "stage3AcceptedAt": "2026-07-01T00:33:36.000Z",
-      "stage3Review": "Host self-review: replaced the vendor re-export wrapper with explicit current-ref aliases and split the semantic dropdown implementation into focused thread-summary modules.",
-      "stage3Note": "Accepted as a current-ref compatibility export backed by the semantic thread-summary/local-remote-dropdown split."
+      "stage3AcceptedAt": "2026-07-02T00:00:00.000Z",
+      "stage3Review": "Host self-review: verified the current runtime already uses explicit semantic aliases, thread-summary/local-remote-dropdown.tsx and the runtime facade pass quality-gate, no restored file references the old current-bundle parking file, and that unused vendor file has been removed.",
+      "stage3Note": "Accepted as a current-ref compatibility export backed by the semantic thread-summary/local-remote-dropdown split without a vendor current bundle."
     },
     "abap-CqU2lyQI": {
       "restored": "vendor/shiki-languages.ts",
