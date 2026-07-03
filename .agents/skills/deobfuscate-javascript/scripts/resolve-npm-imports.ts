@@ -127,6 +127,7 @@ export const CHUNK_NAME_REGISTRY: Record<string, ChunkRule> = {
   // assets, but runtime imports should resolve to the package entry.
   pdf: { package: "pdfjs-dist", namedOnly: true },
   "docx-preview": { package: "docx-preview", namedOnly: true },
+  stylis: { package: "stylis", namedOnly: true },
   // D3 / Mermaid diagram chunks.
   "src-BhkLFyc4": { package: "d3-hierarchy", namedOnly: true },
   treemap: { package: "d3-hierarchy", namedOnly: true },

@@ -759,6 +759,80 @@ describe("quality-gate", () => {
     });
   });
 
+  test("fails hand-written Stylis vendor shims", () => {
+    const source = `
+      // Restored from ref/webview/assets/stylis-CNWqMcUo.js
+      export function compile(styles) {
+        return String(styles).split("{}");
+      }
+      export function serialize(children, callback) {
+        return children.map(callback).join("");
+      }
+      export function stringify(node) {
+        return node.value;
+      }
+    `;
+    const report = analyzeSource(source, "restored/vendor/stylis.ts", {
+      ...DEFAULT_OPTIONS,
+      allowFlat: true,
+      allowUntyped: true,
+    });
+    expect(report.issues.map((issue) => issue.code)).toContain(
+      "third-party-npm-shim-not-reexport",
+    );
+    expect(
+      report.issues.find(
+        (issue) => issue.code === "third-party-npm-shim-not-reexport",
+      )?.detail,
+    ).toMatchObject({ expectedSpecifiers: ["stylis"] });
+  });
+
+  test("passes Stylis shims that re-export the npm package", () => {
+    const root = makeTmpRoot();
+    const restoredDir = path.join(root, "restored");
+    const vendorDir = path.join(restoredDir, "vendor");
+    fs.mkdirSync(vendorDir, { recursive: true });
+    fs.writeFileSync(
+      path.join(root, "package.json"),
+      JSON.stringify({ dependencies: { stylis: "^4.3.6" } }),
+    );
+    const source = `
+      // Restored from ref/webview/assets/stylis-CNWqMcUo.js
+      export { compile, serialize, stringify } from "stylis";
+    `;
+    const report = analyzeSource(source, path.join(vendorDir, "stylis.ts"), {
+      ...DEFAULT_OPTIONS,
+      allowFlat: true,
+    });
+    expect(report.issues).toEqual([]);
+    fs.writeFileSync(path.join(vendorDir, "stylis.ts"), source);
+    expect(analyzePublicNpmVendorShimDependencies(restoredDir)).toEqual([]);
+  });
+
+  test("fails Stylis shims when the package dependency is not declared", () => {
+    const root = makeTmpRoot();
+    const restoredDir = path.join(root, "restored");
+    const vendorDir = path.join(restoredDir, "vendor");
+    fs.mkdirSync(vendorDir, { recursive: true });
+    fs.writeFileSync(path.join(root, "package.json"), JSON.stringify({}));
+    fs.writeFileSync(
+      path.join(vendorDir, "stylis.ts"),
+      `
+        // Restored from ref/webview/assets/stylis-CNWqMcUo.js
+        export { compile, serialize, stringify } from "stylis";
+      `,
+    );
+
+    const reports = analyzePublicNpmVendorShimDependencies(restoredDir);
+    expect(reports).toHaveLength(1);
+    expect(reports[0]!.issues.map((issue) => issue.code)).toContain(
+      "third-party-npm-shim-dependency-missing",
+    );
+    expect(reports[0]!.issues[0]!.detail).toMatchObject({
+      missingPackages: ["stylis"],
+    });
+  });
+
   test("fails hand-written react-style-singleton vendor shims", () => {
     const source = `
       // Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js

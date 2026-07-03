@@ -322,6 +322,21 @@ describe("resolveNpmImports (chunk-name based)", () => {
     expect(n).not.toContain("docx-preview-G1XqxLZP");
     expect(out.stats.specifiersResolved).toBe(1);
   });
+
+  test("rewrites Stylis chunks to the npm package", () => {
+    const src = `
+      import { compile, serialize, stringify } from "../stylis-CNWqMcUo.js";
+      compile; serialize; stringify;
+    `;
+    const out = resolveNpmImports(src);
+    const n = normalize(out.code);
+    expect(n).toContain('from "stylis"');
+    expect(n).toContain("compile");
+    expect(n).toContain("serialize");
+    expect(n).toContain("stringify");
+    expect(n).not.toContain("stylis-CNWqMcUo");
+    expect(out.stats.specifiersResolved).toBe(3);
+  });
 });
 
 describe("resolveNpmImports (alias-based)", () => {

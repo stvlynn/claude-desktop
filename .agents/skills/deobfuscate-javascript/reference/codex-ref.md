@@ -213,6 +213,7 @@ repo (record the package in IMPORT_MAP `vendor`; `classifyBoundary()` reads it):
 | `dagre.ts` / `dagre-alt.ts` (`dagre-*` package chunks)                    | `dagre`                                                                   | layout aliases; renderer chunks stay Mermaid                    |
 | `pdfjs.ts` / `pdfjs-entry.ts` (`pdf-*` package chunks)                    | `pdfjs-dist`                                                              | PDF.js library aliases; worker stays an asset                   |
 | `docx-preview.ts` (`docx-preview-*`)                                       | `docx-preview`                                                            | Word document renderer; preserve renderAsync re-export          |
+| `stylis.ts` (`stylis-*`)                                                   | `stylis`                                                                  | CSS parser/serializer helpers for document renderers            |
 | `entities-escape.ts` (`dist-CD74BDfk` and synced `dist-*` hashes)         | `@braintree/sanitize-url`                                                 | Mermaid URL sanitizer CommonJS compatibility shim               |
 | `react-dom-client.ts` (`client-*`)                                        | `react-dom/client`                                                        | client root loader/re-export shim                               |
 | `formatjs.ts` (`lib-BWT6A3Q0`)                                            | `react-intl`                                                              | consumers import `useIntl`/`FormattedMessage`                   |
@@ -315,6 +316,10 @@ For Word document rendering, `docx-preview-*` chunks whose public API exports
 small `vendor/docx-preview.ts` compatibility shim, but it must re-export from
 the npm package and the restored project `package.json` must declare
 `docx-preview`.
+For CSS parsing/serialization used by bundled document renderers, `stylis-*`
+chunks that export `compile`, `serialize`, and `stringify` are stock `stylis`
+surfaces. Keep `vendor/stylis.ts` as a thin npm-backed shim; add both `stylis`
+and `@types/stylis` when the restored project needs type-checkable source.
 For Mermaid URL sanitizer helpers, exact source chunks `dist-CD74BDfk`,
 `dist-BO3qvbGN`, `dist-Kh8ku4yn`, and `dist-WEF1yh7f` match
 `@braintree/sanitize-url` (`sanitizeUrl`). The public file may retain the

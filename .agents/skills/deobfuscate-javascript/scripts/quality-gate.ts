@@ -539,6 +539,7 @@ const PUBLIC_NPM_VENDOR_SHIMS: Record<string, PublicNpmVendorSpecifiers> = {
   "react-is-runtime": "react-is",
   "react-style-singleton": "react-style-singleton",
   roughjs: "roughjs",
+  stylis: "stylis",
   analytics: "@segment/analytics-next",
   "segment-analytics": ["@segment/analytics-next", "@segment/analytics-core"],
   "segment-middleware": [
@@ -642,6 +643,7 @@ const PUBLIC_NPM_VENDOR_SOURCE_CHUNKS: Record<
   "src-BhkLFyc4": ["d3-hierarchy", "d3-scale-chromatic"],
   "step-K6tEdR0Q": "d3-shape",
   "string-CKccV857": ["d3-color", "d3-interpolate"],
+  "stylis-CNWqMcUo": "stylis",
   "Tableau10-BYZHCNVA": "d3-scale-chromatic",
   "treemap-CMHfdOyb": "d3-hierarchy",
 };
