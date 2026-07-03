@@ -13,16 +13,25 @@ function makeTmpRoot(): string {
   return dir;
 }
 
-function runCLI(input: string): {
+function runCLI(
+  input: string,
+  options: { env?: NodeJS.ProcessEnv } = {},
+): {
   stdout: string;
   stderr: string;
   code: number;
+  elapsedMs: number;
 } {
-  const result = spawnSync("bun", [SCRIPT, input], { encoding: "utf-8" });
+  const startedAt = Date.now();
+  const result = spawnSync("bun", [SCRIPT, input], {
+    encoding: "utf-8",
+    env: options.env == null ? process.env : { ...process.env, ...options.env },
+  });
   return {
     stdout: result.stdout ?? "",
     stderr: result.stderr ?? "",
     code: result.status ?? 0,
+    elapsedMs: Date.now() - startedAt,
   };
 }
 
@@ -633,5 +642,44 @@ describe("vendor-npm-preflight CLI", () => {
     const result = runCLI(path.join(root, "restored"));
     expect(result.code).toBe(1);
     expect(result.stderr).toContain("third-party-npm-shim-export-missing");
+  });
+
+  test("fails instead of hanging when ESM runtime export validation times out", () => {
+    const root = makeTmpRoot();
+    const vendorDir = path.join(root, "restored", "vendor");
+    const packageDir = path.join(root, "node_modules", "hanging-esm");
+    fs.mkdirSync(vendorDir, { recursive: true });
+    fs.mkdirSync(packageDir, { recursive: true });
+    fs.writeFileSync(
+      path.join(root, "package.json"),
+      JSON.stringify({ dependencies: { "hanging-esm": "1.0.0" } }),
+    );
+    fs.writeFileSync(
+      path.join(packageDir, "package.json"),
+      JSON.stringify({
+        name: "hanging-esm",
+        version: "1.0.0",
+        type: "module",
+        exports: "./index.mjs",
+      }),
+    );
+    fs.writeFileSync(
+      path.join(packageDir, "index.mjs"),
+      "await new Promise(() => {});\nexport const realThing = 1;\n",
+    );
+    fs.writeFileSync(
+      path.join(vendorDir, "hanging-esm.ts"),
+      `
+        // Restored from ref/webview/assets/hanging-esm-AbCdEf12.js
+        export { realThing } from "hanging-esm";
+      `,
+    );
+
+    const result = runCLI(path.join(root, "restored"), {
+      env: { VENDOR_NPM_PREFLIGHT_RUNTIME_TIMEOUT_MS: "50" },
+    });
+    expect(result.code).toBe(1);
+    expect(result.stderr).toContain("third-party-npm-shim-runtime-unavailable");
+    expect(result.elapsedMs).toBeLessThan(5_000);
   });
 });

@@ -14,6 +14,7 @@ import {
 
 const SOURCE_EXT_RE = /\.[cm]?[jt]sx?$/i;
 const NPM_SHIM_ISSUE_PREFIX = "third-party-npm-shim-";
+const DEFAULT_RUNTIME_EXPORT_READ_TIMEOUT_MS = 2_000;
 
 export type VendorNpmPreflightResult = {
   files: string[];
@@ -293,6 +294,45 @@ function runtimeExportNames(moduleNamespace: unknown): Set<string> {
   return exportNames;
 }
 
+function runtimeExportReadTimeoutMs(): number {
+  const rawValue = process.env.VENDOR_NPM_PREFLIGHT_RUNTIME_TIMEOUT_MS;
+  if (rawValue == null || rawValue.trim() === "") {
+    return DEFAULT_RUNTIME_EXPORT_READ_TIMEOUT_MS;
+  }
+
+  const parsed = Number(rawValue);
+  if (!Number.isFinite(parsed) || parsed <= 0) {
+    return DEFAULT_RUNTIME_EXPORT_READ_TIMEOUT_MS;
+  }
+
+  return parsed;
+}
+
+async function importModuleWithTimeout(
+  resolved: string,
+  specifier: string,
+): Promise<unknown> {
+  const timeoutMs = runtimeExportReadTimeoutMs();
+  let timeout: ReturnType<typeof setTimeout> | undefined;
+
+  try {
+    return await Promise.race([
+      import(pathToFileURL(resolved).href),
+      new Promise<never>((_, reject) => {
+        timeout = setTimeout(() => {
+          reject(
+            new Error(
+              `timed out after ${timeoutMs}ms while importing ${specifier}`,
+            ),
+          );
+        }, timeoutMs);
+      }),
+    ]);
+  } finally {
+    if (timeout != null) clearTimeout(timeout);
+  }
+}
+
 async function readRuntimeExportNames(
   specifier: string,
   packageJsonPath: string,
@@ -324,7 +364,10 @@ async function readRuntimeExportNames(
     }
 
     try {
-      const moduleNamespace = await import(pathToFileURL(resolved).href);
+      const moduleNamespace = await importModuleWithTimeout(
+        resolved,
+        specifier,
+      );
       return { ok: true, exportNames: runtimeExportNames(moduleNamespace) };
     } catch (err) {
       return { ok: false, skipped: true, error: (err as Error).message };
