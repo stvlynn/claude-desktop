@@ -522,6 +522,7 @@ const PUBLIC_NPM_VENDOR_SHIMS: Record<string, PublicNpmVendorSpecifiers> = {
   graphlib: "graphlib",
   "graphlib-alt": "graphlib",
   "entities-escape": "@braintree/sanitize-url",
+  "highlight-js-core": "highlight.js/lib/core",
   jotai: "jotai",
   "jotai-runtime": "jotai",
   katex: "katex",
@@ -592,6 +593,9 @@ const PUBLIC_NPM_VENDOR_SOURCE_CHUNKS: Record<
   "graphlib-CU4GKOO2": "graphlib",
   "graphlib-DGNlaJmK": "graphlib",
   "graphlib-ichArG6F": "graphlib",
+  "core-CCcWj3EO": "highlight.js/lib/core",
+  "core-CpC1jq0N": "highlight.js/lib/core",
+  "core-DMiaGTKr": "highlight.js/lib/core",
   "katex--WVKgE7E": "katex",
   "katex-BvHNzFYT": "katex",
   "katex-CjHJ1D7d": "katex",
@@ -1170,6 +1174,75 @@ function hasBareReexportFrom(source: string, specifier: string): boolean {
   return new RegExp(
     String.raw`\bexport\s+(?:type\s+)?(?:\*|\{[\s\S]*?\})\s+from\s+["']${escapedSpecifier}["']`,
   ).test(source);
+}
+
+function bareImportLocalsFrom(source: string, specifier: string): string[] {
+  const escapedSpecifier = specifier.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const locals = new Set<string>();
+  const importRe = new RegExp(
+    String.raw`\bimport\s+([^;"']+?)\s+from\s+["']${escapedSpecifier}["']`,
+    "g",
+  );
+  let match: RegExpExecArray | null;
+  while ((match = importRe.exec(source)) !== null) {
+    const clause = match[1]!.trim();
+    const defaultMatch = clause.match(/^([A-Za-z_$][\w$]*)\b/);
+    if (defaultMatch && !clause.startsWith("{") && !clause.startsWith("*")) {
+      locals.add(defaultMatch[1]!);
+    }
+    const namespaceMatch = clause.match(/\*\s+as\s+([A-Za-z_$][\w$]*)/);
+    if (namespaceMatch) locals.add(namespaceMatch[1]!);
+    const namedMatch = clause.match(/\{([\s\S]*?)\}/);
+    if (namedMatch) {
+      for (const rawSpecifier of namedMatch[1]!.split(",")) {
+        const raw = rawSpecifier.trim();
+        if (!raw) continue;
+        const aliasMatch = raw.match(
+          /^(?:type\s+)?[A-Za-z_$][\w$]*(?:\s+as\s+([A-Za-z_$][\w$]*))?$/,
+        );
+        if (!aliasMatch) continue;
+        locals.add(aliasMatch[1] ?? raw.replace(/^type\s+/, ""));
+      }
+    }
+  }
+  return [...locals];
+}
+
+function stripLineAndBlockComments(source: string): string {
+  return source.replace(/\/\*[\s\S]*?\*\//g, "").replace(/^\s*\/\/.*$/gm, "");
+}
+
+function hasTinyNpmBackedLegacyWrapper(
+  source: string,
+  specifier: string,
+): boolean {
+  const importedLocals = bareImportLocalsFrom(source, specifier);
+  if (importedLocals.length === 0) return false;
+
+  const code = stripLineAndBlockComments(source);
+  const meaningfulLines = code
+    .split(/\r?\n/)
+    .map((line) => line.trim())
+    .filter(Boolean);
+  if (meaningfulLines.length > 5) return false;
+
+  return importedLocals.some((localName) => {
+    const escapedLocalName = escapeRegExp(localName);
+    return new RegExp(
+      String.raw`\bexport\s+const\s+[A-Za-z_$][\w$]*\s*=\s*\(\s*\)\s*=>\s*${escapedLocalName}\s*;?\s*$`,
+      "m",
+    ).test(code);
+  });
+}
+
+function hasPublicNpmVendorShimFrom(
+  source: string,
+  specifier: string,
+): boolean {
+  return (
+    hasBareReexportFrom(source, specifier) ||
+    hasTinyNpmBackedLegacyWrapper(source, specifier)
+  );
 }
 
 function packageNameFromSpecifier(specifier: string): string {
@@ -2384,7 +2457,7 @@ export function analyzeSource(
   const isPublicNpmVendorReexportShim =
     expectedNpmVendorSpecifiers != null &&
     expectedNpmVendorSpecifiers.every((specifier) =>
-      hasBareReexportFrom(source, specifier),
+      hasPublicNpmVendorShimFrom(source, specifier),
     );
   // A faithful vendored module or a generated boundary facade is code we
   // deliberately did not rewrite — relax the semantic-naming/typing/split

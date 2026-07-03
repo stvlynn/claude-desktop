@@ -106,6 +106,68 @@ describe("quality-gate", () => {
     expect(report.issues).toEqual([]);
   });
 
+  test("fails hand-written Highlight.js core vendor shims", () => {
+    const source = `
+      // Restored from ref/webview/assets/core-DMiaGTKr.js
+      export const loadHighlightJsCore = () => ({
+        highlight(code, language) {
+          return { value: code, language };
+        },
+        registerLanguage() {},
+      });
+    `;
+    const report = analyzeSource(source, "restored/vendor/highlight-js-core.ts", {
+      ...DEFAULT_OPTIONS,
+      allowFlat: true,
+      allowUntyped: true,
+    });
+    expect(report.issues.map((issue) => issue.code)).toContain(
+      "third-party-npm-shim-not-reexport",
+    );
+  });
+
+  test("passes Highlight.js core loader shims backed by the npm package", () => {
+    const source = `
+      // Restored from ref/webview/assets/core-DMiaGTKr.js
+      import highlightJsCore from "highlight.js/lib/core";
+      export const loadHighlightJsCore = () => highlightJsCore;
+    `;
+    const report = analyzeSource(source, "restored/vendor/highlight-js-core.ts", {
+      ...DEFAULT_OPTIONS,
+      allowFlat: true,
+      allowUntyped: true,
+    });
+    expect(report.issues).toEqual([]);
+  });
+
+  test("fails Highlight.js core shims when package dependency is not declared", () => {
+    const root = makeTmpRoot();
+    const restoredDir = path.join(root, "restored");
+    const vendorDir = path.join(restoredDir, "vendor");
+    fs.mkdirSync(vendorDir, { recursive: true });
+    fs.writeFileSync(
+      path.join(root, "package.json"),
+      JSON.stringify({ dependencies: {} }),
+    );
+    fs.writeFileSync(
+      path.join(vendorDir, "highlight-js-core.ts"),
+      `
+        // Restored from ref/webview/assets/core-DMiaGTKr.js
+        import highlightJsCore from "highlight.js/lib/core";
+        export const loadHighlightJsCore = () => highlightJsCore;
+      `,
+    );
+
+    const reports = analyzePublicNpmVendorShimDependencies(restoredDir);
+    expect(reports).toHaveLength(1);
+    expect(reports[0]!.issues.map((issue) => issue.code)).toContain(
+      "third-party-npm-shim-dependency-missing",
+    );
+    expect(reports[0]!.issues[0]!.detail).toMatchObject({
+      missingPackages: ["highlight.js"],
+    });
+  });
+
   test("fails hand-written Cytoscape runtime vendor shims", () => {
     const source = `
       // Restored from ref/webview/assets/cytoscape.esm-gCnb3XbU.js
