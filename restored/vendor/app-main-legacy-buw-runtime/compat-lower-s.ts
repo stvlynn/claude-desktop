@@ -22,15 +22,15 @@ export { initPrimaryRuntimeInstallStateChunk as appMainCurrentCompatSlotLowerSLo
 export { shouldRefreshSearchHighlightMutations as appMainCurrentCompatSlotLowerSUnderscore } from "../../runtime/conversation-search-runtime";
 export { timeFormat as appMainCurrentCompatSlotLowerSUpperS } from "d3-time-format";
 export { computeGeneratedImageOutputs as appMainCurrentCompatSlotLowerSLowerT } from "../../conversations/generated-image-outputs";
+export { initUseDictationRuntimeChunk as appMainCurrentCompatSlotLowerSUpperC } from "../../features/use-dictation/runtime-init";
+export { initBrowserSidebarTweaksStateChunk as appMainCurrentCompatSlotLowerSLowerP } from "../../app-shell/thread-side-panel-active-signals";
 
 export {
   sb as appMainCurrentCompatSlotLowerSLowerB,
-  sC as appMainCurrentCompatSlotLowerSUpperC,
   sd as appMainCurrentCompatSlotLowerSLowerD,
   sh as appMainCurrentCompatSlotLowerSLowerH,
   sn as appMainCurrentCompatSlotLowerSLowerN,
   so as appMainCurrentCompatSlotLowerSLowerO,
-  sp as appMainCurrentCompatSlotLowerSLowerP,
   su as appMainCurrentCompatSlotLowerSLowerU,
   sy as appMainCurrentCompatSlotLowerSLowerY,
 } from "../app-main-legacy-buw-compat-bundle";

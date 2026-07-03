@@ -7,6 +7,7 @@ export { PullRequestMergedIcon as legacyAppMainBuwLowerRLowerUExport } from "../
 export { initCheckCircleIconChunk as legacyAppMainBuwLowerOLowerCExport } from "../../../icons/check-circle-icon";
 export { initCursorIconChunk as legacyAppMainBuwLowerSLowerAExport } from "../../../icons/cursor-icon";
 export { initPullRequestOpenIconChunk as legacyAppMainBuwLowerNLowerUExport } from "../../../icons/pull-request-open-icon";
+export { initProgressionDonutIconChunk as legacyAppMainBuwLowerOLowerMExport } from "../../../icons/progression-donut-icon";
 export { initUnselectedCircleIconChunk as legacyAppMainBuwLowerNLowerCExport } from "../../../icons/unselected-circle-icon";
 
 export { arc as legacyAppMainBuwLowerNUpperSExport } from "../../d3-shape-arc";
@@ -15,7 +16,18 @@ export { formatLocale as legacyAppMainBuwLowerQUpperSExport } from "d3-format";
 export { timeFormat as legacyAppMainBuwLowerSUpperSExport } from "d3-time-format";
 export { KeyboardCode as legacyAppMainBuwLowerPLowerXExport } from "../../dnd-kit-core";
 export { curveBundle as legacyAppMainBuwLowerQLowerXExport } from "../../d3-shape-curve-bundle-factory";
+export {
+  initD3PathRuntimeChunk as legacyAppMainBuwLowerRUpperSExport,
+  initD3TimeFormatRuntimeChunk as legacyAppMainBuwLowerOUpperSExport,
+} from "../compat-runtime-initializers";
 export { useDictationCore as legacyAppMainBuwLowerOUpperCExport } from "../../../features/use-dictation/use-dictation";
+export { initUseDictationRuntimeChunk as legacyAppMainBuwLowerSUpperCExport } from "../../../features/use-dictation/runtime-init";
+export {
+  DEFAULT_MODEL as legacyAppMainBuwLowerNLowerXExport,
+  initModelsAndReasoningEffortsChunk as legacyAppMainBuwLowerRLowerXExport,
+} from "../../../utils/models-and-reasoning-efforts";
+export { initModelListQueryChunk as legacyAppMainBuwLowerQLowerBExport } from "../../../utils/model-queries";
+export { useDictationShortcutLabel as legacyAppMainBuwLowerQLowerPExport } from "../../../composer/composer-command-keymap";
 
 export { getMicrophoneInputStream as legacyAppMainBuwLowerPUpperCExport } from "../../../utils/microphone-input";
 
@@ -25,6 +37,7 @@ export { setThreadFindQuery as legacyAppMainBuwLowerQLowerGExport } from "../../
 
 export { createWorkspaceFileReader as legacyAppMainBuwLowerQLowerUExport } from "../../../review/workspace-file-reader";
 export { CODEX_IDE_DOCS_URL as legacyAppMainBuwLowerQLowerCExport } from "../../../utils/links-bd-mmkun-d";
+export { initLargeEmptyStateChunk as legacyAppMainBuwLowerQLowerFExport } from "../../../utils/large-empty-state";
 
 export { XCircleIcon as ErrorCircleIcon } from "../../../icons/x-circle-icon";
 
@@ -110,8 +123,17 @@ export {
   initBrowserSidebarOpenSourceChunk as legacyAppMainBuwLowerOLowerYExport,
   queueAdoptedBrowserTabId as legacyAppMainBuwLowerSLowerYExport,
 } from "../../../browser/browser-sidebar-open-source";
+export { openThreadPanel as legacyAppMainBuwLowerNLowerVExport } from "../../../app-shell/thread-panel-state";
+export { getPreferredBrowserTabId as legacyAppMainBuwLowerQUnderscoreExport } from "../../../app-shell/thread-browser-panel-tabs";
+export {
+  getBrowserSidebarTweaksState as legacyAppMainBuwLowerOLowerPExport,
+  initBrowserSidebarTweaksStateChunk as legacyAppMainBuwLowerSLowerPExport,
+  initBrowserSidebarTweaksSubmitRequestChunk as legacyAppMainBuwLowerRLowerPExport,
+  subscribeBrowserSidebarTweaksSubmit as legacyAppMainBuwLowerNLowerPExport,
+} from "../../../app-shell/thread-side-panel-active-signals";
 export { getBrowserSidebarTabRegistryGeneration as legacyAppMainBuwLowerRLowerYExport } from "../../../browser/browser-sidebar-open-source/tab-registry-mutations";
 export { initMcpAppFrameStateChunk as legacyAppMainBuwLowerRLowerFExport } from "../../../plugins/mcp-app-frame-state";
+export { ImageAttachment as legacyAppMainBuwLowerRLowerMExport } from "../../../image-side-panel/image-attachment";
 export {
   getHookPluginDisplayId as legacyAppMainBuwLowerNLowerAExport,
   initHooksSettingsCopyChunk as legacyAppMainBuwLowerRLowerAExport,
@@ -121,23 +143,19 @@ export { isSteerTurnInactiveError as legacyAppMainBuwLowerOLowerNExport } from "
 export { isConversationItemInProgress as legacyAppMainBuwLowerOLowerTExport } from "../../../conversations/local-conversation-thread-parts/conversation-item-in-progress";
 export { scrollConversationItemIntoView as legacyAppMainBuwLowerPLowerTExport } from "../../../conversations/scroll-conversation-item-into-view";
 export { computeGeneratedImageOutputs as legacyAppMainBuwLowerSLowerTExport } from "../../../conversations/generated-image-outputs";
+export { parseCodeCommentDirectives as legacyAppMainBuwLowerNLowerHExport } from "../../../github/diff-comments/use-diff-comment-sources/directive-comments";
+export { setDiffCommentsForConversation as legacyAppMainBuwLowerOLowerHExport } from "../../../github/diff-comments/set-diff-comments-for-conversation";
+export { addDiffCommentsForConversation as legacyAppMainBuwLowerRLowerHExport } from "../../../github/diff-comments/use-diff-comment-sources";
+export { readMaterializedThreadGoalObjective as legacyAppMainBuwLowerQLowerHExport } from "../../../threads/pending-worktree-store/thread-goal-objective-file";
 
 export {
   nd as legacyAppMainBuwLowerNLowerDExport,
   ng as legacyAppMainBuwLowerNLowerGExport,
-  nh as legacyAppMainBuwLowerNLowerHExport,
   no as legacyAppMainBuwLowerNLowerOExport,
-  np as legacyAppMainBuwLowerNLowerPExport,
   nr as legacyAppMainBuwLowerNLowerRExport,
   ns as legacyAppMainBuwLowerNLowerSExport,
   nt as legacyAppMainBuwLowerNLowerTExport,
-  nv as legacyAppMainBuwLowerNLowerVExport,
-  nx as legacyAppMainBuwLowerNLowerXExport,
-  oS as legacyAppMainBuwLowerOUpperSExport,
   od as legacyAppMainBuwLowerOLowerDExport,
-  oh as legacyAppMainBuwLowerOLowerHExport,
-  om as legacyAppMainBuwLowerOLowerMExport,
-  op as legacyAppMainBuwLowerOLowerPExport,
   ou as legacyAppMainBuwLowerOLowerUExport,
   ox as legacyAppMainBuwLowerOLowerXExport,
   p_ as legacyAppMainBuwLowerPUnderscoreExport,
@@ -147,35 +165,23 @@ export {
   pn as legacyAppMainBuwLowerPLowerNExport,
   pu as legacyAppMainBuwLowerPLowerUExport,
   q as legacyAppMainBuwLowerQExport,
-  q_ as legacyAppMainBuwLowerQUnderscoreExport,
   qa as legacyAppMainBuwLowerQLowerAExport,
-  qb as legacyAppMainBuwLowerQLowerBExport,
   qd as legacyAppMainBuwLowerQLowerDExport,
-  qf as legacyAppMainBuwLowerQLowerFExport,
-  qh as legacyAppMainBuwLowerQLowerHExport,
   ql as legacyAppMainBuwLowerQLowerLExport,
   qm as legacyAppMainBuwLowerQLowerMExport,
   qo as legacyAppMainBuwLowerQLowerOExport,
-  qp as legacyAppMainBuwLowerQLowerPExport,
   qt as legacyAppMainBuwLowerQLowerTExport,
   qv as legacyAppMainBuwLowerQLowerVExport,
   r as legacyAppMainBuwLowerRExport,
-  rS as legacyAppMainBuwLowerRUpperSExport,
   rd as legacyAppMainBuwLowerRLowerDExport,
   rg as legacyAppMainBuwLowerRLowerGExport,
-  rh as legacyAppMainBuwLowerRLowerHExport,
-  rm as legacyAppMainBuwLowerRLowerMExport,
   rn as legacyAppMainBuwLowerRLowerNExport,
   ro as legacyAppMainBuwLowerRLowerOExport,
-  rp as legacyAppMainBuwLowerRLowerPExport,
   rr as legacyAppMainBuwLowerRLowerRExport,
-  rx as legacyAppMainBuwLowerRLowerXExport,
-  sC as legacyAppMainBuwLowerSUpperCExport,
   sb as legacyAppMainBuwLowerSLowerBExport,
   sd as legacyAppMainBuwLowerSLowerDExport,
   sh as legacyAppMainBuwLowerSLowerHExport,
   sn as legacyAppMainBuwLowerSLowerNExport,
   so as legacyAppMainBuwLowerSLowerOExport,
-  sp as legacyAppMainBuwLowerSLowerPExport,
   su as legacyAppMainBuwLowerSLowerUExport,
 } from "../../app-main-legacy-buw-compat-bundle";

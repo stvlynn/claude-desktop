@@ -9,6 +9,10 @@ export { usePermissionsMode as appMainCurrentCompatSlotLowerNLowerB } from "../.
 export { arc as appMainCurrentCompatSlotLowerNUpperS } from "../d3-shape-arc";
 export { getHookPluginDisplayId as appMainCurrentCompatSlotLowerNLowerA } from "../../settings/hooks-settings-copy";
 export { buildImageInputItems as appMainCurrentCompatSlotLowerNLowerN } from "../../composer/build-image-input-items";
+export { DEFAULT_MODEL as appMainCurrentCompatSlotLowerNLowerX } from "../../utils/models-and-reasoning-efforts";
+export { openThreadPanel as appMainCurrentCompatSlotLowerNLowerV } from "../../app-shell/thread-panel-state";
+export { subscribeBrowserSidebarTweaksSubmit as appMainCurrentCompatSlotLowerNLowerP } from "../../app-shell/thread-side-panel-active-signals";
+export { parseCodeCommentDirectives as appMainCurrentCompatSlotLowerNLowerH } from "../../github/diff-comments/use-diff-comment-sources/directive-comments";
 
 export {
   liveMcpAppFrameSignal,
@@ -22,13 +26,9 @@ export { getLocalConversationSearchMatchId as appMainCurrentCompatSlotLowerNUnde
 export {
   nd as appMainCurrentCompatSlotLowerNLowerD,
   ng as appMainCurrentCompatSlotLowerNLowerG,
-  nh as appMainCurrentCompatSlotLowerNLowerH,
   no as appMainCurrentCompatSlotLowerNLowerO,
-  np as appMainCurrentCompatSlotLowerNLowerP,
   nr as appMainCurrentCompatSlotLowerNLowerR,
   ns as appMainCurrentCompatSlotLowerNLowerS,
   nt as appMainCurrentCompatSlotLowerNLowerT,
-  nv as appMainCurrentCompatSlotLowerNLowerV,
-  nx as appMainCurrentCompatSlotLowerNLowerX,
   ny as appMainCurrentCompatSlotLowerNLowerY,
 } from "../app-main-legacy-buw-compat-bundle";

@@ -14,6 +14,11 @@ export { automationDirectiveResultAtom as appMainCurrentCompatSlotLowerRLowerI }
 export { PullRequestMergedIcon as appMainCurrentCompatSlotLowerRLowerU } from "../../github/pull-request-status";
 export { joinThreadFindItemId as appMainCurrentCompatSlotLowerRUnderscore } from "../../runtime/conversation-search-runtime";
 export { initHooksSettingsCopyChunk as appMainCurrentCompatSlotLowerRLowerA } from "../../settings/hooks-settings-copy";
+export { initD3PathRuntimeChunk as appMainCurrentCompatSlotLowerRUpperS } from "./compat-runtime-initializers";
+export { initModelsAndReasoningEffortsChunk as appMainCurrentCompatSlotLowerRLowerX } from "../../utils/models-and-reasoning-efforts";
+export { initBrowserSidebarTweaksSubmitRequestChunk as appMainCurrentCompatSlotLowerRLowerP } from "../../app-shell/thread-side-panel-active-signals";
+export { ImageAttachment as appMainCurrentCompatSlotLowerRLowerM } from "../../image-side-panel/image-attachment";
+export { addDiffCommentsForConversation as appMainCurrentCompatSlotLowerRLowerH } from "../../github/diff-comments/use-diff-comment-sources";
 
 export {
   r as appMainCurrentCompatSlotLowerR,
@@ -21,13 +26,8 @@ export {
   rd as appMainCurrentCompatSlotLowerRLowerD,
   rf as appMainCurrentCompatSlotLowerRLowerF,
   rg as appMainCurrentCompatSlotLowerRLowerG,
-  rh as appMainCurrentCompatSlotLowerRLowerH,
-  rm as appMainCurrentCompatSlotLowerRLowerM,
   rn as appMainCurrentCompatSlotLowerRLowerN,
   ro as appMainCurrentCompatSlotLowerRLowerO,
-  rp as appMainCurrentCompatSlotLowerRLowerP,
   rr as appMainCurrentCompatSlotLowerRLowerR,
-  rS as appMainCurrentCompatSlotLowerRUpperS,
-  rx as appMainCurrentCompatSlotLowerRLowerX,
   ry as appMainCurrentCompatSlotLowerRLowerY,
 } from "../app-main-legacy-buw-compat-bundle";

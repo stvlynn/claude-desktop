@@ -2,6 +2,7 @@
 // Lowercase o compatibility aliases for the legacy app-main/onboarding producer.
 export { CursorIcon as appMainCurrentCompatSlotLowerOLowerA } from "../../icons/cursor-icon";
 export { initCheckCircleIconChunk as appMainCurrentCompatSlotLowerOLowerC } from "../../icons/check-circle-icon";
+export { initProgressionDonutIconChunk as appMainCurrentCompatSlotLowerOLowerM } from "../../icons/progression-donut-icon";
 
 export { useDictationCore as appMainCurrentCompatSlotLowerOUpperC } from "../../features/use-dictation/use-dictation";
 
@@ -22,14 +23,13 @@ export { getMoveToLocalTargets as appMainCurrentCompatSlotLowerOLowerO } from ".
 export { setContentSearchMatchIdAttribute as appMainCurrentCompatSlotLowerOUnderscore } from "../../runtime/conversation-search-runtime";
 export { isSteerTurnInactiveError as appMainCurrentCompatSlotLowerOLowerN } from "../../composer/steer-turn-inactive-error";
 export { isConversationItemInProgress as appMainCurrentCompatSlotLowerOLowerT } from "../../conversations/local-conversation-thread-parts/conversation-item-in-progress";
+export { initD3TimeFormatRuntimeChunk as appMainCurrentCompatSlotLowerOUpperS } from "./compat-runtime-initializers";
+export { getBrowserSidebarTweaksState as appMainCurrentCompatSlotLowerOLowerP } from "../../app-shell/thread-side-panel-active-signals";
+export { setDiffCommentsForConversation as appMainCurrentCompatSlotLowerOLowerH } from "../../github/diff-comments/set-diff-comments-for-conversation";
 
 export {
   ob as appMainCurrentCompatSlotLowerOLowerB,
   od as appMainCurrentCompatSlotLowerOLowerD,
-  oh as appMainCurrentCompatSlotLowerOLowerH,
-  om as appMainCurrentCompatSlotLowerOLowerM,
-  op as appMainCurrentCompatSlotLowerOLowerP,
-  oS as appMainCurrentCompatSlotLowerOUpperS,
   ou as appMainCurrentCompatSlotLowerOLowerU,
   ox as appMainCurrentCompatSlotLowerOLowerX,
   oy as appMainCurrentCompatSlotLowerOLowerY,
