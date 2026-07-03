@@ -14,6 +14,7 @@ export { appendPromptText as appMainCurrentCompatSlotLowerYUpperC } from "../../
 export { isWorkspaceCreditsExhausted as appMainCurrentCompatSlotLowerYLowerC } from "../../utils/rate-limit-status/account-status";
 export { initAppgenAccessStateIconChunk as appMainCurrentCompatSlotLowerYLowerS } from "../../utils/appgen-access-state-messages";
 export { isHotkeyWindowContext as appMainCurrentCompatSlotLowerYLowerA } from "../../utils/is-hotkey-window-context";
+export { AutomationDetailRow as appMainCurrentCompatSlotLowerYLowerR } from "../../automations/automation-side-panel/status-components";
 
 export {
   y as appMainCurrentCompatSlotLowerY,
@@ -25,7 +26,6 @@ export {
   ym as appMainCurrentCompatSlotLowerYLowerM,
   yn as appMainCurrentCompatSlotLowerYLowerN,
   yp as appMainCurrentCompatSlotLowerYLowerP,
-  yr as appMainCurrentCompatSlotLowerYLowerR,
   yS as appMainCurrentCompatSlotLowerYUpperS,
   yt as appMainCurrentCompatSlotLowerYLowerT,
   yu as appMainCurrentCompatSlotLowerYLowerU,
