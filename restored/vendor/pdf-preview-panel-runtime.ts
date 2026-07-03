@@ -108,6 +108,7 @@ import {
   initArtifactPreviewStatusChunk as Le,
 } from "../utils/artifact-preview-status";
 import {
+  PdfAnnotationLayer as ot,
   usePdfDocumentLoader as qe,
   usePdfPageNavigation as Re,
 } from "../features/documents/pdf-preview-panel";
@@ -139,220 +140,6 @@ var Qe,
       (et = !1));
   }),
   nt = e(() => {});
-function rt(e) {
-  return (
-    typeof e == `object` &&
-    !!e &&
-    `num` in e &&
-    typeof e.num == `number` &&
-    `gen` in e &&
-    typeof e.gen == `number`
-  );
-}
-var it,
-  at = e(() => {
-    it = class {
-      isInPresentationMode;
-      externalLinksEnabled = !0;
-      constructor({
-        linkNavigation: e,
-        pageSelector: t,
-        pdfDocument: n,
-        scrollRootRef: r,
-      }) {
-        ((this.isInPresentationMode = e != null),
-          (this.linkNavigation = e),
-          (this.pageSelector = t),
-          (this.pdfDocument = n),
-          (this.scrollRootRef = r));
-      }
-      linkNavigation;
-      pageSelector;
-      pdfDocument;
-      scrollRootRef;
-      get pagesCount() {
-        return this.pdfDocument.numPages;
-      }
-      set page(e) {
-        this.scrollToPage(e);
-      }
-      get page() {
-        return 1;
-      }
-      set rotation(e) {}
-      get rotation() {
-        return 0;
-      }
-      set externalLinkEnabled(e) {
-        this.externalLinksEnabled = e;
-      }
-      get externalLinkEnabled() {
-        return this.externalLinksEnabled;
-      }
-      async goToDestination(e) {
-        let t =
-            typeof e == `string` ? await this.pdfDocument.getDestination(e) : e,
-          n = t == null ? null : await this.getDestinationPageNumber(t);
-        n != null && this.scrollToPage(n);
-      }
-      goToPage(e) {
-        let t = Number(e);
-        Number.isInteger(t) && this.scrollToPage(t);
-      }
-      goToXY(e) {
-        this.scrollToPage(e);
-      }
-      addLinkAttributes(e, t) {
-        if (!t || !this.externalLinksEnabled) {
-          ((e.href = ``), (e.onclick = null));
-          return;
-        }
-        if (
-          ((e.href = t),
-          (e.title = t),
-          (e.target = `_blank`),
-          (e.rel = `noopener noreferrer nofollow`),
-          this.linkNavigation?.onExternalLink == null)
-        ) {
-          e.onclick = null;
-          return;
-        }
-        e.onclick = (e) => {
-          (e.preventDefault(),
-            e.stopPropagation(),
-            this.linkNavigation?.onExternalLink?.(t, e));
-        };
-      }
-      getDestinationHash(e) {
-        return typeof e == `string` && e.length > 0
-          ? this.getAnchorUrl(`#${window.encodeURIComponent(e)}`)
-          : this.getAnchorUrl(``);
-      }
-      getAnchorUrl(e) {
-        return typeof e == `string` ? e : ``;
-      }
-      setHash(e) {}
-      executeNamedAction(e) {}
-      executeSetOCGState(e) {}
-      async getDestinationPageNumber(e) {
-        let t = e[0];
-        if (typeof t == `number` && Number.isInteger(t)) return t + 1;
-        if (!rt(t)) return null;
-        let n = this.pdfDocument.cachedPageNumber(t);
-        if (n != null) return n;
-        try {
-          return (await this.pdfDocument.getPageIndex(t)) + 1;
-        } catch {
-          return null;
-        }
-      }
-      scrollToPage(e) {
-        if (!(e < 1 || e > this.pdfDocument.numPages)) {
-          if (this.linkNavigation?.onPageChange != null) {
-            this.linkNavigation.onPageChange(e);
-            return;
-          }
-          (
-            this.scrollRootRef.current?.querySelector(
-              `${this.pageSelector}[data-page-number="${e}"]`,
-            ) ?? null
-          )?.scrollIntoView({ block: `start`, inline: `nearest` });
-        }
-      }
-    };
-  });
-function ot(e) {
-  let t = (0, st.c)(9),
-    {
-      deferMs: n,
-      linkNavigation: r,
-      page: i,
-      pageSelector: a,
-      pdfDocument: o,
-      scrollRootRef: s,
-    } = e,
-    c = (0, ct.useRef)(null),
-    l,
-    u;
-  (t[0] !== n ||
-  t[1] !== r ||
-  t[2] !== i ||
-  t[3] !== a ||
-  t[4] !== o ||
-  t[5] !== s
-    ? ((l = () => {
-        let e = c.current;
-        if (e == null) return;
-        let t = e;
-        t.innerHTML = ``;
-        let l = !1,
-          u = null,
-          d = async function () {
-            let e = await Je(),
-              n = await i.getAnnotations();
-            if (l || n.length === 0) return;
-            let c = i.getViewport({ scale: 1 }),
-              u = new it({
-                linkNavigation: r,
-                pageSelector: a,
-                pdfDocument: o,
-                scrollRootRef: s,
-              });
-            await new e.AnnotationLayer({
-              accessibilityManager: void 0,
-              annotationCanvasMap: void 0,
-              annotationEditorUIManager: void 0,
-              annotationStorage: void 0,
-              commentManager: void 0,
-              div: t,
-              linkService: u,
-              page: i,
-              structTreeLayer: void 0,
-              viewport: c,
-            }).render({
-              annotations: n,
-              div: t,
-              linkService: u,
-              page: i,
-              renderForms: !1,
-              viewport: c,
-            });
-          };
-        return (
-          (u = setTimeout(() => {
-            d();
-          }, n)),
-          () => {
-            ((l = !0), u != null && clearTimeout(u), (t.innerHTML = ``));
-          }
-        );
-      }),
-      (u = [n, r, i, a, o, s]),
-      (t[0] = n),
-      (t[1] = r),
-      (t[2] = i),
-      (t[3] = a),
-      (t[4] = o),
-      (t[5] = s),
-      (t[6] = l),
-      (t[7] = u))
-    : ((l = t[6]), (u = t[7])),
-    (0, ct.useEffect)(l, u));
-  let d;
-  return (
-    t[8] === Symbol.for(`react.memo_cache_sentinel`)
-      ? ((d = (0, lt.jsx)(`div`, { ref: c, className: `annotationLayer` })),
-        (t[8] = d))
-      : (d = t[8]),
-    d
-  );
-}
-var st,
-  ct,
-  lt,
-  ut = e(() => {
-    ((st = p()), (ct = t(l(), 1)), tt(), at(), (lt = h()));
-  });
 function dt(e, t) {
   let n = e.currentTarget.getBoundingClientRect();
   return n.width <= 0 || n.height <= 0
@@ -2059,7 +1846,6 @@ var jn,
     ((jn = p()),
       (Mn = t(l(), 1)),
       nt(),
-      ut(),
       cn(),
       pn(),
       kn(),
@@ -2282,6 +2068,7 @@ var jn,
                       (0, Nn.jsx)(ot, {
                         deferMs: M,
                         linkNavigation: i,
+                        loadPdfJs: Je,
                         page: S,
                         pageSelector: o,
                         pdfDocument: l,

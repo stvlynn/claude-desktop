@@ -42273,12 +42273,12 @@
         "PdfPreviewPanel": "PdfPreviewPanel"
       },
       "status": "done",
-      "note": "Current PdfPreviewPanel hash maps to a dedicated current-ref runtime over vendor/pdf-preview-panel-runtime.ts; the PDF document loader and page navigation helpers now live in features/documents/pdf-preview-panel while the remaining panel runtime is still being split.",
-      "lastUpdated": "2026-07-03T03:12:00.000Z",
+      "note": "Current PdfPreviewPanel hash maps to a dedicated current-ref runtime over vendor/pdf-preview-panel-runtime.ts; the PDF document loader, page navigation helpers, annotation layer, and annotation link service now live in features/documents/pdf-preview-panel while the remaining panel runtime is still being split.",
+      "lastUpdated": "2026-07-03T03:13:00.000Z",
       "stage3Accepted": true,
       "stage3AcceptedAt": "2026-07-02T01:40:29.000Z",
       "stage3Review": "Host self-review: preserved the PdfPreviewPanel export surface, moved the vendored preview backing file to vendor/pdf-preview-panel-runtime.ts, updated artifact preview producers and runtime facade, and verified no current-bundle references remain.",
-      "stage3Note": "Accepted as a current-ref compatibility export over the PDF preview runtime. Partial semantic split in progress: features/documents/pdf-preview-panel now owns the typed document loader, data URL decoder, and page navigation helpers; vendor/pdf-preview-panel-runtime.ts still fails flat-boundary-app-bundle until the remaining panel, annotation, zoom, and presentation logic are split or moved behind a small compatibility shim."
+      "stage3Note": "Accepted as a current-ref compatibility export over the PDF preview runtime. Partial semantic split in progress: features/documents/pdf-preview-panel now owns the typed document loader, data URL decoder, page navigation helpers, annotation layer, and annotation link service; vendor/pdf-preview-panel-runtime.ts still fails flat-boundary-app-bundle until the remaining panel, zoom, and presentation logic are split or moved behind a small compatibility shim."
     },
     "review-mode-content-Bx3AaAoJ": {
       "restored": "runtime/current-app-initial/review-mode-content-current-runtime.ts",
