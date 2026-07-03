@@ -116,7 +116,7 @@ import {
   readDocxElementAnnotationAnchorAtPoint as dt,
   readDocxTextSelectionAnchor as ut,
   rectFromPoints as Ve,
-  scrollToDocxPage as zt,
+  useDocxPageNavigation as zt,
   useDocxPreviewRenderState as X,
   useDocxPreviewZoom as Nt,
 } from "../features/documents/docx-preview-panel";
@@ -1655,35 +1655,19 @@ function jt(e) {
     g = o(pe),
     _ = (0, Z.use)(Zt),
     v = ne(),
-    x = (0, Z.useRef)(null),
-    te = (0, Z.useRef)(null),
-    ie;
-  t[0] === Symbol.for(`react.memo_cache_sentinel`)
-    ? ((ie = () => {
-        te.current != null &&
-          (window.cancelAnimationFrame(te.current), (te.current = null));
-      }),
-      (t[0] = ie))
-    : (ie = t[0]);
-  let ae = ie,
-    oe;
-  t[1] === v
-    ? (oe = t[2])
-    : ((oe = (e) => {
-        let t = x.current;
-        t != null && zt(e, t, te, v) && (x.current = null);
-      }),
-      (t[1] = v),
-      (t[2] = oe));
-  let T = oe,
-    se;
-  t[3] !== n || t[4] !== _ || t[5] !== T
-    ? ((se = { bytes: n, onPagesRendered: T, renderAsync: _, styleText: qt }),
-      (t[3] = n),
-      (t[4] = _),
-      (t[5] = T),
-      (t[6] = se))
-    : (se = t[6]);
+    {
+      bodyContainerElementRef: x,
+      cancelPageScroll: ae,
+      flushPendingPageScroll: T,
+      navigateToPage: ke,
+    } = zt({ zoomScale: v }),
+    se = {
+      bodyContainerElementRef: x,
+      bytes: n,
+      onPagesRendered: T,
+      renderAsync: _,
+      styleText: qt,
+    };
   let {
       bodyContainerElementRef: ce,
       bodyContainerRef: ue,
@@ -1745,21 +1729,6 @@ function jt(e) {
       useResizeObserverRef,
     }),
     L = E === `ready`,
-    R;
-  t[18] !== ce || t[19] !== v
-    ? ((R = (e) => {
-        let t = ce.current;
-        if (t == null || !zt(t, e, te, v)) {
-          x.current = e;
-          return;
-        }
-        x.current = null;
-      }),
-      (t[18] = ce),
-      (t[19] = v),
-      (t[20] = R))
-    : (R = t[20]);
-  let ke = R,
     Ae,
     z;
   (t[21] === ke

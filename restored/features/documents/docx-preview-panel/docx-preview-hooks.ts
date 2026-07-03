@@ -10,11 +10,13 @@ import {
   type DocxRenderAsync,
   fitDocxPreviewToWidth,
   renderDocxPreview,
+  scrollToDocxPage,
 } from "./docx-preview-rendering";
 
 export type DocxPreviewLoadState = "loading" | "ready" | "error";
 
 export interface UseDocxPreviewRenderStateOptions {
+  bodyContainerElementRef?: React.MutableRefObject<HTMLElement | null>;
   bytes: Blob | BufferSource;
   onPagesRendered: (bodyContainer: HTMLElement) => void;
   renderAsync: DocxRenderAsync | null;
@@ -92,18 +94,33 @@ export interface DocxPreviewZoomState {
   zoomPercent: number;
 }
 
+export interface UseDocxPageNavigationOptions {
+  bodyContainerElementRef?: React.MutableRefObject<HTMLElement | null>;
+  zoomScale: number;
+}
+
+export interface DocxPageNavigation {
+  bodyContainerElementRef: React.MutableRefObject<HTMLElement | null>;
+  cancelPageScroll: () => void;
+  flushPendingPageScroll: (bodyContainer: HTMLElement) => void;
+  navigateToPage: (pageNumber: number) => void;
+}
+
 interface ActivePinchZoom {
   distance: number;
   zoomPercent: number;
 }
 
 export function useDocxPreviewRenderState({
+  bodyContainerElementRef: providedBodyContainerElementRef,
   bytes,
   onPagesRendered,
   renderAsync,
   styleText,
 }: UseDocxPreviewRenderStateOptions): DocxPreviewRenderState {
-  const bodyContainerElementRef = React.useRef<HTMLElement | null>(null);
+  const ownedBodyContainerElementRef = React.useRef<HTMLElement | null>(null);
+  const bodyContainerElementRef =
+    providedBodyContainerElementRef ?? ownedBodyContainerElementRef;
   const styleContainerElementRef = React.useRef<HTMLElement | null>(null);
   const renderGenerationRef = React.useRef(0);
   const isRenderingRef = React.useRef(false);
@@ -123,7 +140,7 @@ export function useDocxPreviewRenderState({
     clearDocxPreviewContainers({ bodyContainer, styleContainer });
     setPageElements([]);
     setTotalPages(0);
-  }, []);
+  }, [bodyContainerElementRef]);
 
   const renderPreview = React.useCallback((): void => {
     const bodyContainer = bodyContainerElementRef.current;
@@ -166,7 +183,14 @@ export function useDocxPreviewRenderState({
       setLoadState("ready");
       onPagesRendered(bodyContainer);
     });
-  }, [bytes, clearPreview, onPagesRendered, renderAsync, styleText]);
+  }, [
+    bodyContainerElementRef,
+    bytes,
+    clearPreview,
+    onPagesRendered,
+    renderAsync,
+    styleText,
+  ]);
 
   const resetRender = React.useCallback((): void => {
     renderGenerationRef.current += 1;
@@ -185,7 +209,7 @@ export function useDocxPreviewRenderState({
       bodyContainerElementRef.current = bodyContainer;
       renderPreview();
     },
-    [renderPreview, resetRender],
+    [bodyContainerElementRef, renderPreview, resetRender],
   );
 
   const styleContainerRef = React.useCallback<RefCallback<HTMLElement>>(
@@ -209,6 +233,71 @@ export function useDocxPreviewRenderState({
     pageElements,
     styleContainerRef,
     totalPages,
+  };
+}
+
+export function useDocxPageNavigation({
+  bodyContainerElementRef: providedBodyContainerElementRef,
+  zoomScale,
+}: UseDocxPageNavigationOptions): DocxPageNavigation {
+  const ownedBodyContainerElementRef = React.useRef<HTMLElement | null>(null);
+  const bodyContainerElementRef =
+    providedBodyContainerElementRef ?? ownedBodyContainerElementRef;
+  const pendingPageNumberRef = React.useRef<number | null>(null);
+  const scrollAnimationFrameRef = React.useRef<number | null>(null);
+
+  const cancelPageScroll = React.useCallback((): void => {
+    if (scrollAnimationFrameRef.current == null) return;
+
+    window.cancelAnimationFrame(scrollAnimationFrameRef.current);
+    scrollAnimationFrameRef.current = null;
+  }, []);
+
+  const navigateToPage = React.useCallback(
+    (pageNumber: number): void => {
+      const bodyContainer = bodyContainerElementRef.current;
+      if (
+        bodyContainer == null ||
+        !scrollToDocxPage({
+          animationFrameRef: scrollAnimationFrameRef,
+          container: bodyContainer,
+          pageNumber,
+          zoomScale,
+        })
+      ) {
+        pendingPageNumberRef.current = pageNumber;
+        return;
+      }
+
+      pendingPageNumberRef.current = null;
+    },
+    [bodyContainerElementRef, zoomScale],
+  );
+
+  const flushPendingPageScroll = React.useCallback(
+    (bodyContainer: HTMLElement): void => {
+      const pendingPageNumber = pendingPageNumberRef.current;
+      if (pendingPageNumber == null) return;
+
+      if (
+        scrollToDocxPage({
+          animationFrameRef: scrollAnimationFrameRef,
+          container: bodyContainer,
+          pageNumber: pendingPageNumber,
+          zoomScale,
+        })
+      ) {
+        pendingPageNumberRef.current = null;
+      }
+    },
+    [zoomScale],
+  );
+
+  return {
+    bodyContainerElementRef,
+    cancelPageScroll,
+    flushPendingPageScroll,
+    navigateToPage,
   };
 }
 
