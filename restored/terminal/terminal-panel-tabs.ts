@@ -33,3 +33,7 @@ export function openTerminalPanel(
 export function openTerminalPanelAtBottom(scope: AppScope): void {
   openTerminalPanel(scope, "bottom");
 }
+
+export function hasTerminalPanelTarget(scope: AppScope): boolean {
+  return getTerminalPanelTarget(scope) != null;
+}

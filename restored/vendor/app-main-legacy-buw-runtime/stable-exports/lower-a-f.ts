@@ -142,8 +142,16 @@ export {
   initConversationItemScrollTargetRuntime as legacyAppMainBuwLowerDLowerTExport,
   registerConversationItemScrollTarget as legacyAppMainBuwLowerFLowerTExport,
 } from "../../../conversations/scroll-conversation-item-into-view";
+export {
+  hasTerminalPanelTarget as legacyAppMainBuwLowerCUnderscoreExport,
+  openTerminalPanel as legacyAppMainBuwLowerFUnderscoreExport,
+  openTerminalPanelAtBottom as legacyAppMainBuwLowerDUnderscoreExport,
+} from "../../../terminal/terminal-panel-tabs";
 
 export { clearBrowserSidebarComments as legacyAppMainBuwLowerDLowerMExport } from "../../../browser/browser-sidebar-state";
+export { findPanelForTab as legacyAppMainBuwLowerELowerVExport } from "../../../app-shell/thread-panel-state";
+export { initEnabledReasoningEffortsChunk as legacyAppMainBuwLowerELowerXExport } from "../../../composer/enabled-reasoning-efforts";
+export { revealReviewFile as legacyAppMainBuwLowerBLowerGExport } from "../../../review/review-file-navigation";
 export { updateMcpAppFrameState as legacyAppMainBuwLowerALowerFExport } from "../../../plugins/mcp-app-frame-state";
 export {
   initD3ChartScalesRuntimeChunk as legacyAppMainBuwLowerCUpperSExport,
@@ -163,19 +171,16 @@ export {
   bc as legacyAppMainBuwLowerBLowerCExport,
   bd as legacyAppMainBuwLowerBLowerDExport,
   bf as legacyAppMainBuwLowerBLowerFExport,
-  bg as legacyAppMainBuwLowerBLowerGExport,
   bh as legacyAppMainBuwLowerBLowerHExport,
   bm as legacyAppMainBuwLowerBLowerMExport,
   bn as legacyAppMainBuwLowerBLowerNExport,
   bp as legacyAppMainBuwLowerBLowerPExport,
   bt as legacyAppMainBuwLowerBLowerTExport,
   bv as legacyAppMainBuwLowerBLowerVExport,
-  c_ as legacyAppMainBuwLowerCUnderscoreExport,
   ch as legacyAppMainBuwLowerCLowerHExport,
   ct as legacyAppMainBuwLowerCLowerTExport,
   cv as legacyAppMainBuwLowerCLowerVExport,
   d as legacyAppMainBuwLowerDExport,
-  d_ as legacyAppMainBuwLowerDUnderscoreExport,
   dd as legacyAppMainBuwLowerDLowerDExport,
   ed as legacyAppMainBuwLowerELowerDExport,
   ef as legacyAppMainBuwLowerELowerFExport,
@@ -184,10 +189,7 @@ export {
   ep as legacyAppMainBuwLowerELowerPExport,
   es as legacyAppMainBuwLowerELowerSExport,
   et as legacyAppMainBuwLowerELowerTExport,
-  ev as legacyAppMainBuwLowerELowerVExport,
-  ex as legacyAppMainBuwLowerELowerXExport,
   f as legacyAppMainBuwLowerFExport,
-  f_ as legacyAppMainBuwLowerFUnderscoreExport,
   fd as legacyAppMainBuwLowerFLowerDExport,
   fp as legacyAppMainBuwLowerFLowerPExport,
   fu as legacyAppMainBuwLowerFLowerUExport,
