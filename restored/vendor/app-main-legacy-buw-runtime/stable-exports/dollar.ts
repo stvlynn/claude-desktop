@@ -18,16 +18,16 @@ export { readServiceTierForRequest as legacyAppMainBuwDollarLowerHExport } from 
 export { DEFAULT_AUTOMATION_DRAFT as legacyAppMainBuwDollarLowerRExport } from "../../../automations/shared";
 export { initConversationSearchSnippetBuilderRuntime as legacyAppMainBuwDollarLowerGExport } from "../../../runtime/conversation-search-runtime";
 export { consumeQueuedBrowserTabIds as legacyAppMainBuwDollarLowerVExport } from "../../../browser/browser-sidebar-open-source";
+export { formatHookEventDescription as legacyAppMainBuwDollarLowerIExport } from "../../../settings/hooks-settings-copy";
+export { MicrosoftIcon as legacyAppMainBuwDollarLowerSExport } from "../../../icons/microsoft-icon";
+export { buildProjectDropdownOptions as legacyAppMainBuwDollarLowerUExport } from "../../../ui/project-dropdown-options";
+export { pie as legacyAppMainBuwDollarLowerXExport } from "../../d3-shape-pie";
+export { PlanSummaryCard as legacyAppMainBuwDollarExport } from "../../../conversations/local-conversation-thread-parts/plan-summary-card";
+export { enabledReasoningEffortsSetSignal as legacyAppMainBuwDollarLowerBExport } from "../../../composer/enabled-reasoning-efforts";
+export { threadShortcutLabelsAtom as legacyAppMainBuwDollarLowerPExport } from "../../../composer/composer-command-keymap";
+export { startComposerTurn as legacyAppMainBuwDollarLowerTExport } from "../../../composer/start-composer-turn";
 
 export {
-  $ as legacyAppMainBuwDollarExport,
   $_ as legacyAppMainBuwDollarUnderscoreExport,
-  $b as legacyAppMainBuwDollarLowerBExport,
   $d as legacyAppMainBuwDollarLowerDExport,
-  $i as legacyAppMainBuwDollarLowerIExport,
-  $p as legacyAppMainBuwDollarLowerPExport,
-  $s as legacyAppMainBuwDollarLowerSExport,
-  $t as legacyAppMainBuwDollarLowerTExport,
-  $u as legacyAppMainBuwDollarLowerUExport,
-  $x as legacyAppMainBuwDollarLowerXExport,
 } from "../../app-main-legacy-buw-compat-bundle";
