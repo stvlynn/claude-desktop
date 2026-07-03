@@ -21,9 +21,9 @@ export { initConversationalOnboardingWorkflowStateChunk as appMainCurrentCompatS
 export { CommentPreview as appMainCurrentCompatSlotLowerJLowerT } from "../../image-side-panel/paged-annotation-comment-preview";
 export { initPointerVelocityStateChunk as appMainCurrentCompatSlotLowerJLowerD } from "../../runtime/pointer-velocity-state";
 export { initComposerInteractionStateChunk as appMainCurrentCompatSlotLowerJLowerB } from "../../composer/composer-interaction-state";
+export { initComposerContextButtonChunk as appMainCurrentCompatSlotLowerJUpperC } from "../../features/use-dictation/context-button";
 
 export {
-  jC as appMainCurrentCompatSlotLowerJUpperC,
   jf as appMainCurrentCompatSlotLowerJLowerF,
   jh as appMainCurrentCompatSlotLowerJLowerH,
   jm as appMainCurrentCompatSlotLowerJLowerM,

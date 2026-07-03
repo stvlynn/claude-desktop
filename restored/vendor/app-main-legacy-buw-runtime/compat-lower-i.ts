@@ -19,6 +19,7 @@ export { formatModelDisplayName as appMainCurrentCompatSlotLowerILowerG } from "
 export { getDefaultWorkspaceWriteMode as appMainCurrentCompatSlotLowerILowerB } from "../../utils/use-permissions-mode/mode-selection";
 export { fullScreenMcpAppIdsAtom as appMainCurrentCompatSlotLowerILowerF } from "../../plugins/mcp-app-frame-state";
 export { createSteerTurnInactiveError as appMainCurrentCompatSlotLowerILowerN } from "../../composer/steer-turn-inactive-error";
+export { isReasoningEffort as appMainCurrentCompatSlotLowerILowerX } from "../../utils/models-and-reasoning-efforts";
 
 export {
   ih as appMainCurrentCompatSlotLowerILowerH,
@@ -28,5 +29,4 @@ export {
   iS as appMainCurrentCompatSlotLowerIUpperS,
   iu as appMainCurrentCompatSlotLowerILowerU,
   iv as appMainCurrentCompatSlotLowerILowerV,
-  ix as appMainCurrentCompatSlotLowerILowerX,
 } from "../app-main-legacy-buw-compat-bundle";

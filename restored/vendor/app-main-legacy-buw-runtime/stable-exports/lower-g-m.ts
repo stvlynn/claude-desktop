@@ -172,6 +172,8 @@ export {
   composerPromptHistorySignal as legacyAppMainBuwLowerKLowerBExport,
   initComposerInteractionStateChunk as legacyAppMainBuwLowerJLowerBExport,
 } from "../../../composer/composer-interaction-state";
+export { initComposerContextButtonChunk as legacyAppMainBuwLowerJUpperCExport } from "../../../features/use-dictation/context-button";
+export { isReasoningEffort as legacyAppMainBuwLowerILowerXExport } from "../../../utils/models-and-reasoning-efforts";
 
 export {
   iS as legacyAppMainBuwLowerIUpperSExport,
@@ -181,8 +183,6 @@ export {
   ir as legacyAppMainBuwLowerILowerRExport,
   iu as legacyAppMainBuwLowerILowerUExport,
   iv as legacyAppMainBuwLowerILowerVExport,
-  ix as legacyAppMainBuwLowerILowerXExport,
-  jC as legacyAppMainBuwLowerJUpperCExport,
   jh as legacyAppMainBuwLowerJLowerHExport,
   jm as legacyAppMainBuwLowerJLowerMExport,
   jv as legacyAppMainBuwLowerJLowerVExport,
