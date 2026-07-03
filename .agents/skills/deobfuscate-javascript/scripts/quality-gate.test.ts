@@ -2861,6 +2861,16 @@ describe("quality-gate", () => {
       }
       export const useSyncExternalStoreWithSelectorRuntime = { useSyncExternalStoreWithSelector };
     `;
+    const reactReduxSource = `
+      // Restored from ref/webview/assets/app-initial~app-main~onboarding-page-AbCdEf12.js
+      import React, { createContext, useMemo } from "react";
+      const ReactReduxContext = createContext(null);
+      export function ReactReduxProvider({ children, store }) {
+        const value = useMemo(() => ({ store }), [store]);
+        return <ReactReduxContext.Provider value={value}>{children}</ReactReduxContext.Provider>;
+      }
+      export function initReactReduxProviderRuntimeChunk() {}
+    `;
 
     const reactIsReport = analyzeSource(
       reactIsSource,
@@ -2880,10 +2890,22 @@ describe("quality-gate", () => {
         allowUntyped: true,
       },
     );
+    const reactReduxReport = analyzeSource(
+      reactReduxSource,
+      "restored/vendor/react-redux-provider-runtime.tsx",
+      {
+        ...DEFAULT_OPTIONS,
+        allowFlat: true,
+        allowUntyped: true,
+      },
+    );
     expect(reactIsReport.issues.map((issue) => issue.code)).toContain(
       "third-party-npm-shim-not-reexport",
     );
     expect(useSyncReport.issues.map((issue) => issue.code)).toContain(
+      "third-party-npm-shim-not-reexport",
+    );
+    expect(reactReduxReport.issues.map((issue) => issue.code)).toContain(
       "third-party-npm-shim-not-reexport",
     );
   });
@@ -2904,6 +2926,15 @@ describe("quality-gate", () => {
       export { useSyncExternalStoreWithSelector } from "use-sync-external-store/shim/with-selector";
       export const useSyncExternalStoreWithSelectorRuntime = { useSyncExternalStoreWithSelector };
     `;
+    const reactReduxSource = `
+      // Restored from ref/webview/assets/app-initial~app-main~onboarding-page-AbCdEf12.js
+      export {
+        Provider as ReactReduxProvider,
+        ReactReduxContext,
+      } from "react-redux";
+      export type { ProviderProps as ReactReduxProviderProps } from "react-redux";
+      export function initReactReduxProviderRuntimeChunk() {}
+    `;
 
     const reactIsReport = analyzeSource(
       reactIsSource,
@@ -2921,8 +2952,17 @@ describe("quality-gate", () => {
         allowFlat: true,
       },
     );
+    const reactReduxReport = analyzeSource(
+      reactReduxSource,
+      "restored/vendor/react-redux-provider-runtime.tsx",
+      {
+        ...DEFAULT_OPTIONS,
+        allowFlat: true,
+      },
+    );
     expect(reactIsReport.issues).toEqual([]);
     expect(useSyncReport.issues).toEqual([]);
+    expect(reactReduxReport.issues).toEqual([]);
   });
 
   test("fails hand-written react-colorful vendor picker bodies", () => {

@@ -552,6 +552,7 @@ const PUBLIC_NPM_VENDOR_SHIMS: Record<string, PublicNpmVendorSpecifiers> = {
   "react-router": "react-router",
   "react-intl": "react-intl",
   "react-is-runtime": "react-is",
+  "react-redux-provider-runtime": "react-redux",
   "react-style-singleton": "react-style-singleton",
   roughjs: "roughjs",
   stylis: "stylis",

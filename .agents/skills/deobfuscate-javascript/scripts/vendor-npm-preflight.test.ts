@@ -239,6 +239,32 @@ describe("vendor-npm-preflight CLI", () => {
     expect(decisions[0]?.specifiers).toContain("lodash/orderBy");
   });
 
+  test("classifies React Redux provider runtime as a registered npm shim", () => {
+    const root = makeTmpRoot();
+    const vendorDir = path.join(root, "restored", "vendor");
+    fs.mkdirSync(vendorDir, { recursive: true });
+    fs.writeFileSync(
+      path.join(root, "package.json"),
+      JSON.stringify({ dependencies: { "react-redux": "^9.3.0" } }),
+    );
+
+    const result = runDecisionCLI(
+      path.join(vendorDir, "react-redux-provider-runtime.tsx"),
+      { intent: "local-body" },
+    );
+    expect(result.code).toBe(1);
+    expect(result.stderr).toContain("local vendor body blocked");
+    expect(result.stderr).toContain("react-redux");
+    const decisions = JSON.parse(result.stdout) as Array<{
+      decision: string;
+      specifiers: string[];
+    }>;
+    expect(decisions[0]).toMatchObject({
+      decision: "npm-shim",
+      specifiers: ["react-redux"],
+    });
+  });
+
   test("passes npm-backed pull request lodash helper loader shims", () => {
     const root = makeTmpRoot();
     const vendorDir = path.join(root, "restored", "vendor");
