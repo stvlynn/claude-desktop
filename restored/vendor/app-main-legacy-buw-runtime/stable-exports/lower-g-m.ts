@@ -167,24 +167,26 @@ export { readElementBounds as legacyAppMainBuwLowerGLowerXExport } from "../../.
 export { fontSettings as legacyAppMainBuwLowerKUnderscoreExport } from "../../../utils/font-settings";
 export { initPointerVelocityStateChunk as legacyAppMainBuwLowerJLowerDExport } from "../../../runtime/pointer-velocity-state";
 export { viewportSizeSignal as legacyAppMainBuwLowerKLowerDExport } from "../../../runtime/pointer-velocity-signals";
+export { createSteerTurnInactiveError as legacyAppMainBuwLowerILowerNExport } from "../../../composer/steer-turn-inactive-error";
+export {
+  composerPromptHistorySignal as legacyAppMainBuwLowerKLowerBExport,
+  initComposerInteractionStateChunk as legacyAppMainBuwLowerJLowerBExport,
+} from "../../../composer/composer-interaction-state";
 
 export {
   iS as legacyAppMainBuwLowerIUpperSExport,
   ih as legacyAppMainBuwLowerILowerHExport,
   im as legacyAppMainBuwLowerILowerMExport,
-  in as legacyAppMainBuwLowerILowerNExport,
   io as legacyAppMainBuwLowerILowerOExport,
   ir as legacyAppMainBuwLowerILowerRExport,
   iu as legacyAppMainBuwLowerILowerUExport,
   iv as legacyAppMainBuwLowerILowerVExport,
   ix as legacyAppMainBuwLowerILowerXExport,
   jC as legacyAppMainBuwLowerJUpperCExport,
-  jb as legacyAppMainBuwLowerJLowerBExport,
   jh as legacyAppMainBuwLowerJLowerHExport,
   jm as legacyAppMainBuwLowerJLowerMExport,
   jv as legacyAppMainBuwLowerJLowerVExport,
   k as legacyAppMainBuwLowerKExport,
-  kb as legacyAppMainBuwLowerKLowerBExport,
   kg as legacyAppMainBuwLowerKLowerGExport,
   kh as legacyAppMainBuwLowerKLowerHExport,
   km as legacyAppMainBuwLowerKLowerMExport,

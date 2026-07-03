@@ -6,7 +6,16 @@ export const STEER_TURN_INACTIVE_ERROR_NAME = "SteerTurnInactiveError";
 
 export function initSteerTurnInactiveErrorChunk(): void {
   void STEER_TURN_INACTIVE_ERROR_NAME;
+  void createSteerTurnInactiveError;
   void isSteerTurnInactiveError;
+}
+
+export function createSteerTurnInactiveError(conversationId: string): Error {
+  const error = new Error(
+    `Cannot steer conversation ${conversationId} because its active turn already ended`,
+  );
+  error.name = STEER_TURN_INACTIVE_ERROR_NAME;
+  return error;
 }
 
 export function isSteerTurnInactiveError(error: unknown): boolean {

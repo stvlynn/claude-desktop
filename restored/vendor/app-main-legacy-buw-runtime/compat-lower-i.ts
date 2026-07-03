@@ -18,11 +18,11 @@ export { isCodexAppsServer as appMainCurrentCompatSlotLowerILowerD } from "../..
 export { formatModelDisplayName as appMainCurrentCompatSlotLowerILowerG } from "../../utils/format-model-display-name";
 export { getDefaultWorkspaceWriteMode as appMainCurrentCompatSlotLowerILowerB } from "../../utils/use-permissions-mode/mode-selection";
 export { fullScreenMcpAppIdsAtom as appMainCurrentCompatSlotLowerILowerF } from "../../plugins/mcp-app-frame-state";
+export { createSteerTurnInactiveError as appMainCurrentCompatSlotLowerILowerN } from "../../composer/steer-turn-inactive-error";
 
 export {
   ih as appMainCurrentCompatSlotLowerILowerH,
   im as appMainCurrentCompatSlotLowerILowerM,
-  in as appMainCurrentCompatSlotLowerILowerN,
   io as appMainCurrentCompatSlotLowerILowerO,
   ir as appMainCurrentCompatSlotLowerILowerR,
   iS as appMainCurrentCompatSlotLowerIUpperS,

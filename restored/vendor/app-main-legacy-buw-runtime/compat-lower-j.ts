@@ -20,9 +20,9 @@ export { useUpdateBrowserUseOriginRulesMutation as appMainCurrentCompatSlotLower
 export { initConversationalOnboardingWorkflowStateChunk as appMainCurrentCompatSlotLowerJ } from "../../onboarding/conversational-onboarding-workflow-state";
 export { CommentPreview as appMainCurrentCompatSlotLowerJLowerT } from "../../image-side-panel/paged-annotation-comment-preview";
 export { initPointerVelocityStateChunk as appMainCurrentCompatSlotLowerJLowerD } from "../../runtime/pointer-velocity-state";
+export { initComposerInteractionStateChunk as appMainCurrentCompatSlotLowerJLowerB } from "../../composer/composer-interaction-state";
 
 export {
-  jb as appMainCurrentCompatSlotLowerJLowerB,
   jC as appMainCurrentCompatSlotLowerJUpperC,
   jf as appMainCurrentCompatSlotLowerJLowerF,
   jh as appMainCurrentCompatSlotLowerJLowerH,
