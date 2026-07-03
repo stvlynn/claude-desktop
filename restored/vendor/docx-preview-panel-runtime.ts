@@ -29,7 +29,7 @@ import {
   bs as v,
   ic as y,
   oc as b,
-  sa as x,
+  sa as useResizeObserverRef,
   ws as te,
 } from "./worktree-new-thread-orchestrator-current-bundle";
 import {
@@ -38,15 +38,15 @@ import {
   Xt as C,
   Yt as w,
   Zt as re,
-  an as ie,
+  an as computeWheelZoomPercent,
   gh as ae,
   hh as oe,
-  in as T,
+  in as computePinchZoomPercent,
   jp as se,
   mh as ce,
   nn as le,
-  on as ue,
-  rn as E,
+  on as measureTouchDistance,
+  rn as normalizeZoomPercent,
   sn as de,
   tn as fe,
 } from "./worktree-new-thread-query-current-bundle";
@@ -99,30 +99,26 @@ import {
 import {
   anchorFromDocxComment as et,
   anchorFromPointerDrag as Be,
-  centeredDocxPageElement as Bt,
-  clearDocxPreviewContainers as Ft,
   computeDocxAskForEditPosition as Pe,
   createDocxPreviewStyleText,
   createDocxAnnotationMetadata as Xe,
   createDocxCommentPayload as Ye,
-  DEFAULT_DOCX_ZOOM_PERCENT as Jt,
   describeDocxAnnotationAnchor as Ze,
   docxCommentKey as nt,
   docxCommentPageNumber as Qe,
   docxCommentPageSize as $e,
   docxCommentText as tt,
-  docxPageElements as Rt,
   DOCX_PREVIEW_SCROLL_CLASS as Kt,
   docxTitleFromPath as It,
-  fitDocxPreviewToWidth as Lt,
   measureDocxPage as Vt,
   pagePointFromPointerEvent as Fe,
   pointerDragMoved as ze,
   readDocxElementAnnotationAnchorAtPoint as dt,
   readDocxTextSelectionAnchor as ut,
   rectFromPoints as Ve,
-  renderDocxPreview as Pt,
   scrollToDocxPage as zt,
+  useDocxPreviewRenderState as X,
+  useDocxPreviewZoom as Nt,
 } from "../features/documents/docx-preview-panel";
 var H = e(() => {});
 var U = e(() => {
@@ -1682,7 +1678,7 @@ function jt(e) {
   let T = oe,
     se;
   t[3] !== n || t[4] !== _ || t[5] !== T
-    ? ((se = { bytes: n, onPagesRendered: T, renderAsync: _ }),
+    ? ((se = { bytes: n, onPagesRendered: T, renderAsync: _, styleText: qt }),
       (t[3] = n),
       (t[4] = _),
       (t[5] = T),
@@ -1740,7 +1736,14 @@ function jt(e) {
       resizeRef: Ee,
       setZoomPercent: De,
       zoomPercent: I,
-    } = Nt(ce),
+    } = Nt({
+      bodyContainerElementRef: ce,
+      computePinchZoomPercent,
+      computeWheelZoomPercent,
+      measureTouchDistance,
+      normalizeZoomPercent,
+      useResizeObserverRef,
+    }),
     L = E === `ready`,
     R;
   t[18] !== ce || t[19] !== v
@@ -1979,217 +1982,6 @@ function jt(e) {
 }
 function Mt(e) {
   return e.localArtifactAnnotationContext?.artifactKind === `document`;
-}
-function X(e) {
-  let t = (0, Wt.c)(17),
-    { bytes: n, onPagesRendered: r, renderAsync: i } = e,
-    a = (0, Z.useRef)(null),
-    o = (0, Z.useRef)(null),
-    s = (0, Z.useRef)(0),
-    c = (0, Z.useRef)(!1),
-    [l, u] = (0, Z.useState)(i == null ? `error` : `loading`),
-    d;
-  t[0] === Symbol.for(`react.memo_cache_sentinel`)
-    ? ((d = []), (t[0] = d))
-    : (d = t[0]);
-  let [f, p] = (0, Z.useState)(d),
-    [m, h] = (0, Z.useState)(0),
-    ee;
-  t[1] === Symbol.for(`react.memo_cache_sentinel`)
-    ? ((ee = () => {
-        let e = a.current,
-          t = o.current;
-        e == null ||
-          t == null ||
-          (Ft({ bodyContainer: e, styleContainer: t }), p([]), h(0));
-      }),
-      (t[1] = ee))
-    : (ee = t[1]);
-  let g = ee,
-    _;
-  t[2] !== n || t[3] !== r || t[4] !== i
-    ? ((_ = () => {
-        let e = a.current,
-          t = o.current;
-        if (e == null || t == null || c.current) return;
-        if (((c.current = !0), g(), i == null)) {
-          u(`error`);
-          return;
-        }
-        let l = s.current + 1;
-        ((s.current = l),
-          u(`loading`),
-          Pt({
-            bytes: n,
-            bodyContainer: e,
-            renderAsync: i,
-            styleContainer: t,
-            styleText: qt,
-          }).then((n) => {
-            if (s.current !== l) return;
-            if (!n) {
-              (Ft({ bodyContainer: e, styleContainer: t }), u(`error`));
-              return;
-            }
-            let i = Rt(e);
-            (p(i), h(Math.max(i.length, 1)), u(`ready`), r(e));
-          }));
-      }),
-      (t[2] = n),
-      (t[3] = r),
-      (t[4] = i),
-      (t[5] = _))
-    : (_ = t[5]);
-  let v = _,
-    y;
-  t[6] === Symbol.for(`react.memo_cache_sentinel`)
-    ? ((y = () => {
-        ((s.current += 1), (c.current = !1), g());
-      }),
-      (t[6] = y))
-    : (y = t[6]);
-  let b = y,
-    x;
-  t[7] === v
-    ? (x = t[8])
-    : ((x = (e) => {
-        if (e == null) {
-          (b(), (a.current = null));
-          return;
-        }
-        ((a.current = e), v());
-      }),
-      (t[7] = v),
-      (t[8] = x));
-  let te = x,
-    S;
-  t[9] === v
-    ? (S = t[10])
-    : ((S = (e) => {
-        if (e == null) {
-          (b(), (o.current = null));
-          return;
-        }
-        ((o.current = e), v());
-      }),
-      (t[9] = v),
-      (t[10] = S));
-  let ne = S,
-    C;
-  return (
-    t[11] !== l || t[12] !== f || t[13] !== te || t[14] !== ne || t[15] !== m
-      ? ((C = {
-          bodyContainerElementRef: a,
-          bodyContainerRef: te,
-          loadState: l,
-          pageElements: f,
-          styleContainerRef: ne,
-          totalPages: m,
-        }),
-        (t[11] = l),
-        (t[12] = f),
-        (t[13] = te),
-        (t[14] = ne),
-        (t[15] = m),
-        (t[16] = C))
-      : (C = t[16]),
-    C
-  );
-}
-function Nt(e) {
-  let t = (0, Z.useRef)(null),
-    [n, r] = (0, Z.useState)(null),
-    [i, a] = (0, Z.useState)({ kind: `fit-width` }),
-    o =
-      i.kind === `fit-width`
-        ? (Lt({
-            bodyContainer: e.current,
-            bodyContainerWidth: n,
-            normalizeZoomPercent: E,
-            zoomPercent: Jt,
-          }) ?? Jt)
-        : i.zoomPercent,
-    s = x((e) => {
-      let t = Math.floor(e.contentRect.width);
-      r((e) => (e === t ? e : t));
-    }),
-    c = () => {
-      t.current = null;
-    },
-    l = (e) => {
-      a({ kind: `percentage`, zoomPercent: E(e) });
-    };
-  return {
-    fitToWidth: () => {
-      let t = i.kind === `fit-width` ? null : Bt(e.current);
-      Lt({
-        bodyContainer: e.current,
-        bodyContainerWidth: n,
-        normalizeZoomPercent: E,
-        zoomPercent: o,
-      }) != null &&
-        (a({ kind: `fit-width` }),
-        t != null &&
-          window.requestAnimationFrame(() => {
-            t.scrollIntoView({ block: `center`, inline: `center` });
-          }));
-    },
-    handleTouchCancel: c,
-    handleTouchEnd: c,
-    handleTouchMove: (e) => {
-      let n = t.current;
-      if (e.touches.length !== 2 || n == null) return;
-      e.preventDefault();
-      let r = ue(
-        e.touches[0].clientX,
-        e.touches[0].clientY,
-        e.touches[1].clientX,
-        e.touches[1].clientY,
-      );
-      r <= 0 ||
-        n.distance <= 0 ||
-        a({
-          kind: `percentage`,
-          zoomPercent: T({
-            initialDistance: n.distance,
-            initialZoomPercent: n.zoomPercent,
-            nextDistance: r,
-          }),
-        });
-    },
-    handleTouchStart: (e) => {
-      if (e.touches.length !== 2) {
-        c();
-        return;
-      }
-      (e.preventDefault(),
-        (t.current = {
-          distance: ue(
-            e.touches[0].clientX,
-            e.touches[0].clientY,
-            e.touches[1].clientX,
-            e.touches[1].clientY,
-          ),
-          zoomPercent: o,
-        }));
-    },
-    handleWheel: (e) => {
-      e.ctrlKey &&
-        (e.preventDefault(),
-        a((t) => ({
-          kind: `percentage`,
-          zoomPercent: ie(
-            t.kind === `percentage` ? t.zoomPercent : o,
-            e.deltaY,
-          ),
-        })));
-    },
-    isZoomToFitSelected: i.kind === `fit-width`,
-    previewStyle: { "--codex-docx-preview-zoom": `${o / 100}` },
-    resizeRef: s,
-    setZoomPercent: l,
-    zoomPercent: o,
-  };
 }
 function Ht(e, t) {
   return (
