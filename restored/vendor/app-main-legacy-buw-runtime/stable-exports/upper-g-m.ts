@@ -91,8 +91,12 @@ export { findConnectorAppByIdentifier as legacyAppMainBuwUpperMLowerSExport } fr
 export { UseRecordingWaveformIcon as legacyAppMainBuwUpperIUpperCExport } from "../../../icons/use-recording-waveform-icon";
 export { resetConversationalOnboardingWorkflowState as legacyAppMainBuwUpperMExport } from "../../../onboarding/conversational-onboarding-workflow-state";
 export {
+  activeAppShellFocusAreaSignal as legacyAppMainBuwUpperHLowerYExport,
   initAppShellStateRuntimeChunk as legacyAppMainBuwUpperJLowerYExport,
+  reviewFileTreeOpenAnimationSignal as legacyAppMainBuwUpperMLowerYExport,
   setActiveAppShellFocusArea as legacyAppMainBuwUpperGLowerYExport,
+  setBottomPanelOpen as legacyAppMainBuwUpperILowerYExport,
+  setRightPanelOpenWithOptions as legacyAppMainBuwUpperLLowerYExport,
 } from "../../../app-shell/app-shell-state";
 
 export {
@@ -123,7 +127,6 @@ export {
   Ht as legacyAppMainBuwUpperHLowerTExport,
   Hu as legacyAppMainBuwUpperHLowerUExport,
   Hx as legacyAppMainBuwUpperHLowerXExport,
-  Hy as legacyAppMainBuwUpperHLowerYExport,
   IS as legacyAppMainBuwUpperIUpperSExport,
   Ib as legacyAppMainBuwUpperILowerBExport,
   Id as legacyAppMainBuwUpperILowerDExport,
@@ -137,7 +140,6 @@ export {
   It as legacyAppMainBuwUpperILowerTExport,
   Iv as legacyAppMainBuwUpperILowerVExport,
   Ix as legacyAppMainBuwUpperILowerXExport,
-  Iy as legacyAppMainBuwUpperILowerYExport,
   J as legacyAppMainBuwUpperJExport,
   JS as legacyAppMainBuwUpperJUpperSExport,
   J_ as legacyAppMainBuwUpperJUnderscoreExport,
@@ -177,7 +179,6 @@ export {
   Lu as legacyAppMainBuwUpperLLowerUExport,
   Lv as legacyAppMainBuwUpperLLowerVExport,
   Lx as legacyAppMainBuwUpperLLowerXExport,
-  Ly as legacyAppMainBuwUpperLLowerYExport,
   MS as legacyAppMainBuwUpperMUpperSExport,
   M_ as legacyAppMainBuwUpperMUnderscoreExport,
   Mb as legacyAppMainBuwUpperMLowerBExport,
@@ -192,5 +193,4 @@ export {
   Mt as legacyAppMainBuwUpperMLowerTExport,
   Mv as legacyAppMainBuwUpperMLowerVExport,
   Mx as legacyAppMainBuwUpperMLowerXExport,
-  My as legacyAppMainBuwUpperMLowerYExport,
 } from "../../app-main-legacy-buw-compat-bundle";

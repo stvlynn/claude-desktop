@@ -93,6 +93,13 @@ export { Banner as legacyAppMainBuwUpperFLowerNExport } from "../../../ui/banner
 export { PanelExpandIcon as legacyAppMainBuwUpperBLowerDExport } from "../../../icons/app-shell-panel-icons";
 export { getConversationalOnboardingWorkflowState as legacyAppMainBuwUpperAExport } from "../../../onboarding/conversational-onboarding-workflow-state";
 export { selectConversationalOnboardingTask as legacyAppMainBuwUpperFExport } from "../../../onboarding/conversational-onboarding-workflow-state";
+export {
+  bottomPanelLauncherVisibleSignal as legacyAppMainBuwUpperELowerYExport,
+  bottomPanelOpenSignal as legacyAppMainBuwUpperDLowerYExport,
+  rightPanelOpenSignal as legacyAppMainBuwUpperALowerYExport,
+  setBottomPanelLauncherVisible as legacyAppMainBuwUpperFLowerYExport,
+  setReviewFileTreeOpen as legacyAppMainBuwUpperBLowerYExport,
+} from "../../../app-shell/app-shell-state";
 
 export {
   Ab as legacyAppMainBuwUpperALowerBExport,
@@ -107,7 +114,6 @@ export {
   At as legacyAppMainBuwUpperALowerTExport,
   Av as legacyAppMainBuwUpperALowerVExport,
   Ax as legacyAppMainBuwUpperALowerXExport,
-  Ay as legacyAppMainBuwUpperALowerYExport,
   B as legacyAppMainBuwUpperBExport,
   BS as legacyAppMainBuwUpperBUpperSExport,
   Ba as legacyAppMainBuwUpperBLowerAExport,
@@ -121,7 +127,6 @@ export {
   Bt as legacyAppMainBuwUpperBLowerTExport,
   Bv as legacyAppMainBuwUpperBLowerVExport,
   Bx as legacyAppMainBuwUpperBLowerXExport,
-  By as legacyAppMainBuwUpperBLowerYExport,
   C as legacyAppMainBuwUpperCExport,
   CS as legacyAppMainBuwUpperCUpperSExport,
   Ca as legacyAppMainBuwUpperCLowerAExport,
@@ -151,7 +156,6 @@ export {
   Du as legacyAppMainBuwUpperDLowerUExport,
   Dv as legacyAppMainBuwUpperDLowerVExport,
   Dx as legacyAppMainBuwUpperDLowerXExport,
-  Dy as legacyAppMainBuwUpperDLowerYExport,
   E as legacyAppMainBuwUpperEExport,
   ES as legacyAppMainBuwUpperEUpperSExport,
   Ea as legacyAppMainBuwUpperELowerAExport,
@@ -168,7 +172,6 @@ export {
   Eu as legacyAppMainBuwUpperELowerUExport,
   Ev as legacyAppMainBuwUpperELowerVExport,
   Ex as legacyAppMainBuwUpperELowerXExport,
-  Ey as legacyAppMainBuwUpperELowerYExport,
   FS as legacyAppMainBuwUpperFUpperSExport,
   Fb as legacyAppMainBuwUpperFLowerBExport,
   Fd as legacyAppMainBuwUpperFLowerDExport,
@@ -178,5 +181,4 @@ export {
   Ft as legacyAppMainBuwUpperFLowerTExport,
   Fu as legacyAppMainBuwUpperFLowerUExport,
   Fx as legacyAppMainBuwUpperFLowerXExport,
-  Fy as legacyAppMainBuwUpperFLowerYExport,
 } from "../../app-main-legacy-buw-compat-bundle";

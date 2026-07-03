@@ -93,6 +93,7 @@ export { getLocalConversationSearchMatchId as legacyAppMainBuwLowerNUnderscoreEx
 export { setContentSearchMatchIdAttribute as legacyAppMainBuwLowerOUnderscoreExport } from "../../../runtime/conversation-search-runtime";
 export { joinThreadFindItemId as legacyAppMainBuwLowerRUnderscoreExport } from "../../../runtime/conversation-search-runtime";
 export { shouldRefreshSearchHighlightMutations as legacyAppMainBuwLowerSUnderscoreExport } from "../../../runtime/conversation-search-runtime";
+export { appShellLayoutMotionContext as legacyAppMainBuwLowerQLowerYExport } from "../../../app-shell/app-shell-state";
 
 export {
   nS as legacyAppMainBuwLowerNUpperSExport,
@@ -148,7 +149,6 @@ export {
   qt as legacyAppMainBuwLowerQLowerTExport,
   qv as legacyAppMainBuwLowerQLowerVExport,
   qx as legacyAppMainBuwLowerQLowerXExport,
-  qy as legacyAppMainBuwLowerQLowerYExport,
   r as legacyAppMainBuwLowerRExport,
   rS as legacyAppMainBuwLowerRUpperSExport,
   ra as legacyAppMainBuwLowerRLowerAExport,

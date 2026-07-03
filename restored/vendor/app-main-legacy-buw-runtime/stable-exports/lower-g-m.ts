@@ -120,6 +120,10 @@ export { BrowserNotSecureIcon as legacyAppMainBuwLowerILowerPExport } from "../.
 export { highlightContentSearchMatches as legacyAppMainBuwLowerIUnderscoreExport } from "../../../runtime/conversation-search-runtime";
 
 export { closestCenter as ThreadRowStatusIndicator } from "../../dnd-kit-core";
+export {
+  rightPanelExpandedSignal as legacyAppMainBuwLowerKLowerYExport,
+  sidebarOpenSignal as legacyAppMainBuwLowerJLowerYExport,
+} from "../../../app-shell/app-shell-state";
 
 export {
   g as legacyAppMainBuwLowerGExport,
@@ -163,7 +167,6 @@ export {
   jm as legacyAppMainBuwLowerJLowerMExport,
   jv as legacyAppMainBuwLowerJLowerVExport,
   jx as legacyAppMainBuwLowerJLowerXExport,
-  jy as legacyAppMainBuwLowerJLowerYExport,
   k as legacyAppMainBuwLowerKExport,
   kS as legacyAppMainBuwLowerKUpperSExport,
   k_ as legacyAppMainBuwLowerKUnderscoreExport,
@@ -179,7 +182,6 @@ export {
   kt as legacyAppMainBuwLowerKLowerTExport,
   kv as legacyAppMainBuwLowerKLowerVExport,
   kx as legacyAppMainBuwLowerKLowerXExport,
-  ky as legacyAppMainBuwLowerKLowerYExport,
   l as legacyAppMainBuwLowerLExport,
   lS as legacyAppMainBuwLowerLUpperSExport,
   l_ as legacyAppMainBuwLowerLUnderscoreExport,

@@ -31,8 +31,9 @@ const setActiveAppShellFocusArea = appShellStateImpl.appShellStateTtState;
 const setRightPanelOpenWithOptions =
   appShellStateImpl.setRightPanelOpenWithOptions;
 const appShellFocusAreaAttribute = appShellStateImpl.appShellStateKSignal;
-const bottomPanelLauncherVisibleSignal =
-  appShellStateImpl.appShellStateNSignal;
+const bottomPanelLauncherVisibleSignal = appShellStateImpl.appShellStateNSignal;
+const setBottomPanelLauncherVisible =
+  appShellStateImpl.setBottomPanelLauncherVisible;
 const headerActionRegistries = appShellStateImpl.appShellStateZSignal;
 const bottomPanelAfterListSignal = appShellStateImpl.bottomPanelAfterListSignal;
 const bottomPanelAfterListStickySignal =
@@ -44,8 +45,7 @@ const bottomPanelFallbackContentSignal =
 const rightPanelAfterListSignal = appShellStateImpl.rightPanelAfterListSignal;
 const rightPanelAfterListStickySignal =
   appShellStateImpl.rightPanelAfterListStickySignal;
-const rightPanelBeforeListSignal =
-  appShellStateImpl.rightPanelBeforeListSignal;
+const rightPanelBeforeListSignal = appShellStateImpl.rightPanelBeforeListSignal;
 const rightPanelEmptyStateSignal = appShellStateImpl.rightPanelEmptyStateSignal;
 const rightPanelFallbackContentSignal =
   appShellStateImpl.rightPanelFallbackContentSignal;
@@ -167,6 +167,7 @@ export {
   setRightPanelOpenWithOptions,
   appShellFocusAreaAttribute,
   bottomPanelLauncherVisibleSignal,
+  setBottomPanelLauncherVisible,
   headerActionRegistries,
   bottomPanelAfterListSignal,
   bottomPanelAfterListStickySignal,
