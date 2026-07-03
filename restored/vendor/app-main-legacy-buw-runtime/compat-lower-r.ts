@@ -21,13 +21,13 @@ export { ImageAttachment as appMainCurrentCompatSlotLowerRLowerM } from "../../i
 export { addDiffCommentsForConversation as appMainCurrentCompatSlotLowerRLowerH } from "../../github/diff-comments/use-diff-comment-sources";
 export { initCodexAppsServerChunk as appMainCurrentCompatSlotLowerRLowerD } from "../../plugins/codex-apps-server";
 export { initBuildWorktreeLabelFromInputChunk as appMainCurrentCompatSlotLowerRLowerG } from "../../utils/build-worktree-label-from-input";
+export { initThreadHandoffOperationStepsChunk as appMainCurrentCompatSlotLowerRLowerO } from "../../app-shell/thread-handoff-operations/steps";
+export { initProcessManagerRequestSignalChunk as appMainCurrentCompatSlotLowerRLowerR } from "../../conversations/process-manager-request-atom";
 
 export {
   r as appMainCurrentCompatSlotLowerR,
   rb as appMainCurrentCompatSlotLowerRLowerB,
   rf as appMainCurrentCompatSlotLowerRLowerF,
   rn as appMainCurrentCompatSlotLowerRLowerN,
-  ro as appMainCurrentCompatSlotLowerRLowerO,
-  rr as appMainCurrentCompatSlotLowerRLowerR,
   ry as appMainCurrentCompatSlotLowerRLowerY,
 } from "../app-main-legacy-buw-compat-bundle";

@@ -14,6 +14,10 @@ export {
   produceThreadHandoffOperationUpdate,
 } from "./operations";
 export {
+  THREAD_HANDOFF_OPERATION_STEP_IDS,
+  initThreadHandoffOperationStepsChunk,
+} from "./steps";
+export {
   getThreadHandoffOperationsState,
   initThreadHandoffOperationsChunk,
   subscribeThreadHandoffOperations,

@@ -15,6 +15,9 @@ export { subscribeBrowserSidebarTweaksSubmit as appMainCurrentCompatSlotLowerNLo
 export { parseCodeCommentDirectives as appMainCurrentCompatSlotLowerNLowerH } from "../../github/diff-comments/use-diff-comment-sources/directive-comments";
 export { initProjectDropdownOptionsChunk as appMainCurrentCompatSlotLowerNLowerD } from "../../ui/project-dropdown-options";
 export { buildWorktreeLabelFromInput as appMainCurrentCompatSlotLowerNLowerG } from "../../utils/build-worktree-label-from-input";
+export { THREAD_HANDOFF_OPERATION_STEP_IDS as appMainCurrentCompatSlotLowerNLowerO } from "../../app-shell/thread-handoff-operations/steps";
+export { initFeedbackFormDialogChunk as appMainCurrentCompatSlotLowerNLowerR } from "../../ui/feedback-form-dialog";
+export { initDurationFormatChunk as appMainCurrentCompatSlotLowerNLowerS } from "../../utils/duration-format";
 
 export {
   liveMcpAppFrameSignal,
@@ -26,9 +29,6 @@ export { initWarningContextRuntime } from "../../runtime/app-main-new-thread-run
 export { getLocalConversationSearchMatchId as appMainCurrentCompatSlotLowerNUnderscore } from "../../runtime/conversation-search-runtime";
 
 export {
-  no as appMainCurrentCompatSlotLowerNLowerO,
-  nr as appMainCurrentCompatSlotLowerNLowerR,
-  ns as appMainCurrentCompatSlotLowerNLowerS,
   nt as appMainCurrentCompatSlotLowerNLowerT,
   ny as appMainCurrentCompatSlotLowerNLowerY,
 } from "../app-main-legacy-buw-compat-bundle";

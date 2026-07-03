@@ -26,11 +26,11 @@ export { initUseDictationRuntimeChunk as appMainCurrentCompatSlotLowerSUpperC } 
 export { initBrowserSidebarTweaksStateChunk as appMainCurrentCompatSlotLowerSLowerP } from "../../app-shell/thread-side-panel-active-signals";
 export { formatComposerSubmitError as appMainCurrentCompatSlotLowerSLowerN } from "../../composer/submit-toast-status-messages";
 export { initQueuedFollowUpsStoreChunk as appMainCurrentCompatSlotLowerSLowerD } from "../../utils/queued-follow-ups-store";
+export { initGetMoveToLocalTargetsChunk as appMainCurrentCompatSlotLowerSLowerO } from "../../utils/get-move-to-local-targets";
 
 export {
   sb as appMainCurrentCompatSlotLowerSLowerB,
   sh as appMainCurrentCompatSlotLowerSLowerH,
-  so as appMainCurrentCompatSlotLowerSLowerO,
   su as appMainCurrentCompatSlotLowerSLowerU,
   sy as appMainCurrentCompatSlotLowerSLowerY,
 } from "../app-main-legacy-buw-compat-bundle";

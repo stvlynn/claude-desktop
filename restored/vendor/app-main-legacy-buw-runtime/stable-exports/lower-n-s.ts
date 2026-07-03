@@ -159,11 +159,14 @@ export { addDiffCommentsForConversation as legacyAppMainBuwLowerRLowerHExport } 
 export { readMaterializedThreadGoalObjective as legacyAppMainBuwLowerQLowerHExport } from "../../../threads/pending-worktree-store/thread-goal-objective-file";
 export { findPendingWorktreeByClientThreadId as legacyAppMainBuwLowerQLowerDExport } from "../../../worktree/pending-worktree-atoms";
 export { initAppShellTabControllerAnalyticsChunk as legacyAppMainBuwLowerQLowerVExport } from "../../../app-shell/app-shell-tab-controller/analytics";
+export { THREAD_HANDOFF_OPERATION_STEP_IDS as legacyAppMainBuwLowerNLowerOExport } from "../../../app-shell/thread-handoff-operations/steps";
+export { initFeedbackFormDialogChunk as legacyAppMainBuwLowerNLowerRExport } from "../../../ui/feedback-form-dialog";
+export { initDurationFormatChunk as legacyAppMainBuwLowerNLowerSExport } from "../../../utils/duration-format";
+export { initThreadHandoffOperationStepsChunk as legacyAppMainBuwLowerRLowerOExport } from "../../../app-shell/thread-handoff-operations/steps";
+export { initProcessManagerRequestSignalChunk as legacyAppMainBuwLowerRLowerRExport } from "../../../conversations/process-manager-request-atom";
+export { initGetMoveToLocalTargetsChunk as legacyAppMainBuwLowerSLowerOExport } from "../../../utils/get-move-to-local-targets";
 
 export {
-  no as legacyAppMainBuwLowerNLowerOExport,
-  nr as legacyAppMainBuwLowerNLowerRExport,
-  ns as legacyAppMainBuwLowerNLowerSExport,
   nt as legacyAppMainBuwLowerNLowerTExport,
   ou as legacyAppMainBuwLowerOLowerUExport,
   ox as legacyAppMainBuwLowerOLowerXExport,
@@ -180,10 +183,7 @@ export {
   qt as legacyAppMainBuwLowerQLowerTExport,
   r as legacyAppMainBuwLowerRExport,
   rn as legacyAppMainBuwLowerRLowerNExport,
-  ro as legacyAppMainBuwLowerRLowerOExport,
-  rr as legacyAppMainBuwLowerRLowerRExport,
   sb as legacyAppMainBuwLowerSLowerBExport,
   sh as legacyAppMainBuwLowerSLowerHExport,
-  so as legacyAppMainBuwLowerSLowerOExport,
   su as legacyAppMainBuwLowerSLowerUExport,
 } from "../../app-main-legacy-buw-compat-bundle";
