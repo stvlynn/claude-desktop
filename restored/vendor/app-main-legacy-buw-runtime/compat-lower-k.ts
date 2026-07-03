@@ -20,13 +20,13 @@ export { overlayHeightCssVariable as appMainCurrentCompatSlotLowerKLowerM } from
 export { initSettingsToolDefinitionsChunk as appMainCurrentCompatSlotLowerKLowerO } from "../../settings/settings-tool-definitions";
 export { readThreadTurnsTool as appMainCurrentCompatSlotLowerKLowerH } from "../../threads/thread-dynamic-tools/read-thread-turns-tool";
 export { findEffectiveDomainAtom as appMainCurrentCompatSlotLowerKLowerG } from "../../find/thread-find-atoms";
+export { ANNOTATION_EDITOR_ENTER_CLASS as appMainCurrentCompatSlotLowerKLowerT } from "../../image-side-panel/paged-annotation-overlays";
 
 export {
   k as appMainCurrentCompatSlotLowerK,
   kf as appMainCurrentCompatSlotLowerKLowerF,
   kn as appMainCurrentCompatSlotLowerKLowerN,
   ks as appMainCurrentCompatSlotLowerKLowerS,
-  kt as appMainCurrentCompatSlotLowerKLowerT,
   kx as appMainCurrentCompatSlotLowerKLowerX,
   ky as appMainCurrentCompatSlotLowerKLowerY,
 } from "../app-main-legacy-buw-compat-bundle";

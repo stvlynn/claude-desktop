@@ -113,6 +113,7 @@ export { StreamingDictationTranscriber as legacyAppMainBuwLowerHUpperCExport } f
 export { initDictationStreamingTranscriberRuntimeChunk as legacyAppMainBuwLowerGUpperCExport } from "../../../utils/transcribe-audio";
 export { initUseDictationRuntimeChunk as legacyAppMainBuwLowerIUpperCExport } from "../../../features/use-dictation";
 export { initUseRecordingWaveformChunk as legacyAppMainBuwLowerLUpperCExport } from "../../../utils/use-recording-waveform";
+export { ANNOTATION_EDITOR_ENTER_CLASS as legacyAppMainBuwLowerKLowerTExport } from "../../../image-side-panel/paged-annotation-overlays";
 export { AutomationDetailSection as legacyAppMainBuwLowerGLowerRExport } from "../../../automations/automation-side-panel/status-components";
 export { initAutomationSaveTooltipChunk as legacyAppMainBuwLowerHLowerRExport } from "../../../automations/automation-save-tooltip";
 export { AutomationSaveTooltip as legacyAppMainBuwLowerMLowerRExport } from "../../../automations/automation-save-tooltip";
@@ -203,7 +204,6 @@ export {
   k as legacyAppMainBuwLowerKExport,
   kn as legacyAppMainBuwLowerKLowerNExport,
   ks as legacyAppMainBuwLowerKLowerSExport,
-  kt as legacyAppMainBuwLowerKLowerTExport,
   kx as legacyAppMainBuwLowerKLowerXExport,
   l as legacyAppMainBuwLowerLExport,
   la as legacyAppMainBuwLowerLLowerAExport,
