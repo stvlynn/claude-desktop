@@ -76,6 +76,8 @@ export { formatModelDisplayName as legacyAppMainBuwLowerILowerGExport } from "..
 export { ActivityScrollContainer as legacyAppMainBuwLowerILowerAExport } from "../../../conversations/activity-scroll-container";
 export { markTurnInterruptedByThisClient as legacyAppMainBuwLowerJLowerSExport } from "../../../threads/interrupted-turn-state";
 export { hasWorkspaceDependenciesFeature as legacyAppMainBuwLowerJLowerOExport } from "../../../features/workspace-dependencies";
+export { setThreadArchivedTool as legacyAppMainBuwLowerJLowerHExport } from "../../../threads/thread-dynamic-tools/archive-thread-tool";
+export { readThreadTurnsTool as legacyAppMainBuwLowerKLowerHExport } from "../../../threads/thread-dynamic-tools/read-thread-turns-tool";
 
 export { findActiveDomainAtom } from "../../../find/thread-find-atoms";
 export { quantileSorted as legacyAppMainBuwLowerJUpperSExport } from "d3-array";
@@ -192,10 +194,8 @@ export {
 
 export {
   iv as legacyAppMainBuwLowerILowerVExport,
-  jh as legacyAppMainBuwLowerJLowerHExport,
   k as legacyAppMainBuwLowerKExport,
   kg as legacyAppMainBuwLowerKLowerGExport,
-  kh as legacyAppMainBuwLowerKLowerHExport,
   kn as legacyAppMainBuwLowerKLowerNExport,
   ks as legacyAppMainBuwLowerKLowerSExport,
   kt as legacyAppMainBuwLowerKLowerTExport,

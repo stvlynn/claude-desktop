@@ -18,12 +18,12 @@ export { composerPromptHistorySignal as appMainCurrentCompatSlotLowerKLowerB } f
 export { reviewProjectRootAtom as appMainCurrentCompatSlotLowerKLowerV } from "../../review/review-git-metadata";
 export { overlayHeightCssVariable as appMainCurrentCompatSlotLowerKLowerM } from "../../composer/right-panel-composer-overlay-scroll-reserve";
 export { initSettingsToolDefinitionsChunk as appMainCurrentCompatSlotLowerKLowerO } from "../../settings/settings-tool-definitions";
+export { readThreadTurnsTool as appMainCurrentCompatSlotLowerKLowerH } from "../../threads/thread-dynamic-tools/read-thread-turns-tool";
 
 export {
   k as appMainCurrentCompatSlotLowerK,
   kf as appMainCurrentCompatSlotLowerKLowerF,
   kg as appMainCurrentCompatSlotLowerKLowerG,
-  kh as appMainCurrentCompatSlotLowerKLowerH,
   kn as appMainCurrentCompatSlotLowerKLowerN,
   ks as appMainCurrentCompatSlotLowerKLowerS,
   kt as appMainCurrentCompatSlotLowerKLowerT,

@@ -24,9 +24,9 @@ export { initComposerInteractionStateChunk as appMainCurrentCompatSlotLowerJLowe
 export { initComposerContextButtonChunk as appMainCurrentCompatSlotLowerJUpperC } from "../../features/use-dictation/context-button";
 export { currentBranchNameAtom as appMainCurrentCompatSlotLowerJLowerV } from "../../review/review-git-metadata";
 export { overlayReserveCssValue as appMainCurrentCompatSlotLowerJLowerM } from "../../composer/right-panel-composer-overlay-scroll-reserve";
+export { setThreadArchivedTool as appMainCurrentCompatSlotLowerJLowerH } from "../../threads/thread-dynamic-tools/archive-thread-tool";
 
 export {
   jf as appMainCurrentCompatSlotLowerJLowerF,
-  jh as appMainCurrentCompatSlotLowerJLowerH,
   jy as appMainCurrentCompatSlotLowerJLowerY,
 } from "../app-main-legacy-buw-compat-bundle";
