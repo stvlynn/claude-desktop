@@ -17,6 +17,7 @@ export { viewportSizeSignal as appMainCurrentCompatSlotLowerKLowerD } from "../.
 export { composerPromptHistorySignal as appMainCurrentCompatSlotLowerKLowerB } from "../../composer/composer-interaction-state";
 export { reviewProjectRootAtom as appMainCurrentCompatSlotLowerKLowerV } from "../../review/review-git-metadata";
 export { overlayHeightCssVariable as appMainCurrentCompatSlotLowerKLowerM } from "../../composer/right-panel-composer-overlay-scroll-reserve";
+export { initSettingsToolDefinitionsChunk as appMainCurrentCompatSlotLowerKLowerO } from "../../settings/settings-tool-definitions";
 
 export {
   k as appMainCurrentCompatSlotLowerK,
@@ -24,7 +25,6 @@ export {
   kg as appMainCurrentCompatSlotLowerKLowerG,
   kh as appMainCurrentCompatSlotLowerKLowerH,
   kn as appMainCurrentCompatSlotLowerKLowerN,
-  ko as appMainCurrentCompatSlotLowerKLowerO,
   ks as appMainCurrentCompatSlotLowerKLowerS,
   kt as appMainCurrentCompatSlotLowerKLowerT,
   kx as appMainCurrentCompatSlotLowerKLowerX,

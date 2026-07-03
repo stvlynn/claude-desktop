@@ -20,13 +20,11 @@ export { getDefaultWorkspaceWriteMode as appMainCurrentCompatSlotLowerILowerB } 
 export { fullScreenMcpAppIdsAtom as appMainCurrentCompatSlotLowerILowerF } from "../../plugins/mcp-app-frame-state";
 export { createSteerTurnInactiveError as appMainCurrentCompatSlotLowerILowerN } from "../../composer/steer-turn-inactive-error";
 export { diffCommentsByConversationSignal as appMainCurrentCompatSlotLowerILowerH } from "../../github/diff-comments/diff-comments-by-conversation-signal";
+export { initPullRequestMergedIconChunk as appMainCurrentCompatSlotLowerILowerU } from "../../github/pull-request-status";
+export { initConversationalOnboardingTaskOutputRuntime as appMainCurrentCompatSlotLowerILowerO } from "../../runtime/run-app-action-in-primary-window";
+export { processManagerRequestSignal as appMainCurrentCompatSlotLowerILowerR } from "../../conversations/process-manager-request-atom";
 export { isReasoningEffort as appMainCurrentCompatSlotLowerILowerX } from "../../utils/models-and-reasoning-efforts";
 export { initImageAttachmentChunk as appMainCurrentCompatSlotLowerILowerM } from "../../image-side-panel/image-attachment";
 export { initD3ScaleRuntimeChunk as appMainCurrentCompatSlotLowerIUpperS } from "../../utils/d3-chart-scales";
 
-export {
-  io as appMainCurrentCompatSlotLowerILowerO,
-  ir as appMainCurrentCompatSlotLowerILowerR,
-  iu as appMainCurrentCompatSlotLowerILowerU,
-  iv as appMainCurrentCompatSlotLowerILowerV,
-} from "../app-main-legacy-buw-compat-bundle";
+export { iv as appMainCurrentCompatSlotLowerILowerV } from "../app-main-legacy-buw-compat-bundle";

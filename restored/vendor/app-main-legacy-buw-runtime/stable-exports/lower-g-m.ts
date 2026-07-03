@@ -181,22 +181,22 @@ export {
 } from "../../../review/review-git-metadata";
 export { initImageAttachmentChunk as legacyAppMainBuwLowerILowerMExport } from "../../../image-side-panel/image-attachment";
 export { initD3ScaleRuntimeChunk as legacyAppMainBuwLowerIUpperSExport } from "../../../utils/d3-chart-scales";
+export { initPullRequestMergedIconChunk as legacyAppMainBuwLowerILowerUExport } from "../../../github/pull-request-status";
+export { initConversationalOnboardingTaskOutputRuntime as legacyAppMainBuwLowerILowerOExport } from "../../../runtime/run-app-action-in-primary-window";
+export { processManagerRequestSignal as legacyAppMainBuwLowerILowerRExport } from "../../../conversations/process-manager-request-atom";
+export { initSettingsToolDefinitionsChunk as legacyAppMainBuwLowerKLowerOExport } from "../../../settings/settings-tool-definitions";
 export {
   overlayHeightCssVariable as legacyAppMainBuwLowerKLowerMExport,
   overlayReserveCssValue as legacyAppMainBuwLowerJLowerMExport,
 } from "../../../composer/right-panel-composer-overlay-scroll-reserve";
 
 export {
-  io as legacyAppMainBuwLowerILowerOExport,
-  ir as legacyAppMainBuwLowerILowerRExport,
-  iu as legacyAppMainBuwLowerILowerUExport,
   iv as legacyAppMainBuwLowerILowerVExport,
   jh as legacyAppMainBuwLowerJLowerHExport,
   k as legacyAppMainBuwLowerKExport,
   kg as legacyAppMainBuwLowerKLowerGExport,
   kh as legacyAppMainBuwLowerKLowerHExport,
   kn as legacyAppMainBuwLowerKLowerNExport,
-  ko as legacyAppMainBuwLowerKLowerOExport,
   ks as legacyAppMainBuwLowerKLowerSExport,
   kt as legacyAppMainBuwLowerKLowerTExport,
   kx as legacyAppMainBuwLowerKLowerXExport,

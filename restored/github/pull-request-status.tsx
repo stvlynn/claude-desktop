@@ -273,7 +273,13 @@ function getPullRequestCheckStatePresentation({
   };
 }
 function initPullRequestStatusRuntimeChunk(): void {}
+
+function initPullRequestMergedIconChunk(): void {
+  void PullRequestMergedIcon;
+}
+
 export {
+  initPullRequestMergedIconChunk,
   initPullRequestStatusRuntimeChunk,
   PullRequestDraftIcon,
   PullRequestMergedIcon,
