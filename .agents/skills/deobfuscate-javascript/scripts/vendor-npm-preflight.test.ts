@@ -472,6 +472,31 @@ describe("vendor-npm-preflight CLI", () => {
     expect(result.stderr).toContain("react-intl");
   });
 
+  test("fails renamed react-intl API bodies when the dependency is missing", () => {
+    const root = makeTmpRoot();
+    const vendorDir = path.join(root, "restored", "vendor");
+    fs.mkdirSync(vendorDir, { recursive: true });
+    fs.writeFileSync(path.join(root, "package.json"), JSON.stringify({}));
+    fs.writeFileSync(
+      path.join(vendorDir, "i18n-formatting.tsx"),
+      `
+        export function useIntl() {
+          return { formatMessage: (descriptor) => descriptor.defaultMessage ?? "" };
+        }
+        export function FormattedMessage(props) {
+          return props.defaultMessage ?? props.id ?? "";
+        }
+      `,
+    );
+
+    const result = runCLI(path.join(root, "restored"));
+    expect(result.code).toBe(1);
+    expect(result.stderr).toContain("i18n-formatting.tsx");
+    expect(result.stderr).toContain("third-party-npm-shim-not-reexport");
+    expect(result.stderr).toContain("third-party-npm-shim-dependency-missing");
+    expect(result.stderr).toContain("react-intl");
+  });
+
   test("directory preflight catches existing hand-written react-intl bodies before nested vendor edits", () => {
     const root = makeTmpRoot();
     const vendorDir = path.join(root, "restored", "vendor");

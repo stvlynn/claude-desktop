@@ -61,6 +61,14 @@ intent gate command to run. If the package is missing, add it first; only start 
 local body after every npm identity check is negative and
 `--decision --intent local-body` passes.
 
+Package identity follows the API, not just the filename. Renaming
+`vendor/react-intl.tsx` to a semantic-looking file such as
+`vendor/i18n-formatting.tsx`, or moving the same exports through a compatibility
+barrel, is still an npm-shim target when the provenance or exported API matches
+React Intl/FormatJS or another registered package. Run the same intent gate and
+dependency check for renamed package surfaces; do not use a new local filename
+as permission to recreate the package.
+
 Treat public vendor files as **npm-first** targets. Before drafting code inside
 `restored/vendor/<name>.ts[x]`, map the filename, provenance chunk, and exported
 API to a package candidate. If a package candidate exists and there is no

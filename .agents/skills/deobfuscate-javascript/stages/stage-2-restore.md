@@ -271,6 +271,11 @@ into an npm-backed re-export/alias shim, add the package root to the nearest
 automatically. For generic chunk stems such as `lib-*` or `src-*`, register the
 exact provenance basename in `quality-gate.ts` as well as the public vendor
 filename, so renaming the restored file cannot bypass the npm-shim rule.
+Distinctive package APIs are package identity too: a renamed public vendor file
+exporting `useIntl`, `FormattedMessage`, `IntlProvider`, `getDocument`,
+`roughjs`, `AnalyticsBrowser`, D3 transforms, or similarly registered API
+fingerprints must still be an npm-backed shim with the package root declared in
+the nearest `package.json`.
 This is a blocking preflight for every public `restored/vendor/*` edit: do not
 start by writing code. For any task touching `restored/vendor/`, first audit the
 whole public vendor directory:
