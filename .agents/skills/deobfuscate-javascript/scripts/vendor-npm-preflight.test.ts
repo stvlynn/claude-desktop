@@ -79,6 +79,32 @@ describe("vendor-npm-preflight CLI", () => {
     });
   });
 
+  test("classifies high-confidence vendor filenames even when package dependencies are missing", () => {
+    const root = makeTmpRoot();
+    const vendorDir = path.join(root, "restored", "vendor");
+    fs.mkdirSync(vendorDir, { recursive: true });
+    fs.writeFileSync(path.join(root, "package.json"), JSON.stringify({}));
+
+    const result = runDecisionCLI(path.join(vendorDir, "react-intl.tsx"), {
+      intent: "local-body",
+    });
+    expect(result.code).toBe(1);
+    expect(result.stderr).toContain("INTENT FAIL");
+    expect(result.stderr).toContain("local vendor body blocked");
+    expect(result.stderr).toContain("react-intl");
+    const decisions = JSON.parse(result.stdout) as Array<{
+      decision: string;
+      specifiers: string[];
+      sourceExists: boolean;
+    }>;
+    expect(decisions).toHaveLength(1);
+    expect(decisions[0]).toMatchObject({
+      decision: "npm-shim",
+      specifiers: ["react-intl"],
+      sourceExists: false,
+    });
+  });
+
   test("blocks local-body intent for known package vendor targets before the file exists", () => {
     const root = makeTmpRoot();
     const vendorDir = path.join(root, "restored", "vendor");

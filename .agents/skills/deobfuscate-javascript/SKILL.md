@@ -120,6 +120,14 @@ body**: `restored/vendor/react-intl.tsx`, `restored/vendor/pdfjs.ts`,
 npm-backed shims, even if the bundle used only a few exports or the current
 workspace does not yet declare the dependency.
 
+Dependency absence is never identity evidence. When a public vendor filename,
+provenance chunk, or exported API fingerprint already maps to a stock package
+(for example `vendor/react-intl.tsx` → `react-intl`), treat a missing
+`package.json` entry as a package-management TODO: add the dependency and keep
+the shim thin. Do not downgrade the target to `needs-proof`, and do not write a
+local compatibility body, just because the restored project has not installed
+the package yet.
+
 Before editing any public vendor target, write down the binary decision in your
 working notes or commit message: **npm shim**, **Codex fork**, or **app/runtime
 wrapper**. If you cannot prove fork/wrapper status from source, consumers, or
