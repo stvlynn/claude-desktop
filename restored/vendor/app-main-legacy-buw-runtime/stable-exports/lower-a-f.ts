@@ -20,6 +20,10 @@ export { initDictationTranscriptCleanupChunk as legacyAppMainBuwLowerDUpperCExpo
 
 export { areArraysEqual } from "../../../utils/are-arrays-equal";
 
+export { initActivityScrollContainerChunk as legacyAppMainBuwLowerALowerAExport } from "../../../conversations/activity-scroll-container";
+export { CODEX_APP_TOOL_NAMESPACE as legacyAppMainBuwLowerBLowerAExport } from "../../../conversations/codex-app-tool-namespace";
+export { conversationalOnboardingTaskActiveConversationSignal as legacyAppMainBuwLowerBExport } from "../../../onboarding/conversational-onboarding-task-scope";
+
 export { isDefaultAutomationDraft as legacyAppMainBuwLowerBLowerIExport } from "../../../automations/shared";
 export { toAutomationRecordWithStatus as legacyAppMainBuwLowerCLowerIExport } from "../../../automations/automation-record-sync";
 export { getAutomationDraftDestination as legacyAppMainBuwLowerDLowerIExport } from "../../../automations/shared";
@@ -151,7 +155,9 @@ export {
 export { clearBrowserSidebarComments as legacyAppMainBuwLowerDLowerMExport } from "../../../browser/browser-sidebar-state";
 export { findPanelForTab as legacyAppMainBuwLowerELowerVExport } from "../../../app-shell/thread-panel-state";
 export { initEnabledReasoningEffortsChunk as legacyAppMainBuwLowerELowerXExport } from "../../../composer/enabled-reasoning-efforts";
+export { sendRestoreMessage as legacyAppMainBuwLowerELowerNExport } from "../../../composer/start-composer-turn";
 export { revealReviewFile as legacyAppMainBuwLowerBLowerGExport } from "../../../review/review-file-navigation";
+export { initReadServiceTierForRequestChunk as legacyAppMainBuwLowerELowerGExport } from "../../../utils/read-service-tier-for-request";
 export { updateMcpAppFrameState as legacyAppMainBuwLowerALowerFExport } from "../../../plugins/mcp-app-frame-state";
 export {
   initD3ChartScalesRuntimeChunk as legacyAppMainBuwLowerCUpperSExport,
@@ -163,11 +169,8 @@ export {
 export { line as legacyAppMainBuwLowerEUpperSExport } from "../../d3-shape-line";
 
 export {
-  aa as legacyAppMainBuwLowerALowerAExport,
   ag as legacyAppMainBuwLowerALowerGExport,
   au as legacyAppMainBuwLowerALowerUExport,
-  b as legacyAppMainBuwLowerBExport,
-  ba as legacyAppMainBuwLowerBLowerAExport,
   bc as legacyAppMainBuwLowerBLowerCExport,
   bd as legacyAppMainBuwLowerBLowerDExport,
   bf as legacyAppMainBuwLowerBLowerFExport,
@@ -184,8 +187,6 @@ export {
   dd as legacyAppMainBuwLowerDLowerDExport,
   ed as legacyAppMainBuwLowerELowerDExport,
   ef as legacyAppMainBuwLowerELowerFExport,
-  eg as legacyAppMainBuwLowerELowerGExport,
-  en as legacyAppMainBuwLowerELowerNExport,
   ep as legacyAppMainBuwLowerELowerPExport,
   es as legacyAppMainBuwLowerELowerSExport,
   et as legacyAppMainBuwLowerELowerTExport,

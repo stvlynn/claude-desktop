@@ -16,20 +16,20 @@ export { initArrowUpRightLgIconChunk as SidebarRowPrBadge } from "../../icons/ar
 
 export { initPortalRuntime } from "../../runtime/app-main-new-thread-runtime";
 export { activeContentSearchMatchClassName as appMainCurrentCompatSlotLowerEUnderscore } from "../../runtime/conversation-search-runtime";
+export { findPanelForTab as appMainCurrentCompatSlotLowerELowerV } from "../../app-shell/thread-panel-state";
+export { initEnabledReasoningEffortsChunk as appMainCurrentCompatSlotLowerELowerX } from "../../composer/enabled-reasoning-efforts";
+export { sendRestoreMessage as appMainCurrentCompatSlotLowerELowerN } from "../../composer/start-composer-turn";
+export { initReadServiceTierForRequestChunk as appMainCurrentCompatSlotLowerELowerG } from "../../utils/read-service-tier-for-request";
 
 export {
   eb as appMainCurrentCompatSlotLowerELowerB,
   ed as appMainCurrentCompatSlotLowerELowerD,
   ef as appMainCurrentCompatSlotLowerELowerF,
-  eg as appMainCurrentCompatSlotLowerELowerG,
   em as appMainCurrentCompatSlotLowerELowerM,
-  en as appMainCurrentCompatSlotLowerELowerN,
   eo as appMainCurrentCompatSlotLowerELowerO,
   ep as appMainCurrentCompatSlotLowerELowerP,
   es as appMainCurrentCompatSlotLowerELowerS,
   eS as appMainCurrentCompatSlotLowerEUpperS,
   et as appMainCurrentCompatSlotLowerELowerT,
-  ev as appMainCurrentCompatSlotLowerELowerV,
-  ex as appMainCurrentCompatSlotLowerELowerX,
   ey as appMainCurrentCompatSlotLowerELowerY,
 } from "../app-main-legacy-buw-compat-bundle";

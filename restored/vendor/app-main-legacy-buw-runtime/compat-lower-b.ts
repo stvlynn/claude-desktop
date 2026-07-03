@@ -7,6 +7,8 @@ export { normalizeTerminalFontFamily } from "../../runtime/window-chrome-runtime
 
 export { openThreadReviewSidePanelTab } from "../../app-shell/thread-side-panel-tabs";
 export { fetchIdeContext as appMainCurrentCompatSlotLowerBUpperC } from "../../composer/composer-utils";
+export { CODEX_APP_TOOL_NAMESPACE as appMainCurrentCompatSlotLowerBLowerA } from "../../conversations/codex-app-tool-namespace";
+export { conversationalOnboardingTaskActiveConversationSignal as appMainCurrentCompatSlotLowerB } from "../../onboarding/conversational-onboarding-task-scope";
 
 export { useDroppable as ThreadRowBranchLabel } from "../dnd-kit-core";
 export { clearPendingWorktreePanelState as appMainCurrentCompatSlotLowerBLowerO } from "../../conversations/fork-conversation-panel-state";
@@ -14,8 +16,6 @@ export { clearPendingWorktreePanelState as appMainCurrentCompatSlotLowerBLowerO 
 export { isDefaultAutomationDraft as appMainCurrentCompatSlotLowerBLowerI } from "../../automations/shared";
 
 export {
-  b as appMainCurrentCompatSlotLowerB,
-  ba as appMainCurrentCompatSlotLowerBLowerA,
   bb as appMainCurrentCompatSlotLowerBLowerB,
   bc as appMainCurrentCompatSlotLowerBLowerC,
   bd as appMainCurrentCompatSlotLowerBLowerD,

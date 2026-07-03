@@ -12,6 +12,7 @@ import {
 } from "../boundaries/thread-context-inputs.facade";
 import { sendAppServerRequest } from "../boundaries/use-host-config.facade";
 import { vscodeApiH as vscodeLogger } from "../boundaries/vscode-api";
+
 type AppScopeContext = {
   get<TValue = unknown>(signal: unknown, key?: unknown): TValue;
   query: {
@@ -55,6 +56,9 @@ type ModelInfo = {
     description?: unknown;
   }>;
 };
+
+export function initReadServiceTierForRequestChunk(): void {}
+
 export async function readServiceTierAuthMethod(
   scope: AppScopeContext,
   hostId: string,

@@ -16,9 +16,9 @@ export { toAutomationCreatePayload as appMainCurrentCompatSlotLowerALowerI } fro
 export { initUseConversationIdFromRouteChunk as appMainCurrentCompatSlotLowerALowerR } from "../../conversations/use-conversation-id-from-route";
 export { initBrowserNotSecureIconChunk as appMainCurrentCompatSlotLowerALowerP } from "../../browser/browser-address-security-indicator";
 export { initContentSearchRuntime as appMainCurrentCompatSlotLowerAUnderscore } from "../../runtime/conversation-search-runtime";
+export { initActivityScrollContainerChunk as appMainCurrentCompatSlotLowerALowerA } from "../../conversations/activity-scroll-container";
 
 export {
-  aa as appMainCurrentCompatSlotLowerALowerA,
   ab as appMainCurrentCompatSlotLowerALowerB,
   ad as appMainCurrentCompatSlotLowerALowerD,
   af as appMainCurrentCompatSlotLowerALowerF,
