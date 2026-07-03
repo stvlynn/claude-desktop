@@ -24,11 +24,11 @@ export { registerArtifactNavigationHandler as appMainCurrentCompatSlotLowerYLowe
 export { invalidateWorktreeStatusForHost as appMainCurrentCompatSlotLowerYLowerN } from "../../conversations/worktree-status-runtime";
 export { timeMinute as appMainCurrentCompatSlotLowerYUpperS } from "d3-time";
 export { findAmbientSuggestionApps as appMainCurrentCompatSlotLowerYLowerY } from "../../connectors/ambient-suggestion-apps";
+export { useBrowserUseSettingsVisibility as appMainCurrentCompatSlotLowerYLowerP } from "../../browser/browser-use-settings-visibility";
+export { gitActionAvailabilityAtom as appMainCurrentCompatSlotLowerYLowerU } from "../../review/local-git-actions-scope";
 
 export {
   yg as appMainCurrentCompatSlotLowerYLowerG,
   yh as appMainCurrentCompatSlotLowerYLowerH,
   ym as appMainCurrentCompatSlotLowerYLowerM,
-  yp as appMainCurrentCompatSlotLowerYLowerP,
-  yu as appMainCurrentCompatSlotLowerYLowerU,
 } from "../app-main-legacy-buw-compat-bundle";

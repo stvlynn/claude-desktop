@@ -20,6 +20,7 @@ export { initReviewDiffFindHighlightChunk as appMainCurrentCompatSlotLowerZLower
 export { interpolateTransformSvg as appMainCurrentCompatSlotLowerZUpperS } from "d3-interpolate";
 export { curveMonotoneY as appMainCurrentCompatSlotLowerZLowerX } from "d3-shape";
 export { setSidebarOpen as appMainCurrentCompatSlotLowerZLowerY } from "../../app-shell/app-shell-state";
+export { applyAbsolutePosition as appMainCurrentCompatSlotLowerZLowerT } from "../../image-side-panel/paged-annotation-overlay-geometry";
 
 export {
   za as appMainCurrentCompatSlotLowerZLowerA,
@@ -28,5 +29,4 @@ export {
   zl as appMainCurrentCompatSlotLowerZLowerL,
   zm as appMainCurrentCompatSlotLowerZLowerM,
   zp as appMainCurrentCompatSlotLowerZLowerP,
-  zt as appMainCurrentCompatSlotLowerZLowerT,
 } from "../app-main-legacy-buw-compat-bundle";

@@ -21,12 +21,12 @@ export { syncOpenReviewFileSourceTabs as appMainCurrentCompatSlotLowerXLowerF } 
 export { worktreeStatusKindAtom as appMainCurrentCompatSlotLowerXLowerN } from "../../conversations/worktree-status-runtime";
 export { timeMillisecond as appMainCurrentCompatSlotLowerXUpperS } from "d3-time";
 export { hasUnknownAmbientSuggestionAppIcon as appMainCurrentCompatSlotLowerXLowerY } from "../../connectors/ambient-suggestion-apps";
+export { initBrowserUseOriginStateQueriesChunk as appMainCurrentCompatSlotLowerXLowerP } from "../../browser/browser-use-origin-state-queries";
+export { initLocalGitActionBranchAtomsChunk as appMainCurrentCompatSlotLowerXLowerU } from "../../review/local-git-action-branch-atoms";
 
 export {
   xd as appMainCurrentCompatSlotLowerXLowerD,
   xg as appMainCurrentCompatSlotLowerXLowerG,
   xm as appMainCurrentCompatSlotLowerXLowerM,
-  xp as appMainCurrentCompatSlotLowerXLowerP,
   xt as appMainCurrentCompatSlotLowerXLowerT,
-  xu as appMainCurrentCompatSlotLowerXLowerU,
 } from "../app-main-legacy-buw-compat-bundle";
