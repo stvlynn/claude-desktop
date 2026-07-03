@@ -14,6 +14,10 @@ export { initWhitespaceEyeIconChunk as legacyAppMainBuwLowerKLowerLExport } from
 
 export { getConversationalOnboardingTaskPluginName as legacyAppMainBuwLowerIExport } from "../../../onboarding/conversational-onboarding-task-registry";
 export { initStyleSingletonRuntime as initArrayEqualityRuntimeChunk } from "../../react-style-singleton";
+export { timeWednesday as legacyAppMainBuwLowerGUpperSExport } from "d3-time";
+export { timeTuesday as legacyAppMainBuwLowerHUpperSExport } from "d3-time";
+export { timeMonth as legacyAppMainBuwLowerLUpperSExport } from "d3-time";
+export { timeThursday as legacyAppMainBuwLowerMUpperSExport } from "d3-time";
 
 export { applyHeartbeatTargetThread as legacyAppMainBuwLowerGLowerIExport } from "../../../automations/shared";
 export { setAutomationDraftDestination as legacyAppMainBuwLowerHLowerIExport } from "../../../automations/shared";
@@ -143,13 +147,11 @@ export { setSettingsSelectedHostId as legacyAppMainBuwLowerLLowerPExport } from 
 
 export {
   g as legacyAppMainBuwLowerGExport,
-  gS as legacyAppMainBuwLowerGUpperSExport,
   g_ as legacyAppMainBuwLowerGUnderscoreExport,
   gn as legacyAppMainBuwLowerGLowerNExport,
   gt as legacyAppMainBuwLowerGLowerTExport,
   gx as legacyAppMainBuwLowerGLowerXExport,
   h as legacyAppMainBuwLowerHExport,
-  hS as legacyAppMainBuwLowerHUpperSExport,
   h_ as legacyAppMainBuwLowerHUnderscoreExport,
   ha as legacyAppMainBuwLowerHLowerAExport,
   hb as legacyAppMainBuwLowerHLowerBExport,
@@ -190,12 +192,10 @@ export {
   kv as legacyAppMainBuwLowerKLowerVExport,
   kx as legacyAppMainBuwLowerKLowerXExport,
   l as legacyAppMainBuwLowerLExport,
-  lS as legacyAppMainBuwLowerLUpperSExport,
   l_ as legacyAppMainBuwLowerLUnderscoreExport,
   la as legacyAppMainBuwLowerLLowerAExport,
   m as legacyAppMainBuwLowerMExport,
   mC as legacyAppMainBuwLowerMUpperCExport,
-  mS as legacyAppMainBuwLowerMUpperSExport,
   m_ as legacyAppMainBuwLowerMUnderscoreExport,
   ma as legacyAppMainBuwLowerMLowerAExport,
   mb as legacyAppMainBuwLowerMLowerBExport,

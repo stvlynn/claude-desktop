@@ -1,5 +1,6 @@
 // Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
 // Lowercase h compatibility aliases for the legacy app-main/onboarding producer.
+export { timeTuesday as appMainCurrentCompatSlotLowerHUpperS } from "d3-time";
 export { DocumentSearchIcon as appMainCurrentCompatSlotLowerHLowerY } from "../../icons/document-search-icon";
 
 export { loadLocaleMessages as appMainCurrentCompatSlotLowerHLowerG } from "../../i18n/locale-resolver";
@@ -28,7 +29,6 @@ export {
   hd as appMainCurrentCompatSlotLowerHLowerD,
   hf as appMainCurrentCompatSlotLowerHLowerF,
   hn as appMainCurrentCompatSlotLowerHLowerN,
-  hS as appMainCurrentCompatSlotLowerHUpperS,
   ht as appMainCurrentCompatSlotLowerHLowerT,
   hu as appMainCurrentCompatSlotLowerHLowerU,
 } from "../app-main-legacy-buw-compat-bundle";

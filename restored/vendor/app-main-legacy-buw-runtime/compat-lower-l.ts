@@ -1,5 +1,6 @@
 // Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
 // Lowercase l compatibility aliases for the legacy app-main/onboarding producer.
+export { timeMonth as appMainCurrentCompatSlotLowerLUpperS } from "d3-time";
 export { ArrowRotateCcwIcon as appMainCurrentCompatSlotLowerLLowerM } from "../../icons/arrow-rotate-ccw-icon";
 export { HistoryIcon as appMainCurrentCompatSlotLowerLLowerF } from "../../icons/history-icon";
 
@@ -29,6 +30,5 @@ export {
   l_ as appMainCurrentCompatSlotLowerLUnderscore,
   la as appMainCurrentCompatSlotLowerLLowerA,
   lb as appMainCurrentCompatSlotLowerLLowerB,
-  lS as appMainCurrentCompatSlotLowerLUpperS,
   ly as appMainCurrentCompatSlotLowerLLowerY,
 } from "../app-main-legacy-buw-compat-bundle";

@@ -1,5 +1,6 @@
 // Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
 // Lowercase m compatibility aliases for the legacy app-main/onboarding producer.
+export { timeThursday as appMainCurrentCompatSlotLowerMUpperS } from "d3-time";
 export { initCirclePauseIconChunk as appMainCurrentCompatSlotLowerMLowerH } from "../../icons/play-circle";
 export { areEquivalentLocales as appMainCurrentCompatSlotLowerMLowerG } from "../../i18n/locale-resolver";
 export { initRateLimitStatusDependenciesChunk as appMainCurrentCompatSlotLowerMLowerC } from "../../utils/rate-limit-status/windows";
@@ -26,7 +27,6 @@ export {
   mf as appMainCurrentCompatSlotLowerMLowerF,
   mm as appMainCurrentCompatSlotLowerMLowerM,
   mn as appMainCurrentCompatSlotLowerMLowerN,
-  mS as appMainCurrentCompatSlotLowerMUpperS,
   mt as appMainCurrentCompatSlotLowerMLowerT,
   mu as appMainCurrentCompatSlotLowerMLowerU,
   my as appMainCurrentCompatSlotLowerMLowerY,

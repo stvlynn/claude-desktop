@@ -1,5 +1,6 @@
 // Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
 // Lowercase g compatibility aliases for the legacy app-main/onboarding producer.
+export { timeWednesday as appMainCurrentCompatSlotLowerGUpperS } from "d3-time";
 export { normalizeLocale as appMainCurrentCompatSlotLowerGLowerG } from "../../i18n/locale-resolver";
 export { applyHeartbeatTargetThread as appMainCurrentCompatSlotLowerGLowerI } from "../../automations/shared";
 export { AutomationDetailSection as appMainCurrentCompatSlotLowerGLowerR } from "../../automations/automation-side-panel/status-components";
@@ -27,7 +28,6 @@ export {
   gd as appMainCurrentCompatSlotLowerGLowerD,
   gf as appMainCurrentCompatSlotLowerGLowerF,
   gn as appMainCurrentCompatSlotLowerGLowerN,
-  gS as appMainCurrentCompatSlotLowerGUpperS,
   gt as appMainCurrentCompatSlotLowerGLowerT,
   gx as appMainCurrentCompatSlotLowerGLowerX,
 } from "../app-main-legacy-buw-compat-bundle";
