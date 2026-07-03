@@ -1,5 +1,7 @@
 // Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
 // Uppercase C compatibility aliases for the legacy app-main/onboarding producer.
+export { AutomationModelReasoningDropdown as appMainCurrentCompatSlotUpperCLowerR } from "../../automations/automation-model-reasoning-dropdown";
+
 export { GoogleChromeIcon as appMainCurrentCompatSlotUpperCLowerM } from "../../icons/google-chrome-icon";
 export { initBuildingIconChunk as appMainCurrentCompatSlotUpperCLowerS } from "../../icons/building-icon";
 
@@ -23,7 +25,6 @@ export {
   Ci as appMainCurrentCompatSlotUpperCLowerI,
   Cn as appMainCurrentCompatSlotUpperCLowerN,
   Cp as appMainCurrentCompatSlotUpperCLowerP,
-  Cr as appMainCurrentCompatSlotUpperCLowerR,
   CS as appMainCurrentCompatSlotUpperCUpperS,
   Ct as appMainCurrentCompatSlotUpperCLowerT,
   Cu as appMainCurrentCompatSlotUpperCLowerU,

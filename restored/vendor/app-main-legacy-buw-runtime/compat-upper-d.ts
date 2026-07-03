@@ -1,5 +1,7 @@
 // Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
 // Uppercase D compatibility aliases for the legacy app-main/onboarding producer.
+export { AutomationHeartbeatThreadDropdown as appMainCurrentCompatSlotUpperDLowerR } from "../../automations/automation-heartbeat-thread-dropdown";
+
 export { getBrowserTabIdForPanelTab } from "../app-main-current-runtime";
 
 export { activateTerminalLink } from "../../runtime/window-chrome-runtime";
@@ -21,7 +23,6 @@ export {
   Dm as appMainCurrentCompatSlotUpperDLowerM,
   Dn as appMainCurrentCompatSlotUpperDLowerN,
   Dp as appMainCurrentCompatSlotUpperDLowerP,
-  Dr as appMainCurrentCompatSlotUpperDLowerR,
   DS as appMainCurrentCompatSlotUpperDUpperS,
   Dt as appMainCurrentCompatSlotUpperDLowerT,
   Du as appMainCurrentCompatSlotUpperDLowerU,

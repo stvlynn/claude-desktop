@@ -10,6 +10,7 @@ export { initBrowserWindowIconChunk as legacyAppMainBuwUpperXExport } from "../.
 export { initTrashIconChunk as legacyAppMainBuwUpperVLowerPExport } from "../../../icons/trash-icon";
 
 export { ComposerFooterRoot as legacyAppMainBuwUpperTUpperCExport } from "../../../composer/composer-footer";
+export { AutomationNameInput as legacyAppMainBuwUpperTLowerRExport } from "../../../automations/automation-name-input";
 
 export { AttachmentPill as legacyAppMainBuwUpperVLowerIExport } from "../../../composer/user-message-attachment-pills";
 
@@ -98,7 +99,6 @@ export {
   Tm as legacyAppMainBuwUpperTLowerMExport,
   Tn as legacyAppMainBuwUpperTLowerNExport,
   Tp as legacyAppMainBuwUpperTLowerPExport,
-  Tr as legacyAppMainBuwUpperTLowerRExport,
   Tt as legacyAppMainBuwUpperTLowerTExport,
   Tu as legacyAppMainBuwUpperTLowerUExport,
   Tv as legacyAppMainBuwUpperTLowerVExport,

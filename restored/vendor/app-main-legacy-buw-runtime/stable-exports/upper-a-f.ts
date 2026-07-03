@@ -13,6 +13,10 @@ export { countCommentsByFilePath as legacyAppMainBuwUpperBLowerUExport } from ".
 
 export { DictationRecordingFooter as legacyAppMainBuwUpperCUpperCExport } from "../../../features/use-dictation/recording-footer";
 
+export { AutomationModelReasoningDropdown as legacyAppMainBuwUpperCLowerRExport } from "../../../automations/automation-model-reasoning-dropdown";
+export { AutomationHeartbeatThreadDropdown as legacyAppMainBuwUpperDLowerRExport } from "../../../automations/automation-heartbeat-thread-dropdown";
+export { AutomationExecutionEnvironmentDropdown as legacyAppMainBuwUpperELowerRExport } from "../../../automations/automation-execution-environment-dropdown";
+
 export { CommentAttachmentPill as legacyAppMainBuwUpperFLowerIExport } from "../../../composer/user-message-attachment-pills";
 export { ModelLabel as legacyAppMainBuwUpperFLowerRExport } from "../../../composer/model-label";
 
@@ -122,7 +126,6 @@ export {
   Ci as legacyAppMainBuwUpperCLowerIExport,
   Cn as legacyAppMainBuwUpperCLowerNExport,
   Cp as legacyAppMainBuwUpperCLowerPExport,
-  Cr as legacyAppMainBuwUpperCLowerRExport,
   Ct as legacyAppMainBuwUpperCLowerTExport,
   Cu as legacyAppMainBuwUpperCLowerUExport,
   Cv as legacyAppMainBuwUpperCLowerVExport,
@@ -139,7 +142,6 @@ export {
   Dm as legacyAppMainBuwUpperDLowerMExport,
   Dn as legacyAppMainBuwUpperDLowerNExport,
   Dp as legacyAppMainBuwUpperDLowerPExport,
-  Dr as legacyAppMainBuwUpperDLowerRExport,
   Dt as legacyAppMainBuwUpperDLowerTExport,
   Du as legacyAppMainBuwUpperDLowerUExport,
   Dv as legacyAppMainBuwUpperDLowerVExport,
@@ -158,7 +160,6 @@ export {
   Em as legacyAppMainBuwUpperELowerMExport,
   En as legacyAppMainBuwUpperELowerNExport,
   Ep as legacyAppMainBuwUpperELowerPExport,
-  Er as legacyAppMainBuwUpperELowerRExport,
   Et as legacyAppMainBuwUpperELowerTExport,
   Eu as legacyAppMainBuwUpperELowerUExport,
   Ev as legacyAppMainBuwUpperELowerVExport,

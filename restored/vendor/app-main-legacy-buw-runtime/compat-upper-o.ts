@@ -1,5 +1,7 @@
 // Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
 // Uppercase O compatibility aliases for the legacy app-main/onboarding producer.
+export { AutomationSchedulePicker as appMainCurrentCompatSlotUpperOLowerR } from "../../automations/automation-schedule-picker";
+
 export { SidebarRowOverflowMenu } from "../app-main-current-runtime";
 
 export { terminalLinkHandler } from "../../runtime/window-chrome-runtime";
@@ -22,7 +24,6 @@ export {
   Om as appMainCurrentCompatSlotUpperOLowerM,
   On as appMainCurrentCompatSlotUpperOLowerN,
   Op as appMainCurrentCompatSlotUpperOLowerP,
-  Or as appMainCurrentCompatSlotUpperOLowerR,
   OS as appMainCurrentCompatSlotUpperOUpperS,
   Ot as appMainCurrentCompatSlotUpperOLowerT,
   Ou as appMainCurrentCompatSlotUpperOLowerU,

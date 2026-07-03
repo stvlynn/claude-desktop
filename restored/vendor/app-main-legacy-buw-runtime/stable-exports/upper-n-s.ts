@@ -8,6 +8,7 @@ export { initUploadIconChunk as legacyAppMainBuwUpperQExport } from "../../../ic
 export { SelectedTextTooltip as legacyAppMainBuwUpperNLowerIExport } from "../../../composer/user-message-attachment-pills";
 
 export { cancelActiveConversationalOnboardingForHost as legacyAppMainBuwUpperOExport } from "../../../onboarding/conversational-onboarding-cancel-for-host";
+export { AutomationSchedulePicker as legacyAppMainBuwUpperOLowerRExport } from "../../../automations/automation-schedule-picker";
 
 export { DictationButton as legacyAppMainBuwUpperSUpperCExport } from "../../../features/use-dictation/dictation-button";
 
@@ -104,7 +105,6 @@ export {
   Om as legacyAppMainBuwUpperOLowerMExport,
   On as legacyAppMainBuwUpperOLowerNExport,
   Op as legacyAppMainBuwUpperOLowerPExport,
-  Or as legacyAppMainBuwUpperOLowerRExport,
   Ot as legacyAppMainBuwUpperOLowerTExport,
   Ou as legacyAppMainBuwUpperOLowerUExport,
   Ov as legacyAppMainBuwUpperOLowerVExport,
