@@ -36,8 +36,10 @@ export function getAvailablePermissionModeState({
   requirements,
   resolvedConfig,
   isGuardianApprovalEnabledByStatsig,
+  hasAuthoritativeGuardianApprovalDefault = false,
   defaultWorkspaceWriteMode = "auto",
 }: PermissionConfigData & {
+  hasAuthoritativeGuardianApprovalDefault?: boolean;
   defaultWorkspaceWriteMode?: AgentMode;
 }): AvailablePermissionModeState {
   const allowedAgentModes = isConfigDataPending
@@ -57,9 +59,11 @@ export function getAvailablePermissionModeState({
   const isGuardianTheOnlyMode =
     allowedAgentModes.includes("guardian-approvals") &&
     modesWithoutGuardian.length === 0;
+  const canShowGuardianOption =
+    isGuardianApprovalEnabledByStatsig ||
+    hasAuthoritativeGuardianApprovalDefault;
   const availableAgentModes =
-    (isGuardianApprovalEnabledByStatsig && isGuardianFeatureEnabled) ||
-    isGuardianTheOnlyMode
+    (canShowGuardianOption && isGuardianFeatureEnabled) || isGuardianTheOnlyMode
       ? allowedAgentModes
       : modesWithoutGuardian;
   const isGuardianModeAvailable =
@@ -99,7 +103,7 @@ export function getAvailablePermissionModeState({
     isGuardianModeAvailable,
     isConfigDataPending,
     configNonFullAccessMode,
-    showGuardianOption: isGuardianApprovalEnabledByStatsig,
+    showGuardianOption: canShowGuardianOption,
   };
 }
 

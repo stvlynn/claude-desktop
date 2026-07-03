@@ -56,6 +56,7 @@ export {
   selectFallbackAgentMode as legacyAppMainBuwLowerALowerBExport,
   shouldWaitForPermissionModeSelection as legacyAppMainBuwLowerDLowerBExport,
 } from "../../../utils/use-permissions-mode/mode-selection";
+export { getAvailablePermissionModeState as legacyAppMainBuwLowerCLowerBExport } from "../../../utils/use-permissions-mode/mode-availability";
 export { usePermissionsConfigData as legacyAppMainBuwLowerELowerBExport } from "../../../utils/use-permissions-mode/config-data";
 export {
   DEFAULT_LOCALE as legacyAppMainBuwLowerCLowerGExport,
@@ -82,6 +83,7 @@ export {
 } from "../../../runtime/app-main-new-thread-runtime";
 
 export { openThreadReviewSidePanelTab } from "../../../app-shell/thread-side-panel-tabs";
+export { openAutomationTab as legacyAppMainBuwLowerCLowerRExport } from "../../../automations/automation-side-panel-tabs";
 
 export {
   DragOverlay as ThreadRowShortcutLabel,
@@ -124,6 +126,11 @@ export {
   registerAndNotifyBrowserSidebarTab as legacyAppMainBuwLowerDLowerYExport,
   subscribeToBrowserSidebarTabRegistry as legacyAppMainBuwLowerFLowerYExport,
 } from "../../../browser/browser-sidebar-open-source/tab-registry-mutations";
+export { useThreadDetailLevel as legacyAppMainBuwLowerBLowerBExport } from "../../../utils/thread-detail-level";
+export { computeBranchMismatch as legacyAppMainBuwLowerBLowerUExport } from "../../../review/local-git-action-branch-atoms";
+export { filterProjectsForSettingsHost as legacyAppMainBuwLowerDLowerPExport } from "../../../settings/settings-host-context";
+export { formatBranchRef as legacyAppMainBuwLowerDLowerVExport } from "../../../review/review-diff-model";
+export { remapDiffCommentsForHandoff as legacyAppMainBuwLowerELowerOExport } from "../../../conversations/remap-diff-comments-for-handoff";
 
 export {
   aS as legacyAppMainBuwLowerAUpperSExport,
@@ -134,7 +141,6 @@ export {
   b as legacyAppMainBuwLowerBExport,
   bS as legacyAppMainBuwLowerBUpperSExport,
   ba as legacyAppMainBuwLowerBLowerAExport,
-  bb as legacyAppMainBuwLowerBLowerBExport,
   bc as legacyAppMainBuwLowerBLowerCExport,
   bd as legacyAppMainBuwLowerBLowerDExport,
   bf as legacyAppMainBuwLowerBLowerFExport,
@@ -144,13 +150,10 @@ export {
   bn as legacyAppMainBuwLowerBLowerNExport,
   bp as legacyAppMainBuwLowerBLowerPExport,
   bt as legacyAppMainBuwLowerBLowerTExport,
-  bu as legacyAppMainBuwLowerBLowerUExport,
   bv as legacyAppMainBuwLowerBLowerVExport,
   cS as legacyAppMainBuwLowerCUpperSExport,
   c_ as legacyAppMainBuwLowerCUnderscoreExport,
-  cb as legacyAppMainBuwLowerCLowerBExport,
   ch as legacyAppMainBuwLowerCLowerHExport,
-  cr as legacyAppMainBuwLowerCLowerRExport,
   ct as legacyAppMainBuwLowerCLowerTExport,
   cv as legacyAppMainBuwLowerCLowerVExport,
   d as legacyAppMainBuwLowerDExport,
@@ -160,16 +163,13 @@ export {
   dd as legacyAppMainBuwLowerDLowerDExport,
   dm as legacyAppMainBuwLowerDLowerMExport,
   dn as legacyAppMainBuwLowerDLowerNExport,
-  dp as legacyAppMainBuwLowerDLowerPExport,
   dt as legacyAppMainBuwLowerDLowerTExport,
-  dv as legacyAppMainBuwLowerDLowerVExport,
   eS as legacyAppMainBuwLowerEUpperSExport,
   ed as legacyAppMainBuwLowerELowerDExport,
   ef as legacyAppMainBuwLowerELowerFExport,
   eg as legacyAppMainBuwLowerELowerGExport,
   em as legacyAppMainBuwLowerELowerMExport,
   en as legacyAppMainBuwLowerELowerNExport,
-  eo as legacyAppMainBuwLowerELowerOExport,
   ep as legacyAppMainBuwLowerELowerPExport,
   es as legacyAppMainBuwLowerELowerSExport,
   et as legacyAppMainBuwLowerELowerTExport,
