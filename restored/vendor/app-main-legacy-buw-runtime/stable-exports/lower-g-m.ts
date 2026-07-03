@@ -62,6 +62,10 @@ export {
   requestPrimaryRuntimeInstall as legacyAppMainBuwLowerMLowerSExport,
 } from "../../../runtime/primary-runtime-install-state";
 export { primaryRuntimeInstallStatusMessage as legacyAppMainBuwLowerILowerSExport } from "../../../runtime/primary-runtime-install-status-message";
+export {
+  getDefaultWorkspaceWriteMode as legacyAppMainBuwLowerILowerBExport,
+  resolveNonFullAccessAgentMode as legacyAppMainBuwLowerLLowerBExport,
+} from "../../../utils/use-permissions-mode/mode-selection";
 export { ActivityScrollContainer as legacyAppMainBuwLowerILowerAExport } from "../../../conversations/activity-scroll-container";
 export { markTurnInterruptedByThisClient as legacyAppMainBuwLowerJLowerSExport } from "../../../threads/interrupted-turn-state";
 export { hasWorkspaceDependenciesFeature as legacyAppMainBuwLowerJLowerOExport } from "../../../features/workspace-dependencies";
@@ -138,7 +142,6 @@ export {
   ht as legacyAppMainBuwLowerHLowerTExport,
   hu as legacyAppMainBuwLowerHLowerUExport,
   iS as legacyAppMainBuwLowerIUpperSExport,
-  ib as legacyAppMainBuwLowerILowerBExport,
   id as legacyAppMainBuwLowerILowerDExport,
   if as legacyAppMainBuwLowerILowerFExport,
   ig as legacyAppMainBuwLowerILowerGExport,
@@ -181,7 +184,6 @@ export {
   lS as legacyAppMainBuwLowerLUpperSExport,
   l_ as legacyAppMainBuwLowerLUnderscoreExport,
   la as legacyAppMainBuwLowerLLowerAExport,
-  lb as legacyAppMainBuwLowerLLowerBExport,
   lp as legacyAppMainBuwLowerLLowerPExport,
   ly as legacyAppMainBuwLowerLLowerYExport,
   m as legacyAppMainBuwLowerMExport,

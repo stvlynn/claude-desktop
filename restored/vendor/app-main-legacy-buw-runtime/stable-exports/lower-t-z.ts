@@ -14,6 +14,7 @@ export { initUseDictationUiRuntimeChunk as legacyAppMainBuwLowerWUpperCExport } 
 export { conversationalOnboardingTaskScope as legacyAppMainBuwLowerVExport } from "../../../onboarding/conversational-onboarding-task-scope";
 export { isConversationalOnboardingMessagingTask as legacyAppMainBuwLowerUExport } from "../../../onboarding/conversational-onboarding-task-registry";
 export { ConversationalOnboardingTaskIcon as legacyAppMainBuwLowerTExport } from "../../../onboarding/conversational-onboarding-task-icon";
+export { canAgentModeUseOverrides as legacyAppMainBuwLowerULowerBExport } from "../../../utils/use-permissions-mode/mode-selection";
 
 export { PopoverAttachmentPill as legacyAppMainBuwLowerZLowerIExport } from "../../../composer/user-message-attachment-pills";
 
@@ -124,7 +125,6 @@ export {
   uS as legacyAppMainBuwLowerUUpperSExport,
   u_ as legacyAppMainBuwLowerUUnderscoreExport,
   ua as legacyAppMainBuwLowerULowerAExport,
-  ub as legacyAppMainBuwLowerULowerBExport,
   un as legacyAppMainBuwLowerULowerNExport,
   up as legacyAppMainBuwLowerULowerPExport,
   uv as legacyAppMainBuwLowerULowerVExport,

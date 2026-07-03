@@ -44,18 +44,21 @@ export function selectFallbackAgentMode(
   preferredDefaultMode: AgentMode | null | undefined,
   fallbackMode: AgentMode,
   explicitMode: AgentMode | null = null,
+  priorityMode: AgentMode | null = null,
 ): AgentMode {
-  return explicitMode != null && availableAgentModes.includes(explicitMode)
-    ? explicitMode
-    : availableAgentModes.includes("custom")
-      ? "custom"
-      : !hasNonPrivilegedAgentMode(availableAgentModes) &&
-          availableAgentModes.includes("full-access")
-        ? "full-access"
-        : preferredDefaultMode != null &&
-            availableAgentModes.includes(preferredDefaultMode)
-          ? preferredDefaultMode
-          : fallbackMode;
+  return priorityMode != null && availableAgentModes.includes(priorityMode)
+    ? priorityMode
+    : explicitMode != null && availableAgentModes.includes(explicitMode)
+      ? explicitMode
+      : availableAgentModes.includes("custom")
+        ? "custom"
+        : !hasNonPrivilegedAgentMode(availableAgentModes) &&
+            availableAgentModes.includes("full-access")
+          ? "full-access"
+          : preferredDefaultMode != null &&
+              availableAgentModes.includes(preferredDefaultMode)
+            ? preferredDefaultMode
+            : fallbackMode;
 }
 
 export function resolveNextFallbackAgentMode(
@@ -66,38 +69,43 @@ export function resolveNextFallbackAgentMode(
   permissionProfileId: PermissionProfileId = null,
   preferredNonFullAccessMode: AgentMode,
   shouldPreferNonFullAccessMode: boolean,
+  priorityMode: AgentMode | null = null,
 ): AgentMode | null {
-  return explicitAgentMode == null
-    ? canAgentModeUseOverrides(
-        currentAgentMode,
-        availableAgentModes,
-        permissionProfileId,
-      )
+  return priorityMode != null && availableAgentModes.includes(priorityMode)
+    ? currentAgentMode === priorityMode
       ? null
-      : shouldPreferNonFullAccessMode &&
-          availableAgentModes.includes(preferredNonFullAccessMode) &&
-          currentAgentMode !== "guardian-approvals" &&
-          currentAgentMode !== "full-access" &&
-          currentAgentMode !== "custom"
-        ? currentAgentMode === preferredNonFullAccessMode
-          ? null
-          : preferredNonFullAccessMode
-        : !hasNonPrivilegedAgentMode(availableAgentModes) &&
-            availableAgentModes.includes("full-access")
-          ? currentAgentMode === "full-access"
+      : priorityMode
+    : explicitAgentMode == null
+      ? canAgentModeUseOverrides(
+          currentAgentMode,
+          availableAgentModes,
+          permissionProfileId,
+        )
+        ? null
+        : shouldPreferNonFullAccessMode &&
+            availableAgentModes.includes(preferredNonFullAccessMode) &&
+            currentAgentMode !== "guardian-approvals" &&
+            currentAgentMode !== "full-access" &&
+            currentAgentMode !== "custom"
+          ? currentAgentMode === preferredNonFullAccessMode
             ? null
-            : "full-access"
-          : permissionProfileId == null &&
-              availableAgentModes.includes("custom")
-            ? currentAgentMode === "custom"
+            : preferredNonFullAccessMode
+          : !hasNonPrivilegedAgentMode(availableAgentModes) &&
+              availableAgentModes.includes("full-access")
+            ? currentAgentMode === "full-access"
               ? null
-              : "custom"
-            : currentAgentMode === fallbackMode
-              ? null
-              : fallbackMode
-    : currentAgentMode === explicitAgentMode
-      ? null
-      : explicitAgentMode;
+              : "full-access"
+            : permissionProfileId == null &&
+                availableAgentModes.includes("custom")
+              ? currentAgentMode === "custom"
+                ? null
+                : "custom"
+              : currentAgentMode === fallbackMode
+                ? null
+                : fallbackMode
+      : currentAgentMode === explicitAgentMode
+        ? null
+        : explicitAgentMode;
 }
 
 function hasNonPrivilegedAgentMode(agentModes: AgentMode[]) {

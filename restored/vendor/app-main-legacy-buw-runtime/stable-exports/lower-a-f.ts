@@ -53,6 +53,10 @@ export {
   initPermissionsModeDefaultsRuntime,
 } from "../../../runtime/window-chrome-runtime";
 export {
+  selectFallbackAgentMode as legacyAppMainBuwLowerALowerBExport,
+  shouldWaitForPermissionModeSelection as legacyAppMainBuwLowerDLowerBExport,
+} from "../../../utils/use-permissions-mode/mode-selection";
+export {
   DEFAULT_LOCALE as legacyAppMainBuwLowerCLowerGExport,
   getLocaleLanguageDisplayName as legacyAppMainBuwLowerDLowerGExport,
   initLocaleResolverChunk as legacyAppMainBuwLowerFLowerGExport,
@@ -113,7 +117,6 @@ export { activeContentSearchMatchClassName as legacyAppMainBuwLowerEUnderscoreEx
 export {
   aS as legacyAppMainBuwLowerAUpperSExport,
   aa as legacyAppMainBuwLowerALowerAExport,
-  ab as legacyAppMainBuwLowerALowerBExport,
   af as legacyAppMainBuwLowerALowerFExport,
   ag as legacyAppMainBuwLowerALowerGExport,
   au as legacyAppMainBuwLowerALowerUExport,
@@ -146,7 +149,6 @@ export {
   dS as legacyAppMainBuwLowerDUpperSExport,
   d_ as legacyAppMainBuwLowerDUnderscoreExport,
   da as legacyAppMainBuwLowerDLowerAExport,
-  db as legacyAppMainBuwLowerDLowerBExport,
   dd as legacyAppMainBuwLowerDLowerDExport,
   dm as legacyAppMainBuwLowerDLowerMExport,
   dn as legacyAppMainBuwLowerDLowerNExport,

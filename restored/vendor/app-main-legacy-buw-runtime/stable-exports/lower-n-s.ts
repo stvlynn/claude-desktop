@@ -34,6 +34,8 @@ export { createAutomationDraftFromSeed as legacyAppMainBuwLowerSLowerIExport } f
 export { automationDirectiveResultAtom as legacyAppMainBuwLowerRLowerIExport } from "../../../automations/shared";
 export { areAutomationRecordsEqual as legacyAppMainBuwLowerNLowerIExport } from "../../../automations/automation-record-sync";
 export { usePermissionsMode as legacyAppMainBuwLowerNLowerBExport } from "../../../utils/use-permissions-mode/use-permissions-mode";
+export { permissionProfileIdToAgentMode as legacyAppMainBuwLowerRLowerBExport } from "../../../utils/use-permissions-mode/mode-availability";
+export { resolveNextFallbackAgentMode as legacyAppMainBuwLowerOLowerBExport } from "../../../utils/use-permissions-mode/mode-selection";
 
 export { useConversationIdFromRoute as legacyAppMainBuwLowerOLowerRExport } from "../../../conversations/use-conversation-id-from-route";
 
@@ -108,7 +110,6 @@ export {
   nx as legacyAppMainBuwLowerNLowerXExport,
   ny as legacyAppMainBuwLowerNLowerYExport,
   oS as legacyAppMainBuwLowerOUpperSExport,
-  ob as legacyAppMainBuwLowerOLowerBExport,
   od as legacyAppMainBuwLowerOLowerDExport,
   oh as legacyAppMainBuwLowerOLowerHExport,
   om as legacyAppMainBuwLowerOLowerMExport,
@@ -151,7 +152,6 @@ export {
   r as legacyAppMainBuwLowerRExport,
   rS as legacyAppMainBuwLowerRUpperSExport,
   ra as legacyAppMainBuwLowerRLowerAExport,
-  rb as legacyAppMainBuwLowerRLowerBExport,
   rd as legacyAppMainBuwLowerRLowerDExport,
   rf as legacyAppMainBuwLowerRLowerFExport,
   rg as legacyAppMainBuwLowerRLowerGExport,
