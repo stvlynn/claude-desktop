@@ -1,8 +1,18 @@
 // Restored from ref/webview/assets/score-query-match-DS2pZf_b.js
 // score-query-match-DS2pZf_b chunk restored from the Codex webview bundle.
 import { CompositeMatcher, WildcardPatternMatcher } from "./matcher";
+import { NO_MATCH_SCORE } from "./types";
 
-const PATH_SEPARATORS = ["/", "\\"];
+const PATH_SEPARATORS = ["/", "\\"] as const;
+const PATH_SEPARATOR_SENTINEL = "\0";
+
+export type {
+  ScoreQueryMatchMode,
+  ScoreQueryMatchRange,
+  ScoreQueryMatchRanges,
+} from "./types";
+
+export function initScoreQueryMatchRuntime(): void {}
 
 export function scoreQueryMatch(candidate: string, query: string): number {
   let trimmedQuery = query.trim();
@@ -12,11 +22,12 @@ export function scoreQueryMatch(candidate: string, query: string): number {
       ? normalizePathSeparators(candidate)
       : candidate,
     rawScore = matcher.matchingDegree(normalizedCandidate);
-  if (rawScore === -2147483648) return 0;
+  if (rawScore === NO_MATCH_SCORE) return 0;
   let scoreDelta = rawScore * 10 - candidate.length;
   return scoreDelta <= 0 ? 1 : scoreDelta;
 }
-function createMatcher(query) {
+
+function createMatcher(query: string): CompositeMatcher {
   let hasPathSeparator = containsPathSeparator(query),
     wildcardPattern = hasPathSeparator
       ? buildPathWildcardPattern(query)
@@ -37,13 +48,15 @@ function createMatcher(query) {
       : null,
   );
 }
-function buildPathWildcardPattern(query) {
+
+function buildPathWildcardPattern(query: string): string {
   let pattern = `*${query}`;
   for (let separator of PATH_SEPARATORS)
-    pattern = pattern.split(separator).join(`*${"\0"}*`);
+    pattern = pattern.split(separator).join(`*${PATH_SEPARATOR_SENTINEL}*`);
   return pattern;
 }
-function basenameAfterLastSeparator(query) {
+
+function basenameAfterLastSeparator(query: string): string {
   let lastSeparatorIndex = -1;
   for (let separator of PATH_SEPARATORS) {
     let separatorIndex = query.lastIndexOf(separator);
@@ -53,13 +66,15 @@ function basenameAfterLastSeparator(query) {
   }
   return query.slice(lastSeparatorIndex + 1);
 }
-function normalizePathSeparators(value) {
+
+function normalizePathSeparators(value: string): string {
   let normalized = value;
   for (let separator of PATH_SEPARATORS)
-    normalized = normalized.split(separator).join("\0");
+    normalized = normalized.split(separator).join(PATH_SEPARATOR_SENTINEL);
   return normalized;
 }
-function containsPathSeparator(value) {
+
+function containsPathSeparator(value: string): boolean {
   for (let separator of PATH_SEPARATORS)
     if (value.includes(separator)) return true;
   return false;

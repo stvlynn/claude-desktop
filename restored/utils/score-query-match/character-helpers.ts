@@ -1,14 +1,19 @@
 // Restored from ref/webview/assets/score-query-match-DS2pZf_b.js
 // score-query-match-DS2pZf_b chunk restored from the Codex webview bundle.
+import { LEADING_MATCH_SCORE_BOOST, type ScoreQueryMatchRanges } from "./types";
+
 export class ScoreQueryCharacterHelpers {
-  static boostScoreForLeadingMatch(score, matches) {
+  static boostScoreForLeadingMatch(
+    score: number,
+    matches: ScoreQueryMatchRanges,
+  ): number {
     return matches.length === 0
       ? score
       : matches[0].startOffset === 0
-        ? score + 1e4
+        ? score + LEADING_MATCH_SCORE_BOOST
         : score;
   }
-  static isPatternSeparator(char) {
+  static isPatternSeparator(char: string): boolean {
     return (
       char.trim().length === 0 ||
       char === "_" ||
@@ -20,13 +25,13 @@ export class ScoreQueryCharacterHelpers {
       char === "\\"
     );
   }
-  static nextNameWordOffset(target, offset) {
+  static nextNameWordOffset(target: string, offset: number): number {
     return offset < target.length &&
       ScoreQueryCharacterHelpers.isDigit(target[offset])
       ? offset + 1
       : ScoreQueryCharacterHelpers.nextWordStartOffset(target, offset);
   }
-  static nextWordStartOffset(target, offset) {
+  static nextWordStartOffset(target: string, offset: number): number {
     for (
       let wordOffset = offset + 1;
       wordOffset <= target.length;
@@ -38,7 +43,7 @@ export class ScoreQueryCharacterHelpers {
     }
     return target.length + 1;
   }
-  static isWordStart(target, offset) {
+  static isWordStart(target: string, offset: number): boolean {
     if (offset < 0 || offset >= target.length) return false;
     let currentChar = target[offset];
     if (!ScoreQueryCharacterHelpers.isAsciiAlphaNumeric(currentChar))
@@ -53,7 +58,13 @@ export class ScoreQueryCharacterHelpers {
         !ScoreQueryCharacterHelpers.isDigit(prevChar))
     );
   }
-  static indexOfChar(target, char, start, end, ignoreCase) {
+  static indexOfChar(
+    target: readonly string[],
+    char: string,
+    start: number,
+    end: number,
+    ignoreCase: boolean,
+  ): number {
     if (!ignoreCase) {
       for (let index = start; index < end; index += 1)
         if (target[index] === char) return index;
@@ -67,20 +78,35 @@ export class ScoreQueryCharacterHelpers {
     }
     return -1;
   }
-  static isWildcardChar(char) {
+  static isWildcardChar(char: string): boolean {
     return char === " " || char === "*";
   }
-  static indexOfAny(target, chars, start, end) {
+  static indexOfAny(
+    target: string,
+    chars: readonly string[],
+    start: number,
+    end: number,
+  ): number {
     for (let index = start; index < end; index += 1)
       if (chars.includes(target[index])) return index;
     return -1;
   }
-  static indexOfCharInRange(target, char, start, end) {
+  static indexOfCharInRange(
+    target: string,
+    char: string,
+    start: number,
+    end: number,
+  ): number {
     for (let index = start; index < end; index += 1)
       if (target[index] === char) return index;
     return -1;
   }
-  static indexOfSubstringIgnoreCase(target, substring, start, end) {
+  static indexOfSubstringIgnoreCase(
+    target: string,
+    substring: string,
+    start: number,
+    end: number,
+  ): number {
     let lowerTarget = target.toLowerCase(),
       lowerSubstring = substring.toLowerCase(),
       foundIndex = lowerTarget.indexOf(lowerSubstring, start);
@@ -88,18 +114,27 @@ export class ScoreQueryCharacterHelpers {
       ? -1
       : foundIndex;
   }
-  static regionMatchesIgnoreCase(target, offset, length, other) {
+  static regionMatchesIgnoreCase(
+    target: string,
+    offset: number,
+    length: number,
+    other: string,
+  ): boolean {
     return offset + length > target.length
       ? false
       : target.slice(offset, offset + length).toLowerCase() ===
           other.toLowerCase();
   }
-  static stripWildcards(value) {
+  static stripWildcards(value: Iterable<string>): string {
     let result = "";
     for (let char of value) char !== "*" && (result += char);
     return result;
   }
-  static prependMatchedRange(matches, startOffset, length) {
+  static prependMatchedRange(
+    matches: ScoreQueryMatchRanges,
+    startOffset: number,
+    length: number,
+  ): ScoreQueryMatchRanges {
     if (matches.length === 0)
       return [
         {
@@ -121,19 +156,19 @@ export class ScoreQueryCharacterHelpers {
       matches
     );
   }
-  static isAsciiSingleChar(char) {
+  static isAsciiSingleChar(char: string): boolean {
     return char.length === 1 && char.charCodeAt(0) <= 127;
   }
-  static isUpperCaseLetter(char) {
+  static isUpperCaseLetter(char: string): boolean {
     return char.toUpperCase() === char && char.toLowerCase() !== char;
   }
-  static isLowerCaseLetter(char) {
+  static isLowerCaseLetter(char: string): boolean {
     return char.toLowerCase() === char && char.toUpperCase() !== char;
   }
-  static isDigit(char) {
+  static isDigit(char: string): boolean {
     return char >= "0" && char <= "9";
   }
-  static isAsciiAlphaNumeric(char) {
+  static isAsciiAlphaNumeric(char: string): boolean {
     return /[a-z0-9]/i.test(char);
   }
 }

@@ -1,25 +1,36 @@
 // Restored from ref/webview/assets/score-query-match-DS2pZf_b.js
 // score-query-match-DS2pZf_b chunk restored from the Codex webview bundle.
 import { ScoreQueryCharacterHelpers } from "./character-helpers";
+import {
+  MAX_WILDCARD_PATTERN_LENGTH,
+  NO_MATCH_SCORE,
+  type ScoreQueryMatchMode,
+  type ScoreQueryMatchRanges,
+} from "./types";
 
 export class CompositeMatcher {
-  mainMatcher;
-  fallbackMatcher;
-  constructor(mainMatcher, fallbackMatcher) {
+  private readonly mainMatcher: WildcardPatternMatcher;
+  private readonly fallbackMatcher: WildcardPatternMatcher | null;
+
+  constructor(
+    mainMatcher: WildcardPatternMatcher,
+    fallbackMatcher: WildcardPatternMatcher | null,
+  ) {
     this.mainMatcher = mainMatcher;
     this.fallbackMatcher = fallbackMatcher;
   }
-  matchingDegree(name) {
+
+  matchingDegree(name: string): number {
     let mainRanges = this.mainMatcher.match(name);
     if (mainRanges != null)
       return ScoreQueryCharacterHelpers.boostScoreForLeadingMatch(
         this.mainMatcher.matchingDegree(name, false, mainRanges),
         mainRanges,
       );
-    if (this.fallbackMatcher == null) return -2147483648;
+    if (this.fallbackMatcher == null) return NO_MATCH_SCORE;
     let fallbackRanges = this.fallbackMatcher.match(name);
     return fallbackRanges == null
-      ? -2147483648
+      ? NO_MATCH_SCORE
       : ScoreQueryCharacterHelpers.boostScoreForLeadingMatch(
           this.fallbackMatcher.matchingDegree(name, false, fallbackRanges),
           fallbackRanges,
@@ -28,20 +39,25 @@ export class CompositeMatcher {
 }
 
 export class WildcardPatternMatcher {
-  myPattern;
-  isLowerCase;
-  isUpperCase;
-  isWordSeparator;
-  toUpperCase;
-  toLowerCase;
-  hardSeparators;
-  matchingMode;
-  mixedCase;
-  hasSeparators;
-  hasDots;
-  meaningfulCharacters;
-  minNameLength;
-  constructor(pattern, matchingMode, hardSeparators) {
+  private readonly myPattern: string[];
+  private readonly isLowerCase: boolean[];
+  private readonly isUpperCase: boolean[];
+  private readonly isWordSeparator: boolean[];
+  private readonly toUpperCase: string[];
+  private readonly toLowerCase: string[];
+  private readonly hardSeparators: string[];
+  private readonly matchingMode: ScoreQueryMatchMode;
+  private readonly mixedCase: boolean;
+  private readonly hasSeparators: boolean;
+  private readonly hasDots: boolean;
+  private readonly meaningfulCharacters: string[];
+  private readonly minNameLength: number;
+
+  constructor(
+    pattern: string,
+    matchingMode: ScoreQueryMatchMode,
+    hardSeparators: string,
+  ) {
     let normalizedPattern = pattern.endsWith("* ")
       ? pattern.slice(0, -2)
       : pattern;
@@ -78,7 +94,7 @@ export class WildcardPatternMatcher {
     );
     this.hardSeparators = Array.from(hardSeparators);
     this.matchingMode = matchingMode;
-    let meaningfulChars = [],
+    let meaningfulChars: string[] = [],
       hasContentChar = false,
       hasLowerCase = false,
       scoreDelta = false,
@@ -111,11 +127,17 @@ export class WildcardPatternMatcher {
     this.meaningfulCharacters = meaningfulChars;
     this.minNameLength = meaningfulChars.length / 2;
   }
-  get pattern() {
+
+  get pattern(): string {
     return this.myPattern.join("");
   }
-  matchingDegree(name, valueStartCaseMatch = false, ranges = this.match(name)) {
-    if (ranges == null) return -2147483648;
+
+  matchingDegree(
+    name: string,
+    valueStartCaseMatch = false,
+    ranges: ScoreQueryMatchRanges | null = this.match(name),
+  ): number {
+    if (ranges == null) return NO_MATCH_SCORE;
     if (ranges.length === 0) return 0;
     let firstRange = ranges[0],
       startMatch = firstRange.startOffset === 0,
@@ -191,9 +213,11 @@ export class WildcardPatternMatcher {
       (matchEndsName ? 1 : 0)
     );
   }
-  match(name) {
+
+  match(name: string): ScoreQueryMatchRanges | null {
     if (name.length < this.minNameLength) return null;
-    if (this.myPattern.length > 100) return this.matchBySubstring(name);
+    if (this.myPattern.length > MAX_WILDCARD_PATTERN_LENGTH)
+      return this.matchBySubstring(name);
     let meaningfulIndex = 0;
     for (
       let i = 0;
@@ -209,15 +233,15 @@ export class WildcardPatternMatcher {
     let matchResult = this.matchWildcards(name, 0, 0);
     return matchResult == null ? null : matchResult.reverse();
   }
-  evaluateCaseMatching(
-    startCaseMatch,
-    patternIndex,
-    caseMatchesUpper,
-    offset,
-    afterGap,
-    isWordStart,
-    nameChar,
-  ) {
+  private evaluateCaseMatching(
+    startCaseMatch: boolean,
+    patternIndex: number,
+    caseMatchesUpper: boolean,
+    offset: number,
+    afterGap: boolean,
+    isWordStart: boolean,
+    nameChar: string,
+  ): number {
     return afterGap && isWordStart && this.isLowerCase[patternIndex]
       ? -10
       : nameChar === this.myPattern[patternIndex]
@@ -232,7 +256,8 @@ export class WildcardPatternMatcher {
           ? -1
           : 0;
   }
-  matchBySubstring(name) {
+
+  private matchBySubstring(name: string): ScoreQueryMatchRanges | null {
     let infix = this.isPatternChar(0, "*"),
       patternText = ScoreQueryCharacterHelpers.stripWildcards(this.myPattern);
     if (name.length < patternText.length) return null;
@@ -266,7 +291,12 @@ export class WildcardPatternMatcher {
         ]
       : null;
   }
-  matchWildcards(name, patternStart, nameIndex) {
+
+  private matchWildcards(
+    name: string,
+    patternStart: number,
+    nameIndex: number,
+  ): ScoreQueryMatchRanges | null {
     let patternIndex = patternStart;
     if (nameIndex < 0) return null;
     if (!this.isWildcard(patternIndex))
@@ -300,16 +330,24 @@ export class WildcardPatternMatcher {
       true,
     );
   }
-  isTrailingSpacePattern() {
+
+  private isTrailingSpacePattern(): boolean {
     return this.isPatternChar(this.myPattern.length - 1, " ");
   }
-  isUpperCaseOrDigit(patternIndex) {
+
+  private isUpperCaseOrDigit(patternIndex: number): boolean {
     return (
       this.isUpperCase[patternIndex] ||
       ScoreQueryCharacterHelpers.isDigit(this.myPattern[patternIndex])
     );
   }
-  matchSkippingWords(name, patternIndex, nameIndex, allowSpecialChars) {
+
+  private matchSkippingWords(
+    name: string,
+    patternIndex: number,
+    nameIndex: number,
+    allowSpecialChars: boolean,
+  ): ScoreQueryMatchRanges | null {
     let start = nameIndex,
       maxFoundLength = 0;
     for (; start >= 0; ) {
@@ -351,13 +389,24 @@ export class WildcardPatternMatcher {
     }
     return null;
   }
-  findNextPatternCharOccurrence(name, nameIndex, patternIndex) {
+
+  private findNextPatternCharOccurrence(
+    name: string,
+    nameIndex: number,
+    patternIndex: number,
+  ): number {
     return !this.isPatternChar(patternIndex - 1, "*") &&
       !this.isWordSeparator[patternIndex]
       ? this.indexOfWordStart(name, patternIndex, nameIndex)
       : this.indexOfIgnoreCase(name, nameIndex, patternIndex);
   }
-  checkForSpecialChars(name, fromIndex, nextOccurrence, patternIndex) {
+
+  private checkForSpecialChars(
+    name: string,
+    fromIndex: number,
+    nextOccurrence: number,
+    patternIndex: number,
+  ): number {
     return nextOccurrence < 0 ||
       (!this.hasSeparators &&
         !this.mixedCase &&
@@ -378,14 +427,25 @@ export class WildcardPatternMatcher {
       ? -1
       : nextOccurrence;
   }
-  seemsLikeFragmentStart(name, patternIndex, nameIndex) {
+
+  private seemsLikeFragmentStart(
+    name: string,
+    patternIndex: number,
+    nameIndex: number,
+  ): boolean {
     return !this.isUpperCase[patternIndex] ||
       ScoreQueryCharacterHelpers.isUpperCaseLetter(name[nameIndex]) ||
       ScoreQueryCharacterHelpers.isWordStart(name, nameIndex)
       ? true
       : !this.mixedCase && this.matchingMode !== "MATCH_CASE";
   }
-  charEquals(patternChar, patternIndex, nameChar, ignoreCase) {
+
+  private charEquals(
+    patternChar: string,
+    patternIndex: number,
+    nameChar: string,
+    ignoreCase: boolean,
+  ): boolean {
     return patternChar === nameChar
       ? true
       : ignoreCase
@@ -393,7 +453,12 @@ export class WildcardPatternMatcher {
           this.toUpperCase[patternIndex] === nameChar
         : false;
   }
-  matchFragment(name, patternIndex, nameIndex) {
+
+  private matchFragment(
+    name: string,
+    patternIndex: number,
+    nameIndex: number,
+  ): ScoreQueryMatchRanges | null {
     let fragmentLength = this.maxMatchingFragment(
       name,
       patternIndex,
@@ -403,7 +468,12 @@ export class WildcardPatternMatcher {
       ? null
       : this.matchInsideFragment(name, patternIndex, nameIndex, fragmentLength);
   }
-  maxMatchingFragment(name, patternIndex, nameIndex) {
+
+  private maxMatchingFragment(
+    name: string,
+    patternIndex: number,
+    nameIndex: number,
+  ): number {
     if (!this.isFirstCharMatching(name, nameIndex, patternIndex)) return 0;
     let i = 1,
       ignoreCase = this.matchingMode !== "MATCH_CASE";
@@ -431,14 +501,24 @@ export class WildcardPatternMatcher {
     }
     return i;
   }
-  isSkippingDigitBetweenPatternDigits(patternIndex, nameChar) {
+
+  private isSkippingDigitBetweenPatternDigits(
+    patternIndex: number,
+    nameChar: string,
+  ): boolean {
     return (
       ScoreQueryCharacterHelpers.isDigit(this.myPattern[patternIndex]) &&
       ScoreQueryCharacterHelpers.isDigit(this.myPattern[patternIndex - 1]) &&
       ScoreQueryCharacterHelpers.isDigit(nameChar)
     );
   }
-  matchInsideFragment(name, patternIndex, nameIndex, fragmentLength) {
+
+  private matchInsideFragment(
+    name: string,
+    patternIndex: number,
+    nameIndex: number,
+    fragmentLength: number,
+  ): ScoreQueryMatchRanges | null {
     let minFragment = this.isMiddleMatch(name, patternIndex, nameIndex) ? 3 : 1;
     return (
       this.improveCamelHumps(
@@ -457,20 +537,26 @@ export class WildcardPatternMatcher {
       )
     );
   }
-  isMiddleMatch(name, patternIndex, nameIndex) {
+
+  private isMiddleMatch(
+    name: string,
+    patternIndex: number,
+    nameIndex: number,
+  ): boolean {
     return !this.isPatternChar(patternIndex - 1, "*") ||
       this.isWildcard(patternIndex + 1) ||
       !ScoreQueryCharacterHelpers.isAsciiAlphaNumeric(name[nameIndex])
       ? false
       : !ScoreQueryCharacterHelpers.isWordStart(name, nameIndex);
   }
-  findLongestMatchingPrefix(
-    name,
-    patternIndex,
-    nameIndex,
-    fragmentLength,
-    minFragment,
-  ) {
+
+  private findLongestMatchingPrefix(
+    name: string,
+    patternIndex: number,
+    nameIndex: number,
+    fragmentLength: number,
+    minFragment: number,
+  ): ScoreQueryMatchRanges | null {
     if (patternIndex + fragmentLength >= this.myPattern.length)
       return [
         {
@@ -480,7 +566,7 @@ export class WildcardPatternMatcher {
       ];
     let i = fragmentLength;
     for (; i >= minFragment || (i > 0 && this.isWildcard(patternIndex + i)); ) {
-      let matchedRanges = null;
+      let matchedRanges: ScoreQueryMatchRanges | null = null;
       if (this.isWildcard(patternIndex + i))
         matchedRanges = this.matchWildcards(
           name,
@@ -517,13 +603,13 @@ export class WildcardPatternMatcher {
     }
     return null;
   }
-  improveCamelHumps(
-    name,
-    patternIndex,
-    nameIndex,
-    fragmentLength,
-    minFragment,
-  ) {
+  private improveCamelHumps(
+    name: string,
+    patternIndex: number,
+    nameIndex: number,
+    fragmentLength: number,
+    minFragment: number,
+  ): ScoreQueryMatchRanges | null {
     for (let i = minFragment; i < fragmentLength; i += 1)
       if (
         this.isUppercasePatternVsLowercaseNameChar(
@@ -546,17 +632,32 @@ export class WildcardPatternMatcher {
       }
     return null;
   }
-  isUppercasePatternVsLowercaseNameChar(name, patternIndex, nameIndex) {
+
+  private isUppercasePatternVsLowercaseNameChar(
+    name: string,
+    patternIndex: number,
+    nameIndex: number,
+  ): boolean {
     return (
       this.isUpperCase[patternIndex] &&
       this.myPattern[patternIndex] !== name[nameIndex]
     );
   }
-  findUppercaseMatchFurther(name, patternIndex, nameIndex) {
+
+  private findUppercaseMatchFurther(
+    name: string,
+    patternIndex: number,
+    nameIndex: number,
+  ): ScoreQueryMatchRanges | null {
     let nextWordStart = this.indexOfWordStart(name, patternIndex, nameIndex);
     return this.matchWildcards(name, patternIndex, nextWordStart);
   }
-  isFirstCharMatching(name, nameIndex, patternIndex) {
+
+  private isFirstCharMatching(
+    name: string,
+    nameIndex: number,
+    patternIndex: number,
+  ): boolean {
     if (nameIndex >= name.length) return false;
     let ignoreCase = this.matchingMode !== "MATCH_CASE",
       patternChar = this.myPattern[patternIndex];
@@ -574,22 +675,30 @@ export class WildcardPatternMatcher {
         : true
       : false;
   }
-  hasCase(patternIndex) {
+
+  private hasCase(patternIndex: number): boolean {
     return this.isUpperCase[patternIndex] || this.isLowerCase[patternIndex];
   }
-  isWildcard(patternIndex) {
+
+  private isWildcard(patternIndex: number): boolean {
     return (
       patternIndex >= 0 &&
       patternIndex < this.myPattern.length &&
       ScoreQueryCharacterHelpers.isWildcardChar(this.myPattern[patternIndex])
     );
   }
-  isPatternChar(patternIndex, char) {
+
+  private isPatternChar(patternIndex: number, char: string): boolean {
     return patternIndex < 0 || patternIndex >= this.myPattern.length
       ? false
       : this.myPattern[patternIndex] === char;
   }
-  indexOfWordStart(name, patternIndex, nameIndex) {
+
+  private indexOfWordStart(
+    name: string,
+    patternIndex: number,
+    nameIndex: number,
+  ): number {
     let patternChar = this.myPattern[patternIndex];
     if (
       nameIndex >= name.length ||
@@ -611,7 +720,12 @@ export class WildcardPatternMatcher {
       index += 1;
     }
   }
-  indexOfIgnoreCase(name, fromIndex, patternIndex) {
+
+  private indexOfIgnoreCase(
+    name: string,
+    fromIndex: number,
+    patternIndex: number,
+  ): number {
     let patternChar = this.myPattern[patternIndex];
     if (ScoreQueryCharacterHelpers.isAsciiSingleChar(patternChar)) {
       let upperChar = this.toUpperCase[patternIndex],

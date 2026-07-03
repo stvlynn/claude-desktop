@@ -31939,10 +31939,10 @@
         "zt": "userConfigQueryKeyPrefix"
       },
       "status": "done",
-      "note": "Current ref pull request new-thread runtime keeps its compatibility alias layer while the flat vendor body remains an open app/runtime-wrapper restoration. Stable callback and query-cache invalidation helpers are split to semantic typed runtime modules, and Lodash helper loaders are backed by npm subpath imports.",
+      "note": "Current ref pull request new-thread runtime keeps its compatibility alias layer while the flat vendor body remains an open app/runtime-wrapper restoration. Stable callback, query-cache invalidation, and fuzzy scoring helpers are split to semantic typed runtime modules, and Lodash helper loaders are backed by npm subpath imports.",
       "stage3Accepted": true,
-      "stage3Review": "Alias-layer acceptance only: runtime/current-app-initial/pull-request-new-thread-runtime.ts passes quality-gate and preserves the exact export map. The body in vendor/pull-request-new-thread-current-runtime.ts still fails flat-boundary-app-bundle/split-required and must continue being split.",
-      "lastUpdated": "2026-07-03T03:30:00.000Z"
+      "stage3Review": "Alias-layer acceptance only: runtime/current-app-initial/pull-request-new-thread-runtime.ts passes quality-gate and preserves the exact export map. The body in vendor/pull-request-new-thread-current-runtime.ts still fails flat-boundary-app-bundle/split-required and must continue being split; scoreFuzzyFileMatch now delegates to the typed utils/score-query-match module.",
+      "lastUpdated": "2026-07-03T03:45:05.000Z"
     },
     "app-initial~app-main~remote-conversation-page~hotkey-window-thread-page~keyboard-shortcuts-~n7jwlpf0-BaxBxQFI": {
       "restored": "runtime/current-app-initial/keyboard-shortcuts-thread-runtime.ts",
