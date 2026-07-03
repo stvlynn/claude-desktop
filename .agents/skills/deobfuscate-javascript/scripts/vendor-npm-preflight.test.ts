@@ -26,6 +26,21 @@ function runCLI(input: string): {
   };
 }
 
+function runDecisionCLI(input: string): {
+  stdout: string;
+  stderr: string;
+  code: number;
+} {
+  const result = spawnSync("bun", [SCRIPT, input, "--decision", "--json"], {
+    encoding: "utf-8",
+  });
+  return {
+    stdout: result.stdout ?? "",
+    stderr: result.stderr ?? "",
+    code: result.status ?? 0,
+  };
+}
+
 afterEach(() => {
   while (tmpRoots.length > 0) {
     fs.rmSync(tmpRoots.pop()!, { recursive: true, force: true });
@@ -33,6 +48,49 @@ afterEach(() => {
 });
 
 describe("vendor-npm-preflight CLI", () => {
+  test("classifies known package vendor targets before the file exists", () => {
+    const root = makeTmpRoot();
+    const vendorDir = path.join(root, "restored", "vendor");
+    fs.mkdirSync(vendorDir, { recursive: true });
+    fs.writeFileSync(
+      path.join(root, "package.json"),
+      JSON.stringify({ dependencies: { "react-intl": "^10.0.0" } }),
+    );
+
+    const result = runDecisionCLI(path.join(vendorDir, "react-intl.tsx"));
+    expect(result.code).toBe(0);
+    const decisions = JSON.parse(result.stdout) as Array<{
+      decision: string;
+      specifiers: string[];
+      sourceExists: boolean;
+    }>;
+    expect(decisions).toHaveLength(1);
+    expect(decisions[0]).toMatchObject({
+      decision: "npm-shim",
+      specifiers: ["react-intl"],
+      sourceExists: false,
+    });
+  });
+
+  test("requires fork or runtime proof for unknown public vendor targets", () => {
+    const root = makeTmpRoot();
+    const vendorDir = path.join(root, "restored", "vendor");
+    fs.mkdirSync(vendorDir, { recursive: true });
+    fs.writeFileSync(path.join(root, "package.json"), JSON.stringify({}));
+
+    const result = runDecisionCLI(path.join(vendorDir, "host-runtime.ts"));
+    expect(result.code).toBe(0);
+    const decisions = JSON.parse(result.stdout) as Array<{
+      decision: string;
+      specifiers: string[];
+      reason: string;
+    }>;
+    expect(decisions).toHaveLength(1);
+    expect(decisions[0]?.decision).toBe("needs-proof");
+    expect(decisions[0]?.specifiers).toEqual([]);
+    expect(decisions[0]?.reason).toContain("prove Codex fork");
+  });
+
   test("fails hand-written react-intl compatibility shims", () => {
     const root = makeTmpRoot();
     const vendorDir = path.join(root, "restored", "vendor");

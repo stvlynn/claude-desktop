@@ -83,7 +83,17 @@ packages normalized as `@scope/name` -> `vendor/scope-name.ts`.
 
 Make the preflight concrete before edits: search the registries and project
 profile (`rg "<stem>|<export>" .agents/skills/deobfuscate-javascript`), inspect
-the nearest `package.json`, inspect consumers, then run
+the nearest `package.json`, inspect consumers, then run the edit-intent
+classifier before writing code:
+
+```bash
+bun .agents/skills/deobfuscate-javascript/scripts/vendor-npm-preflight.ts <target-vendor-file> --decision
+```
+
+If it prints `npm-shim`, stop restoring the body and create a bare npm-backed
+shim. If it prints `needs-proof`, do not treat that as permission to hand-write
+the module; first prove and record **Codex fork** or **app/runtime wrapper**
+status. Then run
 `bun .agents/skills/deobfuscate-javascript/scripts/vendor-npm-preflight.ts <target-or-restored/vendor>`
 to catch known stock-package compatibility bodies and missing package
 dependencies with only npm-shim issues reported. For declared bare-package
@@ -315,7 +325,7 @@ Every script is described once here, with its "Run when" routing. Tables use com
 | **`scripts/dead-shim-elim.ts`**       | Final pass — iteratively removes top-level `var X = lazyY()` with 0 refs whose callee is an unused import specifier (Vite/Rolldown lazy-namespace); drops orphaned specifiers/imports; strips a trailing stale `//# sourceMappingURL=…`.                                                                                                                                                                                                            | Always last in `polish.ts`. No-op on hand-written files. Loops to a fixpoint so cascades collapse in one run.                 |
 | **`scripts/format.ts`**               | Shell out to `bunx prettier --write` (or `npx`). File or directory (`**/*.{ts,tsx,js,jsx,mjs,cjs}`).                                                                                                                                                                                                                                                                                                                                                | Final pipeline step, after `polish.ts` (and multi-export split)                                                               |
 | **`scripts/polish.ts`**               | One-shot Stage 2 polish: strip-react-compiler → simplify → jsx-runtime → inline-defaults → normalize-exports → react-shim-elim → resolve-npm-imports → npm-cjs-shim-elim → **dead-shim-elim**. `--rename` runs `smart-rename` + `apply` first (so `polish.ts <file> --rename --fast --format` is the default-tier one-shot). `--fast` skips the import-resolution tail (**deep mode only**). Defaults `--prefer local`; `--format` chains prettier. | `--rename --fast` for the readable tier; the full chain (no `--fast`) in deep mode to resolve npm imports                     |
-| **`scripts/vendor-npm-preflight.ts`** | Focused guard for `restored/vendor/*`: reuses `quality-gate.ts` npm-shim rules, but reports only `third-party-npm-shim-*` failures (stock package body not re-exported from npm, missing package dependency, or a bare re-export that names members absent from the installed package runtime).                                                                                                                                                     | Before editing or committing any public vendor shim; run on the target file, `restored/vendor`, or the whole `restored` tree. |
+| **`scripts/vendor-npm-preflight.ts`** | Focused guard for `restored/vendor/*`: `--decision` classifies the edit target before the file exists (`npm-shim` vs `needs-proof`); normal mode reuses `quality-gate.ts` npm-shim rules and reports only `third-party-npm-shim-*` failures (stock package body not re-exported from npm, missing package dependency, or a bare re-export that names members absent from the installed package runtime). | Before editing run `--decision` on the target file; before committing run normal mode on the target file, `restored/vendor`, or the whole `restored` tree. |
 
 ### Stage 3 (semantic finalize)
 

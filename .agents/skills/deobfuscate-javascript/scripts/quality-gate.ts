@@ -1143,7 +1143,7 @@ function expectedPublicNpmVendorSpecifiersByApiFingerprint(
   return null;
 }
 
-function expectedPublicNpmVendorSpecifiers(
+export function expectedPublicNpmVendorSpecifiers(
   file: string,
   source?: string,
 ): string[] | null {

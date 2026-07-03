@@ -7,6 +7,7 @@ import {
   analyzePublicNpmVendorShimDependencies,
   analyzeSource,
   DEFAULT_OPTIONS,
+  expectedPublicNpmVendorSpecifiers,
   type FileQualityReport,
   type QualityGateIssue,
 } from "./quality-gate.ts";
@@ -17,6 +18,14 @@ const NPM_SHIM_ISSUE_PREFIX = "third-party-npm-shim-";
 export type VendorNpmPreflightResult = {
   files: string[];
   reports: FileQualityReport[];
+};
+
+export type VendorNpmDecision = {
+  file: string;
+  decision: "npm-shim" | "needs-proof";
+  specifiers: string[];
+  sourceExists: boolean;
+  reason: string;
 };
 
 type BareReexport = {
@@ -57,6 +66,11 @@ function collectFiles(input: string): string[] {
   };
   walk(input);
   return out.sort();
+}
+
+function collectDecisionTargets(input: string): string[] {
+  if (fs.existsSync(input)) return collectFiles(input);
+  return SOURCE_EXT_RE.test(input) ? [input] : [];
 }
 
 function emptyNpmShimReport(
@@ -426,8 +440,38 @@ export async function vendorNpmPreflight(
   return { files, reports };
 }
 
+export function vendorNpmDecision(input: string): VendorNpmDecision[] {
+  const files = collectDecisionTargets(input);
+  return files
+    .filter((file) => isPublicVendorFile(file))
+    .map((file) => {
+      const sourceExists = fs.existsSync(file);
+      const source = sourceExists ? fs.readFileSync(file, "utf-8") : undefined;
+      const specifiers = expectedPublicNpmVendorSpecifiers(file, source) ?? [];
+      if (specifiers.length > 0) {
+        return {
+          file,
+          decision: "npm-shim",
+          specifiers,
+          sourceExists,
+          reason:
+            "public vendor filename, provenance, API fingerprint, or declared dependency maps this target to a stock npm package",
+        };
+      }
+
+      return {
+        file,
+        decision: "needs-proof",
+        specifiers,
+        sourceExists,
+        reason:
+          "no stock npm identity was recognized; prove Codex fork or app/runtime wrapper before writing a local vendor body",
+      };
+    });
+}
+
 const USAGE =
-  "Usage: bun scripts/vendor-npm-preflight.ts <restored/vendor-file-or-dir> [--json]";
+  "Usage: bun scripts/vendor-npm-preflight.ts <restored/vendor-file-or-dir> [--json] [--decision]";
 
 async function main(): Promise<void> {
   let parsed;
@@ -436,6 +480,7 @@ async function main(): Promise<void> {
       args: process.argv.slice(2),
       options: {
         json: { type: "boolean", default: false },
+        decision: { type: "boolean", default: false },
       },
       allowPositionals: true,
     });
@@ -449,6 +494,26 @@ async function main(): Promise<void> {
   if (!input) {
     console.error(USAGE);
     process.exit(64);
+  }
+  if (parsed.values.decision) {
+    const decisions = vendorNpmDecision(input);
+    if (parsed.values.json) {
+      process.stdout.write(`${JSON.stringify(decisions, null, 2)}\n`);
+    } else if (decisions.length === 0) {
+      console.error("vendor-npm-preflight: DECISION no public vendor targets");
+    } else {
+      for (const decision of decisions) {
+        const specifierSuffix =
+          decision.specifiers.length > 0
+            ? ` (${decision.specifiers.join(", ")})`
+            : "";
+        console.error(
+          `vendor-npm-preflight: DECISION ${decision.file}: ${decision.decision}${specifierSuffix}`,
+        );
+        console.error(`  ${decision.reason}`);
+      }
+    }
+    process.exit(0);
   }
   if (!fs.existsSync(input)) {
     console.error(`input not found: ${input}`);
