@@ -66,9 +66,7 @@ import {
   appMainCurrentCompatSlotUpperMLowerT as Se,
   appMainCurrentCompatSlotUpperOLowerT as Ce,
   appMainCurrentCompatSlotUpperQLowerU as we,
-  appMainCurrentCompatSlotUpperSLowerT as Te,
   appMainCurrentCompatSlotLowerJLowerT as Ee,
-  appMainCurrentCompatSlotLowerNLowerD as De,
   appMainCurrentCompatSlotLowerRLowerD as I,
 } from "./app-main-current-runtime";
 import {
@@ -111,6 +109,7 @@ import {
   rectFromPoints as Ve,
   resolveDocxAnnotationSessionState,
   DocxAnnotationHighlightRect,
+  DocxAnnotationEditorOverlay,
   DocxAnnotationSelectionRect,
   DocxAskForEditOverlay,
   DocxCommentMarkerOverlay,
@@ -961,62 +960,29 @@ function Tt(e) {
   t[221] !== d ||
   t[222] !== f ||
   t[223] !== p
-    ? ((rn =
-        R == null || H == null || V == null
-          ? null
-          : (0, Y.jsx)(`div`, {
-              ref: ie,
-              className: Te,
-              style: {
-                scale: `${O}`,
-                transformOrigin: `top left`,
-                left: H.x,
-                top: H.y,
-                height: Ee,
-                width: 294,
-              },
-              onPointerDown: Et,
-              onTouchCancel: (e) => {
-                (e.stopPropagation(), l?.());
-              },
-              onTouchEnd: (e) => {
-                (e.stopPropagation(), u?.());
-              },
-              onTouchMove: (e) => {
-                (e.stopPropagation(), d?.(e));
-              },
-              onTouchStart: (e) => {
-                (e.stopPropagation(), f?.(e));
-              },
-              onWheel: (e) => {
-                (e.stopPropagation(), p?.(e));
-              },
-              children: (0, Y.jsx)(
-                De,
-                {
-                  allowImageAttachments: !1,
-                  defaultCreateSubmitMode: `direct`,
-                  inputAriaLabel: Ie,
-                  keyboardEventTarget: typeof window > `u` ? void 0 : window,
-                  placeholder: Le,
-                  session: V,
-                  windowHeight: Ee,
-                  onCancel: We,
-                  onDelete: (e) => {
-                    (c((t) => t.filter((t) => nt(t) !== e)), We());
-                  },
-                  onEscape: We,
-                  onBodyChange: V.target.mode === `create` ? Ke : void 0,
-                  onLightDismissibilityChange: kt,
-                  onMounted: kt,
-                  onDirectSubmit: (e) => {
-                    $(e, { submitDirectly: !0 });
-                  },
-                  onSubmit: $,
-                },
-                V.sessionId,
-              ),
-            })),
+    ? ((rn = (0, Y.jsx)(DocxAnnotationEditorOverlay, {
+        editorRef: ie,
+        inputAriaLabel: Ie,
+        placeholder: Le,
+        position: H,
+        scale: O,
+        session: V,
+        windowHeight: Ee,
+        onBodyChange: V?.target.mode === `create` ? Ke : void 0,
+        onCancel: We,
+        onCommentsChange: c,
+        onDirectSubmit: (e) => {
+          $(e, { submitDirectly: !0 });
+        },
+        onLightDismissibilityChange: kt,
+        onMounted: kt,
+        onSubmit: $,
+        onTouchCancel: l,
+        onTouchEnd: u,
+        onTouchMove: d,
+        onTouchStart: f,
+        onWheel: p,
+      })),
       (t[211] = R),
       (t[212] = H),
       (t[213] = V),
@@ -1092,9 +1058,6 @@ function Tt(e) {
       : (an = t[243]),
     an
   );
-}
-function Et(e) {
-  return e.stopPropagation();
 }
 var Ot,
   J,
