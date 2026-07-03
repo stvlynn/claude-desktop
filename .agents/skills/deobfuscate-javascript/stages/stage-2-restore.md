@@ -274,8 +274,9 @@ This is a blocking preflight for every public `restored/vendor/*` edit: do not
 use `--vendored` as a waiver for a stock package body. The quality gate's
 `third-party-npm-shim-not-reexport` check must still fail hand-written
 compatibility implementations, and
-`analyzePublicNpmVendorShimDependencies()` must pass before committing so the
-nearest `package.json` declares the package root.
+`bun <skill-dir>/scripts/vendor-npm-preflight.ts <target-or-restored/vendor>`
+must pass before committing so stock-package shims are thin npm re-exports and
+the nearest `package.json` declares the package root.
 
 ## Collapse npm CJS interop shims (deep-mode tail)
 
