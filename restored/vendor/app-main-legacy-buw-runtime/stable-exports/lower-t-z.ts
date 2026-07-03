@@ -35,6 +35,7 @@ export { initHeartbeatThreadOptionsChunk as legacyAppMainBuwLowerULowerRExport }
 export { AutomationSandboxBanner as legacyAppMainBuwLowerWLowerRExport } from "../../../automations/automation-sandbox-banner";
 export { AutomationDetailRow as legacyAppMainBuwLowerYLowerRExport } from "../../../automations/automation-side-panel/status-components";
 export { renderMessageOrString as legacyAppMainBuwLowerZLowerRExport } from "../../../composer/render-message-or-string";
+export { SettingsButtonRow as legacyAppMainBuwLowerVLowerRExport } from "../../../ui/settings-row";
 
 export {
   initComposeEventHandlersRuntime,
@@ -131,7 +132,6 @@ export {
   vm as legacyAppMainBuwLowerVLowerMExport,
   vn as legacyAppMainBuwLowerVLowerNExport,
   vp as legacyAppMainBuwLowerVLowerPExport,
-  vr as legacyAppMainBuwLowerVLowerRExport,
   vt as legacyAppMainBuwLowerVLowerTExport,
   vu as legacyAppMainBuwLowerVLowerUExport,
   vv as legacyAppMainBuwLowerVLowerVExport,

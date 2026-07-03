@@ -15,6 +15,7 @@ export { initDictationStreamingUploadHeaderChunk as appMainCurrentCompatSlotLowe
 export { shouldUseCreditsRateLimitDisplay as appMainCurrentCompatSlotLowerVLowerC } from "../../utils/rate-limit-status/account-status";
 export { AppgenAccessStateIcon as appMainCurrentCompatSlotLowerVLowerS } from "../../utils/appgen-access-state-messages";
 export { initHotkeyWindowContextChunk as appMainCurrentCompatSlotLowerVLowerA } from "../../utils/is-hotkey-window-context";
+export { SettingsButtonRow as appMainCurrentCompatSlotLowerVLowerR } from "../../ui/settings-row";
 
 export {
   vd as appMainCurrentCompatSlotLowerVLowerD,
@@ -24,7 +25,6 @@ export {
   vm as appMainCurrentCompatSlotLowerVLowerM,
   vn as appMainCurrentCompatSlotLowerVLowerN,
   vp as appMainCurrentCompatSlotLowerVLowerP,
-  vr as appMainCurrentCompatSlotLowerVLowerR,
   vS as appMainCurrentCompatSlotLowerVUpperS,
   vt as appMainCurrentCompatSlotLowerVLowerT,
   vu as appMainCurrentCompatSlotLowerVLowerU,
