@@ -143,10 +143,12 @@ export {
   registerConversationItemScrollTarget as legacyAppMainBuwLowerFLowerTExport,
 } from "../../../conversations/scroll-conversation-item-into-view";
 
+export { clearBrowserSidebarComments as legacyAppMainBuwLowerDLowerMExport } from "../../../browser/browser-sidebar-state";
+export { updateMcpAppFrameState as legacyAppMainBuwLowerALowerFExport } from "../../../plugins/mcp-app-frame-state";
+
 export {
   aS as legacyAppMainBuwLowerAUpperSExport,
   aa as legacyAppMainBuwLowerALowerAExport,
-  af as legacyAppMainBuwLowerALowerFExport,
   ag as legacyAppMainBuwLowerALowerGExport,
   au as legacyAppMainBuwLowerALowerUExport,
   b as legacyAppMainBuwLowerBExport,
@@ -171,7 +173,6 @@ export {
   dS as legacyAppMainBuwLowerDUpperSExport,
   d_ as legacyAppMainBuwLowerDUnderscoreExport,
   dd as legacyAppMainBuwLowerDLowerDExport,
-  dm as legacyAppMainBuwLowerDLowerMExport,
   eS as legacyAppMainBuwLowerEUpperSExport,
   ed as legacyAppMainBuwLowerELowerDExport,
   ef as legacyAppMainBuwLowerELowerFExport,

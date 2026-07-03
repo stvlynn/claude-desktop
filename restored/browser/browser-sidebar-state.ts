@@ -20,17 +20,17 @@ export function clearBrowserSidebarComments({
   comments,
   onCommentsChange,
 }: ClearBrowserSidebarCommentsOptions): boolean {
-  const conversationId = browserConversationId ?? fallbackBrowserConversationId;
-  if (
-    conversationId == null ||
-    !comments.some((comment) => isBrowserCommentAttachment(comment))
-  ) {
+  if (comments.length === 0) {
     return false;
   }
   onCommentsChange([]);
+  const conversationId = browserConversationId ?? fallbackBrowserConversationId;
   const browserComments = comments.filter((comment) =>
     isBrowserCommentAttachment(comment),
   );
+  if (conversationId == null || browserComments.length === 0) {
+    return true;
+  }
   const browserTabIds = uniq(
     browserComments
       .map(
@@ -50,11 +50,7 @@ export function clearBrowserSidebarComments({
   }
   if (browserTabIds.length === 0) {
     vscodeApiF.dispatchMessage("browser-sidebar-command", {
-      ...(browserTabId == null
-        ? {}
-        : {
-            browserTabId,
-          }),
+      browserTabId: browserTabId ?? undefined,
       conversationId,
       command: {
         type: "clear-comments",
