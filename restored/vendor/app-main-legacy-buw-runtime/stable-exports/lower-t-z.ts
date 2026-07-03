@@ -213,14 +213,14 @@ export {
 export { PushToolbarButton as legacyAppMainBuwLowerWLowerGExport } from "../../../conversations/git-actions-review-toolbar";
 export { initSidebarPanelClosedIconChunk as legacyAppMainBuwLowerWLowerDExport } from "../../../icons/sidebar-panel-icons";
 export { applyAbsolutePosition as legacyAppMainBuwLowerZLowerTExport } from "../../../image-side-panel/paged-annotation-overlay-geometry";
+export { overlayVisibleSignal as legacyAppMainBuwLowerZLowerMExport } from "../../../composer/right-panel-composer-overlay-scroll-reserve";
+export { usePendingWorktrees as legacyAppMainBuwLowerZLowerHExport } from "../../../threads/pending-worktree-store";
 
 export {
   tn as legacyAppMainBuwLowerTLowerNExport,
   wo as legacyAppMainBuwLowerWLowerOExport,
   yg as legacyAppMainBuwLowerYLowerGExport,
   zd as legacyAppMainBuwLowerZLowerDExport,
-  zh as legacyAppMainBuwLowerZLowerHExport,
   zl as legacyAppMainBuwLowerZLowerLExport,
-  zm as legacyAppMainBuwLowerZLowerMExport,
   zp as legacyAppMainBuwLowerZLowerPExport,
 } from "../../app-main-legacy-buw-compat-bundle";
