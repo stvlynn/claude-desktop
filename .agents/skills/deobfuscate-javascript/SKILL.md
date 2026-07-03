@@ -47,6 +47,9 @@ known package shim is hand-written. A target-specific
 `--decision --intent local-body` that prints "no public vendor targets" only
 means the current nested barrel is not itself public package identity; it does
 not waive the directory audit or allow package APIs to be recreated locally.
+If the only reason for a local body is "the dependency is not in
+`package.json`", that is a package-management miss, not restoration evidence:
+add the dependency and keep the public vendor file as a thin npm shim.
 
 ## Restoration contract
 
