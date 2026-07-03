@@ -19,6 +19,8 @@ import {
   Spinner,
 } from "../boundaries/onboarding-commons-externals.facade";
 
+export function initSentUserImageAttachmentChunk(): void {}
+
 export interface SentUserImageAttachmentProps {
   src: string;
   conversationId: string | null;

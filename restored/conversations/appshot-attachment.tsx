@@ -12,6 +12,8 @@ import {
 const SCREENSHOT_WIDTH = 232;
 const THREAD_SCREENSHOT_HEIGHT = 140;
 
+export function initAppshotAttachmentChunk(): void {}
+
 export function computeComposerSnapshotHeight(height?: number | null): number {
   return (height ?? THREAD_SCREENSHOT_HEIGHT) + 8;
 }

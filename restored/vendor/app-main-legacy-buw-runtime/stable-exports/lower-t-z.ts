@@ -177,6 +177,8 @@ export { hasDefaultCommandKeybinding as legacyAppMainBuwLowerTLowerMExport } fro
 export { initThreadHandoffTransferRuntimeChunk as legacyAppMainBuwLowerTLowerOExport } from "../../../conversations/transfer-pinned-thread-order";
 export { FeedbackFormDialog as legacyAppMainBuwLowerTLowerRExport } from "../../../ui/feedback-form-dialog";
 export { initPlanSummaryCardChunk as legacyAppMainBuwLowerTLowerTExport } from "../../../conversations/local-conversation-thread-parts/plan-summary-card";
+export { initAppshotAttachmentChunk as legacyAppMainBuwLowerWLowerTExport } from "../../../conversations/appshot-attachment";
+export { initSentUserImageAttachmentChunk as legacyAppMainBuwLowerXLowerTExport } from "../../../conversations/sent-user-image-attachment";
 export { setEnabledReasoningEffort as legacyAppMainBuwLowerTLowerXExport } from "../../../composer/enabled-reasoning-efforts";
 export { shouldRenderActivityGroup as legacyAppMainBuwLowerULowerAExport } from "../../../conversations/conversation-activity-grouping/activity-group-rendering";
 export { initSubmitToastStatusMessagesChunk as legacyAppMainBuwLowerULowerNExport } from "../../../composer/submit-toast-status-messages";
@@ -205,11 +207,9 @@ export {
   wa as legacyAppMainBuwLowerWLowerAExport,
   wd as legacyAppMainBuwLowerWLowerDExport,
   wo as legacyAppMainBuwLowerWLowerOExport,
-  wt as legacyAppMainBuwLowerWLowerTExport,
   xd as legacyAppMainBuwLowerXLowerDExport,
   xg as legacyAppMainBuwLowerXLowerGExport,
   xm as legacyAppMainBuwLowerXLowerMExport,
-  xt as legacyAppMainBuwLowerXLowerTExport,
   yg as legacyAppMainBuwLowerYLowerGExport,
   yh as legacyAppMainBuwLowerYLowerHExport,
   ym as legacyAppMainBuwLowerYLowerMExport,
