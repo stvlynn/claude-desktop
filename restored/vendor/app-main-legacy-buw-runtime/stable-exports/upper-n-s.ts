@@ -92,6 +92,7 @@ export { findLocalConversationTextMatches as legacyAppMainBuwUpperQLowerGExport 
 export { groupConversationSearchMatchesByContentUnitKey as legacyAppMainBuwUpperRLowerFExport } from "../../../runtime/conversation-search-runtime";
 export { initBrowserUseOriginStateQueriesChunk as legacyAppMainBuwUpperNLowerPExport } from "../../../browser/browser-use-origin-state-queries";
 export { selectConversationalOnboardingRole as legacyAppMainBuwUpperPExport } from "../../../onboarding/conversational-onboarding-workflow-state";
+export { rightPanelAnimationSignal as legacyAppMainBuwUpperOLowerYExport } from "../../../app-shell/app-shell-state";
 export { setRightPanelOpen as legacyAppMainBuwUpperRLowerYExport } from "../../../app-shell/app-shell-state";
 
 export {
@@ -116,7 +117,6 @@ export {
   Ou as legacyAppMainBuwUpperOLowerUExport,
   Ov as legacyAppMainBuwUpperOLowerVExport,
   Ox as legacyAppMainBuwUpperOLowerXExport,
-  Oy as legacyAppMainBuwUpperOLowerYExport,
   PS as legacyAppMainBuwUpperPUpperSExport,
   Pb as legacyAppMainBuwUpperPLowerBExport,
   Pi as legacyAppMainBuwUpperPLowerIExport,

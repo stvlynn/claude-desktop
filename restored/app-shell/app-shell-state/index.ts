@@ -11,6 +11,8 @@ const reviewFileTreeOpenAnimationSignal =
 const rightPanelExpandedSignal = appShellStateImpl.rightPanelExpandedSignal;
 const appShellLayoutMotionContext =
   appShellStateImpl.appShellLayoutMotionContext;
+const appShellPanelSpringTransition =
+  appShellStateImpl.appShellPanelSpringTransition;
 const setBottomPanelOpen = appShellStateImpl.setBottomPanelOpen;
 const setSidebarOpen = appShellStateImpl.setSidebarOpen;
 const sidebarOpenSignal = appShellStateImpl.sidebarOpenSignal;
@@ -25,6 +27,7 @@ const activeAppShellFocusAreaSignal =
   appShellStateImpl.activeAppShellFocusAreaSignal;
 const rightPanelOpenSignal = appShellStateImpl.rightPanelOpenSignal;
 const bottomPanelOpenSignal = appShellStateImpl.bottomPanelOpenSignal;
+const bottomPanelAnimationSignal = appShellStateImpl.bottomPanelAnimationSignal;
 const setRightPanelOpen = appShellStateImpl.setRightPanelOpen;
 const setReviewFileTreeOpen = appShellStateImpl.setReviewFileTreeOpen;
 const setActiveAppShellFocusArea = appShellStateImpl.appShellStateTtState;
@@ -51,6 +54,7 @@ const rightPanelFallbackContentSignal =
   appShellStateImpl.rightPanelFallbackContentSignal;
 const rightPanelStoredWidthSignal =
   appShellStateImpl.rightPanelStoredWidthSignal;
+const rightPanelAnimationSignal = appShellStateImpl.rightPanelAnimationSignal;
 const rightPanelMaximizedSignal = appShellStateImpl.rightPanelMaximizedSignal;
 const mainContentLayoutSignal = appShellStateImpl.mainContentLayoutSignal;
 const appShellHeaderContextMenuSurfaceSignal =
@@ -150,6 +154,7 @@ export {
   reviewFileTreeOpenAnimationSignal,
   rightPanelExpandedSignal,
   appShellLayoutMotionContext,
+  appShellPanelSpringTransition,
   setBottomPanelOpen,
   setSidebarOpen,
   sidebarOpenSignal,
@@ -161,6 +166,7 @@ export {
   activeAppShellFocusAreaSignal,
   rightPanelOpenSignal,
   bottomPanelOpenSignal,
+  bottomPanelAnimationSignal,
   setRightPanelOpen,
   setReviewFileTreeOpen,
   setActiveAppShellFocusArea,
@@ -179,6 +185,7 @@ export {
   rightPanelEmptyStateSignal,
   rightPanelFallbackContentSignal,
   rightPanelStoredWidthSignal,
+  rightPanelAnimationSignal,
   mainContentLayoutSignal,
   appShellHeaderContextMenuSurfaceSignal,
   appShellStateDSignal,

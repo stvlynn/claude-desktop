@@ -92,6 +92,7 @@ export { UseRecordingWaveformIcon as legacyAppMainBuwUpperIUpperCExport } from "
 export { resetConversationalOnboardingWorkflowState as legacyAppMainBuwUpperMExport } from "../../../onboarding/conversational-onboarding-workflow-state";
 export {
   activeAppShellFocusAreaSignal as legacyAppMainBuwUpperHLowerYExport,
+  appShellPanelSpringTransition as legacyAppMainBuwUpperKLowerYExport,
   initAppShellStateRuntimeChunk as legacyAppMainBuwUpperJLowerYExport,
   reviewFileTreeOpenAnimationSignal as legacyAppMainBuwUpperMLowerYExport,
   setActiveAppShellFocusArea as legacyAppMainBuwUpperGLowerYExport,
@@ -163,7 +164,6 @@ export {
   Kp as legacyAppMainBuwUpperKLowerPExport,
   Kt as legacyAppMainBuwUpperKLowerTExport,
   Kx as legacyAppMainBuwUpperKLowerXExport,
-  Ky as legacyAppMainBuwUpperKLowerYExport,
   L as legacyAppMainBuwUpperLExport,
   LS as legacyAppMainBuwUpperLUpperSExport,
   Lb as legacyAppMainBuwUpperLLowerBExport,

@@ -34,6 +34,7 @@ export {
   getDetailLevelDefaultAgentMode as legacyAppMainBuwUpperZLowerYExport,
 } from "../../../utils/use-permissions-mode/mode-availability";
 export {
+  bottomPanelAnimationSignal as legacyAppMainBuwUpperTLowerYExport,
   initAppShellStateRuntimeChunk as legacyAppMainBuwUpperULowerYExport,
   reviewFileTreeOpenSignal as legacyAppMainBuwUpperVLowerYExport,
 } from "../../../app-shell/app-shell-state";
@@ -120,7 +121,6 @@ export {
   Tu as legacyAppMainBuwUpperTLowerUExport,
   Tv as legacyAppMainBuwUpperTLowerVExport,
   Tx as legacyAppMainBuwUpperTLowerXExport,
-  Ty as legacyAppMainBuwUpperTLowerYExport,
   U as legacyAppMainBuwUpperUExport,
   US as legacyAppMainBuwUpperUUpperSExport,
   U_ as legacyAppMainBuwUpperUUnderscoreExport,
