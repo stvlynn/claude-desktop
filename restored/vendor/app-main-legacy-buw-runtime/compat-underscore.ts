@@ -13,6 +13,7 @@ export { dictationStreamingUploadHeaderValue as appMainCurrentCompatSlotUndersco
 export { isWorkspaceSpendControlReached as appMainCurrentCompatSlotUnderscoreLowerC } from "../../utils/rate-limit-status/account-status";
 export { initAppgenAccessStateMessagesChunk as appMainCurrentCompatSlotUnderscoreLowerS } from "../../utils/appgen-access-state-messages";
 export { AnnotationModeButton as appMainCurrentCompatSlotUnderscoreLowerM } from "../../ui/annotation-mode-button";
+export { useRemoteConnectionStateByHostId as appMainCurrentCompatSlotUnderscoreLowerP } from "../../remote/use-connected-remote-connections";
 
 export {
   _ as appMainCurrentCompatSlotUnderscore,
@@ -23,7 +24,6 @@ export {
   _g as appMainCurrentCompatSlotUnderscoreLowerG,
   _h as appMainCurrentCompatSlotUnderscoreLowerH,
   _n as appMainCurrentCompatSlotUnderscoreLowerN,
-  _p as appMainCurrentCompatSlotUnderscoreLowerP,
   _r as appMainCurrentCompatSlotUnderscoreLowerR,
   _S as appMainCurrentCompatSlotUnderscoreUpperS,
   _t as appMainCurrentCompatSlotUnderscoreLowerT,

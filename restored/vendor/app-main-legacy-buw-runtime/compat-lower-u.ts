@@ -24,13 +24,13 @@ export { getSpendControlWarningThreshold as appMainCurrentCompatSlotLowerULowerC
 export { initUserSavedConfigQueryChunk as appMainCurrentCompatSlotLowerULowerX } from "../../config/user-saved-config-query";
 export { primaryRuntimeInstallStatusSignal as appMainCurrentCompatSlotLowerULowerS } from "../../runtime/primary-runtime-install-state";
 export { initThreadHandoffComposerStatusChunk as appMainCurrentCompatSlotLowerULowerO } from "../../conversations/thread-handoff-composer-status";
+export { useSettingsHostContext as appMainCurrentCompatSlotLowerULowerP } from "../../settings/settings-host-context";
 
 export {
   u_ as appMainCurrentCompatSlotLowerUUnderscore,
   ua as appMainCurrentCompatSlotLowerULowerA,
   ub as appMainCurrentCompatSlotLowerULowerB,
   un as appMainCurrentCompatSlotLowerULowerN,
-  up as appMainCurrentCompatSlotLowerULowerP,
   uS as appMainCurrentCompatSlotLowerUUpperS,
   uv as appMainCurrentCompatSlotLowerULowerV,
   uy as appMainCurrentCompatSlotLowerULowerY,

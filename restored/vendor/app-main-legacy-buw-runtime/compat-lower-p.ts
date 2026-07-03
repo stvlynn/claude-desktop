@@ -16,6 +16,7 @@ export { resetReviewPanelEmptyState } from "../../conversations/local-conversati
 export { hasCredits as appMainCurrentCompatSlotLowerPLowerC } from "../../utils/rate-limit-status/account-status";
 export { initPrimaryRuntimeInstallStateChunk as appMainCurrentCompatSlotLowerPLowerS } from "../../runtime/primary-runtime-install-state";
 export { copySessionId as appMainCurrentCompatSlotLowerPLowerO } from "../../threads/thread-actions/actions";
+export { getValidSettingsHostId as appMainCurrentCompatSlotLowerPLowerP } from "../../settings/settings-host-context";
 
 export {
   p as appMainCurrentCompatSlotLowerP,
@@ -26,7 +27,6 @@ export {
   ph as appMainCurrentCompatSlotLowerPLowerH,
   pm as appMainCurrentCompatSlotLowerPLowerM,
   pn as appMainCurrentCompatSlotLowerPLowerN,
-  pp as appMainCurrentCompatSlotLowerPLowerP,
   pS as appMainCurrentCompatSlotLowerPUpperS,
   pt as appMainCurrentCompatSlotLowerPLowerT,
   pu as appMainCurrentCompatSlotLowerPLowerU,

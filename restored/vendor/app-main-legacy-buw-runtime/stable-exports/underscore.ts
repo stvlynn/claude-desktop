@@ -17,6 +17,7 @@ export { initAppgenAccessStateMessagesChunk as legacyAppMainBuwUnderscoreLowerSE
 export { AnnotationModeButton as legacyAppMainBuwUnderscoreLowerMExport } from "../../../ui/annotation-mode-button";
 export { normalizeAmbientSuggestionAppKey as legacyAppMainBuwUnderscoreLowerYExport } from "../../../connectors/ambient-suggestion-apps";
 export { flushPendingArtifactNavigation as legacyAppMainBuwUnderscoreLowerFExport } from "../../../workspace/artifact-tab-navigation";
+export { useRemoteConnectionStateByHostId as legacyAppMainBuwUnderscoreLowerPExport } from "../../../remote/use-connected-remote-connections";
 
 export {
   _ as legacyAppMainBuwUnderscoreExport,
@@ -25,7 +26,6 @@ export {
   _d as legacyAppMainBuwUnderscoreLowerDExport,
   _g as legacyAppMainBuwUnderscoreLowerGExport,
   _h as legacyAppMainBuwUnderscoreLowerHExport,
-  _p as legacyAppMainBuwUnderscoreLowerPExport,
   _r as legacyAppMainBuwUnderscoreLowerRExport,
   _t as legacyAppMainBuwUnderscoreLowerTExport,
   _u as legacyAppMainBuwUnderscoreLowerUExport,

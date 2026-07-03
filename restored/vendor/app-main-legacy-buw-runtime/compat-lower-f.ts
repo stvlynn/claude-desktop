@@ -20,9 +20,9 @@ export { getMonthlySpendLimitUsage as appMainCurrentCompatSlotLowerFLowerC } fro
 export { hasPendingPrimaryRuntimeInstall as appMainCurrentCompatSlotLowerFLowerS } from "../../runtime/primary-runtime-install-state";
 export { copyAppLink as appMainCurrentCompatSlotLowerFLowerO } from "../../threads/thread-actions/actions";
 export { initUseDefaultBranchQueryChunk as appMainCurrentCompatSlotLowerFLowerU } from "../../conversations/use-default-branch-query";
+export { initReactReduxProviderRuntimeChunk as appMainCurrentCompatSlotLowerF } from "../react-redux-provider-runtime";
 
 export {
-  f as appMainCurrentCompatSlotLowerF,
   f_ as appMainCurrentCompatSlotLowerFUnderscore,
   fa as appMainCurrentCompatSlotLowerFLowerA,
   fd as appMainCurrentCompatSlotLowerFLowerD,

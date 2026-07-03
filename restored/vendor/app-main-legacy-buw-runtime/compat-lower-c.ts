@@ -21,6 +21,7 @@ export { useQueuedFollowUpsStore as appMainCurrentCompatSlotLowerCLowerD } from 
 export { CancelGitActionButton as appMainCurrentCompatSlotLowerCLowerU } from "../../conversations/cancel-git-action-button";
 export { getWorktreeSubmitToastMessage as appMainCurrentCompatSlotLowerCLowerN } from "../../composer/submit-toast-messages";
 export { BrowserUseGlyphIcon as appMainCurrentCompatSlotLowerCLowerA } from "../../conversations/tool-activity-source-icon";
+export { initGeneratedImageOutputsChunk as appMainCurrentCompatSlotLowerCLowerT } from "../../conversations/generated-image-outputs";
 
 export {
   c_ as appMainCurrentCompatSlotLowerCUnderscore,
@@ -28,7 +29,6 @@ export {
   ch as appMainCurrentCompatSlotLowerCLowerH,
   cr as appMainCurrentCompatSlotLowerCLowerR,
   cS as appMainCurrentCompatSlotLowerCUpperS,
-  ct as appMainCurrentCompatSlotLowerCLowerT,
   cv as appMainCurrentCompatSlotLowerCLowerV,
   cy as appMainCurrentCompatSlotLowerCLowerY,
 } from "../app-main-legacy-buw-compat-bundle";

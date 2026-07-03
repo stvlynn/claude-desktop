@@ -14,9 +14,9 @@ export { getLocaleLanguageDisplayName as appMainCurrentCompatSlotLowerDLowerG } 
 export { getAutomationDraftDestination as appMainCurrentCompatSlotLowerDLowerI } from "../../automations/shared";
 
 export { useHeartbeatThreadOptions as appMainCurrentCompatSlotLowerDLowerR } from "../../automations/use-heartbeat-thread-options";
+export { ReactReduxProvider as appMainCurrentCompatSlotLowerD } from "../react-redux-provider-runtime";
 
 export {
-  d as appMainCurrentCompatSlotLowerD,
   d_ as appMainCurrentCompatSlotLowerDUnderscore,
   da as appMainCurrentCompatSlotLowerDLowerA,
   db as appMainCurrentCompatSlotLowerDLowerB,

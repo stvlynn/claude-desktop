@@ -103,6 +103,7 @@ export {
 export { DAY_MINUTES as legacyAppMainBuwLowerBLowerCExport } from "../../../utils/rate-limit-status/windows";
 export { getLatestRateLimitResetAt as legacyAppMainBuwLowerDLowerCExport } from "../../../utils/rate-limit-status/windows";
 export { copyAppLink as legacyAppMainBuwLowerFLowerOExport } from "../../../threads/thread-actions/actions";
+export { initGeneratedImageOutputsChunk as legacyAppMainBuwLowerCLowerTExport } from "../../../conversations/generated-image-outputs";
 export {
   adjustPendingPastedTextAttachmentCount as legacyAppMainBuwLowerCLowerOExport,
   pendingPastedTextAttachmentCountStore as legacyAppMainBuwLowerDLowerOExport,
@@ -114,12 +115,14 @@ export { CirclePlayIcon as legacyAppMainBuwLowerDLowerHExport } from "../../../i
 export { useQueuedFollowUpsStore as legacyAppMainBuwLowerCLowerDExport } from "../../../utils/queued-follow-ups-store";
 export { initBrowserProfileImportNuxStateChunk as legacyAppMainBuwLowerBLowerMExport } from "../../../browser/browser-profile-import-nux-state";
 export { browserUseOriginStateQuery as legacyAppMainBuwLowerBLowerPExport } from "../../../browser/browser-use-origin-state-queries";
+export { BrowserSidebarWebview as legacyAppMainBuwLowerELowerPExport } from "../../../browser/sidebar-webview";
 export { CancelGitActionButton as legacyAppMainBuwLowerCLowerUExport } from "../../../conversations/cancel-git-action-button";
 export { GitWorkflowPhaseLabel as legacyAppMainBuwLowerALowerUExport } from "../../../conversations/git-workflow-phase-label";
 export { getWorktreeSubmitToastMessage as legacyAppMainBuwLowerCLowerNExport } from "../../../composer/submit-toast-messages";
 export { worktreeStatusForConversationAtom as legacyAppMainBuwLowerBLowerNExport } from "../../../conversations/worktree-status-runtime/atoms";
 export { initBrowserNotSecureIconChunk as legacyAppMainBuwLowerALowerPExport } from "../../../browser/browser-address-security-indicator";
 export { BrowserUseGlyphIcon as legacyAppMainBuwLowerCLowerAExport } from "../../../conversations/tool-activity-source-icon";
+export { initBrowserUseGlyphIconChunk as legacyAppMainBuwLowerBLowerHExport } from "../../../conversations/tool-activity-source-icon";
 export { initBackForwardNavigationButtonsChunk as legacyAppMainBuwLowerCLowerHExport } from "../../../ui/back-forward-navigation-buttons";
 export { initProjectDropdownOptionsChunk as legacyAppMainBuwLowerELowerDExport } from "../../../ui/project-dropdown-options";
 export { initDiffCommentSourcesChunk as legacyAppMainBuwLowerALowerHExport } from "../../../github/diff-comments/use-diff-comment-sources";
@@ -183,17 +186,14 @@ export {
 } from "../../../app-shell/app-shell";
 export { initSidebarNavigationControlsChunk as legacyAppMainBuwLowerBLowerDExport } from "../../../app-shell/sidebar-navigation-controls";
 export { initWorkspaceFileSourceTabsChunk as legacyAppMainBuwLowerBLowerFExport } from "../../../workspace/workspace-file-source-tabs";
+export { ReactReduxProvider as legacyAppMainBuwLowerDExport } from "../../react-redux-provider-runtime";
+export { initReactReduxProviderRuntimeChunk as legacyAppMainBuwLowerFExport } from "../../react-redux-provider-runtime";
 
 export {
-  bh as legacyAppMainBuwLowerBLowerHExport,
   bt as legacyAppMainBuwLowerBLowerTExport,
   bv as legacyAppMainBuwLowerBLowerVExport,
-  ct as legacyAppMainBuwLowerCLowerTExport,
   cv as legacyAppMainBuwLowerCLowerVExport,
-  d as legacyAppMainBuwLowerDExport,
   ef as legacyAppMainBuwLowerELowerFExport,
-  ep as legacyAppMainBuwLowerELowerPExport,
   es as legacyAppMainBuwLowerELowerSExport,
   et as legacyAppMainBuwLowerELowerTExport,
-  f as legacyAppMainBuwLowerFExport,
 } from "../../app-main-legacy-buw-compat-bundle";

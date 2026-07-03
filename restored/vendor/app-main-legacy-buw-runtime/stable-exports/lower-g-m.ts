@@ -138,13 +138,14 @@ export {
   initAppShellBottomPanelHeightSubscriberContextChunk as legacyAppMainBuwLowerGLowerDExport,
 } from "../../../app-shell/bottom-panel-height-subscriber-context";
 export { fullScreenMcpAppIdsAtom as legacyAppMainBuwLowerILowerFExport } from "../../../plugins/mcp-app-frame-state";
+export { initRemoteConnectionStateByHostIdChunk as legacyAppMainBuwLowerGLowerPExport } from "../../../remote/use-connected-remote-connections";
+export { setSettingsSelectedHostId as legacyAppMainBuwLowerLLowerPExport } from "../../../settings/settings-host-context";
 
 export {
   g as legacyAppMainBuwLowerGExport,
   gS as legacyAppMainBuwLowerGUpperSExport,
   g_ as legacyAppMainBuwLowerGUnderscoreExport,
   gn as legacyAppMainBuwLowerGLowerNExport,
-  gp as legacyAppMainBuwLowerGLowerPExport,
   gt as legacyAppMainBuwLowerGLowerTExport,
   gx as legacyAppMainBuwLowerGLowerXExport,
   h as legacyAppMainBuwLowerHExport,
@@ -192,7 +193,6 @@ export {
   lS as legacyAppMainBuwLowerLUpperSExport,
   l_ as legacyAppMainBuwLowerLUnderscoreExport,
   la as legacyAppMainBuwLowerLLowerAExport,
-  lp as legacyAppMainBuwLowerLLowerPExport,
   m as legacyAppMainBuwLowerMExport,
   mC as legacyAppMainBuwLowerMUpperCExport,
   mS as legacyAppMainBuwLowerMUpperSExport,

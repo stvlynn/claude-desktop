@@ -14,6 +14,7 @@ export { useDroppable as ThreadRowBranchLabel } from "../dnd-kit-core";
 export { clearPendingWorktreePanelState as appMainCurrentCompatSlotLowerBLowerO } from "../../conversations/fork-conversation-panel-state";
 
 export { isDefaultAutomationDraft as appMainCurrentCompatSlotLowerBLowerI } from "../../automations/shared";
+export { initBrowserUseGlyphIconChunk as appMainCurrentCompatSlotLowerBLowerH } from "../../conversations/tool-activity-source-icon";
 
 export {
   bb as appMainCurrentCompatSlotLowerBLowerB,
@@ -21,7 +22,6 @@ export {
   bd as appMainCurrentCompatSlotLowerBLowerD,
   bf as appMainCurrentCompatSlotLowerBLowerF,
   bg as appMainCurrentCompatSlotLowerBLowerG,
-  bh as appMainCurrentCompatSlotLowerBLowerH,
   bm as appMainCurrentCompatSlotLowerBLowerM,
   bn as appMainCurrentCompatSlotLowerBLowerN,
   bp as appMainCurrentCompatSlotLowerBLowerP,

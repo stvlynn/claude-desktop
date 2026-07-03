@@ -59,3 +59,9 @@ function getRemoteConnectionHostId(
 ): string {
   return remoteConnection.hostId;
 }
+
+export function initRemoteConnectionStateByHostIdChunk(): void {
+  void remoteConnectionStateByHostIdSignal;
+  void useRemoteConnectionStateByHostId;
+  void useConnectedRemoteConnections;
+}

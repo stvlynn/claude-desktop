@@ -67,6 +67,10 @@ export function BrowserUseGlyphIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
+export function initBrowserUseGlyphIconChunk(): void {
+  void BrowserUseGlyphIcon;
+}
+
 // tK: the Computer Use source glyph.
 export function ComputerUseGlyphIcon(props: SVGProps<SVGSVGElement>) {
   return (

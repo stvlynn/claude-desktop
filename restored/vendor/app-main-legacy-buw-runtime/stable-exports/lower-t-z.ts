@@ -101,6 +101,7 @@ export {
 } from "../../../workspace/workspace-file-source-tabs";
 export { getSupportedLocales as legacyAppMainBuwLowerULowerGExport } from "../../../i18n/locale-resolver";
 export { primaryRuntimeInstallStatusSignal as legacyAppMainBuwLowerULowerSExport } from "../../../runtime/primary-runtime-install-state";
+export { useSettingsHostContext as legacyAppMainBuwLowerULowerPExport } from "../../../settings/settings-host-context";
 export { PullRequestOpenIcon as legacyAppMainBuwLowerTLowerUExport } from "../../../icons/pull-request-open-icon";
 export { formatCompactDurationMs as legacyAppMainBuwLowerTLowerSExport } from "../../../utils/duration-format";
 export { ProjectDropdownOptions as legacyAppMainBuwLowerTLowerDExport } from "../../../ui/project-dropdown-options";
@@ -148,7 +149,6 @@ export {
   u_ as legacyAppMainBuwLowerUUnderscoreExport,
   ua as legacyAppMainBuwLowerULowerAExport,
   un as legacyAppMainBuwLowerULowerNExport,
-  up as legacyAppMainBuwLowerULowerPExport,
   uv as legacyAppMainBuwLowerULowerVExport,
   vS as legacyAppMainBuwLowerVUpperSExport,
   vg as legacyAppMainBuwLowerVLowerGExport,

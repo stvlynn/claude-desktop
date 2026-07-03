@@ -19,6 +19,7 @@ export { hasRateLimitReached as appMainCurrentCompatSlotLowerGLowerC } from "../
 export { getAppgenAccessShortStateMessage as appMainCurrentCompatSlotLowerGLowerS } from "../../utils/appgen-access-state-messages";
 export { ThreadHandoffStepRow as appMainCurrentCompatSlotLowerGLowerA } from "../../ui/thread-handoff-step-row";
 export { buildBranchName as appMainCurrentCompatSlotLowerGLowerU } from "../../conversations/build-branch-name";
+export { initRemoteConnectionStateByHostIdChunk as appMainCurrentCompatSlotLowerGLowerP } from "../../remote/use-connected-remote-connections";
 
 export {
   g as appMainCurrentCompatSlotLowerG,
@@ -26,7 +27,6 @@ export {
   gd as appMainCurrentCompatSlotLowerGLowerD,
   gf as appMainCurrentCompatSlotLowerGLowerF,
   gn as appMainCurrentCompatSlotLowerGLowerN,
-  gp as appMainCurrentCompatSlotLowerGLowerP,
   gS as appMainCurrentCompatSlotLowerGUpperS,
   gt as appMainCurrentCompatSlotLowerGLowerT,
   gx as appMainCurrentCompatSlotLowerGLowerX,

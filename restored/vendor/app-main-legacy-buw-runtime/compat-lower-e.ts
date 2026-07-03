@@ -20,6 +20,7 @@ export { findPanelForTab as appMainCurrentCompatSlotLowerELowerV } from "../../a
 export { initEnabledReasoningEffortsChunk as appMainCurrentCompatSlotLowerELowerX } from "../../composer/enabled-reasoning-efforts";
 export { sendRestoreMessage as appMainCurrentCompatSlotLowerELowerN } from "../../composer/start-composer-turn";
 export { initReadServiceTierForRequestChunk as appMainCurrentCompatSlotLowerELowerG } from "../../utils/read-service-tier-for-request";
+export { BrowserSidebarWebview as appMainCurrentCompatSlotLowerELowerP } from "../../browser/sidebar-webview";
 
 export {
   eb as appMainCurrentCompatSlotLowerELowerB,
@@ -27,7 +28,6 @@ export {
   ef as appMainCurrentCompatSlotLowerELowerF,
   em as appMainCurrentCompatSlotLowerELowerM,
   eo as appMainCurrentCompatSlotLowerELowerO,
-  ep as appMainCurrentCompatSlotLowerELowerP,
   es as appMainCurrentCompatSlotLowerELowerS,
   eS as appMainCurrentCompatSlotLowerEUpperS,
   et as appMainCurrentCompatSlotLowerELowerT,

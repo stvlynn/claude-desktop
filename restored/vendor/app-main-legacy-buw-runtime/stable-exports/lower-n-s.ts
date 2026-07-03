@@ -70,6 +70,7 @@ export {
   isSpendControlBlockedByWorkspaceCap as legacyAppMainBuwLowerSLowerCExport,
 } from "../../../utils/rate-limit-status/account-status";
 export { isEnglishLocale as legacyAppMainBuwLowerPLowerGExport } from "../../../i18n/locale-resolver";
+export { getValidSettingsHostId as legacyAppMainBuwLowerPLowerPExport } from "../../../settings/settings-host-context";
 
 export {
   initWarningContextRuntime,
@@ -135,7 +136,6 @@ export {
   ph as legacyAppMainBuwLowerPLowerHExport,
   pm as legacyAppMainBuwLowerPLowerMExport,
   pn as legacyAppMainBuwLowerPLowerNExport,
-  pp as legacyAppMainBuwLowerPLowerPExport,
   pt as legacyAppMainBuwLowerPLowerTExport,
   pu as legacyAppMainBuwLowerPLowerUExport,
   px as legacyAppMainBuwLowerPLowerXExport,
