@@ -60,6 +60,29 @@ typed alias shim, and only then continue other vendor work. A local compatibilit
 body is allowed only after `--decision --intent local-body` is green and the
 commit records the fork/wrapper evidence.
 
+**Vendor-touch protocol:** any turn that creates or edits `restored/vendor/*`
+must leave a command trail, not just a written rationale:
+
+1. Run the full directory audit before the first edit.
+2. Run the target intent gate in the same turn (`--intent npm-shim` for package
+   shims, `--intent local-body` only after fork/runtime proof).
+3. Run the full directory audit again before committing.
+4. Mention the binary decision (`npm shim`, `Codex fork`, or `app/runtime
+   wrapper`) in the commit message or final notes.
+
+If the audit catches a stock-package body such as React Intl/FormatJS, pause all
+unrelated vendor work, convert it to an npm-backed shim, add the dependency, and
+run the package guard tests:
+
+```bash
+bun test ./.agents/skills/deobfuscate-javascript/scripts/vendor-npm-preflight.test.ts \
+  ./.agents/skills/deobfuscate-javascript/scripts/quality-gate.test.ts
+```
+
+Do not merge or commit a vendor restore that only passes TypeScript/build while
+`vendor-npm-preflight.ts restored/vendor` is red; that is exactly the failure
+mode these guards exist to prevent.
+
 ## Restoration contract
 
 ### Default tier (readable restore)
