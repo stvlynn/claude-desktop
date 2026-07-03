@@ -19,11 +19,11 @@ export { handleListProjects as appMainCurrentCompatSlotLowerJLowerA } from "../.
 export { useUpdateBrowserUseOriginRulesMutation as appMainCurrentCompatSlotLowerJLowerP } from "../../browser/browser-use-origin-state-queries";
 export { initConversationalOnboardingWorkflowStateChunk as appMainCurrentCompatSlotLowerJ } from "../../onboarding/conversational-onboarding-workflow-state";
 export { CommentPreview as appMainCurrentCompatSlotLowerJLowerT } from "../../image-side-panel/paged-annotation-comment-preview";
+export { initPointerVelocityStateChunk as appMainCurrentCompatSlotLowerJLowerD } from "../../runtime/pointer-velocity-state";
 
 export {
   jb as appMainCurrentCompatSlotLowerJLowerB,
   jC as appMainCurrentCompatSlotLowerJUpperC,
-  jd as appMainCurrentCompatSlotLowerJLowerD,
   jf as appMainCurrentCompatSlotLowerJLowerF,
   jh as appMainCurrentCompatSlotLowerJLowerH,
   jm as appMainCurrentCompatSlotLowerJLowerM,

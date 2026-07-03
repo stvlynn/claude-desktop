@@ -20,3 +20,7 @@ export const EMPTY_POINTER_VELOCITY_SAMPLE: PointerVelocitySample = {
   velocityY: 0,
   speed: 0,
 };
+
+export function initPointerVelocityStateChunk(): void {
+  void EMPTY_POINTER_VELOCITY_SAMPLE;
+}

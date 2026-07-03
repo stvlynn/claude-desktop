@@ -165,6 +165,8 @@ export { initWorktreeStatusRuntimeChunk as legacyAppMainBuwLowerGLowerNExport } 
 export { initLocalConversationTurnRowChunk as legacyAppMainBuwLowerGLowerTExport } from "../../../conversations/local-conversation-thread-parts/local-conversation-turn-row";
 export { readElementBounds as legacyAppMainBuwLowerGLowerXExport } from "../../../utils/dom-rect";
 export { fontSettings as legacyAppMainBuwLowerKUnderscoreExport } from "../../../utils/font-settings";
+export { initPointerVelocityStateChunk as legacyAppMainBuwLowerJLowerDExport } from "../../../runtime/pointer-velocity-state";
+export { viewportSizeSignal as legacyAppMainBuwLowerKLowerDExport } from "../../../runtime/pointer-velocity-signals";
 
 export {
   iS as legacyAppMainBuwLowerIUpperSExport,
@@ -178,13 +180,11 @@ export {
   ix as legacyAppMainBuwLowerILowerXExport,
   jC as legacyAppMainBuwLowerJUpperCExport,
   jb as legacyAppMainBuwLowerJLowerBExport,
-  jd as legacyAppMainBuwLowerJLowerDExport,
   jh as legacyAppMainBuwLowerJLowerHExport,
   jm as legacyAppMainBuwLowerJLowerMExport,
   jv as legacyAppMainBuwLowerJLowerVExport,
   k as legacyAppMainBuwLowerKExport,
   kb as legacyAppMainBuwLowerKLowerBExport,
-  kd as legacyAppMainBuwLowerKLowerDExport,
   kg as legacyAppMainBuwLowerKLowerGExport,
   kh as legacyAppMainBuwLowerKLowerHExport,
   km as legacyAppMainBuwLowerKLowerMExport,

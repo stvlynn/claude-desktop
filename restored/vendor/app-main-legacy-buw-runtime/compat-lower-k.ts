@@ -13,11 +13,11 @@ export { remainingUsagePercent as appMainCurrentCompatSlotLowerKLowerC } from ".
 export { handleCreateThread as appMainCurrentCompatSlotLowerKLowerA } from "../../conversations/thread-management-tool-handlers";
 export { useBrowserUseFullCdpAccessEnabledMutation as appMainCurrentCompatSlotLowerKLowerP } from "../../browser/browser-use-origin-state-queries";
 export { fontSettings as appMainCurrentCompatSlotLowerKUnderscore } from "../../utils/font-settings";
+export { viewportSizeSignal as appMainCurrentCompatSlotLowerKLowerD } from "../../runtime/pointer-velocity-signals";
 
 export {
   k as appMainCurrentCompatSlotLowerK,
   kb as appMainCurrentCompatSlotLowerKLowerB,
-  kd as appMainCurrentCompatSlotLowerKLowerD,
   kf as appMainCurrentCompatSlotLowerKLowerF,
   kg as appMainCurrentCompatSlotLowerKLowerG,
   kh as appMainCurrentCompatSlotLowerKLowerH,
