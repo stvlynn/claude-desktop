@@ -19,10 +19,10 @@ export { formatModelDisplayName as appMainCurrentCompatSlotLowerILowerG } from "
 export { getDefaultWorkspaceWriteMode as appMainCurrentCompatSlotLowerILowerB } from "../../utils/use-permissions-mode/mode-selection";
 export { fullScreenMcpAppIdsAtom as appMainCurrentCompatSlotLowerILowerF } from "../../plugins/mcp-app-frame-state";
 export { createSteerTurnInactiveError as appMainCurrentCompatSlotLowerILowerN } from "../../composer/steer-turn-inactive-error";
+export { diffCommentsByConversationSignal as appMainCurrentCompatSlotLowerILowerH } from "../../github/diff-comments/diff-comments-by-conversation-signal";
 export { isReasoningEffort as appMainCurrentCompatSlotLowerILowerX } from "../../utils/models-and-reasoning-efforts";
 
 export {
-  ih as appMainCurrentCompatSlotLowerILowerH,
   im as appMainCurrentCompatSlotLowerILowerM,
   io as appMainCurrentCompatSlotLowerILowerO,
   ir as appMainCurrentCompatSlotLowerILowerR,

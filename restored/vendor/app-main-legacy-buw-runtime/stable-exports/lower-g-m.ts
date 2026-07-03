@@ -173,11 +173,11 @@ export {
   initComposerInteractionStateChunk as legacyAppMainBuwLowerJLowerBExport,
 } from "../../../composer/composer-interaction-state";
 export { initComposerContextButtonChunk as legacyAppMainBuwLowerJUpperCExport } from "../../../features/use-dictation/context-button";
+export { diffCommentsByConversationSignal as legacyAppMainBuwLowerILowerHExport } from "../../../github/diff-comments/diff-comments-by-conversation-signal";
 export { isReasoningEffort as legacyAppMainBuwLowerILowerXExport } from "../../../utils/models-and-reasoning-efforts";
 
 export {
   iS as legacyAppMainBuwLowerIUpperSExport,
-  ih as legacyAppMainBuwLowerILowerHExport,
   im as legacyAppMainBuwLowerILowerMExport,
   io as legacyAppMainBuwLowerILowerOExport,
   ir as legacyAppMainBuwLowerILowerRExport,
