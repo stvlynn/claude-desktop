@@ -32,6 +32,22 @@ Deep is a completion bar, not an upsell: a whole-tree restore is "done" only whe
 
 While restoring, if you hit a script bug, a step worth automating, or an unrecognized npm package, update the skill itself and commit it separately — see [Maintaining this skill](#maintaining-this-skill-self-improvement-protocol).
 
+**Vendor/npm hard stop:** before touching anything under `restored/vendor/`
+(including nested `compat-*`, `stable-exports/*`, or runtime barrels), run the
+full directory audit:
+
+```bash
+bun .agents/skills/deobfuscate-javascript/scripts/vendor-npm-preflight.ts restored/vendor
+```
+
+If it reports a public stock-package body such as `vendor/react-intl.tsx`, fix
+that file first as an npm-backed shim and add the missing dependency to the
+nearest `package.json`. Do not continue local compat/body restoration while a
+known package shim is hand-written. A target-specific
+`--decision --intent local-body` that prints "no public vendor targets" only
+means the current nested barrel is not itself public package identity; it does
+not waive the directory audit or allow package APIs to be recreated locally.
+
 ## Restoration contract
 
 ### Default tier (readable restore)
@@ -139,6 +155,10 @@ re-export or to a small typed semantic module. After editing, run
 `count-direct-compat-exports.ts` on the touched barrel and the full
 `vendor-npm-preflight.ts restored/vendor` audit; a green single-file decision is
 not enough if the compat barrel still hides direct bundle re-exports.
+If an alias resolves to a stock package export (`react-is`, `d3-array`,
+`react-intl`, etc.), prefer an existing npm-backed vendor shim or a direct bare
+package re-export over creating another local helper. Only create a semantic
+local module when the resolved binding is app/runtime logic, not package code.
 
 Treat this as a blocking preflight for every `vendor/` edit: if the public API
 matches a known npm surface, stop before hand-writing code, add the package root

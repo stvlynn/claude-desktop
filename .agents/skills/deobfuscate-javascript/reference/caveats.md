@@ -70,6 +70,14 @@ Each Stage 1 step has an _input shape_ the previous step produced. Running them 
   `vendor/react-intl.tsx` first; then run target-specific `--decision` for the
   file you plan to edit.
 
+- **"No public vendor targets" is not permission to recreate package APIs.**
+  It only says the exact nested file under inspection is not itself a public
+  package shim. Keep the earlier directory audit result in force, and inspect
+  each compat alias through `resolve-direct-compat-exports.ts` before moving it.
+  When the resolved binding is a stock package export such as `react-is` or
+  D3's `range` / `quantileSorted`, route it to an npm-backed shim or bare package
+  re-export. Create a local semantic module only for app/runtime logic.
+
 - **Tier note**: the default "readable restore" tier runs `polish.ts --fast` — the reading-aid subset only (`strip-react-compiler`, `simplify`, `jsx-runtime`, `inline-defaults`, `normalize-exports`). The import-resolution tail (`react-shim-elim`, `resolve-npm-imports`, `npm-cjs-shim-elim`, `dead-shim-elim`) only makes imports resolve against `node_modules` and runs in **deep mode** (drop `--fast`).
 - **Idempotent**: running `polish.ts` twice on the same input changes nothing on the second pass. Safe to re-run if you tweak one of `--prefer` / `--skip` / `--stop-after`.
 - **`strip-react-compiler` detection is by callee name**: any `let X = expr.c(N)` or `let X = (0, expr.c)(N)` with a numeric literal arg is treated as a React Compiler cache. A user-defined `.c()` method that happens to match this shape would also be stripped — extremely rare in practice but possible. If you hit a false positive, run polish with `--skip strip-react-compiler` and handle the React Compiler bundle manually.
