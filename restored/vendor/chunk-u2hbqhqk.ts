@@ -9,7 +9,7 @@ import {
   replaceIconIds,
   dedentTemplate,
 } from "./iconify-core";
-import { n as chunkU2HBQHQKImport1 } from "marked";
+import { marked as chunkU2HBQHQKImport1 } from "marked";
 import { chunkAGHRB4JFN, chunkAGHRB4JFR } from "./dayjs-core-alt";
 import {
   _chunkICPOFSXXB,

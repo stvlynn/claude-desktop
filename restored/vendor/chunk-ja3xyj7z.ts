@@ -18,7 +18,7 @@ import {
   replaceIconIds,
   dedentTemplate,
 } from "./iconify-core";
-import { n as chunkJA3XYJ7ZImport1 } from "marked";
+import { marked as chunkJA3XYJ7ZImport1 } from "marked";
 var chunkJA3XYJ7ZO = {
     body: '<g><rect width="80" height="80" style="fill: #087ebf; stroke-width: 0px;"/><text transform="translate(21.16 64.67)" style="fill: #fff; font-family: ArialMT, Arial; font-size: 67.75px;"><tspan x="0" y="0">?</tspan></text></g>',
     height: 80,
