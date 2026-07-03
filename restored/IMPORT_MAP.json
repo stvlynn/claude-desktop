@@ -42153,7 +42153,7 @@
         "z": "popcornElectronSurfaceStyleLowerZExport"
       },
       "status": "done",
-      "note": "Current ref popcorn electron surface style runtime restored as a stable alias layer over vendor/popcorn-electron-surface-style-runtime.ts. Existing CompatSlot exports are retained for local consumers; backing file was moved out of the current-bundle backlog.",
+      "note": "Current ref popcorn electron surface style runtime restored as a stable alias layer over vendor/popcorn-electron-surface-style-runtime.ts. Existing CompatSlot exports are retained for local consumers; embedded @dnd-kit/sortable code now uses vendor/dnd-kit-sortable.tsx, and external CRDT restore state/overlay logic now lives in features/popcorn/crdt-restore-state.tsx while full semantic splitting of the large backing runtime remains open.",
       "lastUpdated": "2026-07-02T01:43:57.000Z",
       "migratedFrom": "popcorn-electron-surface-style-jyyIi7EC",
       "stage3Accepted": true,
