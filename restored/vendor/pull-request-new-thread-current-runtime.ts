@@ -81,7 +81,6 @@ import {
   W_ as Ue,
   Zp as We,
   _n as Ge,
-  _o as Ke,
   _y as qe,
   c as Je,
   cm as Ye,
@@ -89,14 +88,12 @@ import {
   em as N,
   fn as Ze,
   gy as P,
-  ho as Qe,
   hy as $e,
   jc as et,
   l as tt,
   ly as nt,
   ml as rt,
   mn as it,
-  mo as at,
   nm as ot,
   o as st,
   pl as ct,
@@ -129,6 +126,14 @@ import {
   initWorkspaceFileSearchRuntime as po,
   useWorkspaceFileSearch as no,
 } from "../utils/use-workspace-file-search";
+import {
+  initUseOsInfoRuntime as ea,
+  useOsInfo as Qi,
+} from "../utils/use-os-info";
+import {
+  initUsePlatformRuntime as ma,
+  usePlatform as da,
+} from "../utils/use-platform";
 import {
   loadLodashBaseEach as aa,
   loadLodashBaseFlatten as Ka,
@@ -1841,52 +1846,6 @@ var J,
       He(),
       b(),
       oe());
-  });
-function Qi() {
-  let e = (0, $i.c)(3),
-    t = j(ht),
-    n;
-  return (
-    e[0] !== t.data || e[1] !== t.isLoading
-      ? ((n = { data: t.data, isLoading: t.isLoading }),
-        (e[0] = t.data),
-        (e[1] = t.isLoading),
-        (e[2] = n))
-      : (n = e[2]),
-    n
-  );
-}
-var $i,
-  ea = e(() => {
-    (($i = D()), S(), Ke());
-  });
-function da() {
-  let e = (0, pa.c)(7),
-    { data: t, isLoading: n } = Qi(),
-    r,
-    i;
-  if (e[0] !== t?.platform) {
-    let n = at(t?.platform);
-    ((r = n), (i = fa(n)), (e[0] = t?.platform), (e[1] = r), (e[2] = i));
-  } else ((r = e[1]), (i = e[2]));
-  let a;
-  return (
-    e[3] !== n || e[4] !== r || e[5] !== i
-      ? ((a = { platform: r, modifierSymbol: i, isLoading: n }),
-        (e[3] = n),
-        (e[4] = r),
-        (e[5] = i),
-        (e[6] = a))
-      : (a = e[6]),
-    a
-  );
-}
-function fa(e) {
-  return e === `macOS` ? `⌘` : `^`;
-}
-var pa,
-  ma = e(() => {
-    ((pa = D()), ea(), Qe());
   });
 export {
   Ei as $,

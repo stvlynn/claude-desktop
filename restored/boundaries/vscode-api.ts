@@ -163,8 +163,10 @@ export class vscodeApiL {
 }
 
 export const vscodeApiU = {
+  FIFTEEN_SECONDS: 15_000,
   FIVE_SECONDS: 5_000,
   FIVE_MINUTES: 300_000,
+  INFINITE: Infinity,
   ONE_MINUTE: 60_000,
   THIRTY_SECONDS: 30_000,
 };

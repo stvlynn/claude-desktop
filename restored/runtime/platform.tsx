@@ -2,13 +2,19 @@
 import { _appScopeC, _appScopeT } from "../boundaries/app-scope";
 import { _vscodeApiA, vscodeApiU } from "../boundaries/vscode-api";
 type HostPlatform = "darwin" | "linux" | "web" | "win32" | string;
-type CodexPlatform = "linux" | "macOS" | "windows";
+export type CodexPlatform = "linux" | "macOS" | "windows";
+type OsInfoQueryResult = {
+  data?: {
+    platform?: HostPlatform | null;
+  } | null;
+};
 const osInfoQuery = _vscodeApiA(_appScopeT, "os-info", {
   staleTime: vscodeApiU.INFINITE,
 });
-const platformSignal = _appScopeC(_appScopeT, ({ get }) =>
-  resolveCodexPlatform(get(osInfoQuery).data?.platform),
-);
+const platformSignal = _appScopeC(_appScopeT, ({ get }) => {
+  const osInfo = get(osInfoQuery) as OsInfoQueryResult;
+  return resolveCodexPlatform(osInfo.data?.platform);
+});
 function resolveBrowserPlatform(): CodexPlatform {
   const platform = typeof navigator > "u" ? "" : (navigator.platform ?? "");
   return platform.startsWith("Mac")
@@ -24,7 +30,9 @@ function normalizeHostPlatform(platform: HostPlatform): CodexPlatform {
       ? "macOS"
       : "linux";
 }
-function resolveCodexPlatform(platform: HostPlatform | null | undefined) {
+function resolveCodexPlatform(
+  platform: HostPlatform | null | undefined,
+): CodexPlatform {
   return platform != null && platform !== "web"
     ? normalizeHostPlatform(platform)
     : resolveBrowserPlatform();

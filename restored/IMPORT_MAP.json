@@ -31939,10 +31939,10 @@
         "zt": "userConfigQueryKeyPrefix"
       },
       "status": "done",
-      "note": "Current ref pull request new-thread runtime keeps its compatibility alias layer while the flat vendor body remains an open app/runtime-wrapper restoration. Stable callback, query-cache invalidation, fuzzy scoring, and workspace file-search helpers are split to semantic typed runtime modules, and Lodash helper loaders are backed by npm subpath imports.",
+      "note": "Current ref pull request new-thread runtime keeps its compatibility alias layer while the flat vendor body remains an open app/runtime-wrapper restoration. Stable callback, query-cache invalidation, fuzzy scoring, workspace file-search, and platform helpers are split to semantic typed runtime modules, and Lodash helper loaders are backed by npm subpath imports.",
       "stage3Accepted": true,
-      "stage3Review": "Alias-layer acceptance only: runtime/current-app-initial/pull-request-new-thread-runtime.ts passes quality-gate and preserves the exact export map. The body in vendor/pull-request-new-thread-current-runtime.ts still fails flat-boundary-app-bundle/split-required and must continue being split; scoreFuzzyFileMatch delegates to utils/score-query-match and useFuzzyFileSearch delegates to utils/use-workspace-file-search.",
-      "lastUpdated": "2026-07-03T03:49:46.000Z"
+      "stage3Review": "Alias-layer acceptance only: runtime/current-app-initial/pull-request-new-thread-runtime.ts passes quality-gate and preserves the exact export map. The body in vendor/pull-request-new-thread-current-runtime.ts still fails flat-boundary-app-bundle/split-required and must continue being split; scoreFuzzyFileMatch delegates to utils/score-query-match, useFuzzyFileSearch delegates to utils/use-workspace-file-search, and platform modifier exports delegate to utils/use-platform plus utils/use-os-info.",
+      "lastUpdated": "2026-07-03T03:56:23.000Z"
     },
     "app-initial~app-main~remote-conversation-page~hotkey-window-thread-page~keyboard-shortcuts-~n7jwlpf0-BaxBxQFI": {
       "restored": "runtime/current-app-initial/keyboard-shortcuts-thread-runtime.ts",
