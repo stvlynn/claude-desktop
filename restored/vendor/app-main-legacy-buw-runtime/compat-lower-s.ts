@@ -24,12 +24,12 @@ export { timeFormat as appMainCurrentCompatSlotLowerSUpperS } from "d3-time-form
 export { computeGeneratedImageOutputs as appMainCurrentCompatSlotLowerSLowerT } from "../../conversations/generated-image-outputs";
 export { initUseDictationRuntimeChunk as appMainCurrentCompatSlotLowerSUpperC } from "../../features/use-dictation/runtime-init";
 export { initBrowserSidebarTweaksStateChunk as appMainCurrentCompatSlotLowerSLowerP } from "../../app-shell/thread-side-panel-active-signals";
+export { formatComposerSubmitError as appMainCurrentCompatSlotLowerSLowerN } from "../../composer/submit-toast-status-messages";
 
 export {
   sb as appMainCurrentCompatSlotLowerSLowerB,
   sd as appMainCurrentCompatSlotLowerSLowerD,
   sh as appMainCurrentCompatSlotLowerSLowerH,
-  sn as appMainCurrentCompatSlotLowerSLowerN,
   so as appMainCurrentCompatSlotLowerSLowerO,
   su as appMainCurrentCompatSlotLowerSLowerU,
   sy as appMainCurrentCompatSlotLowerSLowerY,

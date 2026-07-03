@@ -139,7 +139,9 @@ export {
   initHooksSettingsCopyChunk as legacyAppMainBuwLowerRLowerAExport,
 } from "../../../settings/hooks-settings-copy";
 export { buildImageInputItems as legacyAppMainBuwLowerNLowerNExport } from "../../../composer/build-image-input-items";
+export { initReferencedPriorConversationsChunk as legacyAppMainBuwLowerPLowerNExport } from "../../../composer/referenced-prior-conversations";
 export { isSteerTurnInactiveError as legacyAppMainBuwLowerOLowerNExport } from "../../../composer/steer-turn-inactive-error";
+export { formatComposerSubmitError as legacyAppMainBuwLowerSLowerNExport } from "../../../composer/submit-toast-status-messages";
 export { isConversationItemInProgress as legacyAppMainBuwLowerOLowerTExport } from "../../../conversations/local-conversation-thread-parts/conversation-item-in-progress";
 export { scrollConversationItemIntoView as legacyAppMainBuwLowerPLowerTExport } from "../../../conversations/scroll-conversation-item-into-view";
 export { computeGeneratedImageOutputs as legacyAppMainBuwLowerSLowerTExport } from "../../../conversations/generated-image-outputs";
@@ -147,6 +149,8 @@ export { parseCodeCommentDirectives as legacyAppMainBuwLowerNLowerHExport } from
 export { setDiffCommentsForConversation as legacyAppMainBuwLowerOLowerHExport } from "../../../github/diff-comments/set-diff-comments-for-conversation";
 export { addDiffCommentsForConversation as legacyAppMainBuwLowerRLowerHExport } from "../../../github/diff-comments/use-diff-comment-sources";
 export { readMaterializedThreadGoalObjective as legacyAppMainBuwLowerQLowerHExport } from "../../../threads/pending-worktree-store/thread-goal-objective-file";
+export { findPendingWorktreeByClientThreadId as legacyAppMainBuwLowerQLowerDExport } from "../../../worktree/pending-worktree-atoms";
+export { initAppShellTabControllerAnalyticsChunk as legacyAppMainBuwLowerQLowerVExport } from "../../../app-shell/app-shell-tab-controller/analytics";
 
 export {
   nd as legacyAppMainBuwLowerNLowerDExport,
@@ -162,16 +166,13 @@ export {
   pa as legacyAppMainBuwLowerPLowerAExport,
   pf as legacyAppMainBuwLowerPLowerFExport,
   ph as legacyAppMainBuwLowerPLowerHExport,
-  pn as legacyAppMainBuwLowerPLowerNExport,
   pu as legacyAppMainBuwLowerPLowerUExport,
   q as legacyAppMainBuwLowerQExport,
   qa as legacyAppMainBuwLowerQLowerAExport,
-  qd as legacyAppMainBuwLowerQLowerDExport,
   ql as legacyAppMainBuwLowerQLowerLExport,
   qm as legacyAppMainBuwLowerQLowerMExport,
   qo as legacyAppMainBuwLowerQLowerOExport,
   qt as legacyAppMainBuwLowerQLowerTExport,
-  qv as legacyAppMainBuwLowerQLowerVExport,
   r as legacyAppMainBuwLowerRExport,
   rd as legacyAppMainBuwLowerRLowerDExport,
   rg as legacyAppMainBuwLowerRLowerGExport,
@@ -181,7 +182,6 @@ export {
   sb as legacyAppMainBuwLowerSLowerBExport,
   sd as legacyAppMainBuwLowerSLowerDExport,
   sh as legacyAppMainBuwLowerSLowerHExport,
-  sn as legacyAppMainBuwLowerSLowerNExport,
   so as legacyAppMainBuwLowerSLowerOExport,
   su as legacyAppMainBuwLowerSLowerUExport,
 } from "../../app-main-legacy-buw-compat-bundle";

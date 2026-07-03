@@ -23,13 +23,13 @@ export { browserSidebarCommentModeCoachmarkDismissedAtom as appMainCurrentCompat
 export { timeSunday as appMainCurrentCompatSlotLowerPUpperS } from "d3-time";
 export { KeyboardCode as appMainCurrentCompatSlotLowerPLowerX } from "../dnd-kit-core";
 export { scrollConversationItemIntoView as appMainCurrentCompatSlotLowerPLowerT } from "../../conversations/scroll-conversation-item-into-view";
+export { initReferencedPriorConversationsChunk as appMainCurrentCompatSlotLowerPLowerN } from "../../composer/referenced-prior-conversations";
 
 export {
   p_ as appMainCurrentCompatSlotLowerPUnderscore,
   pa as appMainCurrentCompatSlotLowerPLowerA,
   pf as appMainCurrentCompatSlotLowerPLowerF,
   ph as appMainCurrentCompatSlotLowerPLowerH,
-  pn as appMainCurrentCompatSlotLowerPLowerN,
   pu as appMainCurrentCompatSlotLowerPLowerU,
   py as appMainCurrentCompatSlotLowerPLowerY,
 } from "../app-main-legacy-buw-compat-bundle";

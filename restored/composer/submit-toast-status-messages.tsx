@@ -93,3 +93,7 @@ export function getSubmitToastMessage({
           : getLocalSubmitToastMessage(error, intl))
   );
 }
+
+export const formatComposerSubmitError: (
+  args: GetSubmitToastMessageArgs,
+) => ReactNode = getSubmitToastMessage;
