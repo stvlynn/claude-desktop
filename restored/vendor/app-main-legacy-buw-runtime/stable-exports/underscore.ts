@@ -16,13 +16,13 @@ export { normalizeThreadDetailLevel as legacyAppMainBuwUnderscoreLowerBExport } 
 export { initAppgenAccessStateMessagesChunk as legacyAppMainBuwUnderscoreLowerSExport } from "../../../utils/appgen-access-state-messages";
 export { AnnotationModeButton as legacyAppMainBuwUnderscoreLowerMExport } from "../../../ui/annotation-mode-button";
 export { normalizeAmbientSuggestionAppKey as legacyAppMainBuwUnderscoreLowerYExport } from "../../../connectors/ambient-suggestion-apps";
+export { flushPendingArtifactNavigation as legacyAppMainBuwUnderscoreLowerFExport } from "../../../workspace/artifact-tab-navigation";
 
 export {
   _ as legacyAppMainBuwUnderscoreExport,
   _S as legacyAppMainBuwUnderscoreUpperSExport,
   _a as legacyAppMainBuwUnderscoreLowerAExport,
   _d as legacyAppMainBuwUnderscoreLowerDExport,
-  _f as legacyAppMainBuwUnderscoreLowerFExport,
   _g as legacyAppMainBuwUnderscoreLowerGExport,
   _h as legacyAppMainBuwUnderscoreLowerHExport,
   _p as legacyAppMainBuwUnderscoreLowerPExport,

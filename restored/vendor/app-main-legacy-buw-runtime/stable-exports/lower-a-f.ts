@@ -175,10 +175,10 @@ export {
   initAppShellCompoundChunk as legacyAppMainBuwLowerFLowerDExport,
 } from "../../../app-shell/app-shell";
 export { initSidebarNavigationControlsChunk as legacyAppMainBuwLowerBLowerDExport } from "../../../app-shell/sidebar-navigation-controls";
+export { initWorkspaceFileSourceTabsChunk as legacyAppMainBuwLowerBLowerFExport } from "../../../workspace/workspace-file-source-tabs";
 
 export {
   ag as legacyAppMainBuwLowerALowerGExport,
-  bf as legacyAppMainBuwLowerBLowerFExport,
   bh as legacyAppMainBuwLowerBLowerHExport,
   bm as legacyAppMainBuwLowerBLowerMExport,
   bn as legacyAppMainBuwLowerBLowerNExport,

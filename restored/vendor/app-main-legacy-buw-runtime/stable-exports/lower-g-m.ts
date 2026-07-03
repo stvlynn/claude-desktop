@@ -129,6 +129,7 @@ export {
   rememberBrowserSidebarOpenSource as legacyAppMainBuwLowerLLowerYExport,
 } from "../../../browser/browser-sidebar-open-source";
 export { initBrowserSidebarDeviceToolbarChunk as legacyAppMainBuwLowerMLowerYExport } from "../../../browser/sidebar-manager/device-toolbar";
+export { ArtifactTabPreview as legacyAppMainBuwLowerHLowerFExport } from "../../../workspace/artifact-tab-preview";
 
 export {
   g as legacyAppMainBuwLowerGExport,
@@ -146,7 +147,6 @@ export {
   ha as legacyAppMainBuwLowerHLowerAExport,
   hb as legacyAppMainBuwLowerHLowerBExport,
   hd as legacyAppMainBuwLowerHLowerDExport,
-  hf as legacyAppMainBuwLowerHLowerFExport,
   hn as legacyAppMainBuwLowerHLowerNExport,
   ht as legacyAppMainBuwLowerHLowerTExport,
   hu as legacyAppMainBuwLowerHLowerUExport,
@@ -176,7 +176,6 @@ export {
   k_ as legacyAppMainBuwLowerKUnderscoreExport,
   kb as legacyAppMainBuwLowerKLowerBExport,
   kd as legacyAppMainBuwLowerKLowerDExport,
-  kf as legacyAppMainBuwLowerKLowerFExport,
   kg as legacyAppMainBuwLowerKLowerGExport,
   kh as legacyAppMainBuwLowerKLowerHExport,
   km as legacyAppMainBuwLowerKLowerMExport,
@@ -204,3 +203,4 @@ export {
   mt as legacyAppMainBuwLowerMLowerTExport,
   mu as legacyAppMainBuwLowerMLowerUExport,
 } from "../../app-main-legacy-buw-compat-bundle";
+export { openReviewFileSourceTabsAtom as legacyAppMainBuwLowerKLowerFExport } from "../../../workspace/workspace-file-source-tabs";

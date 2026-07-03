@@ -95,7 +95,10 @@ export {
   shouldUseCreditsRateLimitDisplay as legacyAppMainBuwLowerVLowerCExport,
 } from "../../../utils/rate-limit-status/account-status";
 export { initUserSavedConfigQueryChunk as legacyAppMainBuwLowerULowerXExport } from "../../../config/user-saved-config-query";
-export { syncOpenReviewFileSourceTabs as legacyAppMainBuwLowerXLowerFExport } from "../../../workspace/workspace-file-source-tabs";
+export {
+  initWorkspaceFileSourceTabsChunk as legacyAppMainBuwLowerWLowerFExport,
+  syncOpenReviewFileSourceTabs as legacyAppMainBuwLowerXLowerFExport,
+} from "../../../workspace/workspace-file-source-tabs";
 export { getSupportedLocales as legacyAppMainBuwLowerULowerGExport } from "../../../i18n/locale-resolver";
 export { primaryRuntimeInstallStatusSignal as legacyAppMainBuwLowerULowerSExport } from "../../../runtime/primary-runtime-install-state";
 export { PullRequestOpenIcon as legacyAppMainBuwLowerTLowerUExport } from "../../../icons/pull-request-open-icon";
@@ -106,6 +109,10 @@ export {
   AppgenAccessStateIcon as legacyAppMainBuwLowerVLowerSExport,
   initAppgenAccessStateIconChunk as legacyAppMainBuwLowerYLowerSExport,
 } from "../../../utils/appgen-access-state-messages";
+export {
+  initArtifactTabNavigationChunk as legacyAppMainBuwLowerVLowerFExport,
+  registerArtifactNavigationHandler as legacyAppMainBuwLowerYLowerFExport,
+} from "../../../workspace/artifact-tab-navigation";
 export { trackConversationalOnboardingExecutionCompletionMissing as legacyAppMainBuwLowerZLowerSExport } from "../../../onboarding/conversational-onboarding-analytics";
 export { initThreadHandoffComposerStatusChunk as legacyAppMainBuwLowerULowerOExport } from "../../../conversations/thread-handoff-composer-status";
 export { ReviewTabIcon as legacyAppMainBuwLowerXLowerHExport } from "../../../icons/review-tab-icon";
@@ -143,7 +150,6 @@ export {
   uv as legacyAppMainBuwLowerULowerVExport,
   vS as legacyAppMainBuwLowerVUpperSExport,
   vd as legacyAppMainBuwLowerVLowerDExport,
-  vf as legacyAppMainBuwLowerVLowerFExport,
   vg as legacyAppMainBuwLowerVLowerGExport,
   vh as legacyAppMainBuwLowerVLowerHExport,
   vn as legacyAppMainBuwLowerVLowerNExport,
@@ -156,7 +162,6 @@ export {
   wa as legacyAppMainBuwLowerWLowerAExport,
   wb as legacyAppMainBuwLowerWLowerBExport,
   wd as legacyAppMainBuwLowerWLowerDExport,
-  wf as legacyAppMainBuwLowerWLowerFExport,
   wg as legacyAppMainBuwLowerWLowerGExport,
   wi as legacyAppMainBuwLowerWLowerIExport,
   wl as legacyAppMainBuwLowerWLowerLExport,
@@ -179,7 +184,6 @@ export {
   y as legacyAppMainBuwLowerYExport,
   yS as legacyAppMainBuwLowerYUpperSExport,
   yb as legacyAppMainBuwLowerYLowerBExport,
-  yf as legacyAppMainBuwLowerYLowerFExport,
   yg as legacyAppMainBuwLowerYLowerGExport,
   yh as legacyAppMainBuwLowerYLowerHExport,
   ym as legacyAppMainBuwLowerYLowerMExport,

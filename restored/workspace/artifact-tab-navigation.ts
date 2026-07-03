@@ -15,6 +15,8 @@ interface ArtifactNavigationEntry {
 
 const navigationEntriesByTabId = new Map<string, ArtifactNavigationEntry>();
 
+export function initArtifactTabNavigationChunk(): void {}
+
 function getOrCreateNavigationEntry(tabId: string): ArtifactNavigationEntry {
   const existing = navigationEntriesByTabId.get(tabId);
   if (existing != null) return existing;
@@ -43,6 +45,18 @@ export function navigateArtifactTab(
     return;
   }
   entry.pendingTarget = target;
+}
+
+export function registerArtifactNavigationHandler(
+  tabId: string,
+  handler: ArtifactNavigationHandler,
+) {
+  const entry = getOrCreateNavigationEntry(tabId);
+  entry.handler = handler;
+  flushPendingArtifactNavigation(tabId);
+  return () => {
+    if (entry.handler === handler) entry.handler = null;
+  };
 }
 
 export function deleteArtifactNavigation(tabId: string) {

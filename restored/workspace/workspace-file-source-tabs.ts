@@ -77,6 +77,8 @@ export const openReviewFileSourceTabsAtom = createWritableSignalAtom(
   () => false,
 );
 
+export function initWorkspaceFileSourceTabsChunk(): void {}
+
 interface RouteScope {
   value: {
     routeKind:
