@@ -27,6 +27,7 @@ export type VendorNpmDecision = {
   sourceExists: boolean;
   reason: string;
 };
+type VendorNpmEditIntent = "local-body" | "npm-shim";
 
 type BareReexport = {
   file: string;
@@ -470,8 +471,39 @@ export function vendorNpmDecision(input: string): VendorNpmDecision[] {
     });
 }
 
+function validateEditIntent(value: unknown): VendorNpmEditIntent | undefined {
+  if (value == null) return undefined;
+  if (value === "local-body" || value === "npm-shim") return value;
+  console.error(
+    "vendor-npm-preflight: --intent must be local-body or npm-shim",
+  );
+  process.exit(64);
+}
+
+function decisionIntentFailures(
+  decisions: VendorNpmDecision[],
+  intent: VendorNpmEditIntent | undefined,
+): string[] {
+  if (intent == null) return [];
+  if (intent === "local-body") {
+    return decisions
+      .filter((decision) => decision.decision === "npm-shim")
+      .map(
+        (decision) =>
+          `${decision.file}: local vendor body blocked; use npm shim for ${decision.specifiers.join(", ")}`,
+      );
+  }
+
+  return decisions
+    .filter((decision) => decision.decision === "needs-proof")
+    .map(
+      (decision) =>
+        `${decision.file}: npm shim intent needs a registered package identity first`,
+    );
+}
+
 const USAGE =
-  "Usage: bun scripts/vendor-npm-preflight.ts <restored/vendor-file-or-dir> [--json] [--decision]";
+  "Usage: bun scripts/vendor-npm-preflight.ts <restored/vendor-file-or-dir> [--json] [--decision] [--intent local-body|npm-shim]";
 
 async function main(): Promise<void> {
   let parsed;
@@ -481,6 +513,7 @@ async function main(): Promise<void> {
       options: {
         json: { type: "boolean", default: false },
         decision: { type: "boolean", default: false },
+        intent: { type: "string" },
       },
       allowPositionals: true,
     });
@@ -495,6 +528,7 @@ async function main(): Promise<void> {
     console.error(USAGE);
     process.exit(64);
   }
+  const editIntent = validateEditIntent(parsed.values.intent);
   if (parsed.values.decision) {
     const decisions = vendorNpmDecision(input);
     if (parsed.values.json) {
@@ -512,6 +546,13 @@ async function main(): Promise<void> {
         );
         console.error(`  ${decision.reason}`);
       }
+    }
+    const failures = decisionIntentFailures(decisions, editIntent);
+    if (failures.length > 0) {
+      for (const failure of failures) {
+        console.error(`vendor-npm-preflight: INTENT FAIL ${failure}`);
+      }
+      process.exit(1);
     }
     process.exit(0);
   }

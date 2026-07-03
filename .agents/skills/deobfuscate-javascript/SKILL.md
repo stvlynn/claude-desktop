@@ -87,13 +87,15 @@ the nearest `package.json`, inspect consumers, then run the edit-intent
 classifier before writing code:
 
 ```bash
-bun .agents/skills/deobfuscate-javascript/scripts/vendor-npm-preflight.ts <target-vendor-file> --decision
+bun .agents/skills/deobfuscate-javascript/scripts/vendor-npm-preflight.ts <target-vendor-file> --decision --intent local-body
 ```
 
-If it prints `npm-shim`, stop restoring the body and create a bare npm-backed
-shim. If it prints `needs-proof`, do not treat that as permission to hand-write
-the module; first prove and record **Codex fork** or **app/runtime wrapper**
-status. Then run
+If the command exits non-zero with `INTENT FAIL`, stop restoring the body and
+create a bare npm-backed shim. To intentionally create a new npm shim for a
+package the registry does not know yet, first add the package fingerprint/gate
+entry and its tests, then rerun with `--intent npm-shim`. If it prints
+`needs-proof`, do not treat that as permission to hand-write the module; first
+prove and record **Codex fork** or **app/runtime wrapper** status. Then run
 `bun .agents/skills/deobfuscate-javascript/scripts/vendor-npm-preflight.ts <target-or-restored/vendor>`
 to catch known stock-package compatibility bodies and missing package
 dependencies with only npm-shim issues reported. For declared bare-package

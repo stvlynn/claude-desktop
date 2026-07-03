@@ -26,12 +26,19 @@ function runCLI(input: string): {
   };
 }
 
-function runDecisionCLI(input: string): {
+function runDecisionCLI(
+  input: string,
+  options: { intent?: "local-body" | "npm-shim" } = {},
+): {
   stdout: string;
   stderr: string;
   code: number;
 } {
-  const result = spawnSync("bun", [SCRIPT, input, "--decision", "--json"], {
+  const args = [SCRIPT, input, "--decision", "--json"];
+  if (options.intent != null) {
+    args.push("--intent", options.intent);
+  }
+  const result = spawnSync("bun", args, {
     encoding: "utf-8",
   });
   return {
@@ -69,6 +76,32 @@ describe("vendor-npm-preflight CLI", () => {
       decision: "npm-shim",
       specifiers: ["react-intl"],
       sourceExists: false,
+    });
+  });
+
+  test("blocks local-body intent for known package vendor targets before the file exists", () => {
+    const root = makeTmpRoot();
+    const vendorDir = path.join(root, "restored", "vendor");
+    fs.mkdirSync(vendorDir, { recursive: true });
+    fs.writeFileSync(
+      path.join(root, "package.json"),
+      JSON.stringify({ dependencies: { "react-intl": "^10.0.0" } }),
+    );
+
+    const result = runDecisionCLI(path.join(vendorDir, "react-intl.tsx"), {
+      intent: "local-body",
+    });
+    expect(result.code).toBe(1);
+    expect(result.stderr).toContain("INTENT FAIL");
+    expect(result.stderr).toContain("local vendor body blocked");
+    expect(result.stderr).toContain("react-intl");
+    const decisions = JSON.parse(result.stdout) as Array<{
+      decision: string;
+      specifiers: string[];
+    }>;
+    expect(decisions[0]).toMatchObject({
+      decision: "npm-shim",
+      specifiers: ["react-intl"],
     });
   });
 
@@ -124,6 +157,20 @@ describe("vendor-npm-preflight CLI", () => {
     expect(decisions[0]?.decision).toBe("needs-proof");
     expect(decisions[0]?.specifiers).toEqual([]);
     expect(decisions[0]?.reason).toContain("prove Codex fork");
+  });
+
+  test("blocks npm-shim intent for unknown public vendor targets until registered", () => {
+    const root = makeTmpRoot();
+    const vendorDir = path.join(root, "restored", "vendor");
+    fs.mkdirSync(vendorDir, { recursive: true });
+    fs.writeFileSync(path.join(root, "package.json"), JSON.stringify({}));
+
+    const result = runDecisionCLI(path.join(vendorDir, "host-runtime.ts"), {
+      intent: "npm-shim",
+    });
+    expect(result.code).toBe(1);
+    expect(result.stderr).toContain("INTENT FAIL");
+    expect(result.stderr).toContain("registered package identity");
   });
 
   test("fails hand-written react-intl compatibility shims", () => {
