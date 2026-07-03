@@ -11,6 +11,7 @@ export { initTrashIconChunk as legacyAppMainBuwUpperVLowerPExport } from "../../
 
 export { ComposerFooterRoot as legacyAppMainBuwUpperTUpperCExport } from "../../../composer/composer-footer";
 export { AutomationNameInput as legacyAppMainBuwUpperTLowerRExport } from "../../../automations/automation-name-input";
+export { AppBrandLogo as legacyAppMainBuwUpperXLowerFExport } from "../../../ui/app-brand-logo";
 
 export { AttachmentPill as legacyAppMainBuwUpperVLowerIExport } from "../../../composer/user-message-attachment-pills";
 
@@ -154,7 +155,6 @@ export {
   X_ as legacyAppMainBuwUpperXUnderscoreExport,
   Xb as legacyAppMainBuwUpperXLowerBExport,
   Xd as legacyAppMainBuwUpperXLowerDExport,
-  Xf as legacyAppMainBuwUpperXLowerFExport,
   Xg as legacyAppMainBuwUpperXLowerGExport,
   Xh as legacyAppMainBuwUpperXLowerHExport,
   Xi as legacyAppMainBuwUpperXLowerIExport,

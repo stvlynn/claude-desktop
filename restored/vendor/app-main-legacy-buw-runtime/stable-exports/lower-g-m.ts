@@ -82,6 +82,7 @@ export { userSavedConfigQueryOptions as legacyAppMainBuwLowerLLowerXExport } fro
 export { initDocumentSearchIconChunk as legacyAppMainBuwLowerGLowerYExport } from "../../../icons/document-search-icon";
 export { EllipsisHorizontalIcon as ThreadRowTooltip } from "../../../icons/ellipsis-horizontal-icon";
 export { initFolderOpenIconChunk as legacyAppMainBuwLowerGLowerHExport } from "../../../icons/folder-open-icon";
+export { FolderOpenIcon as legacyAppMainBuwLowerHLowerHExport } from "../../../icons/folder-open-icon";
 export { Alert as ToastContent } from "../../../utils/alert";
 export { hasRateLimitReached as legacyAppMainBuwLowerGLowerCExport } from "../../../utils/rate-limit-status/account-status";
 export { hasBasicRateLimitReached as legacyAppMainBuwLowerHLowerCExport } from "../../../utils/rate-limit-status/account-status";
@@ -131,7 +132,6 @@ export {
   hb as legacyAppMainBuwLowerHLowerBExport,
   hd as legacyAppMainBuwLowerHLowerDExport,
   hf as legacyAppMainBuwLowerHLowerFExport,
-  hh as legacyAppMainBuwLowerHLowerHExport,
   hn as legacyAppMainBuwLowerHLowerNExport,
   ht as legacyAppMainBuwLowerHLowerTExport,
   hu as legacyAppMainBuwLowerHLowerUExport,

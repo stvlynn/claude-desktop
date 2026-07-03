@@ -92,6 +92,7 @@ export {
 export { initUserSavedConfigQueryChunk as legacyAppMainBuwLowerULowerXExport } from "../../../config/user-saved-config-query";
 export { getSupportedLocales as legacyAppMainBuwLowerULowerGExport } from "../../../i18n/locale-resolver";
 export { primaryRuntimeInstallStatusSignal as legacyAppMainBuwLowerULowerSExport } from "../../../runtime/primary-runtime-install-state";
+export { PullRequestOpenIcon as legacyAppMainBuwLowerTLowerUExport } from "../../../icons/pull-request-open-icon";
 export { formatCompactDurationMs as legacyAppMainBuwLowerTLowerSExport } from "../../../utils/duration-format";
 export { ProjectDropdownOptions as legacyAppMainBuwLowerTLowerDExport } from "../../../ui/project-dropdown-options";
 export { initAnnotationModeButtonChunk as legacyAppMainBuwLowerVLowerMExport } from "../../../ui/annotation-mode-button";
@@ -116,7 +117,6 @@ export {
   tp as legacyAppMainBuwLowerTLowerPExport,
   tr as legacyAppMainBuwLowerTLowerRExport,
   tt as legacyAppMainBuwLowerTLowerTExport,
-  tu as legacyAppMainBuwLowerTLowerUExport,
   tx as legacyAppMainBuwLowerTLowerXExport,
   ty as legacyAppMainBuwLowerTLowerYExport,
   uS as legacyAppMainBuwLowerUUpperSExport,

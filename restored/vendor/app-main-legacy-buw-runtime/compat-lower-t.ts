@@ -9,6 +9,7 @@ export { formatCompactDurationMs as appMainCurrentCompatSlotLowerTLowerS } from 
 export { ConversationalOnboardingTaskIcon as appMainCurrentCompatSlotLowerT } from "../../onboarding/conversational-onboarding-task-icon";
 export { applyAutomationScheduleDraft as appMainCurrentCompatSlotLowerTLowerI } from "../../automations/shared";
 export { ProjectDropdownOptions as appMainCurrentCompatSlotLowerTLowerD } from "../../ui/project-dropdown-options";
+export { PullRequestOpenIcon as appMainCurrentCompatSlotLowerTLowerU } from "../../icons/pull-request-open-icon";
 
 export {
   t_ as appMainCurrentCompatSlotLowerTUnderscore,
@@ -24,7 +25,6 @@ export {
   tr as appMainCurrentCompatSlotLowerTLowerR,
   tS as appMainCurrentCompatSlotLowerTUpperS,
   tt as appMainCurrentCompatSlotLowerTLowerT,
-  tu as appMainCurrentCompatSlotLowerTLowerU,
   tx as appMainCurrentCompatSlotLowerTLowerX,
   ty as appMainCurrentCompatSlotLowerTLowerY,
 } from "../app-main-legacy-buw-compat-bundle";

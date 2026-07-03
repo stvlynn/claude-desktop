@@ -10,12 +10,12 @@ export {
 } from "../app-main-current-runtime";
 export { OPENAI_PLUGINS_GITHUB_URL as appMainCurrentCompatSlotUpperXLowerC } from "../../utils/links-bd-mmkun-d";
 export { initMoveThreadToWorktreeChunk as appMainCurrentCompatSlotUpperXLowerA } from "../../conversations/move-thread-to-worktree";
+export { AppBrandLogo as appMainCurrentCompatSlotUpperXLowerF } from "../../ui/app-brand-logo";
 
 export {
   X_ as appMainCurrentCompatSlotUpperXUnderscore,
   Xb as appMainCurrentCompatSlotUpperXLowerB,
   Xd as appMainCurrentCompatSlotUpperXLowerD,
-  Xf as appMainCurrentCompatSlotUpperXLowerF,
   Xg as appMainCurrentCompatSlotUpperXLowerG,
   Xh as appMainCurrentCompatSlotUpperXLowerH,
   Xi as appMainCurrentCompatSlotUpperXLowerI,

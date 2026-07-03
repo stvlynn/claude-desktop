@@ -18,6 +18,7 @@ export { closestCenter as ThreadRowStatusIndicator } from "../dnd-kit-core";
 export { StreamingDictationTranscriber as appMainCurrentCompatSlotLowerHUpperC } from "../../utils/transcribe-audio/streaming-transcriber";
 export { hasBasicRateLimitReached as appMainCurrentCompatSlotLowerHLowerC } from "../../utils/rate-limit-status/account-status";
 export { getAppgenAccessStateMessage as appMainCurrentCompatSlotLowerHLowerS } from "../../utils/appgen-access-state-messages";
+export { FolderOpenIcon as appMainCurrentCompatSlotLowerHLowerH } from "../../icons/folder-open-icon";
 
 export {
   h as appMainCurrentCompatSlotLowerH,
@@ -26,7 +27,6 @@ export {
   hb as appMainCurrentCompatSlotLowerHLowerB,
   hd as appMainCurrentCompatSlotLowerHLowerD,
   hf as appMainCurrentCompatSlotLowerHLowerF,
-  hh as appMainCurrentCompatSlotLowerHLowerH,
   hn as appMainCurrentCompatSlotLowerHLowerN,
   hS as appMainCurrentCompatSlotLowerHUpperS,
   ht as appMainCurrentCompatSlotLowerHLowerT,
