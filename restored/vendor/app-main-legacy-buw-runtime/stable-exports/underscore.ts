@@ -12,6 +12,7 @@ export { normalizeArtifactPathKey } from "../../../runtime/app-main-new-thread-r
 export { dictationStreamingUploadHeaderValue as legacyAppMainBuwUnderscoreUpperCExport } from "../../../utils/transcribe-audio/types";
 export { isWorkspaceSpendControlReached as legacyAppMainBuwUnderscoreLowerCExport } from "../../../utils/rate-limit-status/account-status";
 export { initAppgenAccessStateMessagesChunk as legacyAppMainBuwUnderscoreLowerSExport } from "../../../utils/appgen-access-state-messages";
+export { AnnotationModeButton as legacyAppMainBuwUnderscoreLowerMExport } from "../../../ui/annotation-mode-button";
 
 export {
   _ as legacyAppMainBuwUnderscoreExport,
@@ -22,7 +23,6 @@ export {
   _f as legacyAppMainBuwUnderscoreLowerFExport,
   _g as legacyAppMainBuwUnderscoreLowerGExport,
   _h as legacyAppMainBuwUnderscoreLowerHExport,
-  _m as legacyAppMainBuwUnderscoreLowerMExport,
   _n as legacyAppMainBuwUnderscoreLowerNExport,
   _p as legacyAppMainBuwUnderscoreLowerPExport,
   _r as legacyAppMainBuwUnderscoreLowerRExport,

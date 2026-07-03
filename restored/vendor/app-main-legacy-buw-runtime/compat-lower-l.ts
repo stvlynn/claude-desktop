@@ -20,6 +20,7 @@ export { primaryRuntimeInstallReleaseSignal as appMainCurrentCompatSlotLowerLLow
 export { toAutomationUpdatePayload as appMainCurrentCompatSlotLowerLLowerI } from "../../automations/shared";
 
 export { openAutomationSuggestionTab as appMainCurrentCompatSlotLowerLLowerR } from "../../automations/automation-side-panel-tabs";
+export { initCancelGitActionButtonChunk as appMainCurrentCompatSlotLowerLLowerU } from "../../conversations/cancel-git-action-button";
 
 export {
   l as appMainCurrentCompatSlotLowerL,
@@ -29,6 +30,5 @@ export {
   ln as appMainCurrentCompatSlotLowerLLowerN,
   lp as appMainCurrentCompatSlotLowerLLowerP,
   lS as appMainCurrentCompatSlotLowerLUpperS,
-  lu as appMainCurrentCompatSlotLowerLLowerU,
   ly as appMainCurrentCompatSlotLowerLLowerY,
 } from "../app-main-legacy-buw-compat-bundle";

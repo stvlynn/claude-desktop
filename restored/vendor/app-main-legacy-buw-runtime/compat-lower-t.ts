@@ -8,12 +8,12 @@ export { formatCompactDurationMs as appMainCurrentCompatSlotLowerTLowerS } from 
 
 export { ConversationalOnboardingTaskIcon as appMainCurrentCompatSlotLowerT } from "../../onboarding/conversational-onboarding-task-icon";
 export { applyAutomationScheduleDraft as appMainCurrentCompatSlotLowerTLowerI } from "../../automations/shared";
+export { ProjectDropdownOptions as appMainCurrentCompatSlotLowerTLowerD } from "../../ui/project-dropdown-options";
 
 export {
   t_ as appMainCurrentCompatSlotLowerTUnderscore,
   ta as appMainCurrentCompatSlotLowerTLowerA,
   tb as appMainCurrentCompatSlotLowerTLowerB,
-  td as appMainCurrentCompatSlotLowerTLowerD,
   tf as appMainCurrentCompatSlotLowerTLowerF,
   tg as appMainCurrentCompatSlotLowerTLowerG,
   th as appMainCurrentCompatSlotLowerTLowerH,

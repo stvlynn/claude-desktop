@@ -16,13 +16,13 @@ export { shouldUseCreditsRateLimitDisplay as appMainCurrentCompatSlotLowerVLower
 export { AppgenAccessStateIcon as appMainCurrentCompatSlotLowerVLowerS } from "../../utils/appgen-access-state-messages";
 export { initHotkeyWindowContextChunk as appMainCurrentCompatSlotLowerVLowerA } from "../../utils/is-hotkey-window-context";
 export { SettingsButtonRow as appMainCurrentCompatSlotLowerVLowerR } from "../../ui/settings-row";
+export { initAnnotationModeButtonChunk as appMainCurrentCompatSlotLowerVLowerM } from "../../ui/annotation-mode-button";
 
 export {
   vd as appMainCurrentCompatSlotLowerVLowerD,
   vf as appMainCurrentCompatSlotLowerVLowerF,
   vg as appMainCurrentCompatSlotLowerVLowerG,
   vh as appMainCurrentCompatSlotLowerVLowerH,
-  vm as appMainCurrentCompatSlotLowerVLowerM,
   vn as appMainCurrentCompatSlotLowerVLowerN,
   vp as appMainCurrentCompatSlotLowerVLowerP,
   vS as appMainCurrentCompatSlotLowerVUpperS,

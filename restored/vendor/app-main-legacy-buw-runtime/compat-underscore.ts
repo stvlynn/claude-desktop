@@ -12,6 +12,7 @@ export { normalizeArtifactPathKey } from "../../runtime/app-main-new-thread-runt
 export { dictationStreamingUploadHeaderValue as appMainCurrentCompatSlotUnderscoreUpperC } from "../../utils/transcribe-audio/types";
 export { isWorkspaceSpendControlReached as appMainCurrentCompatSlotUnderscoreLowerC } from "../../utils/rate-limit-status/account-status";
 export { initAppgenAccessStateMessagesChunk as appMainCurrentCompatSlotUnderscoreLowerS } from "../../utils/appgen-access-state-messages";
+export { AnnotationModeButton as appMainCurrentCompatSlotUnderscoreLowerM } from "../../ui/annotation-mode-button";
 
 export {
   _ as appMainCurrentCompatSlotUnderscore,
@@ -21,7 +22,6 @@ export {
   _f as appMainCurrentCompatSlotUnderscoreLowerF,
   _g as appMainCurrentCompatSlotUnderscoreLowerG,
   _h as appMainCurrentCompatSlotUnderscoreLowerH,
-  _m as appMainCurrentCompatSlotUnderscoreLowerM,
   _n as appMainCurrentCompatSlotUnderscoreLowerN,
   _p as appMainCurrentCompatSlotUnderscoreLowerP,
   _r as appMainCurrentCompatSlotUnderscoreLowerR,

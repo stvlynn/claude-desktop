@@ -17,18 +17,18 @@ export { isSpendControlNearWorkspaceCap as appMainCurrentCompatSlotLowerCLowerC 
 export { openConfigInEditor as appMainCurrentCompatSlotLowerCLowerX } from "../../composer/open-config-in-editor";
 export { isPrimaryRuntimeInstallProgressPhase as appMainCurrentCompatSlotLowerCLowerS } from "../../runtime/primary-runtime-install-state";
 export { adjustPendingPastedTextAttachmentCount as appMainCurrentCompatSlotLowerCLowerO } from "../../conversations/thread-handoff-composer-status";
+export { useQueuedFollowUpsStore as appMainCurrentCompatSlotLowerCLowerD } from "../../utils/queued-follow-ups-store";
+export { CancelGitActionButton as appMainCurrentCompatSlotLowerCLowerU } from "../../conversations/cancel-git-action-button";
 
 export {
   c_ as appMainCurrentCompatSlotLowerCUnderscore,
   ca as appMainCurrentCompatSlotLowerCLowerA,
   cb as appMainCurrentCompatSlotLowerCLowerB,
-  cd as appMainCurrentCompatSlotLowerCLowerD,
   ch as appMainCurrentCompatSlotLowerCLowerH,
   cn as appMainCurrentCompatSlotLowerCLowerN,
   cr as appMainCurrentCompatSlotLowerCLowerR,
   cS as appMainCurrentCompatSlotLowerCUpperS,
   ct as appMainCurrentCompatSlotLowerCLowerT,
-  cu as appMainCurrentCompatSlotLowerCLowerU,
   cv as appMainCurrentCompatSlotLowerCLowerV,
   cy as appMainCurrentCompatSlotLowerCLowerY,
 } from "../app-main-legacy-buw-compat-bundle";

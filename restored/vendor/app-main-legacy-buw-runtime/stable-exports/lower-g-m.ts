@@ -23,6 +23,7 @@ export { automationDirectiveSeedAtom as legacyAppMainBuwLowerILowerIExport } fro
 
 export { openAutomationSuggestionTab as legacyAppMainBuwLowerLLowerRExport } from "../../../automations/automation-side-panel-tabs";
 export { initAutomationEditorControlsChunk as legacyAppMainBuwLowerKLowerRExport } from "../../../automations/automation-side-panel/body";
+export { initCancelGitActionButtonChunk as legacyAppMainBuwLowerLLowerUExport } from "../../../conversations/cancel-git-action-button";
 
 export {
   DragIcon,
@@ -182,7 +183,6 @@ export {
   lb as legacyAppMainBuwLowerLLowerBExport,
   ln as legacyAppMainBuwLowerLLowerNExport,
   lp as legacyAppMainBuwLowerLLowerPExport,
-  lu as legacyAppMainBuwLowerLLowerUExport,
   ly as legacyAppMainBuwLowerLLowerYExport,
   m as legacyAppMainBuwLowerMExport,
   mC as legacyAppMainBuwLowerMUpperCExport,

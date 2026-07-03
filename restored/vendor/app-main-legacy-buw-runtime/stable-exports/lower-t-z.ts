@@ -93,6 +93,8 @@ export { initUserSavedConfigQueryChunk as legacyAppMainBuwLowerULowerXExport } f
 export { getSupportedLocales as legacyAppMainBuwLowerULowerGExport } from "../../../i18n/locale-resolver";
 export { primaryRuntimeInstallStatusSignal as legacyAppMainBuwLowerULowerSExport } from "../../../runtime/primary-runtime-install-state";
 export { formatCompactDurationMs as legacyAppMainBuwLowerTLowerSExport } from "../../../utils/duration-format";
+export { ProjectDropdownOptions as legacyAppMainBuwLowerTLowerDExport } from "../../../ui/project-dropdown-options";
+export { initAnnotationModeButtonChunk as legacyAppMainBuwLowerVLowerMExport } from "../../../ui/annotation-mode-button";
 export {
   AppgenAccessStateIcon as legacyAppMainBuwLowerVLowerSExport,
   initAppgenAccessStateIconChunk as legacyAppMainBuwLowerYLowerSExport,
@@ -105,7 +107,6 @@ export {
   t_ as legacyAppMainBuwLowerTUnderscoreExport,
   ta as legacyAppMainBuwLowerTLowerAExport,
   tb as legacyAppMainBuwLowerTLowerBExport,
-  td as legacyAppMainBuwLowerTLowerDExport,
   tf as legacyAppMainBuwLowerTLowerFExport,
   tg as legacyAppMainBuwLowerTLowerGExport,
   th as legacyAppMainBuwLowerTLowerHExport,
@@ -131,7 +132,6 @@ export {
   vf as legacyAppMainBuwLowerVLowerFExport,
   vg as legacyAppMainBuwLowerVLowerGExport,
   vh as legacyAppMainBuwLowerVLowerHExport,
-  vm as legacyAppMainBuwLowerVLowerMExport,
   vn as legacyAppMainBuwLowerVLowerNExport,
   vp as legacyAppMainBuwLowerVLowerPExport,
   vt as legacyAppMainBuwLowerVLowerTExport,
