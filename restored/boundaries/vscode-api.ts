@@ -16,13 +16,23 @@ type QueryOptions<T = unknown> = {
 };
 type MutationOptions<TVariables = unknown, TResult = unknown> = {
   mutationFn?: (variables: TVariables) => TResult | Promise<TResult>;
-  onError?: (error: unknown, variables: TVariables, context?: unknown) => void;
+  onError?: (
+    error: unknown,
+    variables: TVariables,
+    context?: unknown,
+  ) => void | Promise<void>;
   onMutate?: (variables: TVariables) => unknown | Promise<unknown>;
+  onSettled?: (
+    result: TResult | undefined,
+    error: unknown,
+    variables: TVariables,
+    context?: unknown,
+  ) => void | Promise<void>;
   onSuccess?: (
     result: TResult,
     variables: TVariables,
     context?: unknown,
-  ) => void;
+  ) => void | Promise<void>;
 };
 type VscodeResponse<T = unknown> = {
   body: T;
@@ -208,6 +218,7 @@ export function vscodeApiI<TVariables = unknown, TResult = unknown>(
 
 export function vscodeApiA(): {
   cancelQueries(options?: { queryKey?: QueryKey }): Promise<void>;
+  fetchQuery<T = unknown>(options: QueryOptions<T>): Promise<T>;
   getQueriesData<T = unknown>(options?: {
     queryKey?: QueryKey;
   }): Array<[QueryKey, T]>;
@@ -218,6 +229,11 @@ export function vscodeApiA(): {
 } {
   return {
     cancelQueries: async () => {},
+    fetchQuery: async (options) => {
+      const data = (await options.queryFn?.()) as never;
+      if (options.queryKey) queryData.set(keyToString(options.queryKey), data);
+      return data;
+    },
     getQueriesData: (options) => {
       const key = keyToString(options?.queryKey);
       return [...queryData.entries()]
@@ -272,10 +288,12 @@ export function vscodeApiUnderscore<TVariables = unknown, TResult = unknown>(
     const context = await options.onMutate?.(variables);
     try {
       const result = (await options.mutationFn?.(variables)) as TResult;
-      options.onSuccess?.(result, variables, context);
+      await options.onSuccess?.(result, variables, context);
+      await options.onSettled?.(result, undefined, variables, context);
       return result;
     } catch (error) {
-      options.onError?.(error, variables, context);
+      await options.onError?.(error, variables, context);
+      await options.onSettled?.(undefined, error, variables, context);
       throw error;
     }
   };
