@@ -85,6 +85,9 @@ export { StreamingDictationTranscriber as legacyAppMainBuwLowerHUpperCExport } f
 export { initDictationStreamingTranscriberRuntimeChunk as legacyAppMainBuwLowerGUpperCExport } from "../../../utils/transcribe-audio";
 export { initUseDictationRuntimeChunk as legacyAppMainBuwLowerIUpperCExport } from "../../../features/use-dictation";
 export { initUseRecordingWaveformChunk as legacyAppMainBuwLowerLUpperCExport } from "../../../utils/use-recording-waveform";
+export { AutomationDetailSection as legacyAppMainBuwLowerGLowerRExport } from "../../../automations/automation-side-panel/status-components";
+export { initAutomationSaveTooltipChunk as legacyAppMainBuwLowerHLowerRExport } from "../../../automations/automation-save-tooltip";
+export { AutomationSaveTooltip as legacyAppMainBuwLowerMLowerRExport } from "../../../automations/automation-save-tooltip";
 export {
   getAppgenAccessShortStateMessage as legacyAppMainBuwLowerGLowerSExport,
   getAppgenAccessStateMessage as legacyAppMainBuwLowerHLowerSExport,
@@ -111,7 +114,6 @@ export {
   gf as legacyAppMainBuwLowerGLowerFExport,
   gn as legacyAppMainBuwLowerGLowerNExport,
   gp as legacyAppMainBuwLowerGLowerPExport,
-  gr as legacyAppMainBuwLowerGLowerRExport,
   gt as legacyAppMainBuwLowerGLowerTExport,
   gx as legacyAppMainBuwLowerGLowerXExport,
   h as legacyAppMainBuwLowerHExport,
@@ -123,7 +125,6 @@ export {
   hf as legacyAppMainBuwLowerHLowerFExport,
   hh as legacyAppMainBuwLowerHLowerHExport,
   hn as legacyAppMainBuwLowerHLowerNExport,
-  hr as legacyAppMainBuwLowerHLowerRExport,
   ht as legacyAppMainBuwLowerHLowerTExport,
   hu as legacyAppMainBuwLowerHLowerUExport,
   iS as legacyAppMainBuwLowerIUpperSExport,
@@ -193,7 +194,6 @@ export {
   mf as legacyAppMainBuwLowerMLowerFExport,
   mm as legacyAppMainBuwLowerMLowerMExport,
   mn as legacyAppMainBuwLowerMLowerNExport,
-  mr as legacyAppMainBuwLowerMLowerRExport,
   mt as legacyAppMainBuwLowerMLowerTExport,
   mu as legacyAppMainBuwLowerMLowerUExport,
   my as legacyAppMainBuwLowerMLowerYExport,

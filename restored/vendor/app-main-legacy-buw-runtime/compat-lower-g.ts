@@ -2,6 +2,7 @@
 // Lowercase g compatibility aliases for the legacy app-main/onboarding producer.
 export { normalizeLocale as appMainCurrentCompatSlotLowerGLowerG } from "../../i18n/locale-resolver";
 export { applyHeartbeatTargetThread as appMainCurrentCompatSlotLowerGLowerI } from "../../automations/shared";
+export { AutomationDetailSection as appMainCurrentCompatSlotLowerGLowerR } from "../../automations/automation-side-panel/status-components";
 
 export {
   openThreadBrowserSidePanelTab,
@@ -26,7 +27,6 @@ export {
   gf as appMainCurrentCompatSlotLowerGLowerF,
   gn as appMainCurrentCompatSlotLowerGLowerN,
   gp as appMainCurrentCompatSlotLowerGLowerP,
-  gr as appMainCurrentCompatSlotLowerGLowerR,
   gS as appMainCurrentCompatSlotLowerGUpperS,
   gt as appMainCurrentCompatSlotLowerGLowerT,
   gx as appMainCurrentCompatSlotLowerGLowerX,

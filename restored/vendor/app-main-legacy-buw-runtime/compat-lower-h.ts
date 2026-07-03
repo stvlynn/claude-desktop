@@ -4,6 +4,7 @@ export { DocumentSearchIcon as appMainCurrentCompatSlotLowerHLowerY } from "../.
 
 export { loadLocaleMessages as appMainCurrentCompatSlotLowerHLowerG } from "../../i18n/locale-resolver";
 export { setAutomationDraftDestination as appMainCurrentCompatSlotLowerHLowerI } from "../../automations/shared";
+export { initAutomationSaveTooltipChunk as appMainCurrentCompatSlotLowerHLowerR } from "../../automations/automation-save-tooltip";
 
 export {
   openThreadBranchReviewSidePanelTab,
@@ -27,7 +28,6 @@ export {
   hf as appMainCurrentCompatSlotLowerHLowerF,
   hh as appMainCurrentCompatSlotLowerHLowerH,
   hn as appMainCurrentCompatSlotLowerHLowerN,
-  hr as appMainCurrentCompatSlotLowerHLowerR,
   hS as appMainCurrentCompatSlotLowerHUpperS,
   ht as appMainCurrentCompatSlotLowerHLowerT,
   hu as appMainCurrentCompatSlotLowerHLowerU,
