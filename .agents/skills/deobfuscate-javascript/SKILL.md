@@ -128,6 +128,18 @@ target is a new package family, add the registry/gate/test entry first, in a
 separate skill commit, so the local compatibility implementation cannot pass the
 same gate later.
 
+For compatibility aggregator barrels (`stable-exports/*`, `compat-*`, or any
+file that re-exports from a `*-compat-bundle`), never route aliases from their
+legacy export names alone. First resolve each direct export through
+`resolve-direct-compat-exports.ts` and inspect the internal binding definition in
+the producer bundle. An alias like `gS` may be a stock package export (for
+example a D3 interval), while adjacent aliases are app runtime helpers. Record
+the source binding decision per alias, then move it either to a real bare npm
+re-export or to a small typed semantic module. After editing, run
+`count-direct-compat-exports.ts` on the touched barrel and the full
+`vendor-npm-preflight.ts restored/vendor` audit; a green single-file decision is
+not enough if the compat barrel still hides direct bundle re-exports.
+
 Treat this as a blocking preflight for every `vendor/` edit: if the public API
 matches a known npm surface, stop before hand-writing code, add the package root
 to the nearest `package.json`, and register the package/gate fingerprint in the
