@@ -162,6 +162,7 @@ export {
 } from "../../../terminal/terminal-panel-routing";
 export { requireReactIsRuntime as legacyAppMainBuwLowerHExport } from "../../react-is-runtime";
 export { initConversationActivityGroupingChunk as legacyAppMainBuwLowerHLowerAExport } from "../../../conversations/conversation-activity-grouping-runtime";
+export { groupConversationActivityEntries as legacyAppMainBuwLowerMLowerAExport } from "../../../conversations/conversation-activity-grouping";
 export { buildPriorConversation as legacyAppMainBuwLowerHLowerNExport } from "../../../composer/prior-conversation";
 export { WorktreeInitActivityList as legacyAppMainBuwLowerHLowerTExport } from "../../../conversations/worktree-init-activity-list";
 export { initLocalConversationGitActionsChunk as legacyAppMainBuwLowerHLowerUExport } from "../../../conversations/local-conversation-git-actions";
@@ -209,7 +210,6 @@ export {
   l as legacyAppMainBuwLowerLExport,
   la as legacyAppMainBuwLowerLLowerAExport,
   m as legacyAppMainBuwLowerMExport,
-  ma as legacyAppMainBuwLowerMLowerAExport,
   md as legacyAppMainBuwLowerMLowerDExport,
   mm as legacyAppMainBuwLowerMLowerMExport,
   mn as legacyAppMainBuwLowerMLowerNExport,

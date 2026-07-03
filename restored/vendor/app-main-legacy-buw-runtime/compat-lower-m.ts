@@ -20,10 +20,10 @@ export { AutomationSaveTooltip as appMainCurrentCompatSlotLowerMLowerR } from ".
 export { preferredTerminalPanelPlacementSignal as appMainCurrentCompatSlotLowerMUnderscore } from "../../terminal/terminal-panel-routing";
 export { initMicrophoneInputChunk as appMainCurrentCompatSlotLowerMUpperC } from "../../utils/microphone-input";
 export { scrollConversationItemIntoViewWhenReady as appMainCurrentCompatSlotLowerMLowerT } from "../../conversations/scroll-conversation-item-into-view";
+export { groupConversationActivityEntries as appMainCurrentCompatSlotLowerMLowerA } from "../../conversations/conversation-activity-grouping";
 
 export {
   m as appMainCurrentCompatSlotLowerM,
-  ma as appMainCurrentCompatSlotLowerMLowerA,
   md as appMainCurrentCompatSlotLowerMLowerD,
   mf as appMainCurrentCompatSlotLowerMLowerF,
   mm as appMainCurrentCompatSlotLowerMLowerM,
