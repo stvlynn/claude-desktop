@@ -20,9 +20,9 @@ export { logger } from "../../conversations/local-conversation-thread-parts/loca
 export { parseUnixSeconds as appMainCurrentCompatSlotUpperNLowerC } from "../../utils/rate-limit-status/windows";
 export { openInCodex as appMainCurrentCompatSlotUpperNLowerO } from "../../runtime/open-in-codex-tool";
 export { appConnectionLinkQueryOptions as appMainCurrentCompatSlotUpperNLowerS } from "../../connectors/apps-queries/onboarding-app-connection";
+export { handleReadThread as appMainCurrentCompatSlotUpperNLowerA } from "../../conversations/thread-management-tool-handlers";
 
 export {
-  Na as appMainCurrentCompatSlotUpperNLowerA,
   Nb as appMainCurrentCompatSlotUpperNLowerB,
   Nd as appMainCurrentCompatSlotUpperNLowerD,
   Nf as appMainCurrentCompatSlotUpperNLowerF,

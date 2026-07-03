@@ -191,7 +191,7 @@ export async function handleForkThread({
   }
 }
 
-async function handleCreateThread({
+export async function handleCreateThread({
   argumentsValue,
   getAvailableModels,
   scope,
@@ -245,7 +245,7 @@ async function handleCreateThread({
   }
 }
 
-async function handleListProjects({
+export async function handleListProjects({
   scope,
   argumentsValue,
 }: {
@@ -266,7 +266,7 @@ async function handleListProjects({
   }
 }
 
-async function handleListThreads({
+export async function handleListThreads({
   scope,
   argumentsValue,
 }: {
@@ -294,7 +294,7 @@ async function handleListThreads({
   }
 }
 
-async function handleReadThread({
+export async function handleReadThread({
   scope,
   argumentsValue,
   sourceHostId,
@@ -330,7 +330,7 @@ async function handleReadThread({
   }
 }
 
-async function handleSendMessageToThread({
+export async function handleSendMessageToThread({
   argumentsValue,
   scope,
   sourceHostId,
@@ -367,7 +367,7 @@ async function handleSendMessageToThread({
   }
 }
 
-async function handleSetThreadPinned({
+export async function handleSetThreadPinned({
   argumentsValue,
 }: {
   argumentsValue: unknown;
@@ -387,7 +387,7 @@ async function handleSetThreadPinned({
   }
 }
 
-async function handleSetThreadArchived({
+export async function handleSetThreadArchived({
   argumentsValue,
   sourceThreadId,
   scope,
@@ -419,7 +419,7 @@ async function handleSetThreadArchived({
   }
 }
 
-async function handleSetThreadTitle({
+export async function handleSetThreadTitle({
   argumentsValue,
   scope,
 }: {

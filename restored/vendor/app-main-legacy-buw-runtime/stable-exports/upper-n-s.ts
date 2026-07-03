@@ -71,11 +71,14 @@ export {
 } from "../../../connectors/apps-queries/onboarding-app-connection";
 export { initConversationalOnboardingStreamingIntroChunk as legacyAppMainBuwUpperQLowerSExport } from "../../../onboarding/conversational-onboarding-streaming-intro";
 export { initMoveThreadToHostWorktreeChunk as legacyAppMainBuwUpperQLowerAExport } from "../../../conversations/move-thread-to-host-worktree";
+export {
+  handleReadThread as legacyAppMainBuwUpperNLowerAExport,
+  handleSendMessageToThread as legacyAppMainBuwUpperPLowerAExport,
+} from "../../../conversations/thread-management-tool-handlers";
 
 export {
   NC as legacyAppMainBuwUpperNUpperCExport,
   NS as legacyAppMainBuwUpperNUpperSExport,
-  Na as legacyAppMainBuwUpperNLowerAExport,
   Nb as legacyAppMainBuwUpperNLowerBExport,
   Nd as legacyAppMainBuwUpperNLowerDExport,
   Nf as legacyAppMainBuwUpperNLowerFExport,
@@ -106,7 +109,6 @@ export {
   P as legacyAppMainBuwUpperPExport,
   PC as legacyAppMainBuwUpperPUpperCExport,
   PS as legacyAppMainBuwUpperPUpperSExport,
-  Pa as legacyAppMainBuwUpperPLowerAExport,
   Pb as legacyAppMainBuwUpperPLowerBExport,
   Pi as legacyAppMainBuwUpperPLowerIExport,
   Pl as legacyAppMainBuwUpperPLowerLExport,

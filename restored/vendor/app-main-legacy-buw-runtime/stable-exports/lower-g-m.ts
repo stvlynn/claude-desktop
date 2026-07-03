@@ -85,6 +85,10 @@ export {
   remainingUsagePercent as legacyAppMainBuwLowerKLowerCExport,
 } from "../../../utils/rate-limit-status/windows";
 export { getThreadHandoffComposerDisabledReason as legacyAppMainBuwLowerLLowerOExport } from "../../../conversations/thread-handoff-composer-status";
+export {
+  handleCreateThread as legacyAppMainBuwLowerKLowerAExport,
+  handleListProjects as legacyAppMainBuwLowerJLowerAExport,
+} from "../../../conversations/thread-management-tool-handlers";
 
 export { closestCenter as ThreadRowStatusIndicator } from "../../dnd-kit-core";
 
@@ -136,7 +140,6 @@ export {
   j as legacyAppMainBuwLowerJExport,
   jC as legacyAppMainBuwLowerJUpperCExport,
   jS as legacyAppMainBuwLowerJUpperSExport,
-  ja as legacyAppMainBuwLowerJLowerAExport,
   jb as legacyAppMainBuwLowerJLowerBExport,
   jd as legacyAppMainBuwLowerJLowerDExport,
   jf as legacyAppMainBuwLowerJLowerFExport,
@@ -151,7 +154,6 @@ export {
   k as legacyAppMainBuwLowerKExport,
   kS as legacyAppMainBuwLowerKUpperSExport,
   k_ as legacyAppMainBuwLowerKUnderscoreExport,
-  ka as legacyAppMainBuwLowerKLowerAExport,
   kb as legacyAppMainBuwLowerKLowerBExport,
   kd as legacyAppMainBuwLowerKLowerDExport,
   kf as legacyAppMainBuwLowerKLowerFExport,

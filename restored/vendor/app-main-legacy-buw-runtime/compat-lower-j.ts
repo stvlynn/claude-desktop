@@ -12,10 +12,10 @@ export { scheduleReviewRestore } from "../../conversations/local-conversation-pa
 export { hasRateLimitWindow as appMainCurrentCompatSlotLowerJLowerC } from "../../utils/rate-limit-status/windows";
 export { markTurnInterruptedByThisClient as appMainCurrentCompatSlotLowerJLowerS } from "../../threads/interrupted-turn-state";
 export { hasWorkspaceDependenciesFeature as appMainCurrentCompatSlotLowerJLowerO } from "../../features/workspace-dependencies";
+export { handleListProjects as appMainCurrentCompatSlotLowerJLowerA } from "../../conversations/thread-management-tool-handlers";
 
 export {
   j as appMainCurrentCompatSlotLowerJ,
-  ja as appMainCurrentCompatSlotLowerJLowerA,
   jb as appMainCurrentCompatSlotLowerJLowerB,
   jC as appMainCurrentCompatSlotLowerJUpperC,
   jd as appMainCurrentCompatSlotLowerJLowerD,

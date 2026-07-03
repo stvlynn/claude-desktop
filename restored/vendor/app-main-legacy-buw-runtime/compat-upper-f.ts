@@ -14,10 +14,10 @@ export { initReviewRouteContextRuntime as initReviewRouteContextChunk } from "..
 export { CHATGPT_ADMIN_USAGE_LIMITS_URL as appMainCurrentCompatSlotUpperFLowerC } from "../../utils/links-bd-mmkun-d";
 export { COMPLETE_CONVERSATIONAL_ONBOARDING_TASK_NAME as appMainCurrentCompatSlotUpperFLowerO } from "../../runtime/run-app-action-in-primary-window";
 export { initConversationalOnboardingAnalyticsChunk as appMainCurrentCompatSlotUpperFLowerS } from "../../onboarding/conversational-onboarding-analytics";
+export { handleSetThreadArchived as appMainCurrentCompatSlotUpperFLowerA } from "../../conversations/thread-management-tool-handlers";
 
 export {
   F as appMainCurrentCompatSlotUpperF,
-  Fa as appMainCurrentCompatSlotUpperFLowerA,
   Fb as appMainCurrentCompatSlotUpperFLowerB,
   Fd as appMainCurrentCompatSlotUpperFLowerD,
   Fl as appMainCurrentCompatSlotUpperFLowerL,

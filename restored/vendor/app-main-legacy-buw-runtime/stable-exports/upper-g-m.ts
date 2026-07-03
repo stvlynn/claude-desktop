@@ -63,6 +63,11 @@ export { handleHandoffThread as legacyAppMainBuwUpperGLowerAExport } from "../..
 export { initThreadHandoffToolCoreChunk as legacyAppMainBuwUpperJLowerAExport } from "../../../conversations/thread-handoff-tool-definitions";
 export { getAvailableHandoffHosts as legacyAppMainBuwUpperKLowerAExport } from "../../../conversations/available-handoff-hosts";
 export {
+  handleListThreads as legacyAppMainBuwUpperMLowerAExport,
+  handleSetThreadPinned as legacyAppMainBuwUpperILowerAExport,
+  handleSetThreadTitle as legacyAppMainBuwUpperLLowerAExport,
+} from "../../../conversations/thread-management-tool-handlers";
+export {
   trackConversationalOnboardingLifecycleCompleted as legacyAppMainBuwUpperLLowerSExport,
   trackConversationalOnboardingLifecycleStarted as legacyAppMainBuwUpperHLowerSExport,
 } from "../../../onboarding/conversational-onboarding-analytics";
@@ -103,7 +108,6 @@ export {
   Hy as legacyAppMainBuwUpperHLowerYExport,
   IC as legacyAppMainBuwUpperIUpperCExport,
   IS as legacyAppMainBuwUpperIUpperSExport,
-  Ia as legacyAppMainBuwUpperILowerAExport,
   Ib as legacyAppMainBuwUpperILowerBExport,
   Id as legacyAppMainBuwUpperILowerDExport,
   If as legacyAppMainBuwUpperILowerFExport,
@@ -151,7 +155,6 @@ export {
   Ky as legacyAppMainBuwUpperKLowerYExport,
   L as legacyAppMainBuwUpperLExport,
   LS as legacyAppMainBuwUpperLUpperSExport,
-  La as legacyAppMainBuwUpperLLowerAExport,
   Lb as legacyAppMainBuwUpperLLowerBExport,
   Ld as legacyAppMainBuwUpperLLowerDExport,
   Lf as legacyAppMainBuwUpperLLowerFExport,
@@ -171,7 +174,6 @@ export {
   M as legacyAppMainBuwUpperMExport,
   MS as legacyAppMainBuwUpperMUpperSExport,
   M_ as legacyAppMainBuwUpperMUnderscoreExport,
-  Ma as legacyAppMainBuwUpperMLowerAExport,
   Mb as legacyAppMainBuwUpperMLowerBExport,
   Mc as legacyAppMainBuwUpperMLowerCExport,
   Md as legacyAppMainBuwUpperMLowerDExport,

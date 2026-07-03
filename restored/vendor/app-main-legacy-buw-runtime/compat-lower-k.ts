@@ -7,11 +7,11 @@ export { SidebarRowIcon } from "../app-main-current-runtime";
 
 export { initComposedRefsRuntime } from "../../runtime/app-main-new-thread-runtime";
 export { remainingUsagePercent as appMainCurrentCompatSlotLowerKLowerC } from "../../utils/rate-limit-status/windows";
+export { handleCreateThread as appMainCurrentCompatSlotLowerKLowerA } from "../../conversations/thread-management-tool-handlers";
 
 export {
   k as appMainCurrentCompatSlotLowerK,
   k_ as appMainCurrentCompatSlotLowerKUnderscore,
-  ka as appMainCurrentCompatSlotLowerKLowerA,
   kb as appMainCurrentCompatSlotLowerKLowerB,
   kd as appMainCurrentCompatSlotLowerKLowerD,
   kf as appMainCurrentCompatSlotLowerKLowerF,

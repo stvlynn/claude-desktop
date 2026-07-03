@@ -9,11 +9,11 @@ export { SelectedTextAttachmentPill as appMainCurrentCompatSlotUpperMLowerI } fr
 export { initSidebarRowPrimitivesChunk } from "../app-main-current-runtime";
 export { OPEN_IN_CODEX_TOOL_NAME as appMainCurrentCompatSlotUpperMLowerO } from "../../runtime/run-app-action-in-primary-window";
 export { findConnectorAppByIdentifier as appMainCurrentCompatSlotUpperMLowerS } from "../../connectors/apps-queries/onboarding-app-connection";
+export { handleListThreads as appMainCurrentCompatSlotUpperMLowerA } from "../../conversations/thread-management-tool-handlers";
 
 export {
   M as appMainCurrentCompatSlotUpperM,
   M_ as appMainCurrentCompatSlotUpperMUnderscore,
-  Ma as appMainCurrentCompatSlotUpperMLowerA,
   Mb as appMainCurrentCompatSlotUpperMLowerB,
   Mc as appMainCurrentCompatSlotUpperMLowerC,
   Md as appMainCurrentCompatSlotUpperMLowerD,

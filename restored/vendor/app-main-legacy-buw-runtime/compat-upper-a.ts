@@ -13,10 +13,10 @@ export { initTerminalFontSettingsChunk } from "../../runtime/window-chrome-runti
 
 export { computePointerVelocity as appMainCurrentCompatSlotUpperALowerD } from "../../runtime/pointer-velocity-signals";
 export { secondsUntilUnixSeconds as appMainCurrentCompatSlotUpperALowerC } from "../../utils/rate-limit-status/windows";
+export { handleForkThread as appMainCurrentCompatSlotUpperALowerA } from "../../conversations/thread-management-tool-handlers";
 
 export {
   A as appMainCurrentCompatSlotUpperA,
-  Aa as appMainCurrentCompatSlotUpperALowerA,
   Ab as appMainCurrentCompatSlotUpperALowerB,
   Af as appMainCurrentCompatSlotUpperALowerF,
   Ag as appMainCurrentCompatSlotUpperALowerG,

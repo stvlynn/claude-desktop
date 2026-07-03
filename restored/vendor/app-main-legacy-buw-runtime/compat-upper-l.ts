@@ -5,10 +5,10 @@ export { FileAttachmentPill as appMainCurrentCompatSlotUpperLLowerI } from "../.
 export { initAppIntlSignalRuntime as initPendingWorktreeRouteRuntimeChunk } from "../../utils/app-intl-signal";
 export { CHATGPT_PRICING_URL as appMainCurrentCompatSlotUpperLLowerC } from "../../utils/links-bd-mmkun-d";
 export { trackConversationalOnboardingLifecycleCompleted as appMainCurrentCompatSlotUpperLLowerS } from "../../onboarding/conversational-onboarding-analytics";
+export { handleSetThreadTitle as appMainCurrentCompatSlotUpperLLowerA } from "../../conversations/thread-management-tool-handlers";
 
 export {
   L as appMainCurrentCompatSlotUpperL,
-  La as appMainCurrentCompatSlotUpperLLowerA,
   Lb as appMainCurrentCompatSlotUpperLLowerB,
   Ld as appMainCurrentCompatSlotUpperLLowerD,
   Lf as appMainCurrentCompatSlotUpperLLowerF,
