@@ -525,6 +525,37 @@ describe("vendor-npm-preflight CLI", () => {
     expect(result.stderr).toBe("");
   });
 
+  test("does not skip npm API fingerprints in oversized bundle-named files", () => {
+    const root = makeTmpRoot();
+    const vendorDir = path.join(root, "restored", "vendor");
+    fs.mkdirSync(vendorDir, { recursive: true });
+    fs.writeFileSync(
+      path.join(root, "package.json"),
+      JSON.stringify({ dependencies: { "react-intl": "^10.0.0" } }),
+    );
+    fs.writeFileSync(
+      path.join(vendorDir, "app-main-current-test-bundle.ts"),
+      [
+        "// Restored from ref/webview/assets/app-main-current-test.js",
+        "export function useIntl() {",
+        "  return { formatMessage: (descriptor) => descriptor.defaultMessage ?? '' };",
+        "}",
+        "export function FormattedMessage(props) {",
+        "  return props.defaultMessage ?? props.id ?? '';",
+        "}",
+        ...Array.from(
+          { length: 4100 },
+          (_, index) => `// oversized aggregator filler ${index}`,
+        ),
+      ].join("\n"),
+    );
+
+    const result = runCLI(path.join(root, "restored"));
+    expect(result.code).toBe(1);
+    expect(result.stderr).toContain("app-main-current-test-bundle.ts");
+    expect(result.stderr).toContain("third-party-npm-shim-not-reexport");
+  });
+
   test("fails hand-written vendor shims whose filename matches a declared dependency", () => {
     const root = makeTmpRoot();
     const vendorDir = path.join(root, "restored", "vendor");

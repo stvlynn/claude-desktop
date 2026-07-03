@@ -14,6 +14,7 @@ import {
 
 const SOURCE_EXT_RE = /\.[cm]?[jt]sx?$/i;
 const NPM_SHIM_ISSUE_PREFIX = "third-party-npm-shim-";
+const OVERSIZED_AGGREGATOR_BUNDLE_LINE_THRESHOLD = 4000;
 const DEFAULT_RUNTIME_EXPORT_READ_TIMEOUT_MS = 2_000;
 
 export type VendorNpmPreflightResult = {
@@ -138,6 +139,31 @@ function withOnlyNpmShimIssues(
 
 function isPublicVendorFile(file: string): boolean {
   return /(?:^|\/)vendor\/[^/]+\.[cm]?[jt]sx?$/i.test(file.replace(/\\/g, "/"));
+}
+
+function lineCount(source: string): number {
+  if (source.length === 0) return 0;
+  let count = 1;
+  for (let index = 0; index < source.length; index++) {
+    if (source.charCodeAt(index) === 10) count++;
+  }
+  return count;
+}
+
+function shouldSkipFullQualityAnalysisForVendorPreflight(
+  file: string,
+  source: string,
+): boolean {
+  if (!isPublicVendorFile(file)) return false;
+  if (!/-bundle\.[cm]?[jt]sx?$/i.test(path.basename(file))) return false;
+  if (lineCount(source) < OVERSIZED_AGGREGATOR_BUNDLE_LINE_THRESHOLD) {
+    return false;
+  }
+
+  // Huge app aggregator bundles are the body-restoration target, not public
+  // package shims. Keep the lightweight npm identity checks, but avoid parsing
+  // a 100k+ line bundle through the full quality gate on every preflight.
+  return expectedPublicNpmVendorSpecifiers(file, source) == null;
 }
 
 function isBarePackageSpecifier(specifier: string): boolean {
@@ -469,7 +495,12 @@ export async function vendorNpmPreflight(
   const reports: FileQualityReport[] = [];
 
   for (const file of files) {
-    const report = analyzeSource(fs.readFileSync(file, "utf-8"), file, {
+    const source = fs.readFileSync(file, "utf-8");
+    if (shouldSkipFullQualityAnalysisForVendorPreflight(file, source)) {
+      continue;
+    }
+
+    const report = analyzeSource(source, file, {
       ...DEFAULT_OPTIONS,
       allowFlat: true,
       allowUntyped: true,
