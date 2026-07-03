@@ -213,8 +213,8 @@ repo (record the package in IMPORT_MAP `vendor`; `classifyBoundary()` reads it):
 | `highlight-js-core.ts` (`core-DMiaGTKr`)                                  | `highlight.js/lib/core`                                                   | legacy loader wrapper over Highlight.js core                    |
 | `dagre.ts` / `dagre-alt.ts` (`dagre-*` package chunks)                    | `dagre`                                                                   | layout aliases; renderer chunks stay Mermaid                    |
 | `pdfjs.ts` / `pdfjs-entry.ts` (`pdf-*` package chunks)                    | `pdfjs-dist`                                                              | PDF.js library aliases; worker stays an asset                   |
-| `docx-preview.ts` (`docx-preview-*`)                                       | `docx-preview`                                                            | Word document renderer; preserve renderAsync re-export          |
-| `stylis.ts` (`stylis-*`)                                                   | `stylis`                                                                  | CSS parser/serializer helpers for document renderers            |
+| `docx-preview.ts` (`docx-preview-*`)                                      | `docx-preview`                                                            | Word document renderer; preserve renderAsync re-export          |
+| `stylis.ts` (`stylis-*`)                                                  | `stylis`                                                                  | CSS parser/serializer helpers for document renderers            |
 | `entities-escape.ts` (`dist-CD74BDfk` and synced `dist-*` hashes)         | `@braintree/sanitize-url`                                                 | Mermaid URL sanitizer CommonJS compatibility shim               |
 | `react-dom-client.ts` (`client-*`)                                        | `react-dom/client`                                                        | client root loader/re-export shim                               |
 | `formatjs.ts` (`lib-BWT6A3Q0`)                                            | `react-intl`                                                              | consumers import `useIntl`/`FormattedMessage`                   |
@@ -236,7 +236,7 @@ repo (record the package in IMPORT_MAP `vendor`; `classifyBoundary()` reads it):
 | `src.ts` (`src-*`)                                                        | `zod`                                                                     | verify it is stock Zod, not a fork                              |
 | `segment-analytics.ts` (`pkg-*`, `esm-Bs7-NtHW`)                          | `@segment/analytics-next`                                                 | Segment browser SDK + analytics-core compatibility aliases      |
 | `segment-middleware.ts` (`middleware-BDgBoOJW` / `middleware-CcPovR3s`)   | `@segment/analytics-next` + `@segment/analytics-core` + `@segment/facade` | Segment context, middleware, and facade compatibility aliases   |
-| `segment-analytics-integration.ts` (`ajs-destination-*`)                  | restore semantically                                                      | legacy destination loader; not a direct npm re-export boundary  |
+| `segment-analytics-integration.ts` (`ajs-destination-*`)                  | `@segment/analytics-next/dist/cjs/plugins/ajs-destination`                | AJS legacy destination loader; internal package subpath         |
 | `radix-*.ts` (`dist-*`, `Combination-*`)                                  | `@radix-ui/react-*`                                                       | per-primitive; **may be forked**                                |
 
 **Fork caveat:** `@pierre/*`, `@radix-ui/*`, and `zod`(`src`) may be Codex forks, not
@@ -274,10 +274,13 @@ rule with the Segment facade layer included: use `@segment/analytics-next`,
 only tiny typed wrappers for legacy alias names that the packages do not export.
 Do **not** classify `ajs-destination-*` as a stock
 `@segment/analytics.js-integration` re-export. That package exports the base
-integration factory; the Codex `ajs-destination-*` chunk exports an
-`ajsDestinations` loader that combines CDN loading, middleware, plan filtering,
-and queue/flush behavior. Restore that chunk as a typed semantic module and use
-real Segment packages only for the pieces they actually export. A shim such as
+integration factory; the Codex `ajs-destination-*` chunk exports the
+`ajsDestinations` loader from `@segment/analytics-next`'s internal AJS destination
+plugin. Use the runtime subpath
+`@segment/analytics-next/dist/cjs/plugins/ajs-destination`, and add an ambient
+declaration pointing at
+`@segment/analytics-next/dist/types/plugins/ajs-destination` if TypeScript needs
+help resolving the internal CJS subpath. A shim such as
 `export { ajsDestinations } from "@segment/analytics.js-integration"` is invalid
 because the package has no `ajsDestinations` export.
 And to react-style-singleton: exports such as `styleHookSingleton`,

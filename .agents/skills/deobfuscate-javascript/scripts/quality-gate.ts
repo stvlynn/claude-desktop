@@ -476,6 +476,8 @@ const LEGACY_D3_AXIS_TIME_SPECIFIERS = [
   "d3-time-format",
   "d3-interpolate",
 ] as const;
+const SEGMENT_AJS_DESTINATION_SPECIFIER =
+  "@segment/analytics-next/dist/cjs/plugins/ajs-destination";
 
 const PUBLIC_NPM_VENDOR_SHIMS: Record<string, PublicNpmVendorSpecifiers> = {
   cmdk: "cmdk",
@@ -543,6 +545,7 @@ const PUBLIC_NPM_VENDOR_SHIMS: Record<string, PublicNpmVendorSpecifiers> = {
   stylis: "stylis",
   analytics: "@segment/analytics-next",
   "segment-analytics": ["@segment/analytics-next", "@segment/analytics-core"],
+  "segment-analytics-integration": SEGMENT_AJS_DESTINATION_SPECIFIER,
   "segment-middleware": [
     "@segment/analytics-next",
     "@segment/analytics-core",
@@ -624,6 +627,7 @@ const PUBLIC_NPM_VENDOR_SOURCE_CHUNKS: Record<
     "@segment/facade",
   ],
   "arc-D3MQZVTw": "d3-shape",
+  "ajs-destination-BeM_T5LQ": SEGMENT_AJS_DESTINATION_SPECIFIER,
   "band-DVYrpIoC": ["d3-array", "d3-scale"],
   "defaultLocale-I5DW1pOv": "d3-format",
   "defaultLocale-gPb_B8uX": "d3-format",
@@ -684,6 +688,11 @@ const PUBLIC_NPM_VENDOR_API_FINGERPRINTS: Array<{
       "segmentio",
     ],
     minimumUniqueApiNames: 2,
+  },
+  {
+    specifiers: SEGMENT_AJS_DESTINATION_SPECIFIER,
+    apiNames: ["LegacyDestination", "ajsDestinations"],
+    minimumUniqueApiNames: 1,
   },
   {
     specifiers: "d3-interpolate",

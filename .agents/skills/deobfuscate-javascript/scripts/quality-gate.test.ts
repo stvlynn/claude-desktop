@@ -116,11 +116,15 @@ describe("quality-gate", () => {
         registerLanguage() {},
       });
     `;
-    const report = analyzeSource(source, "restored/vendor/highlight-js-core.ts", {
-      ...DEFAULT_OPTIONS,
-      allowFlat: true,
-      allowUntyped: true,
-    });
+    const report = analyzeSource(
+      source,
+      "restored/vendor/highlight-js-core.ts",
+      {
+        ...DEFAULT_OPTIONS,
+        allowFlat: true,
+        allowUntyped: true,
+      },
+    );
     expect(report.issues.map((issue) => issue.code)).toContain(
       "third-party-npm-shim-not-reexport",
     );
@@ -132,11 +136,15 @@ describe("quality-gate", () => {
       import highlightJsCore from "highlight.js/lib/core";
       export const loadHighlightJsCore = () => highlightJsCore;
     `;
-    const report = analyzeSource(source, "restored/vendor/highlight-js-core.ts", {
-      ...DEFAULT_OPTIONS,
-      allowFlat: true,
-      allowUntyped: true,
-    });
+    const report = analyzeSource(
+      source,
+      "restored/vendor/highlight-js-core.ts",
+      {
+        ...DEFAULT_OPTIONS,
+        allowFlat: true,
+        allowUntyped: true,
+      },
+    );
     expect(report.issues).toEqual([]);
   });
 
@@ -2434,6 +2442,83 @@ describe("quality-gate", () => {
     );
     expect(reports[0]!.issues[0]!.detail).toMatchObject({
       missingPackages: ["@segment/analytics-core"],
+    });
+  });
+
+  test("fails Segment AJS destination shims that re-export the wrong package", () => {
+    const source = `
+      // Restored from ref/webview/assets/ajs-destination-BeM_T5LQ.js
+      export { ajsDestinations } from "@segment/analytics.js-integration";
+    `;
+    const report = analyzeSource(
+      source,
+      "restored/vendor/segment-analytics-integration.ts",
+      {
+        ...DEFAULT_OPTIONS,
+        allowFlat: true,
+      },
+    );
+    expect(report.issues.map((issue) => issue.code)).toContain(
+      "third-party-npm-shim-not-reexport",
+    );
+    expect(
+      report.issues.find(
+        (issue) => issue.code === "third-party-npm-shim-not-reexport",
+      )?.detail,
+    ).toMatchObject({
+      expectedSpecifiers: [
+        "@segment/analytics-next/dist/cjs/plugins/ajs-destination",
+      ],
+    });
+  });
+
+  test("passes Segment AJS destination shims backed by the analytics-next internal plugin", () => {
+    const source = `
+      // Restored from ref/webview/assets/ajs-destination-BeM_T5LQ.js
+      export {
+        LegacyDestination,
+        ajsDestinations,
+      } from "@segment/analytics-next/dist/cjs/plugins/ajs-destination";
+      export type {
+        ClassicIntegrationSource,
+        LegacyIntegration,
+      } from "@segment/analytics-next/dist/types/plugins/ajs-destination/types";
+    `;
+    const report = analyzeSource(
+      source,
+      "restored/vendor/segment-analytics-integration.ts",
+      {
+        ...DEFAULT_OPTIONS,
+        allowFlat: true,
+      },
+    );
+    expect(report.issues).toEqual([]);
+  });
+
+  test("fails Segment AJS destination shims when analytics-next is not declared", () => {
+    const root = makeTmpRoot();
+    const restoredDir = path.join(root, "restored");
+    const vendorDir = path.join(restoredDir, "vendor");
+    fs.mkdirSync(vendorDir, { recursive: true });
+    fs.writeFileSync(path.join(root, "package.json"), JSON.stringify({}));
+    fs.writeFileSync(
+      path.join(vendorDir, "segment-analytics-integration.ts"),
+      `
+        // Restored from ref/webview/assets/ajs-destination-BeM_T5LQ.js
+        export {
+          LegacyDestination,
+          ajsDestinations,
+        } from "@segment/analytics-next/dist/cjs/plugins/ajs-destination";
+      `,
+    );
+
+    const reports = analyzePublicNpmVendorShimDependencies(restoredDir);
+    expect(reports).toHaveLength(1);
+    expect(reports[0]!.issues.map((issue) => issue.code)).toContain(
+      "third-party-npm-shim-dependency-missing",
+    );
+    expect(reports[0]!.issues[0]!.detail).toMatchObject({
+      missingPackages: ["@segment/analytics-next"],
     });
   });
 
