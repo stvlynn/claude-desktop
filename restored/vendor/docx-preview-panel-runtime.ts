@@ -99,19 +99,30 @@ import {
 import {
   anchorFromDocxComment as et,
   anchorFromPointerDrag as Be,
+  centeredDocxPageElement as Bt,
+  clearDocxPreviewContainers as Ft,
   computeDocxAskForEditPosition as Pe,
+  createDocxPreviewStyleText,
   createDocxAnnotationMetadata as Xe,
   createDocxCommentPayload as Ye,
+  DEFAULT_DOCX_ZOOM_PERCENT as Jt,
   describeDocxAnnotationAnchor as Ze,
   docxCommentKey as nt,
   docxCommentPageNumber as Qe,
   docxCommentPageSize as $e,
   docxCommentText as tt,
+  docxPageElements as Rt,
+  DOCX_PREVIEW_SCROLL_CLASS as Kt,
+  docxTitleFromPath as It,
+  fitDocxPreviewToWidth as Lt,
+  measureDocxPage as Vt,
   pagePointFromPointerEvent as Fe,
   pointerDragMoved as ze,
   readDocxElementAnnotationAnchorAtPoint as dt,
   readDocxTextSelectionAnchor as ut,
   rectFromPoints as Ve,
+  renderDocxPreview as Pt,
+  scrollToDocxPage as zt,
 } from "../features/documents/docx-preview-panel";
 var H = e(() => {});
 var U = e(() => {
@@ -2013,6 +2024,7 @@ function X(e) {
             bodyContainer: e,
             renderAsync: i,
             styleContainer: t,
+            styleText: qt,
           }).then((n) => {
             if (s.current !== l) return;
             if (!n) {
@@ -2093,6 +2105,7 @@ function Nt(e) {
         ? (Lt({
             bodyContainer: e.current,
             bodyContainerWidth: n,
+            normalizeZoomPercent: E,
             zoomPercent: Jt,
           }) ?? Jt)
         : i.zoomPercent,
@@ -2109,8 +2122,12 @@ function Nt(e) {
   return {
     fitToWidth: () => {
       let t = i.kind === `fit-width` ? null : Bt(e.current);
-      Lt({ bodyContainer: e.current, bodyContainerWidth: n, zoomPercent: o }) !=
-        null &&
+      Lt({
+        bodyContainer: e.current,
+        bodyContainerWidth: n,
+        normalizeZoomPercent: E,
+        zoomPercent: o,
+      }) != null &&
         (a({ kind: `fit-width` }),
         t != null &&
           window.requestAnimationFrame(() => {
@@ -2174,93 +2191,6 @@ function Nt(e) {
     zoomPercent: o,
   };
 }
-async function Pt({
-  bytes: e,
-  bodyContainer: t,
-  renderAsync: n,
-  styleContainer: r,
-}) {
-  try {
-    return (
-      await n(e, t, r, { className: $, renderAltChunks: !1, useBase64URL: !0 }),
-      Ut(r),
-      !0
-    );
-  } catch {
-    return !1;
-  }
-}
-function Ft({ bodyContainer: e, styleContainer: t }) {
-  (e.replaceChildren(), t.replaceChildren());
-}
-function It(e) {
-  return e.replace(/\.docx$/i, ``);
-}
-function Lt({ bodyContainer: e, bodyContainerWidth: t, zoomPercent: n }) {
-  if (e == null) return null;
-  let r = e.querySelector(Xt);
-  if (r == null) return null;
-  let i = r.parentElement ?? e,
-    a = window.getComputedStyle(i),
-    o = Number.parseFloat(a.paddingLeft) + Number.parseFloat(a.paddingRight),
-    s = Math.max(
-      1,
-      ((t ?? i.clientWidth) || e.clientWidth) - (Number.isFinite(o) ? o : 0),
-    ),
-    c = Number.parseFloat(window.getComputedStyle(r).width),
-    l =
-      c > 0 ? c : r.getBoundingClientRect().width / Math.max(n / 100, 2 ** -52);
-  return !Number.isFinite(l) || l <= 0 ? null : E(Math.round((s / l) * 100));
-}
-function Rt(e) {
-  return Array.from(e.querySelectorAll(Xt));
-}
-function zt(e, t, n, r) {
-  if (!Number.isInteger(t) || t < 1) return !1;
-  let i = Rt(e)[t - 1];
-  if (i == null) return !1;
-  n.current != null &&
-    (window.cancelAnimationFrame(n.current), (n.current = null));
-  let a = Yt,
-    o = () => {
-      let t = e.getBoundingClientRect(),
-        s = i.getBoundingClientRect(),
-        c = e.scrollTop + (s.top - t.top) / Math.max(r, 2 ** -52);
-      if ((e.scrollTo({ top: c }), --a, a > 0)) {
-        n.current = window.requestAnimationFrame(o);
-        return;
-      }
-      n.current = null;
-    };
-  return ((n.current = window.requestAnimationFrame(o)), !0);
-}
-function Bt(e) {
-  if (e == null) return null;
-  let t = Rt(e);
-  if (t.length === 0) return null;
-  let n = e.getBoundingClientRect(),
-    r = n.top + n.height / 2,
-    i = t[0],
-    a = 1 / 0;
-  for (let e of t) {
-    let t = e.getBoundingClientRect(),
-      n = t.top + t.height / 2,
-      o = Math.abs(n - r);
-    o < a && ((i = e), (a = o));
-  }
-  return i;
-}
-function Vt(e, t) {
-  let n = window.getComputedStyle(e),
-    r = Number.parseFloat(n.width),
-    i = Number.parseFloat(n.height),
-    a = e.getBoundingClientRect(),
-    o = Math.max(t / 100, 2 ** -52);
-  return {
-    height: Number.isFinite(i) && i > 0 ? i : a.height / o,
-    width: Number.isFinite(r) && r > 0 ? r : a.width / o,
-  };
-}
 function Ht(e, t) {
   return (
     a(e) &&
@@ -2268,11 +2198,7 @@ function Ht(e, t) {
     e.localArtifactAnnotationContext.path === t
   );
 }
-function Ut(e) {
-  let t = document.createElement(`style`);
-  ((t.textContent = qt), e.appendChild(t));
-}
-var Wt, Z, Gt, Q, $, Kt, qt, Jt, Yt, Xt, Zt;
+var Wt, Z, Gt, Q, qt, Zt;
 e(() => {
   ((Wt = f()),
     c(),
@@ -2293,60 +2219,7 @@ e(() => {
     At(),
     (Q = m()),
     d(),
-    ($ = `codex-docx-preview`),
-    (Kt = `h-full min-h-0 overflow-auto bg-token-side-bar-background overscroll-contain`),
-    (qt = `
-  .${$}-wrapper {
-    min-height: 100%;
-    display: flex;
-    flex-flow: column;
-    align-items: center;
-    gap: 0.875rem;
-    padding: 1.5rem 1.5rem ${v};
-    background: var(--color-token-side-bar-background) !important;
-  }
-
-  .${$}-wrapper > section.${$} {
-    margin: 0 !important;
-    border: 1px solid var(--color-token-border-default);
-    background: white !important;
-    box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.05);
-    transform-origin: top center;
-    border-radius: 0;
-    zoom: var(--codex-docx-preview-zoom, 1);
-    position: relative;
-    overflow: hidden;
-  }
-
-  :root:where(
-    [data-codex-window-type="browser"],
-    [data-codex-window-type="chrome-extension"],
-    [data-codex-window-type="electron"]
-  ) .${$}-wrapper > section.${$} {
-    border-color: transparent;
-    box-shadow: var(--elevation-prominent);
-  }
-
-  .${$} [data-paged-annotation-ask-for-edit="true"],
-  .${$} [data-paged-annotation-ask-for-edit="true"] * {
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro", "Segoe UI", sans-serif !important;
-    font-size: 12px !important;
-    letter-spacing: -0.3px !important;
-    line-height: 18px !important;
-    white-space: nowrap !important;
-  }
-
-  .${$} [data-paged-annotation-ask-for-edit-label="true"] {
-    font-weight: 400 !important;
-  }
-
-  .${$} [data-paged-annotation-ask-for-edit-shortcut="true"] {
-    font-weight: 500 !important;
-  }
-`),
-    (Jt = 75),
-    (Yt = 12),
-    (Xt = `section.${$}`),
+    (qt = createDocxPreviewStyleText(v)),
     (Zt = p(
       async () => {
         let { renderAsync: e } = await import(`./docx-preview`);

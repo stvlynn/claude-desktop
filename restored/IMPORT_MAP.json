@@ -42378,11 +42378,11 @@
       },
       "status": "done",
       "vendor": "docx-preview-panel-runtime",
-      "note": "Current DocxPreviewPanel hash maps to the restored docx preview runtime compatibility entry. DOCX annotation geometry, metadata, and DOM selection helpers now live in features/documents/docx-preview-panel while the remaining panel component body still needs further semantic splitting out of vendor.",
+      "note": "Current DocxPreviewPanel hash maps to the restored docx preview runtime compatibility entry. DOCX annotation geometry, metadata, DOM selection, rendering, style injection, page measurement, and fit-width zoom helpers now live in features/documents/docx-preview-panel while the remaining panel component body still needs further semantic splitting out of vendor.",
       "lastUpdated": "2026-07-02T01:40:29.000Z",
       "stage3Accepted": true,
       "stage3AcceptedAt": "2026-07-02T01:40:29.000Z",
-      "stage3Review": "Host self-review: current ref docx-preview-panel-BsZXEpj7.js exports only DocxPreviewPanel; vendor/docx-preview-panel-runtime.ts preserves that surface and now delegates annotation geometry, metadata, and DOM selection helpers to features/documents/docx-preview-panel.",
+      "stage3Review": "Host self-review: current ref docx-preview-panel-BsZXEpj7.js exports only DocxPreviewPanel; vendor/docx-preview-panel-runtime.ts preserves that surface and now delegates annotation geometry, metadata, DOM selection, rendering, style injection, page measurement, and fit-width zoom helpers to features/documents/docx-preview-panel.",
       "stage3Note": "Partial semantic split in progress: helper modules pass quality-gate, but vendor/docx-preview-panel-runtime.ts still fails flat-boundary-app-bundle until the remaining panel component body is split or moved behind a small compatibility shim."
     },
     "PopcornElectronPresentationPanel-B56eXPt5": {
