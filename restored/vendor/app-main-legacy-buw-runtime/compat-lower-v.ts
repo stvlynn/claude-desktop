@@ -24,10 +24,7 @@ export { windowsTabsOpenActionSchema as appMainCurrentCompatSlotLowerVLowerG } f
 export { refreshWorktreeStatus as appMainCurrentCompatSlotLowerVLowerN } from "../../conversations/worktree-status-runtime";
 export { timeHour as appMainCurrentCompatSlotLowerVUpperS } from "d3-time";
 export { buildAmbientSuggestionAppIndex as appMainCurrentCompatSlotLowerVLowerY } from "../../connectors/ambient-suggestion-apps";
-
-export {
-  vh as appMainCurrentCompatSlotLowerVLowerH,
-  vp as appMainCurrentCompatSlotLowerVLowerP,
-  vt as appMainCurrentCompatSlotLowerVLowerT,
-  vu as appMainCurrentCompatSlotLowerVLowerU,
-} from "../app-main-legacy-buw-compat-bundle";
+export { initBrowserUseSettingsVisibilityChunk as appMainCurrentCompatSlotLowerVLowerP } from "../../browser/browser-use-settings-visibility";
+export { initSentCommentAttachmentsChunk as appMainCurrentCompatSlotLowerVLowerT } from "../../conversations/sent-comment-attachments";
+export { initLocalGitActionsScopeChunk as appMainCurrentCompatSlotLowerVLowerU } from "../../review/local-git-actions-scope";
+export { openRightThreadPanel as appMainCurrentCompatSlotLowerVLowerH } from "../../app-shell/thread-right-panel-state";

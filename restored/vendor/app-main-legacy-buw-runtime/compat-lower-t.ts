@@ -19,12 +19,10 @@ export { FeedbackFormDialog as appMainCurrentCompatSlotLowerTLowerR } from "../.
 export { initPlanSummaryCardChunk as appMainCurrentCompatSlotLowerTLowerT } from "../../conversations/local-conversation-thread-parts/plan-summary-card";
 export { setEnabledReasoningEffort as appMainCurrentCompatSlotLowerTLowerX } from "../../composer/enabled-reasoning-efforts";
 export { curveLinear as appMainCurrentCompatSlotLowerTUpperS } from "d3-shape";
+export { initBrowserSidebarWebviewChunk as appMainCurrentCompatSlotLowerTLowerP } from "../../browser/sidebar-webview";
+export { usePreferredNonFullAccessMode as appMainCurrentCompatSlotLowerTLowerB } from "../../utils/use-permissions-mode/preferred-mode";
+export { selectMcpAppFrameContent as appMainCurrentCompatSlotLowerTLowerF } from "../../plugins/mcp-app-frame-state";
+export { initThreadHandoffTransferRuntimeChunk as appMainCurrentCompatSlotLowerTLowerO } from "../../conversations/transfer-pinned-thread-order";
+export { getAdoptedWebContentsId as appMainCurrentCompatSlotLowerTLowerY } from "../../browser/browser-sidebar-open-source";
 
-export {
-  tb as appMainCurrentCompatSlotLowerTLowerB,
-  tf as appMainCurrentCompatSlotLowerTLowerF,
-  tn as appMainCurrentCompatSlotLowerTLowerN,
-  to as appMainCurrentCompatSlotLowerTLowerO,
-  tp as appMainCurrentCompatSlotLowerTLowerP,
-  ty as appMainCurrentCompatSlotLowerTLowerY,
-} from "../app-main-legacy-buw-compat-bundle";
+export { tn as appMainCurrentCompatSlotLowerTLowerN } from "../app-main-legacy-buw-compat-bundle";
