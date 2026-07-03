@@ -7,6 +7,7 @@ export { SidebarRowMenuSeparator } from "../app-main-current-runtime";
 export { shouldExpandReviewPanelSignal } from "../../conversations/local-conversation-page-runtime";
 
 export { ProgressionDonutIcon as appMainCurrentCompatSlotLowerALowerM } from "../../icons/progression-donut-icon";
+export { CheckCircleIcon as appMainCurrentCompatSlotLowerALowerC } from "../../icons/check-circle-icon";
 export { OpenConfigTomlButton as appMainCurrentCompatSlotLowerALowerX } from "../../composer/open-config-toml-button";
 
 export { getConversationalOnboardingMessagingPluginNames as appMainCurrentCompatSlotLowerA } from "../../onboarding/conversational-onboarding-task-selection";
@@ -18,7 +19,6 @@ export {
   a_ as appMainCurrentCompatSlotLowerAUnderscore,
   aa as appMainCurrentCompatSlotLowerALowerA,
   ab as appMainCurrentCompatSlotLowerALowerB,
-  ac as appMainCurrentCompatSlotLowerALowerC,
   ad as appMainCurrentCompatSlotLowerALowerD,
   af as appMainCurrentCompatSlotLowerALowerF,
   ag as appMainCurrentCompatSlotLowerALowerG,

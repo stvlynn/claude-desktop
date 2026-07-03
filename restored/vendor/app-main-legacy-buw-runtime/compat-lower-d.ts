@@ -1,6 +1,7 @@
 // Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
 // Lowercase d compatibility aliases for the legacy app-main/onboarding producer.
 export { initPullRequestIconChunk as appMainCurrentCompatSlotLowerDLowerU } from "../../icons/pull-request-icon";
+export { CirclePlayIcon as appMainCurrentCompatSlotLowerDLowerH } from "../../icons/circle-play-icon";
 export { FolderIcon, SidebarRowDragHandle } from "../app-main-current-runtime";
 
 export { getPathBasename } from "../../runtime/app-main-new-thread-runtime";
@@ -20,7 +21,6 @@ export {
   da as appMainCurrentCompatSlotLowerDLowerA,
   db as appMainCurrentCompatSlotLowerDLowerB,
   dd as appMainCurrentCompatSlotLowerDLowerD,
-  dh as appMainCurrentCompatSlotLowerDLowerH,
   dm as appMainCurrentCompatSlotLowerDLowerM,
   dn as appMainCurrentCompatSlotLowerDLowerN,
   dp as appMainCurrentCompatSlotLowerDLowerP,

@@ -1,6 +1,7 @@
 // Restored from ref/webview/assets/app-initial~app-main~onboarding-page-BUwCKIcU.js
 // Lowercase b compatibility aliases for the legacy app-main/onboarding producer.
 export { SettingsControlRow } from "../../ui/settings-row";
+export { LockIcon as appMainCurrentCompatSlotLowerBLowerS } from "../../icons/lock-icon";
 
 export { normalizeTerminalFontFamily } from "../../runtime/window-chrome-runtime";
 
@@ -24,7 +25,6 @@ export {
   bm as appMainCurrentCompatSlotLowerBLowerM,
   bn as appMainCurrentCompatSlotLowerBLowerN,
   bp as appMainCurrentCompatSlotLowerBLowerP,
-  bs as appMainCurrentCompatSlotLowerBLowerS,
   bS as appMainCurrentCompatSlotLowerBUpperS,
   bt as appMainCurrentCompatSlotLowerBLowerT,
   bu as appMainCurrentCompatSlotLowerBLowerU,

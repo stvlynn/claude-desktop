@@ -93,13 +93,15 @@ export {
   adjustPendingPastedTextAttachmentCount as legacyAppMainBuwLowerCLowerOExport,
   pendingPastedTextAttachmentCountStore as legacyAppMainBuwLowerDLowerOExport,
 } from "../../../conversations/thread-handoff-composer-status";
+export { CheckCircleIcon as legacyAppMainBuwLowerALowerCExport } from "../../../icons/check-circle-icon";
+export { LockIcon as legacyAppMainBuwLowerBLowerSExport } from "../../../icons/lock-icon";
+export { CirclePlayIcon as legacyAppMainBuwLowerDLowerHExport } from "../../../icons/circle-play-icon";
 
 export {
   aS as legacyAppMainBuwLowerAUpperSExport,
   a_ as legacyAppMainBuwLowerAUnderscoreExport,
   aa as legacyAppMainBuwLowerALowerAExport,
   ab as legacyAppMainBuwLowerALowerBExport,
-  ac as legacyAppMainBuwLowerALowerCExport,
   ad as legacyAppMainBuwLowerALowerDExport,
   af as legacyAppMainBuwLowerALowerFExport,
   ag as legacyAppMainBuwLowerALowerGExport,
@@ -123,7 +125,6 @@ export {
   bm as legacyAppMainBuwLowerBLowerMExport,
   bn as legacyAppMainBuwLowerBLowerNExport,
   bp as legacyAppMainBuwLowerBLowerPExport,
-  bs as legacyAppMainBuwLowerBLowerSExport,
   bt as legacyAppMainBuwLowerBLowerTExport,
   bu as legacyAppMainBuwLowerBLowerUExport,
   bv as legacyAppMainBuwLowerBLowerVExport,
@@ -146,7 +147,6 @@ export {
   da as legacyAppMainBuwLowerDLowerAExport,
   db as legacyAppMainBuwLowerDLowerBExport,
   dd as legacyAppMainBuwLowerDLowerDExport,
-  dh as legacyAppMainBuwLowerDLowerHExport,
   dm as legacyAppMainBuwLowerDLowerMExport,
   dn as legacyAppMainBuwLowerDLowerNExport,
   dp as legacyAppMainBuwLowerDLowerPExport,

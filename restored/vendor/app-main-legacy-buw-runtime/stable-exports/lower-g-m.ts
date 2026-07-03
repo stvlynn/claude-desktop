@@ -6,6 +6,7 @@ export { DocumentSearchIcon as legacyAppMainBuwLowerHLowerYExport } from "../../
 export { HistoryIcon as legacyAppMainBuwLowerLLowerFExport } from "../../../icons/history-icon";
 export { SendToCloudIcon as legacyAppMainBuwLowerKLowerUExport } from "../../../icons/send-to-cloud-icon";
 export { TasksIcon as legacyAppMainBuwLowerJLowerNExport } from "../../../icons/tasks-icon";
+export { CommitIcon as legacyAppMainBuwLowerJLowerUExport } from "../../../icons/commit-icon";
 export { initExternalSiteIconChunk as legacyAppMainBuwLowerJLowerIExport } from "../../../icons/external-site-icon";
 export { initGitApplyClipboardIconChunk as legacyAppMainBuwLowerJLowerLExport } from "../../../icons/git-apply-clipboard-icon";
 export { initImagesIconChunk as legacyAppMainBuwLowerILowerTExport } from "../../../icons/images-icon";
@@ -155,7 +156,6 @@ export {
   jh as legacyAppMainBuwLowerJLowerHExport,
   jm as legacyAppMainBuwLowerJLowerMExport,
   jt as legacyAppMainBuwLowerJLowerTExport,
-  ju as legacyAppMainBuwLowerJLowerUExport,
   jv as legacyAppMainBuwLowerJLowerVExport,
   jx as legacyAppMainBuwLowerJLowerXExport,
   jy as legacyAppMainBuwLowerJLowerYExport,

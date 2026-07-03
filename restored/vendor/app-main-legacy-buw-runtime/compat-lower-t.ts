@@ -3,6 +3,7 @@
 export { initComposeEventHandlersRuntime } from "../app-main-current-runtime";
 export { initThreadPanelTabsStoreChunk } from "../../app-shell/thread-panel-tabs-store";
 export { initWarningIconChunk as PortalFromLowerTC } from "../../icons/warning-icon";
+export { UnselectedCircleIcon as appMainCurrentCompatSlotLowerTLowerC } from "../../icons/unselected-circle-icon";
 export { formatCompactDurationMs as appMainCurrentCompatSlotLowerTLowerS } from "../../utils/duration-format";
 
 export { ConversationalOnboardingTaskIcon as appMainCurrentCompatSlotLowerT } from "../../onboarding/conversational-onboarding-task-icon";
@@ -12,7 +13,6 @@ export {
   t_ as appMainCurrentCompatSlotLowerTUnderscore,
   ta as appMainCurrentCompatSlotLowerTLowerA,
   tb as appMainCurrentCompatSlotLowerTLowerB,
-  tc as appMainCurrentCompatSlotLowerTLowerC,
   td as appMainCurrentCompatSlotLowerTLowerD,
   tf as appMainCurrentCompatSlotLowerTLowerF,
   tg as appMainCurrentCompatSlotLowerTLowerG,

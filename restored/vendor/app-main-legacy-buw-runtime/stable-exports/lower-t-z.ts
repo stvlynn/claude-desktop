@@ -72,6 +72,7 @@ export { initThreadPanelTabsStoreChunk } from "../../../app-shell/thread-panel-t
 export { useSensor as ThreadRowCloudMeta } from "../../dnd-kit-core";
 export { initDndKitUtilitiesRuntime as ThreadRowWorktreeMeta } from "../../dnd-kit-utilities";
 export { initWarningIconChunk as PortalFromLowerTC } from "../../../icons/warning-icon";
+export { UnselectedCircleIcon as legacyAppMainBuwLowerTLowerCExport } from "../../../icons/unselected-circle-icon";
 export { initEllipsisHorizontalIconChunk as SidebarRowLocalEnvironment } from "../../../icons/ellipsis-horizontal-icon";
 export { openThreadTimelineSidePanel } from "../../../app-shell/legacy-thread-timeline-side-panel";
 export { initConversationDetailModeRuntime as SidebarRowRemoteEnvironment } from "../../../runtime/conversation-detail-runtime";
@@ -104,7 +105,6 @@ export {
   t_ as legacyAppMainBuwLowerTUnderscoreExport,
   ta as legacyAppMainBuwLowerTLowerAExport,
   tb as legacyAppMainBuwLowerTLowerBExport,
-  tc as legacyAppMainBuwLowerTLowerCExport,
   td as legacyAppMainBuwLowerTLowerDExport,
   tf as legacyAppMainBuwLowerTLowerFExport,
   tg as legacyAppMainBuwLowerTLowerGExport,
