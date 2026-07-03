@@ -11,20 +11,20 @@ export { applyAutomationScheduleDraft as appMainCurrentCompatSlotLowerTLowerI } 
 export { ProjectDropdownOptions as appMainCurrentCompatSlotLowerTLowerD } from "../../ui/project-dropdown-options";
 export { PullRequestOpenIcon as appMainCurrentCompatSlotLowerTLowerU } from "../../icons/pull-request-open-icon";
 export { clearContentSearchHighlights as appMainCurrentCompatSlotLowerTUnderscore } from "../../runtime/conversation-search-runtime";
+export { formatFallbackHookTitle as appMainCurrentCompatSlotLowerTLowerA } from "../../settings/hooks-settings-copy";
+export { readServiceTierAuthMethod as appMainCurrentCompatSlotLowerTLowerG } from "../../utils/read-service-tier-for-request";
+export { initDiffCommentSourcesChunk as appMainCurrentCompatSlotLowerTLowerH } from "../../github/diff-comments/use-diff-comment-sources";
+export { hasDefaultCommandKeybinding as appMainCurrentCompatSlotLowerTLowerM } from "../../utils/command-keybindings";
+export { FeedbackFormDialog as appMainCurrentCompatSlotLowerTLowerR } from "../../ui/feedback-form-dialog";
+export { initPlanSummaryCardChunk as appMainCurrentCompatSlotLowerTLowerT } from "../../conversations/local-conversation-thread-parts/plan-summary-card";
+export { setEnabledReasoningEffort as appMainCurrentCompatSlotLowerTLowerX } from "../../composer/enabled-reasoning-efforts";
+export { curveLinear as appMainCurrentCompatSlotLowerTUpperS } from "d3-shape";
 
 export {
-  ta as appMainCurrentCompatSlotLowerTLowerA,
   tb as appMainCurrentCompatSlotLowerTLowerB,
   tf as appMainCurrentCompatSlotLowerTLowerF,
-  tg as appMainCurrentCompatSlotLowerTLowerG,
-  th as appMainCurrentCompatSlotLowerTLowerH,
-  tm as appMainCurrentCompatSlotLowerTLowerM,
   tn as appMainCurrentCompatSlotLowerTLowerN,
   to as appMainCurrentCompatSlotLowerTLowerO,
   tp as appMainCurrentCompatSlotLowerTLowerP,
-  tr as appMainCurrentCompatSlotLowerTLowerR,
-  tS as appMainCurrentCompatSlotLowerTUpperS,
-  tt as appMainCurrentCompatSlotLowerTLowerT,
-  tx as appMainCurrentCompatSlotLowerTLowerX,
   ty as appMainCurrentCompatSlotLowerTLowerY,
 } from "../app-main-legacy-buw-compat-bundle";
