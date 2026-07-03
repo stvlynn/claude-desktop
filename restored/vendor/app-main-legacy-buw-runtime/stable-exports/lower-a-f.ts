@@ -193,5 +193,4 @@ export { initWorkspaceFileSourceTabsChunk as legacyAppMainBuwLowerBLowerFExport 
 export { ReactReduxProvider as legacyAppMainBuwLowerDExport } from "../../react-redux-provider-runtime";
 export { initReactReduxProviderRuntimeChunk as legacyAppMainBuwLowerFExport } from "../../react-redux-provider-runtime";
 export { isReviewDiffEnabledAtom as legacyAppMainBuwLowerBLowerVExport } from "../../../review/review-diff-mode-atoms";
-
-export { cv as legacyAppMainBuwLowerCLowerVExport } from "../../app-main-legacy-buw-compat-bundle";
+export { reviewDiffMetricsAtom as legacyAppMainBuwLowerCLowerVExport } from "../../../review/review-summary-query-atoms";

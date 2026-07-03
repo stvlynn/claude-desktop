@@ -26,6 +26,19 @@ export interface GitMetadata {
   root: string;
 }
 
+export interface ReviewDiffMetrics {
+  additions: number;
+  bytesEstimate: number;
+  deletions: number;
+  fileCount: number;
+  lineCount: number;
+}
+
+export interface ReviewDiffMetricsState {
+  isLoading: boolean;
+  metrics: ReviewDiffMetrics | null;
+}
+
 export interface QueryResult<TData = unknown> {
   data?: TData;
   dataUpdatedAt: number;

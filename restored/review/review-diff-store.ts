@@ -33,6 +33,7 @@ import {
 } from "./review-branch-query-atoms";
 import {
   reviewBranchDiffStatsQueryFamily,
+  reviewDiffMetricsAtom,
   reviewDiffStatsAtom,
   reviewFilesByDisplayPathAtom,
   reviewSummaryAtom,
@@ -74,6 +75,7 @@ export function initReviewSourceRuntime(): void {
   void reviewBranchDiffStatsQueryFamily;
   void reviewDiffStatsAtom;
   void reviewSummaryAtom;
+  void reviewDiffMetricsAtom;
   void reviewFilesByDisplayPathAtom;
   void reviewFileDiffQueryFamily;
 }
@@ -144,6 +146,7 @@ export {
 } from "./review-branch-query-atoms";
 export {
   reviewBranchDiffStatsQueryFamily,
+  reviewDiffMetricsAtom,
   reviewDiffStatsAtom,
   reviewFilesByDisplayPathAtom,
   reviewSummaryAtom,
@@ -166,6 +169,8 @@ export type {
   GitMetadata,
   QueryResult,
   ReviewDiffFilter,
+  ReviewDiffMetrics,
+  ReviewDiffMetricsState,
   ReviewStore,
   ReviewSummaryRequestInput,
 } from "./review-diff-store-types";
