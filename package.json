@@ -37,6 +37,7 @@
     "docx-preview": "0.3.7",
     "framer-motion": "^12.42.2",
     "graphlib": "^2.1.8",
+    "highlight.js": "11.11.1",
     "jotai": "^2.20.1",
     "katex": "0.16.45",
     "lodash": "^4.18.1",
