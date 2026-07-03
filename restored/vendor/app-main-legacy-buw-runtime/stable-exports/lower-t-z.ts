@@ -27,6 +27,7 @@ export { selectAvailablePermissionProfiles as legacyAppMainBuwLowerXLowerBExport
 export { PopoverAttachmentPill as legacyAppMainBuwLowerZLowerIExport } from "../../../composer/user-message-attachment-pills";
 
 export { getCommentText as legacyAppMainBuwLowerZLowerUExport } from "../../../review/review-comment-utils";
+export { buildPullRequestStatusParams as legacyAppMainBuwLowerUUnderscoreExport } from "../../../review/git-action-blocked-reasons";
 
 export { appendPromptText as legacyAppMainBuwLowerYUpperCExport } from "../../../composer/composer-utils";
 export { initComposerUtilsChunk as legacyAppMainBuwLowerXUpperCExport } from "../../../composer/composer-utils";
@@ -89,6 +90,8 @@ export {
   normalizeFilesystemPath,
   getAllBrowserTabIdsForConversation,
 } from "../../../conversations/fork-conversation-panel-state-deps";
+export { isGitActionAvailable as legacyAppMainBuwLowerULowerVExport } from "../../../conversations/git-action-availability";
+export { shouldGroupDynamicToolCalls as legacyAppMainBuwLowerWLowerUExport } from "../../../conversations/tool-activity-grouping-helpers";
 export { initReviewDiffFilterRuntime as initReviewSourceModeChunk } from "../../../review/review-diff-model";
 
 export {
@@ -181,10 +184,8 @@ export {
   tn as legacyAppMainBuwLowerTLowerNExport,
   to as legacyAppMainBuwLowerTLowerOExport,
   tp as legacyAppMainBuwLowerTLowerPExport,
-  u_ as legacyAppMainBuwLowerUUnderscoreExport,
   ua as legacyAppMainBuwLowerULowerAExport,
   un as legacyAppMainBuwLowerULowerNExport,
-  uv as legacyAppMainBuwLowerULowerVExport,
   vh as legacyAppMainBuwLowerVLowerHExport,
   vp as legacyAppMainBuwLowerVLowerPExport,
   vt as legacyAppMainBuwLowerVLowerTExport,
@@ -196,7 +197,6 @@ export {
   wl as legacyAppMainBuwLowerWLowerLExport,
   wo as legacyAppMainBuwLowerWLowerOExport,
   wt as legacyAppMainBuwLowerWLowerTExport,
-  wu as legacyAppMainBuwLowerWLowerUExport,
   xd as legacyAppMainBuwLowerXLowerDExport,
   xg as legacyAppMainBuwLowerXLowerGExport,
   xm as legacyAppMainBuwLowerXLowerMExport,
