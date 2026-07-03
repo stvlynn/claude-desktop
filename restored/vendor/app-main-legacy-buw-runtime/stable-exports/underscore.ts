@@ -20,14 +20,12 @@ export { flushPendingArtifactNavigation as legacyAppMainBuwUnderscoreLowerFExpor
 export { useRemoteConnectionStateByHostId as legacyAppMainBuwUnderscoreLowerPExport } from "../../../remote/use-connected-remote-connections";
 export { setReviewDiffTarget as legacyAppMainBuwUnderscoreLowerVExport } from "../../../review/review-diff-actions";
 
-export {
-  _ as legacyAppMainBuwUnderscoreExport,
-  _S as legacyAppMainBuwUnderscoreUpperSExport,
-  _a as legacyAppMainBuwUnderscoreLowerAExport,
-  _d as legacyAppMainBuwUnderscoreLowerDExport,
-  _g as legacyAppMainBuwUnderscoreLowerGExport,
-  _h as legacyAppMainBuwUnderscoreLowerHExport,
-  _r as legacyAppMainBuwUnderscoreLowerRExport,
-  _t as legacyAppMainBuwUnderscoreLowerTExport,
-  _u as legacyAppMainBuwUnderscoreLowerUExport,
-} from "../../app-main-legacy-buw-compat-bundle";
+export { preinstallConversationalOnboardingLocalPlugins as legacyAppMainBuwUnderscoreExport } from "../../../onboarding/conversational-onboarding-local-plugin-preinstall";
+export { timeDay as legacyAppMainBuwUnderscoreUpperSExport } from "d3-time";
+export { initThreadHandoffToolCallRowChunk as legacyAppMainBuwUnderscoreLowerAExport } from "../../../conversations/thread-handoff-tool-call-row";
+export { initWindowControlsSafeAreaRuntime as legacyAppMainBuwUnderscoreLowerDExport } from "../../../runtime/use-window-controls-safe-area";
+export { initWindowsTabsOpenSchemaChunk as legacyAppMainBuwUnderscoreLowerGExport } from "../../../runtime/windows-tabs-open-schema";
+export { initThreadPanelStateRuntime as legacyAppMainBuwUnderscoreLowerHExport } from "../../../app-shell/thread-panel-state";
+export { initAutomationDetailSectionChunk as legacyAppMainBuwUnderscoreLowerRExport } from "../../../automations/automation-side-panel/status-components";
+export { SentCommentAttachmentList as legacyAppMainBuwUnderscoreLowerTExport } from "../../../conversations/sent-comment-attachments";
+export { initBuildBranchNameChunk as legacyAppMainBuwUnderscoreLowerUExport } from "../../../conversations/build-branch-name";

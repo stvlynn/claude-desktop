@@ -179,8 +179,16 @@ function useWindowControlsSafeArea() {
   }, []);
   return resolveWindowControlsSafeArea(isFullScreen, overlaySafeArea);
 }
+
+function initWindowControlsSafeAreaRuntime(): void {
+  void getWindowChromeMode;
+  void isApplicationMenuWindowChrome;
+  void useWindowControlsSafeArea;
+}
+
 export {
   getWindowChromeMode,
+  initWindowControlsSafeAreaRuntime,
   isApplicationMenuWindowChrome,
   useWindowControlsSafeArea,
 };

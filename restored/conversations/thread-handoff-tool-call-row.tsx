@@ -222,3 +222,7 @@ export function ThreadHandoffToolCall({
     </CollapsibleToolActivity>
   );
 }
+
+export function initThreadHandoffToolCallRowChunk(): void {
+  void ThreadHandoffToolCall;
+}

@@ -99,6 +99,12 @@ function activateThreadPanelTab(
     ? false
     : (controller.activateTab(store, tabId), openThreadPanel(store, panelId));
 }
+
+function initThreadPanelStateRuntime(): void {
+  void THREAD_PANEL_IDS;
+  void getThreadPanelController;
+}
+
 export {
   findPanelForTab,
   getThreadPanelController,
@@ -106,4 +112,5 @@ export {
   openThreadPanel,
   closeThreadPanel,
   THREAD_PANEL_IDS,
+  initThreadPanelStateRuntime,
 };
