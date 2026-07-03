@@ -276,7 +276,7 @@ This step emits only the type-check-only `any`-facade (kind 2 interim). The full
 boundary exits — a bare third-party **re-export shim** (`make-facade.ts --reexport`) when
 the chunk _is_ a known npm package, a runnable **`--passthrough`** interim, and **restoring
 out of `boundaries/`** as the only completion for a runtime facade — is the canonical
-[SKILL.md → Boundary lifecycle](../SKILL.md#boundary-lifecycle--three-terminal-states-never-a-permanent-any-facade). A facade is never a finished deliverable.
+[Boundary lifecycle](../reference/boundaries.md#boundary-lifecycle--three-terminal-states-never-a-permanent-any-facade). A facade is never a finished deliverable.
 
 ## Step 2 — initialize the symbol ledger
 
@@ -520,4 +520,4 @@ Before marking a file's `finalize` stage `done`, confirm:
 
 ## Stage 3 acceptance — Acceptance LOOP (mandatory)
 
-See [stages/stage-3-finalize.md](../stages/stage-3-finalize.md). The skill is not done until the host agent's end-to-end read passes every delivered file — no sub-agent and no authorization required. For full restoration trees, read 5–10 sibling files together so cross-file consistency is verified (consumer imports use the producer's semantic name and semantic file path, lookup-table naming is uniform across components, etc.) — not just per-file quality; delegating a batch to an optional reviewer sub-agent is fine when one is available and authorized. `NEEDS_FIX` means rewrite and re-read; there is no TODO-header completion path. Skipping this step is a fail mode listed in the skill's [quality bar](../SKILL.md#quality-bar--anti-patterns-to-refuse-before-declaring-done); it is the same severity as skipping Step 4's per-file [Quality bar checklist](#quality-bar-checklist-per-restored-file).
+See [stages/stage-3-finalize.md](../stages/stage-3-finalize.md). The skill is not done until the host agent's end-to-end read passes every delivered file — no sub-agent and no authorization required. For full restoration trees, read 5–10 sibling files together so cross-file consistency is verified (consumer imports use the producer's semantic name and semantic file path, lookup-table naming is uniform across components, etc.) — not just per-file quality; delegating a batch to an optional reviewer sub-agent is fine when one is available and authorized. `NEEDS_FIX` means rewrite and re-read; there is no TODO-header completion path. Skipping this step is a fail mode listed in the skill's [quality bar](../reference/quality-bar.md); it is the same severity as skipping Step 4's per-file [Quality bar checklist](#quality-bar-checklist-per-restored-file).

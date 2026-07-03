@@ -245,7 +245,7 @@ function recommendationFor(reports: TechniqueReport[]): string {
     steps.push("scripts/simplify.ts");
   }
   if (has("control-flow-flattening")) {
-    steps.push("scripts/control-flow-report.ts (then manual unflatten — see SKILL.md)");
+    steps.push("scripts/control-flow-report.ts (then manual unflatten — see stages/stage-1-deobfuscate.md)");
   }
   if (steps.length === 0) {
     return "Detected techniques are low-confidence. Inspect the file manually before running transforms.";
