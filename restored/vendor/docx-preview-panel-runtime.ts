@@ -63,20 +63,15 @@ import {
   appMainCurrentCompatSlotDollarLowerU as _e,
   appMainCurrentCompatSlotUpperALowerT as ve,
   appMainCurrentCompatSlotUpperCLowerT as ye,
-  appMainCurrentCompatSlotUpperDLowerT as be,
-  appMainCurrentCompatSlotUpperELowerT as A,
-  appMainCurrentCompatSlotUpperFLowerT as j,
   appMainCurrentCompatSlotUpperILowerT as M,
   appMainCurrentCompatSlotUpperLLowerT as xe,
   appMainCurrentCompatSlotUpperMLowerT as Se,
   appMainCurrentCompatSlotUpperOLowerT as Ce,
   appMainCurrentCompatSlotUpperQLowerU as we,
   appMainCurrentCompatSlotUpperSLowerT as Te,
-  appMainCurrentCompatSlotUpperTLowerT as F,
   appMainCurrentCompatSlotLowerJLowerT as Ee,
   appMainCurrentCompatSlotLowerNLowerD as De,
   appMainCurrentCompatSlotLowerRLowerD as I,
-  appMainCurrentCompatSlotLowerWLowerT as L,
 } from "./app-main-current-runtime";
 import {
   composeRefs as Oe,
@@ -116,408 +111,15 @@ import {
   readDocxElementAnnotationAnchorAtPoint as dt,
   readDocxTextSelectionAnchor as ut,
   rectFromPoints as Ve,
+  DocxAnnotationHighlightRect,
+  DocxAnnotationSelectionRect,
+  DocxCommentMarkerOverlay,
+  DocxCommentPreviewOverlay,
+  DocxDraftCommentMarkerOverlay,
   useDocxPageNavigation as zt,
   useDocxPreviewRenderState as X,
   useDocxPreviewZoom as Nt,
 } from "../features/documents/docx-preview-panel";
-var H = e(() => {});
-var U = e(() => {
-  M();
-});
-var Je = e(() => {
-  (H(), M());
-});
-var rt = e(() => {
-  (Je(), M());
-});
-function it(e) {
-  let t = (0, ct.c)(9),
-    {
-      bordered: n,
-      borderWidth: r,
-      paddingPx: i,
-      paddingX: a,
-      paddingY: o,
-      pageSize: s,
-      rect: c,
-      testId: l,
-    } = e,
-    u = n === void 0 ? !1 : n,
-    d = r === void 0 ? (u ? 1 : 0) : r,
-    f = i === void 0 ? 0 : i,
-    p = a === void 0 ? f : a,
-    m = o === void 0 ? f : o,
-    h;
-  return (
-    t[0] !== d ||
-    t[1] !== u ||
-    t[2] !== f ||
-    t[3] !== p ||
-    t[4] !== m ||
-    t[5] !== s ||
-    t[6] !== c ||
-    t[7] !== l
-      ? ((h = (0, q.jsx)(F, {
-          bordered: u,
-          borderWidth: d,
-          paddingPx: f,
-          paddingX: p,
-          paddingY: m,
-          pageSize: s,
-          rect: c,
-          testId: l,
-        })),
-        (t[0] = d),
-        (t[1] = u),
-        (t[2] = f),
-        (t[3] = p),
-        (t[4] = m),
-        (t[5] = s),
-        (t[6] = c),
-        (t[7] = l),
-        (t[8] = h))
-      : (h = t[8]),
-    h
-  );
-}
-function at(e) {
-  let t = (0, ct.c)(39),
-    {
-      comment: n,
-      isSelected: r,
-      onEdit: i,
-      onPreviewChange: a,
-      zoomScale: o,
-    } = e,
-    s = he(),
-    c,
-    l,
-    u,
-    d,
-    f,
-    p;
-  if (t[0] !== n || t[1] !== s) {
-    p = Symbol.for(`react.early_return_sentinel`);
-    bb0: {
-      c = et(n);
-      let e;
-      if (
-        (t[8] === n ? (e = t[9]) : ((e = $e(n)), (t[8] = n), (t[9] = e)),
-        (d = e),
-        c == null || d == null)
-      ) {
-        p = null;
-        break bb0;
-      }
-      let r;
-      (t[10] === n ? (r = t[11]) : ((r = nt(n)), (t[10] = n), (t[11] = r)),
-        (u = r));
-      let i;
-      (t[12] !== n.position.line || t[13] !== s
-        ? ((i = s.formatMessage(
-            {
-              id: `artifactDocxPreview.commentMarkerLabel`,
-              defaultMessage: `Document annotation {commentNumber}`,
-              description: `Accessible label for a placed DOCX annotation marker`,
-            },
-            { commentNumber: n.position.line },
-          )),
-          (t[12] = n.position.line),
-          (t[13] = s),
-          (t[14] = i))
-        : (i = t[14]),
-        (l = i),
-        (f = c.kind === `region` ? j(c.rect) : c.point));
-    }
-    ((t[0] = n),
-      (t[1] = s),
-      (t[2] = c),
-      (t[3] = l),
-      (t[4] = u),
-      (t[5] = d),
-      (t[6] = f),
-      (t[7] = p));
-  } else
-    ((c = t[2]), (l = t[3]), (u = t[4]), (d = t[5]), (f = t[6]), (p = t[7]));
-  if (p !== Symbol.for(`react.early_return_sentinel`)) return p;
-  let m = f,
-    h;
-  t[15] !== u || t[16] !== a
-    ? ((h = () => a(u)), (t[15] = u), (t[16] = a), (t[17] = h))
-    : (h = t[17]);
-  let ee = h,
-    g;
-  t[18] === a ? (g = t[19]) : ((g = () => a(null)), (t[18] = a), (t[19] = g));
-  let _ = g,
-    v;
-  t[20] !== c || t[21] !== d
-    ? ((v =
-        c.kind === `region`
-          ? c.selectionKind == null
-            ? (0, q.jsx)(be, {
-                pageSize: d,
-                rect: c.rect,
-                testId: `artifact-docx-comment-region-outline`,
-              })
-            : (0, q.jsx)(K, {
-                bordered: !0,
-                pageSize: d,
-                anchor: c,
-                testId: `artifact-docx-comment-region-outline`,
-              })
-          : null),
-      (t[20] = c),
-      (t[21] = d),
-      (t[22] = v))
-    : (v = t[22]);
-  let y;
-  t[23] !== u || t[24] !== i
-    ? ((y = () => i(u)), (t[23] = u), (t[24] = i), (t[25] = y))
-    : (y = t[25]);
-  let b;
-  t[26] !== n.position.line ||
-  t[27] !== l ||
-  t[28] !== _ ||
-  t[29] !== r ||
-  t[30] !== d ||
-  t[31] !== m ||
-  t[32] !== ee ||
-  t[33] !== y ||
-  t[34] !== o
-    ? ((b = (0, q.jsx)(A, {
-        ariaLabel: l,
-        isSelected: r,
-        label: n.position.line,
-        pageSize: d,
-        point: m,
-        testId: `artifact-docx-comment-marker`,
-        zoomScale: o,
-        onClick: y,
-        onPreviewHide: _,
-        onPreviewShow: ee,
-      })),
-      (t[26] = n.position.line),
-      (t[27] = l),
-      (t[28] = _),
-      (t[29] = r),
-      (t[30] = d),
-      (t[31] = m),
-      (t[32] = ee),
-      (t[33] = y),
-      (t[34] = o),
-      (t[35] = b))
-    : (b = t[35]);
-  let x;
-  return (
-    t[36] !== v || t[37] !== b
-      ? ((x = (0, q.jsxs)(q.Fragment, { children: [v, b] })),
-        (t[36] = v),
-        (t[37] = b),
-        (t[38] = x))
-      : (x = t[38]),
-    x
-  );
-}
-function ot(e) {
-  let t = (0, ct.c)(14),
-    { comment: n, layer: r } = e,
-    i,
-    a,
-    o;
-  if (t[0] !== n) {
-    o = Symbol.for(`react.early_return_sentinel`);
-    bb0: {
-      let e = et(n);
-      if (((i = $e(n)), e == null || i == null)) {
-        o = null;
-        break bb0;
-      }
-      a = e.kind === `region` ? j(e.rect) : e.point;
-    }
-    ((t[0] = n), (t[1] = i), (t[2] = a), (t[3] = o));
-  } else ((i = t[1]), (a = t[2]), (o = t[3]));
-  if (o !== Symbol.for(`react.early_return_sentinel`)) return o;
-  let s = a,
-    c;
-  t[4] === n ? (c = t[5]) : ((c = nt(n)), (t[4] = n), (t[5] = c));
-  let l;
-  t[6] === n ? (l = t[7]) : ((l = tt(n)), (t[6] = n), (t[7] = l));
-  let u;
-  return (
-    t[8] !== r || t[9] !== i || t[10] !== s || t[11] !== c || t[12] !== l
-      ? ((u = (0, q.jsx)(
-          L,
-          {
-            body: l,
-            layer: r,
-            pageSize: i,
-            point: s,
-            testId: `artifact-docx-comment-preview`,
-          },
-          c,
-        )),
-        (t[8] = r),
-        (t[9] = i),
-        (t[10] = s),
-        (t[11] = c),
-        (t[12] = l),
-        (t[13] = u))
-      : (u = t[13]),
-    u
-  );
-}
-function st(e) {
-  let t = (0, ct.c)(18),
-    { anchor: n, label: r, pageSize: i, zoomScale: a } = e;
-  if (n.kind === `region`) {
-    let e;
-    t[0] !== n || t[1] !== i
-      ? ((e =
-          n.selectionKind == null
-            ? (0, q.jsx)(be, {
-                pageSize: i,
-                rect: n.rect,
-                testId: `artifact-docx-comment-region-outline`,
-              })
-            : (0, q.jsx)(K, {
-                bordered: !0,
-                pageSize: i,
-                anchor: n,
-                testId: `artifact-docx-comment-region-outline`,
-              })),
-        (t[0] = n),
-        (t[1] = i),
-        (t[2] = e))
-      : (e = t[2]);
-    let o;
-    t[3] === n.rect
-      ? (o = t[4])
-      : ((o = j(n.rect)), (t[3] = n.rect), (t[4] = o));
-    let s;
-    t[5] !== r || t[6] !== i || t[7] !== o || t[8] !== a
-      ? ((s = (0, q.jsx)(A, {
-          draft: !0,
-          draftTestId: `artifact-docx-comment-draft-marker`,
-          label: r,
-          pageSize: i,
-          point: o,
-          testId: `artifact-docx-comment-marker`,
-          zoomScale: a,
-        })),
-        (t[5] = r),
-        (t[6] = i),
-        (t[7] = o),
-        (t[8] = a),
-        (t[9] = s))
-      : (s = t[9]);
-    let c;
-    return (
-      t[10] !== e || t[11] !== s
-        ? ((c = (0, q.jsxs)(q.Fragment, { children: [e, s] })),
-          (t[10] = e),
-          (t[11] = s),
-          (t[12] = c))
-        : (c = t[12]),
-      c
-    );
-  }
-  let o;
-  return (
-    t[13] !== n.point || t[14] !== r || t[15] !== i || t[16] !== a
-      ? ((o = (0, q.jsx)(A, {
-          draft: !0,
-          draftTestId: `artifact-docx-comment-draft-marker`,
-          label: r,
-          pageSize: i,
-          point: n.point,
-          testId: `artifact-docx-comment-marker`,
-          zoomScale: a,
-        })),
-        (t[13] = n.point),
-        (t[14] = r),
-        (t[15] = i),
-        (t[16] = a),
-        (t[17] = o))
-      : (o = t[17]),
-    o
-  );
-}
-function K(e) {
-  let t = (0, ct.c)(18),
-    { bordered: n, pageSize: r, anchor: i, testId: a } = e,
-    o = n === void 0 ? !1 : n;
-  if (i.selectionKind === `text`) {
-    let e;
-    t[0] !== i.rect || t[1] !== i.selectionRects
-      ? ((e =
-          i.selectionRects == null || i.selectionRects.length === 0
-            ? [i.rect]
-            : i.selectionRects),
-        (t[0] = i.rect),
-        (t[1] = i.selectionRects),
-        (t[2] = e))
-      : (e = t[2]);
-    let n = e,
-      o;
-    if (t[3] !== r || t[4] !== a || t[5] !== n) {
-      let e;
-      (t[7] !== r || t[8] !== a
-        ? ((e = (e, t) =>
-            (0, q.jsx)(
-              it,
-              { paddingX: 4, paddingY: 0, pageSize: r, rect: e, testId: a },
-              `${e.x}:${e.y}:${e.width}:${e.height}:${t}`,
-            )),
-          (t[7] = r),
-          (t[8] = a),
-          (t[9] = e))
-        : (e = t[9]),
-        (o = n.map(e)),
-        (t[3] = r),
-        (t[4] = a),
-        (t[5] = n),
-        (t[6] = o));
-    } else o = t[6];
-    let s;
-    return (
-      t[10] === o
-        ? (s = t[11])
-        : ((s = (0, q.jsx)(q.Fragment, { children: o })),
-          (t[10] = o),
-          (t[11] = s)),
-      s
-    );
-  }
-  let s = o ? (i.selectionKind === `paragraph` ? 2 : 1) : 0,
-    c;
-  return (
-    t[12] !== i.rect || t[13] !== o || t[14] !== r || t[15] !== s || t[16] !== a
-      ? ((c = (0, q.jsx)(it, {
-          bordered: o,
-          borderWidth: s,
-          paddingPx: 4,
-          pageSize: r,
-          rect: i.rect,
-          testId: a,
-        })),
-        (t[12] = i.rect),
-        (t[13] = o),
-        (t[14] = r),
-        (t[15] = s),
-        (t[16] = a),
-        (t[17] = c))
-      : (c = t[17]),
-    c
-  );
-}
-var ct,
-  q,
-  lt = e(() => {
-    ((ct = f()), O(), H(), rt(), Ce(), M(), (q = m()));
-  });
-var wt = e(() => {
-  (H(), Je());
-});
 function Tt(e) {
   let t = (0, Ot.c)(244),
     {
@@ -1334,7 +936,7 @@ function Tt(e) {
     (t[183] !== A || t[184] !== S
       ? ((e = (e) =>
           (0, Y.jsx)(
-            at,
+            DocxCommentMarkerOverlay,
             {
               comment: e,
               isSelected: nt(e) === A,
@@ -1361,7 +963,7 @@ function Tt(e) {
     ? ((Qt =
         L == null || A != null
           ? null
-          : (0, Y.jsx)(ot, { comment: L, layer: w })),
+          : (0, Y.jsx)(DocxCommentPreviewOverlay, { comment: L, layer: w })),
       (t[186] = A),
       (t[187] = L),
       (t[188] = w),
@@ -1371,7 +973,7 @@ function Tt(e) {
   t[190] !== T || t[191] !== A || t[192] !== fe || t[193] !== _
     ? (($t =
         fe != null && T == null && A == null
-          ? (0, Y.jsx)(it, {
+          ? (0, Y.jsx)(DocxAnnotationHighlightRect, {
               paddingPx: 4,
               pageSize: _,
               rect: fe.rect,
@@ -1397,7 +999,7 @@ function Tt(e) {
               children: [
                 E.selectionKind === `text`
                   ? null
-                  : (0, Y.jsx)(it, {
+                  : (0, Y.jsx)(DocxAnnotationHighlightRect, {
                       bordered: !0,
                       paddingPx: 4,
                       pageSize: _,
@@ -1429,7 +1031,7 @@ function Tt(e) {
     ? ((tn =
         k == null
           ? null
-          : (0, Y.jsx)(be, {
+          : (0, Y.jsx)(DocxAnnotationSelectionRect, {
               pageSize: _,
               rect: Ve(k.start, k.current),
               testId: `artifact-docx-comment-region-outline`,
@@ -1443,7 +1045,7 @@ function Tt(e) {
     ? ((nn =
         T == null
           ? null
-          : (0, Y.jsx)(st, {
+          : (0, Y.jsx)(DocxDraftCommentMarkerOverlay, {
               anchor: T,
               label: s,
               pageSize: le ?? _,
@@ -1624,12 +1226,6 @@ var Ot,
       l(),
       n(),
       z(),
-      H(),
-      U(),
-      Je(),
-      rt(),
-      lt(),
-      wt(),
       Ce(),
       M(),
       (Y = m()),
