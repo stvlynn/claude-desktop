@@ -179,10 +179,10 @@ export {
   currentBranchNameAtom as legacyAppMainBuwLowerJLowerVExport,
   reviewProjectRootAtom as legacyAppMainBuwLowerKLowerVExport,
 } from "../../../review/review-git-metadata";
+export { initImageAttachmentChunk as legacyAppMainBuwLowerILowerMExport } from "../../../image-side-panel/image-attachment";
 
 export {
   iS as legacyAppMainBuwLowerIUpperSExport,
-  im as legacyAppMainBuwLowerILowerMExport,
   io as legacyAppMainBuwLowerILowerOExport,
   ir as legacyAppMainBuwLowerILowerRExport,
   iu as legacyAppMainBuwLowerILowerUExport,

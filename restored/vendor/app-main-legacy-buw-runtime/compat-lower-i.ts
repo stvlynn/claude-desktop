@@ -21,9 +21,9 @@ export { fullScreenMcpAppIdsAtom as appMainCurrentCompatSlotLowerILowerF } from 
 export { createSteerTurnInactiveError as appMainCurrentCompatSlotLowerILowerN } from "../../composer/steer-turn-inactive-error";
 export { diffCommentsByConversationSignal as appMainCurrentCompatSlotLowerILowerH } from "../../github/diff-comments/diff-comments-by-conversation-signal";
 export { isReasoningEffort as appMainCurrentCompatSlotLowerILowerX } from "../../utils/models-and-reasoning-efforts";
+export { initImageAttachmentChunk as appMainCurrentCompatSlotLowerILowerM } from "../../image-side-panel/image-attachment";
 
 export {
-  im as appMainCurrentCompatSlotLowerILowerM,
   io as appMainCurrentCompatSlotLowerILowerO,
   ir as appMainCurrentCompatSlotLowerILowerR,
   iS as appMainCurrentCompatSlotLowerIUpperS,
