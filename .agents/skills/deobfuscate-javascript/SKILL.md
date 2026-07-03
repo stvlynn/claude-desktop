@@ -74,8 +74,10 @@ commit records the fork/wrapper evidence.
 must leave a command trail, not just a written rationale:
 
 1. Run the full directory audit before the first edit.
-2. Run the target intent gate in the same turn (`--intent npm-shim` for package
-   shims, `--intent local-body` only after fork/runtime proof).
+2. Classify the target before reading its body as something to rewrite. Public
+   vendor files fail closed: use `--intent npm-shim` unless you already have
+   recorded fork/runtime-wrapper proof. `--intent local-body` is the exception,
+   not the default.
 3. Run the full directory audit again before committing.
 4. Mention the binary decision (`npm shim`, `Codex fork`, or `app/runtime
 wrapper`) in the commit message or final notes.

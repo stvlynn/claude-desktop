@@ -121,6 +121,8 @@ keyof typeof buttonColorClassNames` (or equivalent).
   from `react-intl`; it does not implement local `useIntl` or
   `FormattedMessage` stand-ins. `vendor/react-style-singleton.ts` imports/exports
   from `react-style-singleton`; it does not implement local stylesheet counters.
+  A typed local subset is still a failure when the identity is a stock package;
+  passing TypeScript, build, or component smoke tests does not make it complete.
   The nearest `package.json` declares the package root (`react-intl` for
   `react-intl`, `react-style-singleton` for `react-style-singleton`,
   `use-sync-external-store` for `use-sync-external-store/shim/with-selector`,
