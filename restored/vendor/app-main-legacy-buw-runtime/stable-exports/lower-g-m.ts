@@ -181,6 +181,10 @@ export {
 } from "../../../review/review-git-metadata";
 export { initImageAttachmentChunk as legacyAppMainBuwLowerILowerMExport } from "../../../image-side-panel/image-attachment";
 export { initD3ScaleRuntimeChunk as legacyAppMainBuwLowerIUpperSExport } from "../../../utils/d3-chart-scales";
+export {
+  overlayHeightCssVariable as legacyAppMainBuwLowerKLowerMExport,
+  overlayReserveCssValue as legacyAppMainBuwLowerJLowerMExport,
+} from "../../../composer/right-panel-composer-overlay-scroll-reserve";
 
 export {
   io as legacyAppMainBuwLowerILowerOExport,
@@ -188,11 +192,9 @@ export {
   iu as legacyAppMainBuwLowerILowerUExport,
   iv as legacyAppMainBuwLowerILowerVExport,
   jh as legacyAppMainBuwLowerJLowerHExport,
-  jm as legacyAppMainBuwLowerJLowerMExport,
   k as legacyAppMainBuwLowerKExport,
   kg as legacyAppMainBuwLowerKLowerGExport,
   kh as legacyAppMainBuwLowerKLowerHExport,
-  km as legacyAppMainBuwLowerKLowerMExport,
   kn as legacyAppMainBuwLowerKLowerNExport,
   ko as legacyAppMainBuwLowerKLowerOExport,
   ks as legacyAppMainBuwLowerKLowerSExport,

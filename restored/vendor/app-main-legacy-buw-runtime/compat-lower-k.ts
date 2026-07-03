@@ -16,13 +16,13 @@ export { fontSettings as appMainCurrentCompatSlotLowerKUnderscore } from "../../
 export { viewportSizeSignal as appMainCurrentCompatSlotLowerKLowerD } from "../../runtime/pointer-velocity-signals";
 export { composerPromptHistorySignal as appMainCurrentCompatSlotLowerKLowerB } from "../../composer/composer-interaction-state";
 export { reviewProjectRootAtom as appMainCurrentCompatSlotLowerKLowerV } from "../../review/review-git-metadata";
+export { overlayHeightCssVariable as appMainCurrentCompatSlotLowerKLowerM } from "../../composer/right-panel-composer-overlay-scroll-reserve";
 
 export {
   k as appMainCurrentCompatSlotLowerK,
   kf as appMainCurrentCompatSlotLowerKLowerF,
   kg as appMainCurrentCompatSlotLowerKLowerG,
   kh as appMainCurrentCompatSlotLowerKLowerH,
-  km as appMainCurrentCompatSlotLowerKLowerM,
   kn as appMainCurrentCompatSlotLowerKLowerN,
   ko as appMainCurrentCompatSlotLowerKLowerO,
   ks as appMainCurrentCompatSlotLowerKLowerS,

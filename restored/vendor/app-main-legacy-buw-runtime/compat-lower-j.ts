@@ -23,10 +23,10 @@ export { initPointerVelocityStateChunk as appMainCurrentCompatSlotLowerJLowerD }
 export { initComposerInteractionStateChunk as appMainCurrentCompatSlotLowerJLowerB } from "../../composer/composer-interaction-state";
 export { initComposerContextButtonChunk as appMainCurrentCompatSlotLowerJUpperC } from "../../features/use-dictation/context-button";
 export { currentBranchNameAtom as appMainCurrentCompatSlotLowerJLowerV } from "../../review/review-git-metadata";
+export { overlayReserveCssValue as appMainCurrentCompatSlotLowerJLowerM } from "../../composer/right-panel-composer-overlay-scroll-reserve";
 
 export {
   jf as appMainCurrentCompatSlotLowerJLowerF,
   jh as appMainCurrentCompatSlotLowerJLowerH,
-  jm as appMainCurrentCompatSlotLowerJLowerM,
   jy as appMainCurrentCompatSlotLowerJLowerY,
 } from "../app-main-legacy-buw-compat-bundle";
