@@ -66,6 +66,7 @@ export { AutomationSandboxBanner as legacyAppMainBuwLowerWLowerRExport } from ".
 export { formatScheduleConfigSummary as legacyAppMainBuwLowerWLowerIExport } from "../../../automation/automation-schedule";
 export { renderMessageOrString as legacyAppMainBuwLowerZLowerRExport } from "../../../composer/render-message-or-string";
 export { useClearBrowserBrowsingDataMutation as legacyAppMainBuwLowerWLowerPExport } from "../../../browser/browser-use-origin-state-queries";
+export { BrowserTabMetadataSyncEffect as legacyAppMainBuwLowerWLowerLExport } from "../../../browser/browser-tab-metadata-sync-effect";
 export { SettingsButtonRow as legacyAppMainBuwLowerVLowerRExport } from "../../../ui/settings-row";
 export { initSettingsControlRowChunk } from "../../../ui/settings-row";
 export { SettingsKeyValueRow as legacyAppMainBuwLowerYLowerRExport } from "../../../ui/settings-row";
@@ -184,6 +185,7 @@ export {
   isReviewIndexModeAtom as legacyAppMainBuwLowerXLowerVExport,
 } from "../../../review/review-diff-mode-atoms";
 export { PushToolbarButton as legacyAppMainBuwLowerWLowerGExport } from "../../../conversations/git-actions-review-toolbar";
+export { applyAbsolutePosition as legacyAppMainBuwLowerZLowerTExport } from "../../../image-side-panel/paged-annotation-overlay-geometry";
 
 export {
   tn as legacyAppMainBuwLowerTLowerNExport,
@@ -194,7 +196,6 @@ export {
   vu as legacyAppMainBuwLowerVLowerUExport,
   wa as legacyAppMainBuwLowerWLowerAExport,
   wd as legacyAppMainBuwLowerWLowerDExport,
-  wl as legacyAppMainBuwLowerWLowerLExport,
   wo as legacyAppMainBuwLowerWLowerOExport,
   wt as legacyAppMainBuwLowerWLowerTExport,
   xd as legacyAppMainBuwLowerXLowerDExport,
@@ -214,5 +215,4 @@ export {
   zl as legacyAppMainBuwLowerZLowerLExport,
   zm as legacyAppMainBuwLowerZLowerMExport,
   zp as legacyAppMainBuwLowerZLowerPExport,
-  zt as legacyAppMainBuwLowerZLowerTExport,
 } from "../../app-main-legacy-buw-compat-bundle";
