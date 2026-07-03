@@ -13,6 +13,8 @@ import {
 
 const WORKTREE_INIT_FAILED_CODE = "worktree_init_failed";
 
+export function initSubmitToastStatusMessagesChunk(): void {}
+
 export function getWorktreeStatusToastMessage(
   error: unknown,
   intl: IntlShape,

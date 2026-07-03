@@ -9,6 +9,8 @@ type TransferPinnedThreadOrderOptions = {
   targetConversationId: string;
 };
 
+export function initThreadHandoffTransferRuntimeChunk(): void {}
+
 export async function transferPinnedThreadOrder({
   sourceConversationId,
   targetConversationId,

@@ -176,7 +176,7 @@ function CreatePullRequestToolbarButton({ compact }: ToolbarButtonProps) {
   );
 }
 
-function PushToolbarButton({ compact }: ToolbarButtonProps) {
+export function PushToolbarButton({ compact }: ToolbarButtonProps) {
   const store = useScopedStore(localConversationGitActionsScope);
   const intl = useIntl();
   const pushBlockedReason = useScopedValue(pushBlockedReasonAtom);

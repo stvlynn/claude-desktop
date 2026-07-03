@@ -63,6 +63,7 @@ export { isAutomationDraftUsingDefaultCwd as legacyAppMainBuwLowerYLowerIExport 
 export { initHeartbeatThreadOptionsChunk as legacyAppMainBuwLowerULowerRExport } from "../../../automations/use-heartbeat-thread-options";
 
 export { AutomationSandboxBanner as legacyAppMainBuwLowerWLowerRExport } from "../../../automations/automation-sandbox-banner";
+export { formatScheduleConfigSummary as legacyAppMainBuwLowerWLowerIExport } from "../../../automation/automation-schedule";
 export { renderMessageOrString as legacyAppMainBuwLowerZLowerRExport } from "../../../composer/render-message-or-string";
 export { useClearBrowserBrowsingDataMutation as legacyAppMainBuwLowerWLowerPExport } from "../../../browser/browser-use-origin-state-queries";
 export { SettingsButtonRow as legacyAppMainBuwLowerVLowerRExport } from "../../../ui/settings-row";
@@ -166,9 +167,12 @@ export { formatFallbackHookTitle as legacyAppMainBuwLowerTLowerAExport } from ".
 export { readServiceTierAuthMethod as legacyAppMainBuwLowerTLowerGExport } from "../../../utils/read-service-tier-for-request";
 export { initDiffCommentSourcesChunk as legacyAppMainBuwLowerTLowerHExport } from "../../../github/diff-comments/use-diff-comment-sources";
 export { hasDefaultCommandKeybinding as legacyAppMainBuwLowerTLowerMExport } from "../../../utils/command-keybindings";
+export { initThreadHandoffTransferRuntimeChunk as legacyAppMainBuwLowerTLowerOExport } from "../../../conversations/transfer-pinned-thread-order";
 export { FeedbackFormDialog as legacyAppMainBuwLowerTLowerRExport } from "../../../ui/feedback-form-dialog";
 export { initPlanSummaryCardChunk as legacyAppMainBuwLowerTLowerTExport } from "../../../conversations/local-conversation-thread-parts/plan-summary-card";
 export { setEnabledReasoningEffort as legacyAppMainBuwLowerTLowerXExport } from "../../../composer/enabled-reasoning-efforts";
+export { shouldRenderActivityGroup as legacyAppMainBuwLowerULowerAExport } from "../../../conversations/conversation-activity-grouping/activity-group-rendering";
+export { initSubmitToastStatusMessagesChunk as legacyAppMainBuwLowerULowerNExport } from "../../../composer/submit-toast-status-messages";
 export { useWindowControlsSafeArea as legacyAppMainBuwLowerVLowerDExport } from "../../../runtime/use-window-controls-safe-area";
 export { initReviewDiffFindHighlightChunk as legacyAppMainBuwLowerZLowerFExport } from "../../../review/diff-find-highlight";
 export {
@@ -179,21 +183,17 @@ export {
   isReviewBranchModeAtom as legacyAppMainBuwLowerYLowerVExport,
   isReviewIndexModeAtom as legacyAppMainBuwLowerXLowerVExport,
 } from "../../../review/review-diff-mode-atoms";
+export { PushToolbarButton as legacyAppMainBuwLowerWLowerGExport } from "../../../conversations/git-actions-review-toolbar";
 
 export {
   tn as legacyAppMainBuwLowerTLowerNExport,
-  to as legacyAppMainBuwLowerTLowerOExport,
   tp as legacyAppMainBuwLowerTLowerPExport,
-  ua as legacyAppMainBuwLowerULowerAExport,
-  un as legacyAppMainBuwLowerULowerNExport,
   vh as legacyAppMainBuwLowerVLowerHExport,
   vp as legacyAppMainBuwLowerVLowerPExport,
   vt as legacyAppMainBuwLowerVLowerTExport,
   vu as legacyAppMainBuwLowerVLowerUExport,
   wa as legacyAppMainBuwLowerWLowerAExport,
   wd as legacyAppMainBuwLowerWLowerDExport,
-  wg as legacyAppMainBuwLowerWLowerGExport,
-  wi as legacyAppMainBuwLowerWLowerIExport,
   wl as legacyAppMainBuwLowerWLowerLExport,
   wo as legacyAppMainBuwLowerWLowerOExport,
   wt as legacyAppMainBuwLowerWLowerTExport,
