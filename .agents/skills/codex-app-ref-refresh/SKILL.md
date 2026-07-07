@@ -16,6 +16,15 @@ Use this skill from the repository root that should receive `./ref`.
 node .agents/skills/codex-app-ref-refresh/scripts/refresh-codex-ref.mjs
 ```
 
+For another installed Electron app, keep the same workflow and point the script
+at that app's asar:
+
+```bash
+node .agents/skills/codex-app-ref-refresh/scripts/refresh-codex-ref.mjs \
+  --app Claude \
+  --asar /Applications/Claude.app/Contents/Resources/app.asar
+```
+
 The script runs three steps in order:
 
 1. **Sync** — deletes only `<cwd>/ref`, then extracts `/Applications/Codex.app/Contents/Resources/app.asar` into a fresh `ref` directory.
@@ -37,6 +46,8 @@ After the run, confirm formatting actually completed before reporting success:
 ## Options
 
 - Set `CODEX_APP_ASAR=/path/to/app.asar` before running when the Codex app bundle lives somewhere else.
+- Pass `--app NAME` and `--asar /path/to/app.asar` to refresh from another Electron app, such as Claude.app.
+- Pass `--target DIR` only when the receiving directory should not be `./ref`; the target must still be a safe direct child of the workspace.
 - Pass `--skip-format` only when the user explicitly wants extraction without Prettier formatting.
 - Pass `--dry-run` to inspect the resolved paths without deleting or extracting anything.
 

@@ -5,16 +5,20 @@ import { existsSync, mkdirSync, readdirSync, rmSync, statSync } from "node:fs";
 import { homedir } from "node:os";
 import path from "node:path";
 
+const DEFAULT_APP_NAME = "Codex";
 const DEFAULT_ASAR_PATH = "/Applications/Codex.app/Contents/Resources/app.asar";
 const PRETTIER_IGNORE_PATH = "/dev/null";
 
 function usage() {
-  console.log(`Usage: node refresh-codex-ref.mjs [--dry-run] [--skip-format]
+  console.log(`Usage: node refresh-codex-ref.mjs [--dry-run] [--skip-format] [--app NAME] [--asar PATH] [--target DIR]
 
-Refresh ./ref from the installed Codex.app asar.
+Refresh ./ref from an installed Electron app asar.
 
 Environment:
-  CODEX_APP_ASAR  Override the source asar path.
+  APP_NAME        App label used in logs.
+  APP_ASAR        Override the source asar path.
+  APP_REF_DIR     Override the target ref directory name.
+  CODEX_APP_ASAR  Backward-compatible override for Codex.app.
 `);
 }
 
@@ -46,7 +50,26 @@ function runCapturing(command, args, allowedStatuses = [0]) {
   return result;
 }
 
-function assertSafeRefDir(refDir, cwd) {
+function readOptionValue(args, name) {
+  const equalsPrefix = `${name}=`;
+  const equalsValue = args.find((arg) => arg.startsWith(equalsPrefix));
+  if (equalsValue) {
+    return equalsValue.slice(equalsPrefix.length);
+  }
+
+  const index = args.indexOf(name);
+  if (index === -1) {
+    return undefined;
+  }
+
+  const value = args[index + 1];
+  if (!value || value.startsWith("--")) {
+    fail(`${name} requires a value`);
+  }
+  return value;
+}
+
+function assertSafeRefDir(refDir, cwd, targetName) {
   const root = path.parse(refDir).root;
   const home = path.resolve(homedir());
 
@@ -54,14 +77,14 @@ function assertSafeRefDir(refDir, cwd) {
     fail(`ref directory is unsafe to replace: ${refDir}`);
   }
 
-  if (path.basename(refDir) !== "ref") {
-    fail(`ref directory must be named "ref": ${refDir}`);
+  if (!/^[A-Za-z0-9._-]+$/.test(targetName) || targetName.startsWith(".")) {
+    fail(`target directory name is unsafe: ${targetName}`);
   }
 
   const relative = path.relative(cwd, refDir);
-  if (relative !== "ref") {
+  if (relative !== targetName) {
     fail(
-      `ref directory must resolve to ./ref under the current working directory: ${refDir}`,
+      `target directory must resolve to ./${targetName} under the current working directory: ${refDir}`,
     );
   }
 }
@@ -190,6 +213,9 @@ function verifyWithPrettier(files) {
 const args = process.argv.slice(2);
 const dryRun = args.includes("--dry-run");
 const skipFormat = args.includes("--skip-format");
+const appName = readOptionValue(args, "--app") || process.env.APP_NAME || DEFAULT_APP_NAME;
+const targetName = readOptionValue(args, "--target") || process.env.APP_REF_DIR || "ref";
+const asarArg = readOptionValue(args, "--asar");
 
 if (args.includes("--help") || args.includes("-h")) {
   usage();
@@ -197,21 +223,30 @@ if (args.includes("--help") || args.includes("-h")) {
 }
 
 const unknownArgs = args.filter(
-  (arg) => !["--dry-run", "--skip-format"].includes(arg),
+  (arg, index) =>
+    !["--dry-run", "--skip-format"].includes(arg) &&
+    !["--app", "--asar", "--target"].includes(arg) &&
+    !arg.startsWith("--app=") &&
+    !arg.startsWith("--asar=") &&
+    !arg.startsWith("--target=") &&
+    !["--app", "--asar", "--target"].includes(args[index - 1]),
 );
 if (unknownArgs.length > 0) {
   fail(`unknown argument(s): ${unknownArgs.join(", ")}`);
 }
 
 const cwd = path.resolve(process.cwd());
-const refDir = path.join(cwd, "ref");
-const asarPath = path.resolve(process.env.CODEX_APP_ASAR || DEFAULT_ASAR_PATH);
+const refDir = path.join(cwd, targetName);
+const asarPath = path.resolve(
+  asarArg || process.env.APP_ASAR || process.env.CODEX_APP_ASAR || DEFAULT_ASAR_PATH,
+);
 
-assertSafeRefDir(refDir, cwd);
+assertSafeRefDir(refDir, cwd, targetName);
 
 console.log(`Workspace: ${cwd}`);
+console.log(`App: ${appName}`);
 console.log(`Source asar: ${asarPath}`);
-console.log(`Target ref: ${refDir}`);
+console.log(`Target: ${refDir}`);
 
 if (dryRun) {
   console.log("Dry run only; no files changed.");
@@ -222,11 +257,11 @@ if (!existsSync(asarPath) || !statSync(asarPath).isFile()) {
   fail(`asar file not found: ${asarPath}`);
 }
 
-console.log("Removing existing ./ref...");
+console.log(`Removing existing ./${targetName}...`);
 rmSync(refDir, { recursive: true, force: true });
 mkdirSync(refDir, { recursive: true });
 
-console.log("Extracting Codex app asar...");
+console.log(`Extracting ${appName} app asar...`);
 run("npx", ["-y", "@electron/asar", "extract", asarPath, refDir]);
 
 if (skipFormat) {
@@ -245,4 +280,4 @@ if (files.length > 0) {
   verifyWithPrettier(jsFiles);
 }
 
-console.log("Codex app ref refresh complete.");
+console.log(`${appName} app ref refresh complete.`);

@@ -1010,11 +1010,18 @@ function isLottieAnimationDataModule(file: string, source: string): boolean {
   );
 }
 
-const RESTORATION_PROVENANCE_HEADER_RE =
-  /^\/\/ Restored from ref\/(?:webview\/assets|\.vite\/build)\/[^/\r\n]+\.js\b/;
+const RESTORATION_BUNDLE_ROOT_PATTERN =
+  String.raw`(?:webview/assets|\.vite/build|\.vite/renderer/[^/\r\n]+/assets)`;
 
-const RESTORATION_PROVENANCE_RE =
-  /Restored from ref\/(?:webview\/assets|\.vite\/build)\/[^/\r\n]+\.js\b/;
+const RESTORATION_PROVENANCE_SOURCE_PATTERN = String.raw`(?:${RESTORATION_BUNDLE_ROOT_PATTERN}/[^/\r\n]+\.js|package\.json|\.vite/renderer/[^/\r\n]+/[^/\r\n]+\.html)`;
+
+const RESTORATION_PROVENANCE_HEADER_RE = new RegExp(
+  String.raw`^// Restored from ref/${RESTORATION_PROVENANCE_SOURCE_PATTERN}\b`,
+);
+
+const RESTORATION_PROVENANCE_RE = new RegExp(
+  String.raw`Restored from ref/${RESTORATION_PROVENANCE_SOURCE_PATTERN}\b`,
+);
 
 function isLocaleMessageDataModule(file: string, source: string): boolean {
   const normalized = file.replace(/\\/g, "/");
@@ -1061,9 +1068,9 @@ function isBundlerInteropRuntimeModule(file: string, source: string): boolean {
 
   const header = source.slice(0, 700);
   return (
-    /Restored from ref\/(?:webview\/assets|\.vite\/build)\/chunk-Cq_f4orQ\.js/.test(
-      header,
-    ) &&
+    new RegExp(
+      String.raw`Restored from ref/${RESTORATION_BUNDLE_ROOT_PATTERN}/chunk-Cq_f4orQ\.js`,
+    ).test(header) &&
     (/Rolldown CJS interop runtime boundary/i.test(header) ||
       (/\bconst create = Object\.create\b/.test(source) &&
         /\bconst toESM\b/.test(source) &&
@@ -1110,7 +1117,10 @@ function restoredSourceChunkBasename(source: string): string | null {
   const match = source
     .slice(0, 700)
     .match(
-      /^\s*\/\/ Restored from ref\/(?:webview\/assets|\.vite\/build)\/([^/\r\n]+)\.js\b/m,
+      new RegExp(
+        String.raw`^\s*// Restored from ref/${RESTORATION_BUNDLE_ROOT_PATTERN}/([^/\r\n]+)\.js\b`,
+        "m",
+      ),
     );
   return match?.[1] ?? null;
 }
@@ -2747,7 +2757,7 @@ export function analyzeSource(
     issues.push({
       code: "missing-provenance-header",
       message:
-        "Public restored files must start with // Restored from ref/<bundle-root>/<chunk>.js",
+        "Public restored files must start with // Restored from ref/<source>",
     });
   }
   if (duplicateProvenanceHeaders > 0) {
