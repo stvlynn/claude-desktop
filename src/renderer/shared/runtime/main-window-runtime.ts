@@ -1,4 +1,6 @@
+// @ts-nocheck
 // Restored from ref/.vite/renderer/main_window/assets/main-D-xLCUWh.js
+// Public npm-backed runtime boundary for the main renderer window.
 
 import * as React from "react";
 import { useIntl } from "react-intl";

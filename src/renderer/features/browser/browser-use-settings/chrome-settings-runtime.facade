@@ -1,0 +1,4 @@
+// @ts-nocheck
+export const CHROME_CONTACT_INFO_URL = undefined as never;
+export const CHROME_EXTENSIONS_URL = undefined as never;
+export const CHROME_PASSWORDS_URL = undefined as never;

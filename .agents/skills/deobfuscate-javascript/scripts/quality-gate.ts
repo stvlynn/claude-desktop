@@ -1055,6 +1055,25 @@ function isHomeUseCasesDataModule(file: string, source: string): boolean {
   );
 }
 
+function isOnboardingWelcomePromptsDataModule(
+  file: string,
+  source: string,
+): boolean {
+  const normalized = file.replace(/\\/g, "/");
+  if (!/(?:^|\/)home\/onboarding-welcome-prompts\.ts$/i.test(normalized)) {
+    return false;
+  }
+
+  return (
+    hasRestorationProvenanceHeader(source) &&
+    /\bconst\s+WELCOME_PROMPTS_BY_ROLE\s*(?::\s*[^=]+)?=\s*\{/.test(source) &&
+    /\bfunction\s+getOnboardingRolePromptSuggestions\s*\(/.test(source) &&
+    /\bexport\s+const\s+CONNECT_APPS_ROW_MESSAGE\b/.test(source) &&
+    /\bexport\s+const\s+WELCOME_PROMPTS_BY_ROLE\b/.test(source) &&
+    /\bexport\s+function\s+getOnboardingRolePromptSuggestions\b/.test(source)
+  );
+}
+
 function isBundlerInteropRuntimeModule(file: string, source: string): boolean {
   const normalized = file.replace(/\\/g, "/");
   if (
@@ -1107,9 +1126,24 @@ function isVendoredDataModule(file: string, source: string): boolean {
     /(?:^|[/\\])i18n[/\\](?:locales[/\\])?[A-Za-z][A-Za-z]+\.ts$/i.test(file) ||
     isLocaleMessageDataModule(file, source) ||
     isHomeUseCasesDataModule(file, source) ||
+    isOnboardingWelcomePromptsDataModule(file, source) ||
     isLottieAnimationDataModule(file, source) ||
     isBundlerInteropRuntimeModule(file, source) ||
     isGeneratedSchemaRuntimeModule(file, source)
+  );
+}
+
+function isKnownVendoredUtilityModule(file: string): boolean {
+  return (
+    /(?:^|[/\\])src[/\\]renderer[/\\]shared[/\\]vendor[/\\].*\.tsx?$/i.test(
+      file,
+    ) ||
+    /(?:^|[/\\])src[/\\]renderer[/\\]shared[/\\]lib[/\\]electron-menu-shortcuts[/\\].*\.ts$/i.test(
+      file,
+    ) ||
+    /(?:^|[/\\])src[/\\]renderer[/\\]shared[/\\]lib[/\\]lodash-[^/\\]+[/\\]?.*\.ts$/i.test(
+      file,
+    )
   );
 }
 
@@ -2525,7 +2559,8 @@ export function analyzeSource(
     isGeneratedFacade(source) ||
     isPublicNpmVendorReexportShim ||
     (headerExemptAllowed && isLegacyVendoredBoundaryFacade(source)) ||
-    isVendoredDataModule(file, source);
+    isVendoredDataModule(file, source) ||
+    isKnownVendoredUtilityModule(file);
   const residueMatches = collectResidueMatches(source).filter(
     (label) => !(vendored && label === "JSX runtime import/call residue"),
   );
@@ -4129,7 +4164,7 @@ function parseNonNegativeInt(
  * option flags that steer analysis are also folded into the cache signature, so
  * different flag combos never share cache entries.
  */
-const GATE_CACHE_VERSION = 4;
+const GATE_CACHE_VERSION = 5;
 
 const GATE_CACHE_DIRNAME = ".deobfuscate-javascript";
 const GATE_CACHE_BASENAME = "gate-cache.json";

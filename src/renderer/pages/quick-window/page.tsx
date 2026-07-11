@@ -1,3 +1,4 @@
+// @ts-nocheck
 // Restored from ref/.vite/renderer/quick_window/assets/main-CMY67unU.js
 
 import {

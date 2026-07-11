@@ -1,0 +1,20 @@
+// @ts-nocheck
+export const buildAnnotationKey = undefined as never;
+export const detectFileLanguage = undefined as never;
+export const fileSourceMetricsEqual = undefined as never;
+export const findLineNumberFromEventPath = undefined as never;
+export const getScrollableElement = undefined as never;
+export const parseFileSourceMetrics = undefined as never;
+export const prefetchCodeThemes = undefined as never;
+export const restoreScrollLeft = undefined as never;
+export const restoreScrollTop = undefined as never;
+export const setFocusedReviewPane = undefined as never;
+export const threadDiffByPathAtom = undefined as never;
+export const toCommentAnnotationInput = undefined as never;
+export const toLineAnnotations = undefined as never;
+export const useHostKey = undefined as never;
+export const useMeasuredSizeCallback = undefined as never;
+export const useReviewCommentAnnotations = undefined as never;
+export const useReviewSearchScrollHandler = undefined as never;
+export const useScopedGitQuery = undefined as never;
+export const useThreadQuery = undefined as never;

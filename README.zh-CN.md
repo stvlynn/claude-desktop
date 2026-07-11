@@ -1,109 +1,159 @@
-# decode-codex
+# Claude Desktop
 
 > [English](README.md) · **中文**
 
-从本地安装的 **OpenAI Codex** macOS 桌面应用中取出最新代码，并把它压缩/打包后的 JavaScript 还原成可读、命名清晰的源码。
+<p align="center">
+  <strong>Claude Desktop macOS 客户端的非官方 TypeScript 重建工程。</strong>
+</p>
 
-仓库提供两个协同工作的 **Skill**：
+<p align="center">
+  <a href="docs/architecture.md">架构说明</a>
+  ·
+  <a href="docs/restoration-status.md">当前状态</a>
+  ·
+  <a href="docs/runtime-export-map.md">运行时映射</a>
+</p>
 
-| Skill | 作用 | 产物 |
-| ----- | ---- | ---- |
-| [`codex-app-ref-refresh`](.agents/skills/codex-app-ref-refresh/) | 解包已安装的 `Codex.app`（`app.asar`）到 `./ref` 并格式化 | `./ref/` |
-| [`deobfuscate-javascript`](.agents/skills/deobfuscate-javascript/) | 把 `ref/webview/assets` 里打包的 JS 反混淆成命名有意义的可读代码 | `./restored/` |
+<p align="center">
+  <img alt="Platform" src="https://img.shields.io/badge/platform-macOS-black">
+  <img alt="Runtime" src="https://img.shields.io/badge/runtime-Electron-47848F">
+  <img alt="Language" src="https://img.shields.io/badge/language-TypeScript-3178C6">
+  <img alt="UI" src="https://img.shields.io/badge/ui-React-61DAFB">
+  <img alt="Package manager" src="https://img.shields.io/badge/package%20manager-Bun-f9f1e1">
+</p>
 
-典型流程：**先从 App 同步到 `./ref`，再把 `./ref` 反混淆到 `./restored`。**
+## 项目简介
 
----
+这个仓库将 Claude Desktop 的应用外壳重建为可读的 TypeScript 和 React 源码。
+项目关注的是 `claude.ai` 外围的桌面端能力：Electron 窗口、preload API、原生菜单、
+托盘、设置、Quick Window、Find in Page、Buddy，以及主窗口 overlay。
 
-## 前置条件
+项目以本机安装的 Claude Desktop 作为参考来源，再把代码整理进 `src/` 下的可维护
+源码结构。当前代码树可以进行 TypeScript 检查、质量门检查和 Vite 构建。
 
-- **macOS**，并已安装 **[Codex 桌面应用](https://chatgpt.com/codex)** 于 `/Applications/Codex.app`（同步 Skill 需要读取它的 `app.asar`）。
-- **Node.js**（同步 Skill 会调用 `node` 和 `npx @electron/asar` / `prettier`）。
-- **[Bun](https://bun.sh)**（反混淆 Skill 的脚本是用 `bun` 运行的 TypeScript）。
-- 一个能运行 Skill 的 Agent（Claude Code，或任何读取 `.agents/skills` 的 Codex/Agent 环境）。也可以手动运行内置脚本，见下文。
+## 已包含能力
 
-两个 Skill 位于 [`.agents/skills/`](.agents/skills/)。把 Agent 指向本仓库后按名字调用即可；或直接运行脚本。
+- Electron 主进程 bootstrap 和应用生命周期 wiring。
+- 主窗口 shell：标题栏状态、加载错误 overlay、webview 健康状态处理。
+- About、Buddy、Find in Page、Quick Window 的 renderer 入口。
+- `window.claude`、Buddy、菜单 API、overlay visibility、quick-window 事件的
+  preload/renderer 契约。
+- 原生应用菜单和上下文菜单服务。
+- 托盘控制器、更新辅助、桌面设置、日志和状态持久化边界。
+- 大量 renderer shared 基础库：图标、UI primitives、hooks、parser、快捷键 helper、
+  thread/review 工具、动画数据，以及 feature/entity slices。
 
----
-
-## Skill 1 — 同步最新 Codex 代码（`codex-app-ref-refresh`）
-
-从已安装的 Codex App 重新生成 `./ref`，让你分析的源码始终对应当前安装的版本。它会**删除并替换 `./ref`**，把 `/Applications/Codex.app/Contents/Resources/app.asar` 解包进去，再用 Prettier 格式化所有解出来的 `.js`/`.css`（跳过 `ref/node_modules`）。
-
-### 通过 Agent 使用
-
-在仓库根目录让 Agent 执行：
-
-> 用 **codex-app-ref-refresh** 从已安装的 Codex App 刷新 `./ref`。
-
-### 或直接运行脚本
-
-```bash
-# 在仓库根目录（即要承载 ./ref 的目录）
-node .agents/skills/codex-app-ref-refresh/scripts/refresh-codex-ref.mjs
-```
-
-可选项：
-
-| 参数 / 环境变量 | 作用 |
-| --------------- | ---- |
-| `--dry-run` | 只打印解析出的路径，不删除、不解包 |
-| `--skip-format` | 只解包，不跑 Prettier |
-| `CODEX_APP_ASAR=/path/to/app.asar` | Codex 安装在非默认位置时指定 asar 路径 |
-
-> ⚠️ 一定要在“要承载 `./ref` 的目录”里运行——脚本会先清空 `./ref`。它有保护：只有目标解析为当前目录下的 `./ref` 才会执行。
-
-完成后，打包的 Web UI 在 `ref/webview/`（入口 `ref/webview/index.html`，代码块在 `ref/webview/assets/`）。
-
----
-
-## Skill 2 — 反混淆同步后的代码（`deobfuscate-javascript`）
-
-把解包进 `./ref` 的压缩、打包 JS 还原成可读代码。它是一条多阶段流水线（反混淆 → 智能重命名 → 润色 → 可选的带类型 `.tsx` 重写）。语义级的重命名由 Agent 本身完成，机械性的活由内置 `bun` 脚本处理。还原结果输出到 `./restored/`，带有有意义的命名、按语义领域分的子目录、出处头注释，以及共享的 `restored/IMPORT_MAP.json`。只有整理完成的文件才会进入 `./restored/`：脚本批量产出的机械中间产物会先放进隐藏的临时工作区（`restored/.deobfuscate-javascript/`），整理成可读性良好、命名友好、目录结构清晰（深度模式下还要类型完整）的代码后，才提升到 `./restored/`。
-
-### 通过 Agent 使用
-
-`./ref` 存在后，让 Agent 执行（中英文都能触发）：
-
-> 用 **deobfuscate-javascript** 还原 `./ref`。
-
-例如：*“反混淆 `./ref`”*、*“看懂这段 JS”*、*"deobfuscate `ref/webview/assets`"*。
-
-### 两种深度
-
-| 深度 | 触发方式 | 产物 |
-| ---- | -------- | ---- |
-| **可读**（默认） | 直接要求还原 | 可读、命名清晰的 JS/TSX——命名质量是硬指标 |
-| **深度 / 生产级** | 说 **“深度” / “完整” / "deep" / "full" / "typed" / "production"** | 额外做带类型的 `.tsx` 重写、npm 依赖解析、完整的依赖图编排，以及验收复审循环 |
-
-默认按**整棵依赖树**处理：读取 `ref/webview/index.html`，自动识别 App 入口，递归还原所有可达的项目本地代码块。如果你只贴一个文件，它就只还原那个文件。
-
-### 首次安装脚本依赖
+## 快速开始
 
 ```bash
-cd .agents/skills/deobfuscate-javascript
 bun install
+bun run typecheck
+make quality
+bun run build
 ```
 
-各个 `bun scripts/*.ts` 工具（detect、extract、smart-rename、polish、quality-gate 等）在该 Skill 的 [`SKILL.md`](.agents/skills/deobfuscate-javascript/SKILL.md) 中有说明。正常使用时你不需要手动调用——Agent 会自动编排它们。
+启动开发 shell：
 
----
-
-## 目录结构
-
-```
-decode-codex/
-├─ .agents/skills/
-│  ├─ codex-app-ref-refresh/      # Skill 1：同步 Codex.app → ./ref
-│  └─ deobfuscate-javascript/     # Skill 2：./ref → ./restored
-├─ ref/                           # 解包出的 Codex App 源码（由 Skill 1 生成）
-└─ restored/                      # 可读的反混淆产物（由 Skill 2 生成）
+```bash
+bun run dev
 ```
 
-`ref/` 和 `restored/` 都是生成物——请用 Skill 重新生成，而不是手动编辑。
+构建并启动 app shell：
 
----
+```bash
+bun run start
+```
 
-## ⚠️ 法律与道德提示
+刷新本地 Claude Desktop 参考包：
 
-本项目仅用于对你已安装软件的**个人学习与互操作性研究**。解出的代码版权归 OpenAI 所有；请遵守 Codex 应用的许可协议与服务条款。不要再分发解出或还原后的代码。
+```bash
+make refresh-ref
+```
+
+## 项目结构
+
+```text
+claude-desktop/
+├─ src/
+│  ├─ main/                     # Electron 主进程
+│  │  ├─ domain/                # 状态、常量、schema、契约
+│  │  ├─ application/           # 应用服务和 IPC 编排
+│  │  ├─ infrastructure/        # Electron、文件系统、git、托盘、更新 IO
+│  │  ├─ interfaces/            # 边界契约
+│  │  └─ preload/               # Preload/runtime 代码
+│  ├─ renderer/                 # React renderer，按 FSD 组织
+│  │  ├─ app/
+│  │  ├─ pages/
+│  │  ├─ widgets/
+│  │  ├─ features/
+│  │  ├─ entities/
+│  │  └─ shared/
+│  └─ shared/contracts/         # 跨进程契约
+├─ ref/                         # 本地 Claude.app 参考解包
+├─ restored/                    # 候选模块迁移池
+├─ docs/                        # 架构和状态说明
+├─ vite.*.config.ts             # main/preload/renderer 构建配置
+└─ Makefile                     # 常用开发命令
+```
+
+## 当前状态
+
+当前源码树可以构建，并通过现有检查：
+
+```bash
+bun run typecheck
+make quality
+bun run build
+```
+
+详细进度记录在 [docs/restoration-status.md](docs/restoration-status.md)。当前概要：
+
+- Claude Desktop 参考版本：`@ant/desktop` `1.18286.0`。
+- 已提升窗口入口：main、about、buddy、find-in-page、quick。
+- 主进程已具备 lifecycle、menu、tray、settings、updates、plugin marketplace、
+  workers、preload state 和 IPC 等服务边界。
+- Renderer shared 基础层已经大规模提升。
+- 大体量 main-window runtime 仍在推进中，完成前还不能认为行为完全闭合。
+
+## 开发说明
+
+`ref/` 由本机安装的 Claude Desktop 生成，应视为参考材料，不是源码真相。
+`src/` 才是维护目标。
+
+部分模块仍处在中间工作区中，用于恢复命名和模块边界。这些 checkpoint 对开发有用，
+但不是项目的公开 API。
+
+常用命令：
+
+```bash
+make inspect       # 检查当前主 renderer 参考入口
+make deobf-plan    # 准备主 renderer runtime 的重命名计划
+make runtime-map   # 应用已确认的 runtime export alias
+make quality       # 运行可读性和还原质量门
+```
+
+## Roadmap
+
+- 完成 main-window runtime 重建。
+- 用真实平台行为替换 Buddy BLE stub。
+- 补齐 renderer 侧 find-in-page 的 focus、blur、step、result 流程。
+- 还原 OS 级 Quick Window 快捷键和 dictation lifecycle 集成。
+- 将剩余 lifecycle、IPC 和平台模块提升到 `src/`。
+- 增加可分发构建所需的 packaging 和 code-signing 目标。
+
+## Star History
+
+<a href="https://www.star-history.com/#stvlynn/claude-desktop&Date">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=stvlynn/claude-desktop&type=Date&theme=dark" />
+    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=stvlynn/claude-desktop&type=Date" />
+    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=stvlynn/claude-desktop&type=Date" />
+  </picture>
+</a>
+
+## 免责声明
+
+这是一个非官方研究项目，与 Anthropic 无关。
+
+Claude Desktop 以及解包出的参考材料可能受 Anthropic 的许可协议、服务条款和版权
+约束。除非你拥有相应权利，否则不要再分发专有应用代码。

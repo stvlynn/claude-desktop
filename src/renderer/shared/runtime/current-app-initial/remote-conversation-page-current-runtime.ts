@@ -1,0 +1,9 @@
+// Restored from ref/webview/assets/remote-conversation-page-CSJXivxd.js
+// @ts-nocheck
+// Current-ref compatibility export surface for remote conversation page.
+const remoteConversationPageCurrentRuntime = () =>
+  "remote-conversation-page-current-runtime";
+
+void remoteConversationPageCurrentRuntime;
+
+export { RemoteConversationPage as RemoteConversationPageIcon } from "../../../entities/conversation/remote-conversation-page";

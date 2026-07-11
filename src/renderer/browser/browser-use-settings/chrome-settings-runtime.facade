@@ -1,0 +1,23 @@
+// Placeholder stub for browser/browser-use-settings/chrome-settings-runtime.facade
+// @ts-nocheck
+// Minimal placeholder stub generated during incremental restoration.
+export const CHROME_CONTACT_INFO_URL = undefined as never;
+export const CHROME_EXTENSIONS_URL = undefined as never;
+export const CHROME_PASSWORDS_URL = undefined as never;
+export const BROWSER_CONTACT_INFO_SETTINGS_PATH = undefined as never;
+export const BROWSER_DOWNLOADS_SETTINGS_PATH = undefined as never;
+export const BROWSER_EXTENSIONS_SETTINGS_PATH = undefined as never;
+export const BROWSER_PASSWORD_SETTINGS_PATH = undefined as never;
+export const BROWSER_SITE_SETTINGS_ROUTE_PATTERN = undefined as never;
+export const CHROME_COOKIES_URL = undefined as never;
+export const CHROME_DOWNLOADS_URL = undefined as never;
+export const CHROME_PASSWORD_MANAGER_URL = undefined as never;
+export const CHROME_PROTOCOL_HANDLERS_URL = undefined as never;
+export const CHROME_SITE_SETTINGS_URL = undefined as never;
+export const CONTACT_INFO_PARTITION = undefined as never;
+export const CONTACT_INFO_ROOT_URLS = undefined as never;
+export const EXTENSION_SETTINGS_PARTITION = undefined as never;
+export const getChromeSiteDetailsUrlForSite = undefined as never;
+export const HISTORY_SETTINGS_PARTITION = undefined as never;
+export const PASSWORD_MANAGER_PARTITION = undefined as never;
+export const SITE_SETTINGS_PARTITION = undefined as never;

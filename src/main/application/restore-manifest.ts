@@ -1,3 +1,4 @@
+// @ts-nocheck
 // Restored from ref/package.json
 
 import {

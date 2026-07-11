@@ -1,0 +1,29 @@
+// Restored from ref/webview/assets/local-remote-selection-DRnEOc8g.js
+// @ts-nocheck
+// local-remote-selection-DRnEOc8g chunk restored from the Codex webview bundle.
+import {
+  appScopeG as createScopedState,
+  appScopeRoot,
+} from "../../../shared/runtime/app-scope";
+import { localProjectActions } from "../../local-projects";
+import type { AppScopeSetter, LocalRemoteProjectSelection } from "./types";
+export const selectedLocalRemoteCwdState = createScopedState(
+  appScopeRoot,
+  null as string | null,
+);
+export function setSelectedLocalRemoteCwd(
+  store: AppScopeSetter,
+  selectedProject: LocalRemoteProjectSelection | null | undefined,
+) {
+  let cwd = "~";
+  if (selectedProject != null) {
+    cwd =
+      selectedProject.projectKind === "remote"
+        ? selectedProject.path
+        : localProjectActions.getThreadStartCwd(selectedProject);
+  }
+  store.set(selectedLocalRemoteCwdState, cwd);
+  return cwd;
+}
+
+export function initSelectedLocalRemoteCwdStateChunk(): void {}

@@ -1,109 +1,168 @@
-# decode-codex
+# Claude Desktop
 
 > **English** · [中文](README.zh-CN.md)
 
-Pull the latest code out of the installed **OpenAI Codex** macOS desktop app and turn its minified/bundled JavaScript back into readable, well-named source.
+<p align="center">
+  <strong>An unofficial TypeScript reconstruction of Claude Desktop for macOS.</strong>
+</p>
 
-The repository ships two agent **skills** that work together:
+<p align="center">
+  <a href="docs/architecture.md">Architecture</a>
+  ·
+  <a href="docs/restoration-status.md">Status</a>
+  ·
+  <a href="docs/runtime-export-map.md">Runtime Map</a>
+</p>
 
-| Skill | What it does | Output |
-| ----- | ------------ | ------ |
-| [`codex-app-ref-refresh`](.agents/skills/codex-app-ref-refresh/) | Extracts the installed `Codex.app` bundle (`app.asar`) into `./ref` and formats it | `./ref/` |
-| [`deobfuscate-javascript`](.agents/skills/deobfuscate-javascript/) | Reverse-engineers the bundled JS in `ref/webview/assets` into readable code with meaningful names | `./restored/` |
+<p align="center">
+  <img alt="Platform" src="https://img.shields.io/badge/platform-macOS-black">
+  <img alt="Runtime" src="https://img.shields.io/badge/runtime-Electron-47848F">
+  <img alt="Language" src="https://img.shields.io/badge/language-TypeScript-3178C6">
+  <img alt="UI" src="https://img.shields.io/badge/ui-React-61DAFB">
+  <img alt="Package manager" src="https://img.shields.io/badge/package%20manager-Bun-f9f1e1">
+</p>
 
-Typical flow: **refresh `./ref` from the app → deobfuscate `./ref` into `./restored`.**
+## About
 
----
+This repository rebuilds the Claude Desktop application shell as readable
+TypeScript and React source. It focuses on the desktop surfaces around
+`claude.ai`: Electron windows, preload APIs, native menus, tray behavior,
+settings, quick window flows, find-in-page, Buddy, and the main window overlay.
 
-## Prerequisites
+The project is built from the installed Claude Desktop app as a reference, then
+organized into maintainable source under `src/`. The result is a working
+development tree that can be typechecked, quality-gated, and built with Vite.
 
-- **macOS** with the **[Codex desktop app](https://chatgpt.com/codex)** installed at `/Applications/Codex.app` (required by the refresh skill — it reads the app's `app.asar`).
-- **Node.js** (the refresh skill runs `node` and `npx @electron/asar` / `prettier`).
-- **[Bun](https://bun.sh)** (the deobfuscate skill's scripts are TypeScript run with `bun`).
-- An agent that can run skills (Claude Code, or any Codex/agent harness that reads `.agents/skills`). You can also run the bundled scripts by hand — see below.
+## What Is Included
 
-The skills live under [`.agents/skills/`](.agents/skills/). Point your agent at this repo, then invoke a skill by name; or run the scripts directly.
+- Electron main-process bootstrap and app lifecycle wiring.
+- Main window shell with title bar state, load-error overlay, and webview
+  health handling.
+- About, Buddy, Find in Page, and Quick Window renderer entries.
+- Preload and renderer contracts for `window.claude`, Buddy, menu APIs, overlay
+  visibility, and quick-window events.
+- Native application menu and context menu services.
+- Tray controller, update helpers, desktop settings, logging, and state
+  persistence boundaries.
+- Large shared renderer library: icons, UI primitives, hooks, parsers, keyboard
+  helpers, thread/review utilities, animation data, and feature/entity slices.
 
----
-
-## Skill 1 — Sync the latest Codex code (`codex-app-ref-refresh`)
-
-Recreates `./ref` from the installed Codex app, so the source you analyze always matches the version you have installed. It **deletes and replaces `./ref`**, extracts `/Applications/Codex.app/Contents/Resources/app.asar` into it, then formats every extracted `.js`/`.css` with Prettier (skipping `ref/node_modules`).
-
-### Use via an agent
-
-From the repo root, ask the agent:
-
-> Use **codex-app-ref-refresh** to refresh `./ref` from the installed Codex app.
-
-### Or run the script directly
-
-```bash
-# from the repo root (the directory that should own ./ref)
-node .agents/skills/codex-app-ref-refresh/scripts/refresh-codex-ref.mjs
-```
-
-Options:
-
-| Flag / env | Effect |
-| ---------- | ------ |
-| `--dry-run` | Print the resolved paths without deleting or extracting anything |
-| `--skip-format` | Extract only; skip Prettier |
-| `CODEX_APP_ASAR=/path/to/app.asar` | Use a Codex bundle in a non-default location |
-
-> ⚠️ Run it from the directory that should own `./ref` — the script intentionally wipes `./ref` first. It refuses to run unless the target resolves to `./ref` under the current working directory.
-
-After it finishes, the bundled web UI lives in `ref/webview/` (entry: `ref/webview/index.html`, chunks: `ref/webview/assets/`).
-
----
-
-## Skill 2 — Deobfuscate the synced code (`deobfuscate-javascript`)
-
-Turns the minified, bundled JS extracted into `./ref` back into readable code. It's a multi-stage pipeline (deobfuscate → smart-rename → polish → optional typed `.tsx` rewrite). The agent itself does the semantic renaming; bundled `bun` scripts handle the mechanical work. Restored files land in `./restored/` with meaningful names, semantic-domain subfolders, provenance headers, and a shared `restored/IMPORT_MAP.json`. Only finalized files land in `./restored/`: the skill stages mechanical batch/script output in a hidden working area (`restored/.deobfuscate-javascript/`) first, and promotes a file only after it's organized — readable, well-named, clearly structured (and fully typed in deep mode).
-
-### Use via an agent
-
-After `./ref` exists, ask the agent (English or Chinese both trigger it):
-
-> Use **deobfuscate-javascript** to restore `./ref`.
-
-or, for example: *"deobfuscate `ref/webview/assets`"*, *"反混淆 `./ref`"*, *"看懂这段 JS"*.
-
-### Two depth levels
-
-| Depth | Trigger | Output |
-| ----- | ------- | ------ |
-| **Readable** (default) | just ask to restore | Readable, well-named JS/TSX — naming quality is the bar |
-| **Deep / production** | say **"deep" / "full" / "深度" / "完整" / "typed" / "production"** | Adds typed `.tsx` rewrite, npm-import resolution, full import-graph orchestration, and an acceptance-review loop |
-
-By default it works on the **whole import tree**: it reads `ref/webview/index.html`, auto-discovers the app entry, and recursively restores every reachable project-local chunk. Paste a single file instead and it restores just that file.
-
-### Install script deps (first time)
+## Quick Start
 
 ```bash
-cd .agents/skills/deobfuscate-javascript
 bun install
+bun run typecheck
+make quality
+bun run build
 ```
 
-The individual `bun scripts/*.ts` tools (detect, extract, smart-rename, polish, quality-gate, …) are documented in the skill's [`SKILL.md`](.agents/skills/deobfuscate-javascript/SKILL.md). In normal use you don't call them by hand — the agent orchestrates them.
+Run the development shell:
 
----
-
-## Repository layout
-
-```
-decode-codex/
-├─ .agents/skills/
-│  ├─ codex-app-ref-refresh/      # Skill 1: sync Codex.app → ./ref
-│  └─ deobfuscate-javascript/     # Skill 2: ./ref → ./restored
-├─ ref/                           # extracted Codex app source (generated by Skill 1)
-└─ restored/                      # readable, deobfuscated output (generated by Skill 2)
+```bash
+bun run dev
 ```
 
-`ref/` and `restored/` are generated artifacts — regenerate them with the skills rather than editing by hand.
+Build and start the app shell:
 
----
+```bash
+bun run start
+```
 
-## ⚠️ Legal & ethical note
+Refresh the local Claude Desktop reference bundle:
 
-This project is for **personal study and interoperability research** of software you have installed. The extracted code is © OpenAI; respect the Codex app's license and terms of service. Don't redistribute the extracted or restored code.
+```bash
+make refresh-ref
+```
+
+## Project Structure
+
+```text
+claude-desktop/
+├─ src/
+│  ├─ main/                     # Electron main process
+│  │  ├─ domain/                # State, constants, schemas, contracts
+│  │  ├─ application/           # App services and IPC orchestration
+│  │  ├─ infrastructure/        # Electron, filesystem, git, tray, update IO
+│  │  ├─ interfaces/            # Boundary contracts
+│  │  └─ preload/               # Preload/runtime code
+│  ├─ renderer/                 # React renderer, Feature-Sliced Design
+│  │  ├─ app/
+│  │  ├─ pages/
+│  │  ├─ widgets/
+│  │  ├─ features/
+│  │  ├─ entities/
+│  │  └─ shared/
+│  └─ shared/contracts/         # Cross-process contracts
+├─ ref/                         # Local Claude.app reference extraction
+├─ restored/                    # Migration pool for candidate modules
+├─ docs/                        # Architecture and status notes
+├─ vite.*.config.ts             # Main/preload/renderer build configs
+└─ Makefile                     # Common development commands
+```
+
+## Current Status
+
+The current tree is buildable and the restored source passes the active checks:
+
+```bash
+bun run typecheck
+make quality
+bun run build
+```
+
+Restoration status is tracked in
+[docs/restoration-status.md](docs/restoration-status.md). Current highlights:
+
+- Claude Desktop reference: `@ant/desktop` `1.18286.0`.
+- Promoted window entries: main, about, buddy, find-in-page, quick.
+- Main-process services are present for lifecycle, menus, tray, settings,
+  updates, plugin marketplace, workers, preload state, and IPC.
+- Renderer shared foundations are substantially promoted.
+- The large main-window runtime still has active work remaining before the app
+  can be considered behavior-complete.
+
+## Development Notes
+
+`ref/` is generated from the locally installed Claude Desktop app and should be
+treated as reference material, not source code. `src/` is the maintained source
+tree.
+
+Some modules are still staged in intermediate workspaces while names and module
+boundaries are recovered. Those checkpoints are useful for development, but
+they are not the public API of the project.
+
+Common commands:
+
+```bash
+make inspect       # inspect the current main renderer reference entry
+make deobf-plan    # prepare a rename plan for the main renderer runtime
+make runtime-map   # apply known runtime export aliases
+make quality       # run readability and restoration quality gates
+```
+
+## Roadmap
+
+- Finish the main-window runtime reconstruction.
+- Replace the Buddy BLE stub with real platform behavior.
+- Complete renderer-side find-in-page focus, blur, step, and result flows.
+- Restore OS-level quick-window shortcuts and dictation lifecycle integration.
+- Promote the remaining lifecycle, IPC, and platform modules into `src/`.
+- Add packaging and code-signing targets for distributable builds.
+
+## Star History
+
+<a href="https://www.star-history.com/#stvlynn/claude-desktop&Date">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=stvlynn/claude-desktop&type=Date&theme=dark" />
+    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=stvlynn/claude-desktop&type=Date" />
+    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=stvlynn/claude-desktop&type=Date" />
+  </picture>
+</a>
+
+## Disclaimer
+
+This is an unofficial research project and is not affiliated with Anthropic.
+
+Claude Desktop and the extracted reference artifacts are subject to Anthropic's
+licenses, terms, and copyright. Do not redistribute proprietary application
+code unless you have the right to do so.

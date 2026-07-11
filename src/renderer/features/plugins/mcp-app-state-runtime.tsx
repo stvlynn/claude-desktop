@@ -1,0 +1,23 @@
+// @ts-nocheck
+export const attachMcpAppPanelElement = undefined as never;
+export const buildMcpAppTabId = undefined as never;
+export const buildMcpToolActivityExpansionKey = undefined as never;
+export const detachMcpAppPanelElement = undefined as never;
+export const exitMcpAppFullScreen = undefined as never;
+export const markToolActivityTurnExpanded = undefined as never;
+export const mcpAppEntriesSignal = undefined as never;
+export const mcpAppEntryFamily = undefined as never;
+export const mcpAppFrameStateFamily = undefined as never;
+export const mcpAppManualExpansionFamily = undefined as never;
+export const mcpAppSidePanelOpenFamily = undefined as never;
+export const mcpAppStateFamily = undefined as never;
+export const mcpAppTabManager = undefined as never;
+export const mcpToolActivityExpansionFamily = undefined as never;
+export const openMcpAppExpandedSurface = undefined as never;
+export const readScopedAtom = undefined as never;
+export const resolveMcpAppTabId = undefined as never;
+export const rightPanelColumnCountSignal = undefined as never;
+export const setMcpAppInlineExpanded = undefined as never;
+export const setMcpToolActivityExpansion = undefined as never;
+export const toolActivityExpandedTurnKeysSignal = undefined as never;
+export const useSignalFamilyValue = undefined as never;

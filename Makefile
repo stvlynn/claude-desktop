@@ -10,7 +10,7 @@ MAIN_WINDOW_ASSETS := $(REF)/.vite/renderer/main_window/assets
 MAIN_WINDOW_ENTRY := $(MAIN_WINDOW_ASSETS)/main-D-xLCUWh.js
 MAIN_WINDOW_WS := src/renderer/.deobfuscate-javascript/main-D-xLCUWh
 
-.PHONY: refresh-ref inspect deobf-plan runtime-map typecheck quality dev pack build clean
+.PHONY: refresh-ref inspect deobf-plan runtime-map typecheck quality dev run build run-ref pack-ref clean
 
 refresh-ref:
 	node $(REFRESH_SKILL) --app $(APP) --asar $(APP_ASAR) --target $(REF)
@@ -32,16 +32,23 @@ typecheck:
 	bun run typecheck
 
 quality:
-	bun $(DEOBF_SKILL)/quality-gate.ts src/main/application/restore-manifest.ts src/main/domain/application-bundle.ts src/main/domain/restoration-frontier.ts src/main/infrastructure/extracted-bundle-layout.ts src/main/interfaces/preload-global-contracts.ts src/renderer/pages/about-window/page.tsx src/renderer/pages/buddy-window/page.tsx src/renderer/pages/find-in-page/page.tsx src/renderer/pages/main-window/page.tsx src/renderer/pages/quick-window/page.tsx src/renderer/shared/api/claude-desktop-api.ts src/renderer/shared/ui/button.tsx src/renderer/shared/lib/class-names.ts src/renderer/shared/icons/claude-logo.tsx src/renderer/shared/icons/find-in-page-icons.tsx src/renderer/shared/icons/warning-circle-icon.tsx src/renderer/shared/i18n/formatted-message.tsx src/renderer/shared/runtime/main-window-runtime.ts src/shared/contracts/window-entry.ts
+	bun $(DEOBF_SKILL)/quality-gate.ts src/main src/renderer src/shared/contracts --no-cache
 
 dev:
+	bun run dev
+
+run:
+	bun run start
+
+build:
+	bun run build
+
+run-ref:
 	$(ELECTRON) $(REF)
 
-pack:
+pack-ref:
 	mkdir -p $(DIST)
 	npx -y @electron/asar pack $(REF) $(DIST)/claude-restored.asar
-
-build: pack
 
 clean:
 	rm -rf $(DIST)

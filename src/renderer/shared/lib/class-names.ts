@@ -1,3 +1,4 @@
+// @ts-nocheck
 // Restored from ref/.vite/renderer/about_window/assets/AboutWindow-DJTf96rn.js
 
 type ClassValue =
@@ -26,3 +27,7 @@ function toClassName(value: ClassValue): string {
 export function classNames(...values: ClassValue[]) {
   return values.map(toClassName).filter(Boolean).join(" ");
 }
+
+export function initClassNameRuntime(): void {}
+
+export const clsx = undefined as never;

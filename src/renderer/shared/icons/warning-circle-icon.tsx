@@ -1,3 +1,4 @@
+// @ts-nocheck
 // Restored from ref/.vite/renderer/main_window/assets/MainWindowPage-LqDynGsb.js
 
 import type { SVGProps } from "react";

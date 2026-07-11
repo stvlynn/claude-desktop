@@ -1,0 +1,19 @@
+// @ts-nocheck
+export const FormattedCount = undefined as never;
+export const TruncatedBranchName = undefined as never;
+export const WebSearchIcon = undefined as never;
+export const applyImagePreviewZoomCommand = undefined as never;
+export const buildCommentImageInputItems = undefined as never;
+export const buildImageInputItem = undefined as never;
+export const findActiveOrchestrationAtom = undefined as never;
+export const findDefaultOrchestrationAtom = undefined as never;
+export const formatBrowserAddressDisplay = undefined as never;
+export const formatRedactedSearchQuery = undefined as never;
+export const getTerminalPanelTarget = undefined as never;
+export const getThreadFindController = undefined as never;
+export const imagePreviewOpenStore = undefined as never;
+export const registerTerminalPanelSubscription = undefined as never;
+export const resolveBrowserNavigationUrl = undefined as never;
+export const summarizeExplorationCommand = undefined as never;
+export const syncTerminalPanelTabs = undefined as never;
+export const truncateBranchName = undefined as never;

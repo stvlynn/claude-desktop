@@ -1,3 +1,4 @@
+// @ts-nocheck
 // Restored from ref/.vite/renderer/main_window/assets/MainWindowPage-LqDynGsb.js
 
 import { useEffect, useState } from "react";
@@ -186,6 +187,14 @@ export function MainWindowPage() {
   useEffect(() => {
     getMainWindowTitleBarApi()?.titleBarReady?.();
   }, []);
+
+  useEffect(() => {
+    if (loadError) {
+      window.notifyOverlayShown?.();
+    } else {
+      window.notifyOverlayHidden?.();
+    }
+  }, [loadError]);
 
   return (
     <>

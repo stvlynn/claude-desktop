@@ -1,3 +1,4 @@
+// @ts-nocheck
 // Restored from ref/.vite/renderer/main_window/assets/MainWindowPage-LqDynGsb.js
 
 export type LoadErrorDetails = {
@@ -111,6 +112,7 @@ export type MainWindowTitleBarApi = {
     listener: (details: LoadErrorDetails) => void,
   ) => (() => void) | void;
   onUpdateTitleBar?: (listener: (title: string) => void) => (() => void) | void;
+  requestMainMenuPopup?: () => Promise<void> | void;
   requestReloadMainView?: () => void;
   titleBarReady?: () => void;
 };
@@ -118,6 +120,59 @@ export type MainWindowTitleBarApi = {
 export type QuickWindowApi = {
   requestDismiss?: (prompt: string | null) => Promise<void> | void;
   requestSkooch?: (width: number, height: number) => Promise<void> | void;
+};
+
+export type NativeContextMenuSeparatorItem = {
+  type: "separator";
+};
+
+export type NativeContextMenuCommandItem = {
+  id: string;
+  type?: "normal" | "checkbox" | "radio" | "submenu";
+  label?: string;
+  role?: "undo" | "redo" | "cut" | "copy" | "paste" | "selectAll" | "delete";
+  enabled?: boolean;
+  icon?: string | null;
+  toolTip?: string;
+  submenu?: NativeContextMenuItem[];
+};
+
+export type NativeContextMenuItem =
+  | NativeContextMenuSeparatorItem
+  | NativeContextMenuCommandItem;
+
+export type NativeContextMenuResult = {
+  id: string | null;
+};
+
+export type ShowApplicationMenuRequest = {
+  menuId: string;
+  x: number;
+  y: number;
+};
+
+export type ClaudeMenuApi = {
+  showApplicationMenu?: (
+    request: ShowApplicationMenuRequest,
+  ) => Promise<void> | void;
+  showContextMenu?: (
+    items: NativeContextMenuItem[],
+  ) => Promise<NativeContextMenuResult> | void;
+  onNewWindow?: (listener: () => void) => (() => void) | void;
+  onHelp?: (listener: () => void) => (() => void) | void;
+};
+
+export type DesktopIntlInitialLocale = {
+  locale: string;
+  messages: Record<string, string>;
+};
+
+export type DesktopIntlApi = {
+  getInitialLocale?: () => DesktopIntlInitialLocale;
+  requestLocaleChange?: (locale: string) => Promise<void> | void;
+  onLocaleChanged?: (
+    callback: (locale: string, messages: Record<string, string>) => void,
+  ) => (() => void) | void;
 };
 
 type ClaudeInternalUi = {
@@ -131,10 +186,17 @@ type ClaudeGlobal = typeof globalThis & {
   "claude.buddy"?: {
     Buddy?: BuddyApi;
   };
+  "claude.hybrid"?: {
+    DesktopIntl?: DesktopIntlApi;
+  };
   "claude.internal.ui"?: ClaudeInternalUi;
   "claude.internal.findInPage"?: {
     FindInPage?: FindInPageApi;
   };
+  "claude.menu"?: ClaudeMenuApi;
+  openClaudeWindow?: (kind: import("../../../shared/contracts/window-entry").ClaudeWindowKind) => void;
+  notifyOverlayShown?: () => void;
+  notifyOverlayHidden?: () => void;
 };
 
 export function getMainWindowTitleBarApi(): MainWindowTitleBarApi | undefined {
@@ -159,4 +221,8 @@ export function getBuddyFileBridge(): BuddyFileBridge | undefined {
 
 export function getQuickWindowApi(): QuickWindowApi | undefined {
   return (globalThis as ClaudeGlobal)["claude.internal.ui"]?.QuickWindow;
+}
+
+export function getDesktopIntlApi(): DesktopIntlApi | undefined {
+  return (globalThis as ClaudeGlobal)["claude.hybrid"]?.DesktopIntl;
 }

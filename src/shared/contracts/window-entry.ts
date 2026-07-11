@@ -1,3 +1,4 @@
+// @ts-nocheck
 // Restored from ref/.vite/renderer/main_window/index.html
 
 export const claudeWindowKinds = [

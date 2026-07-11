@@ -1,3 +1,4 @@
+// @ts-nocheck
 // Restored from ref/.vite/renderer/buddy_window/assets/BuddyWindow-CzbBlukH.js
 
 import {

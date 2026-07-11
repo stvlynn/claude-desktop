@@ -1,0 +1,4 @@
+// @ts-nocheck
+// Restored from ref/webview/assets/select-workspace-page-Dpe6Qyul.js
+// Current-ref compatibility export surface for SelectWorkspacePage.
+export { SelectWorkspacePage } from "../../features/workspace/select-workspace-page";

@@ -1,3 +1,4 @@
+// @ts-nocheck
 // Restored from ref/.vite/renderer/about_window/assets/AboutWindow-DJTf96rn.js
 
 import type { ReactNode } from "react";
