@@ -1,4 +1,3 @@
-// @ts-nocheck
 // Restored from ref/.vite/build/mainWindow.js
 // Infrastructure: the top-level renderer overlay WebContentsView.
 

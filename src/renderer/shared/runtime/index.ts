@@ -1,4 +1,3 @@
-// @ts-nocheck
 // Restored from ref/.vite/renderer/main_window/assets/main-D-xLCUWh.js
 //
 // Stable public runtime barrel for renderer entry points.
@@ -15,5 +14,6 @@ export {
 
 export { attachReactToElement } from "./attach-react-to-element";
 export { applyInitialTheme, themeClassName } from "./theme";
+export { initializeRendererSentry } from "./renderer-sentry";
 export { claudeFontFamilies, injectFontPreloadLinks } from "./fonts";
 export { preloadAndRun } from "./preload-helper";

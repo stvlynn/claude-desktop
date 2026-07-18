@@ -27,12 +27,14 @@ bun scripts/apply.ts bundle.js $WS/renames.json | bun scripts/polish.ts - \
 ## When piping is and isn't appropriate
 
 **Good fit:**
+
 - Quick experimentation — you want to see what comes out without committing intermediates to disk.
 - Filtering with `jq` between stages.
 - One-shot Stage 1 → prettier passes where you don't need to inspect the renamed output before formatting.
 
 **Bad fit:**
-- Anything that needs `renames.json` (which is written by *you*, the agent, between extract and apply) — there's no piping past the rename decision.
+
+- Anything that needs `renames.json` (which is written by _you_, the agent, between extract and apply) — there's no piping past the rename decision.
 - Anything that produces a `--report` JSON you want to inspect (the orchestrators emit code to stdout but reports to a file).
 - Stage 2's plan/batch workflow — by design that's checklist-driven across sessions and needs a workspace.
 

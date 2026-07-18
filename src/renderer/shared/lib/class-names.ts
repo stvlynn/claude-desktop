@@ -1,4 +1,3 @@
-// @ts-nocheck
 // Restored from ref/.vite/renderer/about_window/assets/AboutWindow-DJTf96rn.js
 
 type ClassValue =
@@ -30,4 +29,4 @@ export function classNames(...values: ClassValue[]) {
 
 export function initClassNameRuntime(): void {}
 
-export const clsx = undefined as never;
+export const clsx = classNames;

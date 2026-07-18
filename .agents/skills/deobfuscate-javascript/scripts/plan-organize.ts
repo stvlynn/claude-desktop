@@ -95,12 +95,13 @@ const ICON_SIGNAL =
 const BUTTON_SIGNAL = /\bButton\b/;
 
 function stripHashSuffix(basename: string): string {
-  for (let index = basename.lastIndexOf("-"); index > 0; index = basename.lastIndexOf("-", index - 1)) {
+  for (
+    let index = basename.lastIndexOf("-");
+    index > 0;
+    index = basename.lastIndexOf("-", index - 1)
+  ) {
     const suffix = basename.slice(index + 1);
-    if (
-      HASH_SUFFIX_RE.test(suffix) &&
-      /[0-9_]/.test(suffix)
-    ) {
+    if (HASH_SUFFIX_RE.test(suffix) && /[0-9_]/.test(suffix)) {
       return basename.slice(0, index).replace(/-+$/, "");
     }
   }
@@ -123,13 +124,25 @@ function detectShape(source: string, basename: string): Shape | null {
     if (result.recipe === "icon") {
       const first = result.files[0]?.path ?? "";
       if (result.layout === "single") {
-        return { recipe: "icon", layout: "single", semanticPath: `icons/${first}` };
+        return {
+          recipe: "icon",
+          layout: "single",
+          semanticPath: `icons/${first}`,
+        };
       }
       const dir = first.split("/")[0] || kebabCase(stripHashSuffix(basename));
-      return { recipe: "icon", layout: "directory", semanticPath: `icons/${dir}` };
+      return {
+        recipe: "icon",
+        layout: "directory",
+        semanticPath: `icons/${dir}`,
+      };
     }
     if (result.recipe === "button") {
-      return { recipe: "button", layout: "single", semanticPath: "ui/button.tsx" };
+      return {
+        recipe: "button",
+        layout: "single",
+        semanticPath: "ui/button.tsx",
+      };
     }
   } catch {
     return null;
@@ -147,7 +160,10 @@ function isLottieAnimationData(source: string): boolean {
     /@lottiefiles\/toolkit-js/.test(leadingData) &&
     /\bw\s*:/.test(leadingData) &&
     /\bh\s*:/.test(leadingData);
-  return (hasLottieVersion || hasLottieToolkitMetadata) && /\blayers\s*:/.test(source);
+  return (
+    (hasLottieVersion || hasLottieToolkitMetadata) &&
+    /\blayers\s*:/.test(source)
+  );
 }
 
 function localeStemFromBasename(basename: string, stem: string): string | null {
@@ -227,7 +243,11 @@ function classify(
   const big = (file.lineCount ?? 0) > 1000 || exportCount > 2;
 
   const mk = (e: Omit<OrganizePlanEntry, "basename" | "fallbackRenameRatio">) =>
-    ({ basename, fallbackRenameRatio: ratio, ...e }) satisfies OrganizePlanEntry;
+    ({
+      basename,
+      fallbackRenameRatio: ratio,
+      ...e,
+    }) satisfies OrganizePlanEntry;
 
   // 1) Reuse an existing IMPORT_MAP mapping (stable re-runs / delta restores).
   const mapped = ctx.importChunk?.restored;
@@ -263,7 +283,7 @@ function classify(
         reason:
           `third-party npm boundary — convert to a bare re-export shim: ` +
           `make-facade.ts <chunk> --reexport ${spec} ` +
-          `(verify it is stock, not a Codex fork, and the specifier resolves)`,
+          `(verify it is stock, not a Claude application fork, and the specifier resolves)`,
       });
     }
     return mk({

@@ -1,4 +1,3 @@
-// @ts-nocheck
 // Restored from ref/.vite/build/src-CoIhwwHr.js
 // General desktop preference setting definitions.
 

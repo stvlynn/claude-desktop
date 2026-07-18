@@ -1,4 +1,3 @@
-// @ts-nocheck
 // Restored from ref/.vite/build/main-Cfnoc8EH.js
 // IPC channel names used by renderer view-message handlers and the main process.
 

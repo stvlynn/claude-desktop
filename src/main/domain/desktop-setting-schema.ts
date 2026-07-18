@@ -1,4 +1,3 @@
-// @ts-nocheck
 // Restored from ref/.vite/build/src-CoIhwwHr.js
 // Minimal runtime schema helpers used by desktop setting definitions.
 

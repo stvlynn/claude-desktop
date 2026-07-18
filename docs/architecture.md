@@ -1,8 +1,10 @@
 # Claude Desktop Restore Architecture
 
-This repository is being reshaped from a Codex bundle restore into a Claude.app
-restore. The extracted bundle stays in `ref/`; public restored source lives in
-`src/`.
+This repository restores Claude.app. The extracted bundle stays in `ref/`;
+public restored source lives in `src/`.
+
+Backticked `codex-*` names in the inventory are preserved legacy source
+identifiers. They do not define the current application profile or entry paths.
 
 ## Renderer: FSD
 

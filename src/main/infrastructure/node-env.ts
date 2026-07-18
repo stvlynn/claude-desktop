@@ -1,4 +1,3 @@
-// @ts-nocheck
 // Restored from ref/.vite/build/src-CoIhwwHr.js
 // Environment cleanup helpers shared by Node subprocess launchers.
 

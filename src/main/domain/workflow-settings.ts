@@ -1,4 +1,3 @@
-// @ts-nocheck
 // Restored from ref/.vite/build/src-CoIhwwHr.js
 // Git, browser, and worktree desktop setting definitions.
 

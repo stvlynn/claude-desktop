@@ -1,4 +1,3 @@
-// @ts-nocheck
 // Restored from ref/.vite/build/main-Cfnoc8EH.js
 // Computer Use overlay config path resolution and atomic file writes.
 

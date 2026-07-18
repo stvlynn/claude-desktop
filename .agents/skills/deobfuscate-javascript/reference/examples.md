@@ -12,7 +12,7 @@ These traces show the **deep path** end-to-end (typed `.tsx` + Stage 3 acceptanc
 
 ## Example 1: small minified file
 
-**User:** "humanify this file" *(attaches a 5 KB minified script)*
+**User:** "humanify this file" _(attaches a 5 KB minified script)_
 
 1. `bun scripts/detect.ts user.min.js` → no Stage 1 techniques.
 2. `bun scripts/sourcemap-check.ts user.min.js` → ✗ no sourcemap. Continue.
@@ -20,7 +20,7 @@ These traces show the **deep path** end-to-end (typed `.tsx` + Stage 3 acceptanc
 4. `bun scripts/extract.ts "$WS/original.js" --out "$WS/symbols.json"`.
 5. Read `$WS/symbols.json`, decide names, `Write` `$WS/renames.json`.
 6. `bun scripts/apply.ts "$WS/original.js" "$WS/renames.json" --out "$WS/renamed.js"`.
-7. Host-agent rewrite `$WS/renamed.js` into a semantic public file, pre-filter it, and run the Stage 3 acceptance review — the host agent reads it end-to-end against the quality bar, no sub-agent required. *(Default tier stops at the readable draft after `--fast` polish + naming; the semantic-rewrite + acceptance-review steps here are deep mode.)*
+7. Host-agent rewrite `$WS/renamed.js` into a semantic public file, pre-filter it, and run the Stage 3 acceptance review — the host agent reads it end-to-end against the quality bar, no sub-agent required. _(Default tier stops at the readable draft after `--fast` polish + naming; the semantic-rewrite + acceptance-review steps here are deep mode.)_
 8. Report the accepted file and what it does.
 
 Workflow: [small-minified.md](../workflows/small-minified.md).
@@ -41,20 +41,20 @@ Workflow: [webpack-bundle.md](../workflows/webpack-bundle.md).
 
 ## Example 3: file has a sourcemap
 
-**User:** "Make this readable" *(attaches `app.bundle.js`)*
+**User:** "Make this readable" _(attaches `app.bundle.js`)_
 
 1. `bun scripts/sourcemap-check.ts app.bundle.js` → ✓ found `app.bundle.js.map` with 47 original sources including `src/App.tsx`, `src/api/client.ts`, …
-2. Stop. Tell the user: *"A sourcemap is available — recovering the original sources is lossless and much better than renaming. Want me to extract them with `source-map-explorer` or hand-decode the `sourcesContent` array?"*
+2. Stop. Tell the user: _"A sourcemap is available — recovering the original sources is lossless and much better than renaming. Want me to extract them with `source-map-explorer` or hand-decode the `sourcesContent` array?"_
 
 ## Example 4: file is already readable
 
-**User:** "rename variables in this file" *(attaches a hand-written `utils.js` with names like `parseQueryString`, `cacheKey`)*
+**User:** "rename variables in this file" _(attaches a hand-written `utils.js` with names like `parseQueryString`, `cacheKey`)_
 
 Don't run the pipeline. Tell the user the file already has meaningful names and ask what specifically they want changed.
 
 ## Example 5: composite Obfuscator.IO output (full Stage 1 + Stage 2 rename)
 
-**User:** "I downloaded this from a malware sample, can you make sense of it?" *(attaches obfuscator.io output with `_0x...` arrays, hex strings, dead code, opaque predicates)*
+**User:** "I downloaded this from a malware sample, can you make sense of it?" _(attaches obfuscator.io output with `_0x...` arrays, hex strings, dead code, opaque predicates)_
 
 1. Set up workspace: `WS=<target-dir>/.deobfuscate-javascript/sample && mkdir -p "$WS" && cp sample.js "$WS/original.js"`.
 2. `bun scripts/detect.ts "$WS/original.js"` → reports `string-array` (0.85), `hex-encoding` (0.8), `opaque-predicates` (0.6), `dead-code-injection` (0.5).
@@ -63,13 +63,13 @@ Don't run the pipeline. Tell the user the file already has meaningful names and 
 5. `bun scripts/extract.ts "$WS/stageA.js" --out "$WS/symbols.json"`.
 6. Write `$WS/renames.json`.
 7. `bun scripts/apply.ts "$WS/stageA.js" "$WS/renames.json" --out "$WS/renamed.js"`.
-8. Host-agent rewrite `$WS/renamed.js` into a semantic public file, pre-filter it, and run the Stage 3 acceptance review — the host agent reads it end-to-end against the quality bar, no sub-agent required. *(Default tier stops at the readable draft after `--fast` polish + naming; the semantic-rewrite + acceptance-review steps here are deep mode.)*
+8. Host-agent rewrite `$WS/renamed.js` into a semantic public file, pre-filter it, and run the Stage 3 acceptance review — the host agent reads it end-to-end against the quality bar, no sub-agent required. _(Default tier stops at the readable draft after `--fast` polish + naming; the semantic-rewrite + acceptance-review steps here are deep mode.)_
 
 Workflow: [full-obfuscation.md](../workflows/full-obfuscation.md).
 
 ## Example 6: control-flow flattening — read the report, manually rewrite
 
-**User:** "this function is unreadable" *(attaches code containing `while(!![]){switch(_0x123){case 0: ...}}`)*
+**User:** "this function is unreadable" _(attaches code containing `while(!![]){switch(_0x123){case 0: ...}}`)_
 
 1. Set up workspace (`WS=<target-dir>/.deobfuscate-javascript/$(basename input.js .js)`, `mkdir -p "$WS"`, `cp input.js "$WS/original.js"`).
 2. `bun scripts/deobfuscate.ts "$WS/original.js" --stop-after control-flow-report --report "$WS/control-flow-report.json"` (or run the report script standalone after Stage 1 finishes).
@@ -83,7 +83,7 @@ This is judgment work; tooling lays out the dispatch graph but you stitch it tog
 
 ## Example 7: huge bundle — plan-then-batch with a checklist
 
-**User:** "deobfuscate this 1 MB main bundle" *(attaches a vite-built `app-main.js`)*
+**User:** "deobfuscate this 1 MB main bundle" _(attaches a vite-built `app-main.js`)_
 
 1. Set up workspace: `WS=<target-dir>/.deobfuscate-javascript/app-main && mkdir -p "$WS" && cp app-main.js "$WS/original.js"`.
 2. `bun scripts/sourcemap-check.ts "$WS/original.js"`. None (or stop and recover from `.map` if present).
@@ -109,7 +109,7 @@ This is judgment work; tooling lays out the dispatch graph but you stitch it tog
    bun scripts/apply.ts "$WS/original.js" "$WS/plan/renames.json" --out "$WS/renamed.js"
    # "$WS/renamed.js" is a checkpoint, not the final deliverable.
    ```
-8. Host-agent rewrite the checkpoint into semantic public files, pre-filter, and run Stage 3. Top-level concepts should now be readable; nested scratch bindings can remain only when the reviewer accepts them as intentionally local and harmless. *(Default tier stops at the readable checkpoint after `--fast` polish + naming; the semantic-rewrite + reviewer-LOOP steps here are deep mode.)*
+8. Host-agent rewrite the checkpoint into semantic public files, pre-filter, and run Stage 3. Top-level concepts should now be readable; nested scratch bindings can remain only when the reviewer accepts them as intentionally local and harmless. _(Default tier stops at the readable checkpoint after `--fast` polish + naming; the semantic-rewrite + reviewer-LOOP steps here are deep mode.)_
 
 You can pause after step 7 with just batches 0–2 done — the top-level Program-scope renames usually give the biggest readability win, and you can resume any time by reading the checklist's unchecked boxes. Do not call it complete until Stage 3 returns `PASS`.
 
@@ -117,7 +117,7 @@ Workflow: [huge-single-file.md](../workflows/huge-single-file.md).
 
 ## Example 8: React/Vite icon chunk — rename + polish to recover JSX
 
-**User:** *attaches `clock-BdccdK2N.js` from a Vite `dist/assets/` folder, asks "make this readable"*
+**User:** _attaches `clock-BdccdK2N.js` from a Vite `dist/assets/` folder, asks "make this readable"_
 
 Input (671 bytes, Rollup-shaped, JSX compiled to `jsx-runtime`):
 
@@ -128,7 +128,10 @@ e(t());
 var r = n(),
   i = (e) =>
     (0, r.jsx)(`svg`, {
-      width: 18, height: 18, viewBox: `0 0 18 18`, fill: `none`,
+      width: 18,
+      height: 18,
+      viewBox: `0 0 18 18`,
+      fill: `none`,
       xmlns: `http://www.w3.org/2000/svg`,
       ...e,
       children: (0, r.jsx)(`path`, { fill: `currentColor`, d: `M9 1.5a7.5 …` }),
@@ -164,7 +167,7 @@ export { i as t };
    The stderr report shows `strip-react-compiler: 0 conds (none present)`, `simplify: 2 (0,fn) stripped, 7 tpl→str`, `jsx-runtime: 2 calls converted`, `inline-defaults: 0 defaults inlined (none present)`, `normalize-exports: 1 inlined`. (Polish defaults to `--prefer local`, so the local `ClockIcon` binding wins over the bundle alias `t`. The `--source` and `--description` flags stamp a two-line provenance header at the top of the output.)
 8. `npx prettier --write "$WS/polished.tsx"` for multi-line JSX formatting.
    For the **readable tier**, that one polish call is `polish.ts "$WS/renamed.js" --rename --fast --source "$INPUT" --out draft.tsx --format` and you stop after organize → promote; the typed steps below are deep mode.
-9. **Stage 3 rewrite** *(deep mode)*. **Shortcut:** `scripts/semantic-finalize.ts --recipe icon` now automates this whole step — typed `IconProps` / `SVGProps<SVGSVGElement>`, semantic `*Icon` name, default export, dead-shim + sourcemap cleanup. The manual finishing touches below are what the recipe does (see [Stage 3](../stages/stage-3-finalize.md)); write the result to `<target-dir>/clock.tsx` (alongside `$WS/`, not inside it):
+9. **Stage 3 rewrite** _(deep mode)_. **Shortcut:** `scripts/semantic-finalize.ts --recipe icon` now automates this whole step — typed `IconProps` / `SVGProps<SVGSVGElement>`, semantic `*Icon` name, default export, dead-shim + sourcemap cleanup. The manual finishing touches below are what the recipe does (see [Stage 3](../stages/stage-3-finalize.md)); write the result to `<target-dir>/clock.tsx` (alongside `$WS/`, not inside it):
    - Delete the now-dead `toESM(requireReact())` line and `var jsxRuntime = requireJsxRuntime();` (their only remaining reference disappeared when `jsxRuntime.jsx` became `<svg>`).
    - Delete the dangling `//# sourceMappingURL=…` comment.
    - The chunk-import `import { s as toESM } from "./chunk-Bj-mKKzh.js"` was dead — drop it. (If you'd kept it, keep the path exactly: `./chunk-Bj-mKKzh.js`. Don't pretty-rename to `./chunk.js`.)
@@ -173,7 +176,7 @@ export { i as t };
 Resulting `clock.tsx`:
 
 ```tsx
-export const ClockIcon: React.FC<React.SVGProps<SVGSVGElement>> = props => (
+export const ClockIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
   <svg
     width={18}
     height={18}
@@ -193,13 +196,13 @@ Workflow: [react-vite.md](../workflows/react-vite.md).
 
 ## Example 9: React-Compiler-output Button — strip cache, inline defaults, recover JSX
 
-**User:** *attaches a Vite/Rollup chunk for a `Button` component compiled with the React Compiler memoizer (`let cache = react.c(25); cache[0] === props ? ((children = cache[1]), ...) : (({ children, className, ... } = props), (cache[0] = props), …);`), asks "make this readable as TSX"*
+**User:** _attaches a Vite/Rollup chunk for a `Button` component compiled with the React Compiler memoizer (`let cache = react.c(25); cache[0] === props ? ((children = cache[1]), ...) : (({ children, className, ... } = props), (cache[0] = props), …);`), asks "make this readable as TSX"_
 
 1. Set up workspace: `INPUT=ref/.../button-XXXX.js && WS=<target-dir>/.deobfuscate-javascript/$(basename "$INPUT" .js) && mkdir -p "$WS" && cp "$INPUT" "$WS/original.js"`.
 2. `bun scripts/sourcemap-check.ts "$WS/original.js"`. The `.map` is missing — proceed with rename.
 3. `bun scripts/detect.ts "$WS/original.js"` → no obfuscation. Skip Stage 1.
 4. `bun scripts/extract.ts "$WS/original.js" --out "$WS/symbols.json"` → ~30 symbols (function locals, top-level lookup tables, imports).
-5. Read context. The destructured props are `f, p, m, h, g, _, d, l, u`; the resolved variables are `v, y, b, x, S, C, w, T, E, D, O, k, A`. Pick meaningful names — for the destructured prop and its resolved value, give the *destructured* one the prop name (e.g. `uniform`) and the resolved one a longer name (e.g. `isUniform`) so inline-defaults can collapse them. Write `$WS/renames.json`.
+5. Read context. The destructured props are `f, p, m, h, g, _, d, l, u`; the resolved variables are `v, y, b, x, S, C, w, T, E, D, O, k, A`. Pick meaningful names — for the destructured prop and its resolved value, give the _destructured_ one the prop name (e.g. `uniform`) and the resolved one a longer name (e.g. `isUniform`) so inline-defaults can collapse them. Write `$WS/renames.json`.
 6. `bun scripts/apply.ts "$WS/original.js" "$WS/renames.json" --out "$WS/renamed.js"`.
 7. **Stage 2 polish** — strip the cache, simplify, recover JSX, inline defaults, lift the export, stamp the two-line provenance header:
    ```bash
@@ -211,7 +214,7 @@ Workflow: [react-vite.md](../workflows/react-vite.md).
    ```
    The stderr report shows `strip-react-compiler: 4 conds, 1 cache vars, 2 merged, 1 unused`, `simplify: 2p, 8 folded, 2 (0,fn), 34 tpl→str, 8 short, 1 bool-obj`, `jsx-runtime: 2 calls`, `inline-defaults: 1 merged, 6 defaults, 6 aliases`, `normalize-exports: 1 inlined`. The output begins with both header lines.
 8. `npx prettier --write "$WS/polished.tsx"` for multi-line JSX formatting. (For the **readable tier**, run steps 6–8 as the single one-shot `polish.ts "$WS/renamed.js" --rename --fast --source "$INPUT" --out draft.tsx --format`, then organize → promote and stop — the typed steps below are deep mode.)
-9. **Stage 3 rewrite** *(deep mode)*. **Shortcut:** `scripts/semantic-finalize.ts --recipe button` now automates this whole D5 recipe — named variant tables tagged `as const`, `keyof typeof` unions, a DOM `ButtonProps` interface, `forwardRef`, `displayName`, default export, and dead-shim/sourcemap cleanup. The manual finishing touches below are what the recipe produces (see [Stage 3](../stages/stage-3-finalize.md)); write the result to `<target-dir>/button.tsx`:
+9. **Stage 3 rewrite** _(deep mode)_. **Shortcut:** `scripts/semantic-finalize.ts --recipe button` now automates this whole D5 recipe — named variant tables tagged `as const`, `keyof typeof` unions, a DOM `ButtonProps` interface, `forwardRef`, `displayName`, default export, and dead-shim/sourcemap cleanup. The manual finishing touches below are what the recipe produces (see [Stage 3](../stages/stage-3-finalize.md)); write the result to `<target-dir>/button.tsx`:
    - **D2 imports** — separate type imports (`import type { ButtonHTMLAttributes, ForwardedRef } from "react"`) from value imports (`import { forwardRef } from "react"`). Resolve `clsx` to its npm package: `import { t as clsx } from "./clsx-DDuZWq6Y.js"` → `import clsx from "clsx"`. Leave the `Spinner` import path untouched: `import { t as Spinner } from "./spinner-D37df5tU.js"` (project-local; the hash is the trace back to the original chunk).
    - **D3 dead stubs** — delete `var react = requireReact()`, `var jsxRuntime = requireJsxRuntime()`, and their feeding `import { … } from "./jsx-runtime-XXXX.js"` / `import { … } from "./setting-storage-XXXX.js"` lines (the cache strip ate `react.c(N)`; the JSX un-transform ate `jsxRuntime.jsx`).
    - **D4 sourcemap** — drop the dangling `//# sourceMappingURL=…` comment.
@@ -226,40 +229,40 @@ Workflow: [react-vite.md](../workflows/react-vite.md).
 After polish + Stage 3 rewrite, the file looks like idiomatic hand-authored React (~85 lines from ~150 lines of cache scaffolding):
 
 ```tsx
-// Restored from ref/webview/assets/button-bq66r8jD.js
+// Restored from ref/.vite/renderer/main_window/assets/button-bq66r8jD.js
 // Semantic button component: named variants, typed props, and direct JSX.
 
-import type { ButtonHTMLAttributes, ForwardedRef } from "react"
-import { forwardRef } from "react"
-import clsx from "clsx"
-import { t as Spinner } from "./spinner-D37df5tU.js"
+import type { ButtonHTMLAttributes, ForwardedRef } from "react";
+import { forwardRef } from "react";
+import clsx from "clsx";
+import { t as Spinner } from "./spinner-D37df5tU.js";
 
 export const buttonRadiusClassNames = {
   default: "rounded-full",
   icon: "rounded-full electron:rounded-md",
   // …
-} as const
+} as const;
 
 export const buttonColorClassNames = {
   danger: "bg-token-charts-red/10 …",
   primary: "bg-token-foreground …",
   // …
-} as const
+} as const;
 
 export const buttonSizeClassNames = {
   default: "px-2 py-0.5 text-sm leading-[18px]",
   large: "px-5 py-2 text-base leading-[18px]",
   // …
-} as const
+} as const;
 
-export type ButtonColor = keyof typeof buttonColorClassNames
-export type ButtonSize = keyof typeof buttonSizeClassNames
+export type ButtonColor = keyof typeof buttonColorClassNames;
+export type ButtonSize = keyof typeof buttonSizeClassNames;
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  color?: ButtonColor
-  loading?: boolean
-  size?: ButtonSize
-  uniform?: boolean
+  color?: ButtonColor;
+  loading?: boolean;
+  size?: ButtonSize;
+  uniform?: boolean;
 }
 
 function ButtonRender(
@@ -283,22 +286,28 @@ function ButtonRender(
     buttonSizeClassNames[size],
     uniform && "aspect-square items-center justify-center !px-0",
     className,
-  )
-  const isDisabled = disabled || loading
-  const loadingIndicator = loading ? <Spinner className="icon-xxs" /> : null
+  );
+  const isDisabled = disabled || loading;
+  const loadingIndicator = loading ? <Spinner className="icon-xxs" /> : null;
 
   return (
-    <button ref={ref} type={type} className={buttonClassName} disabled={isDisabled} {...buttonProps}>
+    <button
+      ref={ref}
+      type={type}
+      className={buttonClassName}
+      disabled={isDisabled}
+      {...buttonProps}
+    >
       {loadingIndicator}
       {children}
     </button>
-  )
+  );
 }
 
-export const Button = forwardRef<HTMLButtonElement, ButtonProps>(ButtonRender)
-Button.displayName = "Button"
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(ButtonRender);
+Button.displayName = "Button";
 
-export default Button
+export default Button;
 ```
 
 The polish pipeline turned ~150 lines of cache scaffolding + 13 manually-resolved defaults + jsx-runtime calls into the structure above. Stage 3 rewrite layered on the TypeScript types, the `forwardRef` wrapper, the semantic renames, and the dead-import removal — none of which can be automated reliably, all of which are one-shot judgment calls when you understand what the component is.

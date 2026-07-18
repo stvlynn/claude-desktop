@@ -172,7 +172,11 @@ function appRuntimeWrapperProofReason(
 ): string | null {
   if (source == null) return null;
   if (!/Restored from ref\/webview\/assets\//.test(source)) return null;
-  if (!/\b(?:Flat boundary|compatibility shim|compatibility bundle)\b/i.test(source)) {
+  if (
+    !/\b(?:Flat boundary|compatibility shim|compatibility bundle)\b/i.test(
+      source,
+    )
+  ) {
     return null;
   }
 
@@ -608,7 +612,7 @@ export function vendorNpmDecision(input: string): VendorNpmDecision[] {
         specifiers,
         sourceExists,
         reason:
-          "no stock npm identity was recognized; prove Codex fork or app/runtime wrapper before writing a local vendor body",
+          "no stock npm identity was recognized; prove a Claude application fork or app/runtime wrapper before writing a local vendor body",
       };
     });
 }
@@ -637,7 +641,7 @@ function decisionIntentFailures(
       }
 
       return [
-        `${decision.file}: local vendor body blocked until Codex fork or app/runtime wrapper proof is registered`,
+        `${decision.file}: local vendor body blocked until Claude application-fork or app/runtime-wrapper proof is registered`,
       ];
     });
   }

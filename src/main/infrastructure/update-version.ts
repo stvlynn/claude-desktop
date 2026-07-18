@@ -1,4 +1,3 @@
-// @ts-nocheck
 // Restored from ref/.vite/build/workspace-root-drop-handler-DeLi4ACJ.js
 // Updater version comparison and check-interval helpers.
 

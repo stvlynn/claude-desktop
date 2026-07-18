@@ -43,7 +43,7 @@ bun scripts/extract.ts <output.js> --out "$WS/symbols-pass2.json" --only-cryptic
 
 - `--only-cryptic` skips identifiers like `useState`, `parseUrl` that are already meaningful.
 - `--min-refs 3` skips one-shot scratch bindings — there are usually hundreds, naming them is low-value.
-- `--top 200` caps the work to a tractable number of *high-impact* names. Anything beyond the top 200 by scope+ref ranking is diminishing returns.
+- `--top 200` caps the work to a tractable number of _high-impact_ names. Anything beyond the top 200 by scope+ref ranking is diminishing returns.
 - `--max-same-scope 5` trims `sameScopeBindings` from "all 1000+ siblings" to "5 examples" — useful for choosing consistent style without ballooning JSON size.
 - `--context-size 300` keeps enough surrounding code to choose names without copying entire functions.
 

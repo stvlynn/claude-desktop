@@ -41,7 +41,7 @@ Each Stage 1 step has an _input shape_ the previous step produced. Running them 
 - **Missing `ref/node_modules` is not a reason to reimplement npm packages.**
   Extracted app snapshots can omit dependencies that were bundled into webview
   chunks. When package identity is high-confidence from fingerprints,
-  `CHUNK_NAME_REGISTRY`, or the Codex package table (`react-intl`/FormatJS,
+  `CHUNK_NAME_REGISTRY`, or the reference package evidence (`react-intl`/FormatJS,
   `react-router`, `react-style-singleton`, `framer-motion`, Segment, etc.), keep
   the boundary as a bare npm re-export and record the dependency/ambient-declaration
   requirement. A hand-written compatibility layer is only acceptable for a

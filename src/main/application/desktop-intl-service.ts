@@ -1,4 +1,3 @@
-// @ts-nocheck
 // Restored from ref/.vite/build/index.js
 // Application: manage the active locale and broadcast locale changes to all
 // renderer processes. This replaces the stub `claude.hybrid.DesktopIntl` with a
@@ -6,6 +5,7 @@
 
 import { BrowserWindow, app, ipcMain } from "electron";
 import { desktopIntlIpcChannels } from "../../shared/contracts/preload-api";
+import type { DesktopIntlInitialLocale } from "../../renderer/shared/api/claude-desktop-api";
 
 export type DesktopIntlServiceOptions = {
   initialLocale?: string;
@@ -43,6 +43,10 @@ export class DesktopIntlService {
 
   getLocale(): string {
     return this.locale;
+  }
+
+  getInitialLocale(): DesktopIntlInitialLocale {
+    return { locale: this.locale, messages: this.messages };
   }
 
   setLocale(locale: string) {

@@ -1,4 +1,3 @@
-// @ts-nocheck
 // Restored from ref/.vite/build/main-Cfnoc8EH.js
 // Global dictation lifecycle manager.
 //

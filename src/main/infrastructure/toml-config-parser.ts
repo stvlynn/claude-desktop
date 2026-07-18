@@ -1,4 +1,3 @@
-// @ts-nocheck
 // Restored from ref/.vite/build/src-CoIhwwHr.js
 // Lightweight TOML parser used by config cleanup and notify-config helpers.
 

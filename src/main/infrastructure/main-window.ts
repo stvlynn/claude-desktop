@@ -1,4 +1,3 @@
-// @ts-nocheck
 // Restored from ref/.vite/build/mainWindow.js
 // Infrastructure: creation of the main renderer BrowserWindow.
 //
@@ -40,7 +39,9 @@ export function createMainWindow(options: CreateMainWindowOptions): MainWindow {
     },
   });
 
-  const mainContent = createMainContentView();
+  const mainContent = createMainContentView(
+    path.join(path.dirname(options.preloadScriptPath), "main-view.cjs"),
+  );
   const overlay = createOverlayView({
     preloadScriptPath: options.preloadScriptPath,
     rendererUrl: options.rendererUrl,

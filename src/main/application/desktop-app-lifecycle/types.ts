@@ -1,4 +1,3 @@
-// @ts-nocheck
 // Restored from ref/.vite/build/main-Cfnoc8EH.js
 // Shared types for desktop app lifecycle and quit handling.
 

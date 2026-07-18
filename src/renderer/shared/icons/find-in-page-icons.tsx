@@ -1,4 +1,3 @@
-// @ts-nocheck
 // Restored from ref/.vite/renderer/find_in_page/assets/FindInPage-BE9M4xe7.js
 
 import type { SVGProps } from "react";

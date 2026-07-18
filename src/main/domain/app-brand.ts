@@ -1,8 +1,8 @@
-// @ts-nocheck
 // Restored from ref/.vite/build/src-CoIhwwHr.js
 // Runtime app brand and build-flavor helpers.
 
 export const RuntimeAppBrands = {
+  Claude: "claude",
   Codex: "codex",
   ChatGPT: "chatgpt",
 } as const;
@@ -180,6 +180,8 @@ export function getRuntimeAppBrandDisplayName(
   brand: unknown,
 ): string | undefined {
   switch (brand) {
+    case RuntimeAppBrands.Claude:
+      return "Claude";
     case RuntimeAppBrands.Codex:
       return "Codex";
     case RuntimeAppBrands.ChatGPT:
@@ -193,7 +195,8 @@ export function parseRuntimeAppBrand(
   value: string | undefined,
 ): RuntimeAppBrand | null {
   const trimmed = value?.trim();
-  return trimmed === RuntimeAppBrands.Codex ||
+  return trimmed === RuntimeAppBrands.Claude ||
+    trimmed === RuntimeAppBrands.Codex ||
     trimmed === RuntimeAppBrands.ChatGPT
     ? trimmed
     : null;
@@ -220,9 +223,9 @@ function buildFlavorSuffix(buildFlavor: string): string | null {
 
 export function formatRuntimeAppName(
   buildFlavor: string,
-  brand: RuntimeAppBrand = RuntimeAppBrands.Codex,
+  brand: RuntimeAppBrand = RuntimeAppBrands.Claude,
 ): string {
   const suffix = buildFlavorSuffix(buildFlavor);
-  const displayName = getRuntimeAppBrandDisplayName(brand) ?? "Codex";
+  const displayName = getRuntimeAppBrandDisplayName(brand) ?? "Claude";
   return suffix == null ? displayName : `${displayName} (${suffix})`;
 }

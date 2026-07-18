@@ -1,6 +1,10 @@
-# Routing (react-router) — where it lives in `restored/`
+# Legacy Routing Evidence (react-router)
 
-The Codex webview renderer has no real URL bar, so routing is built on
+> The `CodexApp`, `codex-*`, and `codex://` names below are historical bundle
+> symbols retained as provenance. They are not instructions for the current
+> restoration, which targets Claude.app and its `claude://` protocol.
+
+The legacy restored renderer has no real URL bar, so routing is built on
 **react-router's `MemoryRouter`** plus the app's own route signals. There is
 **no declarative `<Routes><Route path=… element=…>` table** — routes are parsed
 from a path string into a `RouteLocation` discriminated union, and pages render
@@ -21,7 +25,7 @@ the tree; the pieces are listed below.
 ## Route model + parser
 
 - **`runtime/persisted-signal/routes.ts`** — `parseRouteLocation({pathname, search,
-  routeTemplate})`: the central URL→`RouteLocation` resolver. Uses `matchPath`
+routeTemplate})`: the central URL→`RouteLocation` resolver. Uses `matchPath`
   against patterns `/local/:conversationId`, `/remote/:taskId`,
   `/hotkey-window/...`, `/projects`, `/`, `/extension/panel/new`, falling back to
   `routeKind: "other"`. Also `getRouteThreadLocationId` / `getRouteThreadId` /
@@ -30,7 +34,7 @@ the tree; the pieces are listed below.
   (`toLocalThreadLocationId`, `toRemoteThreadLocationId`, `normalizeConversationId`, …).
 - **`runtime/persisted-signal/types.ts`** — `RouteLocation`, `routeKind` union
   (`home | new-thread-panel | local-thread | remote-thread | chatgpt-thread |
-  other | …`), `ProjectRouteContext`.
+other | …`), `ProjectRouteContext`.
 - **`runtime/route-scope-provider.tsx`** — per-route React scope + lazy
   route-import status signal.
 

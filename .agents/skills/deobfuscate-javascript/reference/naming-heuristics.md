@@ -34,12 +34,14 @@ Output is the same id-keyed JSON shape `apply.ts` expects:
 A param whose function is a React component and is destructured immediately → `props`.
 
 **Triggers when all of:**
+
 - Function name (or assigned binding name) is PascalCase.
 - Function is `React.memo(…)`/`memo(…)`/`forwardRef(…)`-wrapped, OR its body returns a JSX element / a `_React.createElement` / `jsxRuntime.jsx` call.
 - The function takes exactly one parameter (forwardRef may have a second `ref` param — that becomes `ref`).
 - The body destructures the parameter in its first statement (`let { onClose, isOpen } = e`) or accesses members of it (`e.children`, `e.className`).
 
 **Example input:**
+
 ```js
 export function InstallUpdateConfirmationDialog(e) {
   let { onClose: isOpen } = e, …
@@ -47,6 +49,7 @@ export function InstallUpdateConfirmationDialog(e) {
 ```
 
 **After:**
+
 ```ts
 export function InstallUpdateConfirmationDialog(props) {
   const { onClose: isOpen } = props, …
@@ -79,12 +82,21 @@ persist
 A single access also triggers if it's `.preventDefault()` (unambiguous on its own).
 
 **Example:**
+
 ```js
-onClick: t => { t.preventDefault(); fire(t.target.value); }
+onClick: (t) => {
+  t.preventDefault();
+  fire(t.target.value);
+};
 ```
+
 →
+
 ```js
-onClick: event => { event.preventDefault(); fire(event.target.value); }
+onClick: (event) => {
+  event.preventDefault();
+  fire(event.target.value);
+};
 ```
 
 ### 4. Array iteratee callbacks
@@ -94,12 +106,15 @@ Callback to `.map`, `.forEach`, `.filter`, `.find`, `.some`, `.every`, `.findInd
 The renamer takes the first three params (skipping any that aren't single-letter cryptic) and assigns these names. If only two params are present, they become `(item, index)`.
 
 **Example:**
+
 ```js
-items.map((n, k) => n.id + k)
+items.map((n, k) => n.id + k);
 ```
+
 →
+
 ```js
-items.map((item, index) => item.id + index)
+items.map((item, index) => item.id + index);
 ```
 
 ### 5. Reduce callbacks
@@ -107,12 +122,15 @@ items.map((item, index) => item.id + index)
 Callback to `.reduce` / `.reduceRight` → `(accumulator, current, index, array)`.
 
 **Example:**
+
 ```js
-totals.reduce((a, c) => a + c.value, 0)
+totals.reduce((a, c) => a + c.value, 0);
 ```
+
 →
+
 ```js
-totals.reduce((accumulator, current) => accumulator + current.value, 0)
+totals.reduce((accumulator, current) => accumulator + current.value, 0);
 ```
 
 ### 6. Sort comparators
@@ -127,20 +145,20 @@ Callback to `.sort` / `.toSorted` → `(a, b)` if the params are something other
 
 A `let`/`const` declarator initialised by a `useXxx()` call where the LHS is one letter → rename the LHS after the hook:
 
-| Hook | Local name |
-|---|---|
-| `useIntl()` | `intl` |
-| `useRouter()` | `router` |
-| `useLocation()` | `location` |
-| `useParams()` | `params` |
-| `useNavigate()` | `navigate` |
-| `useTheme()` | `theme` |
-| `useTranslation()` | `translation` |
-| `useMediaQuery()` | `matches` |
-| `useRef()` | `ref` (suffix `Ref` if you can detect the noun from context — `useRef<HTMLButtonElement>()` → `buttonRef`) |
-| `useId()` | `id` |
-| `useTransition()` | `[isPending, startTransition]` — destructure handled by Pass 2 |
-| `useDeferredValue(v)` | `deferred<noun>` if `v`'s name is known |
+| Hook                  | Local name                                                                                                 |
+| --------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `useIntl()`           | `intl`                                                                                                     |
+| `useRouter()`         | `router`                                                                                                   |
+| `useLocation()`       | `location`                                                                                                 |
+| `useParams()`         | `params`                                                                                                   |
+| `useNavigate()`       | `navigate`                                                                                                 |
+| `useTheme()`          | `theme`                                                                                                    |
+| `useTranslation()`    | `translation`                                                                                              |
+| `useMediaQuery()`     | `matches`                                                                                                  |
+| `useRef()`            | `ref` (suffix `Ref` if you can detect the noun from context — `useRef<HTMLButtonElement>()` → `buttonRef`) |
+| `useId()`             | `id`                                                                                                       |
+| `useTransition()`     | `[isPending, startTransition]` — destructure handled by Pass 2                                             |
+| `useDeferredValue(v)` | `deferred<noun>` if `v`'s name is known                                                                    |
 
 `useState`, `useReducer`, `useMemo`, `useCallback`, `useEffect` are skipped because their result is almost always either destructured (handled by Pass 2's destructure-alias rule) or unused.
 
@@ -185,4 +203,4 @@ bun scripts/smart-rename.ts "$WS/pass2.js" --merge "$WS/manual-overrides.json" -
 
 ## Why these and not "all of humanify's heuristics"
 
-The humanify project leans on an LLM to invent names from full context. Here we lean on Claude (you) to do that judgment work for the *hard* cases. The smart renamer is the deterministic short-circuit for the *easy* cases — the ones where you'd otherwise type the same name a hundred times. The rule of thumb: if the right name is mechanically derivable from a fixed property-access pattern or a fixed callee name, it belongs in the smart renamer. If the right name depends on what the surrounding code *means*, it belongs in your Pass 1 / Pass 2 judgment work.
+The humanify project leans on an LLM to invent names from full context. Here we lean on Claude (you) to do that judgment work for the _hard_ cases. The smart renamer is the deterministic short-circuit for the _easy_ cases — the ones where you'd otherwise type the same name a hundred times. The rule of thumb: if the right name is mechanically derivable from a fixed property-access pattern or a fixed callee name, it belongs in the smart renamer. If the right name depends on what the surrounding code _means_, it belongs in your Pass 1 / Pass 2 judgment work.

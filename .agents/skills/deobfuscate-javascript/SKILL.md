@@ -1,7 +1,7 @@
 ---
 name: deobfuscate-javascript
 description: >-
-  Reverse-engineer minified, obfuscated, packed, or bundled JavaScript into readable or typed TS/TSX, including Codex.app `./ref/webview/assets` restoration. Use for .min.js, dist bundles, Vite/Rollup/Webpack chunks, obfuscated snippets, or requests to humanify, deobfuscate, deminify, unpack, decode, make readable, rename variables, reverse engineer, 完整还原, 深度还原, 反混淆, 美化代码, 看懂这段 JS, 重命名变量, 反编译. Whole-tree restores (index.html + assets, "restore the code/whole tree") default to deep: deobfuscate if needed, smart-rename, polish, resolve npm imports, typed semantic TSX rewrite, acceptance review, import graph/ledger, and full-target quality gate draining every reachable project-local chunk. Quick/readable/快速 or lone snippets use readable naming-quality restore. Vendor data/packages become npm leaves or re-export shims, not restored package bodies.
+  Reverse-engineer minified, obfuscated, packed, or bundled JavaScript into readable or typed TS/TSX, including Claude.app `./ref/.vite` restoration. Use for .min.js, dist bundles, Vite/Rollup/Webpack chunks, obfuscated snippets, or requests to humanify, deobfuscate, deminify, unpack, decode, make readable, rename variables, reverse engineer, 完整还原, 深度还原, 反混淆, 美化代码, 看懂这段 JS, 重命名变量, 反编译. Whole-tree restores (index.html + assets, "restore the code/whole tree") default to deep: deobfuscate if needed, smart-rename, polish, resolve npm imports, typed semantic TSX rewrite, acceptance review, import graph/ledger, and full-target quality gate draining every reachable project-local chunk. Quick/readable/快速 or lone snippets use readable naming-quality restore. Vendor data/packages become npm leaves or re-export shims, not restored package bodies.
 ---
 
 # Deobfuscate JavaScript
@@ -25,7 +25,7 @@ Deep is a completion bar, not an upsell: a whole-tree restore is "done" only whe
 ## Output conventions
 
 - **`restored/` is a clean-only deliverable zone — the canonical staging → organize → promote rule (referenced everywhere below).** Anything a _batch or script_ restore emits (`auto-restore-full.ts` checkpoints, a swept `polish.ts`, `--write-target-checkpoints` files, any hash-basename `.tsx`) is a **mechanical checkpoint, not a deliverable**; it goes into the gitignored staging tree under `restored/.deobfuscate-javascript/` (`_full/checkpoints/<basename>.tsx` for the batch executor, per-chunk `$WS/` otherwise), **never** straight into `restored/`. Promote only after the host organizes it. The promotion bar, in **every tier**: **good readability** (semantic names, no mechanical fallbacks like `buttonValue3` / `contextParam14`), **friendly kebab filenames**, **clear semantic-domain structure**, and **prettier-formatted** (`promote-organized.ts` runs `format.ts` on every deliverable, so `restored/` is never raw `@babel/generator` output) — **plus complete types** (`Props` interfaces on exported components, param/return types where they help) whenever the restore is **deep/full** (where all `auto-restore-full.ts` output lives). Only genuinely hand-restored single **readable-tier** deliverables may promote untyped, and even those draft in `$WS`, get organized, then land — never raw script output. For a whole-tree batch restore this is driven, not eyeballed: `plan-organize.ts` proposes a domain + kebab path per chunk; `promote-organized.ts` drains the promote frontier (typed deliverable → quality gate → copy into `restored/<domain>/` → IMPORT_MAP update → import rewrite). Complete only when every reachable chunk reaches `stages.promoted` and `quality-gate.ts <target-dir>` passes — see [full-restoration.md → Step 4](workflows/full-restoration.md).
-- **One shared restore root — `restored/`** — mirrors the source assets dir (e.g. `ref/webview/assets`). Every entry restores into it; **no per-entry folder** (no `restored/app-main/`).
+- **One shared restore root — `restored/`** — mirrors the source assets dir (e.g. `ref/.vite/renderer/main_window/assets`). Every entry restores into it; **no per-entry folder** (no `restored/app-main/`).
 - **Semantic-domain subfolders** group output (`app-shell/`, `composer/`, `utils/`, `icons/`, …); original chunk identity lives in each file's provenance header, not the layout.
 - **One shared import map — `restored/IMPORT_MAP.json`** — reused regardless of entry. Never per-chunk/per-session/per-entry maps (no `APP_MAIN_IMPORT_MAP.json`).
 - **kebab-case file and directory names** (`button.tsx`, `download-icon.tsx`, `app-shell/`), but **React component + type names stay PascalCase** (JSX requires it) — `button.tsx` exports `Button`, `download-icon.tsx` exports `DownloadIcon`. `quality-gate.ts` enforces this (`non-kebab-filename`).
@@ -40,7 +40,7 @@ Any task that will create or edit `restored/vendor/*` (including nested `compat-
 bun .agents/skills/deobfuscate-javascript/scripts/vendor-npm-preflight.ts restored/vendor
 ```
 
-The non-negotiable core: public vendor files are **npm-first** — the default deliverable is a thin npm-backed re-export shim, never a hand-written "compatible subset" of a stock package. A missing dependency means add it to the nearest `package.json`, not evidence for a local body. The intent gate (`vendor-npm-preflight.ts <target> --decision --intent npm-shim|local-body`) must exit 0 before writing code; public vendor files fail closed to `npm-shim` unless recorded Codex-fork or app/runtime-wrapper proof exists. The full evidence order, touch protocol, aggregator-barrel rules, and shim recipe live in [reference/vendor-npm.md](reference/vendor-npm.md).
+The non-negotiable core: public vendor files are **npm-first** — the default deliverable is a thin npm-backed re-export shim, never a hand-written "compatible subset" of a stock package. A missing dependency means add it to the nearest `package.json`, not evidence for a local body. The intent gate (`vendor-npm-preflight.ts <target> --decision --intent npm-shim|local-body`) must exit 0 before writing code; public vendor files fail closed to `npm-shim` unless recorded application-fork or app/runtime-wrapper proof exists. The full evidence order, touch protocol, aggregator-barrel rules, and shim recipe live in [reference/vendor-npm.md](reference/vendor-npm.md).
 
 ## Restoration contract
 
@@ -88,18 +88,20 @@ Full-restoration mode records `npm-leaf`, `oversized-local`, `external`, and `fa
 
 Run Stage 1 _before_ Stage 2 on obfuscated input — `extract.ts` byte offsets are invalidated by Stage 1 rewrites. On purely minified (not obfuscated) input, skip Stage 1.
 
-## Current project profile — `codex-app-code` `./ref`
+## Current project profile — Claude.app `./ref`
 
-When the workspace contains `ref/package.json` with `name: "openai-codex-electron"` or the user asks to restore `./ref`, load [reference/codex-ref.md](reference/codex-ref.md) before choosing a workflow.
+When the workspace contains `ref/package.json` with `name: "@ant/desktop"` or the user asks to restore this repository's `./ref`, load [reference/claude-ref.md](reference/claude-ref.md) before choosing a workflow.
 
 Default assumptions for this repo:
 
-- Primary bundled-code root: `ref/webview/assets`.
-- Main app entry: read `ref/webview/index.html`; current builds usually route through `index-*.js`, `app-main-*.js`, and `app-shell-*.js`.
-- Default restore root: `restored/` (mirrors `ref/webview/assets`), with semantic-domain subfolders (`app-shell/`, `composer/`, `utils/`, `icons/`). Reuse the single shared `restored/IMPORT_MAP.json` before creating any new map. Do **not** create a per-entry folder such as `restored/app-main/`. Auto-discover the entry with `scripts/check-entry.ts --discover --root ref/webview/assets`.
-- Treat `ref/node_modules/**`, `ref/native-menu-locales/**`, CSS, WASM, images, and obvious vendor/data chunks as references or terminal boundaries unless the user explicitly asks to restore them.
-- **Vendored UI packages → `@pierre/trees` / `@pierre/diffs` boundaries, not app code.** The file-tree and diff-view subsystems are bundled `@pierre/trees` (Preact) + `@pierre/diffs` (Shiki). **Codex FORKED them** (React fork of `@pierre/trees`; settings-entangled `@pierre/diffs` gate), so a clean bare-import swap is usually infeasible — keep the forked wrapper, relabel provenance, boundary-ize (`quality-gate.ts --vendored`); only self-contained leaves are clean bare imports (`worker-*` → `@pierre/diffs/worker`, `parsePatchFiles-*` → `@pierre/diffs`). Fingerprints: `--trees-*`/`--diffs-*` CSS vars, `data-file-tree-*`/`data-diffs-*` attrs, `pierre-light/dark(-soft)` themes, the `@pierre/truncate css here…` comment. **Engine chunks:** `file-tree-search-input-*`, `shiki-highlight-provider-gate-*`, `file-diff-*`, `diff-unified-*`, `parsePatchFiles-*`, `worker-*`. **NOT-Pierre traps:** `diff-stats-*`, `diff-view-mode-*`, `use-diff-annotations-*` (PDF.js), `parse-diff-*` (Codex), `diff-*` grammar (Shiki), `treeView-SZITEDCU-*`/`treemap-*` (Mermaid), `worktree-*` (git). Detail: [codex-ref.md → Boundary classification](reference/codex-ref.md).
-- Before starting fresh, inspect existing `restored/**/README.md`, `IMPORT_MAP.json`, `.deobfuscate-javascript/_full/manifest.json`, and `.deobfuscate-javascript/_full/ledger.json`; resume rather than duplicating semantic modules.
+- Main/preload/worker bundles: `ref/.vite/build`, including nested worker directories.
+- Renderer entries: HTML and reachable assets under `ref/.vite/renderer/*`.
+- Restore renderer code into FSD under `src/renderer`; restore main-process code into DDD layers under `src/main`.
+- Restore utility-process entries under `src/main/infrastructure/workers` and specialized context bridges under `src/main/preload`.
+- Treat `ref/node_modules/**`, CSS, WASM, images, locales, and native modules as dependency or asset evidence, not application bodies.
+- Prefer exact dependency versions from `ref/package.json`; do not copy stock package bodies into `src`.
+- Track current Claude entry coverage separately from the historical `restored/IMPORT_MAP.json`.
+- Detail: [claude-ref.md](reference/claude-ref.md).
 
 ## When to use this skill
 
@@ -114,7 +116,7 @@ Trigger whenever the user:
 
 ## Routing — three questions, then load one workflow
 
-**Step 0 (always):** run `scripts/sourcemap-check.ts` first. If a `.map` exists, recover originals via `npx source-map-explorer` instead — that beats any rename. For the current repo's `./ref` tree, load [reference/codex-ref.md](reference/codex-ref.md) first.
+**Step 0 (always):** run `scripts/sourcemap-check.ts` first. If a `.map` exists, recover originals via `npx source-map-explorer` instead — that beats any rename. For the current repo's `./ref` tree, load [reference/claude-ref.md](reference/claude-ref.md) first.
 
 **Step 0.5 (whole tree / `./ref` / any multi-chunk app — the default):** auto-discover the entry: `scripts/check-entry.ts --discover --root <assets-dir>` reads `index.html`, picks + sanity-checks the app entry, prints its path (`build-import-graph.ts` does the same when you omit the positional). If discovery (or manual `check-entry.ts <entry> --root <assets-dir>`) exits `3`, the entry is a transitive **vendor leaf**, not the app — restoring from it yields a tiny closure that _looks_ complete (the "got 6 files, called it done" trap). A real app entry has large local fan-out and ~nobody imports it; a leaf is the inverse. Switch to the `index.html` `<script>` root (or a high-fan-out `app-main-*` chunk) first.
 
@@ -142,23 +144,23 @@ For end-to-end worked traces, see [reference/examples.md](reference/examples.md)
 
 Every script's purpose + "Run when" routing, external-tool notes, the shared import-map convention, and exit codes live in [reference/tools.md](reference/tools.md) — load it when you need a flag or aren't sure which script fits. The ones used in nearly every run:
 
-| Tool                             | Role                                                                                                                              |
-| -------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| `scripts/sourcemap-check.ts`     | **Always first** — a recoverable `.map` beats any rename                                                                          |
-| `scripts/check-entry.ts`         | `--discover --root <assets-dir>` finds + sanity-checks the app entry (exit `3` = vendor leaf, wrong entry)                        |
-| `scripts/build-import-graph.ts`  | BFS the chunk tree → `_full/manifest.json` (full-restoration mode)                                                                |
-| `scripts/wakaru-normalize.ts`    | Default-on mechanical pre-pass (readable tier); auto-skips when absent                                                            |
-| `scripts/polish.ts`              | One-shot Stage 2: `--rename --fast --format` is the readable-tier pipeline; full chain (no `--fast`) resolves npm imports in deep |
-| `scripts/quality-gate.ts`        | Hard gate before promote; `quality-gate.ts <target-dir> --check-format` is the whole-tree completion proof                        |
-| `scripts/vendor-npm-preflight.ts`| Blocking guard for any `restored/vendor/*` edit — see [Vendor/npm hard stop](#vendornpm-hard-stop)                                |
-| `scripts/format.ts`              | Prettier wrapper; every deliverable is formatted                                                                                  |
+| Tool                              | Role                                                                                                                              |
+| --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| `scripts/sourcemap-check.ts`      | **Always first** — a recoverable `.map` beats any rename                                                                          |
+| `scripts/check-entry.ts`          | `--discover --root <assets-dir>` finds + sanity-checks the app entry (exit `3` = vendor leaf, wrong entry)                        |
+| `scripts/build-import-graph.ts`   | BFS the chunk tree → `_full/manifest.json` (full-restoration mode)                                                                |
+| `scripts/wakaru-normalize.ts`     | Default-on mechanical pre-pass (readable tier); auto-skips when absent                                                            |
+| `scripts/polish.ts`               | One-shot Stage 2: `--rename --fast --format` is the readable-tier pipeline; full chain (no `--fast`) resolves npm imports in deep |
+| `scripts/quality-gate.ts`         | Hard gate before promote; `quality-gate.ts <target-dir> --check-format` is the whole-tree completion proof                        |
+| `scripts/vendor-npm-preflight.ts` | Blocking guard for any `restored/vendor/*` edit — see [Vendor/npm hard stop](#vendornpm-hard-stop)                                |
+| `scripts/format.ts`               | Prettier wrapper; every deliverable is formatted                                                                                  |
 
 ## Workspace convention (TL;DR)
 
 Every intermediate file lives in a hidden per-chunk workspace under the target output directory:
 
 ```bash
-INPUT=ref/webview/assets/spinner-D37df5tU.js
+INPUT=ref/.vite/renderer/main_window/assets/spinner-D37df5tU.js
 TARGET=restored
 WS="$TARGET/.deobfuscate-javascript/$(basename "$INPUT" .js)"
 
@@ -181,7 +183,7 @@ Load sub-files on demand — each entry says when.
 ### Routing & overviews
 
 - [SKILL.md](SKILL.md) — this file. Routing + contracts + workspace TL;DR; always loaded.
-- [reference/codex-ref.md](reference/codex-ref.md) — project profile for restoring this repo's extracted Codex.app `./ref` tree. Load before any `./ref` work.
+- [reference/claude-ref.md](reference/claude-ref.md) — project profile for restoring this repo's extracted Claude.app `./ref` tree. Load before any `./ref` work.
 - [reference/vendor-npm.md](reference/vendor-npm.md) — vendor/npm preflight, intent gates, touch protocol, shim recipe. Load before any `restored/vendor/*` edit.
 - [reference/boundaries.md](reference/boundaries.md) — terminal-node kinds, boundary lifecycle, graph depth flags. Load when classifying or resolving a boundary.
 - [reference/quality-bar.md](reference/quality-bar.md) — the anti-pattern checklist. Load before declaring any restore done.

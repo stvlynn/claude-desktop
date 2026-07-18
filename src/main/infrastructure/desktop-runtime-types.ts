@@ -1,4 +1,3 @@
-// @ts-nocheck
 // Restored from ref/.vite/build/workspace-root-drop-handler-DeLi4ACJ.js
 // Shared runtime types for the Electron main process.
 
@@ -203,60 +202,23 @@ export type BrowserWindowLike = {
 
 export type DeepLinkRoute =
   | {
-      kind: "applyCodexAppConfig";
+      kind: "authenticatedNavigation";
+      anonymousId: string | null;
+      path: string;
+      removeAnonymousIdFromQuery?: boolean;
     }
   | {
-      kind: "automations";
+      kind: "googleAuth";
+      anonymousId: string | null;
+      code: string;
     }
   | {
-      kind: "connectorOAuthCallback";
-      fullRedirectUrl: string;
-      returnTo: string | null;
+      kind: "handleDeepLink";
+      url: string;
     }
   | {
-      kind: "launch";
-    }
-  | {
-      kind: "localConversation";
-      [key: string]: unknown;
-    }
-  | {
-      kind: "localPluginDetail";
-      hostId: string | null;
-      marketplacePath: string;
-      pluginName: string;
-      openShareDialog: boolean;
-    }
-  | {
-      kind: "newThread";
-      originUrl?: string | null;
-      path?: string | null;
-      prompt?: string;
-    }
-  | {
-      kind: "petInstall";
-      description: string | null;
-      imageUrl: string;
-      name: string;
-    }
-  | {
-      kind: "pluginDetail";
-      hostId: string | null;
-      pluginId: unknown;
-      source: unknown;
-    }
-  | {
-      kind: "pluginInstall";
-      marketplaceName: string | undefined;
-      pluginName: string;
-    }
-  | {
-      kind: "settings";
-      section?: string;
-      search?: string;
-    }
-  | {
-      kind: "skills";
+      kind: "navigate";
+      path: string;
     };
 
 export type DeepLinkCoordinatorOptions = {
@@ -274,7 +236,7 @@ export type DeepLinkCoordinator = {
   registerProtocolClient(): void;
   queueProcessArgs(args: string[]): boolean;
   flushPendingDeepLinks(): Promise<void>;
-  queueCodexDeepLinkUrl(url: string, hostId?: string | null): boolean;
+  queueClaudeDeepLinkUrl(url: string): boolean;
 };
 
 export type RecoveryErrorPair = {

@@ -1,4 +1,3 @@
-// @ts-nocheck
 // Restored from ref/package.json
 
 export type ClaudeBundleIdentity = {

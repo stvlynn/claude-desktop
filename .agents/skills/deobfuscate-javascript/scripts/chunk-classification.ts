@@ -236,7 +236,7 @@ export type BoundaryKind = "vendor-npm" | "vendor-runtime";
  * Vendor 'family' (as recorded in IMPORT_MAP `vendor`) → the npm specifier a
  * re-export shim should point at. Identity where the family already is the
  * package; a representative entry-point where it is a family the agent confirms.
- * Treat as a hint — verify the bundled chunk is stock (not a Codex fork) and the
+ * Treat as a hint — verify the bundled chunk is stock (not a Claude application fork) and the
  * specifier resolves before relying on it.
  */
 export const VENDOR_NPM_SPECIFIERS: Record<string, string> = {

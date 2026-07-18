@@ -4490,25 +4490,25 @@ export function __rest(value) {
 
   test("allows semantic theme data modules with registry-shaped objects", () => {
     const source = `
-      const codexName = "Codex Dark";
-      const codexType = "dark";
-      const codexColors = { foreground: "#fff", background: "#111" };
-      const codexTokenColors = [{ scope: "comment", settings: { foreground: "#999" } }];
-      const codexSemanticTokenColors = { comment: "#999" };
+      const claudeName = "Claude Dark";
+      const claudeType = "dark";
+      const claudeColors = { foreground: "#fff", background: "#111" };
+      const claudeTokenColors = [{ scope: "comment", settings: { foreground: "#999" } }];
+      const claudeSemanticTokenColors = { comment: "#999" };
 
-      export const codexDarkTheme = {
-        name: codexName,
-        type: codexType,
-        colors: codexColors,
-        tokenColors: codexTokenColors,
-        semanticTokenColors: codexSemanticTokenColors,
+      export const claudeDarkTheme = {
+        name: claudeName,
+        type: claudeType,
+        colors: claudeColors,
+        tokenColors: claudeTokenColors,
+        semanticTokenColors: claudeSemanticTokenColors,
       };
 
-      export default codexDarkTheme;
+      export default claudeDarkTheme;
     `;
     const report = analyzeSource(
       source,
-      path.join("restored", "themes", "codexDark.ts"),
+      path.join("restored", "themes", "claude-dark.ts"),
       {
         ...DEFAULT_OPTIONS,
         maxFlatExports: 1,
@@ -4846,7 +4846,7 @@ export function __rest(value) {
   const BARREL_FACADE =
     "// Restored from ref/webview/assets/app-initial~app-main~automations-page-Bc0ZtIBr.js\n" +
     "// Current automations-page compatibility facade.\n" +
-    'export { CodexApp, initCodexAppChunk } from "../app-shell/codex-app";\n' +
+    'export { ClaudeApp, initClaudeAppChunk } from "../app-shell/claude-app";\n' +
     'export { AppFallback } from "../app-shell/app-fallback";\n';
 
   test("aggregator-body-not-restored fires: large app-feature chunk promoted to a re-export barrel", () => {
@@ -4885,9 +4885,9 @@ export function __rest(value) {
     const targetDir = makeTmpRoot();
     writePromotedFile(
       targetDir,
-      "app-shell/codex-app.tsx",
+      "app-shell/claude-app.tsx",
       "// Restored from ref/webview/assets/app-initial~app-main~automations-page-Bc0ZtIBr.js\n" +
-        "export function CodexApp() {\n  return null;\n}\n",
+        "export function ClaudeApp() {\n  return null;\n}\n",
     );
     writeFullManifest(targetDir, {
       "app-initial~app-main~automations-page-Bc0ZtIBr": {
@@ -4897,7 +4897,7 @@ export function __rest(value) {
         stages: { promoted: true },
         organization: {
           domain: "app-shell",
-          semanticPath: "app-shell/codex-app.tsx",
+          semanticPath: "app-shell/claude-app.tsx",
           classification: "app-feature",
         },
       },
@@ -4953,7 +4953,7 @@ export function __rest(value) {
     const targetDir = makeTmpRoot();
     const sourceModules = [
       ["app-shell/app-fallback.tsx", "AppFallback"],
-      ["app-shell/codex-app.tsx", "CodexApp"],
+      ["app-shell/claude-app.tsx", "ClaudeApp"],
       ["automation/eligibility.ts", "heartbeatAutomationEligibilitySignal"],
       ["composer/project-selector.tsx", "ComposerProjectSelector"],
       ["features/keyboard-shortcuts.ts", "initKeyboardShortcutsDialogChunk"],
@@ -5201,6 +5201,18 @@ export function __rest(value) {
       opts,
     );
     expect(real.issues.map((i) => i.code)).toContain(
+      "missing-provenance-header",
+    );
+  });
+
+  test("accepts nested Claude Vite build worker provenance", () => {
+    const report = analyzeSource(
+      `// Restored from ref/.vite/build/transcript-search-worker/transcriptSearchWorker.js\n` +
+        `export function searchTranscripts(): void {}\n`,
+      "infrastructure/workers/transcript-search-worker.ts",
+      { ...DEFAULT_OPTIONS, requireProvenanceHeader: true },
+    );
+    expect(report.issues.map((issue) => issue.code)).not.toContain(
       "missing-provenance-header",
     );
   });
@@ -5904,7 +5916,7 @@ describe("vendored / facade relaxation", () => {
     ).join("\n");
     const localeData =
       `// Restored from ref/webview/assets/am-CjqvPkLf.js\n` +
-      `// Am locale messages restored from the current Codex webview bundle.\n` +
+      `// Am locale messages restored from the current Claude renderer bundle.\n` +
       `const amGreeting = "Fallback";\n` +
       `export const amDefault = {\n${entries}\n};\n` +
       `export { amGreeting as greeting };\n`;
@@ -5929,7 +5941,7 @@ describe("vendored / facade relaxation", () => {
     ).join("\n");
     const homeUseCasesData =
       `// Restored from ref/webview/assets/home-use-cases-data-B74wpFte.js\n` +
-      `// Home use-case data restored from the current Codex webview bundle.\n` +
+      `// Home use-case data restored from the current Claude renderer bundle.\n` +
       `const HOME_USE_CASES = [\n${entries}\n];\n` +
       `function getAutomationHomeUseCases() {\n` +
       `  return HOME_USE_CASES.filter((item) => item.isAutomation === true);\n` +
@@ -5957,7 +5969,7 @@ describe("vendored / facade relaxation", () => {
   test("restored generated schema runtimes are auto-relaxed as vendored output", () => {
     const schemaRuntime =
       `// Restored from ref/webview/assets/document-Cpom6Lb8.js\n` +
-      `// Vendored document protobuf runtime restored from the Codex webview bundle.\n` +
+      `// Vendored document protobuf runtime restored from the Claude renderer bundle.\n` +
       `function documentHelper1(documentParam1) {\n` +
       `  const documentValue1 = documentParam1.value;\n` +
       `  return documentValue1;\n` +
@@ -6150,13 +6162,18 @@ describe("checkFormatting", () => {
   });
 
   test("soft-skips (no failures) when prettier is unavailable", () => {
+    const root = makeTmpRoot();
+    fs.writeFileSync(
+      path.join(root, "module.ts"),
+      "export const value = true;\n",
+    );
     const errors: unknown[][] = [];
     const originalError = console.error;
     console.error = (...args: unknown[]) => {
       errors.push(args);
     };
     try {
-      const reports = checkFormatting("restored", () => ({
+      const reports = checkFormatting(root, () => ({
         ok: false,
         stdout: "",
         stderr: "bunx: prettier: command not found\n",

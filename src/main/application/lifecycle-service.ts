@@ -1,4 +1,3 @@
-// @ts-nocheck
 // Restored from ref/.vite/build/index.pre.js
 // Application: real Electron app lifecycle handlers.
 //

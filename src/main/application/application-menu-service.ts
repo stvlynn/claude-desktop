@@ -1,4 +1,3 @@
-// @ts-nocheck
 // Restored from ref/.vite/build/main-Cfnoc8EH.js
 // Minimal cross-platform application menu for the restored desktop shell.
 
@@ -6,7 +5,8 @@ import { BrowserWindow, Menu, type MenuItemConstructorOptions } from "electron";
 
 export type ApplicationMenuCallbacks = {
   onFindInPage?(): void;
-  onOpenBuddy?(): void;
+  onFindStep?(forward: boolean): void;
+  onGenerateDiagnosticReport?(): void;
 };
 
 export type ApplicationMenuService = {
@@ -64,6 +64,16 @@ export function createApplicationMenuService(): ApplicationMenuService {
             callbacks.onFindInPage?.();
           },
         },
+        {
+          label: "Find Next",
+          accelerator: "CmdOrCtrl+G",
+          click: () => callbacks.onFindStep?.(true),
+        },
+        {
+          label: "Find Previous",
+          accelerator: "CmdOrCtrl+Shift+G",
+          click: () => callbacks.onFindStep?.(false),
+        },
       ],
     };
 
@@ -107,13 +117,9 @@ export function createApplicationMenuService(): ApplicationMenuService {
             sendToFocusedWindow("claude:menu:help");
           },
         },
-        { type: "separator" },
         {
-          label: "Hardware Buddy & Maker Devices",
-          accelerator: "CmdOrCtrl+Shift+B",
-          click: () => {
-            callbacks.onOpenBuddy?.();
-          },
+          label: "Generate Diagnostic Report",
+          click: () => callbacks.onGenerateDiagnosticReport?.(),
         },
       ],
     };

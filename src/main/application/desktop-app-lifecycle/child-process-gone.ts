@@ -1,4 +1,3 @@
-// @ts-nocheck
 // Restored from ref/.vite/build/main-Cfnoc8EH.js
 // Recoverable Chromium child-process-gone detection and deduplicated logging.
 

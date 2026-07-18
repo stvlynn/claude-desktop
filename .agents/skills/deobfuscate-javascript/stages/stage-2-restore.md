@@ -299,7 +299,7 @@ bun <skill-dir>/scripts/vendor-npm-preflight.ts <target-vendor-file> --decision 
 `--decision` without `--intent` is informational only; do not treat it as
 permission to edit. If `--intent local-body` fails with `npm-shim`, create a bare
 npm-backed re-export/alias shim and add the dependency. If it fails with
-`needs-proof`, record the Codex fork or app/runtime-wrapper evidence before any
+`needs-proof`, record the application fork or app/runtime-wrapper evidence before any
 local implementation. If `--intent npm-shim` fails because the package root is
 missing from the nearest `package.json`, add the dependency and rerun the intent
 gate before writing the shim. Do not use `--vendored` as a waiver for a stock

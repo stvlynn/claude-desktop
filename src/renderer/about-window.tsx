@@ -1,4 +1,3 @@
-// @ts-nocheck
 // Restored from ref/.vite/renderer/about_window/about.html
 
 import { AppShell, runAppSideEffects } from "./app/app";

@@ -9,7 +9,7 @@ make refresh-ref
 Equivalent direct command:
 
 ```bash
-node .agents/skills/codex-app-ref-refresh/scripts/refresh-codex-ref.mjs \
+node .agents/skills/claude-app-ref-refresh/scripts/refresh-claude-ref.mjs \
   --app Claude \
   --asar /Applications/Claude.app/Contents/Resources/app.asar
 ```
@@ -23,5 +23,5 @@ Useful follow-ups:
 make inspect
 make deobf-plan
 make dev
-make pack
+make pack-ref
 ```

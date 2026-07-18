@@ -1,4 +1,3 @@
-// @ts-nocheck
 // Restored from ref/.vite/build/main-Cfnoc8EH.js
 // Browser sidebar runtime IPC validation and window-context dispatch.
 

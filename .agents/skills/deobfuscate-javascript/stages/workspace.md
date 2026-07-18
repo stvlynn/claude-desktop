@@ -6,7 +6,7 @@ Where intermediate files for a deobfuscation run live, and why. Referenced by ev
 
 ---
 
-Put every intermediate file in a per-chunk subdirectory of a single shared hidden parent directory under the *target* output directory:
+Put every intermediate file in a per-chunk subdirectory of a single shared hidden parent directory under the _target_ output directory:
 
 ```
 <target-dir>/                              # final outputs land here (e.g. spinner.tsx)
@@ -21,12 +21,12 @@ Put every intermediate file in a per-chunk subdirectory of a single shared hidde
         └── polish-report.json             # scripts/polish.ts --report JSON
 ```
 
-`<basename>` is the input file name minus its directory and extension, **with the hash suffix kept** — for `ref/webview/assets/spinner-D37df5tU.js` use `spinner-D37df5tU`. The hash makes each workspace unique to its source chunk; the leading dot on the parent keeps it hidden from default `ls` and most file-tree views. The nested layout means a single `.gitignore` entry (`.deobfuscate-javascript/`) covers every chunk in the target.
+`<basename>` is the input file name minus its directory and extension, **with the hash suffix kept** — for `ref/.vite/renderer/main_window/assets/spinner-D37df5tU.js` use `spinner-D37df5tU`. The hash makes each workspace unique to its source chunk; the leading dot on the parent keeps it hidden from default `ls` and most file-tree views. The nested layout means a single `.gitignore` entry (`.deobfuscate-javascript/`) covers every chunk in the target.
 
 **Pattern — bake this into every workflow:**
 
 ```bash
-INPUT=ref/webview/assets/spinner-D37df5tU.js   # the file to deobfuscate
+INPUT=ref/.vite/renderer/main_window/assets/spinner-D37df5tU.js   # the file to deobfuscate
 TARGET=restored                                 # the shared restore root; final .tsx lands here
 WS="$TARGET/.deobfuscate-javascript/$(basename "$INPUT" .js)"
 
@@ -47,7 +47,7 @@ For multi-export bundle splits (see [../workflows/multi-export-bundle.md](../wor
 
 ## Multi-file restoration: the `_full/` workspace
 
-Full-tree restoration (see [../workflows/full-restoration.md](../workflows/full-restoration.md)) coordinates renaming an entire connected component of the import graph rooted at one entry chunk. It needs a *shared* workspace that all per-file workspaces hang off of, plus two cross-cutting JSON tables:
+Full-tree restoration (see [../workflows/full-restoration.md](../workflows/full-restoration.md)) coordinates renaming an entire connected component of the import graph rooted at one entry chunk. It needs a _shared_ workspace that all per-file workspaces hang off of, plus two cross-cutting JSON tables:
 
 ```
 <target-dir>/                              # final split outputs land here, e.g. app-shell/index.ts
@@ -68,7 +68,7 @@ Full-tree restoration (see [../workflows/full-restoration.md](../workflows/full-
                 └── polished.tsx
 ```
 
-`_full/files/<basename>/` follows the *same* layout as a single-chunk `$WS` — every existing Stage 1 + Stage 2 script (`extract.ts`, `apply.ts`, `polish.ts`, …) operates on a `_full/files/<basename>/` directory unchanged. The two new top-level files (`manifest.json`, `ledger.json`) are the coordination layer. The public import map is **not** here: it is the single shared `restored/IMPORT_MAP.json` at the restore root, reused regardless of entry.
+`_full/files/<basename>/` follows the _same_ layout as a single-chunk `$WS` — every existing Stage 1 + Stage 2 script (`extract.ts`, `apply.ts`, `polish.ts`, …) operates on a `_full/files/<basename>/` directory unchanged. The two new top-level files (`manifest.json`, `ledger.json`) are the coordination layer. The public import map is **not** here: it is the single shared `restored/IMPORT_MAP.json` at the restore root, reused regardless of entry.
 
 Pattern (the entry is auto-discovered from `index.html`; the positional is optional):
 
@@ -78,7 +78,7 @@ FULL="$TARGET/.deobfuscate-javascript/_full"
 
 mkdir -p "$FULL/files" "$FULL/locks"
 bun scripts/build-import-graph.ts --target "$TARGET" \
-  --root ref/webview/assets --out "$FULL/manifest.json"
+  --root ref/.vite/renderer/main_window/assets --out "$FULL/manifest.json"
 bun scripts/build-symbol-ledger.ts --target "$TARGET" --out "$FULL/ledger.json"
 ```
 

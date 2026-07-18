@@ -4,13 +4,13 @@ REF ?= ref
 DIST ?= dist
 ELECTRON ?= npx -y electron@42.5.1
 
-REFRESH_SKILL := .agents/skills/codex-app-ref-refresh/scripts/refresh-codex-ref.mjs
+REFRESH_SKILL := .agents/skills/claude-app-ref-refresh/scripts/refresh-claude-ref.mjs
 DEOBF_SKILL := .agents/skills/deobfuscate-javascript/scripts
 MAIN_WINDOW_ASSETS := $(REF)/.vite/renderer/main_window/assets
 MAIN_WINDOW_ENTRY := $(MAIN_WINDOW_ASSETS)/main-D-xLCUWh.js
 MAIN_WINDOW_WS := src/renderer/.deobfuscate-javascript/main-D-xLCUWh
 
-.PHONY: refresh-ref inspect deobf-plan runtime-map typecheck quality dev run build run-ref pack-ref clean
+.PHONY: refresh-ref inspect deobf-plan runtime-map typecheck quality completeness dev run build run-ref pack-ref clean
 
 refresh-ref:
 	node $(REFRESH_SKILL) --app $(APP) --asar $(APP_ASAR) --target $(REF)
@@ -33,6 +33,9 @@ typecheck:
 
 quality:
 	bun $(DEOBF_SKILL)/quality-gate.ts src/main src/renderer src/shared/contracts --no-cache
+
+completeness:
+	bun scripts/check-restoration-completeness.mjs
 
 dev:
 	bun run dev

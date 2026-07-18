@@ -1,6 +1,6 @@
 # Workflow — full restoration: rebuild an entire import tree
 
-When the user wants to deobfuscate a chunk like [ref/webview/assets/app-shell-JLpboL12.js](../../../../ref/webview/assets/app-shell-JLpboL12.js) that pulls in dozens of sibling chunks, you can't do justice to it one file at a time — every `import { kn as t } from "./src-DAzAmbVS.js"` is a name decision that depends on what `kn` _really is_ in the source file. This workflow coordinates the renaming of an entire connected component of the import graph through two tables:
+When the user wants to deobfuscate a chunk like [ref/.vite/renderer/main_window/assets/main-D-xLCUWh.js](../../../../ref/.vite/renderer/main_window/assets/main-D-xLCUWh.js) that pulls in bundled modules or sibling chunks, you can't do justice to it one file at a time — every aliased import/export is a name decision that depends on what the source binding _really is_. This workflow coordinates the renaming of an entire connected component of the import graph through two tables:
 
 - **`manifest.json`** — file-level dependency graph: which chunks the entry transitively imports, what each file's `import`/`export` statements look like, and which stage (extract / rename / polish / finalize) each file is at.
 - **`ledger.json`** — symbol-level checklist for each file: every binding (`status: pending | claimed | done`), plus a `crossFileBindings` table that links every consumer's local alias back to the producer's exported binding so a name decided in one file propagates to all its consumers automatically.
@@ -27,10 +27,11 @@ If the input is a lone pasted snippet or a single chunk with no surrounding tree
 - [multi-export-bundle.md](multi-export-bundle.md) — single multi-export bundle, split into a directory.
 - [huge-single-file.md](huge-single-file.md) — single huge file, batch through a checklist.
 
-**Current repo note:** when the entry lives under `ref/webview/assets` in
-`codex-app-code`, read [reference/codex-ref.md](../reference/codex-ref.md)
-first. It defines the default root, target/import-map reuse, and boundaries for
-vendor/data chunks in the extracted Codex.app tree.
+**Current repo note:** when the entry lives under `ref/.vite/build` or
+`ref/.vite/renderer` in this Claude Desktop repository, read
+[reference/claude-ref.md](../reference/claude-ref.md) first. It defines the
+multi-entry layout, FSD/DDD targets, worker/preload boundaries, and current
+Claude coverage rules.
 
 ## Pipeline order
 
@@ -72,7 +73,7 @@ This writes a flat `.tsx` checkpoint for every `kind: local` file under `_full/c
 ## Step 0 — always: check the entry for a sourcemap
 
 ```bash
-bun <skill-dir>/scripts/sourcemap-check.ts ref/webview/assets/app-shell-JLpboL12.js
+bun <skill-dir>/scripts/sourcemap-check.ts ref/.vite/renderer/main_window/assets/main-D-xLCUWh.js
 ```
 
 If `✓ sourcemap detected` and the `.map` exists, **stop**. Recover from the map; renaming is wasted work.
@@ -80,7 +81,7 @@ If `✓ sourcemap detected` and the `.map` exists, **stop**. Recover from the ma
 ## Step 0.5 — always: confirm the entry is the app, not a vendor leaf
 
 ```bash
-bun <skill-dir>/scripts/check-entry.ts "$ENTRY" --root ref/webview/assets
+bun <skill-dir>/scripts/check-entry.ts "$ENTRY" --root ref/.vite/renderer/main_window/assets
 ```
 
 Exit `3` means the entry is a **transitive dependency** (a vendored package or
@@ -104,10 +105,10 @@ FULL="$TARGET/.deobfuscate-javascript/_full"
 mkdir -p "$FULL/files" "$FULL/locks"
 
 # Entry auto-discovered from index.html (omit the positional). To pin it:
-#   ENTRY=$(bun <skill-dir>/scripts/check-entry.ts --discover --root ref/webview/assets)
+#   ENTRY=$(bun <skill-dir>/scripts/check-entry.ts --discover --root ref/.vite/renderer/main_window/assets)
 bun <skill-dir>/scripts/build-import-graph.ts \
   --target "$TARGET" \
-  --root ref/webview/assets \
+  --root ref/.vite/renderer/main_window/assets \
   --out "$FULL/manifest.json"
 ```
 
@@ -136,34 +137,34 @@ Typical opening run for a fresh restoration:
 
 ```bash
 # Deep/full: no line cap; every reachable project-local sibling is in scope
-bun scripts/build-import-graph.ts "$ENTRY" --target "$TARGET" --root ref/webview/assets
+bun scripts/build-import-graph.ts "$ENTRY" --target "$TARGET" --root ref/.vite/renderer/main_window/assets
 
 # Quick/targeted: skip huge siblings after recording their import/export boundary
-bun scripts/build-import-graph.ts "$ENTRY" --target "$TARGET" --root ref/webview/assets --max-lines 5000
+bun scripts/build-import-graph.ts "$ENTRY" --target "$TARGET" --root ref/.vite/renderer/main_window/assets --max-lines 5000
 
 # Targeted: skip almost all deps but pull in two specific ones
-bun scripts/build-import-graph.ts "$ENTRY" --target "$TARGET" --root ref/webview/assets \
+bun scripts/build-import-graph.ts "$ENTRY" --target "$TARGET" --root ref/.vite/renderer/main_window/assets \
   --max-lines 500 --include score-query-match-BVCuhDNS,thread-env-icon-HLFXTgnn
 ```
 
 Read the manifest console summary (`X local · Y oversized-local (skipped) · Z npm-leaf · E edges`) before proceeding. In a deep/full task, `Y oversized-local` must be `0`; if it is non-zero, rebuild with `--max-lines 0` or explicitly report that you are producing a partial restore.
 
-> **wakaru in full-restoration is guarded, not default-on.** `wakaru --unpack` is **forbidden** here — the on-disk chunk tree _is_ the module graph, and unpacking re-derives its own filenames matching nothing in the manifest/ledger/`CHUNK_NAME_REGISTRY`. You may run wakaru's _rule_ pipeline (no `--unpack`) on a chunk **body** (`scripts/wakaru-normalize.ts "$WS/original.js" -o "$WS/original.js"`), but only **before** Step 2's `build-symbol-ledger.ts` extracts that chunk's symbols (it is byte-rewriting), and treat any import/export specifiers it emits as untrusted — `build-import-graph.ts` derives the graph from the real chunk files and `resolve-npm-imports.ts` + the Codex registry remain the authoritative import rewriter; wakaru's `un_esm` does not substitute for them.
+> **wakaru in full-restoration is guarded, not default-on.** `wakaru --unpack` is **forbidden** here — the on-disk chunk tree _is_ the module graph, and unpacking re-derives its own filenames matching nothing in the manifest/ledger/`CHUNK_NAME_REGISTRY`. You may run wakaru's _rule_ pipeline (no `--unpack`) on a chunk **body** (`scripts/wakaru-normalize.ts "$WS/original.js" -o "$WS/original.js"`), but only **before** Step 2's `build-symbol-ledger.ts` extracts that chunk's symbols (it is byte-rewriting), and treat any import/export specifiers it emits as untrusted — `build-import-graph.ts` derives the graph from the real chunk files and `resolve-npm-imports.ts` + the project registry remain the authoritative import rewriter; wakaru's `un_esm` does not substitute for them.
 
 ### `manifest.json` schema
 
 ```json
 {
   "version": 1,
-  "entry": "app-shell-JLpboL12",
-  "rootDir": "ref/webview/assets",
+  "entry": "main-D-xLCUWh",
+  "rootDir": "ref/.vite/renderer/main_window/assets",
   "targetDir": "restored",
   "createdAt": "2026-05-22T21:09:00.000Z",
   "updatedAt": "2026-05-22T21:09:00.000Z",
   "files": {
-    "app-shell-JLpboL12": {
-      "path": "ref/webview/assets/app-shell-JLpboL12.js",
-      "basename": "app-shell-JLpboL12",
+    "main-D-xLCUWh": {
+      "path": "ref/.vite/renderer/main_window/assets/main-D-xLCUWh.js",
+      "basename": "main-D-xLCUWh",
       "kind": "local",
       "depth": 0,
       "size": 105421,
@@ -204,8 +205,8 @@ Read the manifest console summary (`X local · Y oversized-local (skipped) · Z 
     }
   },
   "edges": [
-    { "from": "app-shell-JLpboL12", "to": "AnimatePresence-BMR_rf2Q" },
-    { "from": "app-shell-JLpboL12", "to": "clsx-DDuZWq6Y" }
+    { "from": "main-D-xLCUWh", "to": "AnimatePresence-BMR_rf2Q" },
+    { "from": "main-D-xLCUWh", "to": "clsx-DDuZWq6Y" }
   ]
 }
 ```
@@ -256,9 +257,9 @@ basenames unless you pass `--force` (use it only for a chunk you have confirmed 
 genuinely vendor/runtime).
 
 ```bash
-CHUNK=ref/webview/assets/src-C7fSIbpz.js
+CHUNK=ref/.vite/renderer/main_window/assets/MainWindowPage-LqDynGsb.js
 bun <skill-dir>/scripts/make-facade.ts "$CHUNK" \
-  --provenance "ref/webview/assets/$(basename "$CHUNK")" \
+  --provenance "ref/.vite/renderer/main_window/assets/$(basename "$CHUNK")" \
   --out "$TARGET/boundaries/zod.facade.ts"
 bun <skill-dir>/scripts/ledger.ts mark-faced "$(basename "$CHUNK" .js)" --target "$TARGET"
 ```
@@ -306,7 +307,7 @@ Re-running with `--rebuild` regenerates everything; without `--rebuild`, only `p
   "createdAt": "…",
   "updatedAt": "…",
   "files": {
-    "app-shell-JLpboL12": {
+    "main-D-xLCUWh": {
       "totals": { "pending": 312, "claimed": 0, "done": 0 },
       "symbols": [
         {
@@ -346,7 +347,7 @@ Re-running with `--rebuild` regenerates everything; without `--rebuild`, only `p
   },
   "crossFileBindings": [
     {
-      "consumer": "app-shell-JLpboL12",
+      "consumer": "main-D-xLCUWh",
       "consumerLocal": "Le",
       "consumerSymbolId": "Le@230",
       "producer": "AnimatePresence-BMR_rf2Q",

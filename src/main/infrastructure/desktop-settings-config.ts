@@ -1,4 +1,3 @@
-// @ts-nocheck
 // Restored from ref/.vite/build/workspace-root-drop-handler-DeLi4ACJ.js
 // Loads and sanitizes desktop settings from config.toml / app-server config.
 

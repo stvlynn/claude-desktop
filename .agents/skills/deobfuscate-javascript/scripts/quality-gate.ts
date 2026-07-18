@@ -963,7 +963,7 @@ function isUnfinishedAppFlatBoundaryBundle(source: string): boolean {
   const header = source.slice(0, 700);
   return (
     /\bFlat boundary\b/i.test(header) &&
-    /\b(?:backing bundle|runtime bundle copied|compatibility bundle used by|runtime chunk preserved|copied from the Codex webview chunk)\b/i.test(
+    /\b(?:backing bundle|runtime bundle copied|compatibility bundle used by|runtime chunk preserved|copied from the Claude renderer chunk)\b/i.test(
       header,
     )
   );
@@ -1010,8 +1010,7 @@ function isLottieAnimationDataModule(file: string, source: string): boolean {
   );
 }
 
-const RESTORATION_BUNDLE_ROOT_PATTERN =
-  String.raw`(?:webview/assets|\.vite/build|\.vite/renderer/[^/\r\n]+/assets)`;
+const RESTORATION_BUNDLE_ROOT_PATTERN = String.raw`(?:webview/assets|\.vite/build(?:/[^/\r\n]+)*|\.vite/renderer/[^/\r\n]+/assets)`;
 
 const RESTORATION_PROVENANCE_SOURCE_PATTERN = String.raw`(?:${RESTORATION_BUNDLE_ROOT_PATTERN}/[^/\r\n]+\.js|package\.json|\.vite/renderer/[^/\r\n]+/[^/\r\n]+\.html)`;
 
@@ -1076,12 +1075,10 @@ function isOnboardingWelcomePromptsDataModule(
 
 function isBundlerInteropRuntimeModule(file: string, source: string): boolean {
   const normalized = file.replace(/\\/g, "/");
-  if (
-    !(
-      /(?:^|\/)utils\/cjsInterop\.ts$/i.test(normalized) ||
-      /(?:^|\/)boundaries\/chunk-Cq_f4orQ\.ts$/i.test(normalized)
-    )
-  ) {
+  if (!(
+    /(?:^|\/)utils\/cjsInterop\.ts$/i.test(normalized) ||
+    /(?:^|\/)boundaries\/chunk-Cq_f4orQ\.ts$/i.test(normalized)
+  )) {
     return false;
   }
 
@@ -1356,8 +1353,7 @@ function findNearestPackageJson(startPath: string): string | null {
 }
 
 type PackageDependencyReadResult =
-  | { ok: true; dependencies: Set<string> }
-  | { ok: false; error: string };
+  { ok: true; dependencies: Set<string> } | { ok: false; error: string };
 
 function readPackageDependencyNames(
   packageJsonPath: string,
@@ -1540,9 +1536,7 @@ function countShortIdentifiers(
 
 function importedName(
   spec:
-    | t.ImportSpecifier
-    | t.ImportDefaultSpecifier
-    | t.ImportNamespaceSpecifier,
+    t.ImportSpecifier | t.ImportDefaultSpecifier | t.ImportNamespaceSpecifier,
 ): string | null {
   if (t.isImportDefaultSpecifier(spec) || t.isImportNamespaceSpecifier(spec)) {
     return null;
@@ -3163,11 +3157,11 @@ function publicEntryForBasename(
 function isBoundaryLikeEntry(entry: FullRestorationImportMapEntry): boolean {
   return Boolean(
     entry.boundary ||
-      entry.openBoundary ||
-      entry.status?.toLowerCase() === "faced" ||
-      entry.dependencyBoundary ||
-      Object.keys(entry.dependencyBoundaryFacades ?? {}).length > 0 ||
-      Object.keys(entry.publicFacades ?? {}).length > 0,
+    entry.openBoundary ||
+    entry.status?.toLowerCase() === "faced" ||
+    entry.dependencyBoundary ||
+    Object.keys(entry.dependencyBoundaryFacades ?? {}).length > 0 ||
+    Object.keys(entry.publicFacades ?? {}).length > 0,
   );
 }
 
@@ -3716,7 +3710,7 @@ function analyzeOrganizePromoteState(
       // Facade-promoted aggregator: a large app-feature chunk marked promoted
       // whose promoted file is only a re-export producer barrel. The alias-map
       // sub-task is done but the chunk body was never restored. (Red Flag 3 in
-      // reference/codex-ref.md — the gate previously could not see this.)
+      // reference/claude-ref.md — the gate previously could not see this.)
       const org = file.organization;
       const cls = org?.classification;
       const lineCount = file.lineCount ?? 0;
@@ -3792,7 +3786,7 @@ function analyzeOrganizePromoteState(
     issues.push({
       code: "full-restoration-aggregator-body-not-restored",
       message:
-        "App-feature aggregator chunk(s) are marked promoted, but the promoted file is a pure re-export barrel (a current-ref producer facade), not a restored body. Finishing the alias-map producer barrel does NOT complete the body restoration: the chunk's non-exported residue modules were never deobfuscated into semantic files. Deep-restore the body (rename → polish → finalize → organize → promote into restored/<domain>/). See reference/codex-ref.md → Aggregator-chunk restore anti-patterns.",
+        "App-feature aggregator chunk(s) are marked promoted, but the promoted file is a pure re-export barrel (a current-ref producer facade), not a restored body. Finishing the alias-map producer barrel does NOT complete the body restoration: the chunk's non-exported residue modules were never deobfuscated into semantic files. Deep-restore the body (rename → polish → finalize → organize → promote into restored/<domain>/). See reference/claude-ref.md → Aggregator-chunk restore anti-patterns.",
       detail: facadePromoted
         .sort((a, b) => b.lineCount - a.lineCount)
         .slice(0, 50),

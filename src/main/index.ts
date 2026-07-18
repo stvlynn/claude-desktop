@@ -1,5 +1,5 @@
-// Main process entry point for the restored src/ build.
+// Restored from ref/.vite/build/index.pre.js
 
-import { bootstrapApp } from "./application/bootstrap";
+import { bootstrapClaudeApplication } from "./application/bootstrap-application";
 
-bootstrapApp();
+bootstrapClaudeApplication();

@@ -1,4 +1,3 @@
-// @ts-nocheck
 // Restored from ref/.vite/renderer/main_window/index.html
 //
 // Main renderer window entry point. Replaces the original Vite-bundled

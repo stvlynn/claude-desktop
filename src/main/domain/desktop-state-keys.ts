@@ -1,4 +1,3 @@
-// @ts-nocheck
 // Restored from ref/.vite/build/workspace-root-drop-handler-DeLi4ACJ.js
 // Storage keys for persisted main-process desktop state.
 

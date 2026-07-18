@@ -1,4 +1,3 @@
-// @ts-nocheck
 // Restored from ref/.vite/build/main-Cfnoc8EH.js
 // Debug and rollout metrics IPC handlers exposed through the webview bridge.
 

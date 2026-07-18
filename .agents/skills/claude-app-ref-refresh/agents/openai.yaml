@@ -1,0 +1,4 @@
+interface:
+  display_name: "Claude App Ref Refresh"
+  short_description: "Refresh Claude app asar into ./ref"
+  default_prompt: "Use $claude-app-ref-refresh to refresh ./ref from the installed Claude.app asar and format extracted JS/CSS."

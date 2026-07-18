@@ -1,4 +1,3 @@
-// @ts-nocheck
 // Restored from ref/.vite/renderer/main_window/assets/main-D-xLCUWh.js
 
 export const themeClassName = "darkTheme";

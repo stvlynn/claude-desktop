@@ -1,4 +1,3 @@
-// @ts-nocheck
 // Restored from ref/.vite/build/index.pre.js
 // Minimal structured logger for the main process until a fuller telemetry
 // pipeline is restored.

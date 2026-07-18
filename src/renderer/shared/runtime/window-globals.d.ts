@@ -1,4 +1,3 @@
-// @ts-nocheck
 // Restored from ref/.vite/renderer/main_window/assets/main-D-xLCUWh.js
 
 import type {
@@ -13,7 +12,46 @@ import type { ClaudeWindowKind } from "../../../shared/contracts/window-entry";
 export {};
 
 declare global {
+  interface ClaudeElectronBridge {
+    getAppSessionId?: () => string | undefined;
+    getBuildFlavor?: () => string;
+    getPathForFile?: (file: File) => string | null;
+    getSentryInitOptions?: () => Record<string, unknown>;
+    getSharedObjectSnapshotValue?: (key: string) => unknown;
+    getSystemThemeVariant?: () => "light" | "dark";
+    sendMessageFromView?: (message: {
+      type: string;
+      [key: string]: unknown;
+    }) => void | Promise<void>;
+    sendWorkerMessageFromView?: (
+      workerId: string,
+      message: unknown,
+    ) => Promise<void>;
+    showApplicationMenu?: (
+      menuId: string,
+      x: number,
+      y: number,
+    ) => void | Promise<void>;
+    showContextMenu?: (
+      items: unknown[],
+    ) => { id?: string } | undefined | Promise<{ id?: string } | undefined>;
+    subscribeToSystemThemeVariant?: (listener: () => void) => () => void;
+    subscribeToWorkerMessages?: (
+      workerId: string,
+      listener: (message: unknown) => void,
+    ) => () => void;
+    triggerSentryTestError?: () => Promise<void>;
+  }
+
   interface Window {
+    /** Safe process subset exposed by the Electron preload. */
+    process?: {
+      env?: { CI?: string };
+    };
+
+    /** Host bridge exposed by the Electron preload. */
+    electronBridge?: ClaudeElectronBridge;
+
     /** Locale injected by the main process before the renderer bundle loads. */
     initialLocale?: string;
 

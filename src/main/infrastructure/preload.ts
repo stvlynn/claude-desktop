@@ -1,4 +1,3 @@
-// @ts-nocheck
 // Restored from ref/.vite/build/index.pre.js
 // Electron preload script for the restored src/ build.
 //
@@ -9,7 +8,6 @@
 import { contextBridge, ipcRenderer } from "electron";
 import {
   aboutWindowIpcChannels,
-  buddyIpcChannels,
   desktopIntlIpcChannels,
   findInPageIpcChannels,
   mainWindowIpcChannels,
@@ -19,7 +17,6 @@ import {
   windowIpcChannels,
 } from "../../shared/contracts/preload-api";
 import type {
-  ClaudeBuddyApi,
   ClaudeFindInPageApi,
   ClaudeHybridApi,
   ClaudeInternalUiApi,
@@ -27,7 +24,6 @@ import type {
   ClaudePreloadGlobals,
 } from "../../shared/contracts/preload-api";
 import type {
-  BuddyApi,
   DesktopIntlInitialLocale,
   FindInPageApi,
   LoadErrorDetails,
@@ -36,6 +32,7 @@ import type {
   ShowApplicationMenuRequest,
 } from "../../renderer/shared/api/claude-desktop-api";
 import type { ClaudeWindowKind } from "../../shared/contracts/window-entry";
+import { createCurrentClaudeSettingsPreloadApi } from "../preload/current-settings-preload";
 
 const initialLocale = ipcRenderer.sendSync(
   desktopIntlIpcChannels.getInitialLocale,
@@ -68,8 +65,7 @@ const internalUiApi: ClaudeInternalUiApi = {
       ipcRenderer.invoke(aboutWindowIpcChannels.getBuildProps),
     getSupport: async () =>
       ipcRenderer.invoke(aboutWindowIpcChannels.getSupport),
-    openHelp: async () =>
-      ipcRenderer.invoke(aboutWindowIpcChannels.openHelp),
+    openHelp: async () => ipcRenderer.invoke(aboutWindowIpcChannels.openHelp),
   },
   MainWindowTitleBar: {
     isClaudeCurrentlyHealthy: () =>
@@ -82,8 +78,10 @@ const internalUiApi: ClaudeInternalUiApi = {
       };
     },
     onShowLoadError: (listener) => {
-      const handler = (_event: Electron.IpcRendererEvent, details: LoadErrorDetails) =>
-        listener(details);
+      const handler = (
+        _event: Electron.IpcRendererEvent,
+        details: LoadErrorDetails,
+      ) => listener(details);
       ipcRenderer.on(mainWindowIpcChannels.subscribeLoadError, handler);
       return () => {
         ipcRenderer.off(mainWindowIpcChannels.subscribeLoadError, handler);
@@ -147,44 +145,6 @@ const findInPageApi: ClaudeFindInPageApi = {
   } satisfies FindInPageApi,
 };
 
-const buddyApi: ClaudeBuddyApi = {
-  Buddy: {
-    status: async () => ipcRenderer.invoke(buddyIpcChannels.status),
-    deviceStatus: async () => ipcRenderer.invoke(buddyIpcChannels.deviceStatus),
-    scanDevices: async () => ipcRenderer.invoke(buddyIpcChannels.scanDevices),
-    cancelScan: async () => ipcRenderer.invoke(buddyIpcChannels.cancelScan),
-    pickDevice: async (deviceId: string) =>
-      ipcRenderer.invoke(buddyIpcChannels.pickDevice, deviceId),
-    pairDevice: async () => ipcRenderer.invoke(buddyIpcChannels.pairDevice),
-    submitPin: async (pin: string | null) =>
-      ipcRenderer.invoke(buddyIpcChannels.submitPin, pin),
-    forgetDevice: async () => ipcRenderer.invoke(buddyIpcChannels.forgetDevice),
-    setName: async (name: string) =>
-      ipcRenderer.invoke(buddyIpcChannels.setName, name),
-    preview: async (folderPath: string) =>
-      ipcRenderer.invoke(buddyIpcChannels.preview, folderPath),
-    install: async (folderPath: string) =>
-      ipcRenderer.invoke(buddyIpcChannels.install, folderPath),
-    pickFolder: async () => ipcRenderer.invoke(buddyIpcChannels.pickFolder),
-    onPairingPrompt: (listener) => {
-      const handler = (_event: Electron.IpcRendererEvent, deviceName: string) =>
-        listener(deviceName);
-      ipcRenderer.on(buddyIpcChannels.pairingPrompt, handler);
-      return () => {
-        ipcRenderer.off(buddyIpcChannels.pairingPrompt, handler);
-      };
-    },
-    onProgress: (listener) => {
-      const handler = (_event: Electron.IpcRendererEvent, message: string) =>
-        listener(message);
-      ipcRenderer.on(buddyIpcChannels.progress, handler);
-      return () => {
-        ipcRenderer.off(buddyIpcChannels.progress, handler);
-      };
-    },
-  } satisfies BuddyApi,
-};
-
 const menuApi: ClaudeMenuApi = {
   showApplicationMenu: async (request) =>
     ipcRenderer.invoke(menuIpcChannels.showApplicationMenu, request),
@@ -209,12 +169,18 @@ const menuApi: ClaudeMenuApi = {
 contextBridge.exposeInMainWorld("claude.hybrid", hybridApi);
 contextBridge.exposeInMainWorld("claude.internal.ui", internalUiApi);
 contextBridge.exposeInMainWorld("claude.internal.findInPage", findInPageApi);
-contextBridge.exposeInMainWorld("claude.buddy", buddyApi);
 contextBridge.exposeInMainWorld("claude.menu", menuApi);
+contextBridge.exposeInMainWorld(
+  "claude.settings",
+  createCurrentClaudeSettingsPreloadApi(),
+);
 
-contextBridge.exposeInMainWorld("openClaudeWindow", (kind: ClaudeWindowKind) => {
-  ipcRenderer.send(windowIpcChannels.openClaudeWindow, kind);
-});
+contextBridge.exposeInMainWorld(
+  "openClaudeWindow",
+  (kind: ClaudeWindowKind) => {
+    ipcRenderer.send(windowIpcChannels.openClaudeWindow, kind);
+  },
+);
 
 contextBridge.exposeInMainWorld("notifyOverlayShown", () => {
   ipcRenderer.send(overlayIpcChannels.overlayShown);
@@ -224,19 +190,11 @@ contextBridge.exposeInMainWorld("notifyOverlayHidden", () => {
   ipcRenderer.send(overlayIpcChannels.overlayHidden);
 });
 
-// The buddy file bridge is only meaningful for drag-and-drop File objects in
-// the renderer. Electron does not expose a real file path through the standard
-// File API, so this stub returns an empty string.
-contextBridge.exposeInMainWorld("buddy", {
-  getPathForFile: (_file: File) => "",
-});
-
 window.initialLocale = initialLocale.locale;
 window.initialMessages = initialLocale.messages;
 
 // Re-export the channel names so the main process and preload stay in sync.
 export {
-  buddyIpcChannels,
   findInPageIpcChannels,
   mainWindowIpcChannels,
   menuIpcChannels,

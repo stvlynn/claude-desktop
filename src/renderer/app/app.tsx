@@ -1,4 +1,3 @@
-// @ts-nocheck
 // Restored from ref/.vite/renderer/main_window/assets/main-D-xLCUWh.js
 //
 // Root application shell for the main renderer window.
@@ -8,6 +7,7 @@
 import { type ReactNode } from "react";
 import { LocaleProvider } from "./providers/locale-provider";
 import { applyInitialTheme } from "../shared/runtime/theme";
+import { initializeRendererSentry } from "../shared/runtime/renderer-sentry";
 
 export type AppShellProps = {
   children: ReactNode;
@@ -18,9 +18,10 @@ export function AppShell({ children }: AppShellProps) {
 }
 
 /**
- * One-time renderer bootstrap: theme class on <body>.
+ * One-time renderer bootstrap: telemetry and theme state.
  * Call this before mounting React.
  */
 export function runAppSideEffects(): void {
+  initializeRendererSentry();
   applyInitialTheme();
 }

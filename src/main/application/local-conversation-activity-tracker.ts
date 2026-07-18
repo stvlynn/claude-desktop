@@ -1,4 +1,3 @@
-// @ts-nocheck
 // Restored from ref/webview/assets/app-initial~app-main~automations-page-Bc0ZtIBr.js
 // Tracks whether any local thread is currently active.
 //

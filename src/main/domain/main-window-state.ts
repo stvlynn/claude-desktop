@@ -1,4 +1,3 @@
-// @ts-nocheck
 // Restored from ref/.vite/renderer/main_window/assets/MainWindowPage-LqDynGsb.js
 // Domain: mutable state for the main renderer window and its title bar.
 

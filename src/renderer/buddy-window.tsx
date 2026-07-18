@@ -1,4 +1,3 @@
-// @ts-nocheck
 // Restored from ref/.vite/renderer/buddy_window/buddy.html
 
 import { AppShell, runAppSideEffects } from "./app/app";

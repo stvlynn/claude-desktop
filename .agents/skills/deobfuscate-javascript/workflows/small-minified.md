@@ -2,7 +2,7 @@
 
 > **Single-file fallback (readable).** Goal: code a human can read. The only hard bar is naming quality — types, npm-import resolution, and the reviewer LOOP are deep mode only.
 
-This is the **single-file fallback** — use it for a lone pasted snippet or when there is no `index.html` / asset tree to restore. When the input is an app (an `index.html` + sibling-chunk tree), the default is the whole-tree restore ([full-restoration.md](full-restoration.md)). Works whether the input is *minified* (short names, single-line) or a React/Vite/Rollup component — the one-shot polish recovers JSX for you. Skip Stage 1 entirely unless `detect.ts` finds obfuscation (Packer wrapper, `_0x` arrays, hex/unicode walls).
+This is the **single-file fallback** — use it for a lone pasted snippet or when there is no `index.html` / asset tree to restore. When the input is an app (an `index.html` + sibling-chunk tree), the default is the whole-tree restore ([full-restoration.md](full-restoration.md)). Works whether the input is _minified_ (short names, single-line) or a React/Vite/Rollup component — the one-shot polish recovers JSX for you. Skip Stage 1 entirely unless `detect.ts` finds obfuscation (Packer wrapper, `_0x` arrays, hex/unicode walls).
 
 ← Back to [SKILL.md](../SKILL.md). Stage detail: [Stage 2](../stages/stage-2-restore.md). Workspace: [stages/workspace.md](../stages/workspace.md).
 

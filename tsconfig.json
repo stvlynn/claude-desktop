@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
+    "allowImportingTsExtensions": true,
     "esModuleInterop": true,
     "jsx": "react-jsx",
     "lib": ["DOM", "ES2022"],
@@ -12,5 +13,8 @@
     "target": "ES2022"
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],
-  "exclude": ["src/renderer/shared/vendor/**/*.ts"]
+  "exclude": [
+    "src/**/.deobfuscate-javascript/**",
+    "src/renderer/shared/vendor/**/*.ts"
+  ]
 }

@@ -84,7 +84,7 @@ export const CHUNK_NAME_REGISTRY: Record<string, ChunkRule> = {
   proxy: { package: "framer-motion", namedOnly: true },
   // react-intl
   "react-intl": { package: "react-intl", namedOnly: true },
-  // React Router chunks in Codex.app are emitted under an internal chunk stem.
+  // React Router chunks in Claude.app are emitted under an internal chunk stem.
   "chunk-LFPYN7LY": { package: "react-router", namedOnly: true },
   // Jotai
   jotai: { package: "jotai", namedOnly: true },
@@ -105,7 +105,7 @@ export const CHUNK_NAME_REGISTRY: Record<string, ChunkRule> = {
   // markdown / parsers
   "marked.esm": { package: "marked", namedOnly: true },
   marked: { package: "marked", namedOnly: true },
-  // Mermaid and search vendor chunks surfaced in Codex.app webview bundles.
+  // Mermaid and search vendor chunks surfaced in Claude.app renderer bundles.
   fuse: { package: "fuse.js", defaultName: "Fuse" },
   "rough.esm": { package: "roughjs", defaultName: "rough" },
   "react-style-singleton": {
@@ -456,9 +456,7 @@ type SpecInfo = {
 
 function describeSpecifier(
   spec:
-    | t.ImportSpecifier
-    | t.ImportDefaultSpecifier
-    | t.ImportNamespaceSpecifier,
+    t.ImportSpecifier | t.ImportDefaultSpecifier | t.ImportNamespaceSpecifier,
 ): SpecInfo {
   if (t.isImportDefaultSpecifier(spec)) {
     return { kind: "default", localName: spec.local.name };

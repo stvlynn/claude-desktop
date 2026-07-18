@@ -1,4 +1,3 @@
-// @ts-nocheck
 // Restored from ref/.vite/build/index.pre.js
 // Infrastructure: factory for creating any Claude renderer window.
 
@@ -6,14 +5,12 @@ import { BrowserWindow } from "electron";
 import path from "node:path";
 import type { ClaudeWindowKind } from "../../shared/contracts/window-entry";
 import type { FindInPageService } from "../application/find-in-page-service";
-import type { BuddyService } from "../application/buddy-service";
 
 export type CreateClaudeWindowOptions = {
   kind: ClaudeWindowKind;
   preloadScriptPath: string;
   rendererUrl: string;
   findInPageService?: FindInPageService;
-  buddyService?: BuddyService;
 };
 
 const windowConfigs: Record<
@@ -75,6 +72,17 @@ export function createClaudeWindow(
 ): BrowserWindow {
   const config = windowConfigs[options.kind];
   const pageUrl = new URL(config.fileName, options.rendererUrl).toString();
+  const preloadDirectory = path.dirname(options.preloadScriptPath);
+  const preloadScriptPath =
+    options.kind === "about"
+      ? path.join(preloadDirectory, "about-window.cjs")
+      : options.kind === "quick"
+        ? path.join(preloadDirectory, "quick-window.cjs")
+        : options.kind === "buddy"
+          ? path.join(preloadDirectory, "buddy.cjs")
+          : options.kind === "find-in-page"
+            ? path.join(preloadDirectory, "find-in-page.cjs")
+            : options.preloadScriptPath;
 
   const window = new BrowserWindow({
     width: config.width,
@@ -85,7 +93,7 @@ export function createClaudeWindow(
     frame: config.frame,
     alwaysOnTop: config.alwaysOnTop,
     webPreferences: {
-      preload: options.preloadScriptPath,
+      preload: preloadScriptPath,
       contextIsolation: true,
       nodeIntegration: false,
       sandbox: false,
@@ -94,10 +102,6 @@ export function createClaudeWindow(
 
   if (options.kind === "find-in-page" && options.findInPageService) {
     options.findInPageService.registerController(window.webContents);
-  }
-
-  if (options.kind === "buddy" && options.buddyService) {
-    options.buddyService.registerWindow(window.webContents);
   }
 
   void window.loadURL(pageUrl);

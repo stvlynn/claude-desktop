@@ -1,4 +1,3 @@
-// @ts-nocheck
 // Restored from ref/.vite/build/file-based-logger-DZ6052-3.js
 // Package.json metadata reader used by build-flavor resolution and logging setup.
 

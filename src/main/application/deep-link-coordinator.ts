@@ -1,21 +1,6 @@
-// @ts-nocheck
-// Restored from ref/.vite/build/workspace-root-drop-handler-DeLi4ACJ.js
-// Application: parse and coordinate codex:// deep links and command-line args.
+// Restored from ref/.vite/build/index.js
+// Application: parse and coordinate Claude desktop protocol URLs.
 
-import {
-  parseCodexThreadDeepLink,
-} from "../domain/codex-deep-link";
-import {
-  parsePluginIdentifier,
-  pluginManagePermission,
-} from "../domain/plugin-identifier";
-import {
-  isAbsoluteFilePath,
-  isSafePathSegment,
-  isUncPath,
-  toError,
-} from "../infrastructure/path-utils";
-import { OPEN_PROJECT_ARG } from "../infrastructure/desktop-open-file-queue";
 import { getRootStructuredLogger } from "../infrastructure/structured-logger";
 import type {
   DeepLinkCoordinator,
@@ -23,333 +8,204 @@ import type {
   DeepLinkRoute,
 } from "../infrastructure/desktop-runtime-types";
 
-const SETTINGS_SECTIONS = [
-  "browser-use",
-  "computer-use/google-chrome",
-  "connections",
-  "connections/computer",
-  "connections/devices",
-  "connections/ssh",
-  "connections/ssh/add",
-];
+const CLAUDE_PROTOCOLS = new Set([
+  "claude:",
+  "claude-dev:",
+  "claude-nest:",
+  "claude-nest-dev:",
+  "claude-nest-prod:",
+]);
+const UUID_PATTERN =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+const MAX_QUERY_LENGTH = 14 * 1024;
+const AUTH_QUERY_KEYS = [
+  "authed_mcp_server_id",
+  "server",
+  "step",
+  "gcal_success",
+  "gmail_success",
+  "gdrive_success",
+  "github_success",
+  "oauth_error",
+  "oauth_error_subtype",
+  "entra_aadsts_code",
+  "entra_trace_id",
+  "flow_id",
+] as const;
+const CLAUDE_AI_PASSTHROUGH_PATHS = new Set([
+  "settings",
+  "admin-settings",
+  "create",
+  "tasks",
+  "task",
+  "space",
+  "claude-code-desktop",
+  "code",
+  "design",
+  "cowork",
+  "local_sessions",
+]);
 
-const PLUGIN_INSTALL_QUERY_KEYS = new Set(["marketplace"]);
+function appendAuthQuery(
+  source: URLSearchParams,
+  target: URLSearchParams,
+): void {
+  for (const key of AUTH_QUERY_KEYS) {
+    const value = source.get(key);
+    if (value) target.set(key, value);
+  }
+}
 
-const LOCAL_PLUGIN_DETAIL_QUERY_KEYS = new Set(["marketplacePath", "mode"]);
+function navigationRoute(
+  pathname: string,
+  query?: URLSearchParams,
+): DeepLinkRoute {
+  const search = query?.toString();
+  return {
+    kind: "navigate",
+    path: search ? `${pathname}?${search}` : pathname,
+  };
+}
 
-const SSH_ADD_QUERY_KEYS = new Set(["name"]);
+function parseCoworkDeepLink(url: URL): DeepLinkRoute | null {
+  if (url.pathname === "/shared-artifact") {
+    const uuid = url.searchParams.get("uuid");
+    return uuid !== null && UUID_PATTERN.test(uuid)
+      ? navigationRoute(`/cowork-artifact?shared=${encodeURIComponent(uuid)}`)
+      : null;
+  }
+  if (url.pathname !== "/new") return null;
+  const query = new URLSearchParams();
+  const prompt = url.searchParams.get("q")?.slice(0, MAX_QUERY_LENGTH);
+  if (prompt) query.set("q", prompt);
+  const folders = url.searchParams.getAll("folder");
+  const files = url.searchParams.getAll("file");
+  for (const folder of folders) query.append("folder", folder);
+  for (const file of files) query.append("file", file);
+  if (folders.length > 0 || files.length > 0) query.set("src", "external");
+  return navigationRoute("/task/new", query);
+}
 
-const PET_INSTALL_QUERY_KEYS = new Set(["name", "description", "imageUrl"]);
+function parseCodeDeepLink(url: URL): DeepLinkRoute | null {
+  if (url.pathname !== "/new") return null;
+  const query = new URLSearchParams();
+  const prompt = (
+    url.searchParams.get("q") ?? url.searchParams.get("prompt")
+  )?.slice(0, MAX_QUERY_LENGTH);
+  if (prompt) query.set("q", prompt);
+  const folders = url.searchParams.getAll("folder");
+  for (const folder of folders) query.append("folder", folder);
+  if (folders.length > 0) query.set("src", "external");
+  return navigationRoute("/epitaxy", query);
+}
 
-function parseCodexDeepLink(value: string): DeepLinkRoute | null {
-  if (!value.startsWith("codex://")) return null;
+function parseClaudeAiDeepLink(url: URL): DeepLinkRoute | null {
+  const segments = url.pathname.split("/").filter(Boolean);
+  const first = segments[0];
+  switch (first) {
+    case "magic-link": {
+      const hashParts = url.hash.slice(1).split(":");
+      if (hashParts.length !== 2 || !hashParts[0] || !hashParts[1]) return null;
+      return {
+        kind: "authenticatedNavigation",
+        anonymousId: url.searchParams.get("anon_id"),
+        path: `/magic-link#${hashParts[0]}:${hashParts[1]}`,
+      };
+    }
+    case "new": {
+      const query = new URLSearchParams();
+      const prompt = url.searchParams.get("q")?.slice(0, MAX_QUERY_LENGTH);
+      if (prompt) query.set("q", prompt);
+      appendAuthQuery(url.searchParams, query);
+      return navigationRoute("/new", query);
+    }
+    case "sso-callback":
+      if (segments.length !== 1) return null;
+      return {
+        kind: "authenticatedNavigation",
+        anonymousId: url.searchParams.get("anon_id"),
+        path: `/sso-callback${url.search}`,
+        removeAnonymousIdFromQuery: true,
+      };
+    case "mcp-auth-callback":
+      return {
+        kind: "handleDeepLink",
+        url: `https://claude.ai${url.pathname}${url.search}`,
+      };
+    case "chat":
+      return segments.length === 2 && UUID_PATTERN.test(segments[1] ?? "")
+        ? navigationRoute(`/chat/${segments[1]}`)
+        : navigationRoute("/recents");
+    case "project":
+      return segments.length === 2 && UUID_PATTERN.test(segments[1] ?? "")
+        ? navigationRoute(`/project/${segments[1]}`)
+        : navigationRoute("/projects");
+    case "customize": {
+      if (
+        segments.slice(1).join("/") === "plugins/new" &&
+        url.searchParams.has("marketplace")
+      ) {
+        const query = new URLSearchParams();
+        const marketplace = url.searchParams.get("marketplace");
+        const plugin = url.searchParams.get("plugin");
+        if (marketplace) query.set("marketplace", marketplace);
+        if (plugin) query.set("plugin", plugin);
+        return navigationRoute("/customize/plugins/new", query);
+      }
+      return navigationRoute(url.pathname, url.searchParams);
+    }
+    default:
+      if (first && CLAUDE_AI_PASSTHROUGH_PATHS.has(first)) {
+        const query = new URLSearchParams();
+        appendAuthQuery(url.searchParams, query);
+        return navigationRoute(url.pathname, query);
+      }
+      return {
+        kind: "handleDeepLink",
+        url: `https://claude.ai${url.pathname}${url.search}${url.hash}`,
+      };
+  }
+}
+
+export function parseClaudeDeepLink(rawUrl: string): DeepLinkRoute | null {
   let url: URL;
   try {
-    url = new URL(value);
+    url = new URL(rawUrl);
   } catch {
     return null;
   }
-  if (url.protocol !== "codex:") return null;
+  if (!CLAUDE_PROTOCOLS.has(url.protocol)) return null;
   switch (url.host) {
-    case "plugins":
-      return (
-        parsePluginInstallDeepLink(url) ??
-        parseLocalPluginDetailDeepLink(url) ??
-        parsePluginDetailDeepLink(url)
-      );
-    case "pets":
-      return parsePetInstallDeepLink(url);
-    case "automations":
-      return {
-        kind: "automations",
-      };
-    case "codex-app":
-      return parseCodexAppDeepLink(url);
-    case "connector":
-      return parseConnectorDeepLink(url, value);
-    case "launch":
-      return deepLinkPathSegments(url).length === 0
+    case "cowork":
+      return parseCoworkDeepLink(url);
+    case "code":
+      return parseCodeDeepLink(url);
+    case "login":
+      if (url.pathname !== "/google-auth") return null;
+      return url.searchParams.has("code")
         ? {
-            kind: "launch",
+            kind: "googleAuth",
+            code: url.searchParams.get("code") ?? "",
+            anonymousId: url.searchParams.get("anon_id"),
           }
         : null;
-    case "new":
-      return parseNewThreadDeepLink(url);
-    case "settings":
-      return parseSettingsDeepLink(url);
-    case "skills":
-      return {
-        kind: "skills",
-      };
-    case "threads": {
-      if (deepLinkPathSegments(url)[0] === "new") {
-        return (
-          parseNewThreadDeepLink(url) ?? {
-            kind: "newThread",
-          }
-        );
-      }
-      const route = parseCodexThreadDeepLink(url, {
-        allowExtraPathSegments: true,
-      });
-      return route == null
-        ? null
-        : ({
-            kind: "localConversation",
-            ...route,
-          } as DeepLinkRoute);
-    }
+    case "claude.ai":
+      return parseClaudeAiDeepLink(url);
+    case "preview":
+    case "hotkey":
+    case "debug-handoff":
+    case "resume":
+      return null;
     default:
       return null;
   }
 }
 
-function parseProcessDeepLinks(
-  argv: string[],
-  {
-    allowBareWindowsProjectPathArg = false,
-  }: {
-    allowBareWindowsProjectPathArg?: boolean;
-  } = {},
-): DeepLinkRoute[] {
-  const routes: DeepLinkRoute[] = [];
-  for (let index = 0; index < argv.length; index += 1) {
-    const arg = argv[index];
-    if (arg === OPEN_PROJECT_ARG) {
-      const projectPath = argv[index + 1]?.trim();
-      index += 1;
-      if (projectPath)
-        routes.push({
-          kind: "newThread",
-          path: projectPath,
-        });
-      continue;
-    }
-    if (arg.startsWith(`${OPEN_PROJECT_ARG}=`)) {
-      const projectPath = arg.slice(`${OPEN_PROJECT_ARG}=`.length).trim();
-      if (projectPath)
-        routes.push({
-          kind: "newThread",
-          path: projectPath,
-        });
-      continue;
-    }
-    const deepLinkRoute = parseCodexDeepLink(arg);
-    if (deepLinkRoute) {
-      routes.push(deepLinkRoute);
-      continue;
-    }
-    if (
-      allowBareWindowsProjectPathArg &&
-      index > 0 &&
-      isWindowsProjectPath(arg)
-    ) {
-      routes.push({
-        kind: "newThread",
-        path: arg,
-      });
-    }
-  }
-  return routes;
-}
-
-function deepLinkPathSegments(url: URL): string[] {
-  return url.pathname.split("/").filter(Boolean);
-}
-
-function deepLinkSearchParam(url: URL, name: string): string | null {
-  const value = url.searchParams.get(name);
-  return value == null || value.trim().length === 0 ? null : value;
-}
-
-function parseSettingsDeepLink(url: URL): DeepLinkRoute {
-  const sectionPath = deepLinkPathSegments(url).join("/");
-  const section = SETTINGS_SECTIONS.find(
-    (candidate) => candidate === sectionPath,
-  );
-  if (section == null)
-    return {
-      kind: "settings",
-    };
-  if (section === "connections/ssh/add") {
-    const name = deepLinkSearchParam(url, "name")?.trim();
-    return name == null || !hasOnlyQueryKeys(url, SSH_ADD_QUERY_KEYS)
-      ? {
-          kind: "settings",
-          section: "connections/ssh",
-        }
-      : {
-          kind: "settings",
-          section,
-          search: `?name=${encodeURIComponent(name)}`,
-        };
-  }
-  return {
-    kind: "settings",
-    section,
-  };
-}
-
-function parseCodexAppDeepLink(url: URL): DeepLinkRoute | null {
-  const [action] = deepLinkPathSegments(url);
-  return action === "apply-config"
-    ? {
-        kind: "applyCodexAppConfig",
-      }
-    : null;
-}
-
-function parseNewThreadDeepLink(url: URL): DeepLinkRoute | null {
-  const prompt = deepLinkSearchParam(url, "prompt");
-  const originUrl = deepLinkSearchParam(url, "originUrl");
-  const projectPath = deepLinkSearchParam(url, "path");
-  return prompt == null && originUrl == null && projectPath == null
-    ? null
-    : {
-        kind: "newThread",
-        prompt: prompt ?? undefined,
-        originUrl,
-        path: projectPath,
-      };
-}
-
-function parsePluginInstallDeepLink(url: URL): DeepLinkRoute | null {
-  const [action, encodedPluginName, extraSegment] = deepLinkPathSegments(url);
-  if (action !== "install" || extraSegment != null) return null;
-  const pluginName = decodeDeepLinkSegment(encodedPluginName);
-  if (pluginName == null || !hasOnlyQueryKeys(url, PLUGIN_INSTALL_QUERY_KEYS)) {
-    return null;
-  }
-  const marketplaceName = deepLinkSearchParam(url, "marketplace")?.trim();
-  return isValidMarketplaceName(marketplaceName)
-    ? {
-        kind: "pluginInstall",
-        marketplaceName,
-        pluginName,
-      }
-    : null;
-}
-
-function parseLocalPluginDetailDeepLink(url: URL): DeepLinkRoute | null {
-  const [encodedPluginName, extraSegment] = deepLinkPathSegments(url);
-  if (
-    extraSegment != null ||
-    !hasOnlyQueryKeys(url, LOCAL_PLUGIN_DETAIL_QUERY_KEYS)
-  ) {
-    return null;
-  }
-  const pluginName = decodeDeepLinkSegment(encodedPluginName);
-  const marketplacePath = deepLinkSearchParam(url, "marketplacePath")?.trim();
-  const mode = deepLinkSearchParam(url, "mode")?.trim();
-  return pluginName == null ||
-    marketplacePath == null ||
-    (mode != null && mode !== "share") ||
-    !isSafeMarketplacePath(marketplacePath)
-    ? null
-    : {
-        kind: "localPluginDetail",
-        hostId: null,
-        marketplacePath,
-        pluginName,
-        openShareDialog: mode === "share",
-      };
-}
-
-function parsePluginDetailDeepLink(url: URL): DeepLinkRoute | null {
-  const [encodedPluginName, extraSegment] = deepLinkPathSegments(url);
-  if (extraSegment != null) return null;
-  const pluginName = decodeDeepLinkSegment(encodedPluginName);
-  if (pluginName == null) return null;
-  const pluginId = parsePluginIdentifier(pluginName);
-  if (pluginId == null) return null;
-  return {
-    kind: "pluginDetail",
-    hostId: deepLinkSearchParam(url, "hostId"),
-    pluginId,
-    source:
-      deepLinkSearchParam(url, "source") === "manage"
-        ? pluginManagePermission
-        : null,
-  } as DeepLinkRoute;
-}
-
-function parsePetInstallDeepLink(url: URL): DeepLinkRoute | null {
-  const [action, extraSegment] = deepLinkPathSegments(url);
-  if (
-    action !== "install" ||
-    extraSegment != null ||
-    !hasOnlyQueryKeys(url, PET_INSTALL_QUERY_KEYS)
-  ) {
-    return null;
-  }
-  const name = deepLinkSearchParam(url, "name")?.trim();
-  const description = deepLinkSearchParam(url, "description")?.trim() ?? null;
-  const imageUrl = deepLinkSearchParam(url, "imageUrl");
-  if (name == null || imageUrl == null) return null;
-  try {
-    const parsedImageUrl = new URL(imageUrl);
-    return parsedImageUrl.protocol === "https:"
-      ? {
-          kind: "petInstall",
-          name,
-          description,
-          imageUrl: parsedImageUrl.toString(),
-        }
-      : null;
-  } catch {
-    return null;
-  }
-}
-
-function parseConnectorDeepLink(
-  url: URL,
-  fullRedirectUrl: string,
-): DeepLinkRoute | null {
-  const [action] = deepLinkPathSegments(url);
-  return action === "oauth_callback"
-    ? {
-        kind: "connectorOAuthCallback",
-        fullRedirectUrl,
-        returnTo: deepLinkSearchParam(url, "returnTo"),
-      }
-    : null;
-}
-
-function hasOnlyQueryKeys(url: URL, allowedKeys: ReadonlySet<string>): boolean {
-  for (const key of url.searchParams.keys()) {
-    if (!allowedKeys.has(key)) return false;
-  }
-  return true;
-}
-
-function decodeDeepLinkSegment(value: string | undefined): string | null {
-  if (value == null || value.trim().length === 0) return null;
-  try {
-    const decoded = decodeURIComponent(value).trim();
-    return decoded.length > 0 ? decoded : null;
-  } catch {
-    return null;
-  }
-}
-
-function isValidMarketplaceName(value: string | undefined): boolean {
-  return isSafePathSegment(value);
-}
-
-function isSafeMarketplacePath(value: string): boolean {
-  return isAbsoluteFilePath(value) && !isUncPath(value);
-}
-
-function isWindowsProjectPath(value: string): boolean {
-  const trimmed = value.trim();
-  return (
-    trimmed.length > 0 &&
-    (/^[a-zA-Z]:[\\/]/.test(trimmed) || trimmed.startsWith("\\\\"))
-  );
-}
-
-function normalizeError(error: unknown): Error {
-  return toError(error);
+function parseProcessDeepLinks(argv: readonly string[]): DeepLinkRoute[] {
+  return argv.flatMap((argument) => {
+    const route = parseClaudeDeepLink(argument);
+    return route === null ? [] : [route];
+  });
 }
 
 export function createDeepLinkCoordinator({
@@ -375,37 +231,23 @@ export function createDeepLinkCoordinator({
   function queueRoute(route: DeepLinkRoute): void {
     pendingRoutes.push(route);
     if (!electronApp.isReady()) return;
-    flushPendingDeepLinks().catch((error) => {
-      errorReporter.reportNonFatal(normalizeError(error), {
-        kind: "flush-pending-deep-links",
-      });
+    void flushPendingDeepLinks().catch((error: unknown) => {
+      errorReporter.reportNonFatal(
+        error instanceof Error ? error : new Error(String(error)),
+        { kind: "flush-pending-deep-links" },
+      );
     });
   }
 
-  function queueCodexDeepLinkUrl(
-    url: string,
-    hostId?: string | null,
-  ): boolean {
-    const route = parseCodexDeepLink(url);
-    if (!route) return false;
-    queueRoute(
-      route.kind === "localPluginDetail" && hostId != null
-        ? { ...route, hostId }
-        : route,
-    );
+  function queueClaudeDeepLinkUrl(url: string): boolean {
+    const route = parseClaudeDeepLink(url);
+    if (route === null) return false;
+    queueRoute(route);
     return true;
   }
 
-  const allowBareWindowsProjectPathArg = electronApp.isPackaged && !isMacOS;
-
-  function queueInitialArgs(args: string[]): void {
-    for (const route of parseProcessDeepLinks(args)) queueRoute(route);
-  }
-
   function queueProcessArgs(args: string[]): boolean {
-    const routes = parseProcessDeepLinks(args, {
-      allowBareWindowsProjectPathArg,
-    });
+    const routes = parseProcessDeepLinks(args);
     for (const route of routes) queueRoute(route);
     return routes.length > 0;
   }
@@ -413,36 +255,32 @@ export function createDeepLinkCoordinator({
   function registerProtocolClient(): void {
     if (electronApp.isPackaged && process.platform !== "win32") return;
     try {
-      if (!electronApp.setAsDefaultProtocolClient("codex")) {
-        logger.warning("Failed to register codex:// protocol handler", {
-          safe: {
-            isPackaged: electronApp.isPackaged,
-          },
+      if (!electronApp.setAsDefaultProtocolClient("claude")) {
+        logger.warning("Failed to register claude:// protocol handler", {
+          safe: { isPackaged: electronApp.isPackaged },
           sensitive: {},
         });
       }
     } catch (error) {
-      logger.warning("Failed to register codex:// protocol handler", {
+      logger.warning("Failed to register claude:// protocol handler", {
         safe: {},
-        sensitive: {
-          error,
-        },
+        sensitive: { error },
       });
     }
   }
 
   if (isMacOS) {
     electronApp.on("open-url", (event, url) => {
-      if (queueCodexDeepLinkUrl(url)) event.preventDefault();
+      queueClaudeDeepLinkUrl(url);
+      event.preventDefault();
     });
   }
-
-  queueInitialArgs(initialArgv);
+  for (const route of parseProcessDeepLinks(initialArgv)) queueRoute(route);
 
   return {
     registerProtocolClient,
     queueProcessArgs,
     flushPendingDeepLinks,
-    queueCodexDeepLinkUrl,
+    queueClaudeDeepLinkUrl,
   };
 }

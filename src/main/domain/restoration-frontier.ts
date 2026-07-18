@@ -1,4 +1,3 @@
-// @ts-nocheck
 // Restored from ref/.vite/build/index.pre.js
 
 import type { ClaudeWindowKind } from "../../shared/contracts/window-entry";
@@ -6,6 +5,7 @@ import type { ClaudeWindowKind } from "../../shared/contracts/window-entry";
 export type RestorationStatus = "restored" | "planned" | "mechanical";
 
 export type RestorationFrontier = {
+  checkpointPath?: string;
   sourcePath: string;
   status: RestorationStatus;
   targetPath?: string;
@@ -13,6 +13,14 @@ export type RestorationFrontier = {
 };
 
 export const rendererRestorationFrontier = [
+  {
+    checkpointPath:
+      "src/renderer/.deobfuscate-javascript/main-D-xLCUWh/runtime-exports-renamed.js",
+    sourcePath: "ref/.vite/renderer/main_window/assets/main-D-xLCUWh.js",
+    status: "mechanical",
+    targetPath: "src/renderer/shared/runtime/main-window-runtime.ts",
+    windowKind: "main",
+  },
   {
     sourcePath:
       "ref/.vite/renderer/main_window/assets/MainWindowPage-LqDynGsb.js",
@@ -50,13 +58,15 @@ export const rendererRestorationFrontier = [
 
 export const mainProcessRestorationFrontier = [
   {
+    checkpointPath: "src/main/.deobfuscate-javascript/index.pre/entry-draft.ts",
     sourcePath: "ref/.vite/build/index.pre.js",
-    status: "mechanical",
+    status: "restored",
     targetPath: "src/main/application/bootstrap-application.ts",
   },
   {
+    checkpointPath: "src/main/.deobfuscate-javascript/index/renamed.js",
     sourcePath: "ref/.vite/build/index.js",
-    status: "planned",
+    status: "mechanical",
     targetPath: "src/main/application",
   },
 ] satisfies RestorationFrontier[];

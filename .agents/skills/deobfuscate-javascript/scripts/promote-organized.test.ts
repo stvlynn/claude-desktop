@@ -183,7 +183,7 @@ describe("relativeImport / buildImportMappings", () => {
       ensureProvenanceHeader(
         source,
         "ref/webview/assets/format-thing-AbCdEf12.js",
-        "Format thing chunk restored from the Codex webview bundle.",
+        "Format thing chunk restored from the Claude renderer bundle.",
       ),
     ).toMatch(
       /^\/\/ Restored from ref\/webview\/assets\/format-thing-AbCdEf12\.js\n/,
@@ -595,7 +595,9 @@ describe("promoteOrganized", () => {
 
     expect(results[0]!.promoted).toBe(true);
     expect(
-      fs.existsSync(path.join(target, "utils", "score-query-match", "index.ts")),
+      fs.existsSync(
+        path.join(target, "utils", "score-query-match", "index.ts"),
+      ),
     ).toBe(true);
     expect(
       fs.existsSync(
@@ -736,7 +738,12 @@ describe("promoteOrganized", () => {
         kind: "local",
         depth: 0,
         stages: { organized: true },
-        organization: org("utils", `utils/util-${i}.ts`, "manual", "single-util"),
+        organization: org(
+          "utils",
+          `utils/util-${i}.ts`,
+          "manual",
+          "single-util",
+        ),
         exports: [{ exported: "t", local: `util${i}`, kind: "named" }],
         owner: null,
         claimedAt: null,
@@ -807,9 +814,7 @@ describe("promoteOrganized", () => {
       fs.readFileSync(path.join(target, "IMPORT_MAP.json"), "utf-8"),
     );
     expect(
-      Object.values(importMap.chunks).filter(
-        (c: any) => c.status === "done",
-      ),
+      Object.values(importMap.chunks).filter((c: any) => c.status === "done"),
     ).toHaveLength(3);
   });
 

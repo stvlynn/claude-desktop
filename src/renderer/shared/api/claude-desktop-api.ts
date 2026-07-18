@@ -1,4 +1,3 @@
-// @ts-nocheck
 // Restored from ref/.vite/renderer/main_window/assets/MainWindowPage-LqDynGsb.js
 
 export type LoadErrorDetails = {

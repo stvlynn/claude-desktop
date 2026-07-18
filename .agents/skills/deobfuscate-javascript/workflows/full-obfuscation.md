@@ -19,7 +19,7 @@ bun scripts/deobfuscate.ts "$WS/original.js" --out "$WS/stageA.js" --report "$WS
 
 `$WS/stageA.js` is now plain deobfuscated (but still cryptic-named) JavaScript. **Continue in the default tier** — feed it to the single-file flow in [small-minified.md](small-minified.md) starting at the one-shot `polish.ts --rename --fast` step (run it on `$WS/stageA.js` instead of `original.js`), then hand-name the residue and deliver. Deep/typed/production output is opt-in from there.
 
-The order matters — `extract.ts`'s byte offsets are invalidated by Stage 1 rewrites, so always run Stage 1 to completion *before* renaming. See [Stage 1 ordering notes](../stages/stage-1-deobfuscate.md#ordering--critical).
+The order matters — `extract.ts`'s byte offsets are invalidated by Stage 1 rewrites, so always run Stage 1 to completion _before_ renaming. See [Stage 1 ordering notes](../stages/stage-1-deobfuscate.md#ordering--critical).
 
 ## Packer-wrapped suspicious input — refuse eval, inspect first
 
@@ -35,7 +35,7 @@ bun scripts/unpack.ts "$WS/original.js" --no-eval                # confirms eval
 bun scripts/deobfuscate.ts "$WS/original.js" --out "$WS/clean.js" # allow eval
 ```
 
-`unpack.ts` uses `new Function(...)` to parse Packer arg lists and decode AAEncode. Sandboxed JS strings can't break out of `new Function` to read your filesystem, but it *does* execute the input. Stderr warns before each eval; `--no-eval` short-circuits all evaluation and exits 0 with `evalRefused: true` in the result.
+`unpack.ts` uses `new Function(...)` to parse Packer arg lists and decode AAEncode. Sandboxed JS strings can't break out of `new Function` to read your filesystem, but it _does_ execute the input. Stderr warns before each eval; `--no-eval` short-circuits all evaluation and exits 0 with `evalRefused: true` in the result.
 
 ## Control-flow flattening
 

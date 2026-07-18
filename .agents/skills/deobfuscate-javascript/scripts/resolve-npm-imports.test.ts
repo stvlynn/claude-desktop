@@ -244,7 +244,7 @@ describe("resolveNpmImports (chunk-name based)", () => {
     expect(out.stats.specifiersResolved).toBe(3);
   });
 
-  test("rewrites Codex React Router chunks to the npm package", () => {
+  test("rewrites Claude React Router chunks to the npm package", () => {
     const src = `
       import {
         a as Navigate,
@@ -272,7 +272,7 @@ describe("resolveNpmImports (chunk-name based)", () => {
     expect(n).toContain("__rest");
   });
 
-  test("rewrites Codex webview vendor chunks to package imports", () => {
+  test("rewrites Claude renderer vendor chunks to package imports", () => {
     const src = `
       import { t as FuseAlias } from "../fuse-BODhnlb2.js";
       import { t as RoughAlias } from "../rough.esm-tT7A6vdj.js";

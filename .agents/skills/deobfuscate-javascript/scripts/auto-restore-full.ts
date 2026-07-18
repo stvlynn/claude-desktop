@@ -755,7 +755,7 @@ function buildRenames(
 }
 
 function descriptionFor(basename: string): string {
-  return `${pascalCase(fileStem(basename)) || "Restored"} chunk restored from the Codex webview bundle.`;
+  return `${pascalCase(fileStem(basename)) || "Restored"} chunk restored from the Claude renderer bundle.`;
 }
 
 function toPosixPath(input: string): string {

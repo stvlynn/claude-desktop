@@ -213,7 +213,7 @@ a file meets the bar, ask "would this read as natural as the exemplar
 below?". If not, mark `NEEDS_FIX:readability`.
 
 ```tsx
-// Restored from ref/webview/assets/button-bq66r8jD.js.
+// Restored from ref/.vite/renderer/main_window/assets/button-bq66r8jD.js.
 // Semantic button component: named variants, typed props, and direct JSX.
 
 import type { ButtonHTMLAttributes, ForwardedRef } from "react";
@@ -222,11 +222,7 @@ import clsxRuntime from "clsx";
 import { t as Spinner } from "./spinner-D37df5tU.js";
 
 type ClassValue =
-  | string
-  | false
-  | null
-  | undefined
-  | Record<string, boolean | undefined>;
+  string | false | null | undefined | Record<string, boolean | undefined>;
 const clsx = clsxRuntime as (...values: ClassValue[]) => string;
 
 export const buttonRadiusClassNames = {

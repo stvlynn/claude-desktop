@@ -1,4 +1,3 @@
-// @ts-nocheck
 // Restored from ref/package.json
 
 import { rendererWindowEntries } from "../../shared/contracts/window-entry";
@@ -11,10 +10,27 @@ export const extractedBundleLayout = {
     bundle: "ref/.vite/build/index.js",
   },
   renderer: rendererWindowEntries,
-  workers: [
-    "ref/.vite/build/mcp-runtime/directMcpHost.js",
-    "ref/.vite/build/mcp-runtime/nodeHost.js",
-    "ref/.vite/build/shell-path-worker/shellPathWorker.js",
-    "ref/.vite/build/transcript-search-worker/transcriptSearchWorker.js",
-  ],
+  workers: {
+    directMcpHost: {
+      reference: "ref/.vite/build/mcp-runtime/directMcpHost.js",
+      restored: "dist/main/workers/direct-mcp-host.js",
+      status: "restored",
+    },
+    nodeHost: {
+      reference: "ref/.vite/build/mcp-runtime/nodeHost.js",
+      restored: "dist/main/workers/mcp-node-host.js",
+      status: "restored",
+    },
+    shellPath: {
+      reference: "ref/.vite/build/shell-path-worker/shellPathWorker.js",
+      restored: "dist/main/workers/shell-path-worker.js",
+      status: "restored",
+    },
+    transcriptSearch: {
+      reference:
+        "ref/.vite/build/transcript-search-worker/transcriptSearchWorker.js",
+      restored: "dist/main/workers/transcript-search-worker.js",
+      status: "restored",
+    },
+  },
 } as const;

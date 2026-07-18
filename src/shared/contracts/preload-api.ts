@@ -1,4 +1,3 @@
-// @ts-nocheck
 // Restored from ref/.vite/build/index.pre.js
 // Contracts shared between the Electron preload script and the renderer.
 

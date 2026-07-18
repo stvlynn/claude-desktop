@@ -1,4 +1,3 @@
-// @ts-nocheck
 // Restored from ref/.vite/build/main-Cfnoc8EH.js
 // Tray icon resolution and Chronicle running-state badge helpers.
 
@@ -79,6 +78,8 @@ export function getWindowsTrayIconName(
     return "icon-agent.ico";
   }
   switch (appBrand) {
+    case RuntimeAppBrands.Claude:
+      return "claude-tray.ico";
     case RuntimeAppBrands.Codex:
       return "codex-tray.ico";
     case RuntimeAppBrands.ChatGPT:
@@ -90,6 +91,8 @@ export function getDarwinTrayTemplateIconNames(
   appBrand: RuntimeAppBrand,
 ): [string, string] {
   switch (appBrand) {
+    case RuntimeAppBrands.Claude:
+      return ["claudeTemplate.png", "claudeTemplate@2x.png"];
     case RuntimeAppBrands.Codex:
       return ["codexTemplate.png", "codexTemplate@2x.png"];
     case RuntimeAppBrands.ChatGPT:

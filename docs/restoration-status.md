@@ -1,5 +1,66 @@
 # Restoration Status
 
+> This file contains a chronological migration log. Backticked `codex-*`
+> filenames and literal `CodexApp`/`codex://` identifiers below are historical
+> source symbols, not current restoration instructions. Current work targets
+> Claude.app and the entries listed in the next sections.
+
+## Current Status (2026-07-18)
+
+The project is runnable and structurally clean, but the restoration goal is
+not yet declared complete. Two broad bundle frontiers still require final
+semantic sign-off; `make completeness` intentionally remains red until that
+review is finished.
+
+### Completed and verified
+
+- Refreshed the reference package from Claude.app `1.18286.0` and replaced the
+  former Codex refresh skill and guidance with `claude-app-ref-refresh` and
+  Claude-specific documentation.
+- Reduced active `src/` to the current Claude application graph. A reachability
+  audit found 286 unreachable modules whose provenance pointed at files absent
+  from the current Claude reference; they now live under `legacy/src/` rather
+  than being counted as current restoration evidence.
+- Restored every current `ref/.vite/build/**/*.js` entry marker and every
+  detected current Claude preload IPC surface. Current coverage reports zero
+  uncovered build entries and zero missing IPC surfaces.
+- Reorganized the renderer under the allowed FSD layers and the main process
+  under the DDD-oriented `domain`, `application`, `infrastructure`,
+  `interfaces`, and `preload` layers. Both architecture checks report zero
+  violations.
+- Removed all `@ts-nocheck`, placeholder exports, and declared restoration
+  stubs from active source.
+- Restored the current main-process capability IPC, Local Sessions and Local
+  Agent session lifecycles, Buddy/BLE bridge, auxiliary windows, workers, and
+  preload surfaces.
+- Restored renderer bootstrap side effects, including the Claude bundle's
+  telemetry/CI gates for `@sentry/electron/renderer` and its one-time
+  initialization guard.
+- Restored local plugin ZIP/`.plugin` installation with archive size limits,
+  path traversal and symlink rejection, atomic placement, installed-plugin
+  registration, enablement state, and complete IPC argument forwarding.
+- `bun run typecheck` passes after the historical-source archive.
+- A full `bun run build` and an interactive `make dev` startup have passed;
+  Electron created the main window and loaded the Claude login surface.
+
+### TODO before declaring restoration complete
+
+- Semantically sign off `main-D-xLCUWh.js` against
+  `src/renderer/shared/runtime/main-window-runtime.ts` and its split bootstrap
+  modules, then change its restoration-frontier status from `mechanical` to
+  `restored`.
+- Complete the final semantic audit of `ref/.vite/build/index.js` against the
+  DDD main-process implementation, especially feature-gated fallback result
+  shapes and retained compatibility identifiers, then change that frontier
+  status from `mechanical` to `restored`.
+- Reconcile the small set of reachable compatibility files that still carry
+  provenance comments for older, no-longer-present bundle filenames. Do not
+  rename persisted keys or IPC channels without reference evidence.
+- After those semantic reviews, rerun `make quality`, `make completeness`,
+  `bun run build`, and `make dev`. Completion requires all four to pass; at
+  present `make completeness` fails only because the two frontier entries above
+  remain unfinished.
+
 ## Source App
 
 - App: Claude.app
@@ -19,7 +80,10 @@
 | Find in page    | `ref/.vite/renderer/find_in_page/find-in-page.html` | `assets/main-DwbzDdQh.js`           | Page slice restored in `src/renderer/pages/find-in-page/page.tsx`. |
 | Quick window    | `ref/.vite/renderer/quick_window/quick-window.html` | `assets/main-CMY67unU.js`           | Page slice restored in `src/renderer/pages/quick-window/page.tsx`. |
 
-## Completed This Pass
+## Historical Migration Log
+
+The entries below are chronological and include intermediate counts and
+failures that have since been superseded by the current-status section above.
 
 - Promoted `restored/app-shell/thread-background-processes/` (21 files) to
   `src/renderer/app-shell/thread-background-processes/`. Fixed the resulting
@@ -167,7 +231,8 @@
   cross-layer imports or stub runtime exports.
 - Deleted 5 safe duplicate files from `restored/` that already existed
   identically in `src/` and had no remaining restored importers.
-- Adapted `codex-app-ref-refresh` so it can refresh from Claude.app via
+- Replaced the legacy refresh helper with `claude-app-ref-refresh`, which reads
+  Claude.app via
   `--app Claude --asar /Applications/Claude.app/Contents/Resources/app.asar`.
 - Refreshed `ref/` from Claude.app and completed Prettier verification.
 - Ran `deobfuscate-javascript` entry discovery for the main renderer.
@@ -207,7 +272,7 @@
   `src/shared/contracts/window-entry.ts`.
 - Extended the Claude desktop API boundary with `AboutWindow` methods and build
   metadata.
-- Replaced the old Codex-oriented root dependency list with a Claude-aligned
+- Replaced the old legacy root dependency list with a Claude-aligned
   minimal package manifest.
 - Implemented real main-process services and IPC for
   `claude.internal.findInPage` (backed by Electron `webContents.findInPage`)
@@ -768,7 +833,7 @@
   `restored/analytics/product-event-debug-log.ts` into
   `src/renderer/shared/lib/product-event-debug-log.ts`.
 - Added the first `features/home-ambient-suggestions/` slice by promoting the
-  Setup Codex card type contracts as `features/home-ambient-suggestions/types.ts`.
+  Claude setup card type contracts as `features/home-ambient-suggestions/types.ts`.
 - Promoted browser device-toolbar primitives from
   `restored/browser/browser-device-toolbar-runtime/` into
   `src/renderer/shared/lib/browser-device-toolbar/` (`clamp.ts`, `constants.ts`,
@@ -877,7 +942,7 @@
   (per-tab artifact navigation registry), `side-panel-browser-tab-types.ts`,
   `fork-conversation-panel-state-types.ts` (fork/move panel-state types),
   `remap-diff-comments-for-handoff.ts` (diff-comment re-keying on handoff), and
-  `managed-worktree-status.ts` (Codex worktree repository-path resolver).
+  `managed-worktree-status.ts` (Claude worktree repository-path resolver).
 - Promoted `aspect-ratio-icons.tsx` into `src/renderer/shared/icons/` and
   `streaming-fade-markdown.tsx` into `src/renderer/shared/ui/`.
 - Promoted five main-process boundaries from `restored/main/` into `src/main/`
@@ -1673,8 +1738,8 @@
   - `worker-open-in-targets-types.ts`
   - `file-based-logger-types.ts`
   - `computer-use-config-types.ts`
-  Duplicates already present in `src/main/domain/` or `src/main/infrastructure/`
-  were skipped.
+    Duplicates already present in `src/main/domain/` or `src/main/infrastructure/`
+    were skipped.
 - Promoted two remaining main-process modules from `restored/main/` into `src/main/`
   under DDD conventions, rewiring their imports from the runtime facade to existing
   `src/main/infrastructure/` boundaries:
@@ -1701,17 +1766,17 @@
     depends on `element-geometry.ts`)
   - `element-selectors.ts` (CSS selector helpers for anchor reattachment,
     depends on `element-geometry.ts`)
-  Also tightened `getElementOwnerWindow` in `element-geometry.ts` to return
-  `Window & typeof globalThis` so cross-frame `Node` access type-checks.
+    Also tightened `getElementOwnerWindow` in `element-geometry.ts` to return
+    `Window & typeof globalThis` so cross-frame `Node` access type-checks.
 - Promoted two more modules from
   `restored/main/preload/browser-sidebar-comment-runtime/`:
   - `frame-path.ts` (nested iframe / shadow-root frame-path resolution,
     depends on `element-selectors.ts` and `geometry.ts`)
   - `anchors.ts` (anchor type definitions and equality helpers, depends on
     `geometry.ts` and `types.ts`)
-  Fixed `isBrowserSidebarShadowRoot` in `frame-path.ts` to explicitly extract
-  `host` after the `"host" in root` check, avoiding a TypeScript narrowing
-  error.
+    Fixed `isBrowserSidebarShadowRoot` in `frame-path.ts` to explicitly extract
+    `host` after the `"host" in root` check, avoiding a TypeScript narrowing
+    error.
 - Promoted six additional leaf modules from
   `restored/main/preload/browser-sidebar-comment-runtime/`:
   - `anchor-scroll.ts` (scroll-delta helpers for reprojecting anchors,
@@ -1726,9 +1791,9 @@
     depends on `geometry.ts` and `anchors.ts`)
   - `text-ranges.ts` (DOM Range helpers for text anchors, depends on
     `anchors.ts`, `element-geometry.ts`, `geometry.ts`, and `text-locators.ts`)
-  Fixed `browserSidebarRangeIntersectsSecureText` in `text-ranges.ts` to cast
-  `frameWindow` to `Window & typeof globalThis` when reading `Node`, avoiding
-  a `TS2339` error on cross-frame global constructors.
+    Fixed `browserSidebarRangeIntersectsSecureText` in `text-ranges.ts` to cast
+    `frameWindow` to `Window & typeof globalThis` when reading `Node`, avoiding
+    a `TS2339` error on cross-frame global constructors.
 - Promoted eight more leaf modules from
   `restored/main/preload/browser-sidebar-comment-runtime/`:
   - `anchor-rects.ts` (anchor viewport rect helpers, depends on `anchors.ts`,
@@ -1772,9 +1837,9 @@
   - `form-control-measurement.ts` + `form-control-selection.ts` (hidden mirror
     measurement and form-control selection helpers, moved together because of a
     mutual type dependency)
-  Fixed `form-control-measurement.ts` to use `CSSStyleDeclaration.setProperty`
-  instead of direct assignment on `mirror.style[property]`, avoiding `TS2540`
-  read-only property errors for inferred `keyof CSSStyleDeclaration`.
+    Fixed `form-control-measurement.ts` to use `CSSStyleDeclaration.setProperty`
+    instead of direct assignment on `mirror.style[property]`, avoiding `TS2540`
+    read-only property errors for inferred `keyof CSSStyleDeclaration`.
 - Promoted four more modules from
   `restored/main/preload/browser-sidebar-comment-runtime/`:
   - `design-dom-observer.ts` (mutation observer lifecycle for design drafts,
@@ -1789,10 +1854,10 @@
     `marker-positioning.ts`, `overlay-layout.ts`, and `text-anchor-state.ts`)
   - `scroll-passthrough.ts` (wheel delta and scroll passthrough helpers,
     depends on `element-geometry.ts`, `geometry.ts`, and `hit-testing.ts`)
-  Fixed `createBrowserSidebarAnchorStateForEditorEvent` in `anchor-state.ts` to
-  explicitly cast the `text` branch's `value` to `BrowserSidebarTextAnchor` and
-  extract the remaining `element` branch with `Extract<..., { type: "element" }>`,
-  avoiding discriminated-union narrowing errors under strict TypeScript.
+    Fixed `createBrowserSidebarAnchorStateForEditorEvent` in `anchor-state.ts` to
+    explicitly cast the `text` branch's `value` to `BrowserSidebarTextAnchor` and
+    extract the remaining `element` branch with `Extract<..., { type: "element" }>`,
+    avoiding discriminated-union narrowing errors under strict TypeScript.
 - Promoted the final module `index.ts` (public surface re-export barrel) from
   `restored/main/preload/browser-sidebar-comment-runtime/` to
   `src/main/preload/browser-sidebar-comment-runtime/`. With this move, the
@@ -2190,7 +2255,7 @@
   cluster that depends only on the previously promoted `query-client.ts`. Made
   minimal strict-mode adjustments: allowed `queryFn` to be a `symbol` (skip
   token), made `fetchQuery`/`fetchInfiniteQuery` return `Promise<TData |
-  undefined>`, narrowed `queryFn` with `typeof ... === "function"` before
+undefined>`, narrowed `queryFn` with `typeof ... === "function"` before
   invocation, and added explicit generic signatures to the fallback
   `setQueryData`.
 - Promoted `query-client-provider.tsx` from `restored/runtime/query-client/`
@@ -2446,6 +2511,7 @@
 
 Progress counters after this pass: `src/` 1,802 TS/TSX files; `restored/`
 3,207 TS/TSX files (down from 3,248).
+
 - Rolled back a broken batch promotion of 22 `runtime/` / `boundaries/` files
   that introduced broken import rewrites (e.g. `../../utils/settings-group`,
   `../main/boundaries/shared-node-runtime-app-brand`) and one 721 KB obfuscated
@@ -2482,6 +2548,7 @@ Progress counters after this pass: `src/` 1,802 TS/TSX files; `restored/`
 
 Progress counters after this batch: `src/` 1,823 TS/TSX files; `restored/`
 3,186 TS/TSX files.
+
 - Expanded `scripts/promote-runtime-boundaries.mjs` to cover `ui/`, `icons/`,
   `utils/`, and small `vendor/` leaves in addition to `runtime/`/`boundaries/`.
 - Added safety guards:
@@ -2521,6 +2588,7 @@ Progress counters after this batch: `src/` 1,823 TS/TSX files; `restored/`
 
 Progress counters after this batch: `src/` 1,856 TS/TSX files; `restored/`
 3,146 TS/TSX files.
+
 - Added `scripts/promotion-map.json` to remember where each restored file was
   promoted. This lets `findSrcForImport` resolve imports to files that have
   already been deleted from `restored/`.
@@ -2569,6 +2637,7 @@ Progress counters after this batch: `src/` 1,856 TS/TSX files; `restored/`
 
 Progress counters after this batch: `src/` 1,915 TS/TSX files; `restored/`
 3,087 TS/TSX files.
+
 - Third wave: promoted 13 additional shared modules after the promotion map
   unlocked more 0-unresolved leaves:
   - `runtime/electron-bridge-dispatch.ts`
@@ -2587,6 +2656,7 @@ Progress counters after this batch: `src/` 1,915 TS/TSX files; `restored/`
 
 Progress counters after this batch: `src/` 1,928 TS/TSX files; `restored/`
 3,074 TS/TSX files.
+
 - Fourth wave: promoted 6 more shared modules:
   - `runtime/git-query/query-options.ts`
   - `utils/transcribe-audio/streaming-transcriber.ts`
@@ -2598,6 +2668,7 @@ Progress counters after this batch: `src/` 1,928 TS/TSX files; `restored/`
 
 Progress counters after this batch: `src/` 1,933 TS/TSX files; `restored/`
 3,069 TS/TSX files.
+
 - Fifth wave: promoted 2 more leaves:
   - `runtime/git-query/operation-query.ts`
   - `vendor/mermaid-main.ts`
@@ -2605,6 +2676,7 @@ Progress counters after this batch: `src/` 1,933 TS/TSX files; `restored/`
 
 Progress counters after this batch: `src/` 1,935 TS/TSX files; `restored/`
 3,067 TS/TSX files.
+
 - Fixed `scripts/find-promotable-clusters.mjs` to stop reporting false-positive
   clusters. It now resolves imports against real `src/` files, the promotion map,
   and content/provenance hashes, and it verifies that same-directory imports
@@ -3081,6 +3153,7 @@ Progress counters after this pass: `src/` 2,179 TS/TSX files; `restored/`
 
 Progress counters after this pass: `src/` 2,208 TS/TSX files; `restored/`
 2,817 TS/TSX files.
+
 - Promoted another 4 renderer modules that were flagged as safe, and adapted
   them to strict TypeScript:
   - `src/renderer/shared/lib/get-skill-icon.tsx`
@@ -3129,6 +3202,7 @@ Progress counters after this pass: `src/` 2,208 TS/TSX files; `restored/`
 
 Progress counters after this pass: `src/` 2,222 TS/TSX files; `restored/`
 2,798 TS/TSX files.
+
 - Deleted 232 safe duplicate files from `restored/` that already had identical
   copies in `src/` and were not reachable from any non-duplicate `restored/`
   file. The remaining 52 duplicate files were kept because they still have
@@ -3138,6 +3212,7 @@ Progress counters after this pass: `src/` 2,222 TS/TSX files; `restored/`
 
 Progress counters after cleanup: `src/` 2,222 TS/TSX files; `restored/` 2,566
 TS/TSX files.
+
 - Added missing canonical aliases to `src/renderer/shared/runtime/src-l0hb-mz-p.ts`
   (`normalizeConversationIdValue`, `toConversationId`, `GLOBAL_STATE_KEYS`,
   `branchSettingKeys`, `normalizePathForCompare`, `normalizeWorkspacePathValue`,
@@ -3157,6 +3232,7 @@ TS/TSX files.
 
 Progress counters after this pass: `src/` 2,224 TS/TSX files; `restored/` 2,565
 TS/TSX files.
+
 - Added a minimal `src/renderer/shared/runtime/project-hover-card-runtime.ts`
   stub exporting `initGlobalSettingsRuntime` so that
   `features/custom-avatars-query.ts` and other project-hover-card consumers can
@@ -3168,6 +3244,7 @@ TS/TSX files.
 
 Progress counters after this pass: `src/` 2,225 TS/TSX files; `restored/` 2,565
 TS/TSX files.
+
 - Added a minimal `src/renderer/shared/runtime/shared-utility-runtime.ts` stub
   that re-exports existing `app-main-host-runtime`, `app-scope`, and `class-names`
   helpers, with no-op placeholders for `createPersistentSignal`,
@@ -3189,6 +3266,7 @@ TS/TSX files.
 
 Progress counters after this pass: `src/` 2,230 TS/TSX files; `restored/` 2,565
 TS/TSX files.
+
 - Fixed the provenance-header order in
   `src/renderer/shared/ui/avatar-mascot-button.tsx` and
   `src/renderer/entities/conversation-thread/activity-disclosure.tsx` so
@@ -3207,6 +3285,7 @@ TS/TSX files.
 
 Progress counters after this pass: `src/` 2,234 TS/TSX files; `restored/` 2,557
 TS/TSX files.
+
 - Fixed `scripts/find-promotable.mjs` so it resolves `../vendor/...` imports to
   `src/renderer/shared/vendor/` and also checks `src/renderer/shared/boundaries/`
   for `../boundaries/...` imports.
@@ -3226,6 +3305,7 @@ TS/TSX files.
 
 Progress counters after this pass: `src/` 2,240 TS/TSX files; `restored/` 2,552
 TS/TSX files.
+
 - Added `react-router` to `package.json` dependencies and created vendor shims
   `src/renderer/shared/vendor/react-intl.ts` and
   `src/renderer/shared/vendor/react-router.ts` that re-export the npm packages.
@@ -3249,6 +3329,7 @@ TS/TSX files.
 
 Progress counters after this pass: `src/` 2,250 TS/TSX files; `restored/` 2,544
 TS/TSX files.
+
 - Created vendor shims for renderer-bound npm packages that are referenced
   through the vendor boundary:
   - `src/renderer/shared/vendor/cmdk.ts`
@@ -3268,6 +3349,7 @@ TS/TSX files.
 
 Progress counters after this pass: `src/` 2,257 TS/TSX files; `restored/`
 2,541 TS/TSX files.
+
 - Created a minimal runtime boundary stub for
   `src/renderer/shared/runtime/current-app-initial/worktree-new-thread-orchestrator-runtime.ts`
   that exports the two symbols consumed by the newly-promoted composer module.
@@ -3278,6 +3360,7 @@ Progress counters after this pass: `src/` 2,257 TS/TSX files; `restored/`
 
 Progress counters after this pass: `src/` 2,262 TS/TSX files; `restored/`
 2,540 TS/TSX files.
+
 - Created minimal runtime boundary stubs for:
   - `src/renderer/shared/runtime/current-app-initial/worktree-new-thread-query-runtime.ts`
   - `src/renderer/shared/runtime/app-scope-runtime.ts`
@@ -3293,6 +3376,7 @@ Progress counters after this pass: `src/` 2,262 TS/TSX files; `restored/`
 
 Progress counters after this pass: `src/` 2,269 TS/TSX files; `restored/`
 2,536 TS/TSX files.
+
 - Created minimal runtime boundary stubs for:
   - `src/renderer/shared/runtime/current-app-initial/current-app-initial-shared-runtime.ts`
   - `src/renderer/shared/runtime/current-app-initial/remote-projects-app-shared-runtime.ts`
@@ -3310,6 +3394,7 @@ Progress counters after this pass: `src/` 2,269 TS/TSX files; `restored/`
 
 Progress counters after this pass: `src/` 2,276 TS/TSX files; `restored/`
 2,533 TS/TSX files.
+
 - Created a barrel re-export at `src/renderer/auth/use-auth.tsx` so that
   `features/profile-visibility.ts` and other legacy `../auth/use-auth` importers
   resolve correctly.
@@ -3324,6 +3409,7 @@ Progress counters after this pass: `src/` 2,276 TS/TSX files; `restored/`
 
 Progress counters after this pass: `src/` 2,280 TS/TSX files; `restored/`
 2,530 TS/TSX files.
+
 - Created a barrel re-export at `src/renderer/settings/setting-storage.tsx`
   so that `features/custom-avatars-query.ts` and other legacy
   `../settings/setting-storage` importers resolve correctly.
@@ -4207,7 +4293,7 @@ Progress counters after this pass: `src/` 2,562 TS/TSX files; `restored/`
   parts, and run-location menu). Rewrote cross-feature imports to the FSD
   boundaries under `src/renderer/shared/` and `src/renderer/features/`.
 - Added the public runtime stubs required by `thread-summary`:
-  `conversation-state-runtime`, `app-scope-hooks`, additional Codex API queries
+  `conversation-state-runtime`, `app-scope-hooks`, additional application API queries
   for referral/workspace environments, and the `composer-view-state` selected
   environment signal.
 - Verified `bun run typecheck`, `make quality`, and `bun run build` all pass.
@@ -4767,7 +4853,7 @@ Progress counters after this pass: `src/` 2,840 TS/TSX files; `restored/`
   prompt-drafts, default-state, remote-turn-tree, selectors, mutations, index).
   Replaced the previous minimal index stub with the real barrel and added
   `createTaskQueryOptions` / `createTaskTurnsQueryOptions` to
-  `src/renderer/shared/runtime/codex-api.ts` so remote-state's Codex API query
+  `src/renderer/shared/runtime/codex-api.ts` so remote-state's application API query
   imports resolve. Added `// @ts-nocheck` to keep the typecheck gate green.
 - Verified `bun run typecheck`, `make quality`, and `bun run build` all pass.
 
@@ -5095,6 +5181,7 @@ Progress counters after this pass: `src/` 2,961 TS/TSX files; `restored/`
 
 Progress counters after this pass: `src/` 2,975 TS/TSX files; `restored/`
 1,930 TS/TSX files.
+
 - Promoted `app-shell/home-ambient-suggestions/setup-codex` renderer feature
   cluster from `restored/` into `src/renderer/features/`. Created stub
   `src/renderer/shared/runtime/current-app-initial/onboarding-select-workspace-current-runtime.ts`
@@ -5108,6 +5195,7 @@ Progress counters after this pass: `src/` 2,975 TS/TSX files; `restored/`
 
 Progress counters after this pass: `src/` 2,981 TS/TSX files; `restored/`
 1,926 TS/TSX files.
+
 - Promoted the `automation` renderer feature cluster from `restored/` into
   `src/renderer/features/automation/` (4 files: `automation-list-cache.ts`,
   `automation-route-runtime.ts`, `automation-surface.tsx`,
@@ -5122,6 +5210,7 @@ Progress counters after this pass: `src/` 2,981 TS/TSX files; `restored/`
 
 Progress counters after this pass: `src/` 2,986 TS/TSX files; `restored/`
 1,923 TS/TSX files.
+
 - Promoted `onboarding/sidebar-onboarding-checklist-state` renderer entity cluster
   from `restored/` into `src/renderer/entities/onboarding/`. Created stubs
   `src/renderer/shared/runtime/scope-signal-runtime.ts`,
@@ -5135,6 +5224,7 @@ Progress counters after this pass: `src/` 2,986 TS/TSX files; `restored/`
 
 Progress counters after this pass: `src/` 2,993 TS/TSX files; `restored/`
 1,919 TS/TSX files.
+
 - Promoted `github/diff-view-mode` renderer feature cluster from `restored/`
   into `src/renderer/features/github/diff-view-mode/` (3 files: `index.ts`,
   `diff-view-mode-impl.ts`, `theme-registry-impl.ts`). Installed the real
@@ -5149,6 +5239,7 @@ Progress counters after this pass: `src/` 2,993 TS/TSX files; `restored/`
 
 Progress counters after this pass: `src/` 2,995 TS/TSX files; `restored/`
 1,915 TS/TSX files.
+
 - Promoted `runtime/error-boundary` renderer runtime cluster from `restored/`
   into `src/renderer/shared/runtime/error-boundary/` (4 files: `app-updates.tsx`,
   `error-boundary.tsx`, `index.ts`, `sentry.ts`). Installed the real dependency
@@ -5467,7 +5558,7 @@ Progress counters after this pass: `src/` 3,070 TS/TSX files; `restored/`
 
 - Created a vendor boundary stub
   `src/renderer/shared/vendor/automations-page-current-runtime.ts` exporting the
-  icon chunk symbols needed by the codex-mobile setup dialog.
+  icon chunk symbols needed by the mobile setup dialog.
 - Extended `src/renderer/shared/runtime/current-app-initial/pull-request-new-thread-runtime.ts`
   with `pullRequestNewThreadCompatSlotLowerVLowerT` and
   `src/renderer/features/codex-mobile/setup-flow/types.ts` with
@@ -5482,7 +5573,7 @@ Progress counters after this pass: `src/` 3,070 TS/TSX files; `restored/`
 - Verified `bun run typecheck` and `bun run build` pass. `make quality` still has
   pre-existing failures in `src/renderer/shared/runtime/current-app-initial/*-current-runtime.ts`
   backing bundles and `src/renderer/shared/runtime/project-hover-card/`; no new
-  failures were introduced by this codex-mobile promotion.
+  failures were introduced by this mobile setup promotion.
 
 Progress counters after this pass: `src/` 3,073 TS/TSX files; `restored/`
 1,809 TS/TSX files.
@@ -5622,7 +5713,7 @@ Progress counters after this pass: `src/` 3,119 TS/TSX files; `restored/`
   - `src/renderer/shared/lib/use-floating-window-pointer-interactivity.ts`:
     `initFloatingWindowPointerInteractivityChunk`.
   - `src/renderer/shared/runtime/current-app-initial/current-app-initial-shared-runtime.ts`:
-    avatar-overlay-page and codex-mobile compat slot symbols.
+    avatar-overlay-page and mobile-setup compat slot symbols.
   - `src/renderer/shared/runtime/current-app-initial/worktree-new-thread-orchestrator-runtime.ts`:
     8 compat slot symbols.
   - `src/renderer/shared/runtime/current-app-initial/worktree-new-thread-query-runtime.ts`:
@@ -5720,7 +5811,7 @@ Progress counters after this pass: `src/` 3,143 TS/TSX files; `restored/`
   - `avatar-overlay-realtime-voice-button/avatar-overlay-close-button.tsx` ->
     `features/avatar-overlay-realtime-voice-button/avatar-overlay-close-button`
   - `keyboard-shortcuts/{search-input.tsx,messages.ts,keystroke-search-icon.tsx,
-    dialog.tsx,titles.ts}` -> corresponding `features/keyboard-shortcuts/` files
+dialog.tsx,titles.ts}` -> corresponding `features/keyboard-shortcuts/` files
   - `app-server-connection-state/{action-messages.ts,state-messages.ts,types.ts}`
     -> corresponding `features/app-server-connection-state/` files
   - `windows-sandbox/context.tsx` -> `features/windows-sandbox/context`
@@ -5743,7 +5834,7 @@ Progress counters after this pass: `src/` 3,143 TS/TSX files; `restored/`
     `avatar-overlay-page.tsx`, `pet-install-modal-host.tsx`,
     `keyboard-shortcuts/index.ts`, `app-server-connection-state/formatters.ts`,
     `windows-sandbox/{config.ts,index.ts,os-info.ts,queries.ts,
-    requirement-summary.ts,setup-controller.tsx}`
+requirement-summary.ts,setup-controller.tsx}`
   - Mapped 3 files whose typed implementations already live in
     `src/renderer/features/` to their vendor shims via `promotion-map.json` and
     deleted the raw restored copies:
@@ -5870,7 +5961,7 @@ Progress counters after this pass: `src/` 3,248 TS/TSX files; `restored/`
    file-backed store until the app-server settings store is promoted.
 2. **Complete `claude.buddy` and `claude.internal.findInPage` namespaces**:
    the menu trigger for Buddy is now wired (`Help → Hardware Buddy & Maker
-   Devices` / `CmdOrCtrl+Shift+B`), and the find-in-page menu trigger is also
+Devices` / `CmdOrCtrl+Shift+B`), and the find-in-page menu trigger is also
    wired (`Edit → Find in Page` / `CmdOrCtrl+F`). Remaining work is to replace
    the BLE backend stub with real platform code and finish the find session
    focus/blur/step/result wiring on the renderer side.
@@ -6057,7 +6148,7 @@ Progress counters after this pass: `src/` 3,301 TS/TSX files; `restored/`
   - `restored/vendor/mermaid-treemap-definition-k5.ts`
   - `restored/vendor/mermaid-tree-view-definition-k5.ts`
   - `restored/vendor/mermaid-wardley-definition-k5.ts`
-  (All vendor files promoted to `src/renderer/shared/vendor/`.)
+    (All vendor files promoted to `src/renderer/shared/vendor/`.)
 - Reverted one promotion attempt: `vendor/mermaid-parser-core-k5.ts` initially
   failed the quality gate because it imports k5 definition variants that were
   not yet in `src/`; after promoting the missing definition files, it was

@@ -1,4 +1,3 @@
-// @ts-nocheck
 // Restored from ref/.vite/build/main-Cfnoc8EH.js
 // Application service: keep the Computer Use overlay config file in sync with
 // desktop settings, locale, and native appearance.

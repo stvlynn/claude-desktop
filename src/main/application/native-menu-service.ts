@@ -1,4 +1,3 @@
-// @ts-nocheck
 // Restored from ref/.vite/build/main-Cfnoc8EH.js
 // Native application-menu and context-menu IPC handlers for the renderer bridge.
 

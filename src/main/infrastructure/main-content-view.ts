@@ -1,4 +1,3 @@
-// @ts-nocheck
 // Restored from ref/.vite/build/mainView.js
 // Infrastructure: the WebContentsView that loads claude.ai as the main app surface.
 
@@ -16,9 +15,12 @@ export type MainContentView = {
   fitToParent: (parent: View) => void;
 } & MainContentHealth;
 
-export function createMainContentView(): MainContentView {
+export function createMainContentView(
+  preloadScriptPath: string,
+): MainContentView {
   const view = new WebContentsView({
     webPreferences: {
+      preload: preloadScriptPath,
       contextIsolation: true,
       nodeIntegration: false,
       sandbox: true,

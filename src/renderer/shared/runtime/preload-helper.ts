@@ -1,4 +1,3 @@
-// @ts-nocheck
 // Restored from ref/.vite/renderer/main_window/assets/main-D-xLCUWh.js
 //
 // Vite-style preload helper used by dynamic chunk loading in the renderer.
@@ -112,5 +111,3 @@ function preloadDependency(
     });
   }
 }
-// Added to satisfy relative import checks.
-export const PreloadHelper = undefined as never;

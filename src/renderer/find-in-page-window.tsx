@@ -1,4 +1,3 @@
-// @ts-nocheck
 // Restored from ref/.vite/renderer/find_in_page/find-in-page.html
 
 import { AppShell, runAppSideEffects } from "./app/app";

@@ -46,7 +46,7 @@ as permission to recreate the package.
 Treat public vendor files as **npm-first** targets. Before drafting code inside
 `restored/vendor/<name>.ts[x]`, map the filename, provenance chunk, and exported
 API to a package candidate. If a package candidate exists and there is no
-recorded Codex-fork or app/runtime-wrapper proof, the decision is `npm-shim`:
+recorded application-fork or app/runtime-wrapper proof, the decision is `npm-shim`:
 add the package root to the nearest `package.json`, write a thin re-export or
 typed alias shim, and only then continue other vendor work. A local compatibility
 body is allowed only after `--decision --intent local-body` is green and the
@@ -77,7 +77,7 @@ not just a written rationale:
    recorded fork/runtime-wrapper proof. `--intent local-body` is the exception,
    not the default.
 3. Run the full directory audit again before committing.
-4. Mention the binary decision (`npm shim`, `Codex fork`, or `app/runtime
+4. Mention the binary decision (`npm shim`, `application fork`, or `app/runtime
 wrapper`) in the commit message or final notes.
 
 For an `npm shim` decision, the intent gate must be green before writing the
@@ -104,7 +104,7 @@ Before writing or rewriting any public `restored/vendor/*` file, boundary facade
 or compatibility shim, first prove whether the chunk is a stock third-party npm
 package. Use all available evidence: public filename, provenance chunk basename,
 exports/API fingerprints, license/banner text, consumer import names,
-`CHUNK_NAME_REGISTRY`, this repo's Codex package table, `ref/package.json`, and
+`CHUNK_NAME_REGISTRY`, this repo's reference package evidence, `ref/package.json`, and
 `ref/node_modules` when present. Missing extracted dependencies are weak evidence
 only; they do **not** justify reimplementing a confirmed package. A public
 `restored/vendor/<name>.ts[x]` filename that maps to a package declared in the
@@ -164,7 +164,7 @@ create a bare npm-backed shim. To intentionally create a new npm shim for a
 package the registry does not know yet, first add the package fingerprint/gate
 entry and its tests, then rerun with `--intent npm-shim`. If an informational
 decision run prints `needs-proof`, do not treat that as permission to hand-write
-the module; first prove and record **Codex fork** or **app/runtime wrapper**
+the module; first prove and record **application fork** or **app/runtime wrapper**
 status. Then run
 `bun .agents/skills/deobfuscate-javascript/scripts/vendor-npm-preflight.ts <target-or-restored/vendor>`
 to catch known stock-package compatibility bodies and missing package
@@ -199,7 +199,7 @@ Treat this as a blocking preflight for every `vendor/` edit: if the public API
 matches a known npm surface, stop before hand-writing code, add the package root
 to the nearest `package.json`, and register the package/gate fingerprint in the
 skill. A "small compatible subset" is still a failed restore for stock packages;
-write local code only after proving a Codex fork, app runtime, or package
+write local code only after proving a application fork, app runtime, or package
 entangled wrapper. The default answer for a stock package is **zero local package
 body**: `restored/vendor/react-intl.tsx`, `restored/vendor/pdfjs.ts`,
 `restored/vendor/docx-preview.ts`, and similar public vendor files must be
@@ -215,14 +215,14 @@ local compatibility body, just because the restored project has not installed
 the package yet.
 
 Before editing any public vendor target, write down the binary decision in your
-working notes or commit message: **npm shim**, **Codex fork**, or **app/runtime
+working notes or commit message: **npm shim**, **application fork**, or **app/runtime
 wrapper**. If you cannot prove fork/wrapper status from source, consumers, or
 project profile, choose npm shim. Do not start by recreating exported functions
 and then ask whether an npm package exists; package identity is the first gate.
 
 ## The npm-shim deliverable
 
-If identity is high-confidence and the package is not a proven Codex fork, the
+If identity is high-confidence and the package is not a proven application fork, the
 deliverable is a thin npm-backed re-export / alias shim:
 
 1. Import or re-export from the bare npm specifier.
@@ -239,7 +239,7 @@ deliverable is a thin npm-backed re-export / alias shim:
    add `PUBLIC_NPM_VENDOR_SHIMS`, provenance source chunks, or API fingerprints
    in `quality-gate.ts`, and include fail/pass tests for new package families.
 
-Only hand-restore a vendor body after you have evidence it is a Codex fork,
+Only hand-restore a vendor body after you have evidence it is a application fork,
 project runtime, or package-entangled wrapper. Record that reason in the
 provenance/import-map notes and run `quality-gate.ts --vendored` only for the
 forked or intentionally vendored surface. A local "minimal implementation" of a

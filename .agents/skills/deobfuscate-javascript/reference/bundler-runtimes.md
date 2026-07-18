@@ -16,51 +16,64 @@ The helpers live in a shared runtime chunk (often `chunk-*.js`) and are imported
 into other chunks as short aliases (`import { t as __export } from "./chunk-*.js"`).
 Grep the runtime preamble:
 
-| Marker | Bundler |
-| ------ | ------- |
-| `__esm` / `__commonJS` / `__export` mutating a `target` param, `__toESM`, `__toCommonJS` | **esbuild** |
-| `__export` that **builds and returns a new object** and stamps `Symbol.toStringTag: "Module"` | **Rolldown** (Vite ≥ 5 / Rolldown-Vite) |
-| `__vite__mapDeps`, `__vitePreload`, `import.meta.glob` residue | **Vite** app shell (orthogonal — can wrap either of the above) |
+| Marker                                                                                        | Bundler                                                        |
+| --------------------------------------------------------------------------------------------- | -------------------------------------------------------------- |
+| `__esm` / `__commonJS` / `__export` mutating a `target` param, `__toESM`, `__toCommonJS`      | **esbuild**                                                    |
+| `__export` that **builds and returns a new object** and stamps `Symbol.toStringTag: "Module"` | **Rolldown** (Vite ≥ 5 / Rolldown-Vite)                        |
+| `__vite__mapDeps`, `__vitePreload`, `import.meta.glob` residue                                | **Vite** app shell (orthogonal — can wrap either of the above) |
 
-## This repo: Rolldown (codex `./ref`)
+## This repo: Vite/esbuild (Claude.app `./ref`)
 
-The codex `./ref` tree is bundled with **Rolldown**. Its runtime preamble (from
-`ref/webview/assets/chunk-Cq_f4orQ.js`, minified aliases expanded) is:
+The current Claude.app `./ref` tree is emitted by Vite/esbuild. Main-process,
+preload, and utility-process entries live under `ref/.vite/build`; renderer
+entries live under `ref/.vite/renderer`. Expect CommonJS compatibility helpers
+such as `__toESM`, `__commonJS`, and `__copyProps` in build entries, while
+renderer files use flat Vite ESM and `__vitePreload` helpers. Do not select the
+legacy Rolldown `ref/.vite/renderer/main_window/assets` runtime profile for this repository.
+
+For an extracted helper preamble, classify each helper by signature before
+rewriting it:
 
 ```js
-var __create   = Object.create,
-    __defProp  = Object.defineProperty,
-    __getOwnPropDesc  = Object.getOwnPropertyDescriptor,
-    __getOwnPropNames = Object.getOwnPropertyNames,
-    __getProtoOf = Object.getPrototypeOf,
-    __hasOwnProp = Object.prototype.hasOwnProperty,
-
-    // __esm — lazy ESM module init; returns the module's exports on first call
-    __esm = (fn, res) => () => (fn && (res = fn((fn = 0))), res),
-
-    // __commonJS — lazy CJS init; returns module.exports
-    __commonJS = (cb, mod) => () => (mod || cb((mod = { exports: {} }).exports, mod), mod.exports),
-
-    // __export — RETURNS A NEW namespace object (Rolldown-specific!)
-    __export = (all, noToStringTag) => {
-      let target = {};
-      for (var name in all) __defProp(target, name, { get: all[name], enumerable: true });
-      return (noToStringTag || __defProp(target, Symbol.toStringTag, { value: "Module" }), target);
-    },
-
-    // __copyProps / __toESM — copy own props of a CJS module onto an ESM namespace
-    __copyProps = (to, from, except, desc) => { /* defineProperty getter copy loop */ };
+var __create = Object.create,
+  __defProp = Object.defineProperty,
+  __getOwnPropDesc = Object.getOwnPropertyDescriptor,
+  __getOwnPropNames = Object.getOwnPropertyNames,
+  __getProtoOf = Object.getPrototypeOf,
+  __hasOwnProp = Object.prototype.hasOwnProperty,
+  // __esm — lazy ESM module init; returns the module's exports on first call
+  __esm = (fn, res) => () => (fn && (res = fn((fn = 0))), res),
+  // __commonJS — lazy CJS init; returns module.exports
+  __commonJS = (cb, mod) => () => (
+    mod || cb((mod = { exports: {} }).exports, mod),
+    mod.exports
+  ),
+  // __export — RETURNS A NEW namespace object (Rolldown-specific!)
+  __export = (all, noToStringTag) => {
+    let target = {};
+    for (var name in all)
+      __defProp(target, name, { get: all[name], enumerable: true });
+    return (
+      noToStringTag ||
+        __defProp(target, Symbol.toStringTag, { value: "Module" }),
+      target
+    );
+  },
+  // __copyProps / __toESM — copy own props of a CJS module onto an ESM namespace
+  __copyProps = (to, from, except, desc) => {
+    /* defineProperty getter copy loop */
+  };
 ```
 
 ### The `__export` gotcha (this is the one that bites)
 
-| | esbuild | **Rolldown (this repo)** |
-| --- | --- | --- |
-| Signature | `__export(target, all)` | `__export(all)` |
-| Behaviour | **mutates** `target` in place | **builds and returns a new object** |
-| Return | `undefined` | the namespace object |
-| `Symbol.toStringTag` | not added by `__export` | added (`"Module"`) unless 2nd arg truthy |
-| Typical call site | `__export(exports, { foo: () => foo });` | `var ns = __export({ foo: () => foo, … });` |
+|                      | esbuild                                  | **Rolldown (this repo)**                    |
+| -------------------- | ---------------------------------------- | ------------------------------------------- |
+| Signature            | `__export(target, all)`                  | `__export(all)`                             |
+| Behaviour            | **mutates** `target` in place            | **builds and returns a new object**         |
+| Return               | `undefined`                              | the namespace object                        |
+| `Symbol.toStringTag` | not added by `__export`                  | added (`"Module"`) unless 2nd arg truthy    |
+| Typical call site    | `__export(exports, { foo: () => foo });` | `var ns = __export({ foo: () => foo, … });` |
 
 In this repo you will see `var ee = t({ AnnotatedTextEdit: () => E, … })` — `t`
 is Rolldown's `__export`, and `ee` is the resulting namespace object. **Do not**
@@ -69,13 +82,13 @@ and drops the return.
 
 ## What each helper restores to
 
-| Helper | Minified shape | Restore to |
-| ------ | -------------- | ---------- |
-| `__esm(fn, res)` | `o = (e,t)=>()=>(e&&(t=e((e=0))),t)` | A normal ESM module. The `var initFoo = __esm({ "foo.js"() { … } })` wrapper + every `initFoo()` call disappears; inline the body once. |
-| `__commonJS(cb, mod)` | `s = (e,t)=>()=>(t||e((t={exports:{}}).exports,t),t.exports)` | A module whose `module.exports = …` becomes ESM `export`s; drop the lazy wrapper and the `require_foo()` calls. |
+| Helper                     | Minified shape                                                                                                                   | Restore to                                                                                                                                                                                                                                                                          |
+| -------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `__esm(fn, res)`           | `o = (e,t)=>()=>(e&&(t=e((e=0))),t)`                                                                                             | A normal ESM module. The `var initFoo = __esm({ "foo.js"() { … } })` wrapper + every `initFoo()` call disappears; inline the body once.                                                                                                                                             |
+| `__commonJS(cb, mod)`      | `s = (e,t)=>()=>(t                                                                                                               |                                                                                                                                                                                                                                                                                     | e((t={exports:{}}).exports,t),t.exports)` | A module whose `module.exports = …` becomes ESM `export`s; drop the lazy wrapper and the `require_foo()` calls. |
 | `__export(all)` (Rolldown) | `c = (e,n)=>{let r={};for(var i in e)t(r,i,{get:e[i],enumerable:!0});return(n\|\|t(r,Symbol.toStringTag,{value:\`Module\`}),r)}` | `export { foo, bar }` (each `name: () => binding` getter becomes a named export). `normalize-exports.ts` handles the simple cases; the registry-object form (`var ns = __export({…})`) is a multi-export split — see [multi-export-bundle.md](../workflows/multi-export-bundle.md). |
-| `__toESM(mod, isNode)` | copy loop building a `default`-bearing namespace | `import X from "pkg"` (default) or `import * as X from "pkg"`. `react-shim-elim.ts` / `npm-cjs-shim-elim.ts` cover the React/CJS cases. |
-| `__require(id)` | per-chunk alias for a CJS `require` | A static `import`, or a bare specifier via `resolve-npm-imports.ts`. |
+| `__toESM(mod, isNode)`     | copy loop building a `default`-bearing namespace                                                                                 | `import X from "pkg"` (default) or `import * as X from "pkg"`. `react-shim-elim.ts` / `npm-cjs-shim-elim.ts` cover the React/CJS cases.                                                                                                                                             |
+| `__require(id)`            | per-chunk alias for a CJS `require`                                                                                              | A static `import`, or a bare specifier via `resolve-npm-imports.ts`.                                                                                                                                                                                                                |
 
 ## Rule of thumb
 

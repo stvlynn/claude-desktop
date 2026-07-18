@@ -85,9 +85,7 @@ If you genuinely can't complete the split in the current session, leave the poli
     },
     {
       "dir": "header",
-      "files": [
-        /* … */
-      ]
+      "files": [/* … */]
     },
     {
       "dir": "panels",
@@ -148,9 +146,7 @@ If you genuinely can't complete the split in the current session, leave the poli
     ],
     "registry": {
       "name": "AppShell",
-      "from": [
-        /* maps registry props → file::export */
-      ]
+      "from": [/* maps registry props → file::export */]
     }
   }
 }

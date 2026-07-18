@@ -359,7 +359,7 @@ function buildCandidate(
   // Provenance must be the repo-relative source path (`ref/webview/assets/<chunk>.js`),
   // not the manifest's absolute path — that's what the gate's header check expects.
   const sourcePath = repoRelativeSourcePath(chunk.path, basename, args.rootDir);
-  const description = `${basename} chunk restored from the Codex webview bundle.`;
+  const description = `${basename} chunk restored from the Claude renderer bundle.`;
   const consumerRenames =
     readJson<Record<string, string>>(
       path.join(fullDir, "files", basename, "auto-renames.json"),
@@ -616,12 +616,16 @@ export function promoteOrganized(
   // (format.ts probes it) — the files stay as-written and gating proceeds on them.
   const formatWave = (builts: Built[]): void => {
     const targets = builts
-      .flatMap((built) => built.files.map((f) => path.join(opts.target, f.relPath)))
+      .flatMap((built) =>
+        built.files.map((f) => path.join(opts.target, f.relPath)),
+      )
       .filter((dest) => FORMAT_EXT.test(dest));
     if (targets.length === 0) return;
     const fmt = formatPaths(targets);
     if (!fmt.ok && fmt.stderr) {
-      log(`  prettier skipped for wave (${targets.length} file(s)): ${fmt.stderr.trim()}`);
+      log(
+        `  prettier skipped for wave (${targets.length} file(s)): ${fmt.stderr.trim()}`,
+      );
     }
   };
   const rollback = (snapshot: RollbackSnapshot): void => {
@@ -752,7 +756,10 @@ export function promoteOrganized(
       const org = file.organization!;
       let rollbackSnapshot: RollbackSnapshot | null = s.rollbackSnapshot;
       try {
-        const qopts = qualityOptionsFor(org.classification, opts.tier ?? "deep");
+        const qopts = qualityOptionsFor(
+          org.classification,
+          opts.tier ?? "deep",
+        );
         const issues = [
           ...new Set(
             built.files.flatMap((f) => {

@@ -194,7 +194,7 @@ describe("vendor-npm-preflight CLI", () => {
     expect(decisions).toHaveLength(1);
     expect(decisions[0]?.decision).toBe("needs-proof");
     expect(decisions[0]?.specifiers).toEqual([]);
-    expect(decisions[0]?.reason).toContain("prove Codex fork");
+    expect(decisions[0]?.reason).toContain("prove a Claude application fork");
   });
 
   test("blocks local-body intent for unknown public vendor targets", () => {
@@ -209,7 +209,9 @@ describe("vendor-npm-preflight CLI", () => {
     expect(result.code).toBe(1);
     expect(result.stderr).toContain("INTENT FAIL");
     expect(result.stderr).toContain("local vendor body blocked until");
-    expect(result.stderr).toContain("fork or app/runtime wrapper proof");
+    expect(result.stderr).toContain(
+      "Claude application-fork or app/runtime-wrapper proof",
+    );
   });
 
   test("allows local-body intent for public app runtime wrappers with sibling proof", () => {

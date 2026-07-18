@@ -78,6 +78,6 @@ Each step expects the _input shape_ the previous one produced; out-of-order runs
 - **`string-array` before `decode-strings`** — inlining first lets `decode-strings` walk only _used_ literals instead of the whole array.
 - **`simplify` after `string-array` + `decode-strings`** — folding works on resolved literals; running it first splits rotation IIFEs so `string-array`'s matcher won't recognize them.
 - **`control-flow-report` last** — opaque predicates fed to `simplify` fold out first; what's left is the real CFG.
-- **Stage 1 before Stage 2** — `extract.ts` byte offsets are invalid across Stage 1 rewrites; `renames.json` ids from pre-deobfuscation code are stale afterward. The full order is **Stage 1 → (wakaru-normalize) → extract**: wakaru (Stage 2 Step 0b.5) is also byte-rewriting, so it must finish before any `extract`/`apply`, and it runs *after* Stage 1 because it is a transpiler/minifier decompiler, not a deobfuscator.
+- **Stage 1 before Stage 2** — `extract.ts` byte offsets are invalid across Stage 1 rewrites; `renames.json` ids from pre-deobfuscation code are stale afterward. The full order is **Stage 1 → (wakaru-normalize) → extract**: wakaru (Stage 2 Step 0b.5) is also byte-rewriting, so it must finish before any `extract`/`apply`, and it runs _after_ Stage 1 because it is a transpiler/minifier decompiler, not a deobfuscator.
 
 For gotchas (eval safety, decoder indirection, sourcemap invalidation), see [reference/caveats.md → Stage 1 safety](../reference/caveats.md#stage-1-safety).

@@ -1,6 +1,4 @@
 // Restored from ref/webview/assets/globals.d.ts
-// @ts-nocheck
-
 declare module "cytoscape-cose-bilkent" {
   import type cytoscape from "cytoscape";
 
