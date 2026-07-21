@@ -3706,7 +3706,7 @@ class Ro {
   }
   async _isClientDoneProcessing(e) {
     let n = 0;
-    for (; !e || n < e; ) {
+    for (; !e || n < e;) {
       if ((await new Promise((r) => setTimeout(r, 1)), !this._numProcessing))
         return !0;
       n++;
@@ -6094,7 +6094,7 @@ class Y extends Error {
           else {
             let o = r,
               c = 0;
-            for (; c < a.path.length; ) {
+            for (; c < a.path.length;) {
               const u = a.path[c];
               (c === a.path.length - 1
                 ? ((o[u] = o[u] || { _errors: [] }), o[u]._errors.push(n(a)))
@@ -7864,9 +7864,9 @@ class T extends k {
     const { status: r, ctx: s } = this._processInputParams(e),
       { shape: i, keys: a } = this._getCached(),
       o = [];
-    if (
-      !(this._def.catchall instanceof se && this._def.unknownKeys === "strip")
-    )
+    if (!(
+      this._def.catchall instanceof se && this._def.unknownKeys === "strip"
+    ))
       for (const u in s.data) a.includes(u) || o.push(u);
     const c = [];
     for (const u of a) {
@@ -7996,7 +7996,7 @@ class T extends k {
       if (e && !e[r]) n[r] = this.shape[r];
       else {
         let i = this.shape[r];
-        for (; i instanceof Q; ) i = i._def.innerType;
+        for (; i instanceof Q;) i = i._def.innerType;
         n[r] = i;
       }
     return new T({ ...this._def, shape: () => n });

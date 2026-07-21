@@ -2,6 +2,7 @@
 
 import { ipcMain, type WebContents } from "electron";
 import {
+  LOCAL_AGENT_MODE_SESSIONS_CONTRACT,
   localAgentModeSessionMethods,
   type LocalAgentModeSessionMethod,
 } from "../../shared/contracts/local-agent-mode-sessions";
@@ -9,7 +10,11 @@ import { currentClaudeIpcChannel } from "../../shared/contracts/current-claude-i
 import type { LocalAgentModeSessionsService } from "../application/local-agent-mode-sessions-service";
 
 const channel = (method: string): string =>
-  currentClaudeIpcChannel("claude.web", "LocalAgentModeSessions", method);
+  currentClaudeIpcChannel(
+    "claude.web",
+    LOCAL_AGENT_MODE_SESSIONS_CONTRACT,
+    method,
+  );
 
 export function registerCurrentLocalAgentModeSessionsIpc({
   service,

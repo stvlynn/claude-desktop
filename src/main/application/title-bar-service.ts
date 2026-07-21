@@ -2,7 +2,7 @@
 // Application: orchestrate title-bar state and notify renderer listeners.
 
 import type { BrowserWindow } from "electron";
-import type { LoadErrorDetails } from "../../renderer/shared/api/claude-desktop-api";
+import type { LoadErrorDetails } from "../../shared/contracts/window-api";
 import {
   createInitialMainWindowState,
   hideLoadError,

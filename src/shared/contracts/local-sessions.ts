@@ -1,5 +1,7 @@
 // Restored from ref/.vite/build/mainView.js
 
+export const LOCAL_SESSIONS_CONTRACT = "LocalSessions" as const;
+
 export const LOCAL_SESSION_METHODS = [
   "shareSession",
   "start",

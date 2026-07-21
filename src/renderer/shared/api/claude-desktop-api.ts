@@ -1,8 +1,7 @@
 // Restored from ref/.vite/renderer/main_window/assets/MainWindowPage-LqDynGsb.js
 
-export type LoadErrorDetails = {
-  errorDescription?: string;
-};
+import type { LoadErrorDetails } from "../../../shared/contracts/window-api";
+export type { LoadErrorDetails } from "../../../shared/contracts/window-api";
 
 export type AboutWindowBuildProps = {
   commitHash?: string;
@@ -137,8 +136,7 @@ export type NativeContextMenuCommandItem = {
 };
 
 export type NativeContextMenuItem =
-  | NativeContextMenuSeparatorItem
-  | NativeContextMenuCommandItem;
+  NativeContextMenuSeparatorItem | NativeContextMenuCommandItem;
 
 export type NativeContextMenuResult = {
   id: string | null;
@@ -193,7 +191,9 @@ type ClaudeGlobal = typeof globalThis & {
     FindInPage?: FindInPageApi;
   };
   "claude.menu"?: ClaudeMenuApi;
-  openClaudeWindow?: (kind: import("../../../shared/contracts/window-entry").ClaudeWindowKind) => void;
+  openClaudeWindow?: (
+    kind: import("../../../shared/contracts/window-entry").ClaudeWindowKind,
+  ) => void;
   notifyOverlayShown?: () => void;
   notifyOverlayHidden?: () => void;
 };

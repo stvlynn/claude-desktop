@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import ts from "typescript";
 import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -104,6 +105,135 @@ function currentReferenceIpcSurfaceCoverage(sourceFiles) {
   }));
 }
 
+function currentReferenceIpcMethodCoverage(sourceFiles) {
+  const buildRoot = path.join(root, "ref", ".vite", "build");
+  const endpointPattern =
+    /\$_(claude\.[A-Za-z]+)_\$_([A-Za-z0-9_$]+)_\$_([A-Za-z0-9_$]+)/g;
+  const expected = new Map();
+  for (const file of walk(buildRoot)) {
+    if (path.extname(file) !== ".js") continue;
+    for (const match of fs
+      .readFileSync(file, "utf8")
+      .matchAll(endpointPattern)) {
+      const endpoint = match.slice(1, 4);
+      expected.set(endpoint.join("."), endpoint);
+    }
+  }
+
+  const sourceBodies = sourceFiles.map((file) => fs.readFileSync(file, "utf8"));
+  return [...expected]
+    .sort(([left], [right]) => left.localeCompare(right))
+    .map(([endpoint, [, contract, method]]) => {
+      const storeParts = method.match(/^(.+)_\$store\$_(.+)$/);
+      const restored = sourceBodies.some((body) => {
+        if (!body.includes(contract)) return false;
+        if (body.includes(JSON.stringify(method))) return true;
+        return Boolean(
+          storeParts &&
+          body.includes(JSON.stringify(storeParts[1])) &&
+          body.includes(`_$store$_${storeParts[2]}`),
+        );
+      });
+      return { endpoint, restored };
+    });
+}
+
+function currentRendererEntryCoverage(frontierBody) {
+  const rendererReferenceRoot = path.join(root, "ref", ".vite", "renderer");
+  const expected = walk(rendererReferenceRoot)
+    .filter((file) => path.extname(file) === ".js")
+    .map((file) => path.relative(root, file))
+    .sort();
+  const declared = new Set(
+    [...frontierBody.matchAll(/sourcePath:\s*"([^"]+)"/g)].map(
+      (match) => match[1],
+    ),
+  );
+  return expected.filter((entry) => !declared.has(entry));
+}
+
+function architectureDependencyViolations() {
+  const configPath = ts.findConfigFile(
+    root,
+    ts.sys.fileExists,
+    "tsconfig.json",
+  );
+  const parsedConfig = ts.parseJsonConfigFileContent(
+    ts.readConfigFile(configPath, ts.sys.readFile).config,
+    ts.sys,
+    root,
+  );
+  const violations = [];
+  const rendererRanks = new Map([
+    ["shared", 0],
+    ["entities", 1],
+    ["features", 2],
+    ["widgets", 3],
+    ["pages", 4],
+    ["app", 5],
+  ]);
+
+  for (const file of sourceFiles) {
+    const body = fs.readFileSync(file, "utf8");
+    const sourceFile = ts.createSourceFile(
+      file,
+      body,
+      ts.ScriptTarget.Latest,
+      true,
+      file.endsWith("x") ? ts.ScriptKind.TSX : ts.ScriptKind.TS,
+    );
+    const imports = [];
+    sourceFile.forEachChild((node) => {
+      if (
+        (ts.isImportDeclaration(node) || ts.isExportDeclaration(node)) &&
+        node.moduleSpecifier &&
+        ts.isStringLiteral(node.moduleSpecifier)
+      ) {
+        imports.push(node.moduleSpecifier.text);
+      }
+    });
+    for (const specifier of imports) {
+      const resolved = ts.resolveModuleName(
+        specifier,
+        file,
+        parsedConfig.options,
+        ts.sys,
+      ).resolvedModule?.resolvedFileName;
+      if (!resolved?.startsWith(srcRoot)) continue;
+
+      if (file.startsWith(rendererRoot) && resolved.startsWith(rendererRoot)) {
+        const fromLayer = path.relative(rendererRoot, file).split(path.sep)[0];
+        const toLayer = path
+          .relative(rendererRoot, resolved)
+          .split(path.sep)[0];
+        const fromRank = rendererRanks.get(fromLayer);
+        const toRank = rendererRanks.get(toLayer);
+        if (
+          fromRank !== undefined &&
+          toRank !== undefined &&
+          toRank > fromRank
+        ) {
+          violations.push(
+            `${path.relative(root, file)} -> ${path.relative(root, resolved)}`,
+          );
+        }
+      }
+
+      const domainRoot = path.join(mainRoot, "domain");
+      if (
+        file.startsWith(domainRoot) &&
+        !resolved.startsWith(domainRoot) &&
+        !resolved.startsWith(path.join(srcRoot, "shared"))
+      ) {
+        violations.push(
+          `${path.relative(root, file)} -> ${path.relative(root, resolved)}`,
+        );
+      }
+    }
+  }
+  return [...new Set(violations)].sort();
+}
+
 const sourceFiles = walk(srcRoot);
 const noCheckFiles = sourceFiles.filter((file) =>
   /^\s*\/\/\s*@ts-nocheck\b/m.test(fs.readFileSync(file, "utf8")),
@@ -131,6 +261,11 @@ const unfinishedFrontierEntries = [
 
 const referenceCoverage = currentReferenceCoverage(sourceFiles);
 const ipcSurfaceCoverage = currentReferenceIpcSurfaceCoverage(sourceFiles);
+const ipcMethodCoverage = currentReferenceIpcMethodCoverage(sourceFiles);
+const missingRendererEntries = currentRendererEntryCoverage(
+  restorationFrontierBody,
+);
+const dependencyViolations = architectureDependencyViolations();
 const importMap = referenceCoverage
   ? null
   : JSON.parse(fs.readFileSync(importMapPath, "utf8"));
@@ -143,6 +278,9 @@ const incompleteChunks = referenceCoverage
     );
 const incompleteIpcSurfaces = (ipcSurfaceCoverage ?? []).filter(
   ({ restoredBy }) => restoredBy.length === 0,
+);
+const incompleteIpcMethods = ipcMethodCoverage.filter(
+  ({ restored }) => !restored,
 );
 const rendererLayerViolations = unexpectedDirectories(
   rendererRoot,
@@ -178,6 +316,21 @@ if (unfinishedFrontierEntries.length > 0) {
 if (incompleteIpcSurfaces.length > 0) {
   failures.push(
     `${incompleteIpcSurfaces.length} current Claude preload IPC surfaces are not restored`,
+  );
+}
+if (incompleteIpcMethods.length > 0) {
+  failures.push(
+    `${incompleteIpcMethods.length} current Claude IPC endpoints are not represented in source`,
+  );
+}
+if (missingRendererEntries.length > 0) {
+  failures.push(
+    `${missingRendererEntries.length} current Claude renderer entries are absent from the restoration frontier`,
+  );
+}
+if (dependencyViolations.length > 0) {
+  failures.push(
+    `${dependencyViolations.length} FSD/DDD dependency rules are violated`,
   );
 }
 if (rendererLayerViolations.length > 0) {
@@ -226,6 +379,20 @@ console.log(
 console.log(
   `Unrestored current Claude preload IPC surfaces: ${incompleteIpcSurfaces.length}`,
 );
+console.log(
+  `Unrepresented current Claude IPC endpoints: ${incompleteIpcMethods.length}`,
+);
+for (const { endpoint } of incompleteIpcMethods.slice(0, 30)) {
+  console.log(`  - ${endpoint}`);
+}
+console.log(
+  `Current Claude renderer entries missing from frontier: ${missingRendererEntries.length}`,
+);
+for (const entry of missingRendererEntries) console.log(`  - ${entry}`);
+console.log(`FSD/DDD dependency violations: ${dependencyViolations.length}`);
+for (const violation of dependencyViolations.slice(0, 30)) {
+  console.log(`  - ${violation}`);
+}
 const ipcSurfacePrintLimit = process.argv.includes("--all-ipc")
   ? incompleteIpcSurfaces.length
   : 30;

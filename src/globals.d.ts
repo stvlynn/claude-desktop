@@ -1,4 +1,5 @@
-// Restored from ref/webview/assets/globals.d.ts
+// Ambient module shims for packages used by the Claude desktop dependency graph
+// that ship incomplete or missing TypeScript declarations.
 declare module "cytoscape-cose-bilkent" {
   import type cytoscape from "cytoscape";
 

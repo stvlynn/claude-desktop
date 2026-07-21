@@ -7,12 +7,16 @@
  */
 
 import { spawn } from "node:child_process";
+import { createRequire } from "node:module";
 import { createServer } from "vite";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
+const require = createRequire(import.meta.url);
+/** Absolute path to the Electron binary (not the Node-runnable API module). */
+const electronBinary = require("electron");
 
 function run(command, args, options = {}) {
   return new Promise((resolve, reject) => {
@@ -46,12 +50,16 @@ async function main() {
 
   console.log(`Renderer dev server running at ${rendererUrl}`);
 
-  const electron = spawn("bun", ["run", "electron", "dist/main/index.js"], {
+  // Parent agent/IDE shells sometimes set ELECTRON_RUN_AS_NODE=1, which makes
+  // the Electron binary behave like plain Node and breaks `import { app }`.
+  const { ELECTRON_RUN_AS_NODE: _ignored, ...electronEnv } = process.env;
+  const electron = spawn(electronBinary, ["dist/main/index.js"], {
     cwd: root,
     stdio: "inherit",
     env: {
-      ...process.env,
+      ...electronEnv,
       RENDERER_URL: rendererUrl,
+      ELECTRON_RUN_AS_NODE: "",
     },
   });
 

@@ -1,7 +1,7 @@
 // Restored from ref/.vite/renderer/main_window/assets/MainWindowPage-LqDynGsb.js
 // Domain: mutable state for the main renderer window and its title bar.
 
-import type { LoadErrorDetails } from "../../renderer/shared/api/claude-desktop-api";
+import type { LoadErrorDetails } from "../../shared/contracts/window-api";
 
 export type MainWindowState = {
   title: string;

@@ -1,11 +1,18 @@
 // Restored from ref/.vite/build/mainView.js
 
 import { ipcRenderer } from "electron";
-import { localAgentModeSessionMethods } from "../../shared/contracts/local-agent-mode-sessions";
+import {
+  LOCAL_AGENT_MODE_SESSIONS_CONTRACT,
+  localAgentModeSessionMethods,
+} from "../../shared/contracts/local-agent-mode-sessions";
 import { currentClaudeIpcChannel } from "../../shared/contracts/current-claude-ipc";
 
 const channel = (method: string): string =>
-  currentClaudeIpcChannel("claude.web", "LocalAgentModeSessions", method);
+  currentClaudeIpcChannel(
+    "claude.web",
+    LOCAL_AGENT_MODE_SESSIONS_CONTRACT,
+    method,
+  );
 
 export function createCurrentLocalAgentModeSessionsPreloadApi() {
   const invoke = (method: string, ...args: unknown[]) =>

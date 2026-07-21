@@ -1447,7 +1447,7 @@ class x extends Error {
           else {
             let _ = a,
               l = 0;
-            for (; l < c.path.length; ) {
+            for (; l < c.path.length;) {
               const g = c.path[l];
               (l === c.path.length - 1
                 ? ((_[g] = _[g] || { _errors: [] }), _[g]._errors.push(n(c)))
@@ -3347,7 +3347,7 @@ class R extends b {
       if (r && !r[a]) n[a] = this.shape[a];
       else {
         let i = this.shape[a];
-        for (; i instanceof E; ) i = i._def.innerType;
+        for (; i instanceof E;) i = i._def.innerType;
         n[a] = i;
       }
     return new R({ ...this._def, shape: () => n });

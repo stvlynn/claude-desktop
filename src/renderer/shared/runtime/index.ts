@@ -7,6 +7,7 @@
 export {
   React,
   useIntl,
+  reactDefaultInterop,
   objectWithoutProperties,
   shallowEqualObjects,
   mainWindowRuntimeExportMap,
@@ -15,5 +16,9 @@ export {
 export { attachReactToElement } from "./attach-react-to-element";
 export { applyInitialTheme, themeClassName } from "./theme";
 export { initializeRendererSentry } from "./renderer-sentry";
-export { claudeFontFamilies, injectFontPreloadLinks } from "./fonts";
+export {
+  claudeFontFamilies,
+  injectClaudeFontFaces,
+  injectFontPreloadLinks,
+} from "./fonts";
 export { preloadAndRun } from "./preload-helper";

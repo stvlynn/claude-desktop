@@ -6,6 +6,10 @@ import { useIntl } from "react-intl";
 
 export { React, useIntl };
 
+/** CJS/ESM interop default used by the original bundle export `R`. */
+export const reactDefaultInterop =
+  (React as unknown as { default?: typeof React }).default ?? React;
+
 export function objectWithoutProperties<
   T extends Record<PropertyKey, unknown>,
   K extends keyof T,
@@ -61,6 +65,13 @@ export function shallowEqualObjects(
   );
 }
 
+/**
+ * Maps minified reference export names to restored identifiers.
+ * Reference footer: `export { R, _, j, r, s, u }`.
+ *
+ * `j` was the bundled `react/jsx-runtime` namespace; the `src/` tree uses the
+ * Vite React plugin transform instead of re-exporting that namespace here.
+ */
 export const mainWindowRuntimeExportMap = {
   R: "reactDefaultInterop",
   _: "objectWithoutProperties",

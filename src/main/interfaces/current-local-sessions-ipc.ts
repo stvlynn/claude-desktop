@@ -3,13 +3,14 @@
 import { ipcMain, type WebContents } from "electron";
 import { currentClaudeIpcChannel } from "../../shared/contracts/current-claude-ipc";
 import {
+  LOCAL_SESSIONS_CONTRACT,
   LOCAL_SESSION_METHODS,
   type LocalSessionMethod,
 } from "../../shared/contracts/local-sessions";
 import type { LocalSessionsService } from "../application/local-sessions-service";
 
 const channel = (method: string): string =>
-  currentClaudeIpcChannel("claude.web", "LocalSessions", method);
+  currentClaudeIpcChannel("claude.web", LOCAL_SESSIONS_CONTRACT, method);
 
 export function registerCurrentLocalSessionsIpc({
   service,

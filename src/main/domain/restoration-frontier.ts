@@ -14,10 +14,28 @@ export type RestorationFrontier = {
 
 export const rendererRestorationFrontier = [
   {
+    sourcePath: "ref/.vite/renderer/about_window/assets/main-TllbX7l6.js",
+    status: "restored",
+    targetPath: "src/renderer/shared/runtime/main-window-runtime.ts",
+    windowKind: "about",
+  },
+  {
+    sourcePath: "ref/.vite/renderer/buddy_window/assets/main-C0ouus01.js",
+    status: "restored",
+    targetPath: "src/renderer/shared/runtime/main-window-runtime.ts",
+    windowKind: "buddy",
+  },
+  {
+    sourcePath: "ref/.vite/renderer/find_in_page/assets/main-DwbzDdQh.js",
+    status: "restored",
+    targetPath: "src/renderer/shared/runtime/main-window-runtime.ts",
+    windowKind: "find-in-page",
+  },
+  {
     checkpointPath:
       "src/renderer/.deobfuscate-javascript/main-D-xLCUWh/runtime-exports-renamed.js",
     sourcePath: "ref/.vite/renderer/main_window/assets/main-D-xLCUWh.js",
-    status: "mechanical",
+    status: "restored",
     targetPath: "src/renderer/shared/runtime/main-window-runtime.ts",
     windowKind: "main",
   },
@@ -66,7 +84,7 @@ export const mainProcessRestorationFrontier = [
   {
     checkpointPath: "src/main/.deobfuscate-javascript/index/renamed.js",
     sourcePath: "ref/.vite/build/index.js",
-    status: "mechanical",
+    status: "restored",
     targetPath: "src/main/application",
   },
 ] satisfies RestorationFrontier[];

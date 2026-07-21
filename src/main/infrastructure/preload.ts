@@ -26,11 +26,11 @@ import type {
 import type {
   DesktopIntlInitialLocale,
   FindInPageApi,
-  LoadErrorDetails,
   NativeContextMenuItem,
   NativeContextMenuResult,
   ShowApplicationMenuRequest,
 } from "../../renderer/shared/api/claude-desktop-api";
+import type { LoadErrorDetails } from "../../shared/contracts/window-api";
 import type { ClaudeWindowKind } from "../../shared/contracts/window-entry";
 import { createCurrentClaudeSettingsPreloadApi } from "../preload/current-settings-preload";
 

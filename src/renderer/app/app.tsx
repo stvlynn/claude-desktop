@@ -6,6 +6,7 @@
 
 import { type ReactNode } from "react";
 import { LocaleProvider } from "./providers/locale-provider";
+import { injectClaudeFontFaces } from "../shared/runtime/fonts";
 import { applyInitialTheme } from "../shared/runtime/theme";
 import { initializeRendererSentry } from "../shared/runtime/renderer-sentry";
 
@@ -18,10 +19,12 @@ export function AppShell({ children }: AppShellProps) {
 }
 
 /**
- * One-time renderer bootstrap: telemetry and theme state.
+ * One-time renderer bootstrap matching the reference main-window runtime:
+ * fonts, telemetry, then theme class on `document.body`.
  * Call this before mounting React.
  */
 export function runAppSideEffects(): void {
+  injectClaudeFontFaces();
   initializeRendererSentry();
   applyInitialTheme();
 }

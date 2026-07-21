@@ -1,5 +1,8 @@
 // Restored from ref/.vite/build/mainView.js
 
+export const LOCAL_AGENT_MODE_SESSIONS_CONTRACT =
+  "LocalAgentModeSessions" as const;
+
 export const localAgentModeSessionMethods = [
   "start",
   "sendMessage",

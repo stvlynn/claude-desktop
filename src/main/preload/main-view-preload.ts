@@ -78,6 +78,7 @@ import { createCurrentLocalPluginsPreloadApi } from "./current-local-plugins-pre
 import { createCurrentCustomPluginsPreloadApi } from "./current-custom-plugins-preload";
 import { createCurrentLocalAgentModeSessionsPreloadApi } from "./current-local-agent-mode-sessions-preload";
 import { createCurrentLocalSessionsPreloadApi } from "./current-local-sessions-preload";
+import { installBuddyBlePreload } from "./buddy-ble-preload";
 
 const webChannel = (contract: string, method: string): string =>
   currentClaudeIpcChannel("claude.web", contract, method);
@@ -974,6 +975,7 @@ if (isTopFrame()) {
       },
     },
   });
+  installBuddyBlePreload();
 }
 
 registerDesktopIntlPreload();

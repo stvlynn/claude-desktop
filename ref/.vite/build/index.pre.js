@@ -4737,12 +4737,12 @@ function Km() {
         S = 0,
         A = -1,
         f = 0;
-      for (; d < E.length; )
+      for (; d < E.length;)
         if (S < l.length && (l[S] === E[d] || l[S] === "*"))
           l[S] === "*" ? ((A = S), (f = d), S++) : (d++, S++);
         else if (A !== -1) ((S = A + 1), f++, (d = f));
         else return !1;
-      for (; S < l.length && l[S] === "*"; ) S++;
+      for (; S < l.length && l[S] === "*";) S++;
       return S === l.length;
     }
     function c() {
@@ -7775,7 +7775,7 @@ function oA(t) {
   }
   const s = n(),
     i = [];
-  for (; e.length; ) {
+  for (; e.length;) {
     const a = n(),
       c = typeof a.length == "number" ? a.length : void 0;
     i.push([a, c ? r(c) : n()]);
@@ -9497,7 +9497,7 @@ class f0 {
   }
   async _isClientDoneProcessing(e) {
     let r = 0;
-    for (; !e || r < e; ) {
+    for (; !e || r < e;) {
       if ((await new Promise((n) => setTimeout(n, 1)), !this._numProcessing))
         return !0;
       r++;
@@ -13150,7 +13150,7 @@ function ew(t) {
 function tw(t) {
   const e = {};
   let r = t;
-  for (; r !== null; )
+  for (; r !== null;)
     (Object.getOwnPropertyNames(r).forEach((n) => {
       if (e[n]) return;
       const s = r[n];
@@ -13264,7 +13264,7 @@ const hw = 20;
 function Rw(...t) {
   let e = t.shift();
   const r = new WeakMap();
-  for (; t.length > 0; ) e = fI(e, t.shift(), 0, r);
+  for (; t.length > 0;) e = fI(e, t.shift(), 0, r);
   return e;
 }
 function fd(t) {
@@ -16870,7 +16870,7 @@ function cB(t) {
 function uB(t) {
   const e = {};
   let r = t;
-  for (; r !== null; )
+  for (; r !== null;)
     (Object.getOwnPropertyNames(r).forEach((n) => {
       if (e[n]) return;
       const s = r[n];
@@ -17216,7 +17216,7 @@ const sx = 20;
 function ix(...t) {
   let e = t.shift();
   const r = new WeakMap();
-  for (; t.length > 0; ) e = cL(e, t.shift(), 0, r);
+  for (; t.length > 0;) e = cL(e, t.shift(), 0, r);
   return e;
 }
 function Md(t) {
@@ -20724,7 +20724,7 @@ function gk(t) {
             continue;
           }
           let c = 0;
-          for (; c <= Fg; ) {
+          for (; c <= Fg;) {
             const o = new Date().getTime() - Yg;
             if (i.mtimeMs < o) {
               const u = await lt.promises.readFile(s);
@@ -21947,7 +21947,7 @@ function mH(t) {
     lt.promises.unlink(_t.join(r.queuePath, o)).catch(() => {});
   }
   function i(o) {
-    for (; o[0] && NH(o[0], r.maxAgeDays); ) {
+    for (; o[0] && NH(o[0], r.maxAgeDays);) {
       const u = o.shift();
       (e("Removing stale envelope", u), s(u.id));
     }
@@ -22673,7 +22673,7 @@ let _o = class vL extends Error {
           else {
             let c = n,
               o = 0;
-            for (; o < a.path.length; ) {
+            for (; o < a.path.length;) {
               const u = a.path[o];
               (o === a.path.length - 1
                 ? ((c[u] = c[u] || { _errors: [] }), c[u]._errors.push(r(a)))
@@ -24447,9 +24447,9 @@ let Kn = class tn extends we {
     const { status: n, ctx: s } = this._processInputParams(e),
       { shape: i, keys: a } = this._getCached(),
       c = [];
-    if (
-      !(this._def.catchall instanceof ma && this._def.unknownKeys === "strip")
-    )
+    if (!(
+      this._def.catchall instanceof ma && this._def.unknownKeys === "strip"
+    ))
       for (const u in s.data) a.includes(u) || c.push(u);
     const o = [];
     for (const u of a) {
@@ -24579,7 +24579,7 @@ let Kn = class tn extends we {
       if (e && !e[n]) r[n] = this.shape[n];
       else {
         let i = this.shape[n];
-        for (; i instanceof Bn; ) i = i._def.innerType;
+        for (; i instanceof Bn;) i = i._def.innerType;
         r[n] = i;
       }
     return new tn({ ...this._def, shape: () => r });
@@ -25578,7 +25578,7 @@ function ke(t, e = "drop") {
 }
 function PY(t, e) {
   let r = t;
-  for (; r; ) {
+  for (; r;) {
     const n = r[e];
     if (n !== void 0) return n;
     const s = FA(r);
@@ -30618,7 +30618,7 @@ class jn extends Error {
           else {
             let c = n,
               o = 0;
-            for (; o < a.path.length; ) {
+            for (; o < a.path.length;) {
               const u = a.path[o];
               (o === a.path.length - 1
                 ? ((c[u] = c[u] || { _errors: [] }), c[u]._errors.push(r(a)))
@@ -32392,9 +32392,9 @@ class ut extends Ge {
     const { status: n, ctx: s } = this._processInputParams(e),
       { shape: i, keys: a } = this._getCached(),
       c = [];
-    if (
-      !(this._def.catchall instanceof La && this._def.unknownKeys === "strip")
-    )
+    if (!(
+      this._def.catchall instanceof La && this._def.unknownKeys === "strip"
+    ))
       for (const u in s.data) a.includes(u) || c.push(u);
     const o = [];
     for (const u of a) {
@@ -32524,7 +32524,7 @@ class ut extends Ge {
       if (e && !e[n]) r[n] = this.shape[n];
       else {
         let i = this.shape[n];
-        for (; i instanceof xn; ) i = i._def.innerType;
+        for (; i instanceof xn;) i = i._def.innerType;
         r[n] = i;
       }
     return new ut({ ...this._def, shape: () => r });
@@ -34482,7 +34482,7 @@ function VE() {
           for (let N = 1; N < T.length; N++) {
             const m = T[N];
             let v = N;
-            for (; v !== 0 && T[v - 1] > m; ) ((T[v] = T[v - 1]), v--);
+            for (; v !== 0 && T[v - 1] > m;) ((T[v] = T[v - 1]), v--);
             T[v] = m;
           }
           return T;
@@ -35328,7 +35328,7 @@ var YP = [
     return t.replace(/[|\\{()[^$+*?.-]/g, "\\$&");
   },
   Gr = function (t, e) {
-    for (e === void 0 && (e = 2), t = String(t); t.length < e; ) t = "0" + t;
+    for (e === void 0 && (e = 2), t = String(t); t.length < e;) t = "0" + t;
     return t;
   },
   Lj = {
@@ -36217,7 +36217,7 @@ function Bj() {
             key: "join",
             value: function (f) {
               if (this.length === 0) return "";
-              for (var T = this.head, N = "" + T.data; (T = T.next); )
+              for (var T = this.head, N = "" + T.data; (T = T.next);)
                 N += f + T.data;
               return N;
             },
@@ -36226,7 +36226,7 @@ function Bj() {
             key: "concat",
             value: function (f) {
               if (this.length === 0) return u.alloc(0);
-              for (var T = u.allocUnsafe(f >>> 0), N = this.head, m = 0; N; )
+              for (var T = u.allocUnsafe(f >>> 0), N = this.head, m = 0; N;)
                 (d(N.data, T, m), (m += N.data.length), (N = N.next));
               return T;
             },
@@ -36258,7 +36258,7 @@ function Bj() {
               var T = this.head,
                 N = 1,
                 m = T.data;
-              for (f -= m.length; (T = T.next); ) {
+              for (f -= m.length; (T = T.next);) {
                 var v = T.data,
                   V = f > v.length ? v.length : f;
                 if (
@@ -36285,7 +36285,7 @@ function Bj() {
               var T = u.allocUnsafe(f),
                 N = this.head,
                 m = 1;
-              for (N.data.copy(T), f -= N.data.length; (N = N.next); ) {
+              for (N.data.copy(T), f -= N.data.length; (N = N.next);) {
                 var v = N.data,
                   V = f > v.length ? v.length : f;
                 if ((v.copy(T, T.length - f, 0, V), (f -= V), f === 0)) {
@@ -36395,7 +36395,7 @@ function tE() {
       };
   function r(T) {
     if (!T) return "utf8";
-    for (var N; ; )
+    for (var N; ;)
       switch (T) {
         case "utf8":
         case "utf-8":
@@ -37128,7 +37128,7 @@ function Fj() {
       var O = new N(g);
       ((this._readableState.decoder = O),
         (this._readableState.encoding = this._readableState.decoder.encoding));
-      for (var w = this._readableState.buffer.head, Y = ""; w !== null; )
+      for (var w = this._readableState.buffer.head, Y = ""; w !== null;)
         ((Y += O.write(w.data)), (w = w.next));
       return (
         this._readableState.buffer.clear(),
@@ -37456,7 +37456,7 @@ function Fj() {
   };
   function I(g) {
     var O = g._readableState;
-    for (o("flow", O.flowing); O.flowing && g.read() !== null; );
+    for (o("flow", O.flowing); O.flowing && g.read() !== null;);
   }
   ((H.prototype.wrap = function (g) {
     var O = this,
@@ -37727,7 +37727,7 @@ function eD() {
       (this.corkedRequestsFree = new t(this)));
   }
   ((x.prototype.getBuffer = function () {
-    for (var C = this.bufferedRequest, G = []; C; ) (G.push(C), (C = C.next));
+    for (var C = this.bufferedRequest, G = []; C;) (G.push(C), (C = C.next));
     return G;
   }),
     (function () {
@@ -37940,7 +37940,7 @@ function eD() {
         Q = new Array(W),
         g = C.corkedRequestsFree;
       g.entry = G;
-      for (var O = 0, w = !0; G; )
+      for (var O = 0, w = !0; G;)
         ((Q[O] = G), G.isBuf || (w = !1), (G = G.next), (O += 1));
       ((Q.allBuffers = w),
         _e(I, C, !0, C.length, Q, "", g.finish),
@@ -37951,7 +37951,7 @@ function eD() {
           : (C.corkedRequestsFree = new t(C)),
         (C.bufferedRequestCount = 0));
     } else {
-      for (; G; ) {
+      for (; G;) {
         var Y = G.chunk,
           Te = G.encoding,
           J = G.callback,
@@ -38036,7 +38036,7 @@ function eD() {
   }
   function Ce(I, C, G) {
     var W = I.entry;
-    for (I.entry = null; W; ) {
+    for (I.entry = null; W;) {
       var Q = W.callback;
       (C.pendingcb--, Q(G), (W = W.next));
     }
@@ -38752,7 +38752,7 @@ function Jj() {
               }
           }
           function j() {
-            for (x = !0; V < S && !m; ) {
+            for (x = !0; V < S && !m;) {
               var H = N();
               if (H === null) {
                 ((m = !0), V <= 0 && T(null));
@@ -38946,14 +38946,13 @@ function tW() {
       }
       join(l) {
         if (this.length === 0) return "";
-        for (var d = this.head, S = "" + d.data; (d = d.next); )
-          S += l + d.data;
+        for (var d = this.head, S = "" + d.data; (d = d.next);) S += l + d.data;
         return S;
       }
       concat(l) {
         if (this.length === 0) return a.alloc(0);
         const d = a.allocUnsafe(l >>> 0);
-        for (var S = this.head, A = 0; S; )
+        for (var S = this.head, A = 0; S;)
           (_(S.data, d, A), (A += S.data.length), (S = S.next));
         return d;
       }
@@ -38976,7 +38975,7 @@ function tW() {
         var d = this.head,
           S = 1,
           A = d.data;
-        for (l -= A.length; (d = d.next); ) {
+        for (l -= A.length; (d = d.next);) {
           const f = d.data,
             T = l > f.length ? f.length : l;
           if (
@@ -38998,7 +38997,7 @@ function tW() {
         const d = a.allocUnsafe(l);
         var S = this.head,
           A = 1;
-        for (S.data.copy(d), l -= S.data.length; (S = S.next); ) {
+        for (S.data.copy(d), l -= S.data.length; (S = S.next);) {
           const f = S.data,
             T = l > f.length ? f.length : l;
           if ((f.copy(d, d.length - l, 0, T), (l -= T), l === 0)) {
@@ -39290,7 +39289,7 @@ function uD() {
       (this.corkedRequestsFree = new t(this)));
   }
   ((x.prototype.getBuffer = function () {
-    for (var C = this.bufferedRequest, G = []; C; ) (G.push(C), (C = C.next));
+    for (var C = this.bufferedRequest, G = []; C;) (G.push(C), (C = C.next));
     return G;
   }),
     (function () {
@@ -39503,7 +39502,7 @@ function uD() {
         Q = new Array(W),
         g = C.corkedRequestsFree;
       g.entry = G;
-      for (var O = 0, w = !0; G; )
+      for (var O = 0, w = !0; G;)
         ((Q[O] = G), G.isBuf || (w = !1), (G = G.next), (O += 1));
       ((Q.allBuffers = w),
         _e(I, C, !0, C.length, Q, "", g.finish),
@@ -39514,7 +39513,7 @@ function uD() {
           : (C.corkedRequestsFree = new t(C)),
         (C.bufferedRequestCount = 0));
     } else {
-      for (; G; ) {
+      for (; G;) {
         var Y = G.chunk,
           Te = G.encoding,
           J = G.callback,
@@ -39599,7 +39598,7 @@ function uD() {
   }
   function Ce(I, C, G) {
     var W = I.entry;
-    for (I.entry = null; W; ) {
+    for (I.entry = null; W;) {
       var Q = W.callback;
       (C.pendingcb--, Q(G), (W = W.next));
     }
@@ -40205,7 +40204,7 @@ function _D() {
         (this._readableState.encoding = this._readableState.decoder.encoding));
       let w = this._readableState.buffer.head,
         Y = "";
-      for (; w !== null; ) ((Y += O.write(w.data)), (w = w.next));
+      for (; w !== null;) ((Y += O.write(w.data)), (w = w.next));
       return (
         this._readableState.buffer.clear(),
         Y !== "" && this._readableState.buffer.push(Y),
@@ -40532,7 +40531,7 @@ function _D() {
   };
   function I(g) {
     const O = g._readableState;
-    for (o("flow", O.flowing); O.flowing && g.read() !== null; );
+    for (o("flow", O.flowing); O.flowing && g.read() !== null;);
   }
   ((H.prototype.wrap = function (g) {
     var O = this._readableState,
@@ -42125,7 +42124,7 @@ function EW() {
   function r(i) {
     var a = e(),
       c = [i];
-    for (a[i].distance = 0; c.length; )
+    for (a[i].distance = 0; c.length;)
       for (
         var o = c.pop(), u = Object.keys(t[o]), _ = u.length, E = 0;
         E < _;
@@ -42971,13 +42970,11 @@ function mW() {
         function V(B) {
           if (!B || typeof B != "object") return;
           const j = new Date(B.timestamp);
-          if (
-            !(
-              (l.from && j < l.from) ||
-              (l.until && j > l.until) ||
-              (l.level && l.level !== B.level)
-            )
-          )
+          if (!(
+            (l.from && j < l.from) ||
+            (l.until && j > l.until) ||
+            (l.level && l.level !== B.level)
+          ))
             return !0;
         }
         function x(B) {
@@ -44243,7 +44240,7 @@ function fp() {
         (T._streams = N),
         (T.destroy = () => {
           let m = N.length;
-          for (; m--; ) N[m].destroy();
+          for (; m--;) N[m].destroy();
         }),
         this.transports
           .filter((m) => !!m.stream)
@@ -45347,7 +45344,7 @@ function Su(t, e) {
         if (Object.hasOwn(a, E)) {
           const l = E;
           let d = c.get(l) ?? 2;
-          for (E = `${l}[${d}]`; Object.hasOwn(a, E); )
+          for (E = `${l}[${d}]`; Object.hasOwn(a, E);)
             (d++, (E = `${l}[${d}]`));
           c.set(l, d + 1);
         }
@@ -45470,13 +45467,13 @@ function vD(t, e) {
     if (c !== r) {
       ((n = []), (s = []));
       const E = /(https?:\/\/)[^\s'",;|()]*/gi;
-      for (let l; (l = E.exec(c)) !== null; )
+      for (let l; (l = E.exec(c)) !== null;)
         (n.push(l.index + l[1].length), s.push(l.index + l[0].length));
     }
     if (((r = c), n.length === 0)) return !1;
     let u = 0,
       _ = n.length;
-    for (; u < _; ) {
+    for (; u < _;) {
       const E = (u + _) >> 1;
       n[E] <= o ? (u = E + 1) : (_ = E);
     }

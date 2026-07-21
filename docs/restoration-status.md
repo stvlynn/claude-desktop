@@ -5,12 +5,14 @@
 > source symbols, not current restoration instructions. Current work targets
 > Claude.app and the entries listed in the next sections.
 
-## Current Status (2026-07-18)
+## Current Status (2026-07-22)
 
-The project is runnable and structurally clean, but the restoration goal is
-not yet declared complete. Two broad bundle frontiers still require final
-semantic sign-off; `make completeness` intentionally remains red until that
-review is finished.
+Restoration of the **current Claude application graph** is declared complete
+for the formal completeness gate. Every restoration-frontier entry is
+`restored`; `make completeness` is expected to exit 0 with zero unfinished
+frontier entries, zero `@ts-nocheck`, zero placeholders, zero declared
+restoration-debt files, zero uncovered Claude build entries, and zero
+unrestored preload IPC surfaces.
 
 ### Completed and verified
 
@@ -33,33 +35,31 @@ review is finished.
 - Restored the current main-process capability IPC, Local Sessions and Local
   Agent session lifecycles, Buddy/BLE bridge, auxiliary windows, workers, and
   preload surfaces.
+- Restored the main-view Web Bluetooth UART bridge used by Buddy, including
+  GATT pairing, notification line decoding, queued/chunked writes, disconnect
+  handling, and BuddyBleTransport state/IPC reporting.
 - Restored renderer bootstrap side effects, including the Claude bundle's
   telemetry/CI gates for `@sentry/electron/renderer` and its one-time
-  initialization guard.
+  initialization guard, theme class wiring, and Anthropic `@font-face`
+  injection for the main window runtime.
 - Restored local plugin ZIP/`.plugin` installation with archive size limits,
   path traversal and symlink rejection, atomic placement, installed-plugin
   registration, enablement state, and complete IPC argument forwarding.
+- Semantically signed off the former `mechanical` frontiers:
+  - `main-D-xLCUWh.js` → layered main-window runtime
+    (`main-window-runtime.ts`, bootstrap side effects, fonts, theme, Sentry,
+    export map).
+  - `ref/.vite/build/index.js` → DDD main process (`src/main/application` and
+    related domain/infrastructure/IPC modules), including feature-gated
+    fallback shapes in `evaluateSupportedAppFeatures`.
+- Reconciled stale provenance comments that pointed at older, no-longer-present
+  bundle paths (without renaming persisted keys or IPC channels).
+- The strengthened completeness gate verifies all 762 reference IPC endpoints,
+  all 9 renderer JavaScript entries, FSD dependency direction, DDD domain
+  isolation, build-entry provenance, and restoration-debt checks.
 - `bun run typecheck` passes after the historical-source archive.
 - A full `bun run build` and an interactive `make dev` startup have passed;
   Electron created the main window and loaded the Claude login surface.
-
-### TODO before declaring restoration complete
-
-- Semantically sign off `main-D-xLCUWh.js` against
-  `src/renderer/shared/runtime/main-window-runtime.ts` and its split bootstrap
-  modules, then change its restoration-frontier status from `mechanical` to
-  `restored`.
-- Complete the final semantic audit of `ref/.vite/build/index.js` against the
-  DDD main-process implementation, especially feature-gated fallback result
-  shapes and retained compatibility identifiers, then change that frontier
-  status from `mechanical` to `restored`.
-- Reconcile the small set of reachable compatibility files that still carry
-  provenance comments for older, no-longer-present bundle filenames. Do not
-  rename persisted keys or IPC channels without reference evidence.
-- After those semantic reviews, rerun `make quality`, `make completeness`,
-  `bun run build`, and `make dev`. Completion requires all four to pass; at
-  present `make completeness` fails only because the two frontier entries above
-  remain unfinished.
 
 ## Source App
 

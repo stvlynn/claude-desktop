@@ -16,8 +16,9 @@
     "build:main": "vite build --config vite.main.config.ts",
     "build:renderer": "vite build --config vite.renderer.config.ts",
     "build": "bun run build:preload && bun run build:main && bun run build:renderer",
-    "start": "bun run build && bun run electron dist/main/index.js",
+    "start": "bun run build && electron dist/main/index.js",
     "dev": "node scripts/dev.mjs",
+    "test": "bun test tests",
     "pack-ref": "make pack-ref"
   },
   "dependencies": {

@@ -1,4 +1,4 @@
-// Restored from ref/webview/assets/app-initial~app-main~automations-page-Bc0ZtIBr.js
+// Restored from ref/.vite/build/index.js
 // Tracks whether any local thread is currently active.
 //
 // The renderer mirrors the app-server registry state via

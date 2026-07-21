@@ -484,7 +484,7 @@ function me(t, r) {
   }
   function s(c) {
     if (n) throw new TypeError("Generator is already executing.");
-    for (; a && ((a = 0), c[0] && (e = 0)), e; )
+    for (; a && ((a = 0), c[0] && (e = 0)), e;)
       try {
         if (
           ((n = 1),
@@ -571,7 +571,7 @@ function T(t, r) {
     o = [],
     a;
   try {
-    for (; (r === void 0 || r-- > 0) && !(i = n.next()).done; ) o.push(i.value);
+    for (; (r === void 0 || r-- > 0) && !(i = n.next()).done;) o.push(i.value);
   } catch (l) {
     a = { error: l };
   } finally {
@@ -1199,7 +1199,7 @@ var yt = (function (t) {
         P(function () {
           if ((n._throwIfClosed(), !n.isStopped)) {
             ((n.hasError = n.isStopped = !0), (n.thrownError = e));
-            for (var i = n.observers; i.length; ) i.shift().error(e);
+            for (var i = n.observers; i.length;) i.shift().error(e);
           }
         });
       }),
@@ -1208,7 +1208,7 @@ var yt = (function (t) {
         P(function () {
           if ((e._throwIfClosed(), !e.isStopped)) {
             e.isStopped = !0;
-            for (var n = e.observers; n.length; ) n.shift().complete();
+            for (var n = e.observers; n.length;) n.shift().complete();
           }
         });
       }),
@@ -1453,7 +1453,7 @@ var yt = (function (t) {
         do if ((i = e.execute(e.state, e.delay))) break;
         while ((e = n.shift()));
         if (((this._active = !1), i)) {
-          for (; (e = n.shift()); ) e.unsubscribe();
+          for (; (e = n.shift());) e.unsubscribe();
           throw i;
         }
       }),

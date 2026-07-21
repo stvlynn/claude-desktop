@@ -2,10 +2,13 @@
 
 import { ipcRenderer } from "electron";
 import { currentClaudeIpcChannel } from "../../shared/contracts/current-claude-ipc";
-import { LOCAL_SESSION_METHODS } from "../../shared/contracts/local-sessions";
+import {
+  LOCAL_SESSIONS_CONTRACT,
+  LOCAL_SESSION_METHODS,
+} from "../../shared/contracts/local-sessions";
 
 const channel = (method: string): string =>
-  currentClaudeIpcChannel("claude.web", "LocalSessions", method);
+  currentClaudeIpcChannel("claude.web", LOCAL_SESSIONS_CONTRACT, method);
 
 export function createCurrentLocalSessionsPreloadApi() {
   const methods: Record<string, (...args: unknown[]) => Promise<unknown>> = {};
